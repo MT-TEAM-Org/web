@@ -2,12 +2,80 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import axios from "axios";
 
 export default function Home() {
   const [loginSignupState, setLoginSignupState] = useState("login");
+  const [signupValue, setSignupValue] = useState({
+    email: "",
+    password: "",
+    tel: "",
+    nickname: "",
+    gender: "",
+  });
+  const [loginValue, setLoginValue] = useState({
+    username: "",
+    password: "",
+  });
+
+  const fetchSignup = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/me/create`,
+        signupValue
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchState = async () => {
+    const response = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/members/status`,
+      {
+        email: signupValue.email,
+        status: "ACTIVE",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    return response;
+  };
+
+  const fetchToken = async () => {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/reissue`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    return response;
+  };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    console.log(signupValue);
+    fetchSignup().then((data) => {
+      if (data?.data?.status === "PENDING") {
+        fetchState().catch((error) => {
+          if (error.response.status === 401) {
+            fetchToken();
+          }
+        });
+      }
+    });
+  };
 
   const loginSignupStyle =
     "w-1/2 h-[60px] flex items-center justify-center rounded-t-md cursor-pointer border-gray-600";
+
   return (
     <div className="w-[600px] mx-auto mt-10">
       <div className="w-full flex text-lg font-semibold text-gray-500">
@@ -30,15 +98,19 @@ export default function Home() {
       </div>
       <form
         className="w-full text-gray-500 font-semibold mt-5"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={onSubmit}
       >
-        {loginSignupState === "login" ? <Login /> : <Signup />}
+        {loginSignupState === "login" ? (
+          <Login setLoginValue={setLoginValue} />
+        ) : (
+          <Signup setSignupValue={setSignupValue} />
+        )}
       </form>
     </div>
   );
 }
 
-const Login = () => {
+const Login = ({ setLoginValue }: any) => {
   const inputObject = [
     {
       label: "이메일 아이디",
@@ -63,6 +135,12 @@ const Login = () => {
             {input.label}
           </label>
           <input
+            onChange={(e) =>
+              setLoginValue((prev: any) => ({
+                ...prev,
+                [input.id]: e.target.value,
+              }))
+            }
             type={input.type}
             className={inputStyle}
             id={input.id}
@@ -95,7 +173,19 @@ const Login = () => {
   );
 };
 
-const Signup = () => {
+interface SignupValue {
+  email: string;
+  password: string;
+  tel: string;
+  nickname: string;
+  gender: string;
+}
+
+interface SignupProps {
+  setSignupValue: React.Dispatch<React.SetStateAction<SignupValue>>;
+}
+
+const Signup = ({ setSignupValue }: SignupProps) => {
   const inputObject = [
     {
       label: "비밀번호",
@@ -105,9 +195,16 @@ const Signup = () => {
       validation: "영문+숫자 조합 4자~10자 이내",
     },
     {
+      label: "이름",
+      type: "text",
+      id: "name",
+      placeholder: "이름",
+      validation: "이름을 입력해주세요.",
+    },
+    {
       label: "핸드폰 번호",
       type: "number",
-      id: "phoneNumber",
+      id: "tel",
       placeholder: "핸드폰 번호를 입력해주세요.",
       validation: "10자~11자 이내",
     },
@@ -118,10 +215,25 @@ const Signup = () => {
       placeholder: "닉네임을 입력해주세요.",
       validation: "한글+영문 / 한글 + 숫자 등 모두 가능 (10자 이내로)",
     },
+    {
+      label: "생년월일",
+      type: "date",
+      id: "birthdate",
+      placeholder: "생년월일을 입력해주세요.",
+      validation: "YYYY-MM-DD 형식으로 입력해주세요.",
+    },
+    {
+      label: "성별",
+      type: "text",
+      id: "gender",
+      placeholder: "성별",
+      validation: "성별을 입력해주세요.",
+    },
   ];
 
   const inputStyle = "w-full border py-4 px-5 rounded-md font-medium";
   const signupValidationStyle = "text-sm text-gray-400 ml-5";
+
   return (
     <div className="space-y-5">
       <div className="space-y-2">
@@ -130,9 +242,12 @@ const Signup = () => {
         </label>
         <div className="flex gap-1">
           <input
-            type="text"
+            onChange={(e) =>
+              setSignupValue((prev) => ({ ...prev, email: e.target.value }))
+            }
+            type="email"
             className={inputStyle}
-            id="id"
+            id="email"
             placeholder="아이디를 입력해주세요."
           />
           <button
@@ -153,6 +268,12 @@ const Signup = () => {
             className={inputStyle}
             id={input.id}
             placeholder={input.placeholder}
+            onChange={(e) =>
+              setSignupValue((prev) => ({
+                ...prev,
+                [input.id]: e.target.value,
+              }))
+            }
           />
           <p className={signupValidationStyle}>{input.validation}</p>
         </div>
