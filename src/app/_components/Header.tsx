@@ -20,7 +20,7 @@ export default function Header() {
     },
     {
       name: "로그인/회원가입",
-      link: "/login",
+      link: "/sign",
       buttonClass:
         "font-medium text-[17px] list-none pointer cursor-pointer px-2 bg-blue-400 hover:bg-blue-500 text-white p-3 rounded-md font-semibold",
     },
