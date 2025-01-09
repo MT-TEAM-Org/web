@@ -7,7 +7,7 @@ export default function Header() {
   const router = useRouter();
 
   const headerButtonClass =
-    "font-medium text-[17px] list-none pointer cursor-pointer px-2 mr-1";
+    "w-[87px] min-h-[40px] p-[10px] font-medium text-[16px] leading-[24px] text-center";
 
   const headerButton = [
     {
@@ -22,20 +22,20 @@ export default function Header() {
       name: "로그인/회원가입",
       link: "/sign",
       buttonClass:
-        "font-medium text-[17px] list-none pointer cursor-pointer px-2 bg-blue-400 hover:bg-blue-500 text-white p-3 rounded-md font-semibold",
+        "w-[124px] min-h-[40px] py-[13px] px-[16px] rounded-[5px] defaultButtonColor defaultButtonColor:hover text-white font-bold text-[14px] leading-[14px]",
     },
   ];
   return (
-    <div className="w-full max-w-6xl mx-auto py-4 px-4 flex items-center">
-      <div className="flex w-1/2 items-center">
-        <h1 onClick={() => router.push("/")} className="font-bold text-[25px]">
+    <div className="w-full max-w-[1200px] min-h-[64px] mx-auto flex justify-between items-center">
+      <div className="flex max-w-[476.74px] items-center gap-4">
+        <h1 onClick={() => router.push("/")} className="">
           <Logo />
         </h1>
-        <p className="ml-3 font-semibold text-[13px] text-blue-400">
+        <p className="font-bold max-w-[325px] min-h-[12px] text-[16px] leading-[19.97px] text-[#00ADEE] whitespace-nowrap">
           모두 함께 즐기는 클린 스포츠 커뮤니티 플레이 하이브!
         </p>
       </div>
-      <div className="flex justify-end w-1/2">
+      <div className="flex max-w-[323px] min-h-[40px] items-center">
         {headerButton.map((item, index) => (
           <button
             key={index}

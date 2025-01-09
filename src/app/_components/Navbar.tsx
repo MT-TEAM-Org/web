@@ -1,12 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { Search } from "./icon/Search";
 
 export default function Navbar() {
   const router = useRouter();
 
-  const navbarCss =
-    "font-semibold text-[17px] list-none pointer cursor-pointer";
+  const navbarClass =
+    "min-h-[60px] p-[16px] whitespace-nowrap font-medium text-[18px] leading-[28px] text-center";
 
   const NavbarObject = [
     {
@@ -14,44 +15,49 @@ export default function Navbar() {
       link: "/esports",
     },
     {
-      name: "야구",
+      name: "축구",
       link: "/baseball",
     },
     {
-      name: "축구",
+      name: "야구",
       link: "/soccer",
     },
     {
-      name: "경기일정",
+      name: "뉴스",
       link: "/schedule",
     },
     {
-      name: "뉴스",
+      name: "티키타카",
       link: "/news",
     },
     {
-      name: "하이브챗",
+      name: "경기일정",
       link: "/chat",
     },
   ];
   return (
-    <div className="max-w-6xl flex justify-between items-center mx-auto py-4">
-      <div className="w-1/2 flex justify-around">
+    <div className="w-full max-w-[1200px] min-h-[60px] flex justify-between items-center mx-auto">
+      <div className="max-w-[447px] min-h-[60px] flex justify-around gap-2.5">
         {NavbarObject.map((item, index) => (
-          <li
+          <div
             key={index}
-            className={navbarCss}
+            className={navbarClass + "flex justify-around items-center"}
             onClick={() => router.push(item.link)}
           >
             {item?.name}
-          </li>
+          </div>
         ))}
       </div>
-      <div className="w-1/3 flex justify-center">
-        <input
-          className="w-[250px] h-[30px] p-2"
-          placeholder="검색어를 입력해주세요"
-        ></input>
+      <div className="flex items-center">
+        <div className="relative w-[414px]">
+          <input
+            className="w-full min-h-[48px] py-[12px] px-[16px] border-[0.5px] rounded-full pl-10"
+            placeholder="검색어를 입력해주세요"
+          />
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+            <Search />
+          </div>
+        </div>
       </div>
     </div>
   );

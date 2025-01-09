@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import QueryProvider from "./_components/QueryProvider";
-import Navbar from "./_components/Navbar";
-import Header from "./_components/Header";
+
+import Gnb from "./_components/gnb";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,9 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <QueryProvider>
-        <body>
-          <Header />
-          <Navbar />
+        <body className="defaultFont">
+          <Gnb />
           {children}
         </body>
       </QueryProvider>
