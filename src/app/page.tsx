@@ -77,7 +77,7 @@ export default function Home() {
     "w-1/2 h-[60px] flex items-center justify-center rounded-t-md cursor-pointer border-gray-600";
 
   return (
-    <div className="w-[600px] mx-auto mt-10">
+    <div className="w-[600px] mx-auto mt-10 h-[2000px]">
       <div className="w-full flex text-lg font-semibold text-gray-500">
         <div
           className={`${loginSignupStyle} ${
