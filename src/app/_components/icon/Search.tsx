@@ -12,14 +12,14 @@ export const Search = () => {
         cy="11.0499"
         r="7.54988"
         stroke="#424242"
-        stroke-width="2"
+        strokeWidth="2"
       />
       <path
         d="M16.7383 16.7363L21.5017 21.4997"
         stroke="#424242"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

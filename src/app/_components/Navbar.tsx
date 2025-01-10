@@ -41,14 +41,16 @@ export default function Navbar() {
         {NavbarObject.map((item, index) => (
           <div
             key={index}
-            className={navbarClass + "flex justify-around items-center"}
+            className={`${navbarClass} flex justify-around items-center ${
+              index === 0 ? "pl-0" : ""
+            }`}
             onClick={() => router.push(item.link)}
           >
             {item?.name}
           </div>
         ))}
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center mb-2">
         <div className="relative w-[414px]">
           <input
             className="w-full min-h-[48px] py-[12px] px-[16px] border-[0.5px] rounded-full pl-10"
