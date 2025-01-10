@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import QueryProvider from "./_components/QueryProvider";
 
-import Gnb from "./_components/gnb";
+import Gnb from "./_components/Gnb";
 
 export const metadata: Metadata = {
   title: "Create Next App",
