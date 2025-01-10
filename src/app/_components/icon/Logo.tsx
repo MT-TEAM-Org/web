@@ -3,19 +3,26 @@ interface LogoProps {
 }
 
 export const Logo = ({ size = "md" }: LogoProps) => {
-  const logoSize = () => {
-    if (size === "xs") {
-      return { width: "60.37", height: "20" };
-    } else if (size === "sm") {
-      return { width: "90.56", height: "24" };
-    } else if (size === "md") {
-      return { width: "119.74", height: "32" };
-    } else {
-      return { width: "149.93", height: "40" };
-    }
+  const logoSize = {
+    xs: {
+      width: "60.37",
+      height: "20",
+    },
+    sm: {
+      width: "90.56",
+      height: "24",
+    },
+    md: {
+      width: "119.74",
+      height: "32",
+    },
+    lg: {
+      width: "149.93",
+      height: "40",
+    },
   };
 
-  const { width, height } = logoSize();
+  const { width, height } = logoSize[size];
 
   return (
     <svg
