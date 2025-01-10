@@ -1,10 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { Naver } from "@/app/_components/icon/Naver";
-import { Kakao } from "@/app/_components/icon/Kakao";
-import { Google } from "@/app/_components/icon/Google";
-import { Discord } from "@/app/_components/icon/Discord";
 import { Openeyes_blue } from "@/app/_components/icon/Openeyes_blue";
 import { Openeyes_off } from "@/app/_components/icon/Openeyes_off";
 import { Clear } from "@/app/_components/icon/Clear";
@@ -14,6 +9,8 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
+import SnsButtons from "./SnsButtons";
+import AccountHelp from "./AccountHelp";
 
 interface FormData {
   username: string;
@@ -27,13 +24,20 @@ interface LoginProps {
   register: UseFormRegister<FormData>;
   setValue: UseFormSetValue<FormData>;
   watch: UseFormWatch<FormData>;
-  signError: boolean;
+  isPending: boolean;
+  isError: boolean;
+  isAllEmpty: boolean;
 }
 
-const Login = ({ register, setValue, watch, signError }: LoginProps) => {
+const Login = ({
+  register,
+  setValue,
+  watch,
+  isPending,
+  isError,
+  isAllEmpty,
+}: LoginProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const usernameValue = watch("username");
-  const passwordValue = watch("password");
 
   const inputObject = [
     {
@@ -50,31 +54,8 @@ const Login = ({ register, setValue, watch, signError }: LoginProps) => {
     },
   ];
 
-  const snsButtonObject = [
-    {
-      name: "naver",
-      icon: <Naver />,
-    },
-    {
-      name: "kakao",
-      icon: <Kakao />,
-    },
-    {
-      name: "google",
-      icon: <Google />,
-    },
-    {
-      name: "discord",
-      icon: <Discord />,
-    },
-  ];
-
-  const snsGrayLine = () => {
-    return <div className="w-[117px] h-[1px] border-[1px] border-[#EEEEEE]" />;
-  };
-
   const errorMessages = (inputId: string) => {
-    if (!signError) return null;
+    if (!isAllEmpty && !isError) return null;
 
     return (
       <p className="text-[14px] font-[500] text-[#D1504B] leading-[22px] px-[16px]">
@@ -85,12 +66,40 @@ const Login = ({ register, setValue, watch, signError }: LoginProps) => {
     );
   };
 
-  const handleUsernameClear = () => setValue("username", "");
+  const inputIcon = (inputId: keyof FormData) => {
+    const value = watch(inputId);
+    if (!value || value.length === 0) return null;
 
-  const handlePasswordVisible = () => setIsPasswordVisible(!isPasswordVisible);
+    const handleClick =
+      inputId === "username" ? handleUsernameClear : handlePasswordVisible;
+    const Icon =
+      inputId === "password" && isPasswordVisible
+        ? Openeyes_blue
+        : inputId === "password"
+        ? Openeyes_off
+        : Clear;
+
+    return (
+      <button className={iconButtonStyle} type="button" onClick={handleClick}>
+        <Icon />
+      </button>
+    );
+  };
+
+  const handleUsernameClear = () => {
+    if (isPending) return;
+    setValue("username", "");
+  };
+
+  const handlePasswordVisible = () => {
+    if (isPending) return;
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
   const inputStyle =
-    "w-full h-[48px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6] focus:border-[#424242] focus:border-[1px] focus:outline-none";
+    "w-full h-[48px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] outline-none placeholder-[#A6A6A6] focus:border-[#424242]";
+  const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
+  const isEmptyInputStyle = inputStyle + " border-[#424242]";
   const iconButtonStyle = "absolute right-[16px] top-[38px]";
   return (
     <div className="space-y-[24px]">
@@ -103,67 +112,34 @@ const Login = ({ register, setValue, watch, signError }: LoginProps) => {
             {input.label}
           </label>
           <input
-            {...register(input.id, { required: true })}
+            {...register(input.id)}
             type={input.type}
-            className={inputStyle}
+            className={
+              isPending
+                ? isDisabledInputStyle
+                : isAllEmpty
+                ? isEmptyInputStyle
+                : inputStyle
+            }
             id={input.id}
+            disabled={isPending}
             placeholder={input.placeholder}
           />
           {errorMessages(input.id)}
-          {input.id === "username" &&
-            usernameValue &&
-            usernameValue.length > 0 && (
-              <button
-                className={iconButtonStyle}
-                type="button"
-                onClick={handleUsernameClear}
-              >
-                <Clear />
-              </button>
-            )}
-          {input.id === "password" &&
-            passwordValue &&
-            passwordValue.length > 0 && (
-              <button
-                className={iconButtonStyle}
-                type="button"
-                onClick={handlePasswordVisible}
-              >
-                {isPasswordVisible ? <Openeyes_blue /> : <Openeyes_off />}
-              </button>
-            )}
+          {inputIcon(input.id)}
         </div>
       ))}
-      <button className="w-full h-[48px] defaultButtonColor text-[#FFFFFF] px-[20px] py-[16px] rounded-[5px] font-[700] leading-[16px]">
+      <button
+        className={`w-full h-[48px] text-[#FFFFFF] px-[20px] py-[16px] rounded-[5px] font-[700] leading-[16px] ${
+          isPending ? "bg-[#EEEEEE] text-[#CBCBCB]" : "defaultButtonColor"
+        }`}
+        disabled={isPending} // 리액트쿼리 isLoginLoading 값으로 변경
+        type="submit"
+      >
         자동로그인
       </button>
-
-      <div className="flex items-center min-h-[18px] gap-[8px]">
-        {snsGrayLine()}
-        <p className="w-[78px] text-center text-[12px] text-[#000000] opacity-[50%] leading-[18px] whitespace-nowrap tracking-[-0.02em]">
-          SNS 간편로그인
-        </p>
-        {snsGrayLine()}
-      </div>
-      <div className="flex gap-[24px] justify-around mt-[8px]">
-        {snsButtonObject.map((snsButton) => (
-          <button
-            className="w-[52px] h-[52px] flex justify-center items-center p-[10px] border-[1px] bg-[#FAFAFA] border-[#EEEEEE] rounded-full"
-            type="button"
-            key={snsButton.name}
-          >
-            {snsButton.icon}
-          </button>
-        ))}
-      </div>
-      <div className="flex gap-[16px] mt-[24px] underline text-[14px] text-[#000000] opacity-[70%] text-center">
-        <Link href="/" className="w-1/2 leading-[18px]">
-          1:1 문의하기
-        </Link>
-        <Link href="/" className="w-1/2 leading-[18px]">
-          아이디/비밀번호 찾기
-        </Link>
-      </div>
+      <SnsButtons />
+      <AccountHelp signState="login" />
     </div>
   );
 };
