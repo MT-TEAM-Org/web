@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Search } from "./icon/Search";
+import { Search } from "../icon/Search";
 
 export default function Navbar() {
   const router = useRouter();

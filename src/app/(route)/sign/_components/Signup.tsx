@@ -8,6 +8,8 @@ import AccountHelp from "./AccountHelp";
 import { useEffect, useState } from "react";
 import { CheckboxNull } from "@/app/_components/icon/CheckboxNull";
 import { Checkbox } from "@/app/_components/icon/Checkbox";
+import { useApiMutation } from "@/_hooks/query";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   username: string;
@@ -32,12 +34,34 @@ interface Selected {
 }
 
 const Signup = ({ register, isPending, isError }: SignupProps) => {
+  const router = useRouter();
+
   const [selected, setSelected] = useState<Selected>({
     allAgree: false,
     serviceAgree: false,
     personalAgree: false,
     marketingAgree: false,
   });
+
+  const useSignUpMutation = () => {
+    return useApiMutation<FormData>("post", "/api/me/create", undefined, {
+      withCredentials: true,
+    });
+  };
+
+  const signUpMutation = useSignUpMutation();
+
+  const onSubmit = (data: FormData) => {
+    signUpMutation.mutate(data, {
+      onSuccess: (response) => {
+        console.log("회원가입 성공:", response);
+        router.push("/");
+      },
+      onError: (error) => {
+        console.error("회원가입 실패:", error);
+      },
+    });
+  };
 
   useEffect(() => {
     const { serviceAgree, personalAgree, marketingAgree } = selected;
@@ -238,6 +262,7 @@ const Signup = ({ register, isPending, isError }: SignupProps) => {
         </div>
       </div>
       <button
+        onClick={() => signUpMutation.data && onSubmit(signUpMutation.data)}
         className="w-full h-[48px] text-[#FFFFFF] px-[20px] py-[16px] rounded-[5px] font-[700] leading-[16px] defaultButtonColor select-none"
         disabled={isPending}
         type="submit"

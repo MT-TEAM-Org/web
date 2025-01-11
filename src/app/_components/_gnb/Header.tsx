@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Logo } from "./icon/Logo";
+import { Logo } from "../icon/Logo";
 
 export default function Header() {
   const router = useRouter();
