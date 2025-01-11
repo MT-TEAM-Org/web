@@ -51,6 +51,7 @@ const Signup = ({ register, isPending, isError }: SignupProps) => {
 
   const signUpMutation = useSignUpMutation();
 
+  //이 부분이 동작 안 합니다.
   const onSubmit = (data: FormData) => {
     signUpMutation.mutate(data, {
       onSuccess: (response) => {
