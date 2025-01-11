@@ -5,6 +5,7 @@ import Login from "./_components/Login";
 import Signup from "./_components/Signup";
 import { useForm } from "react-hook-form";
 import { useApiMutation } from "@/_hooks/query";
+import { useRouter } from "next/navigation";
 
 // interface LoginFormData {
 //   username: string;
@@ -32,6 +33,7 @@ interface Tabs {
 }
 
 export default function Sign() {
+  const router = useRouter();
   const [loginSignupState, setLoginSignupState] = useState<"login" | "signup">(
     "login"
   );
@@ -49,8 +51,17 @@ export default function Sign() {
     "post",
     loginSignupState === "login" ? "/login" : "/api/me/create",
     {},
+    { withCredentials: true },
     {
-      withCredentials: true,
+      onSuccess: (data) => {
+        console.log(
+          loginSignupState === "login" ? "로그인 성공" : "회원가입 성공"
+        );
+        router.push("/");
+      },
+      onError: (error) => {
+        console.log(error);
+      },
     }
   );
 
@@ -83,11 +94,7 @@ export default function Sign() {
     } else {
       setIsAllEmpty(false);
     }
-    fetchSign(formData, {
-      onSuccess: () => {
-        // token 저장하는 로직
-      },
-    });
+    fetchSign(formData);
   };
 
   const loginSignupStyle =
