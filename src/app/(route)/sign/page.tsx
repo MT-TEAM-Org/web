@@ -7,18 +7,6 @@ import { useForm } from "react-hook-form";
 import { useApiMutation } from "@/_hooks/query";
 import { useRouter } from "next/navigation";
 
-// interface LoginFormData {
-//   username: string;
-//   password: string;
-// }
-
-// interface SignupFormData {
-//   email: string;
-//   password: string;
-//   tel: string;
-//   nickname: string;
-// }
-
 interface FormData {
   username: string;
   password: string;
