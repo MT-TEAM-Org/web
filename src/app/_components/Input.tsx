@@ -32,7 +32,7 @@ const Input: React.FC<InputProps> = ({
   const isDisabledHelpTextStyle = helpTextStyle + " text-[#A6A6A6]";
   const isErrorTextStyle = helpTextStyle + " text-[#D1504B]";
   return (
-    <div className="flex flex-col gap-[4px]">
+    <div className="flex flex-col gap-[2px]">
       <label htmlFor={id} className={labelStyle}>
         {label}
       </label>
