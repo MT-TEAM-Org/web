@@ -16,7 +16,6 @@ interface FormData {
   email: string;
   tel: string;
   nickname: string;
-  code: string;
 }
 
 interface SignupProps {
@@ -242,7 +241,6 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
           {isVerificationSent && (
             <div className="flex justify-between gap-[8px]">
               <input
-                {...register("code", { required: true })}
                 type="text"
                 className={`${
                   isPending ? isDisabledInputStyle : inputStyle
