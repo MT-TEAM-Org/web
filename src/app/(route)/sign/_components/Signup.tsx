@@ -46,6 +46,7 @@ interface VerificationCodeRequest {
 const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
   const [isVerificationSent, setIsVerificationSent] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
+  const [isVerificationChecked, setIsVerificationChecked] = useState(false);
   const [timeLeft, setTimeLeft] = useState(300);
   const [selected, setSelected] = useState<Selected>({
     allAgree: false,
@@ -107,6 +108,7 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
     {
       onSuccess: (data: VerificationCodeRequest) => {
         console.log("인증코드 확인 성공", data);
+        setIsVerificationChecked(true);
       },
       onError: (error) => {
         console.log(error);
@@ -221,6 +223,7 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
                 className={disabledVerificationButton}
                 type="button"
                 onClick={handleSendVerification}
+                disabled={isVerificationChecked}
               >
                 재전송
               </button>
@@ -237,22 +240,38 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
         </div>
         <div className="space-y-4">
           {isVerificationSent && (
-            <div className="flex justify-between] gap-[8px]">
+            <div className="flex justify-between gap-[8px]">
               <input
+                {...register("code", { required: true })}
                 type="text"
                 className={`${
                   isPending ? isDisabledInputStyle : inputStyle
                 } w-[240px]`}
-                id="email"
+                id="code"
                 disabled={isPending}
                 placeholder="인증코드를 입력해주세요."
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
               />
-              <button className={verificationButton} type="button">
-                인증
-              </button>
+              {isVerificationChecked ? (
+                <button
+                  className={disabledVerificationButton}
+                  disabled={true}
+                  type="button"
+                >
+                  인증완료
+                </button>
+              ) : (
+                <button
+                  onClick={handleCheckVerification}
+                  className={verificationButton}
+                  type="button"
+                >
+                  인증
+                </button>
+              )}
             </div>
           )}
-
           <p className={isPending ? isDisabledHelpTextStyle : helpTextStyle}>
             인증 시간 제한 5:00
           </p>
