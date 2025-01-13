@@ -107,7 +107,7 @@ const Login = ({
         <div className="space-y-[2px] relative" key={input.id}>
           <label
             htmlFor={input.id}
-            className="text-[14px] font-[500] leading-[22px] text-[#424242]"
+            className="text-[14px] leading-[22px] text-[#424242]"
           >
             {input.label}
           </label>
@@ -138,7 +138,7 @@ const Login = ({
       >
         자동로그인
       </button>
-      <SnsButtons />
+      <SnsButtons signState="login" />
       <AccountHelp signState="login" />
     </div>
   );

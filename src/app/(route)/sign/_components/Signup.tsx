@@ -123,9 +123,9 @@ const Signup = ({ register, isPending, isError }: SignupProps) => {
           플레이하이브 일반 회원가입
         </p>
       </div>
-      <SnsButtons />
+      <SnsButtons signState="signup" />
       <div className="space-y-[8px]">
-        <div className="space-y-[4px]">
+        <div className="space-y-[2px]">
           <label
             htmlFor="email"
             className="text-[14px] leading-[22px] text-[#424242]"
