@@ -4,6 +4,7 @@ import "./globals.css";
 import QueryProvider from "./_components/QueryProvider";
 
 import Gnb from "./_components/_gnb/Gnb";
+import Footer from "./_components/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,6 +22,7 @@ export default function RootLayout({
         <body className="defaultFont">
           <Gnb />
           {children}
+          <Footer />
         </body>
       </QueryProvider>
     </html>
