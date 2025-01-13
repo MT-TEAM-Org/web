@@ -30,7 +30,7 @@ const SnsButtons = ({ signState }: { signState: "login" | "signup" }) => {
   };
 
   return (
-    <>
+    <div>
       <div className="flex items-center min-h-[18px] gap-[8px]">
         {snsGrayLine()}
         <p className="w-[78px] text-center text-[12px] text-[#000000] opacity-[50%] leading-[18px] whitespace-nowrap tracking-[-0.02em]">
@@ -38,7 +38,7 @@ const SnsButtons = ({ signState }: { signState: "login" | "signup" }) => {
         </p>
         {snsGrayLine()}
       </div>
-      <div className="flex gap-[24px] justify-around mt-[8px]">
+      <div className="flex gap-[10px] justify-around mt-[8px] px-[10px]">
         {snsButtonObject.map((snsButton) => (
           <button
             className="w-[52px] h-[52px] flex justify-center items-center p-[10px] border-[1px] bg-[#FAFAFA] border-[#EEEEEE] rounded-full"
@@ -49,7 +49,7 @@ const SnsButtons = ({ signState }: { signState: "login" | "signup" }) => {
           </button>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
