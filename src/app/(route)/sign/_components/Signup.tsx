@@ -1,6 +1,6 @@
 "use client";
 
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister, UseFormWatch } from "react-hook-form";
 import { SymbolLogo } from "./SymbolLogo";
 import SnsButtons from "./SnsButtons";
 import Input from "@/app/_components/Input";
@@ -8,6 +8,7 @@ import AccountHelp from "./AccountHelp";
 import { useEffect, useState } from "react";
 import { CheckboxNull } from "@/app/_components/icon/CheckboxNull";
 import { Checkbox } from "@/app/_components/icon/Checkbox";
+import { useApiMutation } from "@/_hooks/query";
 
 interface FormData {
   username: string;
@@ -15,10 +16,12 @@ interface FormData {
   email: string;
   tel: string;
   nickname: string;
+  code: string;
 }
 
 interface SignupProps {
   register: UseFormRegister<FormData>;
+  watch: UseFormWatch<FormData>;
   isPending: boolean;
   isError: boolean;
 }
@@ -31,13 +34,27 @@ interface Selected {
   [key: string]: boolean;
 }
 
-const Signup = ({ register, isPending, isError }: SignupProps) => {
+interface EmailVerificationRequest {
+  email: string;
+}
+
+interface VerificationCodeRequest {
+  email: string;
+  code: string;
+}
+
+const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
+  const [isVerificationSent, setIsVerificationSent] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
+  const [timeLeft, setTimeLeft] = useState(300);
   const [selected, setSelected] = useState<Selected>({
     allAgree: false,
     serviceAgree: false,
     personalAgree: false,
     marketingAgree: false,
   });
+
+  const email = watch("email");
 
   useEffect(() => {
     const { serviceAgree, personalAgree, marketingAgree } = selected;
@@ -57,6 +74,57 @@ const Signup = ({ register, isPending, isError }: SignupProps) => {
       }));
     }
   }, [selected.serviceAgree, selected.personalAgree, selected.marketingAgree]);
+
+  const { mutate: sendVerification } = useApiMutation<EmailVerificationRequest>(
+    "post",
+    "/api/certification/send",
+    null,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      onSuccess: (data: EmailVerificationRequest) => {
+        setIsVerificationSent(true);
+        console.log("인증전송 성공", data);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const { mutate: checkVerification } = useApiMutation<VerificationCodeRequest>(
+    "post",
+    "/api/certification/certify-code",
+    null,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      onSuccess: (data: VerificationCodeRequest) => {
+        console.log("인증코드 확인 성공", data);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const handleSendVerification = () => {
+    if (!email) {
+      alert("이메일을 입력해주세요.");
+      return;
+    }
+    sendVerification({ email });
+  };
+
+  const handleCheckVerification = () => {
+    checkVerification({ email, code: verificationCode });
+  };
 
   const inputObject = [
     {
@@ -113,6 +181,11 @@ const Signup = ({ register, isPending, isError }: SignupProps) => {
   const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
   const helpTextStyle = "text-[14px] text-[#A6A6A6] leading-[22px] px-[16px]";
   const isDisabledHelpTextStyle = helpTextStyle + " text-[#A6A6A6]";
+  const verificationButton =
+    "w-[80px] bg-[#424242] text-[#FFFFFF] text-[16px] rounded-[5px] font-[700]";
+  const disabledVerificationButton =
+    "w-[80px] bg-[#FAFAFA] text-[#424242] text-[16px] rounded-[5px] font-[700]";
+
   return (
     <div className="space-y-[24px]">
       <div className="flex flex-col items-center gap-[8px] min-h-[86px]">
@@ -143,32 +216,43 @@ const Signup = ({ register, isPending, isError }: SignupProps) => {
               disabled={isPending}
               placeholder="이메일 아이디를 입력해주세요."
             />
-            <button
-              className="w-[80px] bg-[#424242] text-[#FFFFFF] rounded-[5px] font-[700]"
-              type="button"
-            >
-              인증 전송
-            </button>
+            {isVerificationSent ? (
+              <button
+                className={disabledVerificationButton}
+                type="button"
+                onClick={handleSendVerification}
+              >
+                재전송
+              </button>
+            ) : (
+              <button
+                className={verificationButton}
+                type="button"
+                onClick={handleSendVerification}
+              >
+                인증 전송
+              </button>
+            )}
           </div>
         </div>
-        <div className="hidden">
-          <div className="flex justify-between gap-[8px]">
-            <input
-              type="text"
-              className={`${
-                isPending ? isDisabledInputStyle : inputStyle
-              } w-[240px]`}
-              id="email"
-              disabled={isPending}
-              placeholder="인증코드를 입력해주세요."
-            />
-            <button
-              className="w-[80px] bg-[#424242] text-[#FFFFFF] rounded-[5px] font-[700]"
-              type="button"
-            >
-              인증
-            </button>
-          </div>
+        <div className="space-y-4">
+          {isVerificationSent && (
+            <div className="flex justify-between] gap-[8px]">
+              <input
+                type="text"
+                className={`${
+                  isPending ? isDisabledInputStyle : inputStyle
+                } w-[240px]`}
+                id="email"
+                disabled={isPending}
+                placeholder="인증코드를 입력해주세요."
+              />
+              <button className={verificationButton} type="button">
+                인증
+              </button>
+            </div>
+          )}
+
           <p className={isPending ? isDisabledHelpTextStyle : helpTextStyle}>
             인증 시간 제한 5:00
           </p>
