@@ -1,6 +1,6 @@
 "use client";
 
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegister, UseFormWatch } from "react-hook-form";
 import { SymbolLogo } from "./SymbolLogo";
 import SnsButtons from "./SnsButtons";
 import Input from "@/app/_components/Input";
@@ -23,6 +23,7 @@ interface FormData {
 
 interface SignupProps {
   register: UseFormRegister<FormData>;
+  watch: UseFormWatch<FormData>;
   isPending: boolean;
   isError: boolean;
 }
@@ -35,7 +36,20 @@ interface Selected {
   [key: string]: boolean;
 }
 
-const Signup = ({ register, isPending, isError }: SignupProps) => {
+interface EmailVerificationRequest {
+  email: string;
+}
+
+interface VerificationCodeRequest {
+  email: string;
+  code: string;
+}
+
+const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
+  const [isVerificationSent, setIsVerificationSent] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
+  const [isVerificationChecked, setIsVerificationChecked] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(300);
   const [selected, setSelected] = useState<Selected>({
     allAgree: false,
     serviceAgree: false,
@@ -64,6 +78,58 @@ const Signup = ({ register, isPending, isError }: SignupProps) => {
       }));
     }
   }, [selected.serviceAgree, selected.personalAgree, selected.marketingAgree]);
+
+  const { mutate: sendVerification } = useApiMutation<EmailVerificationRequest>(
+    "post",
+    "/api/certification/send",
+    null,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      onSuccess: (data: EmailVerificationRequest) => {
+        setIsVerificationSent(true);
+        console.log("인증전송 성공", data);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const { mutate: checkVerification } = useApiMutation<VerificationCodeRequest>(
+    "post",
+    "/api/certification/certify-code",
+    null,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      onSuccess: (data: VerificationCodeRequest) => {
+        console.log("인증코드 확인 성공", data);
+        setIsVerificationChecked(true);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const handleSendVerification = () => {
+    if (!email) {
+      alert("이메일을 입력해주세요.");
+      return;
+    }
+    sendVerification({ email });
+  };
+
+  const handleCheckVerification = () => {
+    checkVerification({ email, code: verificationCode });
+  };
 
   const inputObject = [
     {
@@ -161,6 +227,11 @@ const Signup = ({ register, isPending, isError }: SignupProps) => {
   const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
   const helpTextStyle = "text-[14px] text-[#A6A6A6] leading-[22px] px-[16px]";
   const isDisabledHelpTextStyle = helpTextStyle + " text-[#A6A6A6]";
+  const verificationButton =
+    "w-[80px] bg-[#424242] text-[#FFFFFF] text-[16px] rounded-[5px] font-[700]";
+  const disabledVerificationButton =
+    "w-[80px] bg-[#FAFAFA] text-[#424242] text-[16px] rounded-[5px] font-[700]";
+
   return (
     <div className="space-y-[24px]">
       <div className="flex flex-col items-center gap-[8px] min-h-[86px]">
@@ -171,93 +242,98 @@ const Signup = ({ register, isPending, isError }: SignupProps) => {
           {headTextSign()}
         </p>
       </div>
-      {socialSignupState === "" && (
-        <SnsButtons
-          signState="signup"
-          setSocialSignupState={setSocialSignupState}
-        />
-      )}
-      {socialSignupState === "" && (
-        <div className="space-y-[8px]">
-          <div className="space-y-[2px]">
-            <label
-              htmlFor="email"
-              className="text-[14px] leading-[22px] text-[#424242]"
-            >
-              이메일 인증
-            </label>
-            <div className="flex justify-between gap-[8px]">
-              <input
-                {...register("email", { required: true })}
-                type="text"
-                className={`${
-                  isPending ? isDisabledInputStyle : inputStyle
-                } w-[240px]`}
-                id="email"
-                disabled={isPending}
-                placeholder="이메일 아이디를 입력해주세요."
-              />
+      <SnsButtons signState="signup" />
+      <div className="space-y-[8px]">
+        <div className="space-y-[2px]">
+          <label
+            htmlFor="email"
+            className="text-[14px] leading-[22px] text-[#424242]"
+          >
+            이메일 인증
+          </label>
+          <div className="flex justify-between gap-[8px]">
+            <input
+              {...register("email", { required: true })}
+              type="text"
+              className={`${
+                isPending ? isDisabledInputStyle : inputStyle
+              } w-[240px]`}
+              id="email"
+              disabled={isPending}
+              placeholder="이메일 아이디를 입력해주세요."
+            />
+            {isVerificationSent ? (
               <button
-                className="w-[80px] bg-[#424242] text-[#FFFFFF] rounded-[5px] font-[700]"
+                className={disabledVerificationButton}
                 type="button"
+                onClick={handleSendVerification}
+                disabled={isVerificationChecked}
+              >
+                재전송
+              </button>
+            ) : (
+              <button
+                className={verificationButton}
+                type="button"
+                onClick={handleSendVerification}
               >
                 인증 전송
               </button>
-            </div>
+            )}
           </div>
-          <div>
+        </div>
+        <div className="space-y-4">
+          {isVerificationSent && (
             <div className="flex justify-between gap-[8px]">
               <input
                 type="text"
                 className={`${
                   isPending ? isDisabledInputStyle : inputStyle
                 } w-[240px]`}
-                id="email"
+                id="code"
                 disabled={isPending}
                 placeholder="인증코드를 입력해주세요."
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
               />
-              <button
-                className="w-[80px] bg-[#424242] text-[#FFFFFF] rounded-[5px] font-[700]"
-                type="button"
-              >
-                인증
-              </button>
+              {isVerificationChecked ? (
+                <button
+                  className={disabledVerificationButton}
+                  disabled={true}
+                  type="button"
+                >
+                  인증완료
+                </button>
+              ) : (
+                <button
+                  onClick={handleCheckVerification}
+                  className={verificationButton}
+                  type="button"
+                >
+                  인증
+                </button>
+              )}
             </div>
-            <p className={isPending ? isDisabledHelpTextStyle : helpTextStyle}>
-              인증 시간 제한 5:00
-            </p>
-          </div>
+          )}
+          <p className={isPending ? isDisabledHelpTextStyle : helpTextStyle}>
+            인증 시간 제한 5:00
+          </p>
         </div>
-      )}
-      {socialSignupState === ""
-        ? inputObject.map((input) => (
-            <Input
-              key={input.id}
-              height={48}
-              type={input.type}
-              id={input.id}
-              register={register}
-              placeholder={input.placeholder}
-              helpText={input.validation}
-              label={input.label}
-              isDisabled={isPending}
-              isError={isError}
-            />
-          ))
-        : snsInputObject.map((input) => (
-            <Input
-              key={input.id}
-              height={48}
-              type={input.type}
-              id={input.id}
-              register={register}
-              placeholder={input.placeholder}
-              helpText={input.validation}
-              label={input.label}
-              isDisabled={input.id === "email" ? true : isPending}
-              isError={isError}
-            />
-          ))}
+      </div>
+      {inputObject.map((input) => (
+        <Input
+          key={input.id}
+          height={48}
+          type={input.type}
+          id={input.id}
+          register={register}
+          placeholder={input.placeholder}
+          helpText={input.validation}
+          label={input.label}
+          isDisabled={isPending}
+          isError={isError}
+        />
+      ))}
       <div className="space-y-[16px] p-[16px] rounded-[5px] bg-[#FAFAFA]">
         <div className="flex items-center gap-[8px]">
           <input
