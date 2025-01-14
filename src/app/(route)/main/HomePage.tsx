@@ -1,5 +1,7 @@
 import ScheduleTap from "@/app/_components/ScheduleTap";
 
+//최신화를 위한 더미 데이터
+
 export default function HomePage() {
   return (
     <div className="min-h-[704px]">

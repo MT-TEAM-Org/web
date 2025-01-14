@@ -117,6 +117,7 @@ export default function Sign() {
         ) : (
           <Signup
             register={register}
+            watch={watch}
             isPending={isPending}
             isError={localIsError}
           />
