@@ -88,7 +88,7 @@ export default function Sign() {
   const loginSignupStyle =
     "w-1/2 flex items-center justify-center rounded-t-[5px] cursor-pointer border-gray-600 border-[#303030] text-[#424242]";
   return (
-    <div className="w-[328px] min-h-[480px] mx-auto mt-[40px] select-none">
+    <div className="w-[328px] min-h-[480px] mb-[356px] mx-auto mt-[40px] select-none">
       <div className="w-full min-h-[52px] flex">
         {tabs.map(({ id, label }) => (
           <div
