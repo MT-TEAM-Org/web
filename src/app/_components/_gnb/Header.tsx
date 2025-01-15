@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Logo } from "../icon/Logo";
 import useAuthCheck from "@/_hooks/useAuthCheck";
-import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 // 로컬스토리지에 저장된 토큰이 초반 호출 상태 그대로 유지되서 감지가 안됨
 
@@ -23,11 +23,12 @@ import { useState } from "react";
 
 export default function Header() {
   const router = useRouter();
-  const { mutate: authCheck, isSuccess } = useAuthCheck();
+  const queryClient = useQueryClient();
+  const { data, isSuccess } = useAuthCheck();
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    authCheck();
+    queryClient.invalidateQueries({ queryKey: ["authCheck"] });
   };
 
   const headerButtonClass =

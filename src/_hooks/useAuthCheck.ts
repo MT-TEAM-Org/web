@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const fetchAuthCheck = async () => {
@@ -11,8 +11,9 @@ const fetchAuthCheck = async () => {
 };
 
 const useAuthCheck = () => {
-  return useMutation({
-    mutationFn: fetchAuthCheck,
+  return useQuery({
+    queryKey: ["authCheck"],
+    queryFn: fetchAuthCheck,
   });
 };
 
