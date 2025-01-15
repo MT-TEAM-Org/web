@@ -5,22 +5,6 @@ import { Logo } from "../icon/Logo";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useQueryClient } from "@tanstack/react-query";
 
-// 로컬스토리지에 저장된 토큰이 초반 호출 상태 그대로 유지되서 감지가 안됨
-
-// interface AuthCheckResponse {
-//   status: "SUCCESS";
-//   msg: "로그인 회원 정보 조회 성공";
-//   data: {
-//     id: 21;
-//     email: "chi12122na@1n2aver.com";
-//     tel: "01029968391";
-//     nickname: "dBV8B";
-//     role: "USER";
-//     type: "LOCAL";
-//     status: "ACTIVE";
-//   };
-// }
-
 export default function Header() {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -28,7 +12,7 @@ export default function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    queryClient.invalidateQueries({ queryKey: ["authCheck"] });
+    queryClient.resetQueries({ queryKey: ["authCheck"] });
   };
 
   const headerButtonClass =
