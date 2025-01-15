@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import usePostToken from "@/utils/UsePostToken";
 import { useQueryClient } from "@tanstack/react-query";
-import useAuthCheck from "@/_hooks/useAuthCheck";
 
 interface FormData {
   username: string;
@@ -33,7 +32,6 @@ export default function Sign() {
   const { register, handleSubmit, setValue, watch, reset } =
     useForm<FormData>();
   const inputIsNotEmpty = Object.values(watch()).some((value) => value !== "");
-  const { mutate: authCheck, isSuccess } = useAuthCheck();
 
   const {
     mutate: fetchSign,
@@ -74,7 +72,7 @@ export default function Sign() {
       onSuccess: (data) => {
         if (loginSignupState === "login") {
           localStorage.setItem("accessToken", data.headers.authorization);
-          authCheck();
+          queryClient.invalidateQueries({ queryKey: ["authCheck"] });
           router.push("/");
         } else {
           setLoginSignupState("login");
