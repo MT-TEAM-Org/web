@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import Login from "./_components/Login";
 import Signup from "./_components/Signup";
 import { useForm } from "react-hook-form";
-import { useApiMutation } from "@/_hooks/query";
 import { useRouter } from "next/navigation";
+import usePostToken from "@/utils/UsePostToken";
+import { useQueryClient } from "@tanstack/react-query";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 interface FormData {
   username: string;
@@ -22,6 +24,7 @@ interface Tabs {
 
 export default function Sign() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [loginSignupState, setLoginSignupState] = useState<"login" | "signup">(
     "login"
   );
@@ -30,28 +33,13 @@ export default function Sign() {
   const { register, handleSubmit, setValue, watch, reset } =
     useForm<FormData>();
   const inputIsNotEmpty = Object.values(watch()).some((value) => value !== "");
+  const { mutate: authCheck, isSuccess } = useAuthCheck();
 
   const {
     mutate: fetchSign,
     isPending,
     isError,
-  } = useApiMutation(
-    "post",
-    loginSignupState === "login" ? "/login" : "/api/me/create",
-    {},
-    { withCredentials: true },
-    {
-      onSuccess: (data) => {
-        console.log(
-          loginSignupState === "login" ? "로그인 성공" : "회원가입 성공"
-        );
-        router.push("/");
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
+  } = usePostToken(loginSignupState === "login" ? "login" : "api/me/create");
 
   const tabs: Tabs[] = [
     { id: "login", label: "로그인" },
@@ -82,13 +70,23 @@ export default function Sign() {
     } else {
       setIsAllEmpty(false);
     }
-    fetchSign(formData);
+    fetchSign(formData, {
+      onSuccess: (data) => {
+        if (loginSignupState === "login") {
+          localStorage.setItem("accessToken", data.headers.authorization);
+          authCheck();
+          router.push("/");
+        } else {
+          setLoginSignupState("login");
+        }
+      },
+    });
   };
 
   const loginSignupStyle =
     "w-1/2 flex items-center justify-center rounded-t-[5px] cursor-pointer border-gray-600 border-[#303030] text-[#424242]";
   return (
-    <div className="w-[328px] min-h-[480px] mx-auto mt-[40px] select-none">
+    <div className="w-[328px] min-h-[480px] mb-[356px] mx-auto mt-[40px] select-none">
       <div className="w-full min-h-[52px] flex">
         {tabs.map(({ id, label }) => (
           <div

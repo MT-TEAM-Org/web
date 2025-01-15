@@ -22,7 +22,8 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
             id="modalTextarea"
             placeholder="문의 내용을 입력해주세요."
             className="resize-none w-full rounded-[5px] min-h-[200px] border px-[12px] py-[16px] focus:border-[#424242] focus:border-[1px] focus:outline-none"
-          ></textarea>
+            style={{ overflow: "hidden", overflowY: "auto" }}
+          />
         </div>
         <div className="p-[12px] bg-[#FAFAFA] mt-[12px] rounded-[5px]">
           <p className="text-start text-[14px] leading-[22px] text-[#656565]">

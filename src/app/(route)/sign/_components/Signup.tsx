@@ -8,6 +8,10 @@ import AccountHelp from "./AccountHelp";
 import { useEffect, useState } from "react";
 import { CheckboxNull } from "@/app/_components/icon/CheckboxNull";
 import { Checkbox } from "@/app/_components/icon/Checkbox";
+import { Google } from "@/app/_components/icon/Google";
+import { Naver } from "@/app/_components/icon/Naver";
+import { Kakao } from "@/app/_components/icon/Kakao";
+import { Discord } from "@/app/_components/icon/Discord";
 import { useApiMutation } from "@/_hooks/query";
 
 interface FormData {
@@ -53,6 +57,21 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
     personalAgree: false,
     marketingAgree: false,
   });
+  const [socialSignupState, setSocialSignupState] = useState<
+    "google" | "naver" | "kakao" | "discord" | ""
+  >("");
+
+  const { mutate: socialSignup } = useApiMutation(
+    "post",
+    `/oauth2/authorization/${[socialSignupState]}`,
+    null,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    }
+  );
 
   const email = watch("email");
 
@@ -152,6 +171,30 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
     },
   ];
 
+  const snsInputObject = [
+    {
+      label: "이메일 아이디",
+      type: "text",
+      id: "email",
+      placeholder: "이메일 아이디를 입력해주세요.",
+    },
+    {
+      label: "핸드폰 번호*",
+      type: "text",
+      id: "tel",
+      placeholder: "핸드폰 번호를 입력해주세요.",
+      validation: "10자~11자 이내",
+    },
+    {
+      label: "닉네임",
+      type: "text",
+      id: "nickname",
+      placeholder: "닉네임을 입력해주세요.",
+      validation:
+        "한글+영문 / 한글 + 숫자 등 모두 가능 (10자 이내로) 정치 관련, 반사회적, 성적, 욕설 닉네임은 제재대상",
+    },
+  ];
+
   const agreementObject = [
     {
       id: "serviceAgree",
@@ -177,6 +220,23 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
     });
   };
 
+  const headLogoSign = () => {
+    if (socialSignupState === "google") return <Google />;
+    else if (socialSignupState === "naver") return <Naver />;
+    else if (socialSignupState === "kakao") return <Kakao />;
+    else if (socialSignupState === "discord") return <Discord />;
+    else return <SymbolLogo />;
+  };
+
+  const headTextSign = () => {
+    if (socialSignupState === "google") return "구글 SNS 간편 회원가입";
+    else if (socialSignupState === "naver") return "네이버 SNS 간편 회원가입";
+    else if (socialSignupState === "kakao") return "카카오 SNS 간편 회원가입";
+    else if (socialSignupState === "discord")
+      return "디스코드 SNS 간편 회원가입";
+    else return "플레이하이브 일반 회원가입";
+  };
+
   const inputStyle =
     "h-[48px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6] focus:border-[#424242] focus:border-[1px] focus:outline-none";
   const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
@@ -191,104 +251,125 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
     <div className="space-y-[24px]">
       <div className="flex flex-col items-center gap-[8px] min-h-[86px]">
         <div className="flex justify-center items-center w-[52px] h-[52px] bg-[#FAFAFA] rounded-full border-[1px] border-[#EEEEEE]">
-          <SymbolLogo />
+          {headLogoSign()}
         </div>
         <p className="font-[700] text-[16px] leading-[26px] text-[#424242]">
-          플레이하이브 일반 회원가입
+          {headTextSign()}
         </p>
       </div>
-      <SnsButtons signState="signup" />
-      <div className="space-y-[8px]">
-        <div className="space-y-[2px]">
-          <label
-            htmlFor="email"
-            className="text-[14px] leading-[22px] text-[#424242]"
-          >
-            이메일 인증
-          </label>
-          <div className="flex justify-between gap-[8px]">
-            <input
-              {...register("email", { required: true })}
-              type="text"
-              className={`${
-                isPending ? isDisabledInputStyle : inputStyle
-              } w-[240px]`}
-              id="email"
-              disabled={isPending}
-              placeholder="이메일 아이디를 입력해주세요."
-            />
-            {isVerificationSent ? (
-              <button
-                className={disabledVerificationButton}
-                type="button"
-                onClick={handleSendVerification}
-                disabled={isVerificationChecked}
-              >
-                재전송
-              </button>
-            ) : (
-              <button
-                className={verificationButton}
-                type="button"
-                onClick={handleSendVerification}
-              >
-                인증 전송
-              </button>
-            )}
-          </div>
-        </div>
-        <div className="space-y-4">
-          {isVerificationSent && (
+      <SnsButtons
+        signState="signup"
+        setSocialSignupState={setSocialSignupState}
+        socialSignup={socialSignup}
+      />
+      {socialSignupState === "" && (
+        <div className="space-y-[8px]">
+          <div className="space-y-[2px]">
+            <label
+              htmlFor="email"
+              className="text-[14px] leading-[22px] text-[#424242]"
+            >
+              이메일 인증
+            </label>
             <div className="flex justify-between gap-[8px]">
               <input
+                {...register("email", { required: true })}
                 type="text"
                 className={`${
                   isPending ? isDisabledInputStyle : inputStyle
                 } w-[240px]`}
-                id="code"
+                id="email"
                 disabled={isPending}
-                placeholder="인증코드를 입력해주세요."
-                value={verificationCode}
-                onChange={(e) => setVerificationCode(e.target.value)}
+                placeholder="이메일 아이디를 입력해주세요."
               />
-              {isVerificationChecked ? (
+              {isVerificationSent ? (
                 <button
                   className={disabledVerificationButton}
-                  disabled={true}
                   type="button"
+                  onClick={handleSendVerification}
+                  disabled={isVerificationChecked}
                 >
-                  인증완료
+                  재전송
                 </button>
               ) : (
                 <button
-                  onClick={handleCheckVerification}
                   className={verificationButton}
                   type="button"
+                  onClick={handleSendVerification}
                 >
-                  인증
+                  인증 전송
                 </button>
               )}
             </div>
-          )}
-          <p className={isPending ? isDisabledHelpTextStyle : helpTextStyle}>
-            인증 시간 제한 5:00
-          </p>
+          </div>
+          <div className="space-y-4">
+            {isVerificationSent && (
+              <div className="flex justify-between gap-[8px]">
+                <input
+                  type="text"
+                  className={`${
+                    isPending ? isDisabledInputStyle : inputStyle
+                  } w-[240px]`}
+                  id="code"
+                  disabled={isPending}
+                  placeholder="인증코드를 입력해주세요."
+                  value={verificationCode}
+                  onChange={(e) => setVerificationCode(e.target.value)}
+                />
+                {isVerificationChecked ? (
+                  <button
+                    className={disabledVerificationButton}
+                    disabled={true}
+                    type="button"
+                  >
+                    인증완료
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleCheckVerification}
+                    className={verificationButton}
+                    type="button"
+                  >
+                    인증
+                  </button>
+                )}
+              </div>
+            )}
+            <p className={isPending ? isDisabledHelpTextStyle : helpTextStyle}>
+              인증 시간 제한 5:00
+            </p>
+          </div>
         </div>
-      </div>
-      {inputObject.map((input) => (
-        <Input
-          key={input.id}
-          height={48}
-          type={input.type}
-          id={input.id}
-          register={register}
-          placeholder={input.placeholder}
-          helpText={input.validation}
-          label={input.label}
-          isDisabled={isPending}
-          isError={isError}
-        />
-      ))}
+      )}
+      {socialSignupState === ""
+        ? inputObject.map((input) => (
+            <Input
+              key={input.id}
+              height={48}
+              type={input.type}
+              id={input.id}
+              register={register}
+              placeholder={input.placeholder}
+              helpText={input.validation}
+              label={input.label}
+              isDisabled={isPending}
+              isError={isError}
+            />
+          ))
+        : snsInputObject.map((input) => (
+            <Input
+              key={input.id}
+              height={48}
+              type={input.type}
+              id={input.id}
+              register={register}
+              placeholder={input.placeholder}
+              helpText={input.validation}
+              label={input.label}
+              isDisabled={input.id === "email" ? true : isPending}
+              isError={isError}
+            />
+          ))}
       <div className="space-y-[16px] p-[16px] rounded-[5px] bg-[#FAFAFA]">
         <div className="flex items-center gap-[8px]">
           <input
