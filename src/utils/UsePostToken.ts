@@ -12,7 +12,6 @@ interface SignData {
 }
 
 const fetchSign = async (SignData: SignData, url: string) => {
-  console.log(`${API_BASE_URL}${url}`);
   const response = await axios.post(`${API_BASE_URL}${url}`, SignData, {
     headers: {
       "Content-Type": "application/json",

@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import Login from "./_components/Login";
 import Signup from "./_components/Signup";
 import { useForm } from "react-hook-form";
-import { useApiMutation } from "@/_hooks/query";
 import { useRouter } from "next/navigation";
 import usePostToken from "@/utils/UsePostToken";
+import { useQueryClient } from "@tanstack/react-query";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 interface FormData {
   username: string;
@@ -23,6 +24,7 @@ interface Tabs {
 
 export default function Sign() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [loginSignupState, setLoginSignupState] = useState<"login" | "signup">(
     "login"
   );
@@ -31,6 +33,7 @@ export default function Sign() {
   const { register, handleSubmit, setValue, watch, reset } =
     useForm<FormData>();
   const inputIsNotEmpty = Object.values(watch()).some((value) => value !== "");
+  const { mutate: authCheck, isSuccess } = useAuthCheck();
 
   const {
     mutate: fetchSign,
@@ -70,8 +73,9 @@ export default function Sign() {
     fetchSign(formData, {
       onSuccess: (data) => {
         if (loginSignupState === "login") {
-          router.push("/");
           localStorage.setItem("accessToken", data.headers.authorization);
+          authCheck();
+          router.push("/");
         } else {
           setLoginSignupState("login");
         }
