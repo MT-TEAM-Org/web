@@ -6,6 +6,7 @@ import Signup from "./_components/Signup";
 import { useForm } from "react-hook-form";
 import { useApiMutation } from "@/_hooks/query";
 import { useRouter } from "next/navigation";
+import usePostToken from "@/utils/UsePostToken";
 
 interface FormData {
   username: string;
@@ -35,23 +36,7 @@ export default function Sign() {
     mutate: fetchSign,
     isPending,
     isError,
-  } = useApiMutation(
-    "post",
-    loginSignupState === "login" ? "/login" : "/api/me/create",
-    {},
-    { withCredentials: true },
-    {
-      onSuccess: (data) => {
-        console.log(
-          loginSignupState === "login" ? "로그인 성공" : "회원가입 성공"
-        );
-        router.push("/");
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
+  } = usePostToken(loginSignupState === "login" ? "login" : "api/me/create");
 
   const tabs: Tabs[] = [
     { id: "login", label: "로그인" },
@@ -82,7 +67,16 @@ export default function Sign() {
     } else {
       setIsAllEmpty(false);
     }
-    fetchSign(formData);
+    fetchSign(formData, {
+      onSuccess: (data) => {
+        if (loginSignupState === "login") {
+          router.push("/");
+          localStorage.setItem("accessToken", data.headers.authorization);
+        } else {
+          setLoginSignupState("login");
+        }
+      },
+    });
   };
 
   const loginSignupStyle =

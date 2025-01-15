@@ -7,12 +7,21 @@ import { Naver } from "@/app/_components/icon/Naver";
 
 interface SnsButtonsProps {
   signState: "login" | "signup";
-  setSocialSignupState: (
+  setSocialSignupState?: (
     value: "google" | "naver" | "kakao" | "discord" | ""
   ) => void;
+  socialSignup?: any;
 }
 
-const SnsButtons = ({ signState, setSocialSignupState }: SnsButtonsProps) => {
+interface SnsButton {
+  name: "google" | "naver" | "kakao" | "discord";
+}
+
+const SnsButtons = ({
+  signState,
+  setSocialSignupState,
+  socialSignup,
+}: SnsButtonsProps) => {
   const snsButtonObject = [
     {
       name: "naver" as "naver",
@@ -36,6 +45,12 @@ const SnsButtons = ({ signState, setSocialSignupState }: SnsButtonsProps) => {
     return <div className="w-[117px] h-[1px] border-[1px] border-[#EEEEEE]" />;
   };
 
+  const socialSignupMutate = (snsButton: SnsButton) => {
+    if (!setSocialSignupState) return;
+    setSocialSignupState(snsButton.name);
+    socialSignup();
+  };
+
   return (
     <div>
       <div className="flex items-center min-h-[18px] gap-[8px]">
@@ -48,7 +63,7 @@ const SnsButtons = ({ signState, setSocialSignupState }: SnsButtonsProps) => {
       <div className="flex gap-[10px] justify-around mt-[8px] px-[10px]">
         {snsButtonObject.map((snsButton) => (
           <button
-            onClick={() => setSocialSignupState(snsButton.name)}
+            onClick={() => socialSignupMutate(snsButton)}
             className="w-[52px] h-[52px] flex justify-center items-center p-[10px] border-[1px] bg-[#FAFAFA] border-[#EEEEEE] rounded-full"
             type="button"
             key={snsButton.name}
