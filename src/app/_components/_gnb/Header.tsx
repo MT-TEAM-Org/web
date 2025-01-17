@@ -2,34 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { Logo } from "../icon/Logo";
-import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useQueryClient } from "@tanstack/react-query";
-
-// 로컬스토리지에 저장된 토큰이 초반 호출 상태 그대로 유지되서 감지가 안됨
-
-// interface AuthCheckResponse {
-//   status: "SUCCESS";
-//   msg: "로그인 회원 정보 조회 성공";
-//   data: {
-//     id: 21;
-//     email: "chi12122na@1n2aver.com";
-//     tel: "01029968391";
-//     nickname: "dBV8B";
-//     role: "USER";
-//     type: "LOCAL";
-//     status: "ACTIVE";
-//   };
-// }
+import { LoginButton, MyapgeButton } from "./_components/HeaderAuthButton";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 export default function Header() {
   const router = useRouter();
-  const queryClient = useQueryClient();
-  const { data, isSuccess } = useAuthCheck();
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    queryClient.invalidateQueries({ queryKey: ["authCheck"] });
-  };
+  const { data: userData, isLoading } = useAuthCheck();
 
   const headerButtonClass =
     "w-[87px] min-h-[40px] p-[10px] font-medium text-[16px] leading-[24px] text-center";
@@ -42,12 +22,6 @@ export default function Header() {
     {
       name: "고객센터",
       link: "/customer",
-    },
-    {
-      name: isSuccess ? "로그아웃" : "로그인/회원가입",
-      link: "/sign",
-      buttonClass:
-        "w-[124px] min-h-[40px] py-[13px] px-[16px] rounded-[5px] defaultButtonColor defaultButtonColor:hover text-white font-bold text-[14px] leading-[14px]",
     },
   ];
 
@@ -65,14 +39,17 @@ export default function Header() {
         {headerButton.map((item, index) => (
           <button
             key={index}
-            className={item.buttonClass ? item.buttonClass : headerButtonClass}
-            onClick={() =>
-              isSuccess ? handleLogout() : router.push(item?.link)
-            }
+            className={headerButtonClass}
+            onClick={() => router.push(item.link)}
           >
             {item?.name}
           </button>
         ))}
+        {userData?.data?.status === "SUCCESS" ? (
+          <MyapgeButton />
+        ) : (
+          <LoginButton />
+        )}
       </div>
     </div>
   );

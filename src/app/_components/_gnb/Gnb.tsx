@@ -1,6 +1,16 @@
 import Header from "./Header";
 import Navbar from "./Navbar";
 
+interface UserData {
+  id: number;
+  email: string;
+  tel: string;
+  nickname: string;
+  role: string;
+  type: string;
+  status: string;
+}
+
 export default function Gnb() {
   return (
     <>
