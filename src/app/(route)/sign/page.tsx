@@ -33,6 +33,7 @@ export default function Sign() {
   const { register, handleSubmit, setValue, watch, reset } =
     useForm<FormData>();
   const inputIsNotEmpty = Object.values(watch()).some((value) => value !== "");
+  const { data: authCheckData, isSuccess: authCheckIsSuccess } = useAuthCheck();
 
   const {
     mutate: fetchSign,

@@ -11,6 +11,7 @@ const fetchAuthCheck = async () => {
 };
 
 const useAuthCheck = () => {
+  const token = localStorage.getItem("accessToken");
   return useQuery({
     queryKey: ["authCheck"],
     queryFn: fetchAuthCheck,
