@@ -12,7 +12,7 @@ export default function Navbar() {
   const NavbarObject = [
     {
       name: "E스포츠",
-      link: "/esports",
+      link: "/e-sports",
     },
     {
       name: "축구",
