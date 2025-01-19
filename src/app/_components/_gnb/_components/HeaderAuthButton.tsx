@@ -27,7 +27,7 @@ export const LoginButton = () => {
   );
 };
 
-export const MyapgeButton = () => {
+export const MypageButton = () => {
   const [isDropDown, setIsDropDown] = useState(false);
   const { data: userData, isLoading } = useAuthCheck();
   const nickname = userData?.data?.data?.nickname;
