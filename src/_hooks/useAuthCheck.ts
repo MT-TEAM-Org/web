@@ -16,6 +16,7 @@ const useAuthCheck = () => {
     queryKey: ["authCheck"],
     queryFn: fetchAuthCheck,
     enabled: !!token,
+    retry: false,
   });
 };
 

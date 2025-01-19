@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Logo } from "../icon/Logo";
 import { useQueryClient } from "@tanstack/react-query";
-import { LoginButton, MyapgeButton } from "./_components/HeaderAuthButton";
+import { LoginButton, MypageButton } from "./_components/HeaderAuthButton";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 
 export default function Header() {
@@ -46,7 +46,7 @@ export default function Header() {
           </button>
         ))}
         {userData?.data?.status === "SUCCESS" ? (
-          <MyapgeButton />
+          <MypageButton />
         ) : (
           <LoginButton />
         )}
