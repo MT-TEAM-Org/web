@@ -15,8 +15,7 @@ const useAuthCheck = () => {
   return useQuery({
     queryKey: ["authCheck"],
     queryFn: fetchAuthCheck,
-    enabled: !!token,
-    retry: 1,
+    enabled: !!localStorage.getItem("accessToken"),
   });
 };
 

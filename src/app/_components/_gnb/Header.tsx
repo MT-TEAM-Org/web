@@ -2,18 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { Logo } from "../icon/Logo";
-import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useQueryClient } from "@tanstack/react-query";
+import { LoginButton, MyapgeButton } from "./_components/HeaderAuthButton";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 export default function Header() {
   const router = useRouter();
-  const queryClient = useQueryClient();
-  const { data, isSuccess } = useAuthCheck();
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    queryClient.resetQueries({ queryKey: ["authCheck"] });
-  };
+  const { data: userData, isLoading } = useAuthCheck();
 
   const headerButtonClass =
     "w-[87px] min-h-[40px] p-[10px] font-medium text-[16px] leading-[24px] text-center";
@@ -26,12 +22,6 @@ export default function Header() {
     {
       name: "고객센터",
       link: "/customer",
-    },
-    {
-      name: isSuccess ? "로그아웃" : "로그인/회원가입",
-      link: "/sign",
-      buttonClass:
-        "w-[124px] min-h-[40px] py-[13px] px-[16px] rounded-[5px] defaultButtonColor defaultButtonColor:hover text-white font-bold text-[14px] leading-[14px]",
     },
   ];
 
@@ -49,14 +39,17 @@ export default function Header() {
         {headerButton.map((item, index) => (
           <button
             key={index}
-            className={item.buttonClass ? item.buttonClass : headerButtonClass}
-            onClick={() =>
-              isSuccess ? handleLogout() : router.push(item?.link)
-            }
+            className={headerButtonClass}
+            onClick={() => router.push(item.link)}
           >
             {item?.name}
           </button>
         ))}
+        {userData?.data?.status === "SUCCESS" ? (
+          <MyapgeButton />
+        ) : (
+          <LoginButton />
+        )}
       </div>
     </div>
   );
