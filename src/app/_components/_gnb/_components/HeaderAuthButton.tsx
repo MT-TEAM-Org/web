@@ -3,7 +3,8 @@ import useAuthCheck from "@/_hooks/useAuthCheck";
 import { ProfileLogo } from "../../icon/ProfileLogo";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { api } from "@/_hooks/api";
 
 export const LoginButton = () => {
   const router = useRouter();
@@ -11,8 +12,8 @@ export const LoginButton = () => {
 
   return (
     <>
-      //TODO: 로딩 스피너 추가해야 함
       {isLoading ? (
+        //TODO: 로딩 스피터 추가
         <div>로딩중</div>
       ) : (
         <button
@@ -32,11 +33,27 @@ export const MyapgeButton = () => {
   const nickname = userData?.data?.data?.nickname;
 
   const queryClient = useQueryClient();
+  const router = useRouter();
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    queryClient.resetQueries({ queryKey: ["authCheck"] });
+  const fetchLogout = async () => {
+    const response = await api.post(
+      "/logout",
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return response;
   };
+
+  const useLogoutMutation = useMutation({
+    mutationFn: fetchLogout,
+    onSuccess: () => {
+      localStorage.removeItem("accessToken");
+      //TODO: invalidateQueries 동작 안함으로 일단 새로고침으로 두었음
+      window.location.reload();
+    },
+  });
 
   const dropDownMenu = [
     {
@@ -84,18 +101,21 @@ export const MyapgeButton = () => {
               key={index}
               className="w-[252px] min-h-[48px] border-b border-[#EEEEEE] py-[4px] px-[16px] last:py-[16px] last:border-b-0"
             >
-              <a
-                href={item.link}
+              <button
                 onClick={(e) => {
                   if (item.name === "로그아웃") {
                     e.preventDefault();
-                    handleLogout();
+                    useLogoutMutation.mutate();
+                  } else {
+                    if (item.link) {
+                      router.push(item.link);
+                    }
                   }
                 }}
-                className="text-[#424242] text-[16px] leading-[16px] font-medium"
+                className="text-[#424242] text-[16px] leading-[16px] font-medium w-full text-left"
               >
                 {item.name}
-              </a>
+              </button>
             </li>
           ))}
         </ul>

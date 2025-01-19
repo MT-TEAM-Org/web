@@ -22,7 +22,7 @@ export default function RootLayout({
         <body className="defaultFont">
           <Gnb />
           {children}
-          <Footer />
+          {/* <Footer /> */}
         </body>
       </QueryProvider>
     </html>
