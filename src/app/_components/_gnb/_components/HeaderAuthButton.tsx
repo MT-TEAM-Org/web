@@ -27,7 +27,7 @@ export const LoginButton = () => {
   );
 };
 
-export const MyapgeButton = () => {
+export const MypageButton = () => {
   const [isDropDown, setIsDropDown] = useState(false);
   const { data: userData, isLoading } = useAuthCheck();
   const nickname = userData?.data?.data?.nickname;
@@ -48,10 +48,11 @@ export const MyapgeButton = () => {
 
   const useLogoutMutation = useMutation({
     mutationFn: fetchLogout,
+
     onSuccess: () => {
       localStorage.removeItem("accessToken");
-      //TODO: invalidateQueries 동작 안함으로 일단 새로고침으로 두었음
-      window.location.reload();
+      queryClient.resetQueries({ queryKey: ["authCheck"] });
+      router.push("/");
     },
   });
 
@@ -104,7 +105,6 @@ export const MyapgeButton = () => {
               <button
                 onClick={(e) => {
                   if (item.name === "로그아웃") {
-                    e.preventDefault();
                     useLogoutMutation.mutate();
                   } else {
                     if (item.link) {
