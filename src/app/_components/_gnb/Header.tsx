@@ -28,9 +28,9 @@ export default function Header() {
   return (
     <div className="w-full max-w-[1200px] min-h-[64px] mx-auto flex justify-between items-center">
       <div className="flex max-w-[476.74px] items-center gap-4">
-        <h1 onClick={() => router.push("/")} className="">
+        <div onClick={() => router.push("/")} className="">
           <Logo />
-        </h1>
+        </div>
         <p className="font-bold max-w-[325px] min-h-[12px] text-[16px] leading-[19.97px] text-[#00ADEE] whitespace-nowrap">
           모두 함께 즐기는 클린 스포츠 커뮤니티 플레이 하이브!
         </p>
