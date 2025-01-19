@@ -74,6 +74,7 @@ export default function Sign() {
       onSuccess: (data) => {
         if (loginSignupState === "login") {
           localStorage.setItem("accessToken", data.headers.authorization);
+          queryClient.setQueryData(["authCheck"], null);
           queryClient.invalidateQueries({ queryKey: ["authCheck"] });
           router.push("/");
         } else {
