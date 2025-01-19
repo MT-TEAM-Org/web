@@ -13,6 +13,7 @@ import { Naver } from "@/app/_components/icon/Naver";
 import { Kakao } from "@/app/_components/icon/Kakao";
 import { Discord } from "@/app/_components/icon/Discord";
 import { useApiMutation } from "@/_hooks/query";
+import axios from "axios";
 
 interface FormData {
   username: string;
@@ -57,20 +58,15 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
     personalAgree: false,
     marketingAgree: false,
   });
-  const [socialSignupState, setSocialSignupState] = useState<
+  const [social, setsocial] = useState<
     "google" | "naver" | "kakao" | "discord" | ""
   >("");
 
   const { mutate: socialSignup } = useApiMutation(
     "post",
-    `/oauth2/authorization/${[socialSignupState]}`,
+    `/oauth2/authorization/${[social]}`,
     null,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    }
+    {}
   );
 
   const email = watch("email");
@@ -221,19 +217,18 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
   };
 
   const headLogoSign = () => {
-    if (socialSignupState === "google") return <Google />;
-    else if (socialSignupState === "naver") return <Naver />;
-    else if (socialSignupState === "kakao") return <Kakao />;
-    else if (socialSignupState === "discord") return <Discord />;
+    if (social === "google") return <Google />;
+    else if (social === "naver") return <Naver />;
+    else if (social === "kakao") return <Kakao />;
+    else if (social === "discord") return <Discord />;
     else return <SymbolLogo />;
   };
 
   const headTextSign = () => {
-    if (socialSignupState === "google") return "구글 SNS 간편 회원가입";
-    else if (socialSignupState === "naver") return "네이버 SNS 간편 회원가입";
-    else if (socialSignupState === "kakao") return "카카오 SNS 간편 회원가입";
-    else if (socialSignupState === "discord")
-      return "디스코드 SNS 간편 회원가입";
+    if (social === "google") return "구글 SNS 간편 회원가입";
+    else if (social === "naver") return "네이버 SNS 간편 회원가입";
+    else if (social === "kakao") return "카카오 SNS 간편 회원가입";
+    else if (social === "discord") return "디스코드 SNS 간편 회원가입";
     else return "플레이하이브 일반 회원가입";
   };
 
@@ -257,12 +252,8 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
           {headTextSign()}
         </p>
       </div>
-      <SnsButtons
-        signState="signup"
-        setSocialSignupState={setSocialSignupState}
-        socialSignup={socialSignup}
-      />
-      {socialSignupState === "" && (
+      <SnsButtons signState="signup" />
+      {social === "" && (
         <div className="space-y-[8px]">
           <div className="space-y-[2px]">
             <label
@@ -341,7 +332,7 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
           </div>
         </div>
       )}
-      {socialSignupState === ""
+      {social === ""
         ? inputObject.map((input) => (
             <Input
               key={input.id}

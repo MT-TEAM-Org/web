@@ -1,27 +1,55 @@
 "use client";
 
+import useAuthCheck from "@/_hooks/useAuthCheck";
 import { Discord } from "@/app/_components/icon/Discord";
 import { Google } from "@/app/_components/icon/Google";
 import { Kakao } from "@/app/_components/icon/Kakao";
 import { Naver } from "@/app/_components/icon/Naver";
+import axios from "axios";
+import { useSocialStore } from "@/utils/Store";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface SnsButtonsProps {
   signState: "login" | "signup";
-  setSocialSignupState?: (
-    value: "google" | "naver" | "kakao" | "discord" | ""
-  ) => void;
-  socialSignup?: any;
 }
 
-interface SnsButton {
-  name: "google" | "naver" | "kakao" | "discord";
-}
+const SnsButtons = ({ signState }: SnsButtonsProps) => {
+  const { social, setSocial } = useSocialStore();
 
-const SnsButtons = ({
-  signState,
-  setSocialSignupState,
-  socialSignup,
-}: SnsButtonsProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  //TODO: reissue까진 완료함 각 소셜로그인별 추가정보 입력 필드 분기처리 해야함 (형준님 필요)
+
+  useEffect(() => {
+    const status = searchParams.get("status");
+    const email = searchParams.get("email");
+
+    if (status === "PENDING") {
+      console.log(social);
+      handleReissue();
+    }
+  }, [searchParams]);
+
+  const handleReissue = async () => {
+    try {
+      const response = await axios.post(
+        "http://api.playhive.shop:8080/reissue",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        localStorage.setItem("accessToken", response.headers.authorization);
+      }
+      return response;
+    } catch (error) {
+      console.error("Reissue failed", error);
+    }
+  };
+
   const snsButtonObject = [
     {
       name: "naver" as "naver",
@@ -30,25 +58,27 @@ const SnsButtons = ({
     {
       name: "kakao" as "kakao",
       icon: <Kakao />,
+      link: "http://api.playhive.shop:8080/oauth2/authorization/kakao",
     },
     {
       name: "google" as "google",
       icon: <Google />,
+      link: "http://api.playhive.shop:8080/oauth2/authorization/google",
     },
     {
       name: "discord" as "discord",
       icon: <Discord />,
+      link: "http://api.playhive.shop:8080/oauth2/authorization/discord",
     },
   ];
 
-  const snsGrayLine = () => {
-    return <div className="w-[117px] h-[1px] border-[1px] border-[#EEEEEE]" />;
+  const handleSnsRoute = (sns: "google" | "naver" | "kakao" | "discord") => {
+    setSocial(sns);
+    router.push(`http://api.playhive.shop:8080/oauth2/authorization/${sns}`);
   };
 
-  const socialSignupMutate = (snsButton: SnsButton) => {
-    if (!setSocialSignupState) return;
-    setSocialSignupState(snsButton.name);
-    socialSignup();
+  const snsGrayLine = () => {
+    return <div className="w-[117px] h-[1px] border-[1px] border-[#EEEEEE]" />;
   };
 
   return (
@@ -63,9 +93,11 @@ const SnsButtons = ({
       <div className="flex gap-[10px] justify-around mt-[8px] px-[10px]">
         {snsButtonObject.map((snsButton) => (
           <button
-            onClick={() => socialSignupMutate(snsButton)}
-            className="w-[52px] h-[52px] flex justify-center items-center p-[10px] border-[1px] bg-[#FAFAFA] border-[#EEEEEE] rounded-full"
             type="button"
+            onClick={() => {
+              handleSnsRoute(snsButton.name);
+            }}
+            className="w-[52px] h-[52px] flex justify-center items-center p-[10px] border-[1px] bg-[#FAFAFA] border-[#EEEEEE] rounded-full"
             key={snsButton.name}
           >
             {snsButton.icon}
