@@ -82,19 +82,19 @@ export const MypageButton = () => {
     },
   ];
   return (
-    <div className="relative flex items-center gap-[16px] max-w-[165px] min-h-[42px] rounded-full py-[8px] px-[16px] cursor-pointer">
+    <div
+      className="relative flex items-center gap-[16px] max-w-[165px] min-h-[42px] rounded-full py-[8px] px-[16px] cursor-pointer"
+      onMouseEnter={() => setIsDropDown(true)}
+    >
       <ProfileLogo />
-      <p
-        onMouseEnter={() => setIsDropDown(true)}
-        className="max-w-[83px] min-h-[26px] font-medium text-[16px] leading-[26px] text-[#424242]"
-      >
+      <p className="max-w-[83px] min-h-[26px] font-medium text-[16px] leading-[26px] text-[#424242]">
         {nickname}님
       </p>
 
       {isDropDown && (
         <ul
-          onMouseEnter={() => setIsDropDown(true)}
           onMouseLeave={() => setIsDropDown(false)}
+          onMouseEnter={() => setIsDropDown(true)}
           className="flex flex-col items-center gap-y-[16px] max-w-[252px] min-h-[336px] rounded-[10px] absolute top-12 right-0 z-10 bg-white shadow-[0px_8px_24px_-4px_rgba(0,0,0,0.1)] py-[16px] border-[#dbdbdb]"
         >
           {dropDownMenu.map((item, index) => (
