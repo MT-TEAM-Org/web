@@ -20,3 +20,15 @@
 .defaultButtonColor:hover {
   background-color: #009ad4;
 }
+
+.select::-ms-expand {
+  display: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+  border: 1px solid #424242;
+}

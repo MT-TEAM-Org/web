@@ -97,7 +97,7 @@ const Login = ({
   };
 
   const inputStyle =
-    "w-full h-[48px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] outline-none placeholder-[#A6A6A6] focus:border-[#424242]";
+    "w-full h-[48px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6]";
   const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
   const isEmptyInputStyle = inputStyle + " border-[#424242]";
   const iconButtonStyle = "absolute right-[16px] top-[38px]";

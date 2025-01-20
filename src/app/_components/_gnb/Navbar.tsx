@@ -12,7 +12,7 @@ export default function Navbar() {
   const NavbarObject = [
     {
       name: "E스포츠",
-      link: "/esports",
+      link: "/e-sports",
     },
     {
       name: "축구",
@@ -41,7 +41,7 @@ export default function Navbar() {
         {NavbarObject.map((item, index) => (
           <div
             key={index}
-            className={`${navbarClass} flex justify-around items-center ${
+            className={`${navbarClass} flex justify-around items-center cursor-pointer ${
               index === 0 ? "pl-0" : ""
             }`}
             onClick={() => router.push(item.link)}
