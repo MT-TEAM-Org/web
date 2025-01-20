@@ -14,6 +14,7 @@ import { Kakao } from "@/app/_components/icon/Kakao";
 import { Discord } from "@/app/_components/icon/Discord";
 import { useApiMutation } from "@/_hooks/query";
 import axios from "axios";
+import { useSocialStore } from "@/utils/Store";
 
 interface FormData {
   username: string;
@@ -28,6 +29,7 @@ interface SignupProps {
   watch: UseFormWatch<FormData>;
   isPending: boolean;
   isError: boolean;
+  setSuccessAgree: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface Selected {
@@ -47,7 +49,13 @@ interface VerificationCodeRequest {
   code: string;
 }
 
-const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
+const Signup = ({
+  register,
+  watch,
+  isPending,
+  isError,
+  setSuccessAgree,
+}: SignupProps) => {
   const [isVerificationSent, setIsVerificationSent] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
   const [isVerificationChecked, setIsVerificationChecked] = useState(false);
@@ -58,17 +66,7 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
     personalAgree: false,
     marketingAgree: false,
   });
-  const [social, setsocial] = useState<
-    "google" | "naver" | "kakao" | "discord" | ""
-  >("");
-
-  const { mutate: socialSignup } = useApiMutation(
-    "post",
-    `/oauth2/authorization/${[social]}`,
-    null,
-    {}
-  );
-
+  const { social } = useSocialStore();
   const email = watch("email");
 
   useEffect(() => {
@@ -80,6 +78,7 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
         ...prev,
         allAgree: true,
       }));
+      setSuccessAgree(true);
     }
     // 하나라도 체크가 해제되면 전체 동의 해제
     else if (!serviceAgree || !personalAgree || !marketingAgree) {
@@ -233,7 +232,7 @@ const Signup = ({ register, watch, isPending, isError }: SignupProps) => {
   };
 
   const inputStyle =
-    "h-[48px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6] focus:border-[#424242] focus:border-[1px] focus:outline-none";
+    "h-[48px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6]";
   const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
   const helpTextStyle = "text-[14px] text-[#A6A6A6] leading-[22px] px-[16px]";
   const isDisabledHelpTextStyle = helpTextStyle + " text-[#A6A6A6]";

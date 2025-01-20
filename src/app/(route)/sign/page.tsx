@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import usePostToken from "@/utils/UsePostToken";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
+import { useSignupStore } from "@/utils/Store";
+import { useSocialStore } from "@/utils/Store";
 
 interface FormData {
   username: string;
@@ -25,6 +27,8 @@ interface Tabs {
 export default function Sign() {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { signStateStore } = useSignupStore();
+  const { social } = useSocialStore();
   const [loginSignupState, setLoginSignupState] = useState<"login" | "signup">(
     "login"
   );
@@ -34,6 +38,13 @@ export default function Sign() {
     useForm<FormData>();
   const inputIsNotEmpty = Object.values(watch()).some((value) => value !== "");
   const { data: authCheckData, isSuccess: authCheckIsSuccess } = useAuthCheck();
+  const [successAgree, setSuccessAgree] = useState(false);
+
+  useEffect(() => {
+    if (social !== "") {
+      setLoginSignupState("signup");
+    }
+  }, [social]);
 
   const {
     mutate: fetchSign,
@@ -70,6 +81,10 @@ export default function Sign() {
     } else {
       setIsAllEmpty(false);
     }
+    // if (loginSignupState === "signup" && signStateStore !== "") {
+    //   console.log("소셜 로그인 회원정보 수정 완료~!");
+    //   return;
+    // }
     fetchSign(formData, {
       onSuccess: (data) => {
         if (loginSignupState === "login") {
@@ -104,7 +119,15 @@ export default function Sign() {
         ))}
       </div>
       <form className="w-full mt-[24px]" onSubmit={handleSubmit(onSubmit)}>
-        {loginSignupState === "login" ? (
+        {signStateStore !== "" ? (
+          <Signup
+            register={register}
+            watch={watch}
+            isPending={isPending}
+            isError={localIsError}
+            setSuccessAgree={setSuccessAgree}
+          />
+        ) : loginSignupState === "login" ? (
           <Login
             register={register}
             setValue={setValue}
@@ -119,6 +142,7 @@ export default function Sign() {
             watch={watch}
             isPending={isPending}
             isError={localIsError}
+            setSuccessAgree={setSuccessAgree}
           />
         )}
       </form>

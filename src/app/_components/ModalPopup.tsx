@@ -7,7 +7,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
   if (!show) return null;
 
   const buttonStyle =
-    "w-[160px] min-h-[48px] rounded-[5px] text-[16px] leading-[16px] font-[700] focus:outline-none";
+    "w-[160px] min-h-[48px] rounded-[5px] text-[16px] leading-[16px] font-[700]";
   return (
     <div className="fixed inset-0 bg-[#000000B2] bg-opacity-70 flex items-center justify-center z-50">
       <div className="flex flex-col bg-[#FFFFFF] w-[548px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg">
@@ -21,7 +21,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
           <textarea
             id="modalTextarea"
             placeholder="문의 내용을 입력해주세요."
-            className="resize-none w-full rounded-[5px] min-h-[200px] border px-[12px] py-[16px] focus:border-[#424242] focus:border-[1px] focus:outline-none"
+            className="resize-none w-full rounded-[5px] min-h-[200px] border px-[12px] py-[16px]"
             style={{ overflow: "hidden", overflowY: "auto" }}
           />
         </div>

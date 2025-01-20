@@ -21,3 +21,17 @@ export const useSocialStore = create<SocialStateStore>()(
     }
   )
 );
+
+type SignState = "login" | "signup" | "";
+
+interface SignupStateStore {
+  signStateStore: SignState;
+  setSignupStore: () => void;
+  setClearSignupStore: () => void;
+}
+
+export const useSignupStore = create<SignupStateStore>((set) => ({
+  signStateStore: "",
+  setSignupStore: () => set({ signStateStore: "signup" }),
+  setClearSignupStore: () => set({ signStateStore: "" }),
+}));

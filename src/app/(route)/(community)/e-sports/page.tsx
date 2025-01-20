@@ -1,49 +1,139 @@
 "use client";
 
+import Arrow_down from "@/app/_components/icon/Arrow_down";
+import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
+import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
+import Mini_logo from "@/app/_components/icon/Mini_logo";
+import Pg_double_left from "@/app/_components/icon/Pg_double_left";
+import Pg_double_right from "@/app/_components/icon/Pg_double_right";
+import Pg_left from "@/app/_components/icon/Pg_left";
+import Pg_right from "@/app/_components/icon/Pg_right";
+import Small_Search from "@/app/_components/icon/Small_Search";
+import { useRef } from "react";
+import PostItem from "../_components/PostItem";
+
 const Esports = () => {
+  const selectRef = useRef<HTMLSelectElement>(null);
+
   const searchOptions = [
     { value: "1", label: "제목+내용" },
     { value: "2", label: "제목" },
     { value: "3", label: "내용" },
+    { value: "4", label: "댓글" },
+    { value: "5", label: "작성자" },
   ];
 
+  const pagenataion = [
+    { value: "1", label: "1" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
+    { value: "4", label: "4" },
+    { value: "5", label: "5" },
+  ];
+
+  const handleDivClick = () => {
+    if (selectRef.current) {
+      selectRef.current.focus();
+      selectRef.current.click();
+    }
+  };
+
   const buttonStyle =
-    "flex justify-center items-center h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
+    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
+  const pageButtonStyle =
+    "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
   return (
-    <div className="flex justify-center">
-      <div className="w-[720px] min-h-[120px] rounded-[5px] border-b">
+    <div className="flex justify-center bg-[#FAFAFA]">
+      <div className="w-[720px] min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF]">
         <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
-          <button className="defaultButtonColor w-[120px] min-h-[40px] rounded-[5px] px-[13px] py-[16px] text-white font-[700] text-[14px] leading-[14px]">
+          <button className="defaultButtonColor w-[120px] h-[40px] rounded-[5px] px-[16px] py-[13px] text-white font-[700] text-[14px] leading-[14px]">
             글쓰기
           </button>
-          <div className="flex items-center gap-[8px] w-[356px] h-[40px]">
-            <select className="w-[120px] min-h-[40px] rounded-[5px] px-[12px] py-[16px] border">
-              {searchOptions.map((option) => (
-                <option
-                  key={option.value}
-                  value={option.value}
-                  className="text-[14px] leading-[22px]"
-                >
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            <input
-              type="text"
-              className="w-full h-[40px] rounded-[5px] border px-[12px] py-[6px]"
-              placeholder="검색어를 입력해주세요."
-            />
+          <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
+            <div className="relative" onClick={handleDivClick}>
+              <select
+                className="appearance-none w-[120px] h-[40px] rounded-[5px] px-[12px] border text-[14px] leading-[22px] cursor-pointer [&>option]:h-[40px] [&>option]:px-[12px] [&>option]:py-[16px]"
+                ref={selectRef}
+              >
+                {searchOptions.map((option) => (
+                  <option
+                    key={option.value}
+                    value={option.value}
+                    className="h-[40px] px-[12px] py-[16px]"
+                  >
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute top-2 right-2 pointer-events-none">
+                <Arrow_down />
+              </div>
+            </div>
+            <form className="relative">
+              <input
+                type="text"
+                className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
+                placeholder="검색어를 입력해주세요."
+              />
+              <button className="absolute top-2 left-[12px]">
+                <Small_Search />
+              </button>
+            </form>
           </div>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center p-[12px]">
           <div className="flex w-full items-center gap-[4px]">
-            <button className={buttonStyle}>최신순</button>
-            <button className={buttonStyle}>인기순</button>
-            <button className={buttonStyle}>댓글 많은 순</button>
+            <button className={`${buttonStyle} font-[700]`}>
+              <Blue_outline_logo />
+              최신순
+            </button>
+            <button className={buttonStyle}>
+              <Red_outline_logo />
+              인기순
+            </button>
+            <button className={buttonStyle}>
+              <Mini_logo />
+              댓글 많은 순
+            </button>
           </div>
 
-          <div>{/* 페이지네이션 */}</div>
+          <div className="flex">
+            <div className="flex items-center gap-[10px]">
+              <button className={pageButtonStyle}>
+                <Pg_double_left />
+              </button>
+              <button className={pageButtonStyle}>
+                <Pg_left />
+              </button>
+            </div>
+
+            <div className="flex gap-[8px] mx-[8px]">
+              {pagenataion.map((page) => (
+                <button
+                  key={page.value}
+                  className={`${pageButtonStyle} ${
+                    page.value === "1" && "font-[700]"
+                  } text-[14px] leading-[20px] text-[#424242]`}
+                >
+                  {page.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-[10px]">
+              <button className={pageButtonStyle}>
+                <Pg_right />
+              </button>
+              <button className={pageButtonStyle}>
+                <Pg_double_right />
+              </button>
+            </div>
+          </div>
         </div>
+        <PostItem />
+        {Array.from({ length: 15 }).map((_, index) => (
+          <PostItem key={index} />
+        ))}
       </div>
     </div>
   );
