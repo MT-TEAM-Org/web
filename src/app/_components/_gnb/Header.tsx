@@ -28,7 +28,7 @@ export default function Header() {
   return (
     <div className="w-full max-w-[1200px] min-h-[64px] mx-auto flex justify-between items-center">
       <div className="flex max-w-[476.74px] items-center gap-4">
-        <div onClick={() => router.push("/")} className="">
+        <div onClick={() => router.push("/")} className="cursor-pointer">
           <Logo />
         </div>
         <p className="font-bold max-w-[325px] min-h-[12px] text-[16px] leading-[19.97px] text-[#00ADEE] whitespace-nowrap">

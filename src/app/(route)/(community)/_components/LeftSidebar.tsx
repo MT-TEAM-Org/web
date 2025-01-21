@@ -1,4 +1,4 @@
-const Sidebar = () => {
+const LeftSidebar = () => {
   const boardList = [
     { name: "전체", id: 0 },
     { name: "자유", id: 1 },
@@ -10,8 +10,8 @@ const Sidebar = () => {
   ];
 
   return (
-    <div>
-      <div className="sticky top-[314px] left-[360px] w-[160px] min-h-[364px] rounded-[5px] bg-[#FFFFFF]">
+    <div className="w-[160px] h-[364px]">
+      <div className="w-full bg-[#FFFFFF]">
         {boardList.map((board) => (
           <div key={board.id} className="w-full h-[52px] px-[20px] py-[12px]">
             <p
@@ -30,4 +30,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default LeftSidebar;
