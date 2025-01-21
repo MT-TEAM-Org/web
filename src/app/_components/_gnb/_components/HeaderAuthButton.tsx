@@ -18,7 +18,7 @@ export const LoginButton = () => {
       ) : (
         <button
           onClick={() => router.push("/sign")}
-          className="w-[124px] min-h-[40px] py-[13px] px-[16px] rounded-[5px] defaultButtonColor defaultButtonColor:hover text-white font-bold text-[14px] leading-[14px]"
+          className="w-[124px] min-h-[40px] py-[13px] px-[16px] rounded-[5px] defaultButtonColor defaultButtonColor:hover text-white font-bold text-[14px] leading-[14px] whitespace-nowrap"
         >
           로그인/회원가입
         </button>

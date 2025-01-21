@@ -1,7 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import Banner from "../_components/Banner";
-import Sidebar from "../_components/Sidebar";
+import LeftSidebar from "../_components/LeftSidebar";
+import { RightSideBar } from "../_components/RightSideBar";
 
 export const metadata = {
   title: "e스포츠 페이지",
@@ -10,11 +11,20 @@ export const metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
+    <div className="bg-gray-500">
       <Banner url={"eSports_banner.png"} />
-      <div className="mt-[20px]">
-        {children}
-        <Sidebar />
+      <div className="mt-[20px] max-w-[1200px] mx-auto flex gap-[10px] px-[20px]">
+        <div className="w-[160px] min-h-[364px]">
+          <div className="sticky top-[314px]">
+            <LeftSidebar />
+          </div>
+        </div>
+        <div className="flex-1 max-w-[720px]">{children}</div>
+        <div className="flex-1">
+          <div className="sticky top-[314px]">
+            <RightSideBar />
+          </div>
+        </div>
       </div>
     </div>
   );
