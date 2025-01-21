@@ -55,7 +55,7 @@ export default function Sign() {
     if (statusParam === "PENDING" && !tokenExists) {
       reissue();
     }
-  }, [statusParam]); // searchParams 대신 status만 의존성에 추가
+  }, [statusParam]);
 
   useEffect(() => {
     if (statusParam === "PENDING" && emailParam) {
