@@ -10,6 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useSignupStore } from "@/utils/Store";
 import { useSocialStore } from "@/utils/Store";
+import useEditUserData from "@/_hooks/useEditUserData";
 
 interface FormData {
   username: string;
@@ -27,18 +28,26 @@ interface Tabs {
 export default function Sign() {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { signStateStore } = useSignupStore();
-  const { social } = useSocialStore();
+  const { signStateStore, setClearSignupStore } = useSignupStore();
+  const { social, resetSocial } = useSocialStore();
   const [loginSignupState, setLoginSignupState] = useState<"login" | "signup">(
     "login"
   );
   const [localIsError, setLocalIsError] = useState(false);
   const [isAllEmpty, setIsAllEmpty] = useState(false);
-  const { register, handleSubmit, setValue, watch, reset } =
+  const { register, handleSubmit, setValue, watch, reset, getValues } =
     useForm<FormData>();
   const inputIsNotEmpty = Object.values(watch()).some((value) => value !== "");
   const { data: authCheckData, isSuccess: authCheckIsSuccess } = useAuthCheck();
+  const { mutate: fetchEditUserData } = useEditUserData();
   const [successAgree, setSuccessAgree] = useState(false);
+  const [socialDefaultEmail, setSocialDefaultEmail] = useState("");
+
+  useEffect(() => {
+    if (socialDefaultEmail !== "") {
+      setValue("email", socialDefaultEmail);
+    }
+  }, [socialDefaultEmail]);
 
   useEffect(() => {
     if (social !== "") {
@@ -81,22 +90,45 @@ export default function Sign() {
     } else {
       setIsAllEmpty(false);
     }
-    // if (loginSignupState === "signup" && signStateStore !== "") {
-    //   console.log("소셜 로그인 회원정보 수정 완료~!");
-    //   return;
-    // }
-    fetchSign(formData, {
-      onSuccess: (data) => {
-        if (loginSignupState === "login") {
-          localStorage.setItem("accessToken", data.headers.authorization);
-          queryClient.setQueryData(["authCheck"], null);
-          queryClient.invalidateQueries({ queryKey: ["authCheck"] });
-          router.push("/");
-        } else {
-          setLoginSignupState("login");
+    if (loginSignupState === "signup") {
+      if (!successAgree) {
+        return alert("필수약관에 동의해주세요.");
+      }
+    }
+    if (social !== "" && loginSignupState === "signup") {
+      fetchEditUserData(
+        {
+          email: formData.email,
+          tel: formData.tel,
+          nickname: formData.nickname,
+        },
+        {
+          onSuccess: () => {
+            const joinToken = localStorage.getItem("joinToken");
+            joinToken && localStorage.setItem("accessToken", joinToken);
+            setSuccessAgree(false);
+            setClearSignupStore();
+            resetSocial();
+            router.push("/");
+          },
         }
-      },
-    });
+      );
+      return;
+    } else {
+      fetchSign(formData, {
+        onSuccess: (data) => {
+          if (loginSignupState === "login") {
+            localStorage.setItem("accessToken", data.headers.authorization);
+            queryClient.setQueryData(["authCheck"], null);
+            queryClient.invalidateQueries({ queryKey: ["authCheck"] });
+            router.push("/");
+          } else {
+            setLoginSignupState("login");
+            setSuccessAgree(false);
+          }
+        },
+      });
+    }
   };
 
   const loginSignupStyle =
@@ -126,6 +158,7 @@ export default function Sign() {
             isPending={isPending}
             isError={localIsError}
             setSuccessAgree={setSuccessAgree}
+            setSocialDefaultEmail={setSocialDefaultEmail}
           />
         ) : loginSignupState === "login" ? (
           <Login

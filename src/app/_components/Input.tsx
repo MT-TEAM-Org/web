@@ -12,6 +12,7 @@ interface InputProps {
   register: UseFormRegister<any>;
   isDisabled?: boolean;
   isError?: boolean;
+  defaultValue?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -28,7 +29,8 @@ const Input: React.FC<InputProps> = ({
   const inputStyle = `h-[${height}px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6]`;
   const labelStyle = "text-[14px] leading-[22px] text-[#424242]";
   const helpTextStyle = "text-[14px] text-[#A6A6A6] leading-[22px] px-[16px]";
-  const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
+  const isDisabledInputStyle =
+    inputStyle + " bg-[#EEEEEE] border-[#DBDBDB] text-[#A6A6A6]";
   const isDisabledHelpTextStyle = helpTextStyle + " text-[#A6A6A6]";
   const isErrorTextStyle = helpTextStyle + " text-[#D1504B]";
   return (

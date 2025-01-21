@@ -8,7 +8,7 @@ import { Naver } from "@/app/_components/icon/Naver";
 import axios from "axios";
 import { useSocialStore } from "@/utils/Store";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 interface SnsButtonsProps {
@@ -17,22 +17,25 @@ interface SnsButtonsProps {
 
 const SnsButtons = ({ signState }: SnsButtonsProps) => {
   const { social, setSocial } = useSocialStore();
-
+  const isReissued = useRef(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const status = searchParams.get("status");
+  const email = searchParams.get("email");
   //TODO: reissue까진 완료함 각 소셜로그인별 추가정보 입력 필드 분기처리 해야함 (형준님 필요)
 
   useEffect(() => {
-    const status = searchParams.get("status");
-    const email = searchParams.get("email");
-
     if (status === "PENDING") {
-      console.log(social);
-      handleReissue();
+      if (!localStorage.getItem("joinToken")) {
+        handleReissue();
+      }
     }
   }, [searchParams]);
 
   const handleReissue = async () => {
+    if (isReissued.current) return;
+    isReissued.current = true;
+
     try {
       const response = await axios.post(
         "http://api.playhive.shop:8080/reissue",
@@ -42,7 +45,7 @@ const SnsButtons = ({ signState }: SnsButtonsProps) => {
         }
       );
       if (response.status === 200) {
-        localStorage.setItem("accessToken", response.headers.authorization);
+        localStorage.setItem("joinToken", response.headers.authorization);
       }
       return response;
     } catch (error) {

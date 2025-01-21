@@ -13,8 +13,8 @@ import { Naver } from "@/app/_components/icon/Naver";
 import { Kakao } from "@/app/_components/icon/Kakao";
 import { Discord } from "@/app/_components/icon/Discord";
 import { useApiMutation } from "@/_hooks/query";
-import axios from "axios";
 import { useSocialStore } from "@/utils/Store";
+import { useSearchParams } from "next/navigation";
 
 interface FormData {
   username: string;
@@ -30,6 +30,7 @@ interface SignupProps {
   isPending: boolean;
   isError: boolean;
   setSuccessAgree: React.Dispatch<React.SetStateAction<boolean>>;
+  setSocialDefaultEmail?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface Selected {
@@ -55,6 +56,7 @@ const Signup = ({
   isPending,
   isError,
   setSuccessAgree,
+  setSocialDefaultEmail,
 }: SignupProps) => {
   const [isVerificationSent, setIsVerificationSent] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
@@ -68,6 +70,15 @@ const Signup = ({
   });
   const { social } = useSocialStore();
   const email = watch("email");
+  const searchParams = useSearchParams();
+  const statusParam = searchParams.get("status");
+  const emailParam = searchParams.get("email");
+
+  useEffect(() => {
+    if (statusParam === "PENDING" && emailParam) {
+      setSocialDefaultEmail && setSocialDefaultEmail(emailParam);
+    }
+  }, [statusParam]);
 
   useEffect(() => {
     const { serviceAgree, personalAgree, marketingAgree } = selected;
@@ -86,6 +97,9 @@ const Signup = ({
         ...prev,
         allAgree: false,
       }));
+    }
+    if (serviceAgree && personalAgree) {
+      setSuccessAgree(true);
     }
   }, [selected.serviceAgree, selected.personalAgree, selected.marketingAgree]);
 
@@ -168,10 +182,12 @@ const Signup = ({
 
   const snsInputObject = [
     {
-      label: "이메일 아이디",
+      label: "이메일 아이디*",
       type: "text",
       id: "email",
       placeholder: "이메일 아이디를 입력해주세요.",
+      disabled: true,
+      defaultValue: statusParam === "PENDING" ? emailParam : "",
     },
     {
       label: "핸드폰 번호*",
@@ -181,7 +197,7 @@ const Signup = ({
       validation: "10자~11자 이내",
     },
     {
-      label: "닉네임",
+      label: "닉네임*",
       type: "text",
       id: "nickname",
       placeholder: "닉네임을 입력해주세요.",
@@ -356,8 +372,9 @@ const Signup = ({
               placeholder={input.placeholder}
               helpText={input.validation}
               label={input.label}
-              isDisabled={input.id === "email" ? true : isPending}
+              isDisabled={input.disabled}
               isError={isError}
+              defaultValue={input.defaultValue || ""}
             />
           ))}
       <div className="space-y-[16px] p-[16px] rounded-[5px] bg-[#FAFAFA]">
