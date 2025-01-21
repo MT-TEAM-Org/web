@@ -56,7 +56,6 @@ const Signup = ({
   isPending,
   isError,
   setSuccessAgree,
-  setSocialDefaultEmail,
 }: SignupProps) => {
   const [isVerificationSent, setIsVerificationSent] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
@@ -71,15 +70,7 @@ const Signup = ({
   const { social } = useSocialStore();
   const email = watch("email");
   const searchParams = useSearchParams();
-  const statusParam = searchParams.get("status");
   const emailParam = searchParams.get("email");
-
-  useEffect(() => {
-    if (statusParam === "PENDING" && emailParam) {
-      register("email", { value: emailParam }); // react-hook-form에 이메일 값을 등록
-      setSocialDefaultEmail && setSocialDefaultEmail(emailParam);
-    }
-  }, [statusParam, emailParam, register]);
 
   useEffect(() => {
     const { serviceAgree, personalAgree, marketingAgree } = selected;

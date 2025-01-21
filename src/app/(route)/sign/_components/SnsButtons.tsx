@@ -1,6 +1,5 @@
 "use client";
 
-import useAuthCheck from "@/_hooks/useAuthCheck";
 import { Discord } from "@/app/_components/icon/Discord";
 import { Google } from "@/app/_components/icon/Google";
 import { Kakao } from "@/app/_components/icon/Kakao";
@@ -8,7 +7,7 @@ import { Naver } from "@/app/_components/icon/Naver";
 import axios from "axios";
 import { useSocialStore } from "@/utils/Store";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 interface SnsButtonsProps {
@@ -21,7 +20,6 @@ const SnsButtons = ({ signState }: SnsButtonsProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const status = searchParams.get("status");
-  const email = searchParams.get("email");
   //TODO: reissue까진 완료함 각 소셜로그인별 추가정보 입력 필드 분기처리 해야함 (형준님 필요)
 
   useEffect(() => {
