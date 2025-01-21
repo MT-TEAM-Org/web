@@ -14,7 +14,6 @@ import { Kakao } from "@/app/_components/icon/Kakao";
 import { Discord } from "@/app/_components/icon/Discord";
 import { useApiMutation } from "@/_hooks/query";
 import { useSocialStore } from "@/utils/Store";
-import { useSearchParams } from "next/navigation";
 
 interface FormData {
   username: string;
@@ -66,8 +65,6 @@ const Signup = ({
   });
   const { social } = useSocialStore();
   const email = watch("email");
-  const searchParams = useSearchParams();
-  const emailParam = searchParams.get("email");
 
   useEffect(() => {
     const { serviceAgree, personalAgree, marketingAgree } = selected;

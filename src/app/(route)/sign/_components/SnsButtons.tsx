@@ -4,10 +4,7 @@ import { Discord } from "@/app/_components/icon/Discord";
 import { Google } from "@/app/_components/icon/Google";
 import { Kakao } from "@/app/_components/icon/Kakao";
 import { Naver } from "@/app/_components/icon/Naver";
-import axios from "axios";
 import { useSocialStore } from "@/utils/Store";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 interface SnsButtonsProps {
@@ -16,40 +13,7 @@ interface SnsButtonsProps {
 
 const SnsButtons = ({ signState }: SnsButtonsProps) => {
   const { setSocial } = useSocialStore();
-  const isReissued = useRef(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const status = searchParams.get("status");
-  //TODO: reissue까진 완료함 각 소셜로그인별 추가정보 입력 필드 분기처리 해야함 (형준님 필요)
-
-  useEffect(() => {
-    if (status === "PENDING") {
-      if (!localStorage.getItem("accessToken")) {
-        handleReissue();
-      }
-    }
-  }, [searchParams]);
-
-  const handleReissue = async () => {
-    if (isReissued.current) return;
-    isReissued.current = true;
-
-    try {
-      const response = await axios.post(
-        "http://api.playhive.shop:8080/reissue",
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-      if (response.status === 200) {
-        localStorage.setItem("accessToken", response.headers.authorization);
-      }
-      return response;
-    } catch (error) {
-      console.error("Reissue failed", error);
-    }
-  };
 
   const snsButtonObject = [
     {

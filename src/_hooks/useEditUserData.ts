@@ -15,7 +15,7 @@ const fetchEditUserData = async (data: EditUserData) => {
     data,
     {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        Authorization: localStorage.getItem("accessToken"),
       },
       withCredentials: true,
     }

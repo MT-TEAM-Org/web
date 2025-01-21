@@ -12,6 +12,7 @@ import { useSignupStore } from "@/utils/Store";
 import { useSocialStore } from "@/utils/Store";
 import useEditUserData from "@/_hooks/useEditUserData";
 import { useSocialEmailStore } from "@/utils/Store";
+import useReissue from "@/_hooks/useReissue";
 
 interface FormData {
   username: string;
@@ -30,6 +31,7 @@ export default function Sign() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { data: authCheckData, isSuccess: authCheckIsSuccess } = useAuthCheck();
+  const { mutate: reissue } = useReissue();
   const { signStateStore, setClearSignupStore } = useSignupStore();
   const { social, resetSocial } = useSocialStore();
   const { email, setEmail, resetEmail } = useSocialEmailStore();
@@ -46,6 +48,14 @@ export default function Sign() {
       email: email || "",
     },
   });
+
+  useEffect(() => {
+    const tokenExists = localStorage.getItem("accessToken");
+
+    if (statusParam === "PENDING" && !tokenExists) {
+      reissue();
+    }
+  }, [statusParam]); // searchParams 대신 status만 의존성에 추가
 
   useEffect(() => {
     if (statusParam === "PENDING" && emailParam) {
@@ -117,6 +127,8 @@ export default function Sign() {
     });
   };
 
+  const shouldRenderSignup =
+    signStateStore !== "" || loginSignupState !== "login";
   const loginSignupStyle =
     "w-1/2 flex items-center justify-center rounded-t-[5px] cursor-pointer border-gray-600 border-[#303030] text-[#424242]";
   return (
@@ -137,26 +149,19 @@ export default function Sign() {
         ))}
       </div>
       <form className="w-full mt-[24px]" onSubmit={handleSubmit(onSubmit)}>
-        {signStateStore !== "" ? (
+        {shouldRenderSignup ? (
           <Signup
             register={register}
             watch={watch}
             isPending={isPending}
             setSuccessAgree={setSuccessAgree}
           />
-        ) : loginSignupState === "login" ? (
+        ) : (
           <Login
             register={register}
             setValue={setValue}
             watch={watch}
             isPending={isPending}
-          />
-        ) : (
-          <Signup
-            register={register}
-            watch={watch}
-            isPending={isPending}
-            setSuccessAgree={setSuccessAgree}
           />
         )}
       </form>
