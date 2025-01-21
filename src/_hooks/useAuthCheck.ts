@@ -13,12 +13,18 @@ const fetchAuthCheck = async () => {
 };
 
 const useAuthCheck = () => {
-  const token = localStorage.getItem("accessToken");
+  const getToken = () => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("accessToken");
+    }
+    return null;
+  };
+
   return useQuery({
     queryKey: ["authCheck"],
     queryFn: fetchAuthCheck,
-    enabled: !!token,
-    retry: false,
+    enabled: !!getToken(),
+    retry: 1,
   });
 };
 
