@@ -78,7 +78,7 @@ const Login = ({ register, setValue, watch, isPending }: LoginProps) => {
   const inputStyle =
     "w-full h-[48px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6]";
   const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
-  const isEmptyInputStyle = inputStyle + " border-[#424242]";
+  // const isEmptyInputStyle = inputStyle + " border-[#424242]";
   const iconButtonStyle = "absolute right-[16px] top-[38px]";
   return (
     <div className="space-y-[24px]">

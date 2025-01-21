@@ -41,12 +41,11 @@ export default function Sign() {
   const searchParams = useSearchParams();
   const statusParam = searchParams.get("status");
   const emailParam = searchParams.get("email");
-  const { register, handleSubmit, setValue, watch, getValues } =
-    useForm<FormData>({
-      defaultValues: {
-        email: email || "",
-      },
-    });
+  const { register, handleSubmit, setValue, watch } = useForm<FormData>({
+    defaultValues: {
+      email: email || "",
+    },
+  });
 
   useEffect(() => {
     if (statusParam === "PENDING" && emailParam) {
@@ -66,11 +65,9 @@ export default function Sign() {
     }
   }, [social]);
 
-  const {
-    mutate: fetchSign,
-    isPending,
-    isError,
-  } = usePostToken(loginSignupState === "login" ? "login" : "api/me/create");
+  const { mutate: fetchSign, isPending } = usePostToken(
+    loginSignupState === "login" ? "login" : "api/me/create"
+  );
 
   const tabs: Tabs[] = [
     { id: "login", label: "로그인" },
