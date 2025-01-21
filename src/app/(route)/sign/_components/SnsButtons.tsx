@@ -15,7 +15,7 @@ interface SnsButtonsProps {
 }
 
 const SnsButtons = ({ signState }: SnsButtonsProps) => {
-  const { social, setSocial } = useSocialStore();
+  const { setSocial } = useSocialStore();
   const isReissued = useRef(false);
   const router = useRouter();
   const searchParams = useSearchParams();
