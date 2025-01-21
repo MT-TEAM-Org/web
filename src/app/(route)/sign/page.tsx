@@ -32,24 +32,33 @@ export default function Sign() {
   const { data: authCheckData, isSuccess: authCheckIsSuccess } = useAuthCheck();
   const { signStateStore, setClearSignupStore } = useSignupStore();
   const { social, resetSocial } = useSocialStore();
+  const { email, setEmail, resetEmail } = useSocialEmailStore();
   const [loginSignupState, setLoginSignupState] = useState<"login" | "signup">(
     "login"
   );
-  const { register, handleSubmit, setValue, watch, reset, getValues } =
-    useForm<FormData>();
-  const inputIsNotEmpty = Object.values(watch()).some((value) => value !== "");
   const { mutate: fetchEditUserData } = useEditUserData();
   const [successAgree, setSuccessAgree] = useState(false);
   const searchParams = useSearchParams();
   const statusParam = searchParams.get("status");
   const emailParam = searchParams.get("email");
-  const { email, setEmail } = useSocialEmailStore();
+  const { register, handleSubmit, setValue, watch, getValues } =
+    useForm<FormData>({
+      defaultValues: {
+        email: email || "",
+      },
+    });
 
   useEffect(() => {
     if (statusParam === "PENDING" && emailParam) {
       setEmail(emailParam);
     }
   }, []);
+
+  useEffect(() => {
+    if (email) {
+      setValue("email", email);
+    }
+  }, [email]);
 
   useEffect(() => {
     if (social !== "") {
@@ -69,14 +78,9 @@ export default function Sign() {
   ];
 
   const onSubmit = (formData: FormData) => {
-    console.log("formData", formData);
-    console.log("social", social);
-    console.log("loginSignupState", loginSignupState);
-
-    if (loginSignupState === "signup") {
-      if (!successAgree) {
-        return alert("필수약관에 동의해주세요.");
-      }
+    if (loginSignupState === "signup" && !successAgree) {
+      // 약관 확인이 정상적으로 동작하지 않음
+      return alert("필수약관에 동의해주세요.");
     }
     if (social !== "" && loginSignupState === "signup") {
       fetchEditUserData(
@@ -87,11 +91,10 @@ export default function Sign() {
         },
         {
           onSuccess: () => {
-            const joinToken = localStorage.getItem("joinToken");
-            joinToken && localStorage.setItem("accessToken", joinToken);
             setSuccessAgree(false);
             setClearSignupStore();
             resetSocial();
+            resetEmail();
             router.push("/");
           },
           onError: (error) => {

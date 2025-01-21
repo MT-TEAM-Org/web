@@ -24,7 +24,7 @@ const SnsButtons = ({ signState }: SnsButtonsProps) => {
 
   useEffect(() => {
     if (status === "PENDING") {
-      if (!localStorage.getItem("joinToken")) {
+      if (!localStorage.getItem("accessToken")) {
         handleReissue();
       }
     }
@@ -43,7 +43,7 @@ const SnsButtons = ({ signState }: SnsButtonsProps) => {
         }
       );
       if (response.status === 200) {
-        localStorage.setItem("joinToken", response.headers.authorization);
+        localStorage.setItem("accessToken", response.headers.authorization);
       }
       return response;
     } catch (error) {
