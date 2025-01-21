@@ -35,3 +35,22 @@ export const useSignupStore = create<SignupStateStore>((set) => ({
   setSignupStore: () => set({ signStateStore: "signup" }),
   setClearSignupStore: () => set({ signStateStore: "" }),
 }));
+
+interface SocialEmailStore {
+  email: string;
+  setEmail: (email: string) => void;
+  resetEmail: () => void;
+}
+
+export const useSocialEmailStore = create<SocialEmailStore>()(
+  persist(
+    (set) => ({
+      email: "",
+      setEmail: (email) => set({ email }),
+      resetEmail: () => set({ email: "" }),
+    }),
+    {
+      name: "email-storage",
+    }
+  )
+);

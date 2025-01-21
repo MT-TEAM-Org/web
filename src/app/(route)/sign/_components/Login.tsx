@@ -25,18 +25,9 @@ interface LoginProps {
   setValue: UseFormSetValue<FormData>;
   watch: UseFormWatch<FormData>;
   isPending: boolean;
-  isError: boolean;
-  isAllEmpty: boolean;
 }
 
-const Login = ({
-  register,
-  setValue,
-  watch,
-  isPending,
-  isError,
-  isAllEmpty,
-}: LoginProps) => {
+const Login = ({ register, setValue, watch, isPending }: LoginProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const inputObject = [
@@ -53,18 +44,6 @@ const Login = ({
       placeholder: "비밀번호를 입력해주세요.",
     },
   ];
-
-  const errorMessages = (inputId: string) => {
-    if (!isAllEmpty && !isError) return null;
-
-    return (
-      <p className="text-[14px] font-[500] text-[#D1504B] leading-[22px] px-[16px]">
-        {inputId === "username"
-          ? "이메일 아이디를 확인해주세요."
-          : "비밀번호를 확인해주세요."}
-      </p>
-    );
-  };
 
   const inputIcon = (inputId: keyof FormData) => {
     const value = watch(inputId);
@@ -114,18 +93,11 @@ const Login = ({
           <input
             {...register(input.id)}
             type={input.type}
-            className={
-              isPending
-                ? isDisabledInputStyle
-                : isAllEmpty
-                ? isEmptyInputStyle
-                : inputStyle
-            }
+            className={isPending ? isDisabledInputStyle : inputStyle}
             id={input.id}
             disabled={isPending}
             placeholder={input.placeholder}
           />
-          {errorMessages(input.id)}
           {inputIcon(input.id)}
         </div>
       ))}
@@ -133,7 +105,7 @@ const Login = ({
         className={`w-full h-[48px] text-[#FFFFFF] px-[20px] py-[16px] rounded-[5px] font-[700] leading-[16px] ${
           isPending ? "bg-[#EEEEEE] text-[#CBCBCB]" : "defaultButtonColor"
         }`}
-        disabled={isPending} // 리액트쿼리 isLoginLoading 값으로 변경
+        disabled={isPending}
         type="submit"
       >
         자동로그인

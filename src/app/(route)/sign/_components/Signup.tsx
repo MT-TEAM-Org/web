@@ -28,9 +28,7 @@ interface SignupProps {
   register: UseFormRegister<FormData>;
   watch: UseFormWatch<FormData>;
   isPending: boolean;
-  isError: boolean;
   setSuccessAgree: React.Dispatch<React.SetStateAction<boolean>>;
-  setSocialDefaultEmail?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface Selected {
@@ -54,7 +52,6 @@ const Signup = ({
   register,
   watch,
   isPending,
-  isError,
   setSuccessAgree,
 }: SignupProps) => {
   const [isVerificationSent, setIsVerificationSent] = useState(false);
@@ -179,8 +176,6 @@ const Signup = ({
       id: "email",
       placeholder: "이메일 아이디를 입력해주세요.",
       disabled: true,
-      defaultValue: emailParam || "",
-      register: register("email"),
     },
     {
       label: "핸드폰 번호*",
@@ -352,7 +347,6 @@ const Signup = ({
               helpText={input.validation}
               label={input.label}
               isDisabled={isPending}
-              isError={isError}
             />
           ))
         : snsInputObject.map((input) => (
@@ -366,8 +360,6 @@ const Signup = ({
               helpText={input.validation}
               label={input.label}
               isDisabled={input.disabled}
-              isError={isError}
-              defaultValue={input.defaultValue || ""}
             />
           ))}
       <div className="space-y-[16px] p-[16px] rounded-[5px] bg-[#FAFAFA]">

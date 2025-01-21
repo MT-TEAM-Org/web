@@ -11,6 +11,7 @@ import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useSignupStore } from "@/utils/Store";
 import { useSocialStore } from "@/utils/Store";
 import useEditUserData from "@/_hooks/useEditUserData";
+import { useSocialEmailStore } from "@/utils/Store";
 
 interface FormData {
   username: string;
@@ -28,30 +29,27 @@ interface Tabs {
 export default function Sign() {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { data: authCheckData, isSuccess: authCheckIsSuccess } = useAuthCheck();
   const { signStateStore, setClearSignupStore } = useSignupStore();
   const { social, resetSocial } = useSocialStore();
   const [loginSignupState, setLoginSignupState] = useState<"login" | "signup">(
     "login"
   );
-  const [localIsError, setLocalIsError] = useState(false);
-  const [isAllEmpty, setIsAllEmpty] = useState(false);
   const { register, handleSubmit, setValue, watch, reset, getValues } =
     useForm<FormData>();
   const inputIsNotEmpty = Object.values(watch()).some((value) => value !== "");
-  const { data: authCheckData, isSuccess: authCheckIsSuccess } = useAuthCheck();
   const { mutate: fetchEditUserData } = useEditUserData();
   const [successAgree, setSuccessAgree] = useState(false);
-  const [socialDefaultEmail, setSocialDefaultEmail] = useState("");
   const searchParams = useSearchParams();
   const statusParam = searchParams.get("status");
   const emailParam = searchParams.get("email");
+  const { email, setEmail } = useSocialEmailStore();
 
   useEffect(() => {
     if (statusParam === "PENDING" && emailParam) {
-      setValue("email", emailParam); // react-hook-form에 직접 값을 설정
-      setSocialDefaultEmail && setSocialDefaultEmail(emailParam);
+      setEmail(emailParam);
     }
-  }, [statusParam, emailParam, setValue]);
+  }, []);
 
   useEffect(() => {
     if (social !== "") {
@@ -70,34 +68,11 @@ export default function Sign() {
     { id: "signup", label: "회원가입" },
   ];
 
-  useEffect(() => {
-    reset();
-    setLocalIsError(false);
-  }, [loginSignupState]);
-
-  useEffect(() => {
-    setLocalIsError(isError);
-  }, [isError]);
-
-  useEffect(() => {
-    if (inputIsNotEmpty) {
-      setIsAllEmpty(false);
-    }
-  }, [inputIsNotEmpty]);
-
   const onSubmit = (formData: FormData) => {
     console.log("formData", formData);
     console.log("social", social);
     console.log("loginSignupState", loginSignupState);
 
-    const isAllEmptySearch = Object.values(formData).every(
-      (value) => value === ""
-    );
-    if (isAllEmptySearch) {
-      return setIsAllEmpty(true);
-    } else {
-      setIsAllEmpty(false);
-    }
     if (loginSignupState === "signup") {
       if (!successAgree) {
         return alert("필수약관에 동의해주세요.");
@@ -167,9 +142,7 @@ export default function Sign() {
             register={register}
             watch={watch}
             isPending={isPending}
-            isError={localIsError}
             setSuccessAgree={setSuccessAgree}
-            setSocialDefaultEmail={setSocialDefaultEmail}
           />
         ) : loginSignupState === "login" ? (
           <Login
@@ -177,15 +150,12 @@ export default function Sign() {
             setValue={setValue}
             watch={watch}
             isPending={isPending}
-            isError={localIsError}
-            isAllEmpty={isAllEmpty}
           />
         ) : (
           <Signup
             register={register}
             watch={watch}
             isPending={isPending}
-            isError={localIsError}
             setSuccessAgree={setSuccessAgree}
           />
         )}
