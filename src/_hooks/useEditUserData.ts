@@ -16,6 +16,7 @@ const fetchEditUserData = async (data: EditUserData) => {
     {
       headers: {
         Authorization: localStorage.getItem("accessToken"),
+        // Bearer 접두사를 붙이면 접두사가 두 번 붙는 문제가 발생함
       },
       withCredentials: true,
     }
