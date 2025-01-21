@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Login from "./_components/Login";
 import Signup from "./_components/Signup";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import usePostToken from "@/utils/UsePostToken";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
@@ -42,12 +42,16 @@ export default function Sign() {
   const { mutate: fetchEditUserData } = useEditUserData();
   const [successAgree, setSuccessAgree] = useState(false);
   const [socialDefaultEmail, setSocialDefaultEmail] = useState("");
+  const searchParams = useSearchParams();
+  const statusParam = searchParams.get("status");
+  const emailParam = searchParams.get("email");
 
   useEffect(() => {
-    if (socialDefaultEmail !== "") {
-      setValue("email", socialDefaultEmail);
+    if (statusParam === "PENDING" && emailParam) {
+      setValue("email", emailParam); // react-hook-form에 직접 값을 설정
+      setSocialDefaultEmail && setSocialDefaultEmail(emailParam);
     }
-  }, [socialDefaultEmail]);
+  }, [statusParam, emailParam, setValue]);
 
   useEffect(() => {
     if (social !== "") {
@@ -82,6 +86,10 @@ export default function Sign() {
   }, [inputIsNotEmpty]);
 
   const onSubmit = (formData: FormData) => {
+    console.log("formData", formData);
+    console.log("social", social);
+    console.log("loginSignupState", loginSignupState);
+
     const isAllEmptySearch = Object.values(formData).every(
       (value) => value === ""
     );
@@ -111,24 +119,27 @@ export default function Sign() {
             resetSocial();
             router.push("/");
           },
+          onError: (error) => {
+            console.log("error", error);
+          },
         }
       );
       return;
-    } else {
-      fetchSign(formData, {
-        onSuccess: (data) => {
-          if (loginSignupState === "login") {
-            localStorage.setItem("accessToken", data.headers.authorization);
-            queryClient.setQueryData(["authCheck"], null);
-            queryClient.invalidateQueries({ queryKey: ["authCheck"] });
-            router.push("/");
-          } else {
-            setLoginSignupState("login");
-            setSuccessAgree(false);
-          }
-        },
-      });
     }
+
+    fetchSign(formData, {
+      onSuccess: (data) => {
+        if (loginSignupState === "login") {
+          localStorage.setItem("accessToken", data.headers.authorization);
+          queryClient.setQueryData(["authCheck"], null);
+          queryClient.invalidateQueries({ queryKey: ["authCheck"] });
+          router.push("/");
+        } else {
+          setLoginSignupState("login");
+          setSuccessAgree(false);
+        }
+      },
+    });
   };
 
   const loginSignupStyle =

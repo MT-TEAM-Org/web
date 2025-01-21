@@ -76,9 +76,10 @@ const Signup = ({
 
   useEffect(() => {
     if (statusParam === "PENDING" && emailParam) {
+      register("email", { value: emailParam }); // react-hook-form에 이메일 값을 등록
       setSocialDefaultEmail && setSocialDefaultEmail(emailParam);
     }
-  }, [statusParam]);
+  }, [statusParam, emailParam, register]);
 
   useEffect(() => {
     const { serviceAgree, personalAgree, marketingAgree } = selected;
@@ -187,7 +188,8 @@ const Signup = ({
       id: "email",
       placeholder: "이메일 아이디를 입력해주세요.",
       disabled: true,
-      defaultValue: statusParam === "PENDING" ? emailParam : "",
+      defaultValue: emailParam || "",
+      register: register("email"),
     },
     {
       label: "핸드폰 번호*",
