@@ -1,6 +1,6 @@
 "use client";
 
-import { UseFormRegister, UseFormWatch } from "react-hook-form";
+import { UseFormRegister, UseFormGetValues } from "react-hook-form";
 import { SymbolLogo } from "./SymbolLogo";
 import SnsButtons from "./SnsButtons";
 import Input from "@/app/_components/Input";
@@ -25,7 +25,7 @@ interface FormData {
 
 interface SignupProps {
   register: UseFormRegister<FormData>;
-  watch: UseFormWatch<FormData>;
+  getValues: UseFormGetValues<FormData>;
   isPending: boolean;
   setSuccessAgree: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -49,7 +49,7 @@ interface VerificationCodeRequest {
 
 const Signup = ({
   register,
-  watch,
+  getValues,
   isPending,
   setSuccessAgree,
 }: SignupProps) => {
@@ -64,7 +64,6 @@ const Signup = ({
     marketingAgree: false,
   });
   const { social } = useSocialStore();
-  const email = watch("email");
 
   useEffect(() => {
     const { serviceAgree, personalAgree, marketingAgree } = selected;
@@ -130,6 +129,7 @@ const Signup = ({
   );
 
   const handleSendVerification = () => {
+    const email = getValues("email");
     if (!email) {
       alert("이메일을 입력해주세요.");
       return;
@@ -138,6 +138,7 @@ const Signup = ({
   };
 
   const handleCheckVerification = () => {
+    const email = getValues("email");
     checkVerification({ email, code: verificationCode });
   };
 

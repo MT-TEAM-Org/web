@@ -43,11 +43,16 @@ export default function Sign() {
   const searchParams = useSearchParams();
   const statusParam = searchParams.get("status");
   const emailParam = searchParams.get("email");
-  const { register, handleSubmit, setValue, watch } = useForm<FormData>({
-    defaultValues: {
-      email: email || "",
-    },
-  });
+  const { register, handleSubmit, getValues, setValue, watch, reset } =
+    useForm<FormData>({
+      defaultValues: {
+        email: email || "",
+      },
+    });
+
+  useEffect(() => {
+    reset();
+  }, [loginSignupState]);
 
   useEffect(() => {
     const tokenExists = localStorage.getItem("accessToken");
@@ -112,7 +117,11 @@ export default function Sign() {
       return;
     }
 
-    fetchSign(formData, {
+    const formDataRequest =
+      loginSignupState === "login"
+        ? { username: formData.username, password: formData.password }
+        : formData;
+    fetchSign(formDataRequest, {
       onSuccess: (data) => {
         if (loginSignupState === "login") {
           localStorage.setItem("accessToken", data.headers.authorization);
@@ -152,7 +161,7 @@ export default function Sign() {
         {shouldRenderSignup ? (
           <Signup
             register={register}
-            watch={watch}
+            getValues={getValues}
             isPending={isPending}
             setSuccessAgree={setSuccessAgree}
           />
