@@ -50,6 +50,10 @@ export default function Sign() {
   });
 
   useEffect(() => {
+    setValue("password", "");
+  }, [loginSignupState]);
+
+  useEffect(() => {
     const tokenExists = localStorage.getItem("accessToken");
 
     if (statusParam === "PENDING" && !tokenExists) {
