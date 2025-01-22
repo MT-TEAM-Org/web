@@ -30,7 +30,7 @@ const AccountHelp = ({ signState }: AccountHelpProps) => {
     >
       <button
         type="button"
-        className={`${
+        className={`focus:border-none ${
           signState === "login"
             ? "w-1/2 leading-[18px]"
             : "w-full leading-[18px]"
