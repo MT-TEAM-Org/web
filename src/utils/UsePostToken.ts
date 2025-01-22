@@ -4,11 +4,11 @@ import { useMutation } from "@tanstack/react-query";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface SignData {
-  username: string;
+  username?: string;
   password: string;
-  email: string;
-  tel: string;
-  nickname: string;
+  email?: string;
+  tel?: string;
+  nickname?: string;
 }
 
 const fetchSign = async (SignData: SignData, url: string) => {

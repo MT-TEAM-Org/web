@@ -112,7 +112,11 @@ export default function Sign() {
       return;
     }
 
-    fetchSign(formData, {
+    const formDataRequest =
+      loginSignupState === "login"
+        ? { username: formData.username, password: formData.password }
+        : formData;
+    fetchSign(formDataRequest, {
       onSuccess: (data) => {
         if (loginSignupState === "login") {
           localStorage.setItem("accessToken", data.headers.authorization);
