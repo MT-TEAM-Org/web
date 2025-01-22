@@ -1,11 +1,6 @@
 import Image from "next/image";
 
-interface PostItemProps {
-  announcement?: boolean;
-  // post 객체를 받아와야 함
-}
-
-const PostItem = ({ announcement }: PostItemProps) => {
+const PostItem = () => {
   return (
     <div className="flex items-center gap-[12px] min-h-[66px] p-[12px]">
       <div className="flex flex-shrink-0 justify-center items-center w-[32px] h-[32px] rounded-[2px] p-[4px] bg-[#FAFAFA]">

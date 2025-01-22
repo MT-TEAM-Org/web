@@ -13,7 +13,6 @@ import { Naver } from "@/app/_components/icon/Naver";
 import { Kakao } from "@/app/_components/icon/Kakao";
 import { Discord } from "@/app/_components/icon/Discord";
 import { useApiMutation } from "@/_hooks/query";
-import axios from "axios";
 import { useSocialStore } from "@/utils/Store";
 
 interface FormData {
@@ -28,7 +27,6 @@ interface SignupProps {
   register: UseFormRegister<FormData>;
   watch: UseFormWatch<FormData>;
   isPending: boolean;
-  isError: boolean;
   setSuccessAgree: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -53,7 +51,6 @@ const Signup = ({
   register,
   watch,
   isPending,
-  isError,
   setSuccessAgree,
 }: SignupProps) => {
   const [isVerificationSent, setIsVerificationSent] = useState(false);
@@ -86,6 +83,9 @@ const Signup = ({
         ...prev,
         allAgree: false,
       }));
+    }
+    if (serviceAgree && personalAgree) {
+      setSuccessAgree(true);
     }
   }, [selected.serviceAgree, selected.personalAgree, selected.marketingAgree]);
 
@@ -168,10 +168,11 @@ const Signup = ({
 
   const snsInputObject = [
     {
-      label: "이메일 아이디",
+      label: "이메일 아이디*",
       type: "text",
       id: "email",
       placeholder: "이메일 아이디를 입력해주세요.",
+      disabled: true,
     },
     {
       label: "핸드폰 번호*",
@@ -181,7 +182,7 @@ const Signup = ({
       validation: "10자~11자 이내",
     },
     {
-      label: "닉네임",
+      label: "닉네임*",
       type: "text",
       id: "nickname",
       placeholder: "닉네임을 입력해주세요.",
@@ -343,7 +344,6 @@ const Signup = ({
               helpText={input.validation}
               label={input.label}
               isDisabled={isPending}
-              isError={isError}
             />
           ))
         : snsInputObject.map((input) => (
@@ -356,8 +356,7 @@ const Signup = ({
               placeholder={input.placeholder}
               helpText={input.validation}
               label={input.label}
-              isDisabled={input.id === "email" ? true : isPending}
-              isError={isError}
+              isDisabled={input.disabled}
             />
           ))}
       <div className="space-y-[16px] p-[16px] rounded-[5px] bg-[#FAFAFA]">

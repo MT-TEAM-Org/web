@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import Login from "./_components/Login";
 import Signup from "./_components/Signup";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import usePostToken from "@/utils/UsePostToken";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useSignupStore } from "@/utils/Store";
 import { useSocialStore } from "@/utils/Store";
+import useEditUserData from "@/_hooks/useEditUserData";
+import { useSocialEmailStore } from "@/utils/Store";
+import useReissue from "@/_hooks/useReissue";
 
 interface FormData {
   username: string;
@@ -27,18 +30,44 @@ interface Tabs {
 export default function Sign() {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { signStateStore } = useSignupStore();
-  const { social } = useSocialStore();
+  const { data: authCheckData, isSuccess: authCheckIsSuccess } = useAuthCheck();
+  const { mutate: reissue } = useReissue();
+  const { signStateStore, setClearSignupStore } = useSignupStore();
+  const { social, resetSocial } = useSocialStore();
+  const { email, setEmail, resetEmail } = useSocialEmailStore();
   const [loginSignupState, setLoginSignupState] = useState<"login" | "signup">(
     "login"
   );
-  const [localIsError, setLocalIsError] = useState(false);
-  const [isAllEmpty, setIsAllEmpty] = useState(false);
-  const { register, handleSubmit, setValue, watch, reset } =
-    useForm<FormData>();
-  const inputIsNotEmpty = Object.values(watch()).some((value) => value !== "");
-  const { data: authCheckData, isSuccess: authCheckIsSuccess } = useAuthCheck();
+  const { mutate: fetchEditUserData } = useEditUserData();
   const [successAgree, setSuccessAgree] = useState(false);
+  const searchParams = useSearchParams();
+  const statusParam = searchParams.get("status");
+  const emailParam = searchParams.get("email");
+  const { register, handleSubmit, setValue, watch } = useForm<FormData>({
+    defaultValues: {
+      email: email || "",
+    },
+  });
+
+  useEffect(() => {
+    const tokenExists = localStorage.getItem("accessToken");
+
+    if (statusParam === "PENDING" && !tokenExists) {
+      reissue();
+    }
+  }, [statusParam]);
+
+  useEffect(() => {
+    if (statusParam === "PENDING" && emailParam) {
+      setEmail(emailParam);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (email) {
+      setValue("email", email);
+    }
+  }, [email]);
 
   useEffect(() => {
     if (social !== "") {
@@ -46,45 +75,43 @@ export default function Sign() {
     }
   }, [social]);
 
-  const {
-    mutate: fetchSign,
-    isPending,
-    isError,
-  } = usePostToken(loginSignupState === "login" ? "login" : "api/me/create");
+  const { mutate: fetchSign, isPending } = usePostToken(
+    loginSignupState === "login" ? "login" : "api/me/create"
+  );
 
   const tabs: Tabs[] = [
     { id: "login", label: "로그인" },
     { id: "signup", label: "회원가입" },
   ];
 
-  useEffect(() => {
-    reset();
-    setLocalIsError(false);
-  }, [loginSignupState]);
-
-  useEffect(() => {
-    setLocalIsError(isError);
-  }, [isError]);
-
-  useEffect(() => {
-    if (inputIsNotEmpty) {
-      setIsAllEmpty(false);
-    }
-  }, [inputIsNotEmpty]);
-
   const onSubmit = (formData: FormData) => {
-    const isAllEmptySearch = Object.values(formData).every(
-      (value) => value === ""
-    );
-    if (isAllEmptySearch) {
-      return setIsAllEmpty(true);
-    } else {
-      setIsAllEmpty(false);
+    if (loginSignupState === "signup" && !successAgree) {
+      // 약관 확인이 정상적으로 동작하지 않음
+      return alert("필수약관에 동의해주세요.");
     }
-    // if (loginSignupState === "signup" && signStateStore !== "") {
-    //   console.log("소셜 로그인 회원정보 수정 완료~!");
-    //   return;
-    // }
+    if (social !== "" && loginSignupState === "signup") {
+      fetchEditUserData(
+        {
+          email: formData.email,
+          tel: formData.tel,
+          nickname: formData.nickname,
+        },
+        {
+          onSuccess: () => {
+            setSuccessAgree(false);
+            setClearSignupStore();
+            resetSocial();
+            resetEmail();
+            router.push("/");
+          },
+          onError: (error) => {
+            console.log("error", error);
+          },
+        }
+      );
+      return;
+    }
+
     fetchSign(formData, {
       onSuccess: (data) => {
         if (loginSignupState === "login") {
@@ -94,11 +121,14 @@ export default function Sign() {
           router.push("/");
         } else {
           setLoginSignupState("login");
+          setSuccessAgree(false);
         }
       },
     });
   };
 
+  const shouldRenderSignup =
+    signStateStore !== "" || loginSignupState !== "login";
   const loginSignupStyle =
     "w-1/2 flex items-center justify-center rounded-t-[5px] cursor-pointer border-gray-600 border-[#303030] text-[#424242]";
   return (
@@ -119,30 +149,19 @@ export default function Sign() {
         ))}
       </div>
       <form className="w-full mt-[24px]" onSubmit={handleSubmit(onSubmit)}>
-        {signStateStore !== "" ? (
+        {shouldRenderSignup ? (
           <Signup
             register={register}
             watch={watch}
             isPending={isPending}
-            isError={localIsError}
             setSuccessAgree={setSuccessAgree}
           />
-        ) : loginSignupState === "login" ? (
+        ) : (
           <Login
             register={register}
             setValue={setValue}
             watch={watch}
             isPending={isPending}
-            isError={localIsError}
-            isAllEmpty={isAllEmpty}
-          />
-        ) : (
-          <Signup
-            register={register}
-            watch={watch}
-            isPending={isPending}
-            isError={localIsError}
-            setSuccessAgree={setSuccessAgree}
           />
         )}
       </form>

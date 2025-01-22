@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import Banner from "../_components/Banner";
 import LeftSidebar from "../_components/LeftSidebar";
