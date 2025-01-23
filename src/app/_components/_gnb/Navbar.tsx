@@ -16,11 +16,11 @@ export default function Navbar() {
     },
     {
       name: "축구",
-      link: "/baseball",
+      link: "/soccer",
     },
     {
       name: "야구",
-      link: "/soccer",
+      link: "/baseball",
     },
     {
       name: "뉴스",
