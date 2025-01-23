@@ -3,7 +3,7 @@ import DiscountItem from './discountItem';
 
 const gameDiscountInfo = () => {
   return (
-    <div className="max-w-md mx-auto bg-white rounded-lg">
+    <div className="max-w-md mx-auto bg-white rounded-lg flex flex-col gap-6">
       <div className="flex">
         <button className="w-1/2 flex items-center justify-center rounded-t-[5px] cursor-pointe border-[#303030] text-[#424242] border-[1px] border-b-0 font-[700]">
           게임 할인정보
@@ -13,7 +13,7 @@ const gameDiscountInfo = () => {
         </button>
       </div>
 
-      <div className="my-5 space-y-4">
+      <div className="flex flex-col gap-2">
         {Array.from({ length: 6 }).map((_, index) => (
           <DiscountItem key={index} />
         ))}
