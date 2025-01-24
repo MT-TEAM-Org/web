@@ -2,6 +2,11 @@ import React from 'react';
 import ScheduleContainer from '../../main/_components/scheduleContainer';
 import ChatScheduleContainer from './_components/chatScheduleContainer';
 
+export const metadata = {
+  title: "경기일정 페이지",
+  description: "경기일정 페이지입니다.",
+};
+
 const Page = () => {
   return (
     <div className="flex flex-col justify-center items-center">
