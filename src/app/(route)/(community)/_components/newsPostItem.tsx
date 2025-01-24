@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const newsPostItem = () => {
   return (
-    <div className='flex border-b p-[12px] w-[720px] h-[116px]'>
+    <div className='flex border-b p-[12px] w-[720px] h-[116px] cursor-pointer'>
       <Image src='/NewsItem_fake.png' alt='news img' width={56} height={42} className='w-[160px] h-[92px] bg-black mr-3 rounded-lg'/>
 
       <div className="w-full flex flex-col gap-[4px] mr-3">

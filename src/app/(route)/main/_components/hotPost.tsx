@@ -7,7 +7,10 @@ const hotPost = () => {
       <h3 className='font-black'>실시간 HOT 게시글</h3>
       <div className='max-w-[419px] max-h-[360px] pl-3'>
         {Array.from({ length: 10 }).map((_, index) => (
-          <HotPostItem key={index} />
+          <HotPostItem 
+            key={index} 
+            number={index + 1} 
+          />
         ))}
       </div>
     </div>
