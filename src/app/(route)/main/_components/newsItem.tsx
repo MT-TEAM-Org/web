@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const NewsItem = () => {
   return (
-    <div className="flex items-center max-h-[68px] p-2 border-gray-300">
+    <div className="flex items-center max-h-[68px] p-2 border-gray-300 cursor-pointer">
       <div className="flex-shrink-0 max-w-[68px] max-h-[68px] rounded overflow-hidden bg-gray-300 mr-2">
         <Image src="/NewsItem_fake2.png" alt="News img" width={68} height={68} className="max-w-[68px] min-h-[68px] object-cover rounded-md"/>
       </div>

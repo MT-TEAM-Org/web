@@ -1,4 +1,6 @@
+import Arrow_left from "@/app/_components/icon/Arrow_left";
 import NewsItem from "./NewsItem";
+import Arrow_right from "@/app/_components/icon/Arrow_right";
 
 export const RightSideBar = () => {
   return (
@@ -11,11 +13,11 @@ export const RightSideBar = () => {
         </div>
         <div className="flex items-center justify-center gap-7 py-4">
           <button className="w-[32px] h-[32px] px-2 py-1 text-gray-500 border border-[#EEEEEE] rounded">
-            &lt;
+            <Arrow_left />
           </button>
           <div>1 / 3</div>
           <button className="w-[32px] h-[32px] px-2 py-1 text-gray-500 border border-[#EEEEEE] rounded">
-            &gt;
+            <Arrow_right />
           </button>
         </div>
       </div>

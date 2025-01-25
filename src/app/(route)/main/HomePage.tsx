@@ -13,7 +13,7 @@ export default function HomePage() {
           <div className="max-w-[862px] min-h-[704px] border flex-1">
             <div className="flex flex-col gap-10">
               <div className="flex my-5 gap-2">
-                <Image src="/mainNews_fake.png" alt="main news" width={400} height={250} className="w-[410px] h-[236px] bg-amber-200 rounded-xl"/>
+                <Image src="/mainNews_fake.png" alt="main news" width={400} height={250} className="w-[410px] h-[236px] bg-amber-200 rounded-xl cursor-pointer"/>
                 <NewsComponent/>
               </div>
               <div className="flex gap-6">
