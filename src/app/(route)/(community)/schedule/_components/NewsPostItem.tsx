@@ -1,9 +1,18 @@
+'use client'
+
 import React from 'react';
 import Image from 'next/image';
+import { useRouter} from 'next/navigation';
 
-const newsPostItem = () => {
+const NewsPostItem = () => {
+  const router = useRouter();
+  
+  const handleToPage = () => {
+    router.push("/schedule/info")
+  };
+
   return (
-    <div className='flex border-b p-[12px] w-[720px] h-[116px] cursor-pointer'>
+    <div className='flex border-b p-[12px] w-[720px] h-[116px] cursor-pointer' onClick={handleToPage}>
       <Image src='/NewsItem_fake.png' alt='news img' width={56} height={42} className='w-[160px] h-[92px] bg-black mr-3 rounded-lg'/>
 
       <div className="w-full flex flex-col gap-[4px] mr-3">
@@ -37,4 +46,4 @@ const newsPostItem = () => {
   );
 };
 
-export default newsPostItem;
+export default NewsPostItem;

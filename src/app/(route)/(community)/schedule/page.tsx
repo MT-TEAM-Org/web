@@ -1,6 +1,6 @@
 import React from 'react';
-import NewsPostItem from '../_components/newsPostItem';
 import { NewsTalkToolbar } from '../_components/NewsTalkToolbar';
+import NewsPostItem from './_components/NewsPostItem';
 
 const page = () => {
   return (

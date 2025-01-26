@@ -2,6 +2,11 @@ import Customer_pencil from '@/app/_components/icon/Customer_pencil';
 import React from 'react';
 import TableWithPagination from './_components/TableWithPagination';
 
+export const metadata = {
+  title: "PlayHive 고객센터 페이지",
+  description: "PlayHive 고객센터 페이지입니다.",
+};
+
 const page = () => {
   return (
     <div className="flex flex-col justify-center items-center">
