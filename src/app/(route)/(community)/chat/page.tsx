@@ -1,5 +1,5 @@
 import React from 'react';
-import ScheduleContainer from '../../main/_components/scheduleContainer';
+import ScheduleContainer from '../../main/_components/ScheduleContainer';
 import ChatScheduleContainer from './_components/chatScheduleContainer';
 
 export const metadata = {
