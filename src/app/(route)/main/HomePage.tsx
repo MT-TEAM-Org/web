@@ -1,10 +1,9 @@
-import GameDiscountInfo from "./_components/MainRightBar";
 import Image from "next/image";
 import MainRightBar from "./_components/MainRightBar";
-import NewsComponent from "./_components/newsComponent";
-import HotPost from "./_components/hotPost";
 import NewPost from "./_components/NewPost";
 import ScheduleContainer from "./_components/ScheduleContainer";
+import HotPost from "./_components/HotPost";
+import NewsComponent from "./_components/NewsComponent";
 
 export default function HomePage() {
   return (

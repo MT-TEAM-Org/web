@@ -1,6 +1,6 @@
 import React from 'react';
 import ScheduleContainer from '../../main/_components/ScheduleContainer';
-import ChatScheduleContainer from './_components/chatScheduleContainer';
+import ChatScheduleContainer from './_components/ChatScheduleContainer';
 
 export const metadata = {
   title: "경기일정 페이지",
@@ -9,7 +9,7 @@ export const metadata = {
 
 const Page = () => {
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col gap-6 justify-center items-center">
       <ScheduleContainer />
       <div className='flex flex-col gap-6'>
         <ChatScheduleContainer title="E스포츠"/>

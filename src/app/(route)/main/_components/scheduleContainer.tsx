@@ -1,10 +1,10 @@
 import React from "react";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
-import ScheduleItem from "./scheduleItem";
+import ScheduleItem from "./ScheduleItem";
 
 const ScheduleContainer = () => {
   return (
-    <div className="w-[1920px] min-h-[146px] flex gap-4 bg-black justify-center items-center">
+    <div className="w-full min-h-[146px] flex gap-4 bg-[#F8FDFF] justify-center items-center">
       <div className="flex justify-center items-center gap-6">
         <div className="max-w-[1136px] min-h-[98px] flex justify-between items-center gap-2">
           {Array.from({ length: 5 }).map((_, index) => (
