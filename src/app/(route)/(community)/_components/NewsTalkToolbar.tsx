@@ -49,7 +49,7 @@ export const NewsTalkToolbar = () => {
   "defaultButtonColor w-[57px] h-[40px] rounded-[5px] px-[16px] py-[13px] text-white font-[700] text-[14px] leading-[14px]";
 
   return (
-    <div>
+    <div className="bg-[#FFFFFF] rounded-[5px] border-b">
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
         <div className="flex gap-2">
           <button className={weekButtonStyle}>

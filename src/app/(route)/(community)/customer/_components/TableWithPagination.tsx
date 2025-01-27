@@ -1,4 +1,4 @@
-import Double_arrow_left from '@/app/_components/icon/\bDouble_arrow_left';
+import Double_arrow_left from '@/app/_components/icon/Double_arrow_left';
 import Arrow_left from '@/app/_components/icon/Arrow_left';
 import Arrow_right from '@/app/_components/icon/Arrow_right';
 import Double_arrow_right from '@/app/_components/icon/Double_arrow_right';
