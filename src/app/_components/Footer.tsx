@@ -1,0 +1,92 @@
+import { LogoWhite } from "./icon/LogoWhite";
+
+export default function Footer() {
+  const footerObject = [
+    {
+      name: "서비스 소개",
+      link: "",
+    },
+    {
+      name: "개선요청",
+      link: "",
+    },
+    {
+      name: "공지사항",
+      link: "",
+    },
+    {
+      name: "이용약관",
+      link: "",
+    },
+    {
+      name: "개인정보처리방침",
+      link: "",
+    },
+  ];
+
+  const footerGrayText =
+    "font font-medium text-[16px] leading-[24px] text-[#A6A6A6]";
+
+  return (
+    <div className="fixed bottom-0 left-0 w-full min-h-[356px] bg-black flex flex-col justify-center text-white pt-[40px]">
+      <div className="w-[1200px] min-h-[212px] gap-[24px] flex flex-col mx-auto">
+        <div>
+          <LogoWhite />
+        </div>
+        <div className="flex justify-between gap-[24px]">
+          <div className="flex flex-col jutify-around gap-[24px]">
+            <p className="font-medium text-[24px] leading-[38px]">
+              열정적으로 응원하고 서로를 존중하며
+              <br />
+              <span className="font-bold text-[24px] leading-[38px]">
+                모두 함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!
+              </span>
+            </p>
+            <div className="flex gap-[24px] mb-4">
+              <p className={footerGrayText}>
+                서비스명 : PlayHive · 대표 : 홍길표 · 개인정보 보호책임자 :
+                홍길표
+                <br />
+                컨텐츠 내용에 대한 저작권 및 법적 책임은 자료제공사 또는
+                글쓴이에 있으며 PlayHive의 입장과 다를 수 있습니다.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <p
+              className={`${footerGrayText} font-bold text-[24px] leading-[44px] text-[#FFFFFF]`}
+            >
+              TeamPlayHive@gmail.com
+            </p>
+            <p>AM 10:00 - PM 7:00 (주말 및 공휴일 휴무)</p>
+            <button className="w-[120px] min-h-[40px] mt-2.5 rounded-[5px] py-[13px] px-[16px] text-[#424242] bg-[#DBDBDB] font-bold text-[14px] leading-[14px]">
+              문의하기
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col items-center">
+        <div className="w-[1200px] min-h-[80px] flex justify-between items-center mx-auto border-[#424242] border-t-[2px]">
+          <p className={footerGrayText}>
+            Copyright ⓒPlayhive Co., Ltd All rights reserved.
+          </p>
+          <div>
+            {footerObject.map((item, index) => (
+              <span
+                key={index}
+                className={
+                  "font-medium text-[16px] leading-[26px] text-[#A6A6A6]"
+                }
+              >
+                <a href={item.link}>{item.name}</a>
+                {index < footerObject.length - 1 && (
+                  <span className="mx-2">·</span>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
