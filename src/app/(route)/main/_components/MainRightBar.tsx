@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import EventItem from "./EventItem";
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
-import DiscountItem from "./discountItem";
+import DiscountItem from "./DiscountItem";
+
 
 const MainRightBar = () => {
   const btnStyle =

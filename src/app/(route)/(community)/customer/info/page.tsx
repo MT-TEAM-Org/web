@@ -18,7 +18,7 @@ const page = () => {
       </div>
 
       <div className="w-[1200px] min-h-[879px] flex flex-col justify-center mb-[84px]">
-        <div className="w-full min-h-[80px] flex border-t-[1px] border-[#424242]">
+        <div className="w-full min-h-[80px] flex border-t-[1px] border-[#424242] bg-[#FAFAFA]">
           <div className="w-[1040px] h-auto px-4 py-3 flex gap-[10px]">
             <h6 className="font-[500] text-[16px] leading-[28px]">
               안녕하세요 플레이 하이브 운영팀입니다. 2025 새해복
