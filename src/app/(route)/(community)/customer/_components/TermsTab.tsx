@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const TermsTab = () => {
   return (
@@ -7,30 +7,38 @@ const TermsTab = () => {
         <div className="w-[1120px] h-[36px] font-[500] text-[20px] leading-[36px]">
           <h1>이용약관</h1>
         </div>
-        <div className="w-[1120px] h-[308px] flex flex-col items-start">
-          <ul className='list-disc font-[500] text-[14px] leading-[22px] text-[#656565]'>
+        <div className="w-[1120px] h-[308px] flex flex-col items-start font-[500] text-[14px] leading-[22px] text-[#656565]">
+          <ul className="list-disc list-outside pl-5">
             <li>수집 및 이용목적</li>
-            <li>상품 예약 및 확인, 관련 문의 응대</li>
+            <ul className="list-disc list-outside pl-5">
+              <li>상품 예약 및 확인, 관련 문의 응대</li>
+            </ul>
             <li>수집 항목</li>
-            <li>예약자정보 : 이름, 연락처, 이메일</li>
-            <li>숙박자정보 : 이름(영문), 나이(아동만 해당)</li>
-            <li>보유 및 이용기간 예약 서비스 제공 완료 후 1년 (단, 관계법령에 의해 보존할 경우 그에 따른 보존기간)</li>
+            <ul className="list-disc list-outside pl-5">
+              <li>예약자정보 : 이름, 연락처, 이메일</li>
+              <li>숙박자정보 : 이름(영문), 나이(아동만 해당)</li>
+            </ul>
+            <li>
+              보유 및 이용기간 예약 서비스 제공 완료 후 1년 (단, 관계법령에 의해
+              보존할 경우 그에 따른 보존기간)
+            </li>
           </ul>
-          <ul className='list-disc font-[500] text-[14px] leading-[22px] text-[#656565]'>
-            <li>수집 및 이용목적</li>
+          <ul className="list-disc list-outside pl-5">
+            <li>
+              보유 및 이용기간 예약 서비스 제공 완료 후 1년 (단, 관계법령에 의해
+              보존할 경우 그에 따른 보존기간) 수집 및 이용목적
+            </li>
             <li>상품 예약 및 확인, 관련 문의 응대</li>
             <li>수집 항목</li>
             <li>예약자정보 : 이름, 연락처, 이메일</li>
             <li>숙박자정보 : 이름(영문), 나이(아동만 해당)</li>
-            <li>보유 및 이용기간 예약 서비스 제공 완료 후 1년 (단, 관계법령에 의해 보존할 경우 그에 따른 보존기간)</li>
-          </ul>
-          <ul className='list-disc font-[500] text-[14px] leading-[22px] text-[#656565]'>
-            <li>수집 및 이용목적</li>
+            <li>
+              보유 및 이용기간 예약 서비스 제공 완료 후 1년 (단, 관계법령에 의해
+              보존할 경우 그에 따른 보존기간) 수집 및 이용목적
+            </li>
             <li>상품 예약 및 확인, 관련 문의 응대</li>
             <li>수집 항목</li>
             <li>예약자정보 : 이름, 연락처, 이메일</li>
-            <li>숙박자정보 : 이름(영문), 나이(아동만 해당)</li>
-            <li>보유 및 이용기간 예약 서비스 제공 완료 후 1년 (단, 관계법령에 의해 보존할 경우 그에 따른 보존기간)</li>
           </ul>
         </div>
       </div>
