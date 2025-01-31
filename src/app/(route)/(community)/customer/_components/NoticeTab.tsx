@@ -26,7 +26,7 @@ const NoticeTab = () => {
 
 
   return (
-    <div className="min-w-[1200px] w-full min-h-[584px] h-auto flex gap-6 flex-col cursor-pointer" onClick={handlePageClick}>
+    <div className="min-w-[1200px] w-full min-h-[584px] h-auto flex gap-6 flex-col">
       <div>
         <table className="w-full min-h-[528px] h-auto">
           <thead className="w-[1200px] h-[48px] border-[#424242] border-t-[1px] flex">
@@ -51,7 +51,7 @@ const NoticeTab = () => {
                 <td className="w-[160px] h-[48px] border-b border-gray-300 p-4 flex gap-[10px] justify-center items-center text-[#424242] text-[16px] leading-7 font-[400]">
                   {row.number}
                 </td>
-                <td className="w-[880px] h-[48px] border-b border-gray-300 p-4 flex gap-[10px] justify-start items-center text-[#424242] text-[16px] leading-7 font-[400]">
+                <td className="w-[880px] h-[48px] border-b border-gray-300 p-4 flex gap-[10px] justify-start items-center text-[#424242] text-[16px] leading-7 font-[400] cursor-pointer" onClick={handlePageClick}>
                   {row.content}
                 </td>
                 <td className="w-[160px] h-[48px] border-b border-gray-300 p-4 flex gap-[10px] justify-center items-center text-[#424242] text-[16px] leading-7 font-[400]">

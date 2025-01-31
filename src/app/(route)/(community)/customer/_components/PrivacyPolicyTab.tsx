@@ -10,7 +10,7 @@ const PrivacyPolicyTab = () => {
         <div className="w-[1120px] h-[308px] font-[500] text-[14px] leading-[22px]">
           <div>
             <p>수집 및 이용목적</p>
-            <p>   상품 예약 및 확인, 관련 문의 응대</p>
+            <p>상품 예약 및 확인, 관련 문의 응대</p>
           </div>
           <div>
             <p>수집 항목</p>

@@ -53,7 +53,7 @@ const page = () => {
       <div className="flex gap-4 mb-[40px]">
         <button className={nextButtonStyle}>이전글</button>
         <button className={nextButtonStyle}>다음글</button>
-        <button className={`${nextButtonStyle} bg-[#00ADEE] text-[#FFFFFF]`}>
+        <button className={`${nextButtonStyle} bg-[#00ADEE] text-[#FFFFFF] border-none`}>
           목록보기
         </button>
       </div>

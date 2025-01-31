@@ -2,8 +2,16 @@
 
 import React, { useState } from "react";
 
-const MenuBtn = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+interface MenuBtnProps {
+  activeTab?: number;
+  setActiveTab?: (index: number) => void;
+}
+
+const MenuBtn = ({ activeTab, setActiveTab }: MenuBtnProps) => {
+  const [localActiveTab, setLocalActiveTab] = useState(0);
+
+  const currentTab = activeTab ?? localActiveTab;
+  const changeTab = setActiveTab ?? setLocalActiveTab;
 
   const btnStyle = "w-[300px] h-[52px] font-bold px-4 py-[18px] text-center";
   const activeBtnBaseStyle =
@@ -28,9 +36,9 @@ const MenuBtn = () => {
         return (
           <button
             key={index}
-            onClick={() => setActiveIndex(index)}
+            onClick={() => changeTab(index)}
             className={`${btnStyle} ${
-              activeIndex === index ? `${activeBtnBaseStyle} ${borderStyle}` : passiveBtnStyle
+              currentTab === index ? `${activeBtnBaseStyle} ${borderStyle}` : passiveBtnStyle
             }`}
           >
             {item}
