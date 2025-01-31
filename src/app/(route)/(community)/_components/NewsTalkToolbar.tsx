@@ -17,7 +17,7 @@ interface DropdownOption {
 }
 
 export const NewsTalkToolbar = () => {
-  const [ActiveBtn, setActiveBtn] = useState<string>("일간");  
+  const [activeBtn, setActiveBtn] = useState<string>("일간");  
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const pagenataion = [
@@ -66,25 +66,25 @@ export const NewsTalkToolbar = () => {
         <div className="flex gap-2">
           <button
             onClick={() => onClick("일간")}
-            className={ActiveBtn === "일간" ? activeButtonStyle : disableButtonStyle}
+            className={activeBtn === "일간" ? activeButtonStyle : disableButtonStyle}
           >
             일간
           </button>
           <button
             onClick={() => onClick("주간")}
-            className={ActiveBtn === "주간" ? activeButtonStyle : disableButtonStyle}
+            className={activeBtn === "주간" ? activeButtonStyle : disableButtonStyle}
           >
             주간
           </button>
           <button
             onClick={() => onClick("월간")}
-            className={ActiveBtn === "월간" ? activeButtonStyle : disableButtonStyle}
+            className={activeBtn === "월간" ? activeButtonStyle : disableButtonStyle}
           >
             월간
           </button>
           <button
             onClick={() => onClick("연간")}
-            className={ActiveBtn === "연간" ? activeButtonStyle : disableButtonStyle}
+            className={activeBtn === "연간" ? activeButtonStyle : disableButtonStyle}
           >
             연간
           </button>

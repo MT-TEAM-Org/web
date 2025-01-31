@@ -1,10 +1,15 @@
+"use client"
+
 import Double_arrow_left from "@/app/_components/icon/Double_arrow_left";
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import Double_arrow_right from "@/app/_components/icon/Double_arrow_right";
 import React from "react";
+import { useRouter } from "next/navigation";
 
-const TableWithPagination = () => {
+const NoticeTab = () => {
+  const router = useRouter();
+
   const arrowBtnStyle =
     "w-[32px] h-[32px] flex gap-[10px] items-center justify-center rounded-[5px] p-[9px] border border-gray-300";
 
@@ -15,12 +20,17 @@ const TableWithPagination = () => {
     date: "2025.02.03",
   }));
 
+  const handlePageClick = () => {
+    router.push('/customer/info')
+  };
+
+
   return (
-    <div className="min-w-[1200px] w-full min-h-[584px] h-auto flex gap-6 flex-col">
+    <div className="min-w-[1200px] w-full min-h-[584px] h-auto flex gap-6 flex-col cursor-pointer" onClick={handlePageClick}>
       <div>
         <table className="w-full min-h-[528px] h-auto">
           <thead className="w-[1200px] h-[48px] border-[#424242] border-t-[1px] flex">
-            <tr className="bg-[#EEEEEE]">
+            <tr className="bg-[#FAFAFA]">
               <th className="w-[160px] h-auto py-3 px-4 font-[500] text-[16px] leading-7 text-center">
                 번호
               </th>
@@ -87,4 +97,4 @@ const TableWithPagination = () => {
   );
 };
 
-export default TableWithPagination;
+export default NoticeTab;
