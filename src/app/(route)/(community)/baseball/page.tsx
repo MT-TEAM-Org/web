@@ -1,6 +1,11 @@
 import { ComunityToolbar } from "../_components/CommunityToolbar";
 import PostItem from "../_components/PostItem";
 
+export const metadata = {
+  title: "야구 페이지",
+  description: "야구 페이지입니다.",
+};
+
 const Baseball = () => {
   return (
     <div className="flex justify-center bg-[#FAFAFA] mt-3.5">
