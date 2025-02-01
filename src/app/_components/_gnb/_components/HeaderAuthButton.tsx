@@ -100,20 +100,18 @@ export const MypageButton = () => {
           {dropDownMenu.map((item, index) => (
             <li
               key={index}
+              onClick={(e) => {
+                if (item.name === "로그아웃") {
+                  useLogoutMutation.mutate();
+                } else {
+                  if (item.link) {
+                    router.push(item.link);
+                  }
+                }
+              }}
               className="w-[252px] min-h-[48px] border-b border-[#EEEEEE] py-[4px] px-[16px] last:py-[16px] last:border-b-0"
             >
-              <button
-                onClick={(e) => {
-                  if (item.name === "로그아웃") {
-                    useLogoutMutation.mutate();
-                  } else {
-                    if (item.link) {
-                      router.push(item.link);
-                    }
-                  }
-                }}
-                className="text-[#424242] text-[16px] leading-[16px] font-medium w-full text-left"
-              >
+              <button className="text-[#424242] text-[16px] leading-[16px] font-medium w-full text-left">
                 {item.name}
               </button>
             </li>
