@@ -5,7 +5,7 @@ import Login from "./_components/Login";
 import Signup from "./_components/Signup";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
-import usePostToken from "@/utils/UsePostToken";
+import useSign from "@/utils/UseSign";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useSignupStore } from "@/utils/Store";
@@ -80,7 +80,7 @@ export default function Sign() {
     }
   }, [social]);
 
-  const { mutate: fetchSign, isPending } = usePostToken(
+  const { mutate: fetchSign, isPending } = useSign(
     loginSignupState === "login" ? "login" : "api/me/create"
   );
 
