@@ -11,7 +11,6 @@ import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useSignupStore } from "@/utils/Store";
 import { useSocialStore } from "@/utils/Store";
 import useEditUserData from "@/_hooks/useEditUserData";
-import { useSocialEmailStore } from "@/utils/Store";
 import useReissue from "@/_hooks/useReissue";
 
 interface FormData {
@@ -34,7 +33,6 @@ export default function Sign() {
   const { mutate: reissue } = useReissue();
   const { signStateStore, setClearSignupStore } = useSignupStore();
   const { social, resetSocial } = useSocialStore();
-  const { email, setEmail, resetEmail } = useSocialEmailStore();
   const [loginSignupState, setLoginSignupState] = useState<"login" | "signup">(
     "login"
   );
@@ -46,7 +44,7 @@ export default function Sign() {
   const { register, handleSubmit, getValues, setValue, watch, reset } =
     useForm<FormData>({
       defaultValues: {
-        email: email || "",
+        email: emailParam || "",
       },
     });
 
@@ -61,18 +59,6 @@ export default function Sign() {
       reissue();
     }
   }, [statusParam]);
-
-  useEffect(() => {
-    if (statusParam === "PENDING" && emailParam) {
-      setEmail(emailParam);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (email) {
-      setValue("email", email);
-    }
-  }, [email]);
 
   useEffect(() => {
     if (social !== "") {
@@ -106,7 +92,6 @@ export default function Sign() {
             setSuccessAgree(false);
             setClearSignupStore();
             resetSocial();
-            resetEmail();
             router.push("/");
           },
           onError: (error) => {
