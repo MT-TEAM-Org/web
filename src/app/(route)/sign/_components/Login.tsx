@@ -25,9 +25,16 @@ interface LoginProps {
   setValue: UseFormSetValue<FormData>;
   watch: UseFormWatch<FormData>;
   isPending: boolean;
+  isError: boolean;
 }
 
-const Login = ({ register, setValue, watch, isPending }: LoginProps) => {
+const Login = ({
+  register,
+  setValue,
+  watch,
+  isPending,
+  isError,
+}: LoginProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const inputObject = [
@@ -78,7 +85,7 @@ const Login = ({ register, setValue, watch, isPending }: LoginProps) => {
   const inputStyle =
     "w-full h-[48px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6]";
   const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
-  // const isEmptyInputStyle = inputStyle + " border-[#424242]";
+  const isEmptyOrErrorInputStyle = inputStyle + " border-[#424242]";
   const iconButtonStyle = "absolute right-[16px] top-[38px]";
   return (
     <div className="space-y-[24px]">
@@ -91,7 +98,7 @@ const Login = ({ register, setValue, watch, isPending }: LoginProps) => {
             {input.label}
           </label>
           <input
-            {...register(input.id)}
+            {...register(input.id, { required: true })}
             type={input.type}
             className={isPending ? isDisabledInputStyle : inputStyle}
             id={input.id}

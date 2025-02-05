@@ -12,6 +12,7 @@ import { useSignupStore } from "@/utils/Store";
 import { useSocialStore } from "@/utils/Store";
 import useEditUserData from "@/_hooks/useEditUserData";
 import useReissue from "@/_hooks/useReissue";
+import { useApiMutation } from "@/_hooks/query";
 
 interface FormData {
   username: string;
@@ -41,6 +42,24 @@ export default function Sign() {
   const searchParams = useSearchParams();
   const statusParam = searchParams.get("status");
   const emailParam = searchParams.get("email");
+  const {
+    mutate: fetchSign,
+    isPending,
+    isError,
+  } = useSign(loginSignupState === "login" ? "login" : "api/me/create");
+
+  const { mutate: changeStatus } = useApiMutation(
+    "put",
+    "api/members/status",
+    {},
+    {
+      headers: {
+        Authorization: localStorage.getItem("accessToken"),
+      },
+      withCredentials: true,
+    }
+  );
+
   const { register, handleSubmit, getValues, setValue, watch, reset } =
     useForm<FormData>({
       defaultValues: {
@@ -56,19 +75,19 @@ export default function Sign() {
     const tokenExists = localStorage.getItem("accessToken");
 
     if (statusParam === "PENDING" && !tokenExists) {
-      reissue();
+      reissue(undefined, {
+        onSuccess: (data) => {
+          localStorage.setItem("accessToken", data.headers.authorization);
+        },
+      });
     }
   }, [statusParam]);
 
   useEffect(() => {
-    if (social !== "") {
+    if (social !== "" && statusParam === "PENDING") {
       setLoginSignupState("signup");
     }
   }, [social]);
-
-  const { mutate: fetchSign, isPending } = useSign(
-    loginSignupState === "login" ? "login" : "api/me/create"
-  );
 
   const tabs: Tabs[] = [
     { id: "login", label: "로그인" },
@@ -89,9 +108,14 @@ export default function Sign() {
         },
         {
           onSuccess: () => {
+            changeStatus({
+              email: emailParam,
+              status: "ACTIVE",
+            });
             setSuccessAgree(false);
             setClearSignupStore();
             resetSocial();
+            reset();
             router.push("/");
           },
           onError: (error) => {
@@ -156,6 +180,7 @@ export default function Sign() {
             setValue={setValue}
             watch={watch}
             isPending={isPending}
+            isError={isError}
           />
         )}
       </form>
