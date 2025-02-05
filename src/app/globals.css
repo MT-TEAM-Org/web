@@ -32,3 +32,145 @@ button:focus {
   outline: none;
   border: 1px solid #424242;
 }
+
+/* TIPTAP */
+
+.tiptap {
+  :first-child {
+    margin-top: 0;
+  }
+
+  /* heading 스타일 */
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--gray-2);
+    cursor: pointer;
+    margin: 2rem 0;
+
+    &.ProseMirror-selectednode {
+      border-top: 1px solid var(--purple);
+    }
+  }
+}
+
+/* 수평선 스타일 */
+.ProseMirror hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+}
+
+.tiptap {
+  :first-child {
+    margin-top: 0;
+  }
+  /* list 스타일 */
+
+  ul,
+  ol {
+    list-style: disc;
+    margin-left: 20px;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+}
+/* 인용구에 스타일 */
+blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 16px;
+  margin-left: 0;
+  font-style: italic;
+  color: #555;
+}
+
+/*////////////////////////*/
+/* 색상 버튼 스타일 */
+button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 툴팁 스타일 */
+.group:hover .tooltip {
+  display: block;
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  margin-top: 6px;
+}
+
+/* 툴팁의 삼각형 */
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #333;
+}
+/* 툴바 스타일 */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.toolbar button {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.toolbar button:hover {
+  background-color: #f0f0f0;
+}
+
+.toolbar .divider {
+  width: 1px;
+  height: 24px;
+  background-color: #ccc;
+}
+
+.ProseMirror {
+  color: selectedColor !important;
+}
+.toolbar .divider {
+  width: 1px;
+  height: 24px;
+  background-color: #ccc;
+}

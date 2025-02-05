@@ -8,6 +8,7 @@ import Pg_left from "@/app/_components/icon/Pg_left";
 import Pg_right from "@/app/_components/icon/Pg_right";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import Small_Search from "@/app/_components/icon/Small_Search";
+import { usePathname, useRouter } from "next/navigation";
 import { useRef } from "react";
 
 interface DropdownOption {
@@ -17,6 +18,9 @@ interface DropdownOption {
 
 export const ComunityToolbar = () => {
   const selectRef = useRef<HTMLSelectElement>(null);
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   const pagenataion = [
     { value: "1", label: "1" },
@@ -41,6 +45,13 @@ export const ComunityToolbar = () => {
     }
   };
 
+  const handleWriteClick = () => {
+    const pathParts = pathname.split("/");
+    const basePath = pathParts[1];
+    const category = pathParts[2] === "write" ? "ALL" : pathParts[2] || "ALL";
+
+    router.push(`/${basePath}/${category}/write`);
+  };
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
   const pageButtonStyle =
@@ -49,7 +60,10 @@ export const ComunityToolbar = () => {
   return (
     <div>
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
-        <button className="defaultButtonColor w-[120px] h-[40px] rounded-[5px] px-[16px] py-[13px] text-white font-[700] text-[14px] leading-[14px]">
+        <button
+          onClick={handleWriteClick}
+          className="defaultButtonColor w-[120px] h-[40px] rounded-[5px] px-[16px] py-[13px] text-white font-[700] text-[14px] leading-[14px]"
+        >
           글쓰기
         </button>
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
