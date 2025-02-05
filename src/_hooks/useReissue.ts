@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 
 const handleReissue = async () => {
   const response = await axios.post(
-    "http://api.playhive.shop:8080/reissue",
+    `${process.env.NEXT_PUBLIC_API_URL}reissue`,
     {},
     {
       withCredentials: true,

@@ -5,12 +5,14 @@ import { Openeyes_off } from "@/app/_components/icon/Openeyes_off";
 import { Clear } from "@/app/_components/icon/Clear";
 import { useState } from "react";
 import {
+  FieldErrors,
   UseFormRegister,
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
 import SnsButtons from "./SnsButtons";
 import AccountHelp from "./AccountHelp";
+import { ErrorMessage } from "@hookform/error-message";
 
 interface FormData {
   username: string;
@@ -26,6 +28,7 @@ interface LoginProps {
   watch: UseFormWatch<FormData>;
   isPending: boolean;
   isError: boolean;
+  formErrors: FieldErrors<FormData>;
 }
 
 const Login = ({
@@ -34,6 +37,7 @@ const Login = ({
   watch,
   isPending,
   isError,
+  formErrors,
 }: LoginProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -43,12 +47,14 @@ const Login = ({
       type: "text",
       id: "username" as keyof FormData,
       placeholder: "아이디를 입력해주세요.",
+      validation: "이메일 아이디를 확인해주세요.",
     },
     {
       label: "비밀번호",
       type: isPasswordVisible ? "text" : "password",
       id: "password" as keyof FormData,
       placeholder: "비밀번호를 입력해주세요.",
+      validation: "비밀번호를 확인해주세요.",
     },
   ];
 
@@ -98,14 +104,34 @@ const Login = ({
             {input.label}
           </label>
           <input
-            {...register(input.id, { required: true })}
+            {...register(input.id, { required: input.validation })}
             type={input.type}
-            className={isPending ? isDisabledInputStyle : inputStyle}
+            className={
+              isPending
+                ? isDisabledInputStyle
+                : isError
+                ? isEmptyOrErrorInputStyle
+                : inputStyle
+            }
             id={input.id}
             disabled={isPending}
             placeholder={input.placeholder}
           />
           {inputIcon(input.id)}
+          <ErrorMessage
+            errors={formErrors}
+            name={input.id}
+            render={({ message }) => (
+              <p className="text-[14px] h-[22px] text-[#D1504B] ml-[16px]">
+                {message}
+              </p>
+            )}
+          />
+          {isError && (
+            <p className="text-[14px] h-[22px] text-[#D1504B] ml-[16px]">
+              {input.validation}
+            </p>
+          )}
         </div>
       ))}
       <button

@@ -13,6 +13,7 @@ interface InputProps {
   isDisabled?: boolean;
   isError?: boolean;
   defaultValue?: string;
+  validation?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -25,6 +26,7 @@ const Input: React.FC<InputProps> = ({
   register,
   isDisabled = false,
   isError = false,
+  validation,
 }) => {
   const inputStyle = `h-[${height}px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6]`;
   const labelStyle = "text-[14px] leading-[22px] text-[#424242]";
@@ -41,7 +43,7 @@ const Input: React.FC<InputProps> = ({
       <input
         type={type}
         id={id}
-        {...register(id, { required: true })}
+        {...register(id, { required: validation })}
         placeholder={placeholder}
         className={isDisabled ? isDisabledInputStyle : inputStyle}
         disabled={isDisabled}

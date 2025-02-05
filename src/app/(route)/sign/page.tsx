@@ -60,12 +60,19 @@ export default function Sign() {
     }
   );
 
-  const { register, handleSubmit, getValues, setValue, watch, reset } =
-    useForm<FormData>({
-      defaultValues: {
-        email: emailParam || "",
-      },
-    });
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>({
+    defaultValues: {
+      email: emailParam || "",
+    },
+  });
 
   useEffect(() => {
     reset();
@@ -181,6 +188,7 @@ export default function Sign() {
             watch={watch}
             isPending={isPending}
             isError={isError}
+            formErrors={errors}
           />
         )}
       </form>

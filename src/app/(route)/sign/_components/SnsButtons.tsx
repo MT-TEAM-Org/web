@@ -19,27 +19,30 @@ const SnsButtons = ({ signState }: SnsButtonsProps) => {
     {
       name: "naver" as "naver",
       icon: <Naver />,
+      link: `${process.env.NEXT_PUBLIC_API_URL}oauth2/authorization/naver`,
     },
     {
       name: "kakao" as "kakao",
       icon: <Kakao />,
-      link: "http://api.playhive.shop:8080/oauth2/authorization/kakao",
+      link: `${process.env.NEXT_PUBLIC_API_URL}oauth2/authorization/kakao`,
     },
     {
       name: "google" as "google",
       icon: <Google />,
-      link: "http://api.playhive.shop:8080/oauth2/authorization/google",
+      link: `${process.env.NEXT_PUBLIC_API_URL}oauth2/authorization/google`,
     },
     {
       name: "discord" as "discord",
       icon: <Discord />,
-      link: "http://api.playhive.shop:8080/oauth2/authorization/discord",
+      link: `${process.env.NEXT_PUBLIC_API_URL}oauth2/authorization/discord`,
     },
   ];
 
   const handleSnsRoute = (sns: "google" | "naver" | "kakao" | "discord") => {
     setSocial(sns);
-    router.push(`http://api.playhive.shop:8080/oauth2/authorization/${sns}`);
+    router.push(
+      `${process.env.NEXT_PUBLIC_API_URL}oauth2/authorization/${sns}`
+    );
   };
 
   const snsGrayLine = () => {
