@@ -40,17 +40,7 @@ const toolbarButtons = [
     isActive: (editor: Editor) => editor.isActive("strike"),
     title: "취소선",
   },
-  {
-    icon: <Link className="w-5 h-5" />,
-    action: (editor: Editor) => {
-      const url = window.prompt("Enter URL");
-      if (url) {
-        editor.chain().focus().setLink({ href: url }).run();
-      }
-    },
-    isActive: (editor: Editor) => editor.isActive("link"),
-    title: "링크",
-  },
+
   {
     icon: <Image className="w-5 h-5" />,
     action: (editor: Editor) => {
@@ -76,12 +66,7 @@ const toolbarButtons = [
     isActive: () => false,
     title: "이미지",
   },
-  {
-    icon: <Quote className="w-5 h-5" />,
-    action: (editor: Editor) => editor.chain().focus().toggleBlockquote().run(),
-    isActive: (editor: Editor) => editor.isActive("blockquote"),
-    title: "인용구",
-  },
+
   {
     icon: <Heading1 className="w-5 h-5" />,
     action: (editor: Editor) =>

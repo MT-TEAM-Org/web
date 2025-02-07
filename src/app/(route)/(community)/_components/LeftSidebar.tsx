@@ -23,7 +23,7 @@ const LeftSidebar = ({ isEsports = false }) => {
 
   const isCurrentPath = (boardPath: string) => {
     const pathParts = pathname.split("/");
-    const currentCategory = pathParts[2] || "";
+    const currentCategory = pathParts.includes("ALL") ? "" : pathParts[2] || "";
     const boardCategory = boardPath.split("/")[2] || "";
 
     return currentCategory === boardCategory;

@@ -13,7 +13,7 @@ export default function WritePage({ params }: { params: Usable<Params> }) {
   const { subcategory } = unwrappedParams;
 
   return (
-    <div className="max-w-[720px] min-h-[835px] bg-[#FFFFFF] rounded-[5px]">
+    <div className="max-w-[720px] min-h-[835px] bg-[#FFFFFF] rounded-[5px] mt-3.5">
       <Write
         category="e-sports"
         subCategory={subcategory}

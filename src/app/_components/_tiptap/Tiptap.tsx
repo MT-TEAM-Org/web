@@ -14,6 +14,7 @@ import Youtube from "@tiptap/extension-youtube";
 import Toolbar from "./Toolbar";
 import TitleDag from "./TitleDag";
 import { LinkIcon } from "../icon/LinkIcon";
+import { useRouter } from "next/navigation";
 
 interface TiptapProps {
   onChange: (content: string) => void;
@@ -21,6 +22,8 @@ interface TiptapProps {
 }
 
 const Tiptap: React.FC<TiptapProps> = ({ onChange, content }) => {
+  const router = useRouter();
+
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [placeholderVisible, setPlaceholderVisible] = useState(true);
@@ -108,6 +111,10 @@ const Tiptap: React.FC<TiptapProps> = ({ onChange, content }) => {
     return null;
   }
 
+  const handleListClick = () => {
+    router.back();
+  };
+
   return (
     <div className="w-[720px] min-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px]">
       <div className="">
@@ -158,7 +165,10 @@ const Tiptap: React.FC<TiptapProps> = ({ onChange, content }) => {
         </div>
       </div>
       <div className="w-[696px] h-[40px] flex justify-between mt-3">
-        <button className="w-[120px] h-[40px] bg-[#FFFFFF] border border-[#DBDBDB]">
+        <button
+          onClick={handleListClick}
+          className="w-[120px] h-[40px] bg-[#FFFFFF] border border-[#DBDBDB]"
+        >
           목록
         </button>
         <button className="w-[120px] h-[40px] bg-[#00ADEE] text-[white] rounded-[5px]">
