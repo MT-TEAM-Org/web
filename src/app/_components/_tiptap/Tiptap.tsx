@@ -15,6 +15,7 @@ import Toolbar from "./Toolbar";
 import TitleDag from "./TitleDag";
 import { LinkIcon } from "../icon/LinkIcon";
 import { useRouter } from "next/navigation";
+import LinkPreview from "../LinkPreview";
 
 interface TiptapProps {
   onChange: (content: string) => void;
@@ -115,6 +116,8 @@ const Tiptap: React.FC<TiptapProps> = ({ onChange, content }) => {
     router.back();
   };
 
+  console.log(videoUrl);
+
   return (
     <div className="w-[720px] min-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px]">
       <div className="">
@@ -137,6 +140,7 @@ const Tiptap: React.FC<TiptapProps> = ({ onChange, content }) => {
             />
           </div>
         </div>
+        <LinkPreview videoUrl={videoUrl} />
         <div className="mt-2">
           <Toolbar editor={editor} content={content || ""} />
           <EditorContent editor={editor} />
