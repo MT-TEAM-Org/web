@@ -2,7 +2,7 @@
 
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
@@ -14,23 +14,45 @@ import Youtube from "@tiptap/extension-youtube";
 import Toolbar from "./Toolbar";
 import TitleDag from "./TitleDag";
 import { LinkIcon } from "../icon/LinkIcon";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import LinkPreview from "../LinkPreview";
+import usePostCommunityContent from "@/_hooks/community";
+import { CommunityData } from "@/app/_constants/categories";
+import { useForm } from "react-hook-form";
 
 interface TiptapProps {
   onChange: (content: string) => void;
   content?: string;
 }
 
-const Tiptap: React.FC<TiptapProps> = ({ onChange, content }) => {
+interface FormData {
+  boardType: string;
+  categoryType: string;
+  title: string;
+  content: string;
+  link: string;
+  thumnail: string;
+}
+
+const Tiptap = ({ onChange, content }: TiptapProps) => {
+  const { register, handleSubmit, setValue } = useForm<FormData>();
   const router = useRouter();
+
+  const pathName = usePathname();
+
+  const boardType = pathName.split("/")[1];
+  const categoryType = pathName.split("/")[2];
+
+  console.log(boardType, categoryType);
 
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [placeholderVisible, setPlaceholderVisible] = useState(true);
 
-  const handleChange = (newContent: string) => {
-    onChange(newContent);
+  const { mutate: postContent } = usePostCommunityContent();
+
+  const handlePostContent = (data: CommunityData) => {
+    postContent(data);
   };
 
   const editor = useEditor({
@@ -86,7 +108,7 @@ const Tiptap: React.FC<TiptapProps> = ({ onChange, content }) => {
       },
     },
     onUpdate: ({ editor }) => {
-      handleChange(editor.getHTML());
+      onChange(editor.getHTML());
     },
     immediatelyRender: false,
   });
@@ -121,7 +143,7 @@ const Tiptap: React.FC<TiptapProps> = ({ onChange, content }) => {
   return (
     <div className="w-[720px] min-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px]">
       <div className="">
-        <TitleDag />
+        <TitleDag register={register} />
         <div className="w-[696px] min-h-[40px] flex mt-5 border flex-col rounded-[5px] border-[#ced4da]">
           <div className="flex">
             <label
