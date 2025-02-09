@@ -12,17 +12,17 @@ import { Placeholder } from "@tiptap/extension-placeholder";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import Youtube from "@tiptap/extension-youtube";
 import Toolbar from "./Toolbar";
-import TitleDag from "./TitleDag";
 import { LinkIcon } from "../icon/LinkIcon";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import LinkPreview from "../LinkPreview";
-import usePostCommunityContent from "@/_hooks/community";
-import { CommunityData } from "@/app/_constants/categories";
-import { useForm } from "react-hook-form";
+
+import { useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
 
 interface TiptapProps {
   onChange: (content: string) => void;
-  content?: string;
+  register: UseFormRegister<FormData>;
+  watch: UseFormWatch<FormData>;
+  initialContent?: string;
 }
 
 interface FormData {
@@ -34,26 +34,18 @@ interface FormData {
   thumnail: string;
 }
 
-const Tiptap = ({ onChange, content }: TiptapProps) => {
-  const { register, handleSubmit, setValue } = useForm<FormData>();
+const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
+  const { register, handleSubmit, setValue, watch } = useForm<FormData>({
+    defaultValues: {
+      content: initialContent || "",
+    },
+  });
+
   const router = useRouter();
-
-  const pathName = usePathname();
-
-  const boardType = pathName.split("/")[1];
-  const categoryType = pathName.split("/")[2];
-
-  console.log(boardType, categoryType);
 
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [placeholderVisible, setPlaceholderVisible] = useState(true);
-
-  const { mutate: postContent } = usePostCommunityContent();
-
-  const handlePostContent = (data: CommunityData) => {
-    postContent(data);
-  };
 
   const editor = useEditor({
     extensions: [
@@ -91,11 +83,11 @@ const Tiptap = ({ onChange, content }: TiptapProps) => {
         nocookie: true,
       }),
     ],
-
+    content: watch("content"),
     editorProps: {
       attributes: {
         class:
-          "editor-classflex flex-col min-h-[550px] overflow-y-auto box-border px-4 py-3 justify-start border-r border-l border-b border-[#ced4da] text-black items-start w-full gap-3 font-medium text-[16px] pt-4 rounded-bl-md rounded-br-md outline-none scroll",
+          "editor-class flex flex-col min-h-[550px] overflow-y-auto box-border px-4 py-3 justify-start border-r border-l border-b border-[#ced4da] text-black items-start w-full gap-3 font-medium text-[16px] pt-4 rounded-bl-md rounded-br-md outline-none scroll",
       },
       handleDOMEvents: {
         focus: () => {
@@ -108,21 +100,12 @@ const Tiptap = ({ onChange, content }: TiptapProps) => {
       },
     },
     onUpdate: ({ editor }) => {
-      onChange(editor.getHTML());
+      const html = editor.getHTML();
+      setValue("content", html);
+      onChange?.(html);
     },
     immediatelyRender: false,
   });
-
-  const addVideoToEditor = () => {
-    if (videoUrl && editor) {
-      editor.commands.setYoutubeVideo({
-        src: videoUrl,
-        width: 640,
-        height: 360,
-      });
-      setVideoUrl("");
-    }
-  };
 
   useEffect(() => {
     if (editor) {
@@ -134,16 +117,9 @@ const Tiptap = ({ onChange, content }: TiptapProps) => {
     return null;
   }
 
-  const handleListClick = () => {
-    router.back();
-  };
-
-  console.log(videoUrl);
-
   return (
     <div className="w-[720px] min-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px]">
-      <div className="">
-        <TitleDag register={register} />
+      <div>
         <div className="w-[696px] min-h-[40px] flex mt-5 border flex-col rounded-[5px] border-[#ced4da]">
           <div className="flex">
             <label
@@ -153,18 +129,18 @@ const Tiptap = ({ onChange, content }: TiptapProps) => {
               <LinkIcon />
             </label>
             <input
+              {...register("link")}
               type="text"
               id="videoUrl"
               placeholder="동영상 또는 출처링크를 입력해주세요"
-              className="w-full rounded-md py-[6px] px-[12px] "
-              value={videoUrl}
+              className="w-full rounded-md py-[6px] px-[12px]"
               onChange={(e) => setVideoUrl(e.target.value)}
             />
           </div>
         </div>
         <LinkPreview videoUrl={videoUrl} />
         <div className="mt-2">
-          <Toolbar editor={editor} content={content || ""} />
+          <Toolbar editor={editor} content={watch("content")} />
           <EditorContent editor={editor} />
         </div>
       </div>
@@ -189,17 +165,21 @@ const Tiptap = ({ onChange, content }: TiptapProps) => {
           <p>• 11MB~50MB 움짤은 11MB 이하로 자동변환됩니다.</p>
           <p>• 음원 있는 움짤/동영상은 45초 이내 길이만 가능합니다.</p>
         </div>
-      </div>
-      <div className="w-[696px] h-[40px] flex justify-between mt-3">
-        <button
-          onClick={handleListClick}
-          className="w-[120px] h-[40px] bg-[#FFFFFF] border border-[#DBDBDB]"
-        >
-          목록
-        </button>
-        <button className="w-[120px] h-[40px] bg-[#00ADEE] text-[white] rounded-[5px]">
-          작성완료
-        </button>
+        <div className="w-[696px] h-[40px] flex justify-between mt-3">
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="w-[120px] h-[40px] bg-[#FFFFFF] border border-[#DBDBDB]"
+          >
+            목록
+          </button>
+          <button
+            type="submit"
+            className="w-[120px] h-[40px] bg-[#00ADEE] text-[white] rounded-[5px]"
+          >
+            작성완료
+          </button>
+        </div>
       </div>
     </div>
   );
