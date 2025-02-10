@@ -1,39 +1,20 @@
 "use client";
-import useAuthCheck from "@/_hooks/useAuthCheck";
-import { ProfileLogo } from "../../icon/ProfileLogo";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { ProfileLogo } from "../../icon/ProfileLogo";
 import { api } from "@/_hooks/api";
 
-export const LoginButton = () => {
-  const router = useRouter();
-  const { data: userData, isLoading } = useAuthCheck();
+interface DropDownMenuItem {
+  name: string;
+  link?: string;
+}
 
-  return (
-    <>
-      {isLoading ? (
-        //TODO: 로딩 스피터 추가
-        <div>로딩중</div>
-      ) : (
-        <button
-          onClick={() => router.push("/sign")}
-          className="w-[124px] min-h-[40px] py-[13px] px-[16px] rounded-[5px] defaultButtonColor defaultButtonColor:hover text-white font-bold text-[14px] leading-[14px] whitespace-nowrap"
-        >
-          로그인/회원가입
-        </button>
-      )}
-    </>
-  );
-};
-
-export const MypageButton = () => {
-  const [isDropDown, setIsDropDown] = useState(false);
-  const { data: userData, isLoading } = useAuthCheck();
-  const nickname = userData?.data?.data?.nickname;
-
+export const MypageButton = ({ userNickname }: { userNickname: string }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [isDropDown, setIsDropDown] = useState(false);
 
   const fetchLogout = async () => {
     const response = await api.post(
@@ -46,7 +27,7 @@ export const MypageButton = () => {
     return response;
   };
 
-  const useLogoutMutation = useMutation({
+  const { mutate: logout, isPending: logoutIsPending } = useMutation({
     mutationFn: fetchLogout,
 
     onSuccess: () => {
@@ -81,6 +62,18 @@ export const MypageButton = () => {
       name: "로그아웃",
     },
   ];
+
+  const handleClickMenu = (item: DropDownMenuItem) => {
+    const { name, link } = item;
+    if (name === "로그아웃") {
+      logout();
+    } else {
+      if (link) {
+        router.push(link);
+      }
+    }
+  };
+
   return (
     <div
       className="relative flex items-center gap-[16px] max-w-[165px] min-h-[42px] rounded-full py-[8px] px-[16px] cursor-pointer"
@@ -88,7 +81,7 @@ export const MypageButton = () => {
     >
       <ProfileLogo />
       <p className="max-w-[83px] min-h-[26px] font-medium text-[16px] leading-[26px] text-[#424242]">
-        {nickname}님
+        {userNickname || ""}님
       </p>
 
       {isDropDown && (
@@ -103,15 +96,8 @@ export const MypageButton = () => {
               className="w-[252px] min-h-[48px] border-b border-[#EEEEEE] py-[4px] px-[16px] last:py-[16px] last:border-b-0"
             >
               <button
-                onClick={(e) => {
-                  if (item.name === "로그아웃") {
-                    useLogoutMutation.mutate();
-                  } else {
-                    if (item.link) {
-                      router.push(item.link);
-                    }
-                  }
-                }}
+                onClick={() => handleClickMenu(item)}
+                disabled={logoutIsPending}
                 className="text-[#424242] text-[16px] leading-[16px] font-medium w-full text-left"
               >
                 {item.name}
