@@ -122,11 +122,11 @@ const Login = ({
             errors={formErrors}
             name={input.id}
             render={({ message }) =>
-              !isError ? (
+              !isError && (
                 <p className="text-[14px] h-[22px] text-[#D1504B] ml-[16px]">
                   {message}
                 </p>
-              ) : null
+              )
             }
           />
           {isError && (
