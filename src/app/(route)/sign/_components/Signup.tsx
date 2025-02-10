@@ -53,9 +53,7 @@ const Signup = ({
   isPending,
   setSuccessAgree,
 }: SignupProps) => {
-  const [isVerificationSent, setIsVerificationSent] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
-  const [isVerificationChecked, setIsVerificationChecked] = useState(false);
   const [timeLeft, setTimeLeft] = useState(300);
   const [selected, setSelected] = useState<Selected>({
     allAgree: false,
@@ -88,45 +86,45 @@ const Signup = ({
     }
   }, [selected.serviceAgree, selected.personalAgree, selected.marketingAgree]);
 
-  const { mutate: sendVerification } = useApiMutation<EmailVerificationRequest>(
-    "post",
-    "/api/certification/send",
-    null,
-    {
-      headers: {
-        "Content-Type": "application/json",
+  const { mutate: sendVerification, isSuccess: sendVerificationIsSuccess } =
+    useApiMutation<EmailVerificationRequest>(
+      "post",
+      "/api/certification/send",
+      null,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    },
-    {
-      onSuccess: (data: EmailVerificationRequest) => {
-        setIsVerificationSent(true);
-        console.log("인증전송 성공", data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
+      {
+        onSuccess: (data: EmailVerificationRequest) => {
+          console.log("인증전송 성공", data);
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      }
+    );
 
-  const { mutate: checkVerification } = useApiMutation<VerificationCodeRequest>(
-    "post",
-    "/api/certification/certify-code",
-    null,
-    {
-      headers: {
-        "Content-Type": "application/json",
+  const { mutate: checkVerification, isSuccess: checkVerificationIsSuccess } =
+    useApiMutation<VerificationCodeRequest>(
+      "post",
+      "/api/certification/certify-code",
+      null,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    },
-    {
-      onSuccess: (data: VerificationCodeRequest) => {
-        console.log("인증코드 확인 성공", data);
-        setIsVerificationChecked(true);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
+      {
+        onSuccess: (data: VerificationCodeRequest) => {
+          console.log("인증코드 확인 성공", data);
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      }
+    );
 
   const handleSendVerification = () => {
     const email = getValues("email");
@@ -274,12 +272,12 @@ const Signup = ({
                 disabled={isPending}
                 placeholder="이메일 아이디를 입력해주세요."
               />
-              {isVerificationSent ? (
+              {sendVerificationIsSuccess ? (
                 <button
                   className={disabledVerificationButton}
                   type="button"
                   onClick={handleSendVerification}
-                  disabled={isVerificationChecked}
+                  disabled={checkVerificationIsSuccess}
                 >
                   재전송
                 </button>
@@ -295,7 +293,7 @@ const Signup = ({
             </div>
           </div>
           <div className="space-y-4">
-            {isVerificationSent && (
+            {sendVerificationIsSuccess && (
               <div className="flex justify-between gap-[8px]">
                 <input
                   type="text"
@@ -308,7 +306,7 @@ const Signup = ({
                   value={verificationCode}
                   onChange={(e) => setVerificationCode(e.target.value)}
                 />
-                {isVerificationChecked ? (
+                {checkVerificationIsSuccess ? (
                   <button
                     className={disabledVerificationButton}
                     disabled={true}
@@ -327,9 +325,9 @@ const Signup = ({
                 )}
               </div>
             )}
-            <p className={isPending ? isDisabledHelpTextStyle : helpTextStyle}>
+            {/* <p className={isPending ? isDisabledHelpTextStyle : helpTextStyle}>
               인증 시간 제한 5:00
-            </p>
+            </p> */}
           </div>
         </div>
       )}
