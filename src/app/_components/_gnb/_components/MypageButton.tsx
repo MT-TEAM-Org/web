@@ -80,7 +80,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
       onMouseEnter={() => setIsDropDown(true)}
     >
       <ProfileLogo />
-      <p className="max-w-[83px] min-h-[26px] font-medium text-[16px] leading-[26px] text-[#424242]">
+      <p className="max-w-[83px] min-h-[26px] leading-[26px] text-[#424242]">
         {userNickname || ""}님
       </p>
 
