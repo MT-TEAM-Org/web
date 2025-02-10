@@ -54,7 +54,7 @@ export default function Sign() {
     {},
     {
       headers: {
-        Authorization: localStorage.getItem("accessToken"),
+        // Authorization: localStorage.getItem("accessToken"),
       },
       withCredentials: true,
     }

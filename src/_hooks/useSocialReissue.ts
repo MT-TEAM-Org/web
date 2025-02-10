@@ -6,25 +6,25 @@ import { useEffect } from "react";
 import { setCookie } from "./useCookies";
 import { getCookie } from "./useCookies";
 
-interface ReissueFunction {
-  (): void;
-}
-
 const useSocialReissue = () => {
   const searchParams = useSearchParams();
   const refreshToken = searchParams.get("refreshToken");
   const { mutate: reissue, isError, isSuccess } = useReissue();
 
-  const reissueToken = async (reissue: ReissueFunction): Promise<void> => {
+  const reissueToken = async (): Promise<void> => {
     if (!refreshToken) return;
     await setCookie("X-Refresh-Token", refreshToken).then(() => {
-      reissue();
+      reissue(undefined, {
+        onSuccess: (data) => {
+          localStorage.setItem("accessToken", data.headers.authorization);
+        },
+      });
     });
   };
 
   useEffect(() => {
     if (!getCookie("X-Refresh-Token")) return;
-    reissueToken(reissue);
+    reissueToken();
   }, [refreshToken]);
 
   return { isError, isSuccess };

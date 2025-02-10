@@ -3,13 +3,13 @@
 import Image from "next/image";
 import MainRightBar from "./_components/MainRightBar";
 import NewPost from "./_components/NewPost";
-import ScheduleContainer from "./_components/ScheduleContainer";
-import HotPost from "./_components/HotPost";
-import NewsComponent from "./_components/NewsComponent";
+import ScheduleContainer from "./_components/scheduleContainer";
+import HotPost from "./_components/hotPost";
+import NewsComponent from "./_components/newsComponent";
 import useSocialReissue from "@/_hooks/useSocialReissue";
 
 export default function HomePage() {
-  useSocialReissue();
+  const { isSuccess, isError } = useSocialReissue();
 
   return (
     <div className="flex flex-col gap-6">
