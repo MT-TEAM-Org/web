@@ -39,9 +39,7 @@ export default function Header() {
             <button className={headerButtonClass}>{item?.name}</button>
           </Link>
         ))}
-        {isPending ? (
-          <div>로딩중</div>
-        ) : isSuccess ? (
+        {isSuccess ? (
           <MypageButton userNickname={userData?.data?.data?.nickname} />
         ) : (
           <LoginButton />
