@@ -13,5 +13,5 @@ export interface CommunityData {
   title: string;
   content: string;
   link: string;
-  thumnail: string;
+  thumbnail: string;
 }

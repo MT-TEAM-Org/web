@@ -31,7 +31,7 @@ interface FormData {
   title: string;
   content: string;
   link: string;
-  thumnail: string;
+  thumbnail: string;
 }
 
 const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
@@ -64,7 +64,7 @@ const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
       }),
       Placeholder.configure({
         placeholder:
-          "자유롭게 글을 작성해주시되, 국내/해외기사의 경우 유의해주세요!\n\n" +
+          "자유롭게 글을 작성해주시되, 국내/해외기사의 경우 유의해주세요!\n" +
           "1. 이미지는 이곳에 드래그 드랍으로도 업로드할 수 있습니다.\n" +
           "2. 저작권의 영향을 받을 수 있는 국내기사의 경우 반드시 요약하여 작성하여야 하며, 기사원문에 있는 내용 복붙, 캡쳐 사용을 금지합니다. (원문과 유사 내용이 있으면 삭제처리될 수 있음)\n" +
           "3. 국내기사의 경우 링크를 올리지 않거나, 기타 공지에 맞지 않는 글을 작성하신 경우 무통보 삭제됩니다.\n" +
@@ -76,7 +76,7 @@ const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
           "9. 사회적 통념에 위배되거나 분탕 목적의 글은 차단될 수 있습니다.\n" +
           "10. 번역기사 작성 시, 반드시 글 말머리에 언론사를 기입해주세요. (예: [BBC], [골닷컴], [르퀴프] 등) 구단의 공식홈페이지 출처는 [공홈]이라 기입해 주세요. 번역은 핵심 내용이 빠지지 않도록 주의해주시고, 가능하면 전문 번역해주세요. 악의적 번역이나 핵심 내용 생략에 대한 문제 제기가 있을 수 있습니다. 특히 선수 인터뷰 번역 시, 늬앙스가 바뀌지 않게 원문 그대로 번역해주세요.",
         emptyNodeClass:
-          " hidden-placeholder first:before:text-black pointer-events-none before:text-[16px] first:before:h-0 before:float-left  first:before:content-[attr(data-placeholder)] focus:before:content-['']",
+          "hidden-placeholder first:before:text-black pointer-events-none before:text-[16px] first:before:h-0 before:float-left  first:before:content-[attr(data-placeholder)] focus:before:content-['']",
       }),
       Youtube.configure({
         controls: true,
@@ -87,7 +87,7 @@ const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
     editorProps: {
       attributes: {
         class:
-          "editor-class flex flex-col min-h-[550px] overflow-y-auto box-border px-4 py-3 justify-start border-r border-l border-b border-[#ced4da] text-black items-start w-full gap-3 font-medium text-[16px] pt-4 rounded-bl-md rounded-br-md outline-none scroll",
+          "editor-class flex flex-col min-h-[375px] justify-start border-l border-r border-b border-[#DBDDB] text-black items-start w-full font-medium text-[16px] rounded-bl-md rounded-br-md outline-none scroll p-4",
       },
       handleDOMEvents: {
         focus: () => {
@@ -120,7 +120,7 @@ const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
   return (
     <div className="w-[720px] min-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px]">
       <div>
-        <div className="w-[696px] min-h-[40px] flex mt-5 border flex-col rounded-[5px] border-[#ced4da]">
+        <div className="w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-black">
           <div className="flex">
             <label
               htmlFor="videoUrl"
@@ -139,7 +139,7 @@ const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
           </div>
         </div>
         <LinkPreview videoUrl={videoUrl} />
-        <div className="mt-2">
+        <div className="">
           <Toolbar editor={editor} content={watch("content")} />
           <EditorContent editor={editor} />
         </div>
@@ -153,7 +153,7 @@ const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
             수 있습니다.
           </p>
         </div>
-        <div className="w-[672px] h-[88px] font-medium text-[14px] leading-[22px]">
+        <div className=" w-[672px] h-[88px] font-medium text-[14px] leading-[22px]">
           <p>
             • 허용 확장자 (jpg, jpeg, png,webp,heic, mp4,mov,webm,gif) 총 15개
             까지, 파일당 50MB 까지 업로드 가능합니다.
@@ -165,21 +165,21 @@ const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
           <p>• 11MB~50MB 움짤은 11MB 이하로 자동변환됩니다.</p>
           <p>• 음원 있는 움짤/동영상은 45초 이내 길이만 가능합니다.</p>
         </div>
-        <div className="w-[696px] h-[40px] flex justify-between mt-3">
-          <button
-            type="button"
-            onClick={() => router.back()}
-            className="w-[120px] h-[40px] bg-[#FFFFFF] border border-[#DBDBDB]"
-          >
-            목록
-          </button>
-          <button
-            type="submit"
-            className="w-[120px] h-[40px] bg-[#00ADEE] text-[white] rounded-[5px]"
-          >
-            작성완료
-          </button>
-        </div>
+      </div>
+      <div className="f w-[696px] h-[40px] flex justify-between mt-3">
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="w-[120px] h-[40px] bg-[#FFFFFF] border border-[#DBDBDB]"
+        >
+          목록
+        </button>
+        <button
+          type="submit"
+          className="w-[120px] h-[40px] bg-[#00ADEE] text-[white] rounded-[5px]"
+        >
+          작성완료
+        </button>
       </div>
     </div>
   );

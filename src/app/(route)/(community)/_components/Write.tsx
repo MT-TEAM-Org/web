@@ -16,7 +16,7 @@ interface FormData {
   title: string;
   content: string;
   link: string;
-  thumnail: string;
+  thumbnail: string;
 }
 
 export function Write({ category, subCategory }: WriteProps) {
@@ -27,7 +27,7 @@ export function Write({ category, subCategory }: WriteProps) {
       content: "",
       title: "",
       link: "",
-      thumnail: "",
+      thumbnail: "",
     },
   });
 
@@ -41,16 +41,15 @@ export function Write({ category, subCategory }: WriteProps) {
     const currentCategory = watch("categoryType");
 
     const communityData: CommunityData = {
-      boardType: boardType,
+      boardType: boardType.toLocaleUpperCase(),
       categoryType: currentCategory,
       title: data.title,
       content: data.content,
       link: data.link,
-      thumnail: "",
+      thumbnail: "",
     };
-    console.log("제출되는 데이터:", communityData); // 디버깅용
-
     postContent(communityData);
+    console.log(data);
   };
 
   return (

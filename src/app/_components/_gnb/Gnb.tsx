@@ -1,3 +1,5 @@
+"use client";
+
 import Header from "./Header";
 import Navbar from "./Navbar";
 
@@ -12,6 +14,8 @@ interface UserData {
 }
 
 export default function Gnb() {
+  console.log("Gnb rendering", new Error().stack); // 호출 스택 확인
+
   return (
     <>
       <div className="w-full fixed top-0 bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] z-50 h-[120px]">

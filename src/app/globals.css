@@ -174,3 +174,10 @@ button {
   height: 24px;
   background-color: #ccc;
 }
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #424242;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: left;
+}

@@ -8,8 +8,8 @@ const postCommunitycontent = async (data: CommunityData) => {
     data,
     {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        "Content-Type": "multipart/form-data",
+        Authorization: `${localStorage.getItem("accessToken")}`,
+        "Content-Type": "application/json",
       },
     }
   );

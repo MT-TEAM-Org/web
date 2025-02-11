@@ -22,7 +22,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
     { name: "자유", value: "FREE" },
     { name: "질문", value: "QUESTION" },
     { name: "이슈", value: "ISSUE" },
-    ...(boardType === "e-sports"
+    ...(boardType === "esports"
       ? [
           { name: "전적인증", value: "VERIFICATION" },
           { name: "플레이팁", value: "TIP" },
@@ -38,7 +38,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
 
   return (
     <div className="w-full h-full">
-      <div className="flex justify-between items-center max-w-[696px] min-h-[40px] mb-3">
+      <div className="flex justify-between items-center mx-auto max-w-[696px] min-h-[40px] pt-2">
         <h1 className="max-w-[80px] min-h-[28px] font-[700] text-[18px] leading-[28px] whitespace-nowrap">
           게시글 작성
         </h1>
@@ -49,7 +49,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
           글쓰기 유의사항
         </button>
       </div>
-      <div className="flex justify-between w-[696px] h-[50px] space-x-1">
+      <div className="flex justify-between items-center mx-auto w-[696px] h-[50px] space-x-1 mt-2">
         <div className="relative w-[160px] h-[50px] border rounded-[5px]">
           <select
             {...register("categoryType")}
