@@ -40,7 +40,7 @@ const AccountHelp = ({ signState }: AccountHelpProps) => {
         1:1 문의하기
       </button>
       {signState === "login" && (
-        <Link href="/" className="w-1/2 leading-[18px]">
+        <Link href="/sign/find-account" className="w-1/2 leading-[18px]">
           아이디/비밀번호 찾기
         </Link>
       )}
