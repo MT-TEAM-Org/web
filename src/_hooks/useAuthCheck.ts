@@ -24,7 +24,7 @@ const useAuthCheck = () => {
     queryKey: ["authCheck"],
     queryFn: fetchAuthCheck,
     enabled: !!getToken(),
-    retry: 1,
+    retry: false,
   });
 };
 

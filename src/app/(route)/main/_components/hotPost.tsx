@@ -1,5 +1,5 @@
 import React from "react";
-import HotPostItem from "./HotPostItem";
+import HotPostItem from "./hotPostItem";
 
 const hotPost = () => {
   return (

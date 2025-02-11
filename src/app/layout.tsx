@@ -13,18 +13,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <QueryProvider>
-        <body className="defaultFont">
+      <body className="defaultFont">
+        <QueryProvider>
           <Gnb />
           {children}
-          {/* <Footer /> */}
-        </body>
-      </QueryProvider>
+        </QueryProvider>
+      </body>
     </html>
   );
 }

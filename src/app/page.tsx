@@ -1,3 +1,5 @@
+"use client";
+
 import HomePage from "./(route)/main/HomePage";
 
 export default function Home() {
