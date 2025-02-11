@@ -14,6 +14,8 @@ import { Kakao } from "@/app/_components/icon/Kakao";
 import { Discord } from "@/app/_components/icon/Discord";
 import { useApiMutation } from "@/_hooks/query";
 import { useSocialStore } from "@/utils/Store";
+import { FieldErrors } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 
 interface FormData {
   username: string;
@@ -28,6 +30,8 @@ interface SignupProps {
   getValues: UseFormGetValues<FormData>;
   isPending: boolean;
   setSuccessAgree: React.Dispatch<React.SetStateAction<boolean>>;
+  formErrors: FieldErrors<FormData>;
+  isError: boolean;
 }
 
 interface Selected {
@@ -52,11 +56,12 @@ const Signup = ({
   getValues,
   isPending,
   setSuccessAgree,
+  formErrors,
+  isError,
 }: SignupProps) => {
-  const [isVerificationSent, setIsVerificationSent] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
-  const [isVerificationChecked, setIsVerificationChecked] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(300);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [isExpired, setIsExpired] = useState(false);
   const [selected, setSelected] = useState<Selected>({
     allAgree: false,
     serviceAgree: false,
@@ -66,29 +71,57 @@ const Signup = ({
   const { social } = useSocialStore();
 
   useEffect(() => {
-    const { serviceAgree, personalAgree, marketingAgree } = selected;
+    if (timeLeft === null || timeLeft <= 0) {
+      if (timeLeft === 0) {
+        setIsExpired(true);
+        setVerificationCode(""); // 인증 코드 초기화
+      }
+      return;
+    }
 
-    // 개별 체크박스들이 모두 체크되었을 때만 전체 동의를 체크
-    if (serviceAgree && personalAgree && marketingAgree && !selected.allAgree) {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => (prev ? prev - 1 : 0));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  const handleTimerOn = () => {
+    setTimeLeft(300);
+    setIsExpired(false);
+  };
+
+  useEffect(() => {
+    const { allAgree, serviceAgree, personalAgree, marketingAgree } = selected;
+
+    const isRequiredAgreed = serviceAgree && personalAgree;
+    const isAllAgreed = isRequiredAgreed && marketingAgree; // 3개가 모두 체크되었을 때만 true
+
+    // 전체 동의 체크박스 동기화 (모든 약관이 체크되었을 때만 true)
+    if (isAllAgreed && !allAgree) {
       setSelected((prev) => ({
         ...prev,
         allAgree: true,
       }));
-      setSuccessAgree(true);
     }
-    // 하나라도 체크가 해제되면 전체 동의 해제
-    else if (!serviceAgree || !personalAgree || !marketingAgree) {
+
+    // 하나라도 해제되면 allAgree를 false로 설정
+    if (!isAllAgreed && allAgree) {
       setSelected((prev) => ({
         ...prev,
         allAgree: false,
       }));
     }
-    if (serviceAgree && personalAgree) {
-      setSuccessAgree(true);
-    }
-  }, [selected.serviceAgree, selected.personalAgree, selected.marketingAgree]);
 
-  const { mutate: sendVerification } = useApiMutation<EmailVerificationRequest>(
+    // 필수 약관이 모두 체크되었을 때만 successAgree를 true로 설정
+    setSuccessAgree(isRequiredAgreed);
+  }, [selected]);
+
+  const {
+    mutate: sendVerification,
+    isSuccess: sendVerificationIsSuccess,
+    isError: sendVerificationIsError,
+  } = useApiMutation<EmailVerificationRequest>(
     "post",
     "/api/certification/send",
     null,
@@ -99,7 +132,6 @@ const Signup = ({
     },
     {
       onSuccess: (data: EmailVerificationRequest) => {
-        setIsVerificationSent(true);
         console.log("인증전송 성공", data);
       },
       onError: (error) => {
@@ -108,7 +140,12 @@ const Signup = ({
     }
   );
 
-  const { mutate: checkVerification } = useApiMutation<VerificationCodeRequest>(
+  const {
+    mutate: checkVerification,
+    isSuccess: checkVerificationIsSuccess,
+    isError: checkVerificationIsError,
+    isIdle: checkVerificationIsIdle,
+  } = useApiMutation<VerificationCodeRequest>(
     "post",
     "/api/certification/certify-code",
     null,
@@ -120,7 +157,6 @@ const Signup = ({
     {
       onSuccess: (data: VerificationCodeRequest) => {
         console.log("인증코드 확인 성공", data);
-        setIsVerificationChecked(true);
       },
       onError: (error) => {
         console.log(error);
@@ -129,24 +165,39 @@ const Signup = ({
   );
 
   const handleSendVerification = () => {
+    setIsExpired(false);
     const email = getValues("email");
     if (!email) {
       alert("이메일을 입력해주세요.");
       return;
     }
-    sendVerification({ email });
+    sendVerification(
+      { email },
+      {
+        onSuccess: () => {
+          handleTimerOn();
+        },
+      }
+    );
   };
 
   const handleCheckVerification = () => {
     const email = getValues("email");
-    checkVerification({ email, code: verificationCode });
+    checkVerification(
+      { email, code: verificationCode },
+      {
+        onSuccess: () => {
+          setTimeLeft(null);
+        },
+      }
+    );
   };
 
   const inputObject = [
     {
       label: "비밀번호",
       type: "password",
-      id: "password",
+      id: "password" as keyof FormData,
       placeholder: "비밀번호를 입력해주세요.",
       validation: "영문+숫자 조합 4자~10자 이내",
     },
@@ -160,7 +211,7 @@ const Signup = ({
     {
       label: "닉네임",
       type: "text",
-      id: "nickname",
+      id: "nickname" as keyof FormData,
       placeholder: "닉네임을 입력해주세요.",
       validation:
         "한글+영문 / 한글 + 숫자 등 모두 가능 (10자 이내로) 정치 관련, 반사회적, 성적, 욕설 닉네임은 제재대상",
@@ -169,21 +220,21 @@ const Signup = ({
 
   const snsInputObject = [
     {
-      label: "이메일 아이디*",
+      label: "이메일 아이디",
       type: "text",
       id: "email",
       placeholder: "이메일 아이디를 입력해주세요.",
       disabled: true,
     },
     {
-      label: "핸드폰 번호*",
+      label: "핸드폰 번호",
       type: "text",
       id: "tel",
       placeholder: "핸드폰 번호를 입력해주세요.",
       validation: "10자~11자 이내",
     },
     {
-      label: "닉네임*",
+      label: "닉네임",
       type: "text",
       id: "nickname",
       placeholder: "닉네임을 입력해주세요.",
@@ -261,7 +312,7 @@ const Signup = ({
               htmlFor="email"
               className="text-[14px] leading-[22px] text-[#424242]"
             >
-              이메일 인증
+              이메일 인증<span className="text-[#D1504B]">*</span>
             </label>
             <div className="flex justify-between gap-[8px]">
               <input
@@ -271,15 +322,15 @@ const Signup = ({
                   isPending ? isDisabledInputStyle : inputStyle
                 } w-[240px]`}
                 id="email"
-                disabled={isPending}
+                disabled={isPending || checkVerificationIsSuccess}
                 placeholder="이메일 아이디를 입력해주세요."
               />
-              {isVerificationSent ? (
+              {sendVerificationIsSuccess ? (
                 <button
                   className={disabledVerificationButton}
                   type="button"
                   onClick={handleSendVerification}
-                  disabled={isVerificationChecked}
+                  disabled={checkVerificationIsSuccess}
                 >
                   재전송
                 </button>
@@ -293,9 +344,14 @@ const Signup = ({
                 </button>
               )}
             </div>
+            {formErrors.email && (
+              <p className="text-[14px] text-[#D1504B] ml-[16px]">
+                이메일 인증을 진행해주세요.
+              </p>
+            )}
           </div>
-          <div className="space-y-4">
-            {isVerificationSent && (
+          <div className="space-y-[4px]">
+            {sendVerificationIsSuccess && (
               <div className="flex justify-between gap-[8px]">
                 <input
                   type="text"
@@ -303,12 +359,12 @@ const Signup = ({
                     isPending ? isDisabledInputStyle : inputStyle
                   } w-[240px]`}
                   id="code"
-                  disabled={isPending}
+                  disabled={isPending || checkVerificationIsSuccess}
                   placeholder="인증코드를 입력해주세요."
                   value={verificationCode}
                   onChange={(e) => setVerificationCode(e.target.value)}
                 />
-                {isVerificationChecked ? (
+                {checkVerificationIsSuccess ? (
                   <button
                     className={disabledVerificationButton}
                     disabled={true}
@@ -327,25 +383,62 @@ const Signup = ({
                 )}
               </div>
             )}
-            <p className={isPending ? isDisabledHelpTextStyle : helpTextStyle}>
-              인증 시간 제한 5:00
-            </p>
+            {checkVerificationIsError ? (
+              <p className="text-[14px] text-[#D1504B] ml-[16px]">
+                이메일 인증코드를 확인해주세요.
+              </p>
+            ) : isExpired ? (
+              <p className="text-[14px] text-[#D1504B] ml-[16px]">
+                인증 시간이 만료되었습니다. 다시 인증해주세요.
+              </p>
+            ) : sendVerificationIsSuccess &&
+              !checkVerificationIsSuccess &&
+              !isExpired ? (
+              <p
+                className={isPending ? isDisabledHelpTextStyle : helpTextStyle}
+              >
+                인증 시간 제한{" "}
+                {timeLeft !== null &&
+                  `${Math.floor(timeLeft / 60)}:${String(
+                    timeLeft % 60
+                  ).padStart(2, "0")}`}
+              </p>
+            ) : null}
           </div>
         </div>
       )}
       {social === ""
         ? inputObject.map((input) => (
-            <Input
-              key={input.id}
-              height={48}
-              type={input.type}
-              id={input.id}
-              register={register}
-              placeholder={input.placeholder}
-              helpText={input.validation}
-              label={input.label}
-              isDisabled={isPending}
-            />
+            <div className="space-y-[4px]" key={input.id}>
+              <Input
+                key={input.id}
+                height={48}
+                type={input.type}
+                id={input.id}
+                register={register}
+                placeholder={input.placeholder}
+                helpText={input.validation}
+                label={input.label}
+                isDisabled={isPending}
+                validation={input.validation}
+              />
+              <ErrorMessage
+                errors={formErrors}
+                name={input.id}
+                render={({ message }) =>
+                  !isError && (
+                    <p className="text-[14px] text-[#D1504B] ml-[16px]">
+                      {message}
+                    </p>
+                  )
+                }
+              />
+              {!isError && !formErrors[input.id] ? (
+                <p className="text-[14px] text-[#A6A6A6] ml-[16px]">
+                  {input.validation}
+                </p>
+              ) : null}
+            </div>
           ))
         : snsInputObject.map((input) => (
             <Input

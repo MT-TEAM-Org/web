@@ -11,21 +11,18 @@ interface InputProps {
   id: string;
   register: UseFormRegister<any>;
   isDisabled?: boolean;
-  isError?: boolean;
   defaultValue?: string;
   validation?: string;
 }
 
 const Input: React.FC<InputProps> = ({
   label,
-  helpText = "",
   placeholder = "",
   height,
   type = "text",
   id,
   register,
   isDisabled = false,
-  isError = false,
   validation,
 }) => {
   const inputStyle = `h-[${height}px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6]`;
@@ -39,6 +36,7 @@ const Input: React.FC<InputProps> = ({
     <div className="flex flex-col gap-[2px]">
       <label htmlFor={id} className={labelStyle}>
         {label}
+        <span className="text-[#D1504B]">*</span>
       </label>
       <input
         type={type}
@@ -48,19 +46,6 @@ const Input: React.FC<InputProps> = ({
         className={isDisabled ? isDisabledInputStyle : inputStyle}
         disabled={isDisabled}
       />
-      {helpText && (
-        <p
-          className={
-            isDisabled
-              ? isDisabledHelpTextStyle
-              : isError
-              ? isErrorTextStyle
-              : helpTextStyle
-          }
-        >
-          {helpText}
-        </p>
-      )}
     </div>
   );
 };
