@@ -31,9 +31,10 @@ export function Write({ category, subCategory }: WriteProps) {
     },
   });
 
+  console.log(watch("link"));
+
   const pathName = usePathname();
   const boardType = pathName?.split("/")[1];
-  const categoryType = pathName?.split("/")[2];
 
   const { mutate: postContent } = usePostCommunityContent();
 
