@@ -20,10 +20,10 @@ const fetchSign = async (SignData: SignData, url: string) => {
   return response;
 };
 
-const usePostToken = (url: string) => {
+const useSign = (url: string) => {
   return useMutation({
     mutationFn: (SignData: SignData) => fetchSign(SignData, url),
   });
 };
 
-export default usePostToken;
+export default useSign;

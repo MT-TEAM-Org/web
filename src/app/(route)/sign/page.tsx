@@ -5,14 +5,14 @@ import Login from "./_components/Login";
 import Signup from "./_components/Signup";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
-import usePostToken from "@/utils/UsePostToken";
+import useSign from "@/utils/UseSign";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useSignupStore } from "@/utils/Store";
 import { useSocialStore } from "@/utils/Store";
 import useEditUserData from "@/_hooks/useEditUserData";
-import { useSocialEmailStore } from "@/utils/Store";
 import useReissue from "@/_hooks/useReissue";
+import { useApiMutation } from "@/_hooks/query";
 
 interface FormData {
   username: string;
@@ -34,7 +34,6 @@ export default function Sign() {
   const { mutate: reissue } = useReissue();
   const { signStateStore, setClearSignupStore } = useSignupStore();
   const { social, resetSocial } = useSocialStore();
-  const { email, setEmail, resetEmail } = useSocialEmailStore();
   const [loginSignupState, setLoginSignupState] = useState<"login" | "signup">(
     "login"
   );
@@ -43,12 +42,37 @@ export default function Sign() {
   const searchParams = useSearchParams();
   const statusParam = searchParams.get("status");
   const emailParam = searchParams.get("email");
-  const { register, handleSubmit, getValues, setValue, watch, reset } =
-    useForm<FormData>({
-      defaultValues: {
-        email: email || "",
+  const {
+    mutate: fetchSign,
+    isPending,
+    isError,
+  } = useSign(loginSignupState === "login" ? "login" : "api/me/create");
+
+  const { mutate: changeStatus } = useApiMutation(
+    "put",
+    "api/members/status",
+    {},
+    {
+      headers: {
+        // Authorization: localStorage.getItem("accessToken"),
       },
-    });
+      withCredentials: true,
+    }
+  );
+
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>({
+    defaultValues: {
+      email: emailParam || "",
+    },
+  });
 
   useEffect(() => {
     reset();
@@ -58,31 +82,19 @@ export default function Sign() {
     const tokenExists = localStorage.getItem("accessToken");
 
     if (statusParam === "PENDING" && !tokenExists) {
-      reissue();
+      reissue(undefined, {
+        onSuccess: (data) => {
+          localStorage.setItem("accessToken", data.headers.authorization);
+        },
+      });
     }
   }, [statusParam]);
 
   useEffect(() => {
-    if (statusParam === "PENDING" && emailParam) {
-      setEmail(emailParam);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (email) {
-      setValue("email", email);
-    }
-  }, [email]);
-
-  useEffect(() => {
-    if (social !== "") {
+    if (social !== "" && statusParam === "PENDING") {
       setLoginSignupState("signup");
     }
   }, [social]);
-
-  const { mutate: fetchSign, isPending } = usePostToken(
-    loginSignupState === "login" ? "login" : "api/me/create"
-  );
 
   const tabs: Tabs[] = [
     { id: "login", label: "로그인" },
@@ -103,10 +115,14 @@ export default function Sign() {
         },
         {
           onSuccess: () => {
+            changeStatus({
+              email: emailParam,
+              status: "ACTIVE",
+            });
             setSuccessAgree(false);
             setClearSignupStore();
             resetSocial();
-            resetEmail();
+            reset();
             router.push("/");
           },
           onError: (error) => {
@@ -171,6 +187,8 @@ export default function Sign() {
             setValue={setValue}
             watch={watch}
             isPending={isPending}
+            isError={isError}
+            formErrors={errors}
           />
         )}
       </form>
