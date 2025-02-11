@@ -34,15 +34,8 @@ interface FormData {
   thumbnail: string;
 }
 
-const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
-  const { register, handleSubmit, setValue, watch } = useForm<FormData>({
-    defaultValues: {
-      content: initialContent || "",
-    },
-  });
-
+const Tiptap = ({ onChange, register, watch, initialContent }: TiptapProps) => {
   const router = useRouter();
-
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [placeholderVisible, setPlaceholderVisible] = useState(true);
@@ -83,7 +76,7 @@ const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
         nocookie: true,
       }),
     ],
-    content: watch("content"),
+    content: initialContent || "",
     editorProps: {
       attributes: {
         class:
@@ -101,7 +94,6 @@ const Tiptap = ({ onChange, initialContent }: TiptapProps) => {
     },
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      setValue("content", html);
       onChange?.(html);
     },
     immediatelyRender: false,
