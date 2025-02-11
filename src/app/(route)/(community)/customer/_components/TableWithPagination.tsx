@@ -69,4 +69,3 @@ const TableWithPagination = () => {
 };
 
 export default TableWithPagination;
-
