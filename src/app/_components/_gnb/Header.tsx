@@ -36,7 +36,7 @@ export default function Header() {
       <div className="flex max-w-[323px] min-h-[40px] items-center">
         {headerButton.map((item, index) => (
           <Link href={item.link} key={index}>
-            <button className={headerButtonClass}>{item?.name}</button>
+            <button className={headerButtonClass}>{item.name}</button>
           </Link>
         ))}
         {isSuccess ? (
