@@ -121,14 +121,16 @@ const Login = ({
           <ErrorMessage
             errors={formErrors}
             name={input.id}
-            render={({ message }) => (
-              <p className="text-[14px] h-[22px] text-[#D1504B] ml-[16px]">
-                {message}
-              </p>
-            )}
+            render={({ message }) =>
+              !isError && (
+                <p className="text-[14px] text-[#D1504B] ml-[16px]">
+                  {message}
+                </p>
+              )
+            }
           />
           {isError && (
-            <p className="text-[14px] h-[22px] text-[#D1504B] ml-[16px]">
+            <p className="text-[14px] text-[#D1504B] ml-[16px]">
               {input.validation}
             </p>
           )}

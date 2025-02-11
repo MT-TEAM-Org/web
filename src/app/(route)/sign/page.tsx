@@ -103,7 +103,6 @@ export default function Sign() {
 
   const onSubmit = (formData: FormData) => {
     if (loginSignupState === "signup" && !successAgree) {
-      // 약관 확인이 정상적으로 동작하지 않음
       return alert("필수약관에 동의해주세요.");
     }
     if (social !== "" && loginSignupState === "signup") {
@@ -180,6 +179,8 @@ export default function Sign() {
             getValues={getValues}
             isPending={isPending}
             setSuccessAgree={setSuccessAgree}
+            formErrors={errors}
+            isError={isError}
           />
         ) : (
           <Login
