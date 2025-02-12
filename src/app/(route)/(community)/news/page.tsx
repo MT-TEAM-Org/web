@@ -1,6 +1,8 @@
 import React from "react";
 import { NewsTalkToolbar } from "../_components/NewsTalkToolbar";
 import NewsPostItem from "./_components/NewsPostItem";
+import EmptyNews from "./_components/EmptyNews";
+import fetchNewsData from "./fetchNewsData";
 
 const page = () => {
   return (
@@ -14,6 +16,10 @@ const page = () => {
         ))}
       </div>
     </div>
+    // <div>
+    //   <NewsTalkToolbar />
+    //   <EmptyNews />
+    // </div>
   );
 };
 
