@@ -15,20 +15,21 @@ interface newsItem {
 }
 
 const Page = () => {
-  const { data, isLoading, error } = useFetchNewsData();
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading news</p>;
+  const { data, isLoading, isError } = useFetchNewsData();
 
   console.log("NewsListData: ", data);
 
   return (
-    <div className="flex flex-col justify-center bg-[#FAFAFA] rounded-tl-[5px] rounded-tr-[5px]">
+    <div className="w-[720px] min-h-[1508px] flex flex-col justify-start bg-[#FAFAFA] rounded-[5px] overflow-hidden">
       <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] border-b bg-[#FFFFFF] mx-auto">
         <NewsTalkToolbar />
       </div>
       <div>
-        {data.length === 0 ? (
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : isError ? (
+          <p>Error...</p>
+        ) : data.length === 0 ? (
           <EmptyNews />
         ) : (
           data.map((newsItem: newsItem) => (

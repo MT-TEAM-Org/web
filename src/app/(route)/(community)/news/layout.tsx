@@ -22,7 +22,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <LeftSidebar />
           </div>
         </div>
-        <div className="flex-1 max-w-[720px]">{children}</div>
+        <div className="flex-1 max-w-[720px] mb-[47px] rounded-bl-[5px] rounded-br-[5px]">
+          {children}
+        </div>
         <div className="flex-1">
           <div className="">
             <RightSideBar />

@@ -4,14 +4,24 @@ import Arrow_left from "@/app/_components/icon/Arrow_left";
 import NewsItem from "./NewsItem";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
+import useFetchNewsData from "../news/fetchNewsData";
+
+type NewsItemType = {
+  id: number;
+  title: string;
+  category: string;
+  thumbImg: string;
+  postDate: string;
+};
 
 export const RightSideBar = () => {
+  const { data } = useFetchNewsData();
   return (
     <div className="w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-6">
       <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md bg-[#f8fdff] rounded-[10px]">
         <div className="w-full h-auto max-h-[736px] rounded-[10px]">
-          {Array.from({ length: 8 }).map((_, index) => (
-            <NewsItem key={index} />
+          {data?.map((data: NewsItemType) => (
+            <NewsItem key={data.id} newsItem={data} />
           ))}
         </div>
 
