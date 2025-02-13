@@ -4,14 +4,14 @@ import Single_logo from "@/app/_components/icon/Single_logo";
 import Share from "@/app/_components/icon/Share";
 import Coppy from "@/app/_components/icon/Coppy";
 import Refresh from "@/app/_components/icon/Refresh";
-import { NewsTalkToolbar } from "../../_components/NewsTalkToolbar";
-import NewsPostItem from "../_components/NewsPostItem";
 import CommentContainer from "./_components/CommentContainer";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Plus from "@/app/_components/icon/Plus";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
 import Send_icon from "@/app/_components/icon/Send_icon";
+import { NewsTalkToolbar } from "../../../_components/NewsTalkToolbar";
+import NewsPostItem from "../../_components/NewsPostItem";
 
 const page = () => {
   const nextButtonStyle =

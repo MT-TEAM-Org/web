@@ -20,7 +20,7 @@ const NewsPostItem: React.FC<NewsPostItemProps> = ({ newsItem }) => {
   const router = useRouter();
 
   const handleToPage = () => {
-    router.push(`/news/${newsItem.id}`);
+    router.push(`/news/news-detail/${newsItem.id}`);
     console.log("id: ", newsItem.id);
   };
 
