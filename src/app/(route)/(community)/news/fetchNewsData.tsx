@@ -1,14 +1,26 @@
-export default async function fetchNewsData() {
-  try {
-    const response = await fetch(
-      `http://52.79.222.87:8080/api/news?page=0&size=10&category=BASEBALL&orderType=DATE,COMMENT,VIEW`
-    );
-    if (!response.ok) throw new Error("데이터 불러오기 실패");
-    const jsonData = await response.json();
-    console.log("jsonData: ", jsonData.content);
-    return console.log(jsonData.content);
-  } catch (error) {
-    console.error(error.message);
-    return [];
-  }
-}
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
+const fetchNewsData = async () => {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}api/news`,
+    {
+      params: {
+        category: "BASEBALL",
+        orderType: "DATE",
+        page: 1,
+        size: 10,
+      },
+    }
+  );
+  return response.data;
+};
+
+const useFetchNewsData = () => {
+  return useQuery({
+    queryKey: ["newsData"],
+    queryFn: fetchNewsData,
+  });
+};
+
+export default useFetchNewsData;

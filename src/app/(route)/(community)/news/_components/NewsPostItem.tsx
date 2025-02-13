@@ -4,49 +4,76 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-const NewsPostItem = () => {
+type NewsItemType = {
+  id: number;
+  title: string;
+  category: string;
+  thumbImg: string;
+  postDate: string;
+};
+
+interface NewsPostItemProps {
+  newsItem: NewsItemType;
+}
+
+const NewsPostItem: React.FC<NewsPostItemProps> = ({ newsItem }) => {
   const router = useRouter();
 
   const handleToPage = () => {
-    router.push("/schedule/info");
+    router.push(`/news/${newsItem.id}`);
+    console.log("id: ", newsItem.id);
   };
 
   return (
     <div
-      className="w-[720px] h-[116px] flex justify-start gap-3 border-b border-[#FAFAFA] p-3 bg-[#FFFFFF] cursor-pointer"
+      className="min-w-[720px] min-h-[116px] flex justify-start gap-3 border-b border-[#FAFAFA] p-3 bg-[#FFFFFF] cursor-pointer"
       onClick={handleToPage}
     >
-      <Image
-        src="/NewsItem_fake.png"
-        alt="news img"
-        width={160}
-        height={92}
-        className="w-[160px] h-[92px] gap-[10px] rounded-[5px]"
-      />
+      <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
+        <Image
+          src={newsItem?.thumbImg ? newsItem.thumbImg : "/Empty_news.png"}
+          alt="thumbImg"
+          width={newsItem?.thumbImg ? 160 : 94.39}
+          height={newsItem?.thumbImg ? 92 : 26}
+          className={`
+            ${
+              newsItem?.thumbImg
+                ? "w-full h-full object-cover rounded-[5px] gap-[10px]"
+                : "absolute top-[33.5px] left-[33.05px] gap-[3.24px] rounded-[3.83px]"
+            }
+          `}
+        />
+      </div>
 
-      <div className="min-w-[524px] min-h-[24px] h-auto flex flex-col gap-1">
-        <div className="w-full h-auto flex justify-center items-center gap-[2px]">
-          <h1 className="font-[700] text-[16px] leading-6 tracking-[-2%]">
-            “올해도 라인 스와프 나옵니다”“올해도 라인 스와프 나옵니다”“올해도
-            라인..
+      <div className="w-[524px] h-auto min-h-[90px] flex flex-col gap-1">
+        <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-center items-center justify-start">
+          <h1 className="font-bold text-[16px] leading-6 tracking-[-2%] text-[#181818]">
+            {newsItem.title}
           </h1>
-          <p className="font-[500] text-[14px] leading-5 text-[#00ADEE]">
+          <p className="font-medium text-[14px] leading-5 text-[#00ADEE]">
             [24]
           </p>
-          <p className="font-[900] text-[10px] leading-[18px] text-[#00ADEE] flex justify-center align-center">
+          <p className="font-black text-[10px] leading-[18px] align-center text-[#00ADEE]">
             N
           </p>
         </div>
+
         <div>
-          <p className="font-[500] text-[14px] leading-5 text-[#424242]">
-            탑라이너들은 올해도 바텀 1차 포탑에서 의연하게 다이브를 받아들여야
-            한다.2024시즌을 상징하는 전략 중 하나는 라인 스...
+          <p className="w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#424242]">
+            {/* {newsItem.comment} */}
           </p>
         </div>
-        <div className="flex gap-1 font-[500] text-[12px] leading-[18px] tracking-[-2%] text-[#A6A6A6]">
-          <p>축구</p>
-          <p>1분전</p>
-          <p>네이버 스포츠</p>
+
+        <div className="flex gap-1">
+          <p className="font-bold text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
+            {newsItem.category}
+          </p>
+          <p className="font-medium text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
+            {newsItem.postDate}
+          </p>
+          <p className="font-medium text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
+            네이버 스포츠 {/* api에 없음 */}
+          </p>
         </div>
       </div>
     </div>
