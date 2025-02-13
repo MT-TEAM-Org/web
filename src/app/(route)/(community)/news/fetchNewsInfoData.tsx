@@ -1,9 +1,11 @@
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const getNewsItemInfo = async () => {
   const response = await axios(
-    `${process.env.NEXT_PUBLIC_API_URL}api/news/14`,
+    `${process.env.NEXT_PUBLIC_API_URL}api/news/13`,
     {
       headers: {
         Authorization: `${localStorage.getItem("accessToken")}`,

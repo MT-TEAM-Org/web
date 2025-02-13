@@ -16,13 +16,13 @@ interface DropdownOption {
   value: string;
 }
 
-export const ComunityToolbar = () => {
+export const CommunityToolbar = () => {
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const router = useRouter();
   const pathname = usePathname();
 
-  const pagenataion = [
+  const pagination = [
     { value: "1", label: "1" },
     { value: "2", label: "2" },
     { value: "3", label: "3" },
@@ -125,7 +125,7 @@ export const ComunityToolbar = () => {
           </div>
 
           <div className="flex gap-[8px] mx-[8px]">
-            {pagenataion.map((page) => (
+            {pagination.map((page) => (
               <button
                 key={page.value}
                 className={`${pageButtonStyle} ${

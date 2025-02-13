@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Share from "@/app/_components/icon/Share";
-import Coppy from "@/app/_components/icon/Coppy";
 import Refresh from "@/app/_components/icon/Refresh";
 import CommentContainer from "./_components/CommentContainer";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
@@ -12,6 +11,7 @@ import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
 import Send_icon from "@/app/_components/icon/Send_icon";
 import { NewsTalkToolbar } from "../../../_components/NewsTalkToolbar";
 import NewsPostItem from "../../_components/NewsPostItem";
+import Copy from "@/app/_components/icon/Copy";
 
 const page = () => {
   const nextButtonStyle =
@@ -77,7 +77,7 @@ const page = () => {
             </button>
             <div className="flex gap-2">
               <button className="min-w-[138px] max-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] px-3 py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium">
-                <Coppy />
+                <Copy />
                 게시글 URL 복사
               </button>
               <button className="min-w-[91px] max-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] pr-[12px] pl-[10px] py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium">
@@ -139,7 +139,9 @@ const page = () => {
       </div>
       <div className="w-[720px] min-h-[348px] rounded-[5px]">
         {Array.from({ length: 3 }).map((_, index) => (
-          <NewsPostItem key={index} />
+          <div key={index}>
+            <NewsPostItem />
+          </div>
         ))}
       </div>
       <div>

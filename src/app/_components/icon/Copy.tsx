@@ -1,6 +1,6 @@
 import React from "react";
 
-const Coppy = () => {
+const Copy = () => {
   return (
     <svg
       width="16"
@@ -27,4 +27,4 @@ const Coppy = () => {
   );
 };
 
-export default Coppy;
+export default Copy;

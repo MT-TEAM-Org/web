@@ -13,15 +13,15 @@ type NewsItemType = {
 };
 
 interface NewsPostItemProps {
-  newsItem: NewsItemType;
+  newsItem?: NewsItemType;
 }
 
 const NewsPostItem: React.FC<NewsPostItemProps> = ({ newsItem }) => {
   const router = useRouter();
 
   const handleToPage = () => {
-    router.push(`/news/news-detail/${newsItem.id}`);
-    console.log("id: ", newsItem.id);
+    router.push(`/news/news-detail/${newsItem?.id}`);
+    console.log("id: ", newsItem?.id);
   };
 
   return (
@@ -48,7 +48,7 @@ const NewsPostItem: React.FC<NewsPostItemProps> = ({ newsItem }) => {
       <div className="w-[524px] h-auto min-h-[90px] flex flex-col gap-1">
         <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-center items-center justify-start">
           <h1 className="font-bold text-[16px] leading-6 tracking-[-2%] text-[#181818]">
-            {newsItem.title}
+            {newsItem?.title}
           </h1>
           <p className="font-medium text-[14px] leading-5 text-[#00ADEE]">
             [24]
@@ -66,10 +66,10 @@ const NewsPostItem: React.FC<NewsPostItemProps> = ({ newsItem }) => {
 
         <div className="flex gap-1">
           <p className="font-bold text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
-            {newsItem.category}
+            {newsItem?.category}
           </p>
           <p className="font-medium text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
-            {newsItem.postDate}
+            {newsItem?.postDate}
           </p>
           <p className="font-medium text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
             네이버 스포츠 {/* api에 없음 */}

@@ -1,3 +1,5 @@
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -13,11 +15,11 @@ const fetchNewsData = async () => {
   return response.data;
 };
 
-const useFetchNewsDataList = () => {
+const useFetchNewsData = () => {
   return useQuery({
     queryKey: ["newsDataList"],
     queryFn: fetchNewsData,
   });
 };
 
-export default useFetchNewsDataList;
+export default useFetchNewsData;

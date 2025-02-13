@@ -5,7 +5,7 @@ import { NewsTalkToolbar } from "../_components/NewsTalkToolbar";
 import EmptyNews from "./_components/EmptyNews";
 import useFetchNewsData from "./fetchNewsData";
 import NewsPostItem from "./_components/NewsPostItem";
-import useGetNewsItemInfo from "./(..id)/fetchNewsInfoData";
+import useGetNewsItemInfo from "./fetchNewsInfoData";
 
 interface newsItem {
   id: number;
@@ -19,14 +19,14 @@ const Page = () => {
   const { data, isLoading, error } = useFetchNewsData();
   const { data: newsData } = useGetNewsItemInfo();
 
-  console.log(newsData);
+  console.log("newsData: ", newsData);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading news</p>;
 
   const newsList = data?.data?.list?.content || [];
-  console.log(data.data.list.content);
-  console.log(newsList);
+  console.log("NewsListData content: ", data.data.list.content);
+  console.log("NewsListData: ", newsList);
 
   return (
     <div className="flex flex-col justify-center bg-[#FAFAFA] rounded-tl-[5px] rounded-tr-[5px]">
