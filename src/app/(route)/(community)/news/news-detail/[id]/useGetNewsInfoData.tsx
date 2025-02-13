@@ -3,9 +3,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const getNewsItemInfo = async () => {
+const getNewsItemInfo = async ({ id }: { id: string }) => {
   const response = await axios(
-    `${process.env.NEXT_PUBLIC_API_URL}api/news/13`,
+    `${process.env.NEXT_PUBLIC_API_URL}api/news/${id}`,
     {
       headers: {
         Authorization: `${localStorage.getItem("accessToken")}`,
@@ -15,11 +15,11 @@ const getNewsItemInfo = async () => {
   return response.data;
 };
 
-const useGetNewsItemInfo = () => {
+const useGetNewsInfoData = (id: string) => {
   return useQuery({
-    queryKey: ["getNewsInfo"],
-    queryFn: getNewsItemInfo,
+    queryKey: ["getNewsInfo", id],
+    queryFn: () => getNewsItemInfo({ id }),
   });
 };
 
-export default useGetNewsItemInfo;
+export default useGetNewsInfoData;

@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { use } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Share from "@/app/_components/icon/Share";
@@ -12,8 +14,14 @@ import Send_icon from "@/app/_components/icon/Send_icon";
 import { NewsTalkToolbar } from "../../../_components/NewsTalkToolbar";
 import NewsPostItem from "../../_components/NewsPostItem";
 import Copy from "@/app/_components/icon/Copy";
+import useGetNewsInfoData from "./useGetNewsInfoData";
 
-const page = () => {
+const page = ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = use(params);
+  console.log("id: ", id);
+  const { data } = useGetNewsInfoData(id);
+  console.log("data: ", data);
+
   const nextButtonStyle =
     "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px]";
   const topButtonStyle =
