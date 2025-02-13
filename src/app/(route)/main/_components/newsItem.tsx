@@ -14,8 +14,15 @@ interface NewsPostItemProps {
 }
 
 const NewsItem: React.FC<NewsPostItemProps> = ({ newsItem }) => {
+  const onClick = () => {
+    console.log(newsItem.id);
+  };
+
   return (
-    <div className="flex items-center min-w-[436px] max-h-[68px] p-2 border-gray-300 cursor-pointer">
+    <div
+      className="flex items-center min-w-[436px] max-h-[68px] p-2 border-gray-300 cursor-pointer"
+      onClick={onClick}
+    >
       <div className="flex-shrink-0 max-w-[68px] max-h-[68px] rounded overflow-hidden bg-gray-300">
         <Image
           src={newsItem?.thumbImg ? newsItem.thumbImg : "/Empty_news.png"}

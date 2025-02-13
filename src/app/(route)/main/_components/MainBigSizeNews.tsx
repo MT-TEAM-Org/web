@@ -8,24 +8,25 @@ const MainBigSizeNews = () => {
   console.log("mainPageData: ", mainPageData);
 
   const onClick = () => {
-    console.log("click");
+    console.log(mainPageData.id);
   };
 
   return (
     <div
+      className="relative w-[410px] h-[236px] rounded-[10px] overflow-hidden"
       onClick={onClick}
-      className="relative w-[410px] h-[236px] rounded-[10px] overflow-hidden shadow-lg"
     >
       <Image
-        // src={mainPageData?.thumbImg ? mainPageData.thumbImg : "/mainNews_fake.png"}
-        src={mainPageData?.thumbImg}
+        src={
+          mainPageData?.thumbImg ? mainPageData.thumbImg : "/mainNews_fake.png"
+        }
         alt="main news"
         width={410}
         height={236}
         className="w-[410px] h-[236px] rounded-[10px]"
       />
       <div className="absolute top-[128px] w-[410px] min-h-[108px] py-4 flex flex-col gap-2 bg-gradient-to-b from-[#00000000] to-[#000000]">
-        <h3 className="w-[410px] h-[28px] font-bold text-[18px] leading-7 text-[#FFFFFF]">
+        <h3 className="w-[410px] h-[28px] font-bold text-[18px] leading-7 text-[#FFFFFF] tracking-[0.04em]">
           {isLoading ? "Loading..." : mainPageData?.title}
         </h3>
         <p className="w-[410px] h-[40px] opacity-90 font-medium text-[14px] leading-5 text-[#FFFFFF]">

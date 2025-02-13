@@ -15,7 +15,7 @@ interface newsItem {
 const NewsComponent = () => {
   const { data, isLoading, isError } = useFetchNewsData();
 
-  const limitedNewsData = data?.slice(0, 3);
+  const limitedNewsData = data?.slice(1, 4);
   console.log("newsData: ", limitedNewsData);
 
   if (isLoading) return "loading...";

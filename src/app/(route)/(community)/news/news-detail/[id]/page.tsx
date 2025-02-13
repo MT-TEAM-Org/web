@@ -15,12 +15,23 @@ import { NewsTalkToolbar } from "../../../_components/NewsTalkToolbar";
 import NewsPostItem from "../../_components/NewsPostItem";
 import Copy from "@/app/_components/icon/Copy";
 import useGetNewsInfoData from "./useGetNewsInfoData";
+import useFetchNewsData from "../../fetchNewsData";
 
-const page = ({ params }: { params: Promise<{ id: string }> }) => {
+type NewsItemType = {
+  id: number;
+  title: string;
+  category: string;
+  thumbImg: string;
+  postDate: string;
+};
+
+const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   console.log("id: ", id);
   const { data } = useGetNewsInfoData(id);
   console.log("data: ", data);
+  const { data: newsListData } = useFetchNewsData();
+  const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
 
   const nextButtonStyle =
     "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px]";
@@ -146,9 +157,9 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
         <NewsTalkToolbar />
       </div>
       <div className="w-[720px] min-h-[348px] rounded-[5px]">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <div key={index}>
-            <NewsPostItem />
+        {sliceNewsListData?.map((data: NewsItemType) => (
+          <div key={data.id}>
+            <NewsPostItem newsItem={data} />
           </div>
         ))}
       </div>
@@ -171,4 +182,4 @@ const page = ({ params }: { params: Promise<{ id: string }> }) => {
   );
 };
 
-export default page;
+export default Page;

@@ -20,9 +20,7 @@ const Page = () => {
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading news</p>;
 
-  const newsList = data?.data?.list?.content || [];
-  console.log("NewsListData content: ", data.data.list.content);
-  console.log("NewsListData: ", newsList);
+  console.log("NewsListData: ", data);
 
   return (
     <div className="flex flex-col justify-center bg-[#FAFAFA] rounded-tl-[5px] rounded-tr-[5px]">
@@ -30,10 +28,10 @@ const Page = () => {
         <NewsTalkToolbar />
       </div>
       <div>
-        {newsList.length === 0 ? (
+        {data.length === 0 ? (
           <EmptyNews />
         ) : (
-          newsList.map((newsItem: newsItem) => (
+          data.map((newsItem: newsItem) => (
             <NewsPostItem key={newsItem.id} newsItem={newsItem} />
           ))
         )}
