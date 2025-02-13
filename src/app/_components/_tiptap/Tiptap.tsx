@@ -2,20 +2,18 @@
 
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
-import { Placeholder } from "@tiptap/extension-placeholder";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import Youtube from "@tiptap/extension-youtube";
 import Toolbar from "./Toolbar";
 import { LinkIcon } from "../icon/LinkIcon";
 import { useRouter } from "next/navigation";
 import LinkPreview from "../LinkPreview";
-
 import { useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
 
 interface TiptapProps {
@@ -34,18 +32,71 @@ interface FormData {
   thumbnail: string;
 }
 
+// Base64 to Blob 변환 함수
+const base64ToBlob = (base64: string) => {
+  const parts = base64.split(";base64,");
+  const contentType = parts[0].split(":")[1];
+  const raw = window.atob(parts[1]);
+  const rawLength = raw.length;
+  const uInt8Array = new Uint8Array(rawLength);
+
+  for (let i = 0; i < rawLength; ++i) {
+    uInt8Array[i] = raw.charCodeAt(i);
+  }
+
+  return new Blob([uInt8Array], { type: contentType });
+};
+
+// 이미지 처리를 위한 커스텀 확장
+const CustomImage = Image.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      src: {
+        default: null,
+        parseHTML: (element) => {
+          // Element를 HTMLImageElement로 타입 체크
+          if (!(element instanceof HTMLImageElement)) {
+            return null;
+          }
+          const src = element.src;
+          // base64 이미지인 경우 Blob으로 변환
+          if (src?.startsWith("data:image")) {
+            const blob = base64ToBlob(src);
+            const blobUrl = URL.createObjectURL(blob);
+            return blobUrl;
+          }
+          return src;
+        },
+        renderHTML: (attributes) => {
+          return {
+            src: attributes.src,
+          };
+        },
+      },
+    };
+  },
+});
+
 const Tiptap = ({ onChange, register, watch, initialContent }: TiptapProps) => {
   const router = useRouter();
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
-  const [placeholderVisible, setPlaceholderVisible] = useState(true);
+  const [showPlaceholder, setShowPlaceholder] = useState(true);
 
   const editor = useEditor({
     extensions: [
       StarterKit,
       Underline,
       Link,
-      Image,
+      CustomImage.configure({
+        // Image 대신 CustomImage 사용
+        HTMLAttributes: {
+          class: "max-w-full h-auto mx-auto block",
+        },
+        allowBase64: true,
+        inline: false,
+      }),
       TextStyle,
       HorizontalRule.configure({
         HTMLAttributes: {
@@ -54,22 +105,6 @@ const Tiptap = ({ onChange, register, watch, initialContent }: TiptapProps) => {
       }),
       Color.configure({
         types: ["textStyle"],
-      }),
-      Placeholder.configure({
-        placeholder:
-          "자유롭게 글을 작성해주시되, 국내/해외기사의 경우 유의해주세요!\n" +
-          "1. 이미지는 이곳에 드래그 드랍으로도 업로드할 수 있습니다.\n" +
-          "2. 저작권의 영향을 받을 수 있는 국내기사의 경우 반드시 요약하여 작성하여야 하며, 기사원문에 있는 내용 복붙, 캡쳐 사용을 금지합니다. (원문과 유사 내용이 있으면 삭제처리될 수 있음)\n" +
-          "3. 국내기사의 경우 링크를 올리지 않거나, 기타 공지에 맞지 않는 글을 작성하신 경우 무통보 삭제됩니다.\n" +
-          "4. 개인 SNS 및 블로그 출처를 금지합니다. (페이스북, 인스타, 트위터 등)\n" +
-          "5. 오피셜 기사 작성 시, SNS 출처는 인증된 구단의 계정이라도 허용되지 않습니다. 선수 영입/방출 오피셜은 간략하게 번역하셔도 되며, 계약기간이나 이적료 같은 기본 사항은 기입해주세요.\n" +
-          "6. 다른 커뮤니티에서 작성된 글이라도 반드시 2차 출처를 기입해주세요.\n" +
-          "7. 다른 사이트에서 기사를 퍼올 시, 해당 기사를 번역한 역자에게 허락을 맡아야 합니다. (불펌 시 삭제 처리될 수 있음)\n" +
-          "8. 공식 사이트 글만 사용해주세요.\n" +
-          "9. 사회적 통념에 위배되거나 분탕 목적의 글은 차단될 수 있습니다.\n" +
-          "10. 번역기사 작성 시, 반드시 글 말머리에 언론사를 기입해주세요. (예: [BBC], [골닷컴], [르퀴프] 등) 구단의 공식홈페이지 출처는 [공홈]이라 기입해 주세요. 번역은 핵심 내용이 빠지지 않도록 주의해주시고, 가능하면 전문 번역해주세요. 악의적 번역이나 핵심 내용 생략에 대한 문제 제기가 있을 수 있습니다. 특히 선수 인터뷰 번역 시, 늬앙스가 바뀌지 않게 원문 그대로 번역해주세요.",
-        emptyNodeClass:
-          "hidden-placeholder first:before:text-black pointer-events-none before:text-[16px] first:before:h-0 before:float-left  first:before:content-[attr(data-placeholder)] focus:before:content-['']",
       }),
       Youtube.configure({
         controls: true,
@@ -80,24 +115,40 @@ const Tiptap = ({ onChange, register, watch, initialContent }: TiptapProps) => {
     editorProps: {
       attributes: {
         class:
-          "editor-class flex flex-col min-h-[375px] justify-start border-l border-r border-b border-[#DBDDB] text-black items-start w-full font-medium text-[16px] rounded-bl-md rounded-br-md outline-none scroll p-4",
-      },
-      handleDOMEvents: {
-        focus: () => {
-          if (placeholderVisible) {
-            setPlaceholderVisible(false);
-            editor?.commands.setContent("");
-          }
-          return false;
-        },
+          "editor-class flex flex-col min-h-[375px] max-h-full h-auto justify-start border-l border-r border-b border-[#DBDDB] text-black items-start w-full font-medium text-[16px] rounded-bl-md rounded-br-md outline-none overflow-y-auto p-4",
       },
     },
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      onChange?.(html);
+      const hasContent = html !== "" && html !== "<p></p>";
+      const hasImage = html.includes("<img");
+
+      const processedHtml = html.replace(
+        /src="data:image\/(.*?);base64,(.*?)"/g,
+        (match, type, base64) => {
+          const blob = base64ToBlob(`data:image/${type};base64,${base64}`);
+          const blobUrl = URL.createObjectURL(blob);
+          return `src="${blobUrl}"`;
+        }
+      );
+
+      setShowPlaceholder(!hasContent && !hasImage);
+      onChange?.(processedHtml);
     },
-    immediatelyRender: false,
   });
+
+  useEffect(() => {
+    return () => {
+      // 컴포넌트 언마운트 시 생성된 Blob URL 해제
+      const cleanupBlobUrls = () => {
+        const images = document.querySelectorAll('img[src^="blob:"]');
+        images.forEach((img) => {
+          URL.revokeObjectURL((img as HTMLImageElement).src);
+        });
+      };
+      cleanupBlobUrls();
+    };
+  }, []);
 
   useEffect(() => {
     if (editor) {
@@ -110,7 +161,7 @@ const Tiptap = ({ onChange, register, watch, initialContent }: TiptapProps) => {
   }
 
   return (
-    <div className="w-[720px] min-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px]">
+    <div className="w-[720px] min-h-[835px] max-h-full h-auto flex flex-col items-center pt-[12px] pb-[24px] px-[12px]">
       <div>
         <div className="w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-black">
           <div className="flex">
@@ -131,9 +182,77 @@ const Tiptap = ({ onChange, register, watch, initialContent }: TiptapProps) => {
           </div>
         </div>
         <LinkPreview videoUrl={videoUrl} />
-        <div className="">
+        <div className="relative w-full mt-3">
           <Toolbar editor={editor} content={watch("content")} />
-          <EditorContent editor={editor} />
+          <div className="relative h-[]">
+            <EditorContent editor={editor} className="w-full" />
+            {showPlaceholder && (
+              <div
+                className="w-full absolute top-2.5 left-0pointer-events-none whitespace-pre-line text-[#424242] font-medium text-[14px] leading-[22px] text-left"
+                style={{ zIndex: 0 }}
+              >
+                {showPlaceholder && (
+                  <div
+                    className="absolute top-0 left-0 pointer-events-none py-2"
+                    style={{ zIndex: 0 }}
+                  >
+                    <p className="font-semibold px-4 text-[14px] leading-[20px] text-[#424242]">
+                      자유롭게 글을 작성해주시되, 국내/해외기사의 경우
+                      유의해주세요!
+                    </p>
+                    <ol className="list-decimal px-8 mt-1">
+                      <li className="mb-1">
+                        이미지는 이곳에 드래그 드랍으로도 업로드할 수 있습니다.
+                      </li>
+                      <li className="mb-1">
+                        저작권의 영향을 받을 수 있는 국내기사의 경우 반드시
+                        요약하여 작성하여야 하며, 기사원문에 있는 내용 복붙,
+                        캡쳐 사용을 금지합니다. (원문과 유사 내용이 있으면
+                        삭제처리될 수 있음)
+                      </li>
+                      <li className="mb-1">
+                        국내기사의 경우 링크를 올리지 않거나, 기타 공지에 맞지
+                        않는 글을 작성하신 경우 무통보 삭제됩니다.
+                      </li>
+                      <li className="mb-1">
+                        개인 SNS 및 블로그 출처를 금지합니다. (페이스북, 인스타,
+                        트위터 등)
+                      </li>
+                      <li className="mb-1">
+                        오피셜 기사 작성 시, SNS 출처는 인증된 구단의 계정이라도
+                        허용되지 않습니다. 선수 영입/방출 오피셜은 간략하게
+                        번역하셔도 되며, 계약기간이나 이적료 같은 기본 사항은
+                        기입해주세요.
+                      </li>
+                      <li className="mb-1">
+                        다른 커뮤니티에서 작성된 글이라도 반드시 2차 출처를
+                        기입해주세요.
+                      </li>
+                      <li className="mb-1">
+                        다른 사이트에서 기사를 퍼올 시, 해당 기사를 번역한
+                        역자에게 허락을 맡아야 합니다. (불펌 시 삭제 처리될 수
+                        있음)
+                      </li>
+                      <li className="mb-1">공식 사이트 글만 사용해주세요.</li>
+                      <li className="mb-1">
+                        사회적 통념에 위배되거나 분탕 목적의 글은 차단될 수
+                        있습니다.
+                      </li>
+                      <li className="mb-1 ml-2">
+                        번역기사 작성 시, 반드시 글 말머리에 언론사를
+                        기입해주세요. (예: [BBC], [골닷컴], [르퀴프] 등) 구단의
+                        공식홈페이지 출처는 [공홈]이라 기입해 주세요. 번역은
+                        핵심 내용이 빠지지 않도록 주의해주시고, 가능하면 전문
+                        번역해주세요. 악의적 번역이나 핵심 내용 생략에 대한 문제
+                        제기가 있을 수 있습니다. 특히 선수 인터뷰 번역 시,
+                        늬앙스가 바뀌지 않게 원문 그대로 번역해주세요.
+                      </li>
+                    </ol>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
       {/* 사용자 안내 */}
