@@ -12,7 +12,7 @@ const fetchNewsData = async () => {
       size: 10,
     },
   });
-  return response.data;
+  return response.data.data.list.content;
 };
 
 const useFetchNewsData = () => {

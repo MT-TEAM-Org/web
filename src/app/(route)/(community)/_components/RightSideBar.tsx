@@ -4,7 +4,6 @@ import Arrow_left from "@/app/_components/icon/Arrow_left";
 import NewsItem from "./NewsItem";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
-import useFetchNewsDataList from "../news/fetchNewsData";
 
 export const RightSideBar = () => {
   return (
