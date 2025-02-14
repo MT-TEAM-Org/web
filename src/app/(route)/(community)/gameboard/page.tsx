@@ -2,54 +2,57 @@ import React from "react";
 import ScheduleContainer from "../../main/_components/scheduleContainer";
 import ScheduleNavbar from "./_components/ScheduleNavbar";
 import LiveChat from "./_components/LiveChat";
+import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
+import CommentItem from "../news/news-detail/[id]/_components/CommentItem";
+import Plus from "@/app/_components/icon/Plus";
+import SendCommentBox from "../news/news-detail/[id]/_components/SendCommentBox";
+import LiveMatchBox from "./_components/LiveMatchBox";
+import LiveMatchPanel from "./_components/LiveMatchPanel";
 
 export const metadata = {
-  title: "경기일정 페이지",
-  description: "경기일정 페이지입니다.",
+  title: "경기중계 페이지",
+  description: "경기중계 페이지입니다.",
 };
 
 const Page = () => {
   return (
-    <div className="flex flex-col p-6 gap-3 justify-center items-center">
-      <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col gap-3 justify-center items-center">
+      <div className="w-[1920px] h-auto min-h-[226px] flex flex-col gap-3 items-center justify-center bg-[#FAFAFA]">
         <ScheduleNavbar />
         <ScheduleContainer />
       </div>
 
-      <div className="min-w-[1200px] min-h-[1888px] flex gap-10">
-        <div className="w-[800px] min-h-[1888px] flex flex-col gap-6 bg-white">
-          <div className="w-full max-w-[800px] h-[400px] rounded-[5px] bg-[#FAFAFA] flex  justify-center items-center">
-            <div className="min-w-[294px] min-h-[38px] flex gap-2">
-              <p className="w-[114px] h-[38px] font-bold text-[24px] leading-[38px] tracking-[0.04em] align-center text-[#00ADEE]">
-                02:21:35 후
-              </p>
-              <p className="w-[172px] h-[38px] font-bold text-[24px] leading-[38px] tracking-[0.04em] align-center">
-                경기가 시작됩니다
-              </p>
-            </div>
-          </div>
-          <div className="w-full max-w-[800px] min-h-[1424px] flex gap-3">
-            <div className="w-full min-h-[148px] flex gap-2">
-              <div className="min-w-[171px] min-h-[38px] flex gap-2">
-                <h1 className="font-bold text-[24px] leading-[38px] tracking-[-0.04em]">
-                  승부예측
-                </h1>
-                <div className="min-w-[81px] h-[28px] rounded-[5px] py-1 px-2 flex gap-1 bg-[#D1504B] text-[#FFFFFF]">
-                  <p className="font-bold text-[14px] leading-5 align-center">
-                    예측 진행중
-                  </p>
+      <div className="flex flex-col">
+        <div className="min-w-[1200px] flex gap-10">
+          <div className="w-[800px] flex flex-col gap-6">
+            <LiveMatchBox />
+            <div className="w-full max-w-[800px] flex flex-col gap-3">
+              <LiveMatchPanel />
+              <div className="w-full max-w-[800px] flex flex-col">
+                <CommentBar />
+                <div className="w-full">
+                  <CommentItem />
+                  <CommentItem data={{ commentImg: "/Fake_comment_img.png" }} />
+                  <CommentItem
+                    data={{ nestedComments: "@댓글유저디자인이렇게" }}
+                  />
+                  <CommentItem />
+                  <CommentItem data={{ commentImg: "/Fake_comment_img.png" }} />
                 </div>
-              </div>
-              <div className="w-full max-w-[800px] min-h-[102px] flex gap-2">
-                <div className="w-full min-h-[40px] flex gap-6">
-                  <div></div>
+                <div className="flex items-center justify-center">
+                  <button className="w-[160px] min-h-[40px] rounded-[5px] border px-4 py-[10px] flex gap-2 justify-center items-center font-bold text-[14px] leading-[14px] border-[#DBDBDB] bg-[#FAFAFA] text-[#424242] cursor-pointer">
+                    <Plus />
+                    댓글 더보기
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+          <LiveChat />
         </div>
-
-        <LiveChat />
+        <div className="w-[800px] min-h-[72px]">
+          <SendCommentBox />
+        </div>
       </div>
     </div>
   );
