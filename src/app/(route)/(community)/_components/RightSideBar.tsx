@@ -38,7 +38,7 @@ export const RightSideBar = () => {
         </div>
       </div>
 
-      <div className="w-[48px] h-[48px] bg-[#FFFFFF] rounded-[5px] shadow-md flex justify-center items-center p-[10px] gap-[10px]">
+      <div className="w-[48px] h-[48px] bg-[#FFFFFF] rounded-[5px] shadow-md flex justify-center items-center p-[10px] gap-[10px] cursor-pointer">
         <Arrow_up />
       </div>
     </div>
