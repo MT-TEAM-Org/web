@@ -15,12 +15,14 @@ import { LinkIcon } from "../icon/LinkIcon";
 import { useRouter } from "next/navigation";
 import LinkPreview from "../LinkPreview";
 import { useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
+import getUpload, { GetUploadData } from "@/_hooks/getUpload";
 
 interface TiptapProps {
   onChange: (content: string) => void;
   register: UseFormRegister<FormData>;
   watch: UseFormWatch<FormData>;
   initialContent?: string;
+  onImageUpload: (blob: Blob) => Promise<string>;
 }
 
 interface FormData {
@@ -78,7 +80,13 @@ const CustomImage = Image.extend({
   },
 });
 
-const Tiptap = ({ onChange, register, watch, initialContent }: TiptapProps) => {
+const Tiptap = ({
+  onChange,
+  register,
+  watch,
+  initialContent,
+  onImageUpload,
+}: TiptapProps) => {
   const router = useRouter();
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
@@ -114,26 +122,115 @@ const Tiptap = ({ onChange, register, watch, initialContent }: TiptapProps) => {
     content: initialContent || "",
     editorProps: {
       attributes: {
-        class:
-          "editor-class flex flex-col min-h-[375px] max-h-full h-auto justify-start border-l border-r border-b border-[#DBDDB] text-black items-start w-full font-medium text-[16px] rounded-bl-md rounded-br-md outline-none overflow-y-auto p-4",
+        class: "editor-class flex flex-col min-h-[375px]",
+      },
+      handlePaste: (view, event) => {
+        const items = Array.from(event.clipboardData?.items || []);
+        const files = items
+          .filter((item) => item.type.indexOf("image") >= 0)
+          .map((item) => item.getAsFile());
+
+        if (files.length > 0) {
+          event.preventDefault();
+          files.forEach((file) => {
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                const result = e.target?.result;
+                if (typeof result === "string") {
+                  // setImage 대신 insertContent 사용
+                  editor?.commands.insertContent({
+                    type: "image",
+                    attrs: { src: result },
+                  });
+                }
+              };
+              reader.readAsDataURL(file);
+            }
+          });
+          return true;
+        }
+        return false;
+      },
+      handleDrop: (view, event) => {
+        const hasFiles = event.dataTransfer?.files?.length;
+
+        if (hasFiles) {
+          const images = Array.from(event.dataTransfer.files).filter((file) =>
+            file.type.startsWith("image/")
+          );
+
+          if (images.length > 0) {
+            event.preventDefault();
+
+            // 현재 커서 위치에 모든 이미지를 차례로 삽입
+            const pos = view.posAtCoords({
+              left: event.clientX,
+              top: event.clientY,
+            })?.pos;
+
+            if (pos !== undefined) {
+              images.forEach((image) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                  const result = e.target?.result;
+                  if (typeof result === "string") {
+                    editor
+                      ?.chain()
+                      .focus()
+                      .setTextSelection(pos)
+                      .insertContent({
+                        type: "image",
+                        attrs: { src: result },
+                      })
+                      .run();
+                  }
+                };
+                reader.readAsDataURL(image);
+              });
+            }
+            return true;
+          }
+        }
+        return false;
       },
     },
-    onUpdate: ({ editor }) => {
+
+    onUpdate: async ({ editor }) => {
       const html = editor.getHTML();
       const hasContent = html !== "" && html !== "<p></p>";
       const hasImage = html.includes("<img");
 
-      const processedHtml = html.replace(
-        /src="data:image\/(.*?);base64,(.*?)"/g,
-        (match, type, base64) => {
-          const blob = base64ToBlob(`data:image/${type};base64,${base64}`);
-          const blobUrl = URL.createObjectURL(blob);
-          return `src="${blobUrl}"`;
-        }
-      );
+      setShowPlaceholder(false);
 
-      setShowPlaceholder(!hasContent && !hasImage);
-      onChange?.(processedHtml);
+      if (hasImage) {
+        try {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, "text/html");
+          const images = doc.getElementsByTagName("img");
+
+          let processedHtml = html;
+          for (const img of Array.from(images)) {
+            if (
+              img.src.startsWith("data:image") ||
+              img.src.startsWith("blob:")
+            ) {
+              const response = await fetch(img.src);
+              const blob = await response.blob();
+              const downloadUrl = await onImageUpload(blob);
+              processedHtml = processedHtml.replace(img.src, downloadUrl);
+            }
+          }
+
+          setShowPlaceholder(!hasContent && !hasImage);
+          onChange?.(processedHtml);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      } else {
+        setShowPlaceholder(!hasContent && !hasImage);
+        onChange?.(html);
+      }
     },
   });
 
@@ -163,7 +260,7 @@ const Tiptap = ({ onChange, register, watch, initialContent }: TiptapProps) => {
   return (
     <div className="w-[720px] min-h-[835px] max-h-full h-auto flex flex-col items-center pt-[12px] pb-[24px] px-[12px]">
       <div>
-        <div className="w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-black">
+        <div className="w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-[#DBDBDB]">
           <div className="flex">
             <label
               htmlFor="videoUrl"
