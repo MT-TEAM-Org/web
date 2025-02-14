@@ -1,11 +1,24 @@
+"use client";
+
 import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
 import Fake_scheduleItem2 from "@/app/_components/icon/Fake_scheduleItem2";
 import React from "react";
 
-const scheduleItem = () => {
+const ScheduleItem = ({
+  isSelected,
+  onClick,
+}: {
+  isSelected: boolean;
+  onClick: () => void;
+}) => {
   return (
-    <div className="w-[275px] h-auto min-h-[126px] rounded-[5px] border p-3 flex flex-col gap-2 justify-center items-center bg-[#FFFFFF]">
-      <div className="w-[251px] h-auto min-h-[26px] flex gap-2">
+    <div
+      onClick={onClick}
+      className={`w-[275px] h-auto min-h-[126px] rounded-[5px] border p-3 flex flex-col gap-2 justify-center items-center bg-[#FFFFFF] cursor-pointer 
+        ${isSelected ? "border-[#424242]" : "border-gray-300"}
+      `}
+    >
+      <div className="w-[251px] h-auto min-h-[26px] flex gap-2 items-center">
         <div className="w-auto min-w-[37px] h-auto min-h-[26px] rounded-[5px] py-1 px-2 flex gap-1 bg-[#EEEEEE] items-center justify-center">
           <p className="font-medium text-[12px] leading-[18px] flex text-center justify-center align-center text-[#A6A6A6]">
             예정
@@ -33,4 +46,4 @@ const scheduleItem = () => {
   );
 };
 
-export default scheduleItem;
+export default ScheduleItem;
