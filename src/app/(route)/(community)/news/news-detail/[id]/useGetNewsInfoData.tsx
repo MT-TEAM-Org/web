@@ -12,7 +12,7 @@ const getNewsItemInfo = async ({ id }: { id: string }) => {
       },
     }
   );
-  return response.data;
+  return response.data?.data;
 };
 
 const useGetNewsInfoData = (id: string) => {

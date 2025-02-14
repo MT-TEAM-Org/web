@@ -33,6 +33,17 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { data: newsListData } = useFetchNewsData();
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
 
+  const changeCategory = (category: string) => {
+    switch (category) {
+      case "BASEBALL":
+        return "야구";
+      case "FOOTBALL":
+        return "축구";
+      case "ESPORTS":
+        return "e스포츠";
+    }
+  };
+
   const nextButtonStyle =
     "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px]";
   const topButtonStyle =
@@ -42,24 +53,33 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     <>
       <div className="flex flex-col gap-4 w-[720px] min-h-[1051px] bg-white p-[24px] rounded-md mb-[16px]">
         <div className="flex flex-col gap-2 max-w-[672px] min-h-[84px] mb-2 rounded-sm">
-          <h1 className="font-[700] text-[18px] leading-[28px] text-[#303030]">
-            토트넘 강등? 손흥민 선제골 '쾅'→수비 '와르르' 2실점…아스널 원정서
-            1-2 역전패→충격의 13위 [PL 리뷰]
+          <h1 className="w-[672px] max-h-[56px] font-[700] text-[18px] leading-[28px] text-[#303030]">
+            {data?.title}
           </h1>
 
-          <div className="flex justify-between text-[#EEEEEE] pb-4">
+          <div className="w-[672px] h-[20px] gap-4 flex justify-between text-[#EEEEEE] pb-4">
             <div className="flex gap-2 text-[#656565] font-[700] leading-5 text-[14px]">
               <div className="flex gap-1">
-                <p>축구</p>
-                <p>1분 전</p>
+                <p className="font-bold text-[14px] leading-5">
+                  {changeCategory(data?.category)}
+                </p>
+                <p className="font-medium text-[14px] leading-5">
+                  {data?.postDate}
+                </p>
               </div>
               <div className="flex gap-1">
-                <p>조회수 161</p>
-                <p>댓글 2</p>
+                <p className="font-bold text-[14px] leading-5">
+                  조회수 {data?.viewCount}
+                </p>
+                <p className="font-medium text-[14px] leading-5">
+                  댓글 {data?.commentCount}
+                </p>
               </div>
               <div className="flex gap-1">
-                <p>추천</p>
-                <p>12</p>
+                <p className="font-bold text-[14px] leading-5">추천</p>
+                <p className="font-medium text-[14px] leading-5">
+                  {data?.recommendCount}
+                </p>
               </div>
             </div>
             <div className="text-[14px] flex font-[500] leading-5 gap-1 text-[#656565]">
@@ -69,8 +89,8 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <hr />
           <div className="flex flex-col gap-3 mt-4">
             <Image
-              src="/Fake_newsInfo.png"
-              alt="Fake News"
+              src={data?.thumbImg ? data?.thumbImg : "/Fake_newsInfo.png"}
+              alt="News detail img"
               width={672}
               height={338}
               className="mb-3"
@@ -113,7 +133,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                   댓글
                 </h1>
                 <p className="text-[#A6A6A6] text-[14px] leading-5 font-[500]">
-                  총 12개
+                  총 {data?.commentCount}개
                 </p>
               </div>
               <div className="max-w-[101px] min-h-[40px] flex justify-center items-center px-2 py-3 gap-2 mr-4 bg-[#FAFAFA] rounded-md">

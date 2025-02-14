@@ -21,7 +21,7 @@ const Page = () => {
 
   return (
     <div className="w-[720px] min-h-[1508px] flex flex-col justify-start bg-[#FAFAFA] rounded-[5px] overflow-hidden">
-      <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] border-b bg-[#FFFFFF] mx-auto">
+      <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] bg-[#FFFFFF] mx-auto">
         <NewsTalkToolbar />
       </div>
       <div>
