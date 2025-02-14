@@ -8,6 +8,7 @@ import Plus from "@/app/_components/icon/Plus";
 import SendCommentBox from "../news/news-detail/[id]/_components/SendCommentBox";
 import LiveMatchBox from "./_components/LiveMatchBox";
 import LiveMatchPanel from "./_components/LiveMatchPanel";
+import EmptyComment from "./_components/EmptyComment";
 
 export const metadata = {
   title: "경기중계 페이지",
@@ -30,7 +31,7 @@ const Page = () => {
               <LiveMatchPanel />
               <div className="w-full max-w-[800px] flex flex-col">
                 <CommentBar />
-                <div className="w-full">
+                <div className="w-full h-auto">
                   <CommentItem />
                   <CommentItem data={{ commentImg: "/Fake_comment_img.png" }} />
                   <CommentItem
@@ -38,6 +39,7 @@ const Page = () => {
                   />
                   <CommentItem />
                   <CommentItem data={{ commentImg: "/Fake_comment_img.png" }} />
+                  {/* <EmptyComment /> */}
                 </div>
                 <div className="flex items-center justify-center">
                   <button className="w-[160px] min-h-[40px] rounded-[5px] border px-4 py-[10px] flex gap-2 justify-center items-center font-bold text-[14px] leading-[14px] border-[#DBDBDB] bg-[#FAFAFA] text-[#424242] cursor-pointer">
