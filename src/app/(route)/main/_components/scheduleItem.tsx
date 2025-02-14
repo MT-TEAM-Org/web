@@ -26,7 +26,7 @@ const scheduleItem = () => {
         </div>
         <div className="w-full min-h-[32px] flex gap-2 justify-start items-center">
           <Fake_scheduleItem2 />
-          <div className="font-bold text-[14px] leading-5">T1</div>
+          <div className="font-bold text-[14px] leading-5">젠지</div>
         </div>
       </div>
     </div>

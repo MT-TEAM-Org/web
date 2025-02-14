@@ -10,7 +10,10 @@ export const metadata = {
 const Page = () => {
   return (
     <div className="flex flex-col gap-6 justify-center items-center">
-      <ScheduleContainer />
+      <div className="flex items-center justify-center">
+        <ScheduleContainer />
+      </div>
+
       <div className="flex flex-col gap-6">
         <ChatScheduleContainer title="E스포츠" />
         <ChatScheduleContainer title="축구" />
