@@ -5,7 +5,7 @@ import EmptyScheduleItem from "./EmptyScheduleItem";
 
 const ScheduleContainer = () => {
   return (
-    <div className="w-full h-full min-h-[174px] p-6 flex gap-3">
+    <div className="w-full h-full min-h-[174px] p-6 flex gap-3 bg-[#FAFAFA] justify-center">
       <div className="w-[1200px] h-full min-h-[126px] flex gap-6 justify-center items-center">
         <div className="w-[1136px] h-auto min-h-[126px] flex justify-between items-center gap-3">
           {Array.from({ length: 3 }).map((_, index) => (

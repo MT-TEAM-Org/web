@@ -40,6 +40,11 @@ const Page = () => {
                   </p>
                 </div>
               </div>
+              <div className="w-full max-w-[800px] min-h-[102px] flex gap-2">
+                <div className="w-full min-h-[40px] flex gap-6">
+                  <div></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

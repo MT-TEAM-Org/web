@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col gap-6">
       <ScheduleContainer />
-      <div className="min-h-[704px]">
+      <div className="min-h-[704px] flex justify-center">
         <div className="w-full max-w-[1200px] min-h-[704px] mb-[356px] flex gap-x-10">
           <div className="max-w-[862px] min-h-[668px] flex gap-10">
             <div className="flex flex-col gap-10">
