@@ -28,7 +28,7 @@ export default function Navbar() {
     },
     {
       name: "경기중계",
-      link: "/chat",
+      link: "/gameboard",
     },
   ];
   return (
