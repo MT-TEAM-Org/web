@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import ScheduleContainer from "../../main/_components/scheduleContainer";
 import ScheduleNavbar from "./_components/ScheduleNavbar";
 import LiveChat from "./_components/LiveChat";
@@ -8,22 +10,29 @@ import Plus from "@/app/_components/icon/Plus";
 import SendCommentBox from "../news/news-detail/[id]/_components/SendCommentBox";
 import LiveMatchBox from "./_components/LiveMatchBox";
 import LiveMatchPanel from "./_components/LiveMatchPanel";
-import EmptyComment from "./_components/EmptyComment";
+import FootballNavbar from "./_components/FootballNavbar";
+import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
+import Fake_scheduleItem2 from "@/app/_components/icon/Fake_scheduleItem2";
+import FootballSubPlayersList from "./_components/FootballSubPlayersList";
+// import EmptyComment from "./_components/EmptyComment";
+// import FootballLivePanel from "./_components/FootballLivePanel";
 
-export const metadata = {
-  title: "경기중계 페이지",
-  description: "경기중계 페이지입니다.",
-};
+// export const metadata = {
+//   title: "경기중계 페이지",
+//   description: "경기중계 페이지입니다.",
+// };
 
 const Page = () => {
+  const [selectedCategory, setSelectedCategory] = useState("E스포츠");
+
   return (
     <div className="flex flex-col gap-3 justify-center items-center">
       <div className="w-[1920px] h-auto min-h-[226px] flex flex-col gap-3 items-center justify-center bg-[#FAFAFA]">
-        <ScheduleNavbar />
+        <ScheduleNavbar setSelectedCategory={setSelectedCategory} />
         <ScheduleContainer />
       </div>
 
-      <div className="flex flex-col">
+      {selectedCategory === "E스포츠" && (
         <div className="min-w-[1200px] flex gap-10">
           <div className="w-[800px] flex flex-col gap-6">
             <LiveMatchBox />
@@ -47,15 +56,61 @@ const Page = () => {
                     댓글 더보기
                   </button>
                 </div>
+                <SendCommentBox />
               </div>
             </div>
           </div>
           <LiveChat />
         </div>
-        <div className="w-[800px] min-h-[72px]">
-          <SendCommentBox />
+      )}
+
+      {selectedCategory === "축구" && (
+        <div className="min-w-[1200px] min-h-[1455px] flex gap-10 justify-center">
+          <div className="w-[800px] min-h-[1455px] flex flex-col gap-6 items-center">
+            <div>
+              <FootballNavbar />
+            </div>
+            <div className="w-full min-h-[60px] p-4 flex gap-[10px] bg-[#FAFAFA] items-center justify-center font-bold text-[18px] leading-7 text-[#303030]">
+              <p>경기시각</p>
+              <p>45:02</p>
+              <p>+2:15</p>
+            </div>
+            <div className="w-[400px] h-[605px] flex flex-col items-center justify-center">
+              <div className="w-full h-[37.78px] flex gap-[2px] items-center justify-center rounded-t-[10px] border">
+                <Fake_scheduleItem />
+                <p>3-4-2-1</p>
+              </div>
+              <div className="w-[400px] h-[264.48px] bg-[#28cd19]"></div>
+              <div className="w-[400px] h-[264.48px] bg-[#28cd19]"></div>
+              <div className="w-full h-[37.78px] flex gap-[2px] items-center justify-center rounded-b-[10px] border">
+                <Fake_scheduleItem2 />
+                <p>4-4-2</p>
+              </div>
+            </div>
+            <div className="w-full max-w-[800px] min-h-[666px] flex flex-col">
+              <div className="w-full min-h-[586px] flex gap-8">
+                <FootballSubPlayersList />
+                <div className="w-[2px] h-[540px] bg-[#EEEEEE]" />
+                <FootballSubPlayersList />
+              </div>
+              <div className="w-full max-w-[800px] h-[80px] p-4 flex flex-col gap-4 items-center justify-center">
+                <div className="w-[422px] min-h-[48px] text-[16px] leading-6 align-center text-[#A6A6A6]">
+                  <p className="text-center">
+                    출전 선수 라인업 및 포메이션은 확정 후 반영됩니다. 해당
+                    내용은 제공받고 있는 데이터이며, 실제 경기와 다를 수
+                    있습니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <LiveChat />
+          </div>
         </div>
-      </div>
+      )}
+
+      {selectedCategory === "야구" && "야구"}
     </div>
   );
 };

@@ -1,17 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const ScheduleNavbar = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>("E스포츠");
+interface ScheduleNavbarProps {
+  setSelectedCategory: (category: string) => void;
+}
+
+const ScheduleNavbar: React.FC<ScheduleNavbarProps> = ({
+  setSelectedCategory,
+}) => {
+  const [selectedCategory, setSelectedCategoryState] = useState("E스포츠");
 
   const onClick = (category: string) => {
     setSelectedCategory(category);
+    setSelectedCategoryState(category);
   };
-
-  useEffect(() => {
-    console.log("선택된 카테고리:", selectedCategory);
-  }, [selectedCategory]);
 
   return (
     <div className="w-[1200px] h-full min-h-[40px] flex gap-2 items-center justify-start">
@@ -19,12 +22,11 @@ const ScheduleNavbar = () => {
         <button
           key={category}
           onClick={() => onClick(category)}
-          className={`min-w-[77px] h-[40px] rounded-[5px] border px-4 py-[13px] flex gap-[10px] items-center justify-center font-bold text-[14px] leading-[21px] tracking-[-0.02em] cursor-pointer 
-            ${
-              selectedCategory === category
-                ? "border border-[#424242]"
-                : "border border-gray-300"
-            }`}
+          className={`min-w-[77px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] items-center justify-center font-bold text-[14px] leading-[21px] tracking-[-0.02em] cursor-pointer ${
+            selectedCategory === category
+              ? "border border-[#424242]"
+              : "border border-[#DBDBDB]"
+          }`}
         >
           {category}
         </button>
