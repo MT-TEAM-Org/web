@@ -1,7 +1,9 @@
 import usePostCommunityContent from "@/_hooks/community";
+import getUpload from "@/_hooks/getUpload";
 import Tiptap from "@/app/_components/_tiptap/Tiptap";
 import TitleDag from "@/app/_components/_tiptap/TitleDag";
 import { CommunityData } from "@/app/_constants/categories";
+import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -31,14 +33,35 @@ export function Write({ category, subCategory }: WriteProps) {
     },
   });
 
-  console.log(watch("link"));
-
   const pathName = usePathname();
   const boardType = pathName?.split("/")[1];
 
   const { mutate: postContent } = usePostCommunityContent();
 
-  const onSubmit = (data: FormData) => {
+  const handleImageUpload = async (blob: Blob) => {
+    try {
+      // presigned URL 받아오기
+      const response = await getUpload({
+        contentType: blob.type,
+        fileName: `image-${Date.now()}.${blob.type.split("/")[1]}`,
+      });
+
+      // presigned URL로 실제 파일 업로드
+      await axios.put(response.data.presignedUrl, blob, {
+        headers: {
+          "Content-Type": blob.type,
+        },
+      });
+
+      // 다운로드 URL 반환
+      return response.data.downloadUrl;
+    } catch (error) {
+      console.error("Image upload failed:", error);
+      throw error;
+    }
+  };
+
+  const onSubmit = async (data: FormData) => {
     const currentCategory = watch("categoryType");
 
     const communityData: CommunityData = {
@@ -66,6 +89,7 @@ export function Write({ category, subCategory }: WriteProps) {
           register={register}
           watch={watch}
           initialContent=""
+          onImageUpload={handleImageUpload}
         />
       </form>
     </div>

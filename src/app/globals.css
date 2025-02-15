@@ -36,6 +36,7 @@ button:focus {
 /* TIPTAP */
 
 .tiptap {
+  min-height: 415px;
   :first-child {
     margin-top: 0;
   }
@@ -180,4 +181,9 @@ button {
   font-size: 14px;
   line-height: 22px;
   text-align: left;
+}
+.ProseMirror img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
