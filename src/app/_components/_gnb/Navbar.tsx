@@ -16,7 +16,7 @@ export default function Navbar() {
     },
     {
       name: "축구",
-      link: "/soccer",
+      link: "/football",
     },
     {
       name: "야구",
