@@ -14,6 +14,8 @@ import FootballNavbar from "./_components/FootballNavbar";
 import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
 import Fake_scheduleItem2 from "@/app/_components/icon/Fake_scheduleItem2";
 import FootballSubPlayersList from "./_components/FootballSubPlayersList";
+import BaseballNavbar from "./_components/BaseballNavbar";
+import GameboardFooter from "./_components/GameboardFooter";
 // import EmptyComment from "./_components/EmptyComment";
 // import FootballLivePanel from "./_components/FootballLivePanel";
 
@@ -93,15 +95,7 @@ const Page = () => {
                 <div className="w-[2px] h-[540px] bg-[#EEEEEE]" />
                 <FootballSubPlayersList />
               </div>
-              <div className="w-full max-w-[800px] h-[80px] p-4 flex flex-col gap-4 items-center justify-center">
-                <div className="w-[422px] min-h-[48px] text-[16px] leading-6 align-center text-[#A6A6A6]">
-                  <p className="text-center">
-                    출전 선수 라인업 및 포메이션은 확정 후 반영됩니다. 해당
-                    내용은 제공받고 있는 데이터이며, 실제 경기와 다를 수
-                    있습니다.
-                  </p>
-                </div>
-              </div>
+              <GameboardFooter />
             </div>
           </div>
           <div>
@@ -110,7 +104,14 @@ const Page = () => {
         </div>
       )}
 
-      {selectedCategory === "야구" && "야구"}
+      {selectedCategory === "야구" && (
+        <div className="min-w-[1200px] min-h-[935px] flex gap-10">
+          <BaseballNavbar />
+          <div>
+            <LiveChat />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
