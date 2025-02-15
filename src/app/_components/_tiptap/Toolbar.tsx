@@ -47,6 +47,7 @@ const toolbarButtons = [
       const input = document.createElement("input");
       input.type = "file";
       input.accept = "image/*";
+
       input.onchange = (e) => {
         const file = (e.target as HTMLInputElement).files?.[0];
         if (file) {
@@ -56,6 +57,7 @@ const toolbarButtons = [
               .chain()
               .focus()
               .setImage({ src: reader.result as string })
+              .createParagraphNear()
               .run();
           };
           reader.readAsDataURL(file);
@@ -67,27 +69,6 @@ const toolbarButtons = [
     title: "이미지",
   },
 
-  {
-    icon: <Heading1 className="w-5 h-5" />,
-    action: (editor: Editor) =>
-      editor.chain().focus().toggleHeading({ level: 1 }).run(),
-    isActive: (editor: Editor) => editor.isActive("heading", { level: 1 }),
-    title: "제목1",
-  },
-  {
-    icon: <Heading2 className="w-5 h-5" />,
-    action: (editor: Editor) =>
-      editor.chain().focus().toggleHeading({ level: 2 }).run(),
-    isActive: (editor: Editor) => editor.isActive("heading", { level: 2 }),
-    title: "제목2",
-  },
-  {
-    icon: <Heading3 className="w-5 h-5" />,
-    action: (editor: Editor) =>
-      editor.chain().focus().toggleHeading({ level: 3 }).run(),
-    isActive: (editor: Editor) => editor.isActive("heading", { level: 3 }),
-    title: "제목3",
-  },
   {
     icon: <List className="w-5 h-5" />,
     action: (editor: Editor) => editor.chain().focus().toggleBulletList().run(),
