@@ -25,7 +25,7 @@ type TeamType = {
 
 const TeamDetailStatus = ({ title, teamLogo }: TeamType) => {
   return (
-    <div className="w-full min-h-[818px] flex flex-col gap-3">
+    <div className="w-full min-h-[700px] flex flex-col gap-3">
       <div className="min-w-[152px] min-h-[38px] flex gap-2 justify-start items-center">
         {teamLogo}
         <p className="font-medium text-[18px] leading-7 tracking-[0.04em] text-[#303030]">

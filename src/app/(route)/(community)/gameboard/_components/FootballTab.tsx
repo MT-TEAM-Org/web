@@ -46,6 +46,7 @@ const FootballTab = () => {
           </div>
         </>
       )}
+
       {selectedCategory === "기록" && (
         <>
           <FootballRecordTeams />
@@ -59,6 +60,7 @@ const FootballTab = () => {
           />
         </>
       )}
+
       {selectedCategory === "승부예측" && (
         <div className="flex flex-col gap-3">
           <LiveMatchPanel />
