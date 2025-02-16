@@ -2,12 +2,19 @@
 
 import React, { useState } from "react";
 
-const FootballNavbar = () => {
+interface ScheduleNavbarProps {
+  setSelectedCategory: (category: string) => void;
+}
+
+const FootballNavbar: React.FC<ScheduleNavbarProps> = ({
+  setSelectedCategory,
+}) => {
   const [activeTab, setActiveTab] = useState("라인업");
 
-  const onClick = (category: string) => {
-    setActiveTab(category);
-    console.log("category : ", category);
+  const onClick = (tab: string) => {
+    setActiveTab(tab);
+    setSelectedCategory(tab);
+    console.log("tab : ", tab);
   };
 
   const getTabClass = (category: string) => {
@@ -18,6 +25,7 @@ const FootballNavbar = () => {
           : "border-b-[2px] border-[#DBDBDB] text-[#A6A6A6]"
       }`;
   };
+
   return (
     <div className="w-full max-w-[800px] min-h-[52px] flex justify-center items-center">
       <div onClick={() => onClick("라인업")} className={getTabClass("라인업")}>
