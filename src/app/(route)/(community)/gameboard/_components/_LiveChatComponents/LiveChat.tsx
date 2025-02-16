@@ -1,6 +1,9 @@
 import Plus from "@/app/_components/icon/Plus";
 import Send_icon from "@/app/_components/icon/Send_icon";
 import React from "react";
+import BeforeChat from "./BeforeChat";
+import PopupChat from "./PopupChat";
+import ActiveChat from "./ActiveChat";
 
 const LiveChat = () => {
   return (
@@ -43,6 +46,7 @@ const LiveChat = () => {
           <p>채팅이 없어요</p>
           <p>1빠 채팅을 날려볼까요?</p>
         </div>
+        {/* <ActiveChat /> */}
         <div className="w-full max-w-[328px] min-h-[52px] pt-3 bg-[#FFFFFF]">
           <div className="w-full max-w-[328px] min-h-[40px] flex gap-2">
             <div className="w-[40px] h-[40px] rounded-[5px] border py-4 flex gap-[10px] border-[#EEEEE] items-center justify-center">
@@ -59,6 +63,8 @@ const LiveChat = () => {
           </div>
         </div>
       </div>
+      {/* <BeforeChat /> */}
+      {/* <PopupChat /> */}
     </div>
   );
 };

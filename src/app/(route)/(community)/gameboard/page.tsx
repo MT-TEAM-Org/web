@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 import ScheduleContainer from "../../main/_components/scheduleContainer";
 import ScheduleNavbar from "./_components/ScheduleNavbar";
-import LiveChat from "./_components/LiveChat";
 import LiveMatchBox from "./_components/LiveMatchBox";
 import LiveMatchPanel from "./_components/LiveMatchPanel";
 import CommentBox from "./_components/CommentBox";
 import BaseballTab from "./_components/_baseballComponents/BaseballTab";
 import FootballTab from "./_components/_footballComponents/FootballTab";
+import LiveChat from "./_components/_LiveChatComponents/LiveChat";
 // import EmptyComment from "./_components/EmptyComment";
 // import FootballLivePanel from "./_components/FootballLivePanel";
 
