@@ -10,12 +10,8 @@ import Plus from "@/app/_components/icon/Plus";
 import SendCommentBox from "../news/news-detail/[id]/_components/SendCommentBox";
 import LiveMatchBox from "./_components/LiveMatchBox";
 import LiveMatchPanel from "./_components/LiveMatchPanel";
-import FootballNavbar from "./_components/FootballNavbar";
-import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
-import Fake_scheduleItem2 from "@/app/_components/icon/Fake_scheduleItem2";
-import FootballSubPlayersList from "./_components/FootballSubPlayersList";
 import BaseballNavbar from "./_components/BaseballNavbar";
-import GameboardFooter from "./_components/GameboardFooter";
+import FootballTab from "./_components/FootballTab";
 // import EmptyComment from "./_components/EmptyComment";
 // import FootballLivePanel from "./_components/FootballLivePanel";
 
@@ -68,36 +64,7 @@ const Page = () => {
 
       {selectedCategory === "축구" && (
         <div className="min-w-[1200px] min-h-[1455px] flex gap-10 justify-center">
-          <div className="w-[800px] min-h-[1455px] flex flex-col gap-6 items-center">
-            <div>
-              <FootballNavbar />
-            </div>
-            <div className="w-full min-h-[60px] p-4 flex gap-[10px] bg-[#FAFAFA] items-center justify-center font-bold text-[18px] leading-7 text-[#303030]">
-              <p>경기시각</p>
-              <p>45:02</p>
-              <p>+2:15</p>
-            </div>
-            <div className="w-[400px] h-[605px] flex flex-col items-center justify-center">
-              <div className="w-full h-[37.78px] flex gap-[2px] items-center justify-center rounded-t-[10px] border">
-                <Fake_scheduleItem />
-                <p>3-4-2-1</p>
-              </div>
-              <div className="w-[400px] h-[264.48px] bg-[#28cd19]"></div>
-              <div className="w-[400px] h-[264.48px] bg-[#28cd19]"></div>
-              <div className="w-full h-[37.78px] flex gap-[2px] items-center justify-center rounded-b-[10px] border">
-                <Fake_scheduleItem2 />
-                <p>4-4-2</p>
-              </div>
-            </div>
-            <div className="w-full max-w-[800px] min-h-[666px] flex flex-col">
-              <div className="w-full min-h-[586px] flex gap-8">
-                <FootballSubPlayersList />
-                <div className="w-[2px] h-[540px] bg-[#EEEEEE]" />
-                <FootballSubPlayersList />
-              </div>
-              <GameboardFooter />
-            </div>
-          </div>
+          <FootballTab />
           <div>
             <LiveChat />
           </div>
