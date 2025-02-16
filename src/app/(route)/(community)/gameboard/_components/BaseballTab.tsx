@@ -8,6 +8,8 @@ import BaseballPlayerInfo from "./BaseballPlayerInfo";
 import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
 import BenchPlayers from "./BenchPlayers";
 import BenchPitchers from "./BenchPitchers";
+import LiveMatchPanel from "./LiveMatchPanel";
+import CommentBox from "./CommentBox";
 
 const BaseballTab = () => {
   const [selectedCategory, setSelectedCategory] = useState("전력");
@@ -41,8 +43,13 @@ const BaseballTab = () => {
           <BenchPitchers />
         </>
       )}
-      {selectedCategory === "기록" && <div>기록</div>}
-      {selectedCategory === "승부예측" && <div>승부예측</div>}
+      {selectedCategory === "기록" && <div></div>}
+      {selectedCategory === "승부예측" && (
+        <div className="flex flex-col gap-3">
+          <LiveMatchPanel />
+          <CommentBox />
+        </div>
+      )}
     </div>
   );
 };
