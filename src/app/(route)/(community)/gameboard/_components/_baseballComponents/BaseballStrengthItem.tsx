@@ -38,21 +38,17 @@ const BaseballStrengthItem = () => {
         <div className="w-full min-h-[180px]">
           <div className="w-full min-h-[36px] px-2 py-1 flex gap-3 justify-center items-center">
             <div className="w-full max-w-[341px] min-h-[18px] flex gap-1 justify-end items-center">
-              <BaseballMatchRecord />
-              <BaseballMatchRecord />
-              <BaseballMatchRecord />
-              <BaseballMatchRecord />
-              <BaseballMatchRecord />
+              {Array.from({ length: 5 }).map((_, index) => (
+                <BaseballMatchRecord key={index} />
+              ))}
             </div>
             <div className="w-[78px] min-h-[28px] rounded-[5px] px-2 py-1 flex items-center justify-center gap-[10px] bg-[#FAFAFA] text-[14px] leading-5 text-[#A6A6A6]">
               최근경기
             </div>
             <div className="w-full max-w-[341px] min-h-[18px] flex gap-1 justify-start items-center">
-              <BaseballMatchRecord />
-              <BaseballMatchRecord />
-              <BaseballMatchRecord />
-              <BaseballMatchRecord />
-              <BaseballMatchRecord />
+              {Array.from({ length: 5 }).map((_, index) => (
+                <BaseballMatchRecord key={index} />
+              ))}
             </div>
           </div>
           <div className="w-full min-h-[36px] px-2 py-1 flex gap-3 justify-center items-center">
