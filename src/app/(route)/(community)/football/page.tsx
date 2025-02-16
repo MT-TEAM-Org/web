@@ -1,7 +1,9 @@
-import { CommunityToolbar } from "../_components/CommunityToolbar";
-import PostItem from "../_components/PostItem";
+"use client";
 
-const Soccer = () => {
+import PostItem from "../_components/PostItem";
+import { CommunityToolbar } from "../_components/CommunityToolbar";
+
+const Football = () => {
   return (
     <div className="flex justify-center bg-[#FAFAFA] mt-3.5">
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto">
@@ -15,4 +17,4 @@ const Soccer = () => {
   );
 };
 
-export default Soccer;
+export default Football;
