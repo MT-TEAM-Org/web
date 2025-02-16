@@ -1,6 +1,6 @@
 import React from "react";
 import BaseballMatchRecord from "./BaseballMatchRecord";
-import BaseballStrengthInfo from "./BaseballStrengthInfo";
+import TeamStrengthInfo from "../TeamStrengthInfo";
 
 const BaseballStrengthItem = () => {
   return (
@@ -67,9 +67,9 @@ const BaseballStrengthItem = () => {
             </div>
           </div>
 
-          <BaseballStrengthInfo title="승률" num1="0.466" num2="0.471" />
-          <BaseballStrengthInfo title="타율" num1="0.284" num2="0.271" />
-          <BaseballStrengthInfo title="타이틀" num1="5.07" num2="5.05" />
+          <TeamStrengthInfo title="승률" num1="0.466" num2="0.471" />
+          <TeamStrengthInfo title="타율" num1="0.284" num2="0.271" />
+          <TeamStrengthInfo title="타이틀" num1="5.07" num2="5.05" />
         </div>
       </div>
     </div>

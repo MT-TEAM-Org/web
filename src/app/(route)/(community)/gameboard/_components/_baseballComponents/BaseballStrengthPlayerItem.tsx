@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import BaseballStrengthInfo from "./BaseballStrengthInfo";
-import GameboardFooter from "./GameboardFooter";
+import TeamStrengthInfo from "../TeamStrengthInfo";
+import GameboardFooter from "../GameboardFooter";
 
 const BaseballStrengthPlayerItem = () => {
   return (
@@ -37,10 +37,10 @@ const BaseballStrengthPlayerItem = () => {
         </div>
       </div>
       <div className="w-full min-h-[216px]">
-        <BaseballStrengthInfo title="평균자책" num1="0.343" num2="0.264" />
-        <BaseballStrengthInfo title="안타" num1="169" num2="62" />
-        <BaseballStrengthInfo title="홈런" num1="33" num2="7" />
-        <BaseballStrengthInfo title="타점" num1="115" num2="34" />
+        <TeamStrengthInfo title="평균자책" num1="0.343" num2="0.264" />
+        <TeamStrengthInfo title="안타" num1="169" num2="62" />
+        <TeamStrengthInfo title="홈런" num1="33" num2="7" />
+        <TeamStrengthInfo title="타점" num1="115" num2="34" />
         <div className="w-full min-h-[36px] px-2 py-1 flex gap-3 justify-center items-center">
           <div className="w-full max-w-[341px] min-h-[20px] flex gap-3 justify-end items-center font-bold text-[14px] leading-5 text-[#424242]">
             <p>타율 0.321</p>

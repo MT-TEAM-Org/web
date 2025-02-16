@@ -5,12 +5,12 @@ import FootballGameTime from "./FootballGameTime";
 import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
 import Fake_scheduleItem2 from "@/app/_components/icon/Fake_scheduleItem2";
 import FootballSubPlayersList from "./FootballSubPlayersList";
-import GameboardFooter from "./GameboardFooter";
 import FootballNavbar from "./FootballNavbar";
-import TeamDetailStatus from "./TeamDetailStatus";
 import FootballRecordTeams from "./FootballRecordTeams";
-import LiveMatchPanel from "./LiveMatchPanel";
-import CommentBox from "./CommentBox";
+import GameboardFooter from "../GameboardFooter";
+import TeamDetailStatus from "../TeamDetailStatus";
+import LiveMatchPanel from "../LiveMatchPanel";
+import CommentBox from "../CommentBox";
 
 const FootballTab = () => {
   const [selectedCategory, setSelectedCategory] = useState("라인업");

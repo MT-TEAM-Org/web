@@ -6,7 +6,7 @@ type infoData = {
   num2: string;
 };
 
-const BaseballStrengthInfo = ({ title, num1, num2 }: infoData) => {
+const TeamStrengthInfo = ({ title, num1, num2 }: infoData) => {
   return (
     <div className="w-full min-h-[36px] px-2 py-1 flex gap-3 justify-center items-center">
       <div className="w-[280px] h-[4px] rounded-[5px] flex">
@@ -32,4 +32,4 @@ const BaseballStrengthInfo = ({ title, num1, num2 }: infoData) => {
   );
 };
 
-export default BaseballStrengthInfo;
+export default TeamStrengthInfo;

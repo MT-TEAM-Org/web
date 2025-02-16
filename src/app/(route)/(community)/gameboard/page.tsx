@@ -6,9 +6,9 @@ import ScheduleNavbar from "./_components/ScheduleNavbar";
 import LiveChat from "./_components/LiveChat";
 import LiveMatchBox from "./_components/LiveMatchBox";
 import LiveMatchPanel from "./_components/LiveMatchPanel";
-import FootballTab from "./_components/FootballTab";
 import CommentBox from "./_components/CommentBox";
-import BaseballTab from "./_components/BaseballTab";
+import BaseballTab from "./_components/_baseballComponents/BaseballTab";
+import FootballTab from "./_components/_footballComponents/FootballTab";
 // import EmptyComment from "./_components/EmptyComment";
 // import FootballLivePanel from "./_components/FootballLivePanel";
 
@@ -21,7 +21,7 @@ const Page = () => {
   const [selectedCategory, setSelectedCategory] = useState("E스포츠");
 
   return (
-    <div className="flex flex-col gap-3 justify-center items-center">
+    <div className="flex flex-col gap-3 justify-center items-center mb-10">
       <div className="w-[1920px] h-auto min-h-[226px] flex flex-col gap-3 items-center justify-center bg-[#FAFAFA]">
         <ScheduleNavbar setSelectedCategory={setSelectedCategory} />
         <ScheduleContainer />

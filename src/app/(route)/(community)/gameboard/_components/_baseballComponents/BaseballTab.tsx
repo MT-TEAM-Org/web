@@ -6,17 +6,16 @@ import BaseballStrengthPlayerItem from "./BaseballStrengthPlayerItem";
 import BaseballNavbar from "./BaseballNavbar";
 import BaseballPlayerInfo from "./BaseballPlayerInfo";
 import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
-import BenchPlayers from "./BenchPlayers";
-import BenchPitchers from "./BenchPitchers";
-import LiveMatchPanel from "./LiveMatchPanel";
-import CommentBox from "./CommentBox";
 import BaseballBestPlayer from "./BaseballBestPlayer";
 import BaseballTopPlayers from "./BaseballTopPlayers";
-import BaseballStrengthInfo from "./BaseballStrengthInfo";
 import BaseballRecordItem from "./BaseballRecordItem";
-import FootballRecordTeams from "./FootballRecordTeams";
-import TeamDetailStatus from "./TeamDetailStatus";
 import Fake_scheduleItem2 from "@/app/_components/icon/Fake_scheduleItem2";
+import BenchPlayers from "../BenchPlayers";
+import BenchPitchers from "../BenchPitchers";
+import TeamDetailStatus from "../TeamDetailStatus";
+import LiveMatchPanel from "../LiveMatchPanel";
+import CommentBox from "../CommentBox";
+import TeamStrengthInfo from "../TeamStrengthInfo";
 
 const homeRuns = [
   {
@@ -98,12 +97,12 @@ const BaseballTab = () => {
                   </p>
                 </div>
                 <div className="w-full min-h-[216px] flex flex-col">
-                  <BaseballStrengthInfo title="안타" num1="18" num2="9" />
-                  <BaseballStrengthInfo title="홈런" num1="3" num2="4" />
-                  <BaseballStrengthInfo title="도루" num1="0" num2="2" />
-                  <BaseballStrengthInfo title="삼진" num1="5" num2="9" />
-                  <BaseballStrengthInfo title="병살" num1="0" num2="2" />
-                  <BaseballStrengthInfo title="실책" num1="4" num2="0" />
+                  <TeamStrengthInfo title="안타" num1="18" num2="9" />
+                  <TeamStrengthInfo title="홈런" num1="3" num2="4" />
+                  <TeamStrengthInfo title="도루" num1="0" num2="2" />
+                  <TeamStrengthInfo title="삼진" num1="5" num2="9" />
+                  <TeamStrengthInfo title="병살" num1="0" num2="2" />
+                  <TeamStrengthInfo title="실책" num1="4" num2="0" />
                 </div>
               </div>
               <div className="w-full min-h-[376px] flex flex-col">

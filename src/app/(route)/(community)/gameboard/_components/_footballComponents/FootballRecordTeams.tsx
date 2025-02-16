@@ -1,7 +1,7 @@
 import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
 import Fake_scheduleItem2 from "@/app/_components/icon/Fake_scheduleItem2";
 import React from "react";
-import BaseballStrengthInfo from "./BaseballStrengthInfo";
+import TeamStrengthInfo from "../TeamStrengthInfo";
 
 const recordTeams = [
   { title: "볼점유율", num1: "43%", num2: "57%" },
@@ -49,7 +49,7 @@ const FootballRecordTeams = () => {
       </div>
       <div className="w-full min-h-[612px] flex flex-col">
         {recordTeams.map((record, index) => (
-          <BaseballStrengthInfo
+          <TeamStrengthInfo
             key={index}
             title={record.title}
             num1={record.num1}
