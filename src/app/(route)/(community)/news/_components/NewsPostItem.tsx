@@ -16,7 +16,7 @@ interface NewsPostItemProps {
   newsItem?: NewsItemType;
 }
 
-const NewsPostItem: React.FC<NewsPostItemProps> = ({ newsItem }) => {
+const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
   const router = useRouter();
 
   const handleToPage = () => {

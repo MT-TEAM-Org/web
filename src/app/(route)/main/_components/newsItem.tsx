@@ -13,7 +13,7 @@ interface NewsPostItemProps {
   newsItem: NewsItemType;
 }
 
-const NewsItem: React.FC<NewsPostItemProps> = ({ newsItem }) => {
+const NewsItem = ({ newsItem }: NewsPostItemProps) => {
   const onClick = () => {
     console.log(newsItem.id);
   };

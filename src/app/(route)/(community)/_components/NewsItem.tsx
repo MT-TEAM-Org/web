@@ -13,7 +13,7 @@ type NewsItemProps = {
   newsItem: NewsItemType;
 };
 
-const NewsItem: React.FC<NewsItemProps> = ({ newsItem }) => {
+const NewsItem = ({ newsItem }: NewsItemProps) => {
   const onClick = () => {
     console.log(newsItem.id);
   };

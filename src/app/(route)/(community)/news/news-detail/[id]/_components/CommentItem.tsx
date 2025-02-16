@@ -6,7 +6,7 @@ interface CommentItemProps {
   className?: string;
 }
 
-const CommentItem: React.FC<CommentItemProps> = ({ className }) => {
+const CommentItem = ({ className }: CommentItemProps) => {
   return (
     <div
       className={`max-w-full min-h-[132px] flex flex-col border-b border-[#FAFAFA] gap-3 p-3 ${className}`}

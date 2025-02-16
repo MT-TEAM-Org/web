@@ -6,7 +6,7 @@ interface ScheduleSliderProps {
   title: string;
 }
 
-const ScheduleSlider: React.FC<ScheduleSliderProps> = ({ title }) => {
+const ScheduleSlider = ({ title }: ScheduleSliderProps) => {
   return (
     <div className="min-w-[1200px] min-h-[172px] flex flex-col gap-3 items-center">
       <div className="w-full min-h-[40px] flex justify-between items-center">
