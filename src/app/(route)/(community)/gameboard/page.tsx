@@ -6,9 +6,9 @@ import ScheduleNavbar from "./_components/ScheduleNavbar";
 import LiveChat from "./_components/LiveChat";
 import LiveMatchBox from "./_components/LiveMatchBox";
 import LiveMatchPanel from "./_components/LiveMatchPanel";
-import BaseballNavbar from "./_components/BaseballNavbar";
 import FootballTab from "./_components/FootballTab";
 import CommentBox from "./_components/CommentBox";
+import BaseballTab from "./_components/BaseballTab";
 // import EmptyComment from "./_components/EmptyComment";
 // import FootballLivePanel from "./_components/FootballLivePanel";
 
@@ -51,7 +51,7 @@ const Page = () => {
 
       {selectedCategory === "야구" && (
         <div className="min-w-[1200px] min-h-[935px] flex gap-10">
-          <BaseballNavbar />
+          <BaseballTab />
           <div>
             <LiveChat />
           </div>

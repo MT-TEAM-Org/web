@@ -1,15 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import BaseballStrengthItem from "./BaseballStrengthItem";
-import BaseballStrengthPlayerItem from "./BaseballStrengthPlayerItem";
 
-const BaseballNavbar = () => {
+interface ScheduleNavbarProps {
+  setSelectedCategory: (category: string) => void;
+}
+
+const BaseballNavbar: React.FC<ScheduleNavbarProps> = ({
+  setSelectedCategory,
+}) => {
   const [activeTab, setActiveTab] = useState("전력");
 
-  const onClick = (category: string) => {
-    setActiveTab(category);
-    console.log("category : ", category);
+  const onClick = (tab: string) => {
+    setActiveTab(tab);
+    setSelectedCategory(tab);
+    console.log("tab : ", tab);
   };
 
   const getTabClass = (category: string) => {
@@ -22,31 +27,27 @@ const BaseballNavbar = () => {
   };
 
   return (
-    <div className="w-[800px] min-h-[935px] flex flex-col gap-6">
+    <div className="w-full max-w-[800px] min-h-[52px] flex justify-center items-center">
       <div className="w-full max-w-[800px] min-h-[52px] flex justify-center items-center">
-        <div className="w-full max-w-[800px] min-h-[52px] flex justify-center items-center">
-          <div onClick={() => onClick("전력")} className={getTabClass("전력")}>
-            전력
-          </div>
-          <div
-            onClick={() => onClick("라인업")}
-            className={getTabClass("라인업")}
-          >
-            라인업
-          </div>
-          <div onClick={() => onClick("기록")} className={getTabClass("기록")}>
-            기록
-          </div>
-          <div
-            onClick={() => onClick("승부예측")}
-            className={getTabClass("승부예측")}
-          >
-            승부예측
-          </div>
+        <div onClick={() => onClick("전력")} className={getTabClass("전력")}>
+          전력
+        </div>
+        <div
+          onClick={() => onClick("라인업")}
+          className={getTabClass("라인업")}
+        >
+          라인업
+        </div>
+        <div onClick={() => onClick("기록")} className={getTabClass("기록")}>
+          기록
+        </div>
+        <div
+          onClick={() => onClick("승부예측")}
+          className={getTabClass("승부예측")}
+        >
+          승부예측
         </div>
       </div>
-      <BaseballStrengthItem />
-      <BaseballStrengthPlayerItem />
     </div>
   );
 };
