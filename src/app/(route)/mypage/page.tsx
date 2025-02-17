@@ -42,7 +42,7 @@ const Mypage = () => {
                   {info.name}
                 </p>
                 <Link href={info.path || ""}>
-                  <p className="text-[24px] font-[900] leading-[38px] text-center underline">
+                  <p className="text-[24px] text-[#303030] font-[900] leading-[38px] text-center underline">
                     {info.value}
                   </p>
                 </Link>

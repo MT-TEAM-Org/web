@@ -9,7 +9,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="bg-[#fafafa]">
       <div className="max-w-[1200px] mx-auto pt-[40px] pb-[20px]">
-        <h1 className="text-[28px] font-[700] leading-[40px]">마이페이지</h1>
+        <h1
+          className="text-[28px] font-[700] leading-[40px]"
+          style={{ letterSpacing: "-4%" }}
+        >
+          마이페이지
+        </h1>
       </div>
       <div className="mt-[20px] max-w-[1200px] h-[2000px] flex mx-auto gap-[20px]">
         <div className="w-[160px] min-h-[364px]">
