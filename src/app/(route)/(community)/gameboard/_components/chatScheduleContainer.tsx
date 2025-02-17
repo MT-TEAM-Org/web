@@ -1,12 +1,12 @@
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
-import ChatScheduleCard from "./ChatScheduleCard";
+import ChatScheduleCard from "./chatScheduleCard";
 
 interface ScheduleSliderProps {
   title: string;
 }
 
-const ScheduleSlider: React.FC<ScheduleSliderProps> = ({ title }) => {
+const ScheduleSlider = ({ title }: ScheduleSliderProps) => {
   return (
     <div className="min-w-[1200px] min-h-[172px] flex flex-col gap-3 items-center">
       <div className="w-full min-h-[40px] flex justify-between items-center">
@@ -28,7 +28,6 @@ const ScheduleSlider: React.FC<ScheduleSliderProps> = ({ title }) => {
           <ChatScheduleCard key={index.toString()} />
         ))}
       </div>
-
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
-import Image from "next/image";
+import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
+import Fake_scheduleItem2 from "@/app/_components/icon/Fake_scheduleItem2";
 
 const ChatScheduleCard = () => {
   return (
@@ -11,15 +12,9 @@ const ChatScheduleCard = () => {
       <div className="min-w-[267px] min-h-[66px] w-auto h-auto flex justify-center items-center gap-2">
         {/* 탐워스 */}
         <div className="min-w-[99px] min-h-[66px] w-auto h-auto flex gap-1 flex-col justify-center items-center">
-          <Image
-            src="/team_fake1.png"
-            alt="team1"
-            width={48}
-            height={42}
-            className="w-[48px] h-[42px]"
-          />
+          <Fake_scheduleItem />
           <span className="font-[700] text-[14px] leading-5 flex align-center">
-            탐워스
+            T1
           </span>
         </div>
         {/* 중앙 */}
@@ -27,19 +22,15 @@ const ChatScheduleCard = () => {
           <span className="text-[#CBCBCB] font-[700] text-[14px] leading-5">
             VS
           </span>
-          <div className="text-[#656565] font-[700] text-[12px] leading-[18px] tracking-[-2%]">19:00 예정</div>
+          <div className="text-[#656565] font-[700] text-[12px] leading-[18px] tracking-[-2%]">
+            19:00 예정
+          </div>
         </div>
         {/* 토트넘 */}
         <div className="min-w-[99px] min-h-[66px] w-auto h-auto flex gap-1 flex-col justify-center items-center">
-          <Image
-            src="/team_fake2.png"
-            alt="team2"
-            width={48}
-            height={42}
-            className="w-[48px] h-[42px]"
-          />
+          <Fake_scheduleItem2 />
           <span className="font-[700] text-[14px] leading-5 flex align-center">
-            토트넘
+            젠지
           </span>
         </div>
       </div>

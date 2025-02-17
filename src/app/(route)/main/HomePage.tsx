@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import MainRightBar from "./_components/MainRightBar";
 import NewPost from "./_components/NewPost";
 import ScheduleContainer from "./_components/scheduleContainer";
 import HotPost from "./_components/hotPost";
 import NewsComponent from "./_components/newsComponent";
 import useSocialReissue from "@/_hooks/useSocialReissue";
+import MainBigSizeNews from "./_components/MainBigSizeNews";
 
 export default function HomePage() {
   const { isSuccess, isError } = useSocialReissue();
@@ -19,13 +19,7 @@ export default function HomePage() {
           <div className="max-w-[862px] min-h-[668px] flex gap-10">
             <div className="flex flex-col gap-10">
               <div className="max-w-[862px] min-h-[236px] flex gap-4">
-                <Image
-                  src="/mainNews_fake.png"
-                  alt="main news"
-                  width={410}
-                  height={236}
-                  className="w-[410px] h-[236px] rounded-[10px] cursor-pointer"
-                />
+                <MainBigSizeNews />
                 <NewsComponent />
               </div>
               <div className="flex gap-6">
