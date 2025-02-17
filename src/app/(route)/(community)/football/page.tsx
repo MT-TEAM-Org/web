@@ -1,7 +1,7 @@
 "use client";
 
-import { CommunityToolbar } from "../_components/CommunityToolbar";
 import PostItem from "../_components/PostItem";
+import { CommunityToolbar } from "../_components/CommunityToolbar";
 
 const Football = () => {
   return (

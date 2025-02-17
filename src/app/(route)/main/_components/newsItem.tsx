@@ -1,19 +1,19 @@
 import React from "react";
 import Image from "next/image";
 
-type NewsItemType = {
+interface NewsItem {
   id: number;
   title: string;
   category: string;
   thumbImg: string;
   postDate: string;
-};
-
-interface NewsPostItemProps {
-  newsItem: NewsItemType;
 }
 
-const NewsItem: React.FC<NewsPostItemProps> = ({ newsItem }) => {
+interface NewsPostItemProps {
+  newsItem: NewsItem;
+}
+
+const NewsItem = ({ newsItem }: NewsPostItemProps) => {
   const onClick = () => {
     console.log(newsItem.id);
   };

@@ -13,16 +13,9 @@ type NewsItemProps = {
   newsItem: NewsItemType;
 };
 
-const NewsItem: React.FC<NewsItemProps> = ({ newsItem }) => {
-  const onClick = () => {
-    console.log(newsItem.id);
-  };
-
+const NewsItem = ({ newsItem }: NewsItemProps) => {
   return (
-    <div
-      className="min-w-[288px] min-h-[92px] flex justify-start items-center border-b border-[#EEEEEE] p-3 cursor-pointer gap-3"
-      onClick={onClick}
-    >
+    <div className="min-w-[288px] min-h-[92px] flex justify-start items-center border-b border-[#EEEEEE] p-3 cursor-pointer gap-3">
       <Image
         src={newsItem?.thumbImg ? newsItem?.thumbImg : "/NewsItem_fake2.png"}
         alt="news img"
