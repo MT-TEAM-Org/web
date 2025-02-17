@@ -11,8 +11,8 @@ const MypageLeftSidebar = () => {
     { name: "마이페이지", id: 0, path: `/${basePath}` },
     { name: "내가 쓴 게시물", id: 1, path: `/${basePath}/posts` },
     { name: "내가 쓴 댓글", id: 2, path: `/${basePath}/comments` },
-    { name: "나의 문의내역", id: 3, path: `/${basePath}/inquiries` },
     { name: "내 정보 수정", id: 4, path: `/${basePath}/edit-profile` },
+    { name: "나의 문의내역", id: 3, path: `/${basePath}/inquiries` },
     { name: "개선요청", id: 5, path: `/${basePath}/feedback` },
     { name: "로그아웃", id: 6, path: `/${basePath}/logout` },
   ];

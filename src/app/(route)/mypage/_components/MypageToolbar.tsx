@@ -16,8 +16,27 @@ interface DropdownOption {
   value: string;
 }
 
-export const MypageToolbar = () => {
+interface MypageToolbarProps {
+  mode: "posts" | "comments" | "inquries";
+}
+
+export const MypageToolbar = ({ mode }: MypageToolbarProps) => {
   const selectRef = useRef<HTMLSelectElement>(null);
+
+  const modeObject = {
+    posts: {
+      title: "내가 쓴 게시물",
+      button: "최신순",
+    },
+    comments: {
+      title: "내가 쓴 댓글",
+      button: "최신순",
+    },
+    inquries: {
+      title: "나의 문의내역",
+      button: "최신순",
+    },
+  };
 
   const pagenataion = [
     { value: "1", label: "1" },
@@ -46,12 +65,11 @@ export const MypageToolbar = () => {
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
   const pageButtonStyle =
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
-
   return (
     <div>
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
         <h2 className="font-[700] text-[18px] leading-[28px] text-[#303030]">
-          내가 쓴 게시물
+          {modeObject[mode].title}
         </h2>
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
           <div className="relative" onClick={handleDivClick}>
