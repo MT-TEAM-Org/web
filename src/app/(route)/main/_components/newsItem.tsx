@@ -1,16 +1,16 @@
 import React from "react";
 import Image from "next/image";
 
-type NewsItemType = {
+interface NewsItem {
   id: number;
   title: string;
   category: string;
   thumbImg: string;
   postDate: string;
-};
+}
 
 interface NewsPostItemProps {
-  newsItem: NewsItemType;
+  newsItem: NewsItem;
 }
 
 const NewsItem = ({ newsItem }: NewsPostItemProps) => {
