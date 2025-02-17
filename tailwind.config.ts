@@ -17,20 +17,6 @@ export default {
       animation: {
         fadeOut: "fadeOut 0.5s ease-in-out 2.5s forwards",
       },
-      boxShadow: {
-        Shadow1: "0px 4px 4px -4px rgba(24, 39, 75, 0.08) ",
-        Shadow2: "",
-        Shadow3: "",
-        Shadow4: "",
-        Shadow5: "",
-        Shadow6: "",
-        Shadow7: "",
-        Shadow8: "",
-        Shadow9: "",
-        ShadowUp: "",
-        ShadowRight: "",
-        layerBlur: "",
-      },
       colors: {
         Primary: "#1228EF",
         Secondary: "#1024D3",
