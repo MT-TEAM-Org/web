@@ -11,7 +11,7 @@ const HotPostItem: React.FC<HotPostItemProps> = ({ number }) => {
       <div className="w-[20px] h-[20px] rounded-sm gap-[10px] font-[700] text-[12px] leading-[18px] font-[#424242]">
         {number}
       </div>
-
+      {/* 목 데이터 */}
       <div className="max-w-[40px] min-h-[18px] font-[700] text-[12px] leading-[18px] text-[#A6A6A6]">
         E스포츠
       </div>

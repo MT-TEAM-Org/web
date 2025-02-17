@@ -20,6 +20,7 @@ const benchPlayerB = [
   { name: "이병헌", info: "포수, 우타" },
   { name: "이병헌", info: "포수, 우타" },
 ];
+// 목 데이터
 
 const BenchPlayers = () => {
   return (

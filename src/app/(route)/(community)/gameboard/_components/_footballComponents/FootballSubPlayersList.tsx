@@ -21,6 +21,7 @@ const FootballSubPlayersList = () => {
         <p className="font-bold text-[18px] leading-7">
           아우크스 부르크 후보선수
         </p>
+        {/* 목 데이터 */}
       </div>
 
       {players.map((player, index) => (

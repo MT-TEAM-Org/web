@@ -47,6 +47,7 @@ const BenchPitchers = () => {
               name={player.name}
               info={player.info}
             />
+            // 목 데이터
           ))}
         </div>
         <div className="min-w-[2px] h-[572px] bg-[#EEEEEE]" />

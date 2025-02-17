@@ -11,6 +11,7 @@ const BaseballBestPlayerItem = () => {
           width={60}
           height={58}
         />
+        {/* 목 데이터 */}
         <div className="w-[49px] min-h-[58px] flex flex-col items-start justify-center">
           <p className="font-bold text-[12px] leading-[18px] tracking-[-0.02em] text-[#00ADEE]">
             BEST

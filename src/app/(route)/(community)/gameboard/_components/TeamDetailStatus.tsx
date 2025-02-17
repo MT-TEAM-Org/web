@@ -31,6 +31,7 @@ const TeamDetailStatus = ({ title, teamLogo }: TeamType) => {
         <p className="font-medium text-[18px] leading-7 tracking-[0.04em] text-[#303030]">
           {title}
         </p>
+        {/* 목 데이터 */}
       </div>
       <div className="w-full flex flex-col justify-center items-center text-center">
         <div className="w-full h-[48px] border-t border-[#424242] bg-[#FAFAFA] flex">

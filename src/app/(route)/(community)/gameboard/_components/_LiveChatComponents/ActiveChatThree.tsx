@@ -14,6 +14,7 @@ const ActiveChatThree = () => {
           </p>
           <p className="text-[14px] leading-5 text-[#656565]">
             손흥민페이커진짜최고
+            {/* 목 데이터 */}
           </p>
         </div>
         <p className="text-[14px] leading-5 text-[#424242]">

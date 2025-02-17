@@ -15,6 +15,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ className, data }) => {
     <div
       className={`max-w-full min-h-[132px] flex flex-col border-b border-[#FAFAFA] gap-3 p-3 ${className}`}
     >
+      {/* 목 데이터 */}
       <div className="flex justify-between">
         <div className="flex justify-center items-center gap-2">
           <Image
@@ -26,6 +27,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ className, data }) => {
           />
           <p className="text-sm text-[#656565] leading-5 font-medium">
             손흥민매니아진심응원
+            {/* 목 데이터 */}
           </p>
           <p className="text-xs text-[#A6A6A6] leading-4 font-medium">1분 전</p>
           <p className="text-xs text-[#CBCBCB] leading-[18px] font-medium">

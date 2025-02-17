@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-const BaseballTopPlayerItem = ({ player }) => {
+const BaseballTopPlayerItem = () => {
   return (
     <div className="w-full min-h-[104px] rounded-[5px] p-3 flex gap-3 items-center text-start bg-[#FAFAFA]">
       <div className="w-[60px] h-[60px] rounded-[5px] flex flex-col justify-center items-center">
@@ -11,6 +11,7 @@ const BaseballTopPlayerItem = ({ player }) => {
           width={60}
           height={62}
         />
+        {/* 목 데이터 */}
         <div className="w-full min-h-[18px] rounded-br-[5px] rounded-bl-[5px] px-[10px] bg-[#EEEEEE] text-center">
           <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-[#303030]">
             승리

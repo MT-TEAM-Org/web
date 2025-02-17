@@ -23,6 +23,7 @@ const LiveMatchPanel = () => {
               <p className="font-bold text-[18px] leading-7 tracking-[-0.04em]">
                 T1
               </p>
+              {/* 목 데이터 */}
             </div>
           </div>
           <div className="w-[388px] max-h-[40px] flex gap-2 justify-end">

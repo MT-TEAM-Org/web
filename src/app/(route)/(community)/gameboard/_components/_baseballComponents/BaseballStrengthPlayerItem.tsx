@@ -70,6 +70,7 @@ const BaseballStrengthPlayerItem = () => {
             <p>안타 4</p>
             <p>홈런 0</p>
           </div>
+          {/* 목 데이터 */}
         </div>
       </div>
       <GameboardFooter />

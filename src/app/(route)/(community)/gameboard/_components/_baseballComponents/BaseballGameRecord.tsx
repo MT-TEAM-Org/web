@@ -15,6 +15,7 @@ const BaseballGameRecord = () => {
           <p className="w-[345px] min-h-[28px] font-bold text-[18px] leading-7 tracking-[-0.04em] text-right">
             삼성
           </p>
+          {/* 목 데이터 */}
           <p className="w-[78px] h-[28px] font-bold text-[18px] leading-7  tracking-[-0.04em] text-center text-[#CBCBCB]">
             vs
           </p>

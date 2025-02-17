@@ -38,6 +38,7 @@ const BaseballRecordItem: React.FC<BaseballRecordItemProps> = ({ title }) => {
             <p className="text-[14px] leading-5 text-[#303030]">
               {player.player}
             </p>
+            {/* 목 데이터 */}
             <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-[#A6A6A6]">
               {player.details}
             </p>

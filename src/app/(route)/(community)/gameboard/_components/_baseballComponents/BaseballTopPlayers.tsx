@@ -38,12 +38,12 @@ const BaseballTopPlayers = () => {
         <div className="w-full min-h-[74px] flex flex-col gap-2">
           <div className="flex">
             {TopPlayers.map((player, index) => (
-              <BaseballTopPlayerItem key={index} player={player} />
+              <BaseballTopPlayerItem key={index} />
             ))}
           </div>
           <div className="flex">
             {TopPlayers.map((player, index) => (
-              <BaseballTopPlayerItem key={index} player={player} />
+              <BaseballTopPlayerItem key={index} />
             ))}
           </div>
         </div>

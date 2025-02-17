@@ -15,6 +15,7 @@ const BaseballStrengthItem = () => {
             <p className="text-[18px] leading-7 tracking-[-0.04em] text-[#303030]">
               롯데
             </p>
+            {/* 목 데이터 */}
             <div className="w-full max-w-[226.67px] min-h-[20px] flex gap-2 justify-end items-center">
               <p className="text-[14px] leading-5">78승 2무 64패</p>
               <div className="w-[1px] h-[12px] bg-[#D9D9D9]" />

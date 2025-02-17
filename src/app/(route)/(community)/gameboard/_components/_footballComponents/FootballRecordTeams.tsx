@@ -30,6 +30,7 @@ const FootballRecordTeams = () => {
         <div className="w-full max-w-[343px] min-h-[38px] flex gap-2 items-center justify-center">
           <div className="w-full max-w-[297px] min-h-[28px] text-[18px] leading-7 tracking-[-0.04em] flex justify-end">
             아우크스부르크
+            {/* 목 데이터 */}
           </div>
           <div className="w-[38px] h-[38px]">
             <Fake_scheduleItem />

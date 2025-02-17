@@ -17,6 +17,7 @@ const ActiveChatTwo = () => {
         <div className="w-full max-w-[172px] min-h-[40px]">
           <p className="text-[14px] leading-5 text-[#424242]">
             2줄이상일때 채팅 ui는2줄일때 채팅 ui는2줄이
+            {/* 목 데이터 */}
           </p>
         </div>
       </div>

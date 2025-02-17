@@ -28,6 +28,7 @@ const FootballTab = () => {
             <div className="w-full h-[37.78px] flex gap-[2px] items-center justify-center rounded-t-[10px] border">
               <Fake_scheduleItem />
               <p>3-4-2-1</p>
+              {/* 목 데이터 */}
             </div>
             <div className="w-[400px] h-[264.48px] bg-[#28cd19]"></div>
             <div className="w-[400px] h-[264.48px] bg-[#28cd19]"></div>

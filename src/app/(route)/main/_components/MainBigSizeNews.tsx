@@ -20,6 +20,7 @@ const MainBigSizeNews = () => {
         src={
           mainPageData?.thumbImg ? mainPageData.thumbImg : "/mainNews_fake.png"
         }
+        // 목 데이터
         alt="main news"
         width={410}
         height={236}
@@ -30,8 +31,6 @@ const MainBigSizeNews = () => {
           {isLoading ? "Loading..." : mainPageData?.title}
         </h3>
         <p className="w-[410px] h-[40px] opacity-90 font-medium text-[14px] leading-5 text-[#FFFFFF]">
-          {/* 제42대 대한체육회 회장 선거에 출마한 유승민(42) 전 IOC 위원은 공식
-          선거운동 첫날인... */}
           {isLoading ? "Loading..." : mainPageData?.title}
         </p>
       </div>

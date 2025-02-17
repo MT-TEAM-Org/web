@@ -18,6 +18,7 @@ const ScheduleItem = ({
         ${isSelected ? "border-[#424242]" : "border-gray-300"}
       `}
     >
+      {/* 목 데이터 */}
       <div className="w-[251px] h-auto min-h-[26px] flex gap-2 items-center">
         <div className="w-auto min-w-[37px] h-auto min-h-[26px] rounded-[5px] py-1 px-2 flex gap-1 bg-[#EEEEEE] items-center justify-center">
           <p className="font-medium text-[12px] leading-[18px] flex text-center justify-center align-center text-[#A6A6A6]">
