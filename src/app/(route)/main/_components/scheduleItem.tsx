@@ -2,37 +2,61 @@ import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
 import Fake_scheduleItem2 from "@/app/_components/icon/Fake_scheduleItem2";
 import React from "react";
 
-const scheduleItem = () => {
-  const iconStyle =
-    "w-[60px] h-[48px] flex flex-col gap-1 justify-center items-center";
+interface ScheduleItemProps {
+  match: {
+    id: string;
+    date: string;
+    time: string;
+    category: string;
+    team1: string;
+    team2: string;
+    imageUrl?: string;
+  };
+}
 
-  const iconTitleStyle = "font-[700] text-[16px] leading-6 align-center";
+const ScheduleItem = ({ match }: ScheduleItemProps) => {
+  const isNoSchedule = match.id === "경기 일정 없음";
 
   return (
-    <div className="flex flex-col items-center justify-center min-w-[214px] min-h-[98px] bg-[#FFFFFF] rounded-[10px] p-3 gap-2 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
-      <div className="text-xs text-[#A6A6A6] font-[500] leading-[18px] align-center mb-4">
-        E스포츠
-      </div>
+    <div className="flex flex-col items-center justify-center gap-4 w-[275px] h-[126px] p-2   bg-[#ffffff] rounded-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05) ">
+      {isNoSchedule ? (
+        <div className="text-gray-500 font-semibold">경기 일정 없음</div>
+      ) : (
+        <div className="flex items-center justify-center flex-col gap-3 rounded-[5px] w-[275px] h-[126px] bg-[#ffffff] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+          <div className="flex justify-between items-center w-[251px] h-[26px] gap-1 text-xs text-[#A6A6A6] font-[500] leading-[18px]  ">
+            <p className="w-[37px] h-[26px] bg-slate-200 rounded-md text-center flex items-center justify-center ">
+              예정
+            </p>
+            <span className="truncate flex-shrink-0">
+              {new Intl.DateTimeFormat("en-US", {
+                month: "2-digit",
+                day: "2-digit",
+              })
+                .format(new Date(match.date))
+                .replace("/", ".")}
+            </span>
+            <span className="truncate flex-shrink-0">{match.time}</span>
+            <span className="truncate flex-shrink-0">{match.category}</span>
+          </div>
 
-      <div className="w-full min-h-[48px] flex items-center justify-center gap-2">
-        {/* T1 */}
-        <div className={iconStyle}>
-          <Fake_scheduleItem />
-          <span className={iconTitleStyle}>T1</span>
+          <div className="flex flex-col justify-center gap-3 min-h-[26px] min-w-[251px]">
+            <div className="flex items-center">
+              <Fake_scheduleItem />
+              <span className="font-[700] text-[16px] leading-6">
+                {match.team1}
+              </span>
+            </div>
+            <div className="flex items-center">
+              <Fake_scheduleItem2 />
+              <span className="font-[700] text-[16px] leading-6">
+                {match.team2}
+              </span>
+            </div>
+          </div>
         </div>
-        {/* 중앙 */}
-        <div className="w-[54px] h-[42px] flex flex-col gap-1 justify-center items-center">
-          <div className="text-[#CBCBCB] text-sm">VS</div>
-          <div className="font-[700] text-[12px] leading-[18px] text-[#656565]">19:00 예정</div>
-        </div>
-        {/* 젠지 */}
-        <div className={iconStyle}>
-          <Fake_scheduleItem2 />
-          <span className={iconTitleStyle}>젠지</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
 
-export default scheduleItem;
+export default ScheduleItem;
