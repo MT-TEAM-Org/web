@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import SingleArrowIconRight from "@/app/_components/icon/Arrow_right";
 import ScheduleItem from "./scheduleItem";
 import WeekRange from "./weekRange";
+import Image from "next/image";
 
 const ScheduleContainer = () => {
   const [counter, setCounter] = useState(0);
@@ -166,7 +167,7 @@ const ScheduleContainer = () => {
                 key={match.id}
                 className="rounded-[5px] w-[275px] h-[126px] bg-[#ffffff] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"
               >
-                <img
+                <Image
                   src="/No_match.svg"
                   alt="No match available"
                   className="flex justify-center items-center object-fill"
