@@ -9,7 +9,7 @@ interface ScheduleNavbarProps {
 const FootballNavbar = ({ setSelectedCategory }: ScheduleNavbarProps) => {
   const [activeTab, setActiveTab] = useState("라인업");
 
-  const onClick = (tab: string) => {
+  const handleActiveTab = (tab: string) => {
     setActiveTab(tab);
     setSelectedCategory(tab);
     console.log("tab : ", tab);
@@ -26,14 +26,20 @@ const FootballNavbar = ({ setSelectedCategory }: ScheduleNavbarProps) => {
 
   return (
     <div className="w-full max-w-[800px] min-h-[52px] flex justify-center items-center">
-      <div onClick={() => onClick("라인업")} className={getTabClass("라인업")}>
+      <div
+        onClick={() => handleActiveTab("라인업")}
+        className={getTabClass("라인업")}
+      >
         라인업
       </div>
-      <div onClick={() => onClick("기록")} className={getTabClass("기록")}>
+      <div
+        onClick={() => handleActiveTab("기록")}
+        className={getTabClass("기록")}
+      >
         기록
       </div>
       <div
-        onClick={() => onClick("승부예측")}
+        onClick={() => handleActiveTab("승부예측")}
         className={getTabClass("승부예측")}
       >
         승부예측

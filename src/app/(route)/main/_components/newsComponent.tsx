@@ -15,15 +15,15 @@ interface newsItem {
 const NewsComponent = () => {
   const { data, isLoading, isError } = useGetNewsDataList();
 
-  const limitedNewsData = data?.slice(1, 4);
-  console.log("newsData: ", limitedNewsData);
+  const slicedNewsData = data?.slice(1, 4);
+  console.log("newsData: ", slicedNewsData);
 
   if (isLoading) return "loading...";
   if (isError) return "error...";
 
   return (
     <div className="w-[436px] min-h-[236px] flex flex-col gap-4">
-      {limitedNewsData.map((newsItem: newsItem) => (
+      {slicedNewsData.map((newsItem: newsItem) => (
         <NewsItem key={newsItem.id} newsItem={newsItem} />
       ))}
     </div>

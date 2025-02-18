@@ -1,20 +1,24 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
+import { useRouter } from "next/navigation";
 
 const MainBigSizeNews = () => {
+  const router = useRouter();
   const { data, isLoading } = useGetNewsDataList();
   const mainPageData = data ? data[0] : null;
   console.log("mainPageData: ", mainPageData);
 
-  const onClick = () => {
-    console.log(mainPageData.id);
+  const handleToNewsInfo = () => {
+    router.push(`/news/news-detail/${mainPageData?.id}`);
   };
 
   return (
     <div
       className="relative w-[410px] h-[236px] rounded-[10px] overflow-hidden"
-      onClick={onClick}
+      onClick={handleToNewsInfo}
     >
       <Image
         src={

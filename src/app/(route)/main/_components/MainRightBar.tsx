@@ -16,7 +16,7 @@ const MainRightBar = () => {
 
   const [buttonActive, setButtonActive] = useState(true);
 
-  const onClick = (value: boolean) => {
+  const handleButtonStyle = (value: boolean) => {
     setButtonActive(value);
   };
 
@@ -24,7 +24,7 @@ const MainRightBar = () => {
     <div className="flex flex-col w-[298px] h-[668px] gap-6 bg-white rounded-lg">
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px] h-auto">
         <button
-          onClick={() => onClick(true)}
+          onClick={() => handleButtonStyle(true)}
           className={`${btnStyle} ${
             buttonActive ? activeBtnStyle : passiveBtnStyle
           }`}
@@ -32,7 +32,7 @@ const MainRightBar = () => {
           게임 할인정보
         </button>
         <button
-          onClick={() => onClick(false)}
+          onClick={() => handleButtonStyle(false)}
           className={`${btnStyle} ${
             !buttonActive ? activeBtnStyle : passiveBtnStyle
           }`}

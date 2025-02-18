@@ -43,7 +43,7 @@ export const NewsTalkToolbar = () => {
     }
   };
 
-  const onClick = (value: string) => {
+  const handleDateClick = (value: string) => {
     setActiveBtn(value);
     console.log(value);
   };
@@ -65,7 +65,7 @@ export const NewsTalkToolbar = () => {
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
         <div className="flex gap-2">
           <button
-            onClick={() => onClick("일간")}
+            onClick={() => handleDateClick("일간")}
             className={
               activeBtn === "일간" ? activeButtonStyle : disableButtonStyle
             }
@@ -73,7 +73,7 @@ export const NewsTalkToolbar = () => {
             일간
           </button>
           <button
-            onClick={() => onClick("주간")}
+            onClick={() => handleDateClick("주간")}
             className={
               activeBtn === "주간" ? activeButtonStyle : disableButtonStyle
             }
@@ -81,7 +81,7 @@ export const NewsTalkToolbar = () => {
             주간
           </button>
           <button
-            onClick={() => onClick("월간")}
+            onClick={() => handleDateClick("월간")}
             className={
               activeBtn === "월간" ? activeButtonStyle : disableButtonStyle
             }
@@ -89,7 +89,7 @@ export const NewsTalkToolbar = () => {
             월간
           </button>
           <button
-            onClick={() => onClick("연간")}
+            onClick={() => handleDateClick("연간")}
             className={
               activeBtn === "연간" ? activeButtonStyle : disableButtonStyle
             }
