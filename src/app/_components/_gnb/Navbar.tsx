@@ -1,13 +1,16 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Search } from "../icon/Search";
 
 export default function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
+
+  const isCurrentPath = (path: string) => pathname === path;
 
   const navbarClass =
-    "min-h-[60px] p-[16px] whitespace-nowrap font-medium text-[18px] leading-[28px] text-center";
+    "min-h-[60px] p-[16px] whitespace-nowrap font-medium text-[18px] leading-7 tracking-[-0.04em] text-center cursor-pointer";
 
   const NavbarObject = [
     {
@@ -31,18 +34,21 @@ export default function Navbar() {
       link: "/gameboard",
     },
   ];
+
   return (
     <div className="w-full max-w-[1200px] min-h-[60px] flex justify-between items-center mx-auto">
       <div className="max-w-[447px] min-h-[60px] flex justify-around gap-2.5">
         {NavbarObject.map((item, index) => (
           <div
             key={index}
-            className={`${navbarClass} flex justify-around items-center cursor-pointer ${
-              index === 0 ? "pl-0" : ""
-            }`}
+            className={`${navbarClass} flex justify-around items-center ${
+              isCurrentPath(item.link)
+                ? "font-normal text-[#00ADEE]"
+                : "font-normal text-[#424242]"
+            } ${index === 0 ? "pl-0" : ""}`}
             onClick={() => router.push(item.link)}
           >
-            {item?.name}
+            {item.name}
           </div>
         ))}
       </div>
