@@ -14,9 +14,7 @@ export default function EsportsPage({
     <div className="flex justify-center bg-[#FAFAFA] mt-3.5">
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto">
         <CommunityToolbar />
-        {Array.from({ length: 15 }).map((_, index) => (
-          <PostItem key={index} />
-        ))}
+        <PostItem />
       </div>
     </div>
   );
