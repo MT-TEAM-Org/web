@@ -1,63 +1,125 @@
 import React from "react";
 import Image from "next/image";
-import MenuBtn from "../_components/MenuBtn";
+import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
+import CommentItem from "../../_components/CommentItem";
+import ReplyCommentItem from "../../_components/ReplyCommentItem";
+import Plus from "@/app/_components/icon/Plus";
+import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
+import Arrow_up from "@/app/_components/icon/Arrow_up";
+import Arrow_down from "@/app/_components/icon/Arrow_down";
+import WriterComment from "../_components/WriterComment";
+import { CustomerTalkToolbar } from "../_components/CustomerTalkToolbar";
+import NoticeItem from "../_components/NoticeItem";
 
 const page = () => {
   const nextButtonStyle =
-    "w-[160px] h-[52px] rounded-[5px] border border-[#DBDBDB] px-4 py-[13px] flex gap-[10px] justify-center items-center font-[700] text-[16px] leading-4 text-[#424242]";
+    "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px]";
+  const topButtonStyle =
+    "min-w-[120px] h-[auto] min-h-[40px] flex items-center justify-center rounded-[5px] border-[1px] border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-[8px] font-[700] text-[14px] leading-[14px]";
 
   return (
-    <div className="mt-[40px] flex flex-col items-center justify-center">
-      <div className="w-[1200px] h-[116px] flex flex-col gap-6 mb-[46px]">
-        <div>
-          <h1 className="font-[700] text-[28px] leading-[40px]">공지사항</h1>
-        </div>
-        <div>
-          <MenuBtn />
-        </div>
-      </div>
-
-      <div className="w-[1200px] min-h-[879px] flex flex-col justify-center mb-[84px]">
-        <div className="w-full min-h-[80px] flex border-t-[1px] border-[#424242] bg-[#FAFAFA]">
-          <div className="w-[1040px] h-auto px-4 py-3 flex gap-[10px]">
-            <h6 className="font-[500] text-[16px] leading-[28px]">
-              안녕하세요 플레이 하이브 운영팀입니다. 2025 새해복
-              많이받으세요안녕하세요 플레이 하이브 운영팀입니다. 2025 새해복
-              많이받으세요안녕하세요 플레이 하이브 운영팀입니다. 2025 새해복
-              많이받으세요안녕하세요 플레이 하이브 운영팀입니다. 2025 새해복
-              많이받으세요
-            </h6>
+    <>
+      <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex flex-col gap-4 bg-[#FFFFFF] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+        <div className="w-full max-w-[672px] min-h-[56px] border-b flex gap-2 flex-col">
+          <h1 className="text-bold font-[18px] leading-7 tracking-[-0.72px]">
+            안녕하세요 플레이 하이브입니다.
+          </h1>
+          <div className="w-full max-w-[672px] min-h-[20px] flex gap-4">
+            <div className="w-full min-h-[20px] flex gap-2">
+              <div className="min-w-[140px] min-h-[20px] flex gap-1 text-[14px] leading-5 text-[#656565]">
+                <p className="font-bold">고객센터</p>
+                <p>공지사항</p>
+                <p>1분 전</p>
+              </div>
+              <div className="min-w-[61px] min-h-[20px] flex gap-1 text-[14px] leading-5 text-[#656565]">
+                <p className="font-bold">조회수</p>
+                <p>161</p>
+              </div>
+              <div className="min-w-[45px] min-h-[20px] flex gap-1 text-[14px] leading-5 text-[#656565]">
+                <p className="font-bold">댓글</p>
+                <p>22</p>
+              </div>
+              <div className="min-w-[25px] min-h-[20px] flex gap-1 text-[14px] leading-5 text-[#656565]">
+                <p className="font-bold">추천</p>
+                <p>13</p>
+              </div>
+            </div>
+            <div className="min-w-[235px] min-h-[20px] flex gap-1 text-[14px] leading-5 text-[#656565]">
+              <p>스포츠가조아여여진심</p>
+              <p>IP 106.101.**.***</p>
+            </div>
           </div>
-          <div className="w-[160px] h-[80px] flex items-center px-4 py-3 gap-[10px] border-[#EEEEEE] font-[500] text-[18px] leading-7 tracking-[-0.72px]">
-            <p>2025.01.07</p>
-          </div>
         </div>
 
-        <div className="w-full min-h-[798px] py-4 flex flex-col gap-6">
-          <div>
-            <Image
-              src="/Fake_customerInfo.png"
-              alt="customer_info"
-              width={1200}
-              height={686}
+        <div className="w-full max-w-[672px] min-h-[188px] flex flex-col gap-3">
+          <Image
+            src="/Fake_noticeInfo.png"
+            alt="notice img"
+            width={672}
+            height={128}
+          />
+          <p className="w-full max-w-[672px] min-h-[48px] font-medium text-[16px] leading-6 tracking-[-0.02em] text-[#424242]">
+            앞으로 정말 잘부탁드리며 내용내용앞으로 정말 잘부탁드리며
+            내용내용앞으로 정말 잘부탁드리며 내용내용앞으로 정말 잘부탁드리며
+            내용내용앞으로 정말 잘부탁드리며 내용내용앞으로 정말 잘부탁드리며
+            내용내용
+          </p>
+        </div>
+        <div className="w-full max-w-[800px] flex flex-col">
+          <CommentBar />
+          <div className="w-full h-auto">
+            <CommentItem bestComment={true} />
+            <CommentItem
+              bestComment={true}
+              data={{ commentImg: "/Fake_comment_img.png" }}
             />
+            <CommentItem
+              bestComment={true}
+              data={{ nestedComments: "@댓글유저디자인이렇게" }}
+            />
+            <WriterComment />
+            <CommentItem />
+            <CommentItem data={{ commentImg: "/Fake_comment_img.png" }} />
           </div>
-          <div>
-            <p>
-              텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다텍스트입니다
-            </p>
+          <div className="flex items-center justify-center">
+            <button className="w-[160px] min-h-[40px] rounded-[5px] border px-4 py-[10px] flex gap-2 justify-center items-center font-bold text-[14px] leading-[14px] border-[#DBDBDB] bg-[#FAFAFA] text-[#424242] cursor-pointer">
+              <Plus />
+              댓글 더보기
+            </button>
+          </div>
+        </div>
+        <div className="w-full max-w-[672px] min-h-[40px] flex justify-between">
+          <div className="flex gap-2">
+            <button className={nextButtonStyle}>
+              <Arrow_up />
+              이전글
+            </button>
+            <button className={nextButtonStyle}>
+              <Arrow_down />
+              다음글
+            </button>
+          </div>
+          <div className="flex gap-2">
+            <button className={topButtonStyle}>
+              <Arrow_up />
+              댓글 맨위로
+            </button>
+            <button className={topButtonStyle}>
+              <Double_arrow_up />
+              게시글 맨위로
+            </button>
           </div>
         </div>
       </div>
-
-      <div className="flex gap-4 mb-[40px]">
-        <button className={nextButtonStyle}>이전글</button>
-        <button className={nextButtonStyle}>다음글</button>
-        <button className={`${nextButtonStyle} bg-[#00ADEE] text-[#FFFFFF] border-none`}>
-          목록보기
-        </button>
+      <div className="w-[720px] min-h-[120px] rounded-t-[5px] border-b">
+        <CustomerTalkToolbar />
       </div>
-    </div>
+      <div className="w-[720px] h-auto rounded-[5px] bg-[#FFFFFF]">
+        {Array.from({ length: 20 }).map((_, index) => {
+          return <NoticeItem key={index} number={20 - index} />;
+        })}
+      </div>
+    </>
   );
 };
 
