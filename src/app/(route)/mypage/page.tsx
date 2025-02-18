@@ -29,8 +29,18 @@ const useMypage = () => {
 };
 
 const Mypage = () => {
-  const { data } = useMypage();
+  const { data, isLoading } = useMypage();
   const mypage = data?.data;
+  const role = isLoading
+    ? ""
+    : mypage?.role === "USER"
+    ? "일반 회원님"
+    : "관리자님";
+  const registrationMethod = isLoading
+    ? ""
+    : mypage?.registrationMethod === "LOCAL"
+    ? "일반 회원가입"
+    : "SNS 소셜 회원가입";
 
   const mypageInfo = [
     { name: "나의 방문횟수", id: 0, value: mypage?.totalVisitCount },
@@ -63,7 +73,7 @@ const Mypage = () => {
             <p className="font-[700] text-[#181818] leading-[24px]">
               {mypage?.nickname}
               <span className="ml-[4px] text-[14px] font-[500] leading-[20px] text-[#424242]">
-                {mypage?.role === "USER" ? "일반 회원님" : "관리자님"}
+                {role}
               </span>
             </p>
             <p className="text-[14px] leading-[20px] text-[#424242]">
@@ -105,10 +115,7 @@ const Mypage = () => {
             회원가입일: {mypage?.registeredAt}
           </p>
           <p className="text-[14px] leading-[20px] font-[400] text-[#656565]">
-            가입 유형 :{" "}
-            {mypage?.registrationMethod === "LOCAL"
-              ? "일반 회원가입"
-              : "SNS 소셜 회원가입"}
+            가입 유형 : {registrationMethod}
           </p>
         </div>
       </div>
