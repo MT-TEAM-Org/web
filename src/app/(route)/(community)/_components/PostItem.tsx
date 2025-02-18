@@ -1,6 +1,18 @@
+"use client";
+
+import useGetBoardData from "@/_hooks/getBoardData";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const PostItem = () => {
+  const pathName = usePathname();
+  const boardType = pathName?.split("/")[1];
+  const categoryType = pathName?.split("/")[2];
+  const { data: boardData } = useGetBoardData({
+    boardType: boardType?.toUpperCase(),
+    categoryType: categoryType,
+  });
+  console.log(boardData);
   return (
     <div className="flex items-center gap-[12px] min-h-[66px] p-[12px]">
       <div className="flex flex-shrink-0 justify-center items-center w-[32px] h-[32px] rounded-[2px] p-[4px] bg-[#FAFAFA]">

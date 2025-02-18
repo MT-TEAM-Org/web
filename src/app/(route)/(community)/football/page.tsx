@@ -2,8 +2,12 @@
 
 import PostItem from "../_components/PostItem";
 import { CommunityToolbar } from "../_components/CommunityToolbar";
+import { usePathname } from "next/navigation";
 
 const Football = () => {
+  const pathName = usePathname();
+  console.log(pathName);
+
   return (
     <div className="flex justify-center bg-[#FAFAFA] mt-3.5">
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto">
