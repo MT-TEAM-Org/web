@@ -1,6 +1,7 @@
 "use client";
 
 import Input from "@/app/_components/Input";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface FormData {
@@ -11,6 +12,7 @@ interface FormData {
 }
 
 const EditProfile = () => {
+  const [gender, setGender] = useState<"male" | "female" | null>(null);
   const {
     register,
     handleSubmit,
@@ -44,8 +46,7 @@ const EditProfile = () => {
     },
   ];
 
-  const buttonStyle =
-    "w-1/2 h-[40px] border-[1px] border-[#DBDBDB] rounded-[5px]";
+  const buttonStyle = "w-1/2 h-[40px] border-[1px] rounded-[5px]";
   return (
     <div className="max-w-[720px] rounded-[5px] bg-[#FFFFFF]">
       <div className="flex items-center w-full min-h-[52px] p-[12px] border-b-[1px] border-[#EEEEEE]">
@@ -93,10 +94,22 @@ const EditProfile = () => {
               성별
             </label>
             <div className="w-full flex gap-[8px] text-[14px] leading-[22px] text-[#424242]">
-              <button className={buttonStyle} type="button">
+              <button
+                className={`${buttonStyle} ${
+                  gender === "male" ? "border-[#424242]" : "border-[#DBDBDB]"
+                }`}
+                type="button"
+                onClick={() => setGender("male")}
+              >
                 남성
               </button>
-              <button className={buttonStyle} type="button">
+              <button
+                className={`${buttonStyle} ${
+                  gender === "female" ? "border-[#424242]" : "border-[#DBDBDB]"
+                }`}
+                type="button"
+                onClick={() => setGender("female")}
+              >
                 여성
               </button>
             </div>
