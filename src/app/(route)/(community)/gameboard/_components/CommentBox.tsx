@@ -3,15 +3,24 @@ import React from "react";
 import { Plus } from "lucide-react";
 import CommentItem from "../../_components/CommentItem";
 import SendCommentBox from "../../_components/SendCommentBox";
+import ReplyCommentItem from "../../_components/ReplyCommentItem";
 
 const CommentBox = () => {
   return (
     <div className="w-full max-w-[800px] flex flex-col">
       <CommentBar />
       <div className="w-full h-auto">
+        <CommentItem bestComment={true} />
+        <CommentItem
+          bestComment={true}
+          data={{ commentImg: "/Fake_comment_img.png" }}
+        />
+        <CommentItem
+          bestComment={true}
+          data={{ nestedComments: "@댓글유저디자인이렇게" }}
+        />
         <CommentItem />
-        <CommentItem data={{ commentImg: "/Fake_comment_img.png" }} />
-        <CommentItem data={{ nestedComments: "@댓글유저디자인이렇게" }} />
+        <ReplyCommentItem />
         <CommentItem />
         <CommentItem data={{ commentImg: "/Fake_comment_img.png" }} />
         {/* <EmptyComment /> */}
