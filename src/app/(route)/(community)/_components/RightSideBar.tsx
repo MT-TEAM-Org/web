@@ -5,14 +5,7 @@ import NewsItem from "./NewsItem";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import useFetchNewsData from "../news/fetchNewsData";
-
-type NewsItemType = {
-  id: number;
-  title: string;
-  category: string;
-  thumbImg: string;
-  postDate: string;
-};
+import { NewsItemType } from "@/app/_constants/newsItemType";
 
 export const RightSideBar = () => {
   const { data: newsData } = useFetchNewsData();

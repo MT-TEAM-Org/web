@@ -3,14 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
-type NewsItemType = {
-  id: number;
-  title: string;
-  category: string;
-  thumbImg: string;
-  postDate: string;
-};
+import { NewsItemType } from "@/app/_constants/newsItemType";
 
 interface NewsPostItemProps {
   newsItem?: NewsItemType;
@@ -21,7 +14,6 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
 
   const handleToPage = () => {
     router.push(`/news/news-detail/${newsItem?.id}`);
-    console.log("id: ", newsItem?.id);
   };
 
   return (

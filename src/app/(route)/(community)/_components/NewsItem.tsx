@@ -1,17 +1,10 @@
 import React from "react";
 import Image from "next/image";
+import { NewsItemType } from "@/app/_constants/newsItemType";
 
-type NewsItemType = {
-  id: number;
-  title: string;
-  category: string;
-  thumbImg: string;
-  postDate: string;
-};
-
-type NewsItemProps = {
+interface NewsItemProps {
   newsItem: NewsItemType;
-};
+}
 
 const NewsItem = ({ newsItem }: NewsItemProps) => {
   return (

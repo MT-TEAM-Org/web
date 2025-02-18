@@ -5,14 +5,7 @@ import { NewsTalkToolbar } from "../_components/NewsTalkToolbar";
 import EmptyNews from "./_components/EmptyNews";
 import useFetchNewsData from "./fetchNewsData";
 import NewsPostItem from "./_components/NewsPostItem";
-
-interface newsItem {
-  id: number;
-  title: string;
-  category: string;
-  thumbImg: string;
-  postDate: string;
-}
+import NewsItem from "../../main/_components/newsItem";
 
 const Page = () => {
   const { data, isLoading, isError } = useFetchNewsData();
@@ -32,7 +25,7 @@ const Page = () => {
         ) : data.length === 0 ? (
           <EmptyNews />
         ) : (
-          data.map((newsItem: newsItem) => (
+          data.map((newsItem: NewsItem) => (
             <NewsPostItem key={newsItem.id} newsItem={newsItem} />
           ))
         )}

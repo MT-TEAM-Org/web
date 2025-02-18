@@ -15,18 +15,10 @@ import useGetNewsInfoData from "./useGetNewsInfoData";
 import useFetchNewsData from "../../fetchNewsData";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import SendCommentBox from "./_components/SendCommentBox";
-
-type NewsItemType = {
-  id: number;
-  title: string;
-  category: string;
-  thumbImg: string;
-  postDate: string;
-};
+import { NewsItemType } from "@/app/_constants/newsItemType";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
-  console.log("id: ", id);
   const { data } = useGetNewsInfoData(id);
   console.log("data: ", data);
   const { data: newsListData } = useFetchNewsData();
