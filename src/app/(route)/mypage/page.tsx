@@ -1,11 +1,57 @@
+"use client";
+
 import Link from "next/link";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+
+const fetchMypage = async () => {
+  const response = await axios(
+    `${process.env.NEXT_PUBLIC_API_URL}api/my-page`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+const useMypage = () => {
+  return useQuery({
+    queryKey: ["mypage"],
+    queryFn: fetchMypage,
+    retry: false,
+    staleTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60 * 2,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  });
+};
 
 const Mypage = () => {
+  const { data } = useMypage();
+  const mypage = data?.data;
+
   const mypageInfo = [
-    { name: "나의 방문횟수", id: 0, value: 12 },
-    { name: "내가 쓴 게시물", id: 1, value: 12, path: "/mypage/posts" },
-    { name: "내가 쓴 댓글", id: 2, value: 12, path: "/mypage/comments" },
-    { name: "나의 문의내역", id: 3, value: 12, path: "/mypage/inquiries" },
+    { name: "나의 방문횟수", id: 0, value: mypage?.totalVisitCount },
+    {
+      name: "내가 쓴 게시물",
+      id: 1,
+      value: mypage?.createdPostCount,
+      path: "/mypage/posts",
+    },
+    {
+      name: "내가 쓴 댓글",
+      id: 2,
+      value: mypage?.createdCommentCount,
+      path: "/mypage/comments",
+    },
+    {
+      name: "나의 문의내역",
+      id: 3,
+      value: mypage?.createdInquiryCount,
+      path: "/mypage/inquiries",
+    },
   ];
 
   return (
@@ -15,9 +61,9 @@ const Mypage = () => {
           <div className="w-[48px] h-[48px] rounded-full bg-black"></div>
           <div>
             <p className="font-[700] text-[#181818] leading-[24px]">
-              스포츠가진심좋아진심
+              {mypage?.nickname}
               <span className="ml-[4px] text-[14px] font-[500] leading-[20px] text-[#424242]">
-                일반 회원님
+                {mypage?.role === "USER" ? "일반 회원님" : "관리자님"}
               </span>
             </p>
             <p className="text-[14px] leading-[20px] text-[#424242]">
@@ -56,10 +102,13 @@ const Mypage = () => {
 
         <div className="flex justify-between items-center">
           <p className="text-[14px] leading-[20px] font-[400] text-[#656565]">
-            회원가입일: 2025.01.15 (목) 18:12
+            회원가입일: {mypage?.registeredAt}
           </p>
           <p className="text-[14px] leading-[20px] font-[400] text-[#656565]">
-            가입 유형 : SNS 소셜 회원가입, 네이버
+            가입 유형 :{" "}
+            {mypage?.registrationMethod === "LOCAL"
+              ? "일반 회원가입"
+              : "SNS 소셜 회원가입"}
           </p>
         </div>
       </div>
