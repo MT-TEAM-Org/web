@@ -61,7 +61,7 @@ export const NewsTalkToolbar = () => {
     "bg-[#FFFFFF] text-gray-700 min-w-[57px] h-[40px] flex gap-[10px] items-center align-center border border-[#DBDBDB] rounded-[5px] px-[16px] py-[13px] font-[500] text-[14px] leading-[22px] tracking-[-2%]";
 
   return (
-    <div className="bg-[#FFFFFF] rounded-[5px]">
+    <div className="bg-[#FFFFFF] rounded-tr-[5px] rounded-t-[5px]">
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
         <div className="flex gap-2">
           <button

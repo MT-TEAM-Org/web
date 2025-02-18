@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
-import useFetchNewsData from "../../(community)/news/fetchNewsData";
+import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 
 const MainBigSizeNews = () => {
-  const { data, isLoading } = useFetchNewsData();
+  const { data, isLoading } = useGetNewsDataList();
   const mainPageData = data ? data[0] : null;
   console.log("mainPageData: ", mainPageData);
 

@@ -2,7 +2,7 @@
 
 import React from "react";
 import NewsItem from "./newsItem";
-import useFetchNewsData from "../../(community)/news/fetchNewsData";
+import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 
 interface newsItem {
   id: number;
@@ -13,7 +13,7 @@ interface newsItem {
 }
 
 const NewsComponent = () => {
-  const { data, isLoading, isError } = useFetchNewsData();
+  const { data, isLoading, isError } = useGetNewsDataList();
 
   const limitedNewsData = data?.slice(1, 4);
   console.log("newsData: ", limitedNewsData);
