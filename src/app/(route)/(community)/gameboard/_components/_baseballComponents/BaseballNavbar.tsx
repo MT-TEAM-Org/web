@@ -6,12 +6,10 @@ interface ScheduleNavbarProps {
   setSelectedCategory: (category: string) => void;
 }
 
-const BaseballNavbar: React.FC<ScheduleNavbarProps> = ({
-  setSelectedCategory,
-}) => {
+const BaseballNavbar = ({ setSelectedCategory }: ScheduleNavbarProps) => {
   const [activeTab, setActiveTab] = useState("전력");
 
-  const onClick = (tab: string) => {
+  const handleActiveTab = (tab: string) => {
     setActiveTab(tab);
     setSelectedCategory(tab);
     console.log("tab : ", tab);
@@ -29,20 +27,26 @@ const BaseballNavbar: React.FC<ScheduleNavbarProps> = ({
   return (
     <div className="w-full max-w-[800px] min-h-[52px] flex justify-center items-center">
       <div className="w-full max-w-[800px] min-h-[52px] flex justify-center items-center">
-        <div onClick={() => onClick("전력")} className={getTabClass("전력")}>
+        <div
+          onClick={() => handleActiveTab("전력")}
+          className={getTabClass("전력")}
+        >
           전력
         </div>
         <div
-          onClick={() => onClick("라인업")}
+          onClick={() => handleActiveTab("라인업")}
           className={getTabClass("라인업")}
         >
           라인업
         </div>
-        <div onClick={() => onClick("기록")} className={getTabClass("기록")}>
+        <div
+          onClick={() => handleActiveTab("기록")}
+          className={getTabClass("기록")}
+        >
           기록
         </div>
         <div
-          onClick={() => onClick("승부예측")}
+          onClick={() => handleActiveTab("승부예측")}
           className={getTabClass("승부예측")}
         >
           승부예측

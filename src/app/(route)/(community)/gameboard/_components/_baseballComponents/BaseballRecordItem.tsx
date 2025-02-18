@@ -23,7 +23,7 @@ interface BaseballRecordItemProps {
   title: string;
 }
 
-const BaseballRecordItem: React.FC<BaseballRecordItemProps> = ({ title }) => {
+const BaseballRecordItem = ({ title }: BaseballRecordItemProps) => {
   return (
     <div className="w-full min-h-[44px] p-3 flex gap-6">
       <p className="min-w-[37px] min-h-[20px] flex gap-[10px] text-[14px] leading-5 text-[#303030]">

@@ -3,24 +3,17 @@
 import React from "react";
 import { NewsTalkToolbar } from "../_components/NewsTalkToolbar";
 import EmptyNews from "./_components/EmptyNews";
-import useFetchNewsData from "./fetchNewsData";
 import NewsPostItem from "./_components/NewsPostItem";
-
-interface newsItem {
-  id: number;
-  title: string;
-  category: string;
-  thumbImg: string;
-  postDate: string;
-}
+import NewsItem from "../../main/_components/newsItem";
+import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 
 const Page = () => {
-  const { data, isLoading, isError } = useFetchNewsData();
+  const { data, isLoading, isError } = useGetNewsDataList();
 
   console.log("NewsListData: ", data);
 
   return (
-    <div className="w-[720px] min-h-[1508px] flex flex-col justify-start bg-[#FAFAFA] rounded-[5px] overflow-hidden">
+    <div className="w-[720px] h-auto flex flex-col justify-start bg-[#FAFAFA] rounded-[5px] overflow-hidden">
       <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] bg-[#FFFFFF] mx-auto">
         <NewsTalkToolbar />
       </div>
@@ -32,7 +25,7 @@ const Page = () => {
         ) : data.length === 0 ? (
           <EmptyNews />
         ) : (
-          data.map((newsItem: newsItem) => (
+          data.map((newsItem: NewsItem) => (
             <NewsPostItem key={newsItem.id} newsItem={newsItem} />
           ))
         )}

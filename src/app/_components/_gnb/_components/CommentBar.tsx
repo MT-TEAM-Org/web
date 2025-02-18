@@ -1,7 +1,7 @@
 import React from "react";
 import Refresh from "../../icon/Refresh";
 
-type DataType = {
+interface DataType {
   id: number;
   title: string;
   category: string;
@@ -10,11 +10,9 @@ type DataType = {
   commentCount: number;
   recommendCount: number;
   viewCount: number;
-};
+}
 
 const CommentBar = ({ data }: { data?: DataType }) => {
-  console.log("data:", data);
-
   return (
     <div className="w-full max-w-[800px] min-h-[48px] flex justify-between items-center bg-[#FAFAFA] text-[#656565] rounded-md">
       <div className="flex items-center gap-2 ml-4">
