@@ -1,5 +1,5 @@
-import React from 'react';
-import NewPostItem from './NewPostItem';
+import React from "react";
+import NewPostItem from "./NewPostItem";
 
 const NewPost = () => {
   return (

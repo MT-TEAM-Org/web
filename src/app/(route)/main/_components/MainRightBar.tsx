@@ -4,8 +4,7 @@ import React, { useState } from "react";
 import EventItem from "./EventItem";
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
-import DiscountItem from "./DiscountItem";
-
+import DiscountItem from "./discountItem";
 
 const MainRightBar = () => {
   const btnStyle =
@@ -17,7 +16,7 @@ const MainRightBar = () => {
 
   const [buttonActive, setButtonActive] = useState(true);
 
-  const onClick = (value: boolean) => {
+  const handleButtonStyle = (value: boolean) => {
     setButtonActive(value);
   };
 
@@ -25,7 +24,7 @@ const MainRightBar = () => {
     <div className="flex flex-col w-[298px] h-[668px] gap-6 bg-white rounded-lg">
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px] h-auto">
         <button
-          onClick={() => onClick(true)}
+          onClick={() => handleButtonStyle(true)}
           className={`${btnStyle} ${
             buttonActive ? activeBtnStyle : passiveBtnStyle
           }`}
@@ -33,7 +32,7 @@ const MainRightBar = () => {
           게임 할인정보
         </button>
         <button
-          onClick={() => onClick(false)}
+          onClick={() => handleButtonStyle(false)}
           className={`${btnStyle} ${
             !buttonActive ? activeBtnStyle : passiveBtnStyle
           }`}
@@ -43,15 +42,13 @@ const MainRightBar = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        {buttonActive ? (
-          Array.from({ length: 6 }).map((_, index) => (
-            <DiscountItem key={index} />
-          ))
-        ) : (
-          Array.from({ length: 5 }).map((_, index) => (
-            <EventItem key={index} />
-          ))
-        )}
+        {buttonActive
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <DiscountItem key={index} />
+            ))
+          : Array.from({ length: 5 }).map((_, index) => (
+              <EventItem key={index} />
+            ))}
       </div>
 
       <div className="flex items-center justify-center gap-7 py-4 space-x-4">

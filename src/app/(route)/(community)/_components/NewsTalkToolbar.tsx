@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useRef, useState } from "react";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
@@ -17,10 +17,10 @@ interface DropdownOption {
 }
 
 export const NewsTalkToolbar = () => {
-  const [activeBtn, setActiveBtn] = useState<string>("일간");  
+  const [activeBtn, setActiveBtn] = useState<string>("일간");
   const selectRef = useRef<HTMLSelectElement>(null);
 
-  const pagenataion = [
+  const pagination = [
     { value: "1", label: "1" },
     { value: "2", label: "2" },
     { value: "3", label: "3" },
@@ -43,48 +43,56 @@ export const NewsTalkToolbar = () => {
     }
   };
 
-  const onClick = (value: string) => {
+  const handleDateClick = (value: string) => {
     setActiveBtn(value);
     console.log(value);
   };
 
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
-  
+
   const pageButtonStyle =
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
-  
-  const activeButtonStyle = 
+
+  const activeButtonStyle =
     "bg-[#00ADEE] text-white min-w-[57px] h-[40px] flex gap-[10px] items-center align-center rounded-[5px] px-[16px] py-[13px]  font-[700] text-[14px] leading-[21px] tracking-[-2%]";
-  
-  const disableButtonStyle = 
+
+  const disableButtonStyle =
     "bg-[#FFFFFF] text-gray-700 min-w-[57px] h-[40px] flex gap-[10px] items-center align-center border border-[#DBDBDB] rounded-[5px] px-[16px] py-[13px] font-[500] text-[14px] leading-[22px] tracking-[-2%]";
 
   return (
-    <div className="bg-[#FFFFFF] rounded-[5px] border-b">
+    <div className="bg-[#FFFFFF] rounded-tr-[5px] rounded-t-[5px]">
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
         <div className="flex gap-2">
           <button
-            onClick={() => onClick("일간")}
-            className={activeBtn === "일간" ? activeButtonStyle : disableButtonStyle}
+            onClick={() => handleDateClick("일간")}
+            className={
+              activeBtn === "일간" ? activeButtonStyle : disableButtonStyle
+            }
           >
             일간
           </button>
           <button
-            onClick={() => onClick("주간")}
-            className={activeBtn === "주간" ? activeButtonStyle : disableButtonStyle}
+            onClick={() => handleDateClick("주간")}
+            className={
+              activeBtn === "주간" ? activeButtonStyle : disableButtonStyle
+            }
           >
             주간
           </button>
           <button
-            onClick={() => onClick("월간")}
-            className={activeBtn === "월간" ? activeButtonStyle : disableButtonStyle}
+            onClick={() => handleDateClick("월간")}
+            className={
+              activeBtn === "월간" ? activeButtonStyle : disableButtonStyle
+            }
           >
             월간
           </button>
           <button
-            onClick={() => onClick("연간")}
-            className={activeBtn === "연간" ? activeButtonStyle : disableButtonStyle}
+            onClick={() => handleDateClick("연간")}
+            className={
+              activeBtn === "연간" ? activeButtonStyle : disableButtonStyle
+            }
           >
             연간
           </button>
@@ -148,7 +156,7 @@ export const NewsTalkToolbar = () => {
           </div>
 
           <div className="flex gap-[8px] mx-[8px]">
-            {pagenataion.map((page) => (
+            {pagination.map((page) => (
               <button
                 key={page.value}
                 className={`${pageButtonStyle} ${

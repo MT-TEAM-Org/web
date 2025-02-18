@@ -23,16 +23,12 @@ export default function Navbar() {
       link: "/baseball",
     },
     {
-      name: "뉴스",
-      link: "/schedule",
-    },
-    {
-      name: "티키타카",
+      name: "뉴스톡톡",
       link: "/news",
     },
     {
-      name: "경기일정",
-      link: "/chat",
+      name: "경기중계",
+      link: "/gameboard",
     },
   ];
   return (
