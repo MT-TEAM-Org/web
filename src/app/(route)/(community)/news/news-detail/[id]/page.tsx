@@ -5,9 +5,6 @@ import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Share from "@/app/_components/icon/Share";
 import CommentContainer from "./_components/CommentContainer";
-import Arrow_down from "@/app/_components/icon/Arrow_down";
-import Arrow_up from "@/app/_components/icon/Arrow_up";
-import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
 import { NewsTalkToolbar } from "../../../_components/NewsTalkToolbar";
 import NewsPostItem from "../../_components/NewsPostItem";
 import Copy from "@/app/_components/icon/Copy";
@@ -16,6 +13,7 @@ import SendCommentBox from "../../../_components/SendCommentBox";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 import useGetNewsInfoData from "@/_hooks/useGetNewsInfoData";
+import PostNavigation from "../../../_components/PostNavigation";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
@@ -125,28 +123,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             </div>
           </div>
 
-          <div className="flex justify-between">
-            <div className="flex gap-2">
-              <button className={nextButtonStyle}>
-                <Arrow_up />
-                이전글
-              </button>
-              <button className={nextButtonStyle}>
-                <Arrow_down />
-                다음글
-              </button>
-            </div>
-            <div className="flex gap-2">
-              <button className={topButtonStyle}>
-                <Arrow_up />
-                댓글 맨위로
-              </button>
-              <button className={topButtonStyle}>
-                <Double_arrow_up />
-                게시글 맨위로
-              </button>
-            </div>
-          </div>
+          <PostNavigation />
         </div>
       </div>
       <div>

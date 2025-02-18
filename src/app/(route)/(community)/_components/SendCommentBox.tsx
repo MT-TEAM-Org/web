@@ -4,7 +4,7 @@ import React from "react";
 
 const SendCommentBox = () => {
   return (
-    <div className="w-[800px] min-h-[72px] p-4 bg-[#FFFFFF]">
+    <div className="w-full min-h-[72px] p-4 bg-[#FFFFFF]">
       <div className="w-full min-h-[40px] flex gap-4 items-center justify-between">
         <button className="w-[40px] h-[40px] flex items-center justify-center rounded-[5px] border border-[#EEEEEE] py-[10px] gap-[10px] bg-[#FAFAFA]">
           <Plus />
