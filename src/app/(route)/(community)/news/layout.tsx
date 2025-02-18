@@ -9,8 +9,8 @@ export const metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-gray-500 flex flex-col justify-between items-center">
-      <div className="w-[1200px] min-h-[160px] flex items-center">
+    <div className="flex flex-col justify-between items-center">
+      <div className="w-[1200px] min-h-[120px] flex items-center">
         <h5 className="font-bold text-[28px] leading-10 tracking-[0.04em]">
           뉴스톡톡
         </h5>

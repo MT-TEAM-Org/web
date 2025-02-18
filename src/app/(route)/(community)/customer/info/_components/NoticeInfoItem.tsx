@@ -9,8 +9,8 @@ import LoadMoreComment from "../../../_components/LoadMoreComment";
 const NoticeInfoItem = () => {
   return (
     <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex flex-col gap-4 bg-[#FFFFFF] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
-      <div className="w-full max-w-[672px] min-h-[56px] border-b flex gap-2 flex-col">
-        <h1 className="text-bold font-[18px] leading-7 tracking-[-0.72px]">
+      <div className="w-full max-w-[672px] min-h-[56px] flex gap-2 flex-col">
+        <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
           안녕하세요 플레이 하이브입니다.
         </h1>
         <div className="w-full max-w-[672px] min-h-[20px] flex gap-4">
@@ -39,6 +39,8 @@ const NoticeInfoItem = () => {
           </div>
         </div>
       </div>
+
+      <hr />
 
       <div className="w-full max-w-[672px] min-h-[188px] flex flex-col gap-3">
         <Image
