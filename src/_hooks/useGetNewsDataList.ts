@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const fetchNewsData = async () => {
+const fetchNewsDataList = async () => {
   const response = await axios(`${process.env.NEXT_PUBLIC_API_URL}api/news`, {
     params: {
       category: "BASEBALL",
@@ -15,11 +15,11 @@ const fetchNewsData = async () => {
   return response.data.data.list.content;
 };
 
-const useFetchNewsData = () => {
+const useGetNewsDataList = () => {
   return useQuery({
     queryKey: ["newsDataList"],
-    queryFn: fetchNewsData,
+    queryFn: fetchNewsDataList,
   });
 };
 
-export default useFetchNewsData;
+export default useGetNewsDataList;

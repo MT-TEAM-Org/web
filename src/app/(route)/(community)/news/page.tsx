@@ -3,12 +3,12 @@
 import React from "react";
 import { NewsTalkToolbar } from "../_components/NewsTalkToolbar";
 import EmptyNews from "./_components/EmptyNews";
-import useFetchNewsData from "./fetchNewsData";
 import NewsPostItem from "./_components/NewsPostItem";
 import NewsItem from "../../main/_components/newsItem";
+import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 
 const Page = () => {
-  const { data, isLoading, isError } = useFetchNewsData();
+  const { data, isLoading, isError } = useGetNewsDataList();
 
   console.log("NewsListData: ", data);
 

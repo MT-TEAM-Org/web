@@ -11,17 +11,17 @@ import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
 import { NewsTalkToolbar } from "../../../_components/NewsTalkToolbar";
 import NewsPostItem from "../../_components/NewsPostItem";
 import Copy from "@/app/_components/icon/Copy";
-import useGetNewsInfoData from "./useGetNewsInfoData";
-import useFetchNewsData from "../../fetchNewsData";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import SendCommentBox from "./_components/SendCommentBox";
 import { NewsItemType } from "@/app/_constants/newsItemType";
+import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
+import useGetNewsInfoData from "@/_hooks/useGetNewsInfoData";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   const { data } = useGetNewsInfoData(id);
   console.log("data: ", data);
-  const { data: newsListData } = useFetchNewsData();
+  const { data: newsListData } = useGetNewsDataList();
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
 
   const changeCategory = (category: string) => {
