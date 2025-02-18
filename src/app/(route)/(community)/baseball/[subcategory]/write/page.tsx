@@ -14,7 +14,7 @@ export default function WritePage({ params }: { params: Usable<Params> }) {
 
   return (
     <div className="max-w-[720px] min-h-[835px] bg-[#FFFFFF] rounded-[5px] mt-3.5">
-      <Write category="esports" subCategory={subcategory} />
+      <Write category="baseball" subCategory={subcategory} />
     </div>
   );
 }
