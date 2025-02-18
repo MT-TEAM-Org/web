@@ -4,8 +4,7 @@ import React, { useState } from "react";
 import EventItem from "./EventItem";
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
-import DiscountItem from "./DiscountItem";
-
+import DiscountItem from "./discountItem";
 
 const MainRightBar = () => {
   const btnStyle =
@@ -43,15 +42,13 @@ const MainRightBar = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        {buttonActive ? (
-          Array.from({ length: 6 }).map((_, index) => (
-            <DiscountItem key={index} />
-          ))
-        ) : (
-          Array.from({ length: 5 }).map((_, index) => (
-            <EventItem key={index} />
-          ))
-        )}
+        {buttonActive
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <DiscountItem key={index} />
+            ))
+          : Array.from({ length: 5 }).map((_, index) => (
+              <EventItem key={index} />
+            ))}
       </div>
 
       <div className="flex items-center justify-center gap-7 py-4 space-x-4">

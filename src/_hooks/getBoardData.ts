@@ -37,6 +37,7 @@ const useGetBoardData = (data: GetBoardData) =>
     queryKey: ["board", data],
     retry: 1,
     enabled: !!data.boardType,
+    select: (data) => data.data.list.content,
   });
 
 export default useGetBoardData;

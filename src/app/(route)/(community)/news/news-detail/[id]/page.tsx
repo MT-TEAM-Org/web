@@ -4,18 +4,17 @@ import React, { use } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Share from "@/app/_components/icon/Share";
-import Refresh from "@/app/_components/icon/Refresh";
 import CommentContainer from "./_components/CommentContainer";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
-import Plus from "@/app/_components/icon/Plus";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
-import Send_icon from "@/app/_components/icon/Send_icon";
 import { NewsTalkToolbar } from "../../../_components/NewsTalkToolbar";
 import NewsPostItem from "../../_components/NewsPostItem";
 import Copy from "@/app/_components/icon/Copy";
 import useGetNewsInfoData from "./useGetNewsInfoData";
 import useFetchNewsData from "../../fetchNewsData";
+import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
+import SendCommentBox from "./_components/SendCommentBox";
 
 type NewsItemType = {
   id: number;
@@ -127,22 +126,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
 
           <div className="max-w-[672px] min-h-[48px]">
-            <div className="max-w-full min-h-full flex justify-between items-center bg-[#FAFAFA] text-[#656565] rounded-md">
-              <div className="flex items-center gap-2 ml-4">
-                <h1 className="text-[#303030] text-[18px] leading-7 font-[700]">
-                  댓글
-                </h1>
-                <p className="text-[#A6A6A6] text-[14px] leading-5 font-[500]">
-                  총 {data?.commentCount}개
-                </p>
-              </div>
-              <div className="max-w-[101px] min-h-[40px] flex justify-center items-center px-2 py-3 gap-2 mr-4 bg-[#FAFAFA] rounded-md">
-                <Refresh />
-                <p className="text-[14px] leading-[14px] font-[700]">
-                  새로고침
-                </p>
-              </div>
-            </div>
+            <CommentBar data={data} />
 
             <div className="max-w-full min-h-full">
               <CommentContainer />
@@ -184,19 +168,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         ))}
       </div>
       <div>
-        <div className="w-[720px] h-auto p-4 bg-[#FFFFFF] flex gap-4 items-center justify-between">
-          <button className="w-[40px] h-[40px] flex items-center justify-center rounded-[5px] border border-[#EEEEEE] py-[10px] gap-[10px] bg-[#FAFAFA]">
-            <Plus />
-          </button>
-          <input
-            type="text"
-            placeholder="상대를 존중하는 클린한 댓글을 남겨주세요! 추천은 센스!"
-            className="min-w-[576px] h-[40px] rounded-[5px] border border-[#181818] py-3 px-4 gap-4"
-          />
-          <button className="w-[40px] h-[40px] flex items-center justify-center rounded-[5px] border border-[#EEEEEE] py-[16px] gap-[10px] bg-[#FAFAFA]">
-            <Send_icon />
-          </button>
-        </div>
+        <SendCommentBox />
       </div>
     </>
   );

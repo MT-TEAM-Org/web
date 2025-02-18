@@ -37,6 +37,7 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
         <p className="font-[500] text-[14px] leading-5">
           제42대 대한체육회 회장 선거에 출마한 유승민(42) 전 IOC 위원은 공식
           선거운동 첫날인 26일 오후 2시 서울
+          {/* 목 데이터 */}
           {/* {newsItem.content} */}
         </p>
       </div>
