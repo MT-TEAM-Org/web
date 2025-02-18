@@ -1,27 +1,20 @@
 "use client";
 
 import Arrow_left from "@/app/_components/icon/Arrow_left";
-import NewsItem from "./NewsItem";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
-import useFetchNewsData from "../news/fetchNewsData";
-
-type NewsItemType = {
-  id: number;
-  title: string;
-  category: string;
-  thumbImg: string;
-  postDate: string;
-};
+import { NewsItemType } from "@/app/_constants/newsItemType";
+import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
+import RightNewsItem from "./RightNewsItem";
 
 export const RightSideBar = () => {
-  const { data: newsData } = useFetchNewsData();
+  const { data: newsData } = useGetNewsDataList();
   return (
     <div className="w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-6">
       <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md bg-[#f8fdff] rounded-[10px]">
         <div className="w-full h-auto max-h-[736px] rounded-[10px]">
           {newsData?.map((data: NewsItemType) => (
-            <NewsItem key={data.id} newsItem={data} />
+            <RightNewsItem key={data.id} newsItem={data} />
           ))}
         </div>
 

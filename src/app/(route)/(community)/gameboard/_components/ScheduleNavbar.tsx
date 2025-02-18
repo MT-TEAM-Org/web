@@ -6,12 +6,10 @@ interface ScheduleNavbarProps {
   setSelectedCategory: (category: string) => void;
 }
 
-const ScheduleNavbar: React.FC<ScheduleNavbarProps> = ({
-  setSelectedCategory,
-}) => {
+const ScheduleNavbar = ({ setSelectedCategory }: ScheduleNavbarProps) => {
   const [selectedCategory, setSelectedCategoryState] = useState("E스포츠");
 
-  const onClick = (category: string) => {
+  const handleActiveCategory = (category: string) => {
     setSelectedCategory(category);
     setSelectedCategoryState(category);
   };
@@ -21,7 +19,7 @@ const ScheduleNavbar: React.FC<ScheduleNavbarProps> = ({
       {["E스포츠", "축구", "야구"].map((category) => (
         <button
           key={category}
-          onClick={() => onClick(category)}
+          onClick={() => handleActiveCategory(category)}
           className={`min-w-[77px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] items-center justify-center font-bold text-[14px] leading-[21px] tracking-[-0.02em] cursor-pointer ${
             selectedCategory === category
               ? "border border-[#424242]"

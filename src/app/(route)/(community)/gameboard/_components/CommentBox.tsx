@@ -1,8 +1,8 @@
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import React from "react";
-import CommentItem from "../../news/news-detail/[id]/_components/CommentItem";
 import { Plus } from "lucide-react";
-import SendCommentBox from "../../news/news-detail/[id]/_components/SendCommentBox";
+import CommentItem from "../../_components/CommentItem";
+import SendCommentBox from "../../_components/SendCommentBox";
 
 const CommentBox = () => {
   return (

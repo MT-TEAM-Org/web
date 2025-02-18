@@ -1,19 +1,12 @@
 import React from "react";
 import Image from "next/image";
+import { NewsItemType } from "@/app/_constants/newsItemType";
 
-type NewsItemType = {
-  id: number;
-  title: string;
-  category: string;
-  thumbImg: string;
-  postDate: string;
-};
-
-type NewsItemProps = {
+interface NewsItemProps {
   newsItem: NewsItemType;
-};
+}
 
-const NewsItem = ({ newsItem }: NewsItemProps) => {
+const RightNewsItem = ({ newsItem }: NewsItemProps) => {
   return (
     <div className="min-w-[288px] min-h-[92px] flex justify-start items-center border-b border-[#EEEEEE] p-3 cursor-pointer gap-3">
       <Image
@@ -37,4 +30,4 @@ const NewsItem = ({ newsItem }: NewsItemProps) => {
   );
 };
 
-export default NewsItem;
+export default RightNewsItem;

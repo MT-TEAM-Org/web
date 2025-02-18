@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface NewsItem {
   id: number;
@@ -14,14 +17,16 @@ interface NewsPostItemProps {
 }
 
 const NewsItem = ({ newsItem }: NewsPostItemProps) => {
-  const onClick = () => {
-    console.log(newsItem.id);
+  const router = useRouter();
+
+  const handleToNewsInfo = () => {
+    router.push(`/news/news-detail/${newsItem?.id}`);
   };
 
   return (
     <div
       className="flex items-center min-w-[436px] max-h-[68px] p-2 border-gray-300 cursor-pointer"
-      onClick={onClick}
+      onClick={handleToNewsInfo}
     >
       <div className="flex-shrink-0 max-w-[68px] max-h-[68px] rounded overflow-hidden bg-gray-300">
         <Image
