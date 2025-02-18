@@ -12,6 +12,7 @@ interface FormData {
   tel: string;
   nickname: string;
   birthDate: string;
+  genderType: "M" | "W" | null;
 }
 
 const fetchUserInfo = async () => {
@@ -106,8 +107,8 @@ const EditProfile = () => {
   ];
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
-    modifyUserInfo(data, {
+    const requestData = { ...data, genderType };
+    modifyUserInfo(requestData, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["userInfo"] });
       },
