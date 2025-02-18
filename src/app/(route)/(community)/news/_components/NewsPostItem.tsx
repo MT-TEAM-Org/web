@@ -72,7 +72,7 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
             {newsItem?.postDate}
           </p>
           <p className="font-medium text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
-            네이버 스포츠 {/* api에 없음 */}
+            네이버 스포츠 {/* 목 데이터 */}
           </p>
         </div>
       </div>

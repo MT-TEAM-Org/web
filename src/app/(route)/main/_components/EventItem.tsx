@@ -4,6 +4,7 @@ import Image from "next/image";
 const EventItem = () => {
   return (
     <div>
+      {/* 목 데이터 */}
       <div className="w-[298px] min-h-[84px] flex items-center border border-[#EEEEEE] rounded-[10px] p-3 gap-3 cursor-pointer">
         <Image
           src="/Fake_event_game.png"

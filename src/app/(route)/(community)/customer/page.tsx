@@ -8,7 +8,7 @@ import PrivacyPolicyTab from "./_components/PrivacyPolicyTab";
 import MenuBtn from "./_components/MenuBtn";
 import TermsTab from "./_components/TermsTab";
 
-const page = () => {
+const Page = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const renderTabContent = () => {
@@ -76,4 +76,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -29,6 +29,7 @@ const NewsItem = ({ newsItem }: NewsItemProps) => {
         </div>
         <div className="w-[184px] h-[40px] text-[14px] text-[#424242] leading-5 tracking-[0%] opacity-90">
           제42대 대한체육회 회장 선거에 출마한 유승민(42) 전 IOC...
+          {/* 목 데이터 */}
           {/* {NewsItemType.} */}
         </div>
       </div>
