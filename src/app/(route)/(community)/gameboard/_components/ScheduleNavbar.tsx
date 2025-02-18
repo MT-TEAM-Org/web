@@ -6,9 +6,7 @@ interface ScheduleNavbarProps {
   setSelectedCategory: (category: string) => void;
 }
 
-const ScheduleNavbar: React.FC<ScheduleNavbarProps> = ({
-  setSelectedCategory,
-}) => {
+const ScheduleNavbar = ({ setSelectedCategory }: ScheduleNavbarProps) => {
   const [selectedCategory, setSelectedCategoryState] = useState("E스포츠");
 
   const onClick = (category: string) => {
