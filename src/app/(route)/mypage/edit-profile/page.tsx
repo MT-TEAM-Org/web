@@ -72,6 +72,11 @@ const EditProfile = () => {
             </div>
           </div>
 
+          <div className="flex justify-between min-h-[56px] rounded-[10px] p-[16px] bg-[#FAFAFA] text-[#303030]">
+            <p className="leading-[24px]">가입 유형</p>
+            <p className="font-[700] leading-[24px]">SNS 회원가입 (구글)</p>
+          </div>
+
           {inputObject.map((input) => (
             <div key={input.id} className="flex flex-col gap-[4px]">
               <Input
