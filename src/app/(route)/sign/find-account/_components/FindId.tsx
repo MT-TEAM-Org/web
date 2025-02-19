@@ -15,7 +15,7 @@ interface FindIdProps {
 const FindId = ({ register }: FindIdProps) => {
   const inputStyle =
     "w-full h-[48px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6]";
-  const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
+  // const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
   return (
     <div className="space-y-[24px]">
       <div className="space-y-[2px] relative">

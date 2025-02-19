@@ -1,5 +1,5 @@
 import React from "react";
-import ActiveChatTwo from "./\bActiveChatTwo";
+import ActiveChatTwo from "./ActiveChatTwo";
 import ActiveChatThree from "./ActiveChatThree";
 
 const ActiveChat = () => {

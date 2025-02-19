@@ -1,9 +1,6 @@
 import Plus from "@/app/_components/icon/Plus";
 import Send_icon from "@/app/_components/icon/Send_icon";
 import React from "react";
-import BeforeChat from "./BeforeChat";
-import PopupChat from "./PopupChat";
-import ActiveChat from "./ActiveChat";
 
 const LiveChat = () => {
   return (

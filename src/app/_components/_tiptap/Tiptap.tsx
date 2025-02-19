@@ -15,7 +15,6 @@ import { LinkIcon } from "../icon/LinkIcon";
 import { useRouter } from "next/navigation";
 import LinkPreview from "../LinkPreview";
 import { useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
-import getUpload, { GetUploadData } from "@/_hooks/getUpload";
 
 interface TiptapProps {
   onChange: (content: string) => void;

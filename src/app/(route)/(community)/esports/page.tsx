@@ -2,12 +2,8 @@
 
 import PostItem from "../_components/PostItem";
 import { CommunityToolbar } from "../_components/CommunityToolbar";
-import { usePathname } from "next/navigation";
 
 const Esports = () => {
-  const pathName = usePathname();
-  const boardType = pathName?.split("/")[1];
-
   return (
     <div className="flex justify-center bg-white">
       <div className="max-w-[720px] w-full min-h-[120px] rounded-[5px] bg-[#FFFFFF] mx-auto]">
