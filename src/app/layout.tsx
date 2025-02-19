@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import QueryProvider from "./_components/QueryProvider";
-
 import Gnb from "./_components/_gnb/Gnb";
 import Footer from "./_components/Footer";
 
@@ -23,6 +22,7 @@ export default function RootLayout({
           <Gnb />
           {children}
         </QueryProvider>
+        <Footer />
       </body>
     </html>
   );

@@ -5,7 +5,7 @@ import NoticeItem from "./_components/NoticeItem";
 const Page = () => {
   return (
     <>
-      <div className="w-[720px] min-h-[120px] rounded-t-[5px] border-b">
+      <div className="w-[720px] min-h-[120px] rounded-t-[5px]">
         <CustomerTalkToolbar showOptions={false} />
       </div>
 

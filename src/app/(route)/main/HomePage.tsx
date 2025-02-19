@@ -21,7 +21,7 @@ export default function HomePage() {
         <div className="w-full max-w-[1200px] min-h-[704px] mb-[356px] flex gap-x-10">
           <div className="max-w-[862px] min-h-[668px] flex gap-10">
             <div className="flex flex-col gap-10">
-              <div className="max-w-[862px] min-h-[236px] flex gap-4">
+              <div className="w-full min-h-[236px] flex gap-4">
                 <MainBigSizeNews />
                 <NewsComponent />
               </div>

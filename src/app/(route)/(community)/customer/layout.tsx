@@ -2,6 +2,11 @@ import React from "react";
 import CustomerLeftSidebar from "./_components/CustomerLeftSidebar";
 import { RightSideBar } from "../_components/RightSideBar";
 
+export const metadata = {
+  title: "PlayHive 고객센터 페이지",
+  description: "고객센터 페이지입니다.",
+};
+
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex flex-col justify-between items-center">
