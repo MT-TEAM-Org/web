@@ -118,30 +118,32 @@ const Page = () => {
       </div>
       <div className="w-full min-h-[600px] py-[60px] flex gap-[10px] bg-[#FFFFFF] items-center justify-center">
         <div className="w-[1200px] min-h-[480px] flex justify-between items-center">
-          <div className="relative w-auto h-[480px]">
-            <Image
-              src="/Service_benefit2_3.png"
-              alt="123"
-              width={193}
-              height={193}
-              className="absolute top-[287px] left-[76px] rounded-[25px] shadow-md"
-            />
-
-            <Image
-              src="/Service_benefit2_1.png"
-              alt="123"
-              width={316}
-              height={316}
-              className="absolute top-[287px] left-[76px] rounded-[25px] shadow-md"
-            />
-
-            <div className="w-[193px] h-[193px] absolute top-[120px] left-[10px] z-30 rounded-xl shadow-md">
+          <div className="relative w-[464.42px] h-[480px]">
+            <div className="shadow-sm">
               <Image
                 src="/Service_benefit2_3.png"
-                alt="Small Image 2"
+                alt="Service benefit2 img"
                 width={193}
                 height={193}
-                className="rounded-xl"
+                className="absolute top-[287px] left-[76px] rounded-[25px] opacity-50"
+              />
+            </div>
+            <div className="shadow-lg">
+              <Image
+                src="/Service_benefit2_1.png"
+                alt="Service benefit2 img"
+                width={316}
+                height={316}
+                className="absolute top-[80px] left-[5px] rounded-[25px] z-10"
+              />
+            </div>
+            <div className="shadow-md">
+              <Image
+                src="/Service_benefit2_2.png"
+                alt="Service benefit2 img"
+                width={253}
+                height={234}
+                className="absolute top-[200px] left-[210px] rounded-[25px] opacity-95 z-20"
               />
             </div>
           </div>
