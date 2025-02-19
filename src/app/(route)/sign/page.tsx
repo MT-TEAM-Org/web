@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Login from "./_components/Login";
 import Signup from "./_components/Signup";
 import { useForm } from "react-hook-form";
@@ -27,7 +27,7 @@ interface Tabs {
   label: "로그인" | "회원가입";
 }
 
-export default function Sign() {
+function Sign() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { data: authCheckData, isSuccess: authCheckIsSuccess } = useAuthCheck();
@@ -196,3 +196,13 @@ export default function Sign() {
     </div>
   );
 }
+
+const SignSuspense = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Sign />
+    </Suspense>
+  );
+};
+
+export default SignSuspense;
