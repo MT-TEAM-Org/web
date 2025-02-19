@@ -34,7 +34,7 @@ export default function Footer() {
           <LogoWhite />
         </div>
         <div className="flex justify-between gap-[24px]">
-          <div className="flex flex-col jutify-around gap-[24px]">
+          <div className="flex flex-col justify-around gap-[24px]">
             <p className="font-medium text-[24px] leading-[38px]">
               열정적으로 응원하고 서로를 존중하며
               <br />

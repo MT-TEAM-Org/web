@@ -2,6 +2,8 @@ import React from "react";
 import ServiceItem from "./_components/ServiceItem";
 import Image from "next/image";
 import ServiceBenefitItem from "./_components/ServiceBenefitItem";
+import DoubleLogo from "@/app/_components/icon/Service_DoubleLogo";
+import Service_PlayHive from "@/app/_components/icon/Service_PlayHive";
 
 const Page = () => {
   return (
@@ -116,7 +118,33 @@ const Page = () => {
       </div>
       <div className="w-full min-h-[600px] py-[60px] flex gap-[10px] bg-[#FFFFFF] items-center justify-center">
         <div className="w-[1200px] min-h-[480px] flex justify-between items-center">
-          <div className="w-[464.42px] h-[480px] bg-[gray]"></div>
+          <div className="relative w-auto h-[480px]">
+            <Image
+              src="/Service_benefit2_3.png"
+              alt="123"
+              width={193}
+              height={193}
+              className="absolute top-[287px] left-[76px] rounded-[25px] shadow-md"
+            />
+
+            <Image
+              src="/Service_benefit2_1.png"
+              alt="123"
+              width={316}
+              height={316}
+              className="absolute top-[287px] left-[76px] rounded-[25px] shadow-md"
+            />
+
+            <div className="w-[193px] h-[193px] absolute top-[120px] left-[10px] z-30 rounded-xl shadow-md">
+              <Image
+                src="/Service_benefit2_3.png"
+                alt="Small Image 2"
+                width={193}
+                height={193}
+                className="rounded-xl"
+              />
+            </div>
+          </div>
           <div className="w-[560px] min-h-[294px] flex gap-6 flex-col">
             <div className="w-full h-[158px] flex gap-1 flex-col">
               <p className="font-bold text-[20px] leading-[26px] tracking-[-0.02em] text-[#00ADEE]">
@@ -136,13 +164,13 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div
-        className="w-[1920px] h-[360px] flex items-center justify-center"
-        style={{ backgroundImage: "url('/Service_footer.png')" }}
-      >
+      <div className="w-full h-[360px] flex items-center justify-center bg-[url('/Service_footer.png')] bg-center bg-cover">
         <div className="min-w-[558px] min-h-[232px] flex gap-6 flex-col items-center justify-center">
-          <div className="min-w-[558px] min-h-[156px] flex flex-col gap-6">
-            <div className="min-h-[80px]">PlayHive</div>
+          <div className="min-w-[558px] min-h-[156px] flex flex-col items-center justify-center gap-6">
+            <div className="min-h-[80px] flex items-center gap-[10px]">
+              <DoubleLogo />
+              <Service_PlayHive />
+            </div>
             <p className="font-bold text-[36px] leading-[52px] tracking-[-0.02em] text-white">
               "여러분의 스포츠 이야기를 들려주세요!”
             </p>
