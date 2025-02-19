@@ -2,14 +2,13 @@
 
 import React from "react";
 import Image from "next/image";
-// import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const FeedbackNoticeItem = () => {
-  // const pathName = usePathname();
-  // const router = useRouter();
+  const router = useRouter();
 
   const handleToInfo = () => {
-    console.log("router.push");
+    router.push("/customer/info");
   };
 
   return (
