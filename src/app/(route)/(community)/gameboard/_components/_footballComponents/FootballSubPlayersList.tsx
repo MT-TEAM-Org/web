@@ -1,4 +1,5 @@
 import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
+import Gameboard_cross_arrow from "@/app/_components/icon/Gameboard_cross_arrow";
 import React from "react";
 
 const players = [
@@ -31,8 +32,10 @@ const FootballSubPlayersList = () => {
         >
           <p className="text-[16px] leading-6 text-[#424242]">{player.name}</p>
           {player.sub ? (
-            <div className="text-[14px] leading-5 text-[#A6A6A6] flex gap-1">
-              <div className="w-[16px] h-[16px]"></div>
+            <div className="text-[14px] leading-5 text-[#A6A6A6] flex gap-1 items-center justify-start">
+              <div className="w-[16px] h-[16px]">
+                <Gameboard_cross_arrow />
+              </div>
               <p>{player.sub}</p>
             </div>
           ) : null}
