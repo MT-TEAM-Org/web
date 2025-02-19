@@ -5,6 +5,11 @@ import ServiceBenefitItem from "./_components/ServiceBenefitItem";
 import DoubleLogo from "@/app/_components/icon/Service_DoubleLogo";
 import Service_PlayHive from "@/app/_components/icon/Service_PlayHive";
 
+export const metadata = {
+  title: "PlayHive 서비스소개 페이지",
+  description: "야구 페이지입니다.",
+};
+
 const Page = () => {
   return (
     <div className="w-full h-full">
@@ -125,7 +130,7 @@ const Page = () => {
                 alt="Service benefit2 img"
                 width={193}
                 height={193}
-                className="absolute top-[287px] left-[76px] rounded-[25px] opacity-50"
+                className="absolute top-[315px] left-[76px] rounded-[25px] opacity-50"
               />
             </div>
             <div className="shadow-lg">
@@ -141,9 +146,9 @@ const Page = () => {
               <Image
                 src="/Service_benefit2_2.png"
                 alt="Service benefit2 img"
-                width={253}
-                height={234}
-                className="absolute top-[200px] left-[210px] rounded-[25px] opacity-95 z-20"
+                width={293}
+                height={274}
+                className="absolute top-[175px] left-[180px] rounded-[25px] opacity-95 z-20"
               />
             </div>
           </div>
