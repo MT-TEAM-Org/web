@@ -16,7 +16,11 @@ interface DropdownOption {
   value: string;
 }
 
-export const CustomerTalkToolbar = () => {
+interface ToolbarProps {
+  showOptions?: boolean;
+}
+
+export const CustomerTalkToolbar = ({ showOptions = true }: ToolbarProps) => {
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const pagination = [
@@ -49,8 +53,8 @@ export const CustomerTalkToolbar = () => {
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
 
   return (
-    <div className="bg-[#FFFFFF] rounded-tr-[5px] rounded-t-[5px]">
-      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
+    <div className="rounded-[5px]">
+      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-[#FFFFFF] ">
         <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
           공지사항
         </h1>
@@ -88,18 +92,22 @@ export const CustomerTalkToolbar = () => {
       </div>
       <div className="flex justify-between items-center p-[12px]">
         <div className="flex w-full items-center gap-[4px]">
-          <button className={`${buttonStyle} font-[700]`}>
-            <Blue_outline_logo />
-            최신순
-          </button>
-          <button className={buttonStyle}>
-            <Red_outline_logo />
-            인기순
-          </button>
-          <button className={buttonStyle}>
-            <Mini_logo />
-            댓글 많은 순
-          </button>
+          {showOptions ? (
+            <>
+              <button className={`${buttonStyle} font-[700]`}>
+                <Blue_outline_logo />
+                최신순
+              </button>
+              <button className={buttonStyle}>
+                <Red_outline_logo />
+                인기순
+              </button>
+              <button className={buttonStyle}>
+                <Mini_logo />
+                댓글 많은 순
+              </button>
+            </>
+          ) : null}
         </div>
 
         <div className="flex">

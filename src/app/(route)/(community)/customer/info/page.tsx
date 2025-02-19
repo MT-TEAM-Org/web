@@ -7,8 +7,8 @@ const page = () => {
   return (
     <>
       <NoticeInfoItem />
-      <div className="w-[720px] min-h-[120px] rounded-t-[5px] border-b">
-        <CustomerTalkToolbar />
+      <div className="w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden">
+        <CustomerTalkToolbar showOptions={true} />
       </div>
       <div className="w-[720px] h-auto rounded-[5px] bg-[#FFFFFF]">
         {Array.from({ length: 20 }).map((_, index) => {

@@ -11,7 +11,7 @@ export const RightSideBar = () => {
   const { data: newsData } = useGetNewsDataList();
   return (
     <div className="w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-6">
-      <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md bg-[#f8fdff] rounded-[10px]">
+      <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px]">
         <div className="w-full h-auto max-h-[736px] rounded-[10px]">
           {newsData?.map((data: NewsItemType) => (
             <RightNewsItem key={data.id} newsItem={data} />
