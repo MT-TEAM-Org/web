@@ -14,7 +14,8 @@ const Page = () => {
   return (
     <div className="w-full h-full">
       <div className="w-full h-[480px] flex items-center justify-center bg-gradient-to-r from-[#00ADEE] to-[#006388]">
-        <div className="w-[520px] min-h-[296px] rounded-[20px] p-10 flex gap-6 shadow-sm bg-white">
+        {/* 애니메이션 들어갈 부분 */}
+        <div className="w-[520px] min-h-[296px] rounded-[20px] p-10 flex gap-6 shadow-sm bg-white z-10">
           <div className="w-full min-h-[216px] flex flex-col gap-6">
             <div className="w-full min-h-[60px] items-center text-center font-bold text-[28px] leading-10 tracking-[-0.04em]">
               <h1>스포츠팬 여러분!</h1>
@@ -180,7 +181,7 @@ const Page = () => {
               <Service_PlayHive />
             </div>
             <p className="font-bold text-[36px] leading-[52px] tracking-[-0.02em] text-white">
-              "여러분의 스포츠 이야기를 들려주세요!”
+              &quot;여러분의 스포츠 이야기를 들려주세요!”
             </p>
           </div>
           <button className="w-[160px] min-h-[52px] rounded-[5px] px-[22px] py-[18px] flex gap-[10px] bg-[#00ADEE] text-white items-center justify-center">
