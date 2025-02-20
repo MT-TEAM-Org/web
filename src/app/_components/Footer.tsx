@@ -28,7 +28,7 @@ export default function Footer() {
     "font font-medium text-[16px] leading-[24px] text-[#A6A6A6]";
 
   return (
-    <div className="bottom-0 left-0 w-full min-h-[356px] bg-black flex flex-col justify-center text-white pt-[40px]">
+    <div className="w-full min-h-[356px] bg-black flex flex-col justify-center text-white pt-[40px]">
       <div className="w-[1200px] min-h-[212px] gap-[24px] flex flex-col mx-auto">
         <div>
           <LogoWhite />

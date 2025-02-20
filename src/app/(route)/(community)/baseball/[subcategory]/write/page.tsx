@@ -1,6 +1,6 @@
 "use client";
 
-import { use, Usable } from "react";
+import { use } from "react";
 import { Write } from "../../../_components/Write";
 import { subCategories } from "@/app/_constants/categories";
 
@@ -8,7 +8,11 @@ type Params = {
   subcategory: keyof typeof subCategories;
 };
 
-export default function WritePage({ params }: { params: Usable<Params> }) {
+type Props = {
+  params: Promise<Params>;
+};
+
+export default function WritePage({ params }: Props) {
   const unwrappedParams = use(params);
   const { subcategory } = unwrappedParams;
 

@@ -4,6 +4,20 @@ import useGetBoardData from "@/_hooks/getBoardData";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+interface BoardListItem {
+  id: number;
+  boardType: string;
+  categoryType: string;
+  title: string;
+  createdIp: string;
+  thumbnail: string;
+  publicId: string;
+  nickname: string;
+  commentCount: number;
+  createDate: string;
+  lastModifiedDate: string;
+}
+
 const PostItem = () => {
   const pathName = usePathname();
   const boardType = pathName?.split("/")[1];
@@ -45,7 +59,7 @@ const PostItem = () => {
   };
   return (
     <div className="flex flex-col items-center w-full]">
-      {boardData?.map((data: any, index: number) => (
+      {boardData?.map((data: BoardListItem, index: number) => (
         <div
           key={`${data.id}-${index}`}
           className="flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]"
@@ -54,7 +68,7 @@ const PostItem = () => {
             <span>{data.id}</span>
           </div>
           <Image
-            src="/PostItem_fake.png"
+            src={data?.thumbnail || "/Preview_loading_image.png"}
             alt="post-preview-image"
             width={56}
             height={42}
