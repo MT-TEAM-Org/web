@@ -13,12 +13,14 @@ interface CommentItemProps {
 }
 
 const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
+  const bestCommentStyle =
+    "max-w-full min-h-[132px] flex flex-col border-b border-[#FAFAFA] gap-3 p-3";
   return (
     <div
       className={
         bestComment
-          ? `max-w-full min-h-[132px] flex flex-col border-b border-[#FAFAFA] gap-3 p-3 bg-[#F8FDFF] ${className}`
-          : `max-w-full min-h-[132px] flex flex-col border-b border-[#FAFAFA] gap-3 p-3 ${className}`
+          ? `${bestCommentStyle} bg-[#F8FDFF] ${className}`
+          : `${bestCommentStyle} ${className}`
       }
     >
       {/* 목 데이터 */}

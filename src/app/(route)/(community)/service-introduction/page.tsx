@@ -11,6 +11,88 @@ export const metadata = {
 };
 
 const Page = () => {
+  const serviceItems = [
+    {
+      imgUrl: "Service_feature_1",
+      title: "경기중계와 실시간 채팅",
+      content: "팬들과 함께 경기 라인업, 기록 등을 보며 즐겁게 소통하는 채팅",
+    },
+    {
+      imgUrl: "Service_feature_2",
+      title: "안전한 커뮤니티 운영",
+      content: "신고 시스템, 비속어 필터링으로 지속관리 관리자의 모니터링까지",
+    },
+    {
+      imgUrl: "Service_feature_3",
+      title: "건강한 응원 문화",
+      content:
+        "비방,악성 댓글 없는 클린지향주의 서로를 존중할 자세가 있다면 컴온!",
+    },
+    {
+      imgUrl: "Service_feature_4",
+      title: "다양한 카테고리 게시판",
+      content: "E스포츠, 축구, 야구 등의 다양한 허브 니즈에 따라 추가제공 가능",
+    },
+    {
+      imgUrl: "Service_feature_5",
+      title: "승부예측",
+      content: "과연 누가 이길까? 나의 팀을 응원하고 예측하는 재미!",
+    },
+    {
+      imgUrl: "Service_feature_6",
+      title: "실시간 뉴스기사",
+      content: "최신 뉴스 기사와 함께 토론해볼수 있는 이야기 소통 공간 제공",
+    },
+  ];
+
+  const serviceBenefits = [
+    {
+      content: "건강한 스포츠 토론을 즐기고 싶은 분!",
+      imgLink: "Service_benefit_1",
+    },
+    {
+      content: "경기 중 실시간으로 의견을 나누고 싶은 분!",
+      reverse: true,
+      imgLink: "Service_benefit_2",
+    },
+    {
+      content: "관심 있는 팀과 선수 소식을 빠르게 공유!",
+      imgLink: "Service_benefit_3",
+    },
+    {
+      content: "팬들과 함께 승리의 순간을 공유하는 즐거움!",
+      reverse: true,
+      imgLink: "Service_benefit_4",
+    },
+  ];
+
+  const benefitImages = [
+    {
+      src: "/Service_benefit2_3.png",
+      width: 193,
+      height: 193,
+      className: "absolute top-[315px] left-[76px] rounded-[25px] opacity-50",
+      shadowClass: "shadow-sm",
+      zIndex: "z-0",
+    },
+    {
+      src: "/Service_benefit2_1.png",
+      width: 316,
+      height: 316,
+      className: "absolute top-[80px] left-[5px] rounded-[25px]",
+      shadowClass: "shadow-lg",
+      zIndex: "z-10",
+    },
+    {
+      src: "/Service_benefit2_2.png",
+      width: 293,
+      height: 274,
+      className: "absolute top-[175px] left-[180px] rounded-[25px] opacity-95",
+      shadowClass: "shadow-md",
+      zIndex: "z-20",
+    },
+  ];
+
   return (
     <div className="w-full h-full">
       <div className="w-full h-[480px] flex items-center justify-center bg-gradient-to-r from-[#00ADEE] to-[#006388]">
@@ -45,38 +127,14 @@ const Page = () => {
           </div>
           <div className="w-full min-h-[624px] flex flex-col items-center gap-6">
             <div className="min-w-[1008px] min-h-[300px] flex gap-6">
-              <ServiceItem
-                imgNumber={1}
-                title="경기중계와 실시간 채팅"
-                content="팬들과 함께 경기 라인업, 기록 등을 보며 즐겁게 소통하는 채팅"
-              />
-              <ServiceItem
-                imgNumber={2}
-                title="안전한 커뮤니티 운영"
-                content="신고 시스템, 비속어 필터링으로 지속관리 관리자의 모니터링까지"
-              />
-              <ServiceItem
-                imgNumber={3}
-                title="건강한 응원 문화"
-                content="비방,악성 댓글 없는 클린지향주의 서로를 존중할 자세가 있다면 컴온!"
-              />
+              {serviceItems.slice(0, 3).map((item) => (
+                <ServiceItem key={item.imgUrl} {...item} />
+              ))}
             </div>
             <div className="min-w-[1008px] min-h-[300px] flex gap-6">
-              <ServiceItem
-                imgNumber={4}
-                title="다양한 카테고리 게시판"
-                content="E스포츠, 축구, 야구 등의 다양한 허브 니즈에 따라 추가제공 가능"
-              />
-              <ServiceItem
-                imgNumber={5}
-                title="승부예측"
-                content="과연 누가 이길까? 나의 팀을 응원하고 예측하는 재미!"
-              />
-              <ServiceItem
-                imgNumber={6}
-                title="실시간 뉴스기사"
-                content="최신 뉴스 기사와 함께 토론해볼수 있는 이야기 소통 공간 제공"
-              />
+              {serviceItems.slice(3).map((item) => (
+                <ServiceItem key={item.imgUrl} {...item} />
+              ))}
             </div>
           </div>
         </div>
@@ -101,57 +159,26 @@ const Page = () => {
             </p>
           </div>
           <div className="max-w-[640px] min-h-[368px] flex gap-4 flex-col items-center justify-center">
-            <ServiceBenefitItem
-              content="건강한 스포츠 토론을 즐기고 싶은 분!"
-              imgLink={1}
-            />
-            <ServiceBenefitItem
-              content="경기 중 실시간으로 의견을 나누고 싶은 분!"
-              reverse={true}
-              imgLink={2}
-            />
-            <ServiceBenefitItem
-              content="관심 있는 팀과 선수 소식을 빠르게 공유!"
-              imgLink={3}
-            />
-            <ServiceBenefitItem
-              content="팬들과 함께 승리의 순간을 공유하는 즐거움!"
-              reverse={true}
-              imgLink={4}
-            />
+            {serviceBenefits.map((item, index) => (
+              <ServiceBenefitItem key={index} {...item} />
+            ))}
           </div>
         </div>
       </div>
       <div className="w-full min-h-[600px] py-[60px] flex gap-[10px] bg-[#FFFFFF] items-center justify-center">
         <div className="w-[1200px] min-h-[480px] flex justify-between items-center">
           <div className="relative w-[464.42px] h-[480px]">
-            <div className="shadow-sm">
-              <Image
-                src="/Service_benefit2_3.png"
-                alt="Service benefit2 img"
-                width={193}
-                height={193}
-                className="absolute top-[315px] left-[76px] rounded-[25px] opacity-50"
-              />
-            </div>
-            <div className="shadow-lg">
-              <Image
-                src="/Service_benefit2_1.png"
-                alt="Service benefit2 img"
-                width={316}
-                height={316}
-                className="absolute top-[80px] left-[5px] rounded-[25px] z-10"
-              />
-            </div>
-            <div className="shadow-md">
-              <Image
-                src="/Service_benefit2_2.png"
-                alt="Service benefit2 img"
-                width={293}
-                height={274}
-                className="absolute top-[175px] left-[180px] rounded-[25px] opacity-95 z-20"
-              />
-            </div>
+            {benefitImages.map((image, index) => (
+              <div key={index} className={image.shadowClass}>
+                <Image
+                  src={image.src}
+                  alt="Service benefit2 img"
+                  width={image.width}
+                  height={image.height}
+                  className={`${image.className} ${image.zIndex}`}
+                />
+              </div>
+            ))}
           </div>
           <div className="w-[560px] min-h-[294px] flex gap-6 flex-col">
             <div className="w-full h-[158px] flex gap-1 flex-col">

@@ -22,7 +22,6 @@ export default function RootLayout({
           {children}
           <Footer />
         </QueryProvider>
-        <Footer />
       </body>
     </html>
   );

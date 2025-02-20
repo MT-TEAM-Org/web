@@ -2,6 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { Search } from "../icon/Search";
+import Link from "next/link";
 
 export default function Navbar() {
   const router = useRouter();
@@ -39,17 +40,17 @@ export default function Navbar() {
     <div className="w-full max-w-[1200px] min-h-[60px] flex justify-between items-center mx-auto">
       <div className="max-w-[447px] min-h-[60px] flex justify-around gap-2.5">
         {NavbarObject.map((item, index) => (
-          <div
-            key={index}
-            className={`${navbarClass} flex justify-around items-center ${
-              isCurrentPath(item.link)
-                ? "font-normal text-[#00ADEE]"
-                : "font-normal text-[#424242]"
-            } ${index === 0 ? "pl-0" : ""}`}
-            onClick={() => router.push(item.link)}
-          >
-            {item.name}
-          </div>
+          <Link key={index} href={item.link}>
+            <div
+              className={`${navbarClass} flex justify-around items-center ${
+                isCurrentPath(item.link)
+                  ? "font-normal text-[#00ADEE]"
+                  : "font-normal text-[#424242]"
+              } ${index === 0 ? "pl-0" : ""}`}
+            >
+              {item.name}
+            </div>
+          </Link>
         ))}
       </div>
       <div className="flex items-center mb-2">
