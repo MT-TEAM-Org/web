@@ -10,9 +10,9 @@ const LeftSidebar = () => {
   const boardList = [
     { name: "전체", id: 0, path: `/${basePath}` },
     { name: "E스포츠", id: 1, path: `/${basePath}/esports-news` },
-    { name: "축구", id: 2, path: `/${basePath}/soccer-news` },
+    { name: "축구", id: 2, path: `/${basePath}/football-news` },
     { name: "야구", id: 3, path: `/${basePath}/baseball-news` },
-    { name: "개선요청", id: 6, path: `/${basePath}/SUGGESTION` },
+    { name: "개선요청", id: 6, path: `/customer/feedback` },
   ];
 
   const isCurrentPath = (boardPath: string) => {
