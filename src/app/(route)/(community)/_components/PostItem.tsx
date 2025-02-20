@@ -68,7 +68,7 @@ const PostItem = () => {
             <span>{data.id}</span>
           </div>
           <Image
-            src="/PostItem_fake.png"
+            src={data?.thumbnail || "/Preview_loading_image.png"}
             alt="post-preview-image"
             width={56}
             height={42}

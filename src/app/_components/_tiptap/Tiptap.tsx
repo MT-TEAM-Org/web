@@ -14,7 +14,12 @@ import Toolbar from "./Toolbar";
 import { LinkIcon } from "../icon/LinkIcon";
 import { useRouter } from "next/navigation";
 import LinkPreview from "../LinkPreview";
-import { useForm, UseFormRegister, UseFormWatch } from "react-hook-form";
+import {
+  useForm,
+  UseFormRegister,
+  UseFormWatch,
+  UseFormSetValue,
+} from "react-hook-form";
 
 interface TiptapProps {
   onChange: (content: string) => void;
@@ -22,6 +27,7 @@ interface TiptapProps {
   watch: UseFormWatch<FormData>;
   initialContent?: string;
   onImageUpload: (blob: Blob) => Promise<string>;
+  setValue: UseFormSetValue<FormData>;
 }
 
 interface FormData {
@@ -83,6 +89,7 @@ const Tiptap = ({
   onChange,
   register,
   watch,
+  setValue,
   initialContent,
   onImageUpload,
 }: TiptapProps) => {
@@ -209,7 +216,9 @@ const Tiptap = ({
           const images = doc.getElementsByTagName("img");
 
           let processedHtml = html;
-          for (const img of Array.from(images)) {
+          let firstImageUrl = null;
+
+          for (const [index, img] of Array.from(images).entries()) {
             if (
               img.src.startsWith("data:image") ||
               img.src.startsWith("blob:")
@@ -218,17 +227,32 @@ const Tiptap = ({
               const blob = await response.blob();
               const downloadUrl = await onImageUpload(blob);
               processedHtml = processedHtml.replace(img.src, downloadUrl);
+
+              // 첫 번째 이미지의 URL을 저장
+              if (index === 0) {
+                firstImageUrl = downloadUrl;
+              }
+            } else if (index === 0 && !firstImageUrl) {
+              // 이미 업로드된 첫 번째 이미지의 URL 저장
+              firstImageUrl = img.src;
             }
           }
 
           setShowPlaceholder(!hasContent && !hasImage);
           onChange?.(processedHtml);
+
+          // thumbnail 업데이트
+          if (firstImageUrl) {
+            setValue("thumbnail", firstImageUrl);
+          }
         } catch (error) {
           console.error("Error:", error);
         }
       } else {
         setShowPlaceholder(!hasContent && !hasImage);
         onChange?.(html);
+        // 이미지가 없는 경우 thumbnail 초기화
+        setValue("thumbnail", "");
       }
     },
   });

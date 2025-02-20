@@ -70,7 +70,7 @@ export function Write({ category, subCategory }: WriteProps) {
       title: data.title,
       content: data.content,
       link: data.link,
-      thumbnail: "",
+      thumbnail: data.thumbnail,
     };
     postContent(communityData);
     console.log(data);
@@ -90,6 +90,7 @@ export function Write({ category, subCategory }: WriteProps) {
           watch={watch}
           initialContent=""
           onImageUpload={handleImageUpload}
+          setValue={setValue}
         />
       </form>
     </div>
