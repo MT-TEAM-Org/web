@@ -11,6 +11,13 @@ export const RightSideBar = () => {
   const { data: newsData } = useGetNewsDataList();
   const slicedNewsData = newsData?.slice(0, 5); //뉴스 데이터 임시로 4개만 불러오기
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-6">
       <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px]">
@@ -33,7 +40,10 @@ export const RightSideBar = () => {
         </div>
       </div>
 
-      <div className="w-[48px] h-[48px] bg-[#FFFFFF] rounded-[5px] shadow-md flex justify-center items-center p-[10px] gap-[10px] cursor-pointer">
+      <div
+        onClick={scrollToTop}
+        className="w-[48px] h-[48px] bg-[#FFFFFF] rounded-[5px] shadow-md flex justify-center items-center p-[10px] gap-[10px] cursor-pointer"
+      >
         <Arrow_up />
       </div>
     </div>

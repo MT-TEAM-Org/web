@@ -20,7 +20,7 @@ const MainBigSizeNews = () => {
 
   return (
     <div
-      className="relative w-[410px] h-[236px] rounded-[10px] overflow-hidden"
+      className="relative w-[410px] h-[236px] rounded-[10px] overflow-hidden cursor-pointer"
       onClick={handleToNewsInfo}
     >
       <Image

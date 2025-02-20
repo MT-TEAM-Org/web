@@ -12,6 +12,8 @@ interface NewsPostItemProps {
 const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
   const router = useRouter();
 
+  const updatedImgUrl = newsItem?.thumbImg?.replace("type=w140", "type=w160");
+
   const handleToPage = () => {
     router.push(`/news/news-detail/${newsItem?.id}`);
   };
@@ -75,7 +77,7 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
     >
       <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
         <Image
-          src={newsItem?.thumbImg ? newsItem.thumbImg : "/Empty_news.png"}
+          src={updatedImgUrl || "/Empty_news.png"}
           alt="thumbImg"
           width={newsItem?.thumbImg ? 160 : 94.39}
           height={newsItem?.thumbImg ? 92 : 26}
