@@ -35,26 +35,30 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     }
   };
 
+  // 뉴스 기사 올라온 시간 확인하는 로직
   const changeDateAgo = (newsTime: string | undefined) => {
     if (!newsTime) return "알 수 없음";
 
     const newsDate = new Date(newsTime);
     const now = new Date();
 
-    const diffMs = now.getTime() - newsDate.getTime();
-    const diffMinutes = Math.floor(diffMs / (1000 * 60));
-    const diffHours = Math.floor(diffMinutes / 60);
-    const remainingMinutes = diffMinutes % 60;
+    const diffMs = now.getTime() - newsDate.getTime(); // 현재 시간과 뉴스 시간의 차이를 밀리초 단위로 계산
+    const diffMinutes = Math.floor(diffMs / (1000 * 60)); // 밀리초 차이를 분 단위로 변환
+    const diffHours = Math.floor(diffMinutes / 60); // 분 차이를 시 단위로 변환
+    const diffDays = Math.floor(diffHours / 24); // 시 차이를 24시간 단위로 변환하여 일 수 계산
 
-    if (diffMinutes < 60) {
-      return diffMinutes > 0 ? `${diffMinutes}분 전` : "방금 전";
-    } else {
-      return diffHours > 1
-        ? `${diffHours}시간 ${
-            remainingMinutes > 0 ? `${remainingMinutes}분` : ""
-          } 전`
-        : `${diffHours}시간 전`;
+    // 24시간 이상인 경우 일 단위로 표시
+    if (diffDays > 0) {
+      return `${diffDays}일 전`;
     }
+
+    // 1시간 이상 24시간 미만인 경우 시, 분 단위로 표시
+    if (diffHours > 0) {
+      return `${diffHours}시간 전`;
+    }
+
+    // 1시간 미만인 경우 분 단위로 표시
+    return diffMinutes > 0 ? `${diffMinutes}분 전` : "방금 전";
   };
 
   const nextButtonStyle =
