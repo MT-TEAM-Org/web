@@ -35,6 +35,28 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     }
   };
 
+  const changeDateAgo = (newsTime: string | undefined) => {
+    if (!newsTime) return "알 수 없음";
+
+    const newsDate = new Date(newsTime);
+    const now = new Date();
+
+    const diffMs = now.getTime() - newsDate.getTime();
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMinutes / 60);
+    const remainingMinutes = diffMinutes % 60;
+
+    if (diffMinutes < 60) {
+      return diffMinutes > 0 ? `${diffMinutes}분 전` : "방금 전";
+    } else {
+      return diffHours > 1
+        ? `${diffHours}시간 ${
+            remainingMinutes > 0 ? `${remainingMinutes}분` : ""
+          } 전`
+        : `${diffHours}시간 전`;
+    }
+  };
+
   const nextButtonStyle =
     "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px]";
   const topButtonStyle =
@@ -55,7 +77,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                   {changeCategory(data?.category)}
                 </p>
                 <p className="font-medium text-[14px] leading-5">
-                  {data?.postDate}
+                  {changeDateAgo(data?.postDate)}
                 </p>
               </div>
               <div className="flex gap-1">
@@ -80,7 +102,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <hr />
           <div className="flex flex-col gap-3 mt-4">
             <Image
-              src={data?.thumbImg ? data?.thumbImg : "/Fake_newsInfo.png"}
+              src={data?.thumbImg ? data?.thumbImg : "/"}
               alt="News detail img"
               width={672}
               height={338}
