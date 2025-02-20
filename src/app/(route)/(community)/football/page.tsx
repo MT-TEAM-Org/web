@@ -2,7 +2,6 @@
 
 import PostItem from "../_components/PostItem";
 import { CommunityToolbar } from "../_components/CommunityToolbar";
-import { usePathname } from "next/navigation";
 
 const Football = () => {
   return (

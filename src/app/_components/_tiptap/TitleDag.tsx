@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Arrow_down from "../icon/Arrow_down";
 import { UseFormRegister, UseFormWatch } from "react-hook-form";
 import { usePathname } from "next/navigation";
-import path from "path";
 
 interface TitleDagProps {
   register: UseFormRegister<any>;

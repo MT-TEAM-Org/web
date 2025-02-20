@@ -6,13 +6,7 @@ import {
   Italic,
   List,
   ListOrdered,
-  Heading2,
-  Heading3,
-  Link,
   Image,
-  Heading1,
-  Quote,
-  Baseline,
 } from "lucide-react";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import TextColorPicker from "./TextColorPicker"; // 텍스트 색상 선택 컴포넌트 import
