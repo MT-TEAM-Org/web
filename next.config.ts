@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactStrictMode: false,
   eslint: {
     ignoreDuringBuilds: true,
@@ -9,6 +8,7 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+
   images: {
     domains: ["imgnews.pstatic.net"],
     remotePatterns: [
@@ -20,6 +20,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
 };
 
 export default nextConfig;
