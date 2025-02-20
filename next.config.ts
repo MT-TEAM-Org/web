@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: ["imgnews.pstatic.net"],
+  },
 };
 
 export default nextConfig;
