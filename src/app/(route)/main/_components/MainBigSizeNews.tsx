@@ -9,7 +9,10 @@ const MainBigSizeNews = () => {
   const router = useRouter();
   const { data, isLoading } = useGetNewsDataList();
   const mainPageData = data ? data[0] : null;
-  console.log("mainPageData: ", mainPageData);
+  const updatedImgUrl = mainPageData?.thumbImg?.replace(
+    "type=w140",
+    "type=w410"
+  );
 
   const handleToNewsInfo = () => {
     router.push(`/news/news-detail/${mainPageData?.id}`);
@@ -21,9 +24,7 @@ const MainBigSizeNews = () => {
       onClick={handleToNewsInfo}
     >
       <Image
-        src={
-          mainPageData?.thumbImg ? mainPageData.thumbImg : "/mainNews_fake.png"
-        }
+        src={mainPageData?.thumbImg ? updatedImgUrl : "/mainNews_fake.png"}
         // 목 데이터
         alt="main news"
         width={410}

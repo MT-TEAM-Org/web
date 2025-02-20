@@ -28,22 +28,20 @@ const LeftSidebar = () => {
   };
 
   return (
-    <div className="w-[160px] h-[364px]">
-      <div className="w-full bg-[#FFFFFF]">
-        {boardList.map((board) => (
-          <div
-            onClick={() => board.path && handleRoute(board.path)}
-            key={board.id}
-            className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
-              isCurrentPath(board.path)
-                ? "font-[700] text-[#00ADEE] bg-[#F8FDFF]"
-                : "font-[400] text-[#424242] bg-[#FFFFFF]"
-            }`}
-          >
-            <p>{board.name}</p>
-          </div>
-        ))}
-      </div>
+    <div className="w-full bg-[#FFFFFF]">
+      {boardList.map((board) => (
+        <div
+          onClick={() => board.path && handleRoute(board.path)}
+          key={board.id}
+          className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
+            isCurrentPath(board.path)
+              ? "font-[700] text-[#00ADEE] bg-[#F8FDFF]"
+              : "font-[400] text-[#424242] bg-[#FFFFFF]"
+          }`}
+        >
+          <p>{board.name}</p>
+        </div>
+      ))}
     </div>
   );
 };

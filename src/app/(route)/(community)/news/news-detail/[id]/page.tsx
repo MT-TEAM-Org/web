@@ -21,6 +21,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   console.log("data: ", data);
   const { data: newsListData } = useGetNewsDataList();
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
+  const updatedImgUrl = data?.thumbImg?.replace("type=w140", "type=w360"); // 뉴스 상세페이지 들어갔을때 이미지 화질 올리는 로직
 
   const changeCategory = (category: string) => {
     switch (category) {
@@ -106,7 +107,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <hr />
           <div className="flex flex-col gap-3 mt-4">
             <Image
-              src={data?.thumbImg ? data?.thumbImg : "/"}
+              src={data?.thumbImg ? updatedImgUrl : "/"}
               alt="News detail img"
               width={672}
               height={338}

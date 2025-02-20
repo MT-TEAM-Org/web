@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       <div className="max-w-[1200px] mx-auto flex gap-4">
-        <div className="w-[160px] min-h-[364px] rounded-[5px] overflow-hidden">
+        <div className="w-[160px] min-h-[260px] rounded-[5px] overflow-hidden">
           <NewsLeftSidebar />
         </div>
         <div className="flex-1 max-w-[720px] mb-[47px] rounded-bl-[5px] rounded-br-[5px]">
