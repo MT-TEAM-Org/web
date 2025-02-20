@@ -15,28 +15,28 @@ import CommentBox from "../CommentBox";
 import BaseballGameRecord from "./BaseballGameRecord";
 import BaseballTeamDetail from "./BaseballTeamDetail";
 
-const homeRuns = [
-  {
-    player: "박병호16호",
-    details: "(2회4점 임기영)",
-  },
-  {
-    player: "박찬호",
-    details: "(3회3점 이승현)",
-  },
-  {
-    player: "디아즈4호",
-    details: "(4회2점 김대유)",
-  },
-  {
-    player: "소크라테스",
-    details: "(6회 2사 2,3루서 우익수 2루타)",
-  },
-  {
-    player: "소크라테스",
-    details: "(6회 2사 2,3루서 우익수 2루타)",
-  },
-];
+// const homeRuns = [
+//   {
+//     player: "박병호16호",
+//     details: "(2회4점 임기영)",
+//   },
+//   {
+//     player: "박찬호",
+//     details: "(3회3점 이승현)",
+//   },
+//   {
+//     player: "디아즈4호",
+//     details: "(4회2점 김대유)",
+//   },
+//   {
+//     player: "소크라테스",
+//     details: "(6회 2사 2,3루서 우익수 2루타)",
+//   },
+//   {
+//     player: "소크라테스",
+//     details: "(6회 2사 2,3루서 우익수 2루타)",
+//   },
+// ];
 
 const BaseballTab = () => {
   const [selectedCategory, setSelectedCategory] = useState("전력");

@@ -73,18 +73,18 @@ const WeekRange: React.FC<WeekRangeProps> = ({
   }, [filteredItems]);
 
   // useMemo를 사용하여 성능을 최적화하고, 의존성 배열에 변경 사항이 있을 때만 재계산합니다.
-  const currentItems = useMemo(() => {
-    // 현재 페이지에 해당하는 아이템만 슬라이스해서 반환합니다.
-    return sortedItems.slice(
-      // 현재 페이지의 첫 번째 아이템 인덱스: counter * itemsPerPage
-      // 예: 0 페이지 -> 0 * 10 = 0 번째 아이템부터
-      counter * itemsPerPage,
+  // const currentItems = useMemo(() => {
+  //   // 현재 페이지에 해당하는 아이템만 슬라이스해서 반환합니다.
+  //   return sortedItems.slice(
+  //     // 현재 페이지의 첫 번째 아이템 인덱스: counter * itemsPerPage
+  //     // 예: 0 페이지 -> 0 * 10 = 0 번째 아이템부터
+  //     counter * itemsPerPage,
 
-      // 현재 페이지의 마지막 아이템 인덱스: (counter + 1) * itemsPerPage
-      // 예: 0 페이지 -> (0 + 1) * 10 = 10 번째 아이템까지
-      (counter + 1) * itemsPerPage
-    );
-  }, [counter, sortedItems, itemsPerPage]); // counter, sortedItems, itemsPerPage가 변경될 때마다 재계산
+  //     // 현재 페이지의 마지막 아이템 인덱스: (counter + 1) * itemsPerPage
+  //     // 예: 0 페이지 -> (0 + 1) * 10 = 10 번째 아이템까지
+  //     (counter + 1) * itemsPerPage
+  //   );
+  // }, [counter, sortedItems, itemsPerPage]); // counter, sortedItems, itemsPerPage가 변경될 때마다 재계산
 
   // startDate, endDate를 부모 컴포넌트에 전달
   useEffect(() => {

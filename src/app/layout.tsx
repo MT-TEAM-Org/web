@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import QueryProvider from "./_components/QueryProvider";
 
@@ -22,6 +21,7 @@ export default function RootLayout({
         <QueryProvider>
           <Gnb />
           {children}
+          <Footer />
         </QueryProvider>
       </body>
     </html>
