@@ -16,6 +16,19 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
     router.push(`/news/news-detail/${newsItem?.id}`);
   };
 
+  const changeCategory = (category?: string) => {
+    switch (category) {
+      case "BASEBALL":
+        return "야구";
+      case "FOOTBALL":
+        return "축구";
+      case "ESPORTS":
+        return "E스포츠";
+      default:
+        return "기타";
+    }
+  };
+
   return (
     <div
       className="min-w-[720px] min-h-[116px] flex justify-start gap-3 border-b border-[#FAFAFA] p-3 bg-[#FFFFFF] cursor-pointer"
@@ -38,8 +51,8 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
       </div>
 
       <div className="w-[524px] h-auto min-h-[90px] flex flex-col gap-1">
-        <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-center items-center justify-start">
-          <h1 className="font-bold text-[16px] leading-6 tracking-[-2%] text-[#181818]">
+        <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start">
+          <h1 className="font-bold text-[16px] leading-6 tracking-[-2%] text-[#181818] text-ellipsis overflow-hidden whitespace-nowrap">
             {newsItem?.title}
           </h1>
           <p className="font-medium text-[14px] leading-5 text-[#00ADEE]">
@@ -58,7 +71,7 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
 
         <div className="flex gap-1">
           <p className="font-bold text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
-            {newsItem?.category}
+            {changeCategory(newsItem?.category)}
           </p>
           <p className="font-medium text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
             {newsItem?.postDate}

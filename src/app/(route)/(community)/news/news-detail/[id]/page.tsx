@@ -30,6 +30,8 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         return "축구";
       case "ESPORTS":
         return "e스포츠";
+      default:
+        return "기타";
     }
   };
 
