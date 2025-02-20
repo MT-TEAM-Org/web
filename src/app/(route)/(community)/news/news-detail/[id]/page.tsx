@@ -62,10 +62,15 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     return diffMinutes > 0 ? `${diffMinutes}분 전` : "방금 전";
   };
 
-  const nextButtonStyle =
-    "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px]";
-  const topButtonStyle =
-    "min-w-[120px] h-[auto] min-h-[40px] flex items-center justify-center rounded-[5px] border-[1px] border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-[8px] font-[700] text-[14px] leading-[14px]";
+  const copyBtn = async () => {
+    try {
+      const url = window.location.href;
+      await navigator.clipboard.writeText(url);
+      alert("URL이 클립보드에 복사되었습니다!"); // 임시
+    } catch (err) {
+      alert("복사에 실패했습니다.");
+    }
+  };
 
   return (
     <>
@@ -133,7 +138,10 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
               기사 원문 보기
             </button>
             <div className="flex gap-2">
-              <button className="min-w-[138px] max-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] px-3 py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium">
+              <button
+                onClick={copyBtn}
+                className="min-w-[138px] max-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] px-3 py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium"
+              >
                 <Copy />
                 게시글 URL 복사
               </button>

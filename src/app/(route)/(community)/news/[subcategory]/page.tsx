@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { CommunityToolbar } from "../../_components/CommunityToolbar";
 import NewsPostItem from "../_components/NewsPostItem";
 import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 import { useParams } from "next/navigation";
 import NewsItem from "@/app/(route)/main/_components/newsItem";
+import { NewsTalkToolbar } from "../../_components/NewsTalkToolbar";
 
 export default function NewsPage() {
   const params = useParams();
@@ -23,7 +23,7 @@ export default function NewsPage() {
   return (
     <div className="flex justify-center bg-[#FAFAFA] mt-3.5">
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto">
-        <CommunityToolbar />
+        <NewsTalkToolbar />
         <div className="w-[720px]">
           {isLoading
             ? "Loading..."
