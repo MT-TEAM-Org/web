@@ -19,6 +19,7 @@ const useGetNewsDataList = (category?: string) => {
   return useQuery({
     queryKey: ["newsDataList", category || "all"],
     queryFn: () => fetchNewsDataList(category),
+    retry: 2,
   });
 };
 

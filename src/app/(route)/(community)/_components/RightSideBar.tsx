@@ -9,7 +9,7 @@ import RightNewsItem from "./RightNewsItem";
 
 export const RightSideBar = () => {
   const { data: newsData } = useGetNewsDataList();
-  const slicedNewsData = newsData?.slice(0, 5); //뉴스 데이터 임시로 4개만 불러오기
+  const slicedNewsData = newsData?.slice(0, 5); //뉴스 데이터 임시로 5개만 불러오기
 
   const scrollToTop = () => {
     window.scrollTo({
