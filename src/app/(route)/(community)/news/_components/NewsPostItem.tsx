@@ -107,8 +107,10 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
         </div>
 
         <div>
-          <p className="w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#424242]">
-            {/* {newsItem.comment} */}
+          <p className="w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#424242] overflow-hidden line-clamp-2">
+            컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+            컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+            컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
           </p>
         </div>
 

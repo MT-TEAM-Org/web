@@ -112,17 +112,17 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <hr />
           <div className="flex flex-col gap-3 mt-4">
             <Image
-              src={data?.thumbImg ? updatedImgUrl : "/"}
+              src={data?.thumbImg ? updatedImgUrl : "/Empty_news.png"}
               alt="News detail img"
               width={672}
               height={338}
               className="mb-3"
             />
-            <p className="font-[500] text-[16px] leading-6 text-[#424242]">
-              (엑스포츠뉴스 나승우 기자) 토트넘 홋스퍼가 손흥민의 귀중한
-              선제골을 지키지 못하고 아스널 원정에서 역전패를 당했다. 이날 명단
-              포함이 기대됐던 한국 유망주 양민혁은 직전 FA컵 경기에 이어 아예
-              명단 제외됐다. 토트...
+            <p className="font-[500] text-[16px] leading-6 text-[#424242] overflow-hidden line-clamp-2">
+              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
             </p>
           </div>
 
