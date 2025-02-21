@@ -8,28 +8,50 @@ import NewsItem from "../../main/_components/newsItem";
 import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 
 const Page = () => {
-  // 전체 데이터 불러오는 방법을 몰라서 임시로 야구 로 설정해뒀음. 수정필요
-  const { data, isLoading, isError } = useGetNewsDataList();
+  const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(
+    "DATE"
+  );
+  const [newsData, setNewsData] = useState([]);
 
-  console.log("NewsListData: ", data);
+  // 테스트 코드
+  useEffect(() => {
+    async function fetchNews() {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}api/news?size=10&page=1&category=BASEBALL&orderType=${orderType}`
+      );
+      const responseData = await response.json();
+      const newsListData = responseData.data.list.content;
+      console.log("newsListData: ", newsListData);
+      setNewsData(newsListData);
+    }
+    fetchNews();
+  }, [orderType]);
+
+  // 전체 데이터 불러오는 방법을 몰라서 임시로 야구 로 설정해뒀음. 수정필요
+  // const { data, isLoading, isError } = useGetNewsDataList();
+
+  // console.log("NewsListData: ", data);
 
   return (
     <div className="w-[720px] h-auto flex flex-col justify-start bg-[#FAFAFA] rounded-[5px] overflow-hidden">
       <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] bg-[#FFFFFF] mx-auto">
-        <NewsTalkToolbar data={data} />
+        <NewsTalkToolbar setOrderType={setOrderType} />
       </div>
       <div>
-        {isLoading ? (
+        {/* {isLoading ? (
           <p>Loading...</p>
         ) : isError ? (
           <p>Error...</p>
         ) : data.length === 0 ? (
           <EmptyNews />
         ) : (
-          data.map((newsItem: NewsItem) => (
+          newsData.map((newsItem: NewsItem) => (
             <NewsPostItem key={newsItem.id} newsItem={newsItem} />
           ))
-        )}
+        )} */}
+        {newsData.map((newsItem: NewsItem) => (
+          <NewsPostItem key={newsItem.id} newsItem={newsItem} />
+        ))}
       </div>
     </div>
   );

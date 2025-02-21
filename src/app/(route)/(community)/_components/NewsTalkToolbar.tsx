@@ -16,13 +16,9 @@ interface DropdownOption {
   value: string;
 }
 
-export const NewsTalkToolbar = ({ data }) => {
+export const NewsTalkToolbar = ({ setOrderType }) => {
   const [activeBtn, setActiveBtn] = useState<string>("일간");
   const selectRef = useRef<HTMLSelectElement>(null);
-
-  // 테스트
-
-  // 테스트
 
   const pagination = [
     { value: "1", label: "1" },
@@ -135,15 +131,21 @@ export const NewsTalkToolbar = ({ data }) => {
       </div>
       <div className="flex justify-between items-center p-[12px]">
         <div className="flex w-full items-center gap-[4px]">
-          <button className={`${buttonStyle} font-[700]`}>
+          <button
+            onClick={() => setOrderType("DATE")}
+            className={`${buttonStyle} font-[700]`}
+          >
             <Blue_outline_logo />
             최신순
           </button>
-          <button className={buttonStyle}>
+          <button onClick={() => setOrderType("VIEW")} className={buttonStyle}>
             <Red_outline_logo />
             인기순
           </button>
-          <button className={buttonStyle}>
+          <button
+            onClick={() => setOrderType("COMMENT")}
+            className={buttonStyle}
+          >
             <Mini_logo />
             댓글 많은 순
           </button>
