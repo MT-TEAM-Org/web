@@ -7,7 +7,7 @@ const EmptyNews = () => {
       <div className="w-[720px] h-[80px] flex flex-col gap-4 items-center py-[84px]">
         <Image
           src="/Empty_news.png"
-          alt="Preview_loading_image"
+          alt="Empty news"
           width={148.62}
           height={40}
         />

@@ -16,9 +16,13 @@ interface DropdownOption {
   value: string;
 }
 
-export const NewsTalkToolbar = () => {
+export const NewsTalkToolbar = ({ data }) => {
   const [activeBtn, setActiveBtn] = useState<string>("일간");
   const selectRef = useRef<HTMLSelectElement>(null);
+
+  // 테스트
+
+  // 테스트
 
   const pagination = [
     { value: "1", label: "1" },

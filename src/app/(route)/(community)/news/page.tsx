@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NewsTalkToolbar } from "../_components/NewsTalkToolbar";
 import EmptyNews from "./_components/EmptyNews";
 import NewsPostItem from "./_components/NewsPostItem";
@@ -16,7 +16,7 @@ const Page = () => {
   return (
     <div className="w-[720px] h-auto flex flex-col justify-start bg-[#FAFAFA] rounded-[5px] overflow-hidden">
       <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] bg-[#FFFFFF] mx-auto">
-        <NewsTalkToolbar />
+        <NewsTalkToolbar data={data} />
       </div>
       <div>
         {isLoading ? (
