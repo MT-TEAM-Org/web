@@ -58,7 +58,7 @@ const PostItem = () => {
     return `${parts[0]}.${parts[1]}.**.**`;
   };
   return (
-    <div className="flex flex-col items-center w-full]">
+    <div className="flex flex-col items-center w-full">
       {boardData?.map((data: BoardListItem, index: number) => (
         <div
           key={`${data.id}-${index}`}
