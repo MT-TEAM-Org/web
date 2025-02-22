@@ -2,6 +2,7 @@
 
 import useGetBoardData from "@/_hooks/getBoardData";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface BoardListItem {
@@ -60,7 +61,8 @@ const PostItem = () => {
   return (
     <div className="flex flex-col items-center w-full">
       {boardData?.map((data: BoardListItem, index: number) => (
-        <div
+        <Link
+          href={`${data.id}`}
           key={`${data.id}-${index}`}
           className="flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]"
         >
@@ -102,7 +104,7 @@ const PostItem = () => {
               </span>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
