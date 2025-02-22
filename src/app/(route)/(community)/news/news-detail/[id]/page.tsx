@@ -74,7 +74,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 w-[720px] min-h-[1051px] bg-white p-[24px] rounded-md mb-[16px]">
+      <div className="flex flex-col gap-4 w-[720px] h-auto bg-white p-[24px] rounded-md mb-[12px] shadow-sm">
         <div className="flex flex-col gap-2 max-w-[672px] min-h-[84px] mb-2 rounded-sm">
           <h1 className="w-[672px] max-h-[56px] font-[700] text-[18px] leading-[28px] text-[#303030]">
             {data?.title}
@@ -155,7 +155,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <div className="max-w-[672px] min-h-[48px]">
             <CommentBar data={data} />
 
-            <div className="max-w-full min-h-full">
+            <div className="max-w-full h-auto">
               <CommentContainer />
             </div>
           </div>
@@ -163,17 +163,17 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <PostNavigation />
         </div>
       </div>
-      <div>
+      <div className="shadow-md">
         <NewsTalkToolbar />
       </div>
-      <div className="w-[720px] min-h-[348px] rounded-b-[5px] rounded-bl-[5px] overflow-hidden">
+      <div className="w-[720px] min-h-[348px] rounded-b-[5px] rounded-bl-[5px] overflow-hidden shadow-md">
         {sliceNewsListData?.map((data: NewsItemType) => (
           <div key={data.id}>
             <NewsPostItem newsItem={data} />
           </div>
         ))}
       </div>
-      <div>
+      <div className="shadow-md">
         <SendCommentBox />
       </div>
     </>

@@ -16,7 +16,11 @@ interface DropdownOption {
   value: string;
 }
 
-export const NewsTalkToolbar = ({ setOrderType }) => {
+interface NewsTalkToolbarProps {
+  setOrderType?: (value: "DATE" | "COMMENT" | "VIEW") => void;
+}
+
+export const NewsTalkToolbar = ({ setOrderType }: NewsTalkToolbarProps) => {
   const [activeBtn, setActiveBtn] = useState<string>("일간");
   const selectRef = useRef<HTMLSelectElement>(null);
 

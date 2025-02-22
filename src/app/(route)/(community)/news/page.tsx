@@ -27,7 +27,7 @@ const Page = () => {
     fetchNews();
   }, [orderType]);
 
-  // 전체 데이터 불러오는 방법을 몰라서 임시로 야구 로 설정해뒀음. 수정필요
+  // 전체 데이터 불러오는 방법을 몰라서 임시로 야구로 설정. 수정필요
   // const { data, isLoading, isError } = useGetNewsDataList();
 
   // console.log("NewsListData: ", data);
