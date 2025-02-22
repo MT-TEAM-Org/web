@@ -2,6 +2,8 @@
 
 import useGetBoardDetail from "@/_hooks/getBoardDetail";
 
+//최신화 반영을 위한 임시 주석입니다.
+
 interface BoardDetailProps {
   boardId: string;
 }
