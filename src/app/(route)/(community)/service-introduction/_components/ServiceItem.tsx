@@ -4,16 +4,16 @@ import Image from "next/image";
 interface itemType {
   title: string;
   content: string;
-  imgNumber: number;
+  imgUrl: string;
 }
 
-const ServiceItem = ({ title, content, imgNumber }: itemType) => {
+const ServiceItem = ({ title, content, imgUrl }: itemType) => {
   return (
     <div className="min-w-[320px] min-h-[300px] rounded-[20px] shadow-md flex flex-col overflow-hidden">
       <div className="w-full h-full flex items-center justify-center">
         <div className="min-w-[140px] min-h-[140px] rounded-[99px] bg-white p-5 flex gap-[10px]">
           <Image
-            src={`/Service_feature_${imgNumber}.png`}
+            src={`/${imgUrl}.png`}
             alt="service features"
             width={100}
             height={100}

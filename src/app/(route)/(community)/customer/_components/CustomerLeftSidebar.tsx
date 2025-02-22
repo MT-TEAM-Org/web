@@ -1,10 +1,10 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const CustomerLeftSidebar = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
 
@@ -26,25 +26,21 @@ const CustomerLeftSidebar = () => {
     return currentCategory === boardCategory;
   };
 
-  const handleRoute = (path: string) => {
-    router.push(path);
-  };
-
   return (
     <div className="w-[160px] h-[260px]">
       <div className="w-full bg-[#FFFFFF]">
         {boardList.map((board) => (
-          <div
-            onClick={() => board.path && handleRoute(board.path)}
-            key={board.id}
-            className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
-              isCurrentPath(board.path)
-                ? "font-[700] text-[#00ADEE] bg-[#F8FDFF]"
-                : "font-[400] text-[#424242] bg-[#FFFFFF]"
-            }`}
-          >
-            <p>{board.name}</p>
-          </div>
+          <Link key={board.id} href={board.path}>
+            <div
+              className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
+                isCurrentPath(board.path)
+                  ? "font-[700] text-[#00ADEE] bg-[#F8FDFF]"
+                  : "font-[400] text-[#424242] bg-[#FFFFFF]"
+              }`}
+            >
+              <p>{board.name}</p>
+            </div>
+          </Link>
         ))}
       </div>
     </div>

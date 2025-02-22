@@ -12,6 +12,12 @@ import { CustomerTalkToolbar } from "../../_components/CustomerTalkToolbar";
 import FeedbackNoticeItem from "../../_components/FeedbackNoticeItem";
 import FeedbackItem from "../../_components/FeedbackItem";
 
+const infoItems = [
+  { label: "조회수", value: "161" },
+  { label: "댓글", value: "22" },
+  { label: "추천", value: "13" },
+];
+
 const page = () => {
   return (
     <>
@@ -28,18 +34,12 @@ const page = () => {
               <p className="font-bold">고객센터</p>
               <p>개선요청</p>
               <p>1분 전</p>
-              <div className="min-w-auto min-h-full flex gap-2">
-                <p className="font-bold">조회수</p>
-                <p>161</p>
-              </div>
-              <div className="min-w-auto min-h-full flex gap-2">
-                <p className="font-bold">댓글</p>
-                <p>22</p>
-              </div>
-              <div className="min-w-auto min-h-full flex gap-2">
-                <p className="font-bold">추천</p>
-                <p>13</p>
-              </div>
+              {infoItems.map((item, index) => (
+                <div key={index} className="min-w-auto min-h-full flex gap-2">
+                  <p className="font-bold">{item.label}</p>
+                  <p>{item.value}</p>
+                </div>
+              ))}
             </div>
             <div className="min-w-[235px] min-h-[20px] flex gap-1 text-[14px] leading-5 text-[#656565]">
               <p>스포츠가조아여여진심</p>
