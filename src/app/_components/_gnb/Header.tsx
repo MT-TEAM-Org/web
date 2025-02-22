@@ -15,7 +15,7 @@ export default function Header() {
   const headerButton = [
     {
       name: "개선요청",
-      link: "/improvement",
+      link: "/customer/feedback",
     },
     {
       name: "고객센터",

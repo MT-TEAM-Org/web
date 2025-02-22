@@ -21,7 +21,7 @@ const MainRightBar = () => {
   };
 
   return (
-    <div className="flex flex-col w-[298px] h-[668px] gap-6 bg-white rounded-lg">
+    <div className="flex flex-col w-[298px] min-h-[668px] gap-6 bg-white rounded-lg">
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px] h-auto">
         <button
           onClick={() => handleButtonStyle(true)}

@@ -4,16 +4,24 @@ import Single_logo_color from "@/app/_components/icon/Single_logo_color";
 
 interface CommentItemProps {
   className?: string;
+  bestComment?: boolean;
+  replyComment?: boolean;
   data?: {
     commentImg?: string;
     nestedComments?: string;
   };
 }
 
-const CommentItem = ({ className, data }: CommentItemProps) => {
+const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
+  const bestCommentStyle =
+    "max-w-full min-h-[132px] flex flex-col border-b border-[#FAFAFA] gap-3 p-3";
   return (
     <div
-      className={`max-w-full min-h-[132px] flex flex-col border-b border-[#FAFAFA] gap-3 p-3 ${className}`}
+      className={
+        bestComment
+          ? `${bestCommentStyle} bg-[#F8FDFF] ${className}`
+          : `${bestCommentStyle} ${className}`
+      }
     >
       {/* 목 데이터 */}
       <div className="flex justify-between">

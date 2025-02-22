@@ -8,6 +8,7 @@ import NewsItem from "../../main/_components/newsItem";
 import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 
 const Page = () => {
+  // 전체 데이터 불러오는 방법을 몰라서 임시로 야구 로 설정해뒀음. 수정필요
   const { data, isLoading, isError } = useGetNewsDataList();
 
   console.log("NewsListData: ", data);
