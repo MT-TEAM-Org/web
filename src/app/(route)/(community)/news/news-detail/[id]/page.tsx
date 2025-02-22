@@ -5,9 +5,6 @@ import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Share from "@/app/_components/icon/Share";
 import CommentContainer from "./_components/CommentContainer";
-import Arrow_down from "@/app/_components/icon/Arrow_down";
-import Arrow_up from "@/app/_components/icon/Arrow_up";
-import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
 import { NewsTalkToolbar } from "../../../_components/NewsTalkToolbar";
 import NewsPostItem from "../../_components/NewsPostItem";
 import Copy from "@/app/_components/icon/Copy";
@@ -16,6 +13,7 @@ import SendCommentBox from "../../../_components/SendCommentBox";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 import useGetNewsInfoData from "@/_hooks/useGetNewsInfoData";
+import PostNavigation from "../../../_components/PostNavigation";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
@@ -23,6 +21,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   console.log("data: ", data);
   const { data: newsListData } = useGetNewsDataList();
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
+  const updatedImgUrl = data?.thumbImg?.replace("type=w140", "type=w360"); // 뉴스 상세페이지 들어갔을때 이미지 화질 올리는 로직
 
   const changeCategory = (category: string) => {
     switch (category) {
@@ -32,7 +31,35 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         return "축구";
       case "ESPORTS":
         return "e스포츠";
+      default:
+        return "기타";
     }
+  };
+
+  // 뉴스 기사 올라온 시간 확인하는 로직
+  const changeDateAgo = (newsTime: string | undefined) => {
+    if (!newsTime) return "알 수 없음";
+
+    const newsDate = new Date(newsTime);
+    const now = new Date();
+
+    const diffMs = now.getTime() - newsDate.getTime(); // 현재 시간과 뉴스 시간의 차이를 밀리초 단위로 계산
+    const diffMinutes = Math.floor(diffMs / (1000 * 60)); // 밀리초 차이를 분 단위로 변환
+    const diffHours = Math.floor(diffMinutes / 60); // 분 차이를 시 단위로 변환
+    const diffDays = Math.floor(diffHours / 24); // 시 차이를 24시간 단위로 변환하여 일 수 계산
+
+    // 24시간 이상인 경우 일 단위로 표시
+    if (diffDays > 0) {
+      return `${diffDays}일 전`;
+    }
+
+    // 1시간 이상 24시간 미만인 경우 시, 분 단위로 표시
+    if (diffHours > 0) {
+      return `${diffHours}시간 전`;
+    }
+
+    // 1시간 미만인 경우 분 단위로 표시
+    return diffMinutes > 0 ? `${diffMinutes}분 전` : "방금 전";
   };
 
   const nextButtonStyle =
@@ -55,7 +82,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                   {changeCategory(data?.category)}
                 </p>
                 <p className="font-medium text-[14px] leading-5">
-                  {data?.postDate}
+                  {changeDateAgo(data?.postDate)}
                 </p>
               </div>
               <div className="flex gap-1">
@@ -80,7 +107,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <hr />
           <div className="flex flex-col gap-3 mt-4">
             <Image
-              src={data?.thumbImg ? data?.thumbImg : "/Fake_newsInfo.png"}
+              src={data?.thumbImg ? updatedImgUrl : "/"}
               alt="News detail img"
               width={672}
               height={338}
@@ -125,28 +152,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             </div>
           </div>
 
-          <div className="flex justify-between">
-            <div className="flex gap-2">
-              <button className={nextButtonStyle}>
-                <Arrow_up />
-                이전글
-              </button>
-              <button className={nextButtonStyle}>
-                <Arrow_down />
-                다음글
-              </button>
-            </div>
-            <div className="flex gap-2">
-              <button className={topButtonStyle}>
-                <Arrow_up />
-                댓글 맨위로
-              </button>
-              <button className={topButtonStyle}>
-                <Double_arrow_up />
-                게시글 맨위로
-              </button>
-            </div>
-          </div>
+          <PostNavigation />
         </div>
       </div>
       <div>

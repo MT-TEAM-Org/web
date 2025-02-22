@@ -44,8 +44,8 @@ const LiveChat = () => {
           <p>1빠 채팅을 날려볼까요?</p>
         </div>
         <div className="w-full max-w-[328px] min-h-[52px] pt-3 bg-[#FFFFFF]">
-          <div className="w-full max-w-[328px] min-h-[40px] flex gap-2">
-            <div className="w-[40px] h-[40px] rounded-[5px] border py-4 flex gap-[10px] border-[#EEEEE] items-center justify-center">
+          <div className="w-full h-auto flex gap-2">
+            <div className="w-[40px] h-[40px] rounded-[5px] border px-4 flex gap-[10px] border-[#EEEEE] items-center justify-center">
               <Plus />
             </div>
             <input
@@ -53,8 +53,9 @@ const LiveChat = () => {
               className="w-full max-w-[232px] h-[40px] rounded-[5px] border px-4 py-3 flex gap-4"
               placeholder="플하~ 1빠"
             />
-            <div className="w-[40px] h-[40px] rounded-[5px] border px-4 flex gap-[10px] border-[#EEEEEE] items-center justify-center">
-              <Send_icon />
+            <div className="w-[40px] h-[40px] rounded-[5px] border px-4 flex gap-[10px] border-[#EEEEE] items-center justify-center">
+              <Send_icon width="24" height="24" />
+              {/* 도움이 필요합니다.. */}
             </div>
           </div>
         </div>

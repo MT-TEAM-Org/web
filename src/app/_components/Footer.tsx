@@ -4,23 +4,23 @@ export default function Footer() {
   const footerObject = [
     {
       name: "서비스 소개",
-      link: "",
+      link: "/service-introduction",
     },
     {
       name: "개선요청",
-      link: "",
+      link: "/customer/feedback",
     },
     {
       name: "공지사항",
-      link: "",
+      link: "/customer",
     },
     {
       name: "이용약관",
-      link: "",
+      link: "/customer/terms",
     },
     {
       name: "개인정보처리방침",
-      link: "",
+      link: "/customer/privacy-policy",
     },
   ];
 
@@ -34,7 +34,7 @@ export default function Footer() {
           <LogoWhite />
         </div>
         <div className="flex justify-between gap-[24px]">
-          <div className="flex flex-col jutify-around gap-[24px]">
+          <div className="flex flex-col justify-around gap-[24px]">
             <p className="font-medium text-[24px] leading-[38px]">
               열정적으로 응원하고 서로를 존중하며
               <br />

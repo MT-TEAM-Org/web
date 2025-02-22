@@ -19,6 +19,7 @@ const useGetNewsInfoData = (id: string) => {
   return useQuery({
     queryKey: ["getNewsInfo", id],
     queryFn: () => getNewsItemInfo({ id }),
+    retry: 1,
   });
 };
 
