@@ -15,7 +15,6 @@ interface DropdownOption {
   label: string;
   value: string;
 }
-
 interface NewsTalkToolbarProps {
   setOrderType?: (value: "DATE" | "COMMENT" | "VIEW") => void;
 }

@@ -11,6 +11,9 @@ const Page = () => {
   const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(
     "DATE"
   );
+  const [category, setCategory] = useState<"BASEBALL" | "FOOTBALL" | "ESPORTS">(
+    "BASEBALL"
+  );
   const [newsData, setNewsData] = useState([]);
 
   // 테스트 코드
