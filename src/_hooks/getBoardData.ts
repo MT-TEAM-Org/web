@@ -34,7 +34,7 @@ const getBoardData = async (data: GetBoardData) => {
 const useGetBoardData = (data: GetBoardData) =>
   useQuery({
     queryFn: () => getBoardData(data),
-    queryKey: ["board", data],
+    queryKey: ["board", "list", data],
     retry: 1,
     enabled: !!data.boardType,
     select: (data) => data.data.list.content,
