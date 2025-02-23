@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
@@ -18,14 +18,19 @@ interface DropdownOption {
 
 interface NewsTalkToolbarProps {
   setOrderType: (value: "DATE" | "COMMENT" | "VIEW") => void;
+  callInputValue?: (value: string) => void;
 }
 
-export const NewsTalkToolbar = ({ setOrderType }: NewsTalkToolbarProps) => {
+export const NewsTalkToolbar = ({
+  setOrderType,
+  callInputValue,
+}: NewsTalkToolbarProps) => {
   const [activeBtn, setActiveBtn] = useState<string>("일간");
   const [activeSorted, setActiveSorted] = useState<"DATE" | "COMMENT" | "VIEW">(
     "DATE"
   );
   const selectRef = useRef<HTMLSelectElement>(null);
+  const [inputValue, setInputValue] = useState("");
 
   const pagination = [
     { value: "1", label: "1" },
@@ -57,6 +62,11 @@ export const NewsTalkToolbar = ({ setOrderType }: NewsTalkToolbarProps) => {
   const handleSortChange = (value: "DATE" | "COMMENT" | "VIEW") => {
     setActiveSorted(value);
     setOrderType(value);
+  };
+
+  const searchInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    callInputValue(e.target.value);
   };
 
   const buttonStyle =
@@ -136,6 +146,8 @@ export const NewsTalkToolbar = ({ setOrderType }: NewsTalkToolbarProps) => {
               type="text"
               className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
               placeholder="검색어를 입력해주세요."
+              value={inputValue}
+              onChange={searchInput}
             />
             <button className="absolute top-2 left-[12px]">
               <Small_Search />
