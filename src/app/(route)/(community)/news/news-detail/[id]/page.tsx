@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Share from "@/app/_components/icon/Share";
@@ -11,15 +11,18 @@ import Copy from "@/app/_components/icon/Copy";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import SendCommentBox from "../../../_components/SendCommentBox";
 import { NewsItemType } from "@/app/_constants/newsItemType";
-import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 import useGetNewsInfoData from "@/_hooks/useGetNewsInfoData";
 import PostNavigation from "../../../_components/PostNavigation";
+import useSortedNewsDataList from "@/_hooks/useSortedPosts";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
+  const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(
+    "DATE"
+  );
   const { id } = use(params);
   const { data } = useGetNewsInfoData(id);
   console.log("data: ", data);
-  const { data: newsListData } = useGetNewsDataList();
+  const { data: newsListData } = useSortedNewsDataList({ orderType });
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
   const updatedImgUrl = data?.thumbImg?.replace("type=w140", "type=w360"); // 뉴스 상세페이지 들어갔을때 이미지 화질 올리는 로직
 
@@ -164,7 +167,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </div>
       <div className="shadow-md">
-        <NewsTalkToolbar />
+        <NewsTalkToolbar setOrderType={setOrderType} />
       </div>
       <div className="w-[720px] min-h-[348px] rounded-b-[5px] rounded-bl-[5px] overflow-hidden shadow-md">
         {sliceNewsListData?.map((data: NewsItemType) => (

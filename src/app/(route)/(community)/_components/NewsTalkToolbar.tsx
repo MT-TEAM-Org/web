@@ -15,8 +15,9 @@ interface DropdownOption {
   label: string;
   value: string;
 }
+
 interface NewsTalkToolbarProps {
-  setOrderType?: (value: "DATE" | "COMMENT" | "VIEW") => void;
+  setOrderType: (value: "DATE" | "COMMENT" | "VIEW") => void;
 }
 
 export const NewsTalkToolbar = ({ setOrderType }: NewsTalkToolbarProps) => {
