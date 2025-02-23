@@ -22,7 +22,8 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   const { data } = useGetNewsInfoData(id);
   console.log("data: ", data);
-  const { data: newsListData } = useSortedNewsDataList({ orderType });
+  const [pageNum, setPageNum] = useState(1);
+  const { data: newsListData } = useSortedNewsDataList({ orderType, pageNum });
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
   const updatedImgUrl = data?.thumbImg?.replace("type=w140", "type=w360"); // 뉴스 상세페이지 들어갔을때 이미지 화질 올리는 로직
 
@@ -73,6 +74,10 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     } catch (err) {
       alert("복사에 실패했습니다.");
     }
+  };
+
+  const onPageChange = (newPage: string) => {
+    setPageNum(Number(newPage));
   };
 
   return (
@@ -167,7 +172,10 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </div>
       <div className="shadow-md">
-        <NewsTalkToolbar setOrderType={setOrderType} />
+        <NewsTalkToolbar
+          setOrderType={setOrderType}
+          onPageChange={onPageChange}
+        />
       </div>
       <div className="w-[720px] min-h-[348px] rounded-b-[5px] rounded-bl-[5px] overflow-hidden shadow-md">
         {sliceNewsListData?.map((data: NewsItemType) => (

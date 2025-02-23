@@ -11,11 +11,19 @@ const Page = () => {
   const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(
     "DATE"
   );
+  const [pageNum, setPageNum] = useState(1);
 
   // 전체 데이터 불러오는 방법을 몰라서 임시로 야구로 설정. 수정필요
-  const { data, isLoading, isError } = useSortedNewsDataList({ orderType });
+  const { data, isLoading, isError } = useSortedNewsDataList({
+    orderType,
+    pageNum,
+  });
 
   console.log("NewsListData: ", data);
+
+  const onPageChange = (newPage: string) => {
+    setPageNum(Number(newPage));
+  };
 
   // 테스트 코드
   const [input, setInput] = useState("");
@@ -29,6 +37,7 @@ const Page = () => {
       <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] bg-[#FFFFFF] mx-auto">
         <NewsTalkToolbar
           setOrderType={setOrderType}
+          onPageChange={onPageChange}
           callInputValue={callInputValue}
         />
       </div>

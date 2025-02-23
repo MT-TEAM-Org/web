@@ -18,11 +18,13 @@ interface DropdownOption {
 
 interface NewsTalkToolbarProps {
   setOrderType: (value: "DATE" | "COMMENT" | "VIEW") => void;
+  onPageChange: (page: string) => void;
   callInputValue?: (value: string) => void;
 }
 
 export const NewsTalkToolbar = ({
   setOrderType,
+  onPageChange,
   callInputValue,
 }: NewsTalkToolbarProps) => {
   const [activeBtn, setActiveBtn] = useState<string>("일간");
@@ -30,6 +32,7 @@ export const NewsTalkToolbar = ({
     "DATE"
   );
   const selectRef = useRef<HTMLSelectElement>(null);
+  const [pageNum, setPageNum] = useState(1);
   const [inputValue, setInputValue] = useState("");
 
   const pagination = [
@@ -203,6 +206,7 @@ export const NewsTalkToolbar = ({
                 className={`${pageButtonStyle} ${
                   page.value === "1" && "font-[700]"
                 } text-[14px] leading-[20px] text-[#424242]`}
+                onClick={() => onPageChange(page.label)}
               >
                 {page.label}
               </button>
