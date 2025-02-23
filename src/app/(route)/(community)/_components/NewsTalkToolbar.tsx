@@ -22,6 +22,9 @@ interface NewsTalkToolbarProps {
 
 export const NewsTalkToolbar = ({ setOrderType }: NewsTalkToolbarProps) => {
   const [activeBtn, setActiveBtn] = useState<string>("일간");
+  const [activeSorted, setActiveSorted] = useState<"DATE" | "COMMENT" | "VIEW">(
+    "DATE"
+  );
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const pagination = [
@@ -37,7 +40,6 @@ export const NewsTalkToolbar = ({ setOrderType }: NewsTalkToolbarProps) => {
     { label: "제목", value: "title" },
     { label: "내용", value: "content" },
     { label: "댓글", value: "comment" },
-    { label: "작성자", value: "writer" },
   ];
 
   const handleDivClick = () => {
@@ -52,8 +54,16 @@ export const NewsTalkToolbar = ({ setOrderType }: NewsTalkToolbarProps) => {
     console.log(value);
   };
 
+  const handleSortChange = (value: "DATE" | "COMMENT" | "VIEW") => {
+    setActiveSorted(value);
+    setOrderType(value);
+  };
+
   const buttonStyle =
-    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
+    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] border-[#DBDBDB]";
+
+  const activeSortedStyle =
+    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] font-[700] border-[#424242]";
 
   const pageButtonStyle =
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
@@ -136,19 +146,28 @@ export const NewsTalkToolbar = ({ setOrderType }: NewsTalkToolbarProps) => {
       <div className="flex justify-between items-center p-[12px]">
         <div className="flex w-full items-center gap-[4px]">
           <button
-            onClick={() => setOrderType("DATE")}
-            className={`${buttonStyle} font-[700]`}
+            onClick={() => handleSortChange("DATE")}
+            className={
+              activeSorted === "DATE" ? activeSortedStyle : buttonStyle
+            }
           >
             <Blue_outline_logo />
             최신순
           </button>
-          <button onClick={() => setOrderType("VIEW")} className={buttonStyle}>
+          <button
+            onClick={() => handleSortChange("VIEW")}
+            className={
+              activeSorted === "VIEW" ? activeSortedStyle : buttonStyle
+            }
+          >
             <Red_outline_logo />
             인기순
           </button>
           <button
-            onClick={() => setOrderType("COMMENT")}
-            className={buttonStyle}
+            onClick={() => handleSortChange("COMMENT")}
+            className={
+              activeSorted === "COMMENT" ? activeSortedStyle : buttonStyle
+            }
           >
             <Mini_logo />
             댓글 많은 순
