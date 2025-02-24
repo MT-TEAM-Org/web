@@ -231,7 +231,9 @@ export const NewsTalkToolbar = ({
               <button
                 key={page.value}
                 className={`${pageButtonStyle} ${
-                  page.value === currentPage ? "font-[700]" : ""
+                  page.value === currentPage
+                    ? "font-[700] border border-[#424242]"
+                    : ""
                 } text-[14px] leading-[20px] text-[#424242]`}
                 onClick={() => {
                   onPageChange(page.label);
