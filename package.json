@@ -26,6 +26,7 @@
     "@tiptap/starter-kit": "^2.11.5",
     "axios": "^1.7.9",
     "cheerio": "^1.0.0",
+    "html-react-parser": "^5.2.2",
     "jwt-decode": "^4.0.0",
     "link-preview-js": "^3.0.13",
     "lucide-react": "^0.474.0",
