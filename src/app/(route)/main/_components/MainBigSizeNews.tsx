@@ -14,6 +14,8 @@ const MainBigSizeNews = () => {
     "type=w410"
   );
 
+  console.log(mainPageData);
+
   const handleToNewsInfo = () => {
     router.push(`/news/news-detail/${mainPageData?.id}`);
   };
@@ -24,8 +26,8 @@ const MainBigSizeNews = () => {
       onClick={handleToNewsInfo}
     >
       <Image
-        src={mainPageData?.thumbImg ? updatedImgUrl : "/mainNews_fake.png"}
-        // 목 데이터
+        src={mainPageData?.thumbImg ? updatedImgUrl : "/Empty_news.png"}
+        // 임시 이미지, 스켈레톤 UI 들어오면 지울 예정
         alt="main news"
         width={410}
         height={236}
@@ -35,8 +37,10 @@ const MainBigSizeNews = () => {
         <h3 className="w-[410px] h-[28px] font-bold text-[18px] leading-7 text-[#FFFFFF] tracking-[0.04em] text-ellipsis overflow-hidden whitespace-nowrap">
           {isLoading ? "Loading..." : mainPageData?.title}
         </h3>
-        <p className="w-[410px] h-[40px] opacity-90 font-medium text-[14px] leading-5 text-[#FFFFFF]">
-          {isLoading ? "Loading..." : mainPageData?.title}
+        <p className="w-[410px] h-[40px] opacity-90 font-medium text-[14px] leading-5 text-[#FFFFFF] line-clamp-2 overflow-hidden">
+          컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+          컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+          컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
         </p>
       </div>
     </div>
