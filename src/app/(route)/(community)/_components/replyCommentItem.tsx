@@ -1,15 +1,12 @@
 import React from "react";
 import Image from "next/image";
 import Single_logo_color from "@/app/_components/icon/Single_logo_color";
-import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 
 const ReplyCommentItem = () => {
   return (
     <div className="w-full max-w-[1280px] min-h-[112px] border-b p-3 flex gap-3 border-[#FAFAFA] bg-[#FAFAFA]">
       <div className="w-full max-w-[1256px] min-h-[88px] flex gap-3">
-        <div className="w-[24px] h-[24px]">
-          <Arrow_reply />
-        </div>
+        <div className="w-[24px] h-[24px] bg-black"></div>
         <div className="w-full max-w-[1220px] min-h-[88px] flex flex-col gap-3">
           <div className="w-full min-h-[52px] flex flex-col gap-3">
             <div className="flex justify-between">
