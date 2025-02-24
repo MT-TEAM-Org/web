@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
@@ -19,20 +19,17 @@ interface DropdownOption {
 interface NewsTalkToolbarProps {
   setOrderType: (value: "DATE" | "COMMENT" | "VIEW") => void;
   onPageChange: (page: string) => void;
-  callInputValue?: (value: string) => void;
 }
 
 export const NewsTalkToolbar = ({
   setOrderType,
   onPageChange,
-  callInputValue,
 }: NewsTalkToolbarProps) => {
   const [activeBtn, setActiveBtn] = useState<string>("일간");
   const [activeSorted, setActiveSorted] = useState<"DATE" | "COMMENT" | "VIEW">(
     "DATE"
   );
   const selectRef = useRef<HTMLSelectElement>(null);
-  const [pageNum, setPageNum] = useState(1);
   const [inputValue, setInputValue] = useState("");
 
   const pagination = [
@@ -69,7 +66,31 @@ export const NewsTalkToolbar = ({
 
   const searchInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-    callInputValue(e.target.value);
+  };
+
+  const [currentPage, setCurrentPage] = useState("1");
+
+  useEffect(() => {
+    onPageChange(currentPage);
+    console.log("현재페이지: ", currentPage);
+  }, [currentPage]);
+
+  const changedPage = (type: "prev" | "next" | "doublePrev" | "doubleNext") => {
+    const currentPageNum = Number(currentPage);
+
+    if (type === "prev" && currentPageNum > 1) {
+      const prevPage = (currentPageNum - 1).toString();
+      setCurrentPage(prevPage);
+    } else if (type === "next" && currentPageNum < 5) {
+      const nextPage = (currentPageNum + 1).toString();
+      setCurrentPage(nextPage);
+    } else if (type === "doublePrev" && currentPageNum > 2) {
+      const prevPage = (currentPageNum - 2).toString();
+      setCurrentPage(prevPage);
+    } else if (type === "doubleNext" && currentPageNum < 4) {
+      const nextPage = (currentPageNum + 2).toString();
+      setCurrentPage(nextPage);
+    }
   };
 
   const buttonStyle =
@@ -191,10 +212,16 @@ export const NewsTalkToolbar = ({
 
         <div className="flex">
           <div className="flex items-center gap-[10px]">
-            <button className={pageButtonStyle}>
+            <button
+              className={pageButtonStyle}
+              onClick={() => changedPage("doublePrev")}
+            >
               <Pg_double_left />
             </button>
-            <button className={pageButtonStyle}>
+            <button
+              className={pageButtonStyle}
+              onClick={() => changedPage("prev")}
+            >
               <Pg_left />
             </button>
           </div>
@@ -204,9 +231,12 @@ export const NewsTalkToolbar = ({
               <button
                 key={page.value}
                 className={`${pageButtonStyle} ${
-                  page.value === "1" && "font-[700]"
+                  page.value === currentPage ? "font-[700]" : ""
                 } text-[14px] leading-[20px] text-[#424242]`}
-                onClick={() => onPageChange(page.label)}
+                onClick={() => {
+                  onPageChange(page.label);
+                  setCurrentPage(page.label);
+                }}
               >
                 {page.label}
               </button>
@@ -214,10 +244,16 @@ export const NewsTalkToolbar = ({
           </div>
 
           <div className="flex items-center gap-[10px]">
-            <button className={pageButtonStyle}>
+            <button
+              className={pageButtonStyle}
+              onClick={() => changedPage("next")}
+            >
               <Pg_right />
             </button>
-            <button className={pageButtonStyle}>
+            <button
+              className={pageButtonStyle}
+              onClick={() => changedPage("doubleNext")}
+            >
               <Pg_double_right />
             </button>
           </div>
