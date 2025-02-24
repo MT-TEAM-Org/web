@@ -21,7 +21,6 @@ export const RightSideBar = () => {
   };
 
   useEffect(() => {
-    // handleToPage();
     console.log("RightSideBar Page: ", currentPage);
   }, [currentPage]);
 
