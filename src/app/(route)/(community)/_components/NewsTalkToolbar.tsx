@@ -31,6 +31,7 @@ export const NewsTalkToolbar = ({
   );
   const selectRef = useRef<HTMLSelectElement>(null);
   const [inputValue, setInputValue] = useState("");
+  const [currentPage, setCurrentPage] = useState("1");
 
   const pagination = [
     { value: "1", label: "1" },
@@ -68,28 +69,36 @@ export const NewsTalkToolbar = ({
     setInputValue(e.target.value);
   };
 
-  const [currentPage, setCurrentPage] = useState("1");
-
   useEffect(() => {
     onPageChange(currentPage);
     console.log("현재페이지: ", currentPage);
   }, [currentPage]);
 
-  const changedPage = (type: "prev" | "next" | "doublePrev" | "doubleNext") => {
+  const handlePageChange = (
+    type: "prev" | "next" | "doublePrev" | "doubleNext"
+  ) => {
     const currentPageNum = Number(currentPage);
+    let newsPage = currentPageNum;
 
-    if (type === "prev" && currentPageNum > 1) {
-      const prevPage = (currentPageNum - 1).toString();
-      setCurrentPage(prevPage);
-    } else if (type === "next" && currentPageNum < 5) {
-      const nextPage = (currentPageNum + 1).toString();
-      setCurrentPage(nextPage);
-    } else if (type === "doublePrev" && currentPageNum > 2) {
-      const prevPage = (currentPageNum - 2).toString();
-      setCurrentPage(prevPage);
-    } else if (type === "doubleNext" && currentPageNum < 4) {
-      const nextPage = (currentPageNum + 2).toString();
-      setCurrentPage(nextPage);
+    switch (type) {
+      case "prev":
+        if (currentPageNum > 1) newsPage = currentPageNum - 1;
+        break;
+      case "next":
+        if (currentPageNum < 5) newsPage = currentPageNum + 1;
+        break;
+      case "doublePrev":
+        if (currentPageNum > 2) newsPage = currentPageNum - 2;
+        break;
+      case "doubleNext":
+        if (currentPageNum < 4) newsPage = currentPageNum + 2;
+        break;
+      default:
+        return;
+    }
+
+    if (newsPage !== currentPageNum) {
+      setCurrentPage(newsPage.toString());
     }
   };
 
@@ -214,13 +223,13 @@ export const NewsTalkToolbar = ({
           <div className="flex items-center gap-[10px]">
             <button
               className={pageButtonStyle}
-              onClick={() => changedPage("doublePrev")}
+              onClick={() => handlePageChange("doublePrev")}
             >
               <Pg_double_left />
             </button>
             <button
               className={pageButtonStyle}
-              onClick={() => changedPage("prev")}
+              onClick={() => handlePageChange("prev")}
             >
               <Pg_left />
             </button>
@@ -248,13 +257,13 @@ export const NewsTalkToolbar = ({
           <div className="flex items-center gap-[10px]">
             <button
               className={pageButtonStyle}
-              onClick={() => changedPage("next")}
+              onClick={() => handlePageChange("next")}
             >
               <Pg_right />
             </button>
             <button
               className={pageButtonStyle}
-              onClick={() => changedPage("doubleNext")}
+              onClick={() => handlePageChange("doubleNext")}
             >
               <Pg_double_right />
             </button>
