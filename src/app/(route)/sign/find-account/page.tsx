@@ -1,43 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FindId from "./_components/FindId";
 import FindPassword from "./_components/FindPassword";
-import { useForm } from "react-hook-form";
 
 interface Tabs {
   id: "findId" | "findPassword";
   label: string;
 }
 
-interface FormData {
-  tel: string;
-  email: string;
-}
-
 const FindAccount = () => {
   const [findAccountState, setFindAccountState] = useState<
     "findId" | "findPassword"
   >("findId");
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>();
 
   const tabs: Tabs[] = [
     { id: "findId", label: "아이디 찾기" },
     { id: "findPassword", label: "비밀번호 찾기" },
   ];
-
-  useEffect(() => {
-    reset();
-  }, [findAccountState]);
-
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-  };
 
   const findIdPasswordStyle =
     "w-1/2 flex items-center justify-center rounded-t-[5px] cursor-pointer border-gray-600 border-[#303030] text-[#424242]";
@@ -59,13 +39,9 @@ const FindAccount = () => {
         ))}
       </div>
 
-      <form className="w-full mt-[24px]" onSubmit={handleSubmit(onSubmit)}>
-        {findAccountState === "findId" ? (
-          <FindId register={register} />
-        ) : (
-          <FindPassword register={register} />
-        )}
-      </form>
+      <div className="w-full mt-[24px]">
+        {findAccountState === "findId" ? <FindId /> : <FindPassword />}
+      </div>
     </div>
   );
 };
