@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Share from "@/app/_components/icon/Share";
@@ -11,15 +11,19 @@ import Copy from "@/app/_components/icon/Copy";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import SendCommentBox from "../../../_components/SendCommentBox";
 import { NewsItemType } from "@/app/_constants/newsItemType";
-import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 import useGetNewsInfoData from "@/_hooks/useGetNewsInfoData";
 import PostNavigation from "../../../_components/PostNavigation";
+import useSortedNewsDataList from "@/_hooks/useSortedPosts";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
+  const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(
+    "DATE"
+  );
   const { id } = use(params);
   const { data } = useGetNewsInfoData(id);
   console.log("data: ", data);
-  const { data: newsListData } = useGetNewsDataList();
+  const [pageNum, setPageNum] = useState(1);
+  const { data: newsListData } = useSortedNewsDataList({ orderType, pageNum });
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
   const updatedImgUrl = data?.thumbImg?.replace("type=w140", "type=w360"); // 뉴스 상세페이지 들어갔을때 이미지 화질 올리는 로직
 
@@ -62,14 +66,23 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     return diffMinutes > 0 ? `${diffMinutes}분 전` : "방금 전";
   };
 
-  const nextButtonStyle =
-    "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px]";
-  const topButtonStyle =
-    "min-w-[120px] h-[auto] min-h-[40px] flex items-center justify-center rounded-[5px] border-[1px] border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-[8px] font-[700] text-[14px] leading-[14px]";
+  const copyBtn = async () => {
+    try {
+      const url = window.location.href;
+      await navigator.clipboard.writeText(url);
+      alert("URL이 클립보드에 복사되었습니다!"); // 임시
+    } catch (err) {
+      alert("복사에 실패했습니다.");
+    }
+  };
+
+  const onPageChange = (newPage: string) => {
+    setPageNum(Number(newPage));
+  };
 
   return (
     <>
-      <div className="flex flex-col gap-4 w-[720px] min-h-[1051px] bg-white p-[24px] rounded-md mb-[16px]">
+      <div className="flex flex-col gap-4 w-[720px] h-auto bg-white p-[24px] rounded-md mb-[12px] shadow-sm">
         <div className="flex flex-col gap-2 max-w-[672px] min-h-[84px] mb-2 rounded-sm">
           <h1 className="w-[672px] max-h-[56px] font-[700] text-[18px] leading-[28px] text-[#303030]">
             {data?.title}
@@ -107,17 +120,17 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <hr />
           <div className="flex flex-col gap-3 mt-4">
             <Image
-              src={data?.thumbImg ? updatedImgUrl : "/"}
+              src={data?.thumbImg ? updatedImgUrl : "/Empty_news.png"}
               alt="News detail img"
               width={672}
               height={338}
               className="mb-3"
             />
-            <p className="font-[500] text-[16px] leading-6 text-[#424242]">
-              (엑스포츠뉴스 나승우 기자) 토트넘 홋스퍼가 손흥민의 귀중한
-              선제골을 지키지 못하고 아스널 원정에서 역전패를 당했다. 이날 명단
-              포함이 기대됐던 한국 유망주 양민혁은 직전 FA컵 경기에 이어 아예
-              명단 제외됐다. 토트...
+            <p className="font-[500] text-[16px] leading-6 text-[#424242] overflow-hidden line-clamp-2">
+              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
             </p>
           </div>
 
@@ -133,7 +146,10 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
               기사 원문 보기
             </button>
             <div className="flex gap-2">
-              <button className="min-w-[138px] max-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] px-3 py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium">
+              <button
+                onClick={copyBtn}
+                className="min-w-[138px] max-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] px-3 py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium"
+              >
                 <Copy />
                 게시글 URL 복사
               </button>
@@ -147,7 +163,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <div className="max-w-[672px] min-h-[48px]">
             <CommentBar data={data} />
 
-            <div className="max-w-full min-h-full">
+            <div className="max-w-full h-auto">
               <CommentContainer />
             </div>
           </div>
@@ -155,17 +171,20 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <PostNavigation />
         </div>
       </div>
-      <div>
-        <NewsTalkToolbar />
+      <div className="shadow-md">
+        <NewsTalkToolbar
+          setOrderType={setOrderType}
+          onPageChange={onPageChange}
+        />
       </div>
-      <div className="w-[720px] min-h-[348px] rounded-b-[5px] rounded-bl-[5px] overflow-hidden">
+      <div className="w-[720px] min-h-[348px] rounded-b-[5px] rounded-bl-[5px] overflow-hidden shadow-md">
         {sliceNewsListData?.map((data: NewsItemType) => (
           <div key={data.id}>
             <NewsPostItem newsItem={data} />
           </div>
         ))}
       </div>
-      <div>
+      <div className="shadow-md">
         <SendCommentBox />
       </div>
     </>
