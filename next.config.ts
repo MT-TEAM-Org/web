@@ -2,9 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: false,
-  images: {
-    domains: ["imgnews.pstatic.net"],
-  },
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -23,7 +20,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-
 };
 
 export default nextConfig;

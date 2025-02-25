@@ -1,12 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const NoticeItem = ({ number }: { number: number }) => {
   return (
     <Link href={"/customer/info"}>
-      <div className="w-full min-h-[66px] border-b p-3 flex gap-3 border-[#FAFAFA] items-center justify-start cursor-pointer">
+      <div className="w-full min-h-[66px] border-b p-3 flex gap-3 border-[#FAFAFA] items-center justify-start cursor-pointer hover:bg-[#F8FDFF]">
         <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-[#FAFAFA] items-center justify-center">
           <p className="font-bold text-[14px] leading-5">{number}</p>
         </div>

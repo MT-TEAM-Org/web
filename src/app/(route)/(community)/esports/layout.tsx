@@ -14,13 +14,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Banner url={"eSports_banner.png"} />
       <div className="mt-[20px] max-w-[1200px] flex justify-center mx-auto gap-[10px]">
         <div className="w-[160px] min-h-[364px]">
-          <div className="">
+          <div>
             <LeftSidebar isEsports />
           </div>
         </div>
         <div className="flex-1 max-w-[720px]">{children}</div>
         <div className="flex-1">
-          <div className="s">
+          <div>
             <RightSideBar />
           </div>
         </div>
