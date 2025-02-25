@@ -2,8 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import AccountHelp from "../../_components/AccountHelp";
-import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import useFindId from "@/_hooks/useFindId";
 import { useState } from "react";
 import ResultFindId from "./ResultFindId";
 
@@ -16,19 +15,6 @@ interface FindIdResponse {
   email: string;
   type: "LOCAL" | "KAKAO" | "NAVER" | "GOOGLE | DISCORD";
 }
-
-const fetchFindId = async (data: FormData) => {
-  const response = await axios.post(
-    `${process.env.NEXT_PUBLIC_API_URL}api/me/find-id?phoneNumber=${data.tel}`
-  );
-  return response.data;
-};
-
-const useFindId = () => {
-  return useMutation({
-    mutationFn: (data: FormData) => fetchFindId(data),
-  });
-};
 
 const FindId = () => {
   const {
