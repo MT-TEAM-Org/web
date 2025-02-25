@@ -80,26 +80,25 @@ export const NewsTalkToolbar = ({
     const currentPageNum = Number(currentPage);
     let newsPage = currentPageNum;
 
-    switch (type) {
-      case "prev":
-        if (currentPageNum > 1) newsPage = currentPageNum - 1;
-        break;
-      case "next":
-        if (currentPageNum < 5) newsPage = currentPageNum + 1;
-        break;
-      case "doublePrev":
-        if (currentPageNum > 2) newsPage = currentPageNum - 2;
-        break;
-      case "doubleNext":
-        if (currentPageNum < 4) newsPage = currentPageNum + 2;
-        break;
-      default:
-        return;
+    if (type === "prev" && currentPageNum > 1) {
+      newsPage = currentPageNum - 1;
     }
 
-    if (newsPage !== currentPageNum) {
-      setCurrentPage(newsPage.toString());
+    if (type === "next" && currentPageNum < 5) {
+      newsPage = currentPageNum + 1;
     }
+
+    if (type === "doublePrev" && currentPageNum > 2) {
+      newsPage = currentPageNum - 2;
+    }
+
+    if (type === "doubleNext" && currentPageNum < 4) {
+      newsPage = currentPageNum + 2;
+    }
+
+    if (newsPage === currentPageNum) return;
+
+    setCurrentPage(newsPage.toString());
   };
 
   const buttonStyle =
