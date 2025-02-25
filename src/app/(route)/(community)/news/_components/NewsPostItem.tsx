@@ -1,8 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import Link from "next/link";
 
@@ -11,9 +10,8 @@ interface NewsPostItemProps {
 }
 
 const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
-  const router = useRouter();
-
   const updatedImgUrl = newsItem?.thumbImg?.replace("type=w140", "type=w160");
+  const [isRead, setIsRead] = useState(false);
 
   const changeCategory = (category?: string) => {
     switch (category) {
@@ -25,6 +23,35 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
         return "E스포츠";
       default:
         return "기타";
+    }
+  };
+
+  // 뉴스 id 로컬스토리지 저장
+  useEffect(() => {
+    if (!newsItem?.id) return;
+
+    try {
+      const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
+      if (readNews.includes(newsItem.id)) {
+        setIsRead(true);
+      }
+    } catch (error) {
+      console.error("로컬스토리지 저장 실패:", error);
+    }
+  }, [newsItem?.id]);
+
+  const handleRead = () => {
+    if (!newsItem?.id) return;
+
+    try {
+      const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
+      if (!readNews.includes(newsItem.id)) {
+        readNews.push(newsItem.id);
+        localStorage.setItem("readNews", JSON.stringify(readNews));
+        setIsRead(true);
+      }
+    } catch (error) {
+      console.error("로컬스토리지 저장 실패:", error);
     }
   };
 
@@ -69,7 +96,10 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
 
   return (
     <Link href={`/news/news-detail/${newsItem?.id}`}>
-      <div className="min-w-[720px] min-h-[116px] flex justify-start gap-3 border-b border-[#FAFAFA] p-3 bg-[#FFFFFF] cursor-pointer hover:bg-[#F8FDFF]">
+      <div
+        onClick={handleRead}
+        className="min-w-[720px] min-h-[116px] flex justify-start gap-3 border-b border-[#FAFAFA] p-3 bg-[#FFFFFF] cursor-pointer hover:bg-[#F8FDFF]"
+      >
         <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
           <Image
             src={updatedImgUrl || "/Empty_news.png"}
@@ -88,7 +118,13 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
 
         <div className="w-[524px] h-auto min-h-[90px] flex flex-col gap-1">
           <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start">
-            <h1 className="font-bold text-[16px] leading-6 tracking-[-2%] text-[#181818] text-ellipsis overflow-hidden whitespace-nowrap">
+            <h1
+              className={
+                isRead
+                  ? "font-bold text-[16px] leading-6 tracking-[-2%] text-[#A6A6A6] text-ellipsis overflow-hidden whitespace-nowrap"
+                  : "font-bold text-[16px] leading-6 tracking-[-2%] text-[#181818] text-ellipsis overflow-hidden whitespace-nowrap"
+              }
+            >
               {newsItem?.title}
             </h1>
             <p className="font-medium text-[14px] leading-5 text-[#00ADEE]">
@@ -102,7 +138,13 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
           </div>
 
           <div>
-            <p className="w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#424242] overflow-hidden line-clamp-2">
+            <p
+              className={
+                isRead
+                  ? "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#A6A6A6] overflow-hidden line-clamp-2"
+                  : "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#424242] overflow-hidden line-clamp-2"
+              }
+            >
               컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
               컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
               컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분

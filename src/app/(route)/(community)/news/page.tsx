@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NewsTalkToolbar } from "../_components/NewsTalkToolbar";
 import EmptyNews from "./_components/EmptyNews";
 import NewsPostItem from "./_components/NewsPostItem";
