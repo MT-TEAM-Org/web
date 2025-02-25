@@ -20,6 +20,8 @@ const useGetNewsInfoData = (id: string) => {
     queryKey: ["getNewsInfo", id],
     queryFn: () => getNewsItemInfo({ id }),
     retry: 1,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 30,
   });
 };
 
