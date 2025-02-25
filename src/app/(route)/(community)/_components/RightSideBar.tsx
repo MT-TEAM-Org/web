@@ -6,9 +6,11 @@ import Arrow_up from "@/app/_components/icon/Arrow_up";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 import RightNewsItem from "./RightNewsItem";
+import { useEffect, useState } from "react";
 
 export const RightSideBar = () => {
-  const { data: newsData } = useGetNewsDataList();
+  const [currentPage, setCurrentPage] = useState("1");
+  const { data: newsData } = useGetNewsDataList({ page: currentPage });
   const slicedNewsData = newsData?.slice(0, 5); //뉴스 데이터 임시로 5개만 불러오기
 
   const scrollToTop = () => {
@@ -16,6 +18,21 @@ export const RightSideBar = () => {
       top: 0,
       behavior: "smooth",
     });
+  };
+
+  useEffect(() => {
+    console.log("RightSideBar Page: ", currentPage);
+  }, [currentPage]);
+
+  const handleToPage = (type: "prev" | "next") => {
+    const currentPageNum = Number(currentPage);
+    if (type === "prev" && currentPageNum > 1) {
+      const prevPage = (currentPageNum - 1).toString();
+      setCurrentPage(prevPage);
+    } else if (type === "next" && currentPageNum < 3) {
+      const prevPage = (currentPageNum + 1).toString();
+      setCurrentPage(prevPage);
+    }
   };
 
   return (
@@ -28,13 +45,19 @@ export const RightSideBar = () => {
         </div>
 
         <div className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto">
-          <button className="w-[32px] h-[32px] rounded-[5px] border border-[#EEEEEE] p-[9px] flex gap-[10px] justify-center items-center">
+          <button
+            onClick={() => handleToPage("prev")}
+            className="w-[32px] h-[32px] rounded-[5px] border border-[#EEEEEE] p-[9px] flex gap-[10px] justify-center items-center"
+          >
             <Arrow_left />
           </button>
           <div className="w-[64px] h-[32px] font-[500] text-[14px] leading-[20px] tracking-[0%] text-[#656565] flex items-center justify-center align-center">
-            1 / 3
+            {currentPage} / 3
           </div>
-          <button className="w-[32px] h-[32px] rounded-[5px] border border-[#EEEEEE] p-[9px] flex gap-[10px] justify-center items-center">
+          <button
+            onClick={() => handleToPage("next")}
+            className="w-[32px] h-[32px] rounded-[5px] border border-[#EEEEEE] p-[9px] flex gap-[10px] justify-center items-center"
+          >
             <Arrow_right />
           </button>
         </div>

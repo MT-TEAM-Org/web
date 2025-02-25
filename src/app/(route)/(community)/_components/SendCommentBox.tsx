@@ -12,7 +12,7 @@ const SendCommentBox = () => {
         <input
           type="text"
           placeholder="상대를 존중하는 클린한 댓글을 남겨주세요! 추천은 센스!"
-          className="w-full max-w-[656px] h-[40px] rounded-[5px] border border-[#424242] py-3 px-4 gap-4"
+          className="w-full max-w-[576px] h-[40px] rounded-[5px] border border-[#424242] py-3 px-4 gap-4"
         />
         <button className="w-[40px] h-[40px] flex items-center justify-center rounded-[5px] border border-[#EEEEEE] py-[16px] gap-[10px] bg-[#FAFAFA]">
           <Send_icon />

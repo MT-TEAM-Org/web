@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
@@ -16,9 +16,22 @@ interface DropdownOption {
   value: string;
 }
 
-export const NewsTalkToolbar = () => {
+interface NewsTalkToolbarProps {
+  setOrderType: (value: "DATE" | "COMMENT" | "VIEW") => void;
+  onPageChange: (page: string) => void;
+}
+
+export const NewsTalkToolbar = ({
+  setOrderType,
+  onPageChange,
+}: NewsTalkToolbarProps) => {
   const [activeBtn, setActiveBtn] = useState<string>("일간");
+  const [activeSorted, setActiveSorted] = useState<"DATE" | "COMMENT" | "VIEW">(
+    "DATE"
+  );
   const selectRef = useRef<HTMLSelectElement>(null);
+  const [inputValue, setInputValue] = useState("");
+  const [currentPage, setCurrentPage] = useState("1");
 
   const pagination = [
     { value: "1", label: "1" },
@@ -33,7 +46,6 @@ export const NewsTalkToolbar = () => {
     { label: "제목", value: "title" },
     { label: "내용", value: "content" },
     { label: "댓글", value: "comment" },
-    { label: "작성자", value: "writer" },
   ];
 
   const handleDivClick = () => {
@@ -48,8 +60,53 @@ export const NewsTalkToolbar = () => {
     console.log(value);
   };
 
+  const handleSortChange = (value: "DATE" | "COMMENT" | "VIEW") => {
+    setActiveSorted(value);
+    setOrderType(value);
+  };
+
+  const searchInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  useEffect(() => {
+    onPageChange(currentPage);
+    console.log("현재페이지: ", currentPage);
+  }, [currentPage]);
+
+  const handlePageChange = (
+    type: "prev" | "next" | "doublePrev" | "doubleNext"
+  ) => {
+    const currentPageNum = Number(currentPage);
+    let newsPage = currentPageNum;
+
+    switch (type) {
+      case "prev":
+        if (currentPageNum > 1) newsPage = currentPageNum - 1;
+        break;
+      case "next":
+        if (currentPageNum < 5) newsPage = currentPageNum + 1;
+        break;
+      case "doublePrev":
+        if (currentPageNum > 2) newsPage = currentPageNum - 2;
+        break;
+      case "doubleNext":
+        if (currentPageNum < 4) newsPage = currentPageNum + 2;
+        break;
+      default:
+        return;
+    }
+
+    if (newsPage !== currentPageNum) {
+      setCurrentPage(newsPage.toString());
+    }
+  };
+
   const buttonStyle =
-    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
+    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] border-[#DBDBDB]";
+
+  const activeSortedStyle =
+    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] font-[700] border-[#424242]";
 
   const pageButtonStyle =
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
@@ -122,6 +179,8 @@ export const NewsTalkToolbar = () => {
               type="text"
               className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
               placeholder="검색어를 입력해주세요."
+              value={inputValue}
+              onChange={searchInput}
             />
             <button className="absolute top-2 left-[12px]">
               <Small_Search />
@@ -131,15 +190,30 @@ export const NewsTalkToolbar = () => {
       </div>
       <div className="flex justify-between items-center p-[12px]">
         <div className="flex w-full items-center gap-[4px]">
-          <button className={`${buttonStyle} font-[700]`}>
+          <button
+            onClick={() => handleSortChange("DATE")}
+            className={
+              activeSorted === "DATE" ? activeSortedStyle : buttonStyle
+            }
+          >
             <Blue_outline_logo />
             최신순
           </button>
-          <button className={buttonStyle}>
+          <button
+            onClick={() => handleSortChange("VIEW")}
+            className={
+              activeSorted === "VIEW" ? activeSortedStyle : buttonStyle
+            }
+          >
             <Red_outline_logo />
             인기순
           </button>
-          <button className={buttonStyle}>
+          <button
+            onClick={() => handleSortChange("COMMENT")}
+            className={
+              activeSorted === "COMMENT" ? activeSortedStyle : buttonStyle
+            }
+          >
             <Mini_logo />
             댓글 많은 순
           </button>
@@ -147,10 +221,16 @@ export const NewsTalkToolbar = () => {
 
         <div className="flex">
           <div className="flex items-center gap-[10px]">
-            <button className={pageButtonStyle}>
+            <button
+              className={pageButtonStyle}
+              onClick={() => handlePageChange("doublePrev")}
+            >
               <Pg_double_left />
             </button>
-            <button className={pageButtonStyle}>
+            <button
+              className={pageButtonStyle}
+              onClick={() => handlePageChange("prev")}
+            >
               <Pg_left />
             </button>
           </div>
@@ -160,8 +240,14 @@ export const NewsTalkToolbar = () => {
               <button
                 key={page.value}
                 className={`${pageButtonStyle} ${
-                  page.value === "1" && "font-[700]"
+                  page.value === currentPage
+                    ? "font-[700] border border-[#424242]"
+                    : ""
                 } text-[14px] leading-[20px] text-[#424242]`}
+                onClick={() => {
+                  onPageChange(page.label);
+                  setCurrentPage(page.label);
+                }}
               >
                 {page.label}
               </button>
@@ -169,10 +255,16 @@ export const NewsTalkToolbar = () => {
           </div>
 
           <div className="flex items-center gap-[10px]">
-            <button className={pageButtonStyle}>
+            <button
+              className={pageButtonStyle}
+              onClick={() => handlePageChange("next")}
+            >
               <Pg_right />
             </button>
-            <button className={pageButtonStyle}>
+            <button
+              className={pageButtonStyle}
+              onClick={() => handlePageChange("doubleNext")}
+            >
               <Pg_double_right />
             </button>
           </div>
