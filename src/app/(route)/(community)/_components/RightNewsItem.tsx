@@ -2,41 +2,14 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import Link from "next/link";
+import { useReadNews } from "@/_hooks/useReadNews";
 
 interface NewsItemProps {
   newsItem: NewsItemType;
 }
 
 const RightNewsItem = ({ newsItem }: NewsItemProps) => {
-  const [isRead, setIsRead] = useState(false);
-
-  useEffect(() => {
-    if (!newsItem?.id) return;
-
-    try {
-      const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
-      if (readNews.includes(newsItem.id)) {
-        setIsRead(true);
-      }
-    } catch (error) {
-      console.error("로컬스토리지 저장 실패:", error);
-    }
-  }, [newsItem?.id]);
-
-  const handleRead = () => {
-    if (!newsItem?.id) return;
-
-    try {
-      const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
-      if (!readNews.includes(newsItem.id)) {
-        readNews.push(newsItem.id);
-        localStorage.setItem("readNews", JSON.stringify(readNews));
-        setIsRead(true);
-      }
-    } catch (error) {
-      console.error("로컬스토리지 저장 실패:", error);
-    }
-  };
+  const { isRead, handleRead } = useReadNews(newsItem?.id);
 
   return (
     <Link href={`/news/news-detail/${newsItem?.id}`}>

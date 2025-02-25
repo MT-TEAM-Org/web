@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import Link from "next/link";
+import { useReadNews } from "@/_hooks/useReadNews";
 
 interface NewsPostItemProps {
   newsItem?: NewsItemType;
@@ -11,7 +12,7 @@ interface NewsPostItemProps {
 
 const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
   const updatedImgUrl = newsItem?.thumbImg?.replace("type=w140", "type=w160");
-  const [isRead, setIsRead] = useState(false);
+  const { isRead, handleRead } = useReadNews(newsItem?.id);
 
   const changeCategory = (category?: string) => {
     switch (category) {
@@ -23,35 +24,6 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
         return "E스포츠";
       default:
         return "기타";
-    }
-  };
-
-  // 뉴스 id 로컬스토리지 저장
-  useEffect(() => {
-    if (!newsItem?.id) return;
-
-    try {
-      const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
-      if (readNews.includes(newsItem.id)) {
-        setIsRead(true);
-      }
-    } catch (error) {
-      console.error("로컬스토리지 저장 실패:", error);
-    }
-  }, [newsItem?.id]);
-
-  const handleRead = () => {
-    if (!newsItem?.id) return;
-
-    try {
-      const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
-      if (!readNews.includes(newsItem.id)) {
-        readNews.push(newsItem.id);
-        localStorage.setItem("readNews", JSON.stringify(readNews));
-        setIsRead(true);
-      }
-    } catch (error) {
-      console.error("로컬스토리지 저장 실패:", error);
     }
   };
 

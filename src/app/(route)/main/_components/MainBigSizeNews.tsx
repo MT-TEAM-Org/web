@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 import { useRouter } from "next/navigation";
+import { useReadNews } from "@/_hooks/useReadNews";
 
 const MainBigSizeNews = () => {
   const router = useRouter();
@@ -13,20 +14,7 @@ const MainBigSizeNews = () => {
     "type=w140",
     "type=w410"
   );
-
-  const handleRead = () => {
-    if (!mainPageData?.id) return;
-
-    try {
-      const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
-      if (!readNews.includes(mainPageData.id)) {
-        readNews.push(mainPageData.id);
-        localStorage.setItem("readNews", JSON.stringify(readNews));
-      }
-    } catch (error) {
-      console.error("로컬스토리지 저장 실패:", error);
-    }
-  };
+  const { handleRead } = useReadNews(mainPageData?.id, false);
 
   console.log(mainPageData);
 

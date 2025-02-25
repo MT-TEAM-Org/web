@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useReadNews } from "@/_hooks/useReadNews";
 
 interface NewsItem {
   id: number;
@@ -19,20 +20,7 @@ interface NewsPostItemProps {
 const NewsItem = ({ newsItem }: NewsPostItemProps) => {
   const router = useRouter();
   const updatedImgUrl = newsItem?.thumbImg?.replace("type=w140", "type=w68");
-
-  const handleRead = () => {
-    if (!newsItem?.id) return;
-
-    try {
-      const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
-      if (!readNews.includes(newsItem.id)) {
-        readNews.push(newsItem.id);
-        localStorage.setItem("readNews", JSON.stringify(readNews));
-      }
-    } catch (error) {
-      console.error("로컬스토리지 저장 실패:", error);
-    }
-  };
+  const { handleRead } = useReadNews(newsItem?.id, false);
 
   const handleToNewsInfo = () => {
     router.push(`/news/news-detail/${newsItem?.id}`);
