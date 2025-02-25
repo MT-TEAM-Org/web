@@ -74,6 +74,7 @@ export const NewsTalkToolbar = ({
     console.log("현재페이지: ", currentPage);
   }, [currentPage]);
 
+  // early return 패턴 사용해서 바꿔봤습니다.
   const handlePageChange = (
     type: "prev" | "next" | "doublePrev" | "doubleNext"
   ) => {

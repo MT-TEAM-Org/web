@@ -82,94 +82,82 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 w-[720px] h-auto bg-white p-[24px] rounded-md mb-[12px] shadow-sm">
-        <div className="flex flex-col gap-2 max-w-[672px] min-h-[84px] mb-2 rounded-sm">
-          <h1 className="w-[672px] max-h-[56px] font-[700] text-[18px] leading-[28px] text-[#303030]">
+      <div className="flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-[#FFFFFF] shadow-sm">
+        <div className="w-full h-auto flex flex-col gap-2">
+          <h1 className="w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-[#303030]">
             {data?.title}
           </h1>
 
-          <div className="w-[672px] h-[20px] gap-4 flex justify-between text-[#EEEEEE] pb-4">
+          <div className="w-full h-auto min-h-[20px] gap-4 flex justify-between text-[#EEEEEE]">
             <div className="flex gap-2 text-[#656565] font-[700] leading-5 text-[14px]">
-              <div className="flex gap-1">
-                <p className="font-bold text-[14px] leading-5">
-                  {changeCategory(data?.category)}
-                </p>
-                <p className="font-medium text-[14px] leading-5">
-                  {changeDateAgo(data?.postDate)}
-                </p>
+              <div className="flex gap-1 font-medium text-[14px] leading-5">
+                <p className="font-bold">{changeCategory(data?.category)}</p>
+                <p>{changeDateAgo(data?.postDate)}</p>
               </div>
-              <div className="flex gap-1">
-                <p className="font-bold text-[14px] leading-5">
-                  조회수 {data?.viewCount}
-                </p>
-                <p className="font-medium text-[14px] leading-5">
-                  댓글 {data?.commentCount}
-                </p>
+              <div className="flex gap-1 font-medium text-[14px] leading-5">
+                <p className="font-bold">조회수 {data?.viewCount}</p>
+                <p>댓글 {data?.commentCount}</p>
               </div>
-              <div className="flex gap-1">
-                <p className="font-bold text-[14px] leading-5">추천</p>
-                <p className="font-medium text-[14px] leading-5">
-                  {data?.recommendCount}
-                </p>
+              <div className="flex gap-1 font-medium text-[14px] leading-5">
+                <p className="font-bold">추천</p>
+                <p>{data?.recommendCount}</p>
               </div>
             </div>
             <div className="text-[14px] flex font-[500] leading-5 gap-1 text-[#656565]">
               <p>네이버 스포츠</p>
             </div>
           </div>
-          <hr />
-          <div className="flex flex-col gap-3 mt-4">
-            <Image
-              src={data?.thumbImg ? updatedImgUrl : "/Empty_news.png"}
-              alt="News detail img"
-              width={672}
-              height={338}
-              className="mb-3"
-            />
-            <p className="font-[500] text-[16px] leading-6 text-[#424242] overflow-hidden line-clamp-2">
-              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-            </p>
-          </div>
-
-          <div className="flex justify-center mb-4">
-            <button className="flex items-center text-[14px] justify-center gap-1 min-w-[120px] w-auto h-[40px] px-4 py-[13px] mt-4 bg-[#00ADEE] text-[#FFFFFF] rounded-[5px]">
-              <Single_logo />
-              추천 12
-            </button>
-          </div>
-
-          <div className="flex justify-between mb-4">
-            <button className="min-w-[104px] w-auto min-h-[32px] h-[32px] rounded-[5px] text-[14px] font-[500] flex items-center justify-center bg-[#FFFFFF] px-3 py-[9px] border border-[#DBDBDB]">
-              기사 원문 보기
-            </button>
-            <div className="flex gap-2">
-              <button
-                onClick={copyBtn}
-                className="min-w-[138px] max-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] px-3 py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium"
-              >
-                <Copy />
-                게시글 URL 복사
-              </button>
-              <button className="min-w-[91px] max-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] pr-[12px] pl-[10px] py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium">
-                <Share />
-                공유하기
-              </button>
-            </div>
-          </div>
-
-          <div className="max-w-[672px] min-h-[48px]">
-            <CommentBar data={data} />
-
-            <div className="max-w-full h-auto">
-              <CommentContainer />
-            </div>
-          </div>
-
-          <PostNavigation />
         </div>
+        <hr />
+        <div className="w-full h-auto flex flex-col gap-3">
+          <Image
+            src={data?.thumbImg ? updatedImgUrl : "/Empty_news.png"}
+            alt="News detail img"
+            width={672}
+            height={338}
+          />
+          <p className="font-[500] text-[16px] leading-6 tracking-[-0.02em] text-[#424242] overflow-hidden line-clamp-2">
+            컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+            컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+            컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+          </p>
+        </div>
+
+        <div className="w-full h-auto flex justify-center gap-2">
+          <button className="min-w-[120px] w-auto h-[40px] flex items-center text-[14px] justify-center gap-1 px-4 py-[13px] bg-[#00ADEE] text-[#FFFFFF] font-bold rounded-[5px]">
+            <Single_logo />
+            추천 12
+          </button>
+        </div>
+
+        <div className="w-full h-auto flex justify-between">
+          <button className="min-w-[104px] w-auto min-h-[32px] rounded-[5px] text-[14px] font-[500] leading-[14px] flex items-center justify-center bg-[#FFFFFF] px-3 py-[9px] border border-[#DBDBDB]">
+            기사 원문 보기
+          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={copyBtn}
+              className="min-w-[138px] w-auto min-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] px-3 py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium"
+            >
+              <Copy />
+              게시글 URL 복사
+            </button>
+            <button className="min-w-[91px] w-auto min-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] pr-[12px] pl-[10px] py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium">
+              <Share />
+              공유하기
+            </button>
+          </div>
+        </div>
+
+        <div className="w-full h-auto">
+          <CommentBar data={data} />
+
+          <div className="max-w-full h-auto">
+            <CommentContainer />
+          </div>
+        </div>
+
+        <PostNavigation />
       </div>
       <div className="shadow-md">
         <NewsTalkToolbar
@@ -177,7 +165,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           onPageChange={onPageChange}
         />
       </div>
-      <div className="w-[720px] min-h-[348px] rounded-b-[5px] rounded-bl-[5px] overflow-hidden shadow-md">
+      <div className="w-[720px] min-h-[348px] rounded-b-[5px] overflow-hidden shadow-md">
         {sliceNewsListData?.map((data: NewsItemType) => (
           <div key={data.id}>
             <NewsPostItem newsItem={data} />
