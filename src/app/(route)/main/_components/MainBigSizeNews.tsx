@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 import { useRouter } from "next/navigation";
@@ -14,16 +14,35 @@ const MainBigSizeNews = () => {
     "type=w410"
   );
 
+  const handleRead = () => {
+    if (!mainPageData?.id) return;
+
+    try {
+      const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
+      if (!readNews.includes(mainPageData.id)) {
+        readNews.push(mainPageData.id);
+        localStorage.setItem("readNews", JSON.stringify(readNews));
+      }
+    } catch (error) {
+      console.error("로컬스토리지 저장 실패:", error);
+    }
+  };
+
   console.log(mainPageData);
 
   const handleToNewsInfo = () => {
     router.push(`/news/news-detail/${mainPageData?.id}`);
   };
 
+  const handleClick = () => {
+    handleRead();
+    handleToNewsInfo();
+  };
+
   return (
     <div
       className="relative w-[410px] h-[236px] rounded-[10px] overflow-hidden cursor-pointer"
-      onClick={handleToNewsInfo}
+      onClick={handleClick}
     >
       <Image
         src={mainPageData?.thumbImg ? updatedImgUrl : "/Empty_news.png"}

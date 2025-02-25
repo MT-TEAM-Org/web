@@ -20,14 +20,33 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
   const router = useRouter();
   const updatedImgUrl = newsItem?.thumbImg?.replace("type=w140", "type=w68");
 
+  const handleRead = () => {
+    if (!newsItem?.id) return;
+
+    try {
+      const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
+      if (!readNews.includes(newsItem.id)) {
+        readNews.push(newsItem.id);
+        localStorage.setItem("readNews", JSON.stringify(readNews));
+      }
+    } catch (error) {
+      console.error("로컬스토리지 저장 실패:", error);
+    }
+  };
+
   const handleToNewsInfo = () => {
     router.push(`/news/news-detail/${newsItem?.id}`);
+  };
+
+  const handleOnClick = () => {
+    handleRead();
+    handleToNewsInfo();
   };
 
   return (
     <div
       className="flex items-center min-w-[436px] max-h-[68px] p-2 border-gray-300 cursor-pointer"
-      onClick={handleToNewsInfo}
+      onClick={handleOnClick}
     >
       <div className="flex-shrink-0 max-w-[68px] max-h-[68px] rounded overflow-hidden bg-gray-300">
         <Image
