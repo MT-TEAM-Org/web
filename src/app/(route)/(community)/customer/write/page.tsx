@@ -120,7 +120,7 @@ const Write = () => {
               {uploadGuidelines.map((guideline, index) => (
                 <li
                   key={index}
-                  className="text-[14px] font-medium leading-[22px] tracking-[-0.03em]"
+                  className="text-[14px] font-medium leading-[22px] tracking-[-0.02em]"
                 >
                   {guideline}
                 </li>
@@ -132,7 +132,7 @@ const Write = () => {
         <div className="w-[696px] h-[40px] flex justify-between mt-3">
           <button
             type="button"
-            className="w-[120px] h-[40px] bg-[#FFFFFF] border border-[#DBDBDB] rounded-[5px]"
+            className="w-[120px] h-[40px] bg-[#FFFFFF] border border-[#DBDBDB] rounded-[5px] "
           >
             목록
           </button>
