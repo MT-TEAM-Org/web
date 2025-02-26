@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "54.180.104.178",
+        hostname: "52.79.222.87",
         port: "9000",
         pathname: "/devbucket/**",
       },
