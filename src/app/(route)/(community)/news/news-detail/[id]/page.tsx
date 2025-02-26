@@ -84,7 +84,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-[#FFFFFF] shadow-sm">
+      <div className="flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-[#FFFFFF] shadow-sm mb-2">
         <div className="w-full h-auto flex flex-col gap-2">
           <h1 className="w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-[#303030]">
             {data?.title}
@@ -161,7 +161,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
         <PostNavigation />
       </div>
-      <div className="shadow-md">
+      <div className="shadow-sm">
         <NewsTalkToolbar
           setOrderType={setOrderType}
           onPageChange={onPageChange}
