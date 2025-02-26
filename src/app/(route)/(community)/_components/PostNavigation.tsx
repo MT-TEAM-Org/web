@@ -6,7 +6,11 @@ import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 
-const PostNavigation = () => {
+interface PostNavigationProps {
+  scrollToCommentBar?: () => void;
+}
+
+const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
   const router = useRouter();
   const params = useParams();
 
@@ -51,7 +55,7 @@ const PostNavigation = () => {
         </button>
       </div>
       <div className="flex gap-2">
-        <button className={topButtonStyle}>
+        <button onClick={scrollToCommentBar} className={topButtonStyle}>
           <Arrow_up />
           댓글 맨위로
         </button>

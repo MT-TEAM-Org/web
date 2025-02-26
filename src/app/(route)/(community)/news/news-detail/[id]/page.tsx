@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useState } from "react";
+import React, { use, useRef, useState } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Share from "@/app/_components/icon/Share";
@@ -28,6 +28,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
   const updatedImgUrl = data?.thumbImg?.replace("type=w140", "type=w360"); // 뉴스 상세페이지 들어갔을때 이미지 화질 올리는 로직
   const { isRead, handleRead } = useReadNews(sliceNewsListData?.id);
+  const commentBarRef = useRef(null);
 
   const changeCategory = (category: string) => {
     switch (category) {
@@ -80,6 +81,18 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   const onPageChange = (newPage: string) => {
     setPageNum(Number(newPage));
+  };
+
+  // useRef 사용해서 댓글 제일 위로 버튼 구현
+  const onHandleToTop = () => {
+    if (commentBarRef.current) {
+      const navBarHeight = 130; // 네비게이션 바 높이
+      const y =
+        commentBarRef.current.getBoundingClientRect().top +
+        window.scrollY -
+        navBarHeight;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
   };
 
   return (
@@ -151,7 +164,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
         </div>
 
-        <div className="w-full h-auto">
+        <div className="w-full h-auto" ref={commentBarRef}>
           <CommentBar data={data} />
 
           <div className="max-w-full h-auto">
@@ -159,7 +172,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
         </div>
 
-        <PostNavigation />
+        <PostNavigation scrollToCommentBar={onHandleToTop} />
       </div>
       <div className="shadow-sm">
         <NewsTalkToolbar
