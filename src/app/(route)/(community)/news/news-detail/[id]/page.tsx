@@ -5,7 +5,6 @@ import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Share from "@/app/_components/icon/Share";
 import CommentContainer from "./_components/CommentContainer";
-import { NewsTalkToolbar } from "../../../_components/NewsTalkToolbar";
 import NewsPostItem from "../../_components/NewsPostItem";
 import Copy from "@/app/_components/icon/Copy";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
@@ -15,6 +14,7 @@ import useGetNewsInfoData from "@/_hooks/useGetNewsInfoData";
 import PostNavigation from "../../../_components/PostNavigation";
 import useSortedNewsDataList from "@/_hooks/useSortedPosts";
 import { useReadNews } from "@/_hooks/useReadNews";
+import NewsTalkToolbar from "../../../_components/NewsTalkToolbar";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(

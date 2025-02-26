@@ -10,6 +10,7 @@ import Pg_left from "@/app/_components/icon/Pg_left";
 import Pg_right from "@/app/_components/icon/Pg_right";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import Small_Search from "@/app/_components/icon/Small_Search";
+import React from "react";
 
 interface DropdownOption {
   label: string;
@@ -21,7 +22,7 @@ interface NewsTalkToolbarProps {
   onPageChange: (page: string) => void;
 }
 
-export const NewsTalkToolbar = ({
+const NewsTalkToolbar = ({
   setOrderType,
   onPageChange,
 }: NewsTalkToolbarProps) => {
@@ -273,3 +274,5 @@ export const NewsTalkToolbar = ({
     </div>
   );
 };
+
+export default React.memo(NewsTalkToolbar);

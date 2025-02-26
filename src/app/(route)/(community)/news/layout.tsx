@@ -1,6 +1,7 @@
 import React from "react";
-import { RightSideBar } from "../_components/RightSideBar";
+
 import NewsLeftSidebar from "./_components/NewsLeftSidebar";
+import { RightSideBar } from "../_components/RightSideBar";
 
 export const metadata = {
   title: "뉴스 페이지",
@@ -20,13 +21,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="w-[160px] min-h-[260px] rounded-[5px] overflow-hidden">
           <NewsLeftSidebar />
         </div>
-        <div className="flex-1 max-w-[720px] mb-[47px] rounded-bl-[5px] rounded-br-[5px]">
+        <div className="flex-1 max-w-[720px] mb-[47px] rounded-b-[5px]">
           {children}
         </div>
         <div className="flex-1">
-          <div className="">
-            <RightSideBar />
-          </div>
+          <RightSideBar />
         </div>
       </div>
     </div>
