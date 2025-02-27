@@ -11,6 +11,10 @@ interface NewsItemProps {
 const RightNewsItem = ({ newsItem }: NewsItemProps) => {
   const { isRead, handleRead } = useReadNews(newsItem?.id);
 
+  useEffect(() => {
+    console.log("iseRead 변경");
+  }, [isRead]);
+
   return (
     <Link href={`/news/news-detail/${newsItem?.id}`}>
       <div

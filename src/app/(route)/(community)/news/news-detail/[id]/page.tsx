@@ -15,6 +15,7 @@ import PostNavigation from "../../../_components/PostNavigation";
 import useSortedNewsDataList from "@/_hooks/useSortedPosts";
 import { useReadNews } from "@/_hooks/useReadNews";
 import NewsTalkToolbar from "../../../_components/NewsTalkToolbar";
+import useGetMatchSchedule from "@/_hooks/useGetMatchSchedule";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(
@@ -27,7 +28,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { data: newsListData } = useSortedNewsDataList({ orderType, pageNum });
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
   const updatedImgUrl = data?.thumbImg?.replace("type=w140", "type=w360"); // 뉴스 상세페이지 들어갔을때 이미지 화질 올리는 로직
-  const { isRead, handleRead } = useReadNews(sliceNewsListData?.id);
+  const { handleRead } = useReadNews(sliceNewsListData?.id, false);
   const commentBarRef = useRef(null);
 
   const changeCategory = (category: string) => {
