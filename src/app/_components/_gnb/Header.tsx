@@ -33,7 +33,7 @@ export default function Header() {
           모두 함께 즐기는 클린 스포츠 커뮤니티 플레이 하이브!
         </p>
       </div>
-      <div className="flex max-w-[323px] min-h-[40px] items-center">
+      <div className="flex max-w-[323px] min-h-[40px] items-center whitespace-nowrap">
         {headerButton.map((item, index) => (
           <Link href={item.link} key={index}>
             <button className={headerButtonClass}>{item.name}</button>
