@@ -1,23 +1,26 @@
 "use client";
 
-import { UseFormRegister } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import AccountHelp from "../../_components/AccountHelp";
 import SnsButtons from "../../_components/SnsButtons";
 import { useEffect, useState } from "react";
 
 interface FormData {
-  tel: string;
   email: string;
+  emailCode: string;
 }
 
-interface FindPasswordProps {
-  register: UseFormRegister<FormData>;
-}
-
-const FindPassword = ({ register }: FindPasswordProps) => {
+const FindPassword = () => {
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isExpired, setIsExpired] = useState<boolean>(false);
   const [verificationCode, setVerificationCode] = useState<string>("");
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>();
 
   useEffect(() => {
     if (timeLeft === null || timeLeft <= 0) {
@@ -45,7 +48,7 @@ const FindPassword = ({ register }: FindPasswordProps) => {
   const verificationButton =
     "w-[80px] h-[48px] bg-[#424242] text-[#FFFFFF] leading-[16px] rounded-[5px] font-[700] py-[16px] px-[20px]";
   return (
-    <div className="space-y-[24px]">
+    <form className="space-y-[24px]">
       <div className="space-y-[8px]">
         <div className="space-y-[2px]">
           <label
@@ -161,7 +164,7 @@ const FindPassword = ({ register }: FindPasswordProps) => {
       </button>
       <SnsButtons signState="login" />
       <AccountHelp signState="signup" />
-    </div>
+    </form>
   );
 };
 
