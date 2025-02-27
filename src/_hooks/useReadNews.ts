@@ -10,6 +10,8 @@ export const useReadNews = (newsItemId?: number, trackReadState = true) => {
       const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
       if (readNews.includes(newsItemId)) {
         setIsRead(true);
+      } else {
+        setIsRead(false);
       }
     } catch (error) {
       console.error("로컬스토리지 저장 실패:", error);

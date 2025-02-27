@@ -15,7 +15,6 @@ import PostNavigation from "../../../_components/PostNavigation";
 import useSortedNewsDataList from "@/_hooks/useSortedPosts";
 import { useReadNews } from "@/_hooks/useReadNews";
 import NewsTalkToolbar from "../../../_components/NewsTalkToolbar";
-import useGetMatchSchedule from "@/_hooks/useGetMatchSchedule";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(

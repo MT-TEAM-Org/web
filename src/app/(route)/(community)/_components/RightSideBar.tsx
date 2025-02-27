@@ -6,7 +6,7 @@ import Arrow_up from "@/app/_components/icon/Arrow_up";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 import RightNewsItem from "./RightNewsItem";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 export const RightSideBar = () => {
   const [currentPage, setCurrentPage] = useState("1");
@@ -22,10 +22,6 @@ export const RightSideBar = () => {
       behavior: "smooth",
     });
   };
-
-  useEffect(() => {
-    console.log("RightSideBar Page: ", currentPage);
-  }, [currentPage]);
 
   const handleToPage = (type: "prev" | "next") => {
     const currentPageNum = Number(currentPage);
