@@ -128,7 +128,8 @@ const Tiptap = ({
     content: initialContent || "",
     editorProps: {
       attributes: {
-        class: "editor-class flex flex-col min-h-[375px]",
+        class:
+          "editor-class flex flex-col font-semibold text-[14px] leading-[20px] text-gray7 min-h-[375px] p-4 gap-y-[2px]",
       },
       handlePaste: (view, event) => {
         const items = Array.from(event.clipboardData?.items || []);

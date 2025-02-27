@@ -81,7 +81,7 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
             className={`
             ${
               newsItem?.thumbImg
-                ? "w-full h-full object-cover rounded-[5px] gap-[10px]"
+                ? "w-full h-full object-cover rounded-[5px] gap-[10px] "
                 : "absolute top-[33.5px] left-[33.05px] gap-[3.24px] rounded-[3.83px]"
             }
           `}

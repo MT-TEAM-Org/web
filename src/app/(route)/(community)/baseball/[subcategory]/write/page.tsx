@@ -17,7 +17,7 @@ export default function WritePage({ params }: Props) {
   const { subcategory } = unwrappedParams;
 
   return (
-    <div className="max-w-[720px] min-h-[835px] bg-[#FFFFFF] rounded-[5px] mt-3.5">
+    <div className="max-w-[720px] min-h-[835px] bg-[#FFFFFF] rounded-[5px]">
       <Write category="baseball" subCategory={subcategory} />
     </div>
   );
