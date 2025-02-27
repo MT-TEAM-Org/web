@@ -75,32 +75,23 @@ const NewsTalkToolbar = ({
     console.log("현재페이지: ", currentPage);
   }, [currentPage]);
 
-  // early return 패턴 사용해서 바꿔봤습니다.
   const handlePageChange = (
     type: "prev" | "next" | "doublePrev" | "doubleNext"
   ) => {
     const currentPageNum = Number(currentPage);
-    let newsPage = currentPageNum;
-
-    if (type === "prev" && currentPageNum > 1) {
-      newsPage = currentPageNum - 1;
+    // 페이지 변경 로직을 객체로 관리
+    const actions: Record<typeof type, () => number> = {
+      prev: () => (currentPageNum > 1 ? currentPageNum - 1 : currentPageNum),
+      next: () => (currentPageNum < 5 ? currentPageNum + 1 : currentPageNum),
+      doublePrev: () =>
+        currentPageNum > 2 ? currentPageNum - 2 : currentPageNum,
+      doubleNext: () =>
+        currentPageNum < 4 ? currentPageNum + 2 : currentPageNum,
+    };
+    const newsPage = actions[type]();
+    if (newsPage !== currentPageNum) {
+      setCurrentPage(newsPage.toString());
     }
-
-    if (type === "next" && currentPageNum < 5) {
-      newsPage = currentPageNum + 1;
-    }
-
-    if (type === "doublePrev" && currentPageNum > 2) {
-      newsPage = currentPageNum - 2;
-    }
-
-    if (type === "doubleNext" && currentPageNum < 4) {
-      newsPage = currentPageNum + 2;
-    }
-
-    if (newsPage === currentPageNum) return;
-
-    setCurrentPage(newsPage.toString());
   };
 
   const buttonStyle =
