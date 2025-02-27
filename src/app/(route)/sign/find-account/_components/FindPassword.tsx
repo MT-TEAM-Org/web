@@ -6,6 +6,7 @@ import SnsButtons from "../../_components/SnsButtons";
 import { useEffect, useState } from "react";
 import useFindPassword from "@/_hooks/useFindPassword";
 import { useApiMutation } from "@/_hooks/query";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   email: string;
@@ -22,6 +23,7 @@ interface VerificationCodeRequest {
 }
 
 const FindPassword = () => {
+  const router = useRouter();
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isExpired, setIsExpired] = useState<boolean>(false);
   const [verificationCode, setVerificationCode] = useState<string>("");
@@ -136,8 +138,11 @@ const FindPassword = () => {
       alert("이메일 인증을 완료해주세요.");
       return;
     }
-    console.log(data.email);
-    mutate(data.email);
+    mutate(data.email, {
+      onSuccess: () => {
+        router.push("/sign");
+      },
+    });
   };
 
   const inputStyle =
