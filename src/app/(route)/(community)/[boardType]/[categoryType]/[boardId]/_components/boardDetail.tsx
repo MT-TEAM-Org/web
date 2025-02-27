@@ -150,7 +150,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
             {youtubeEmbedUrl && (
               <iframe
                 width="100%"
-                height="400"
+                height="408"
                 src={youtubeEmbedUrl}
                 title="YouTube video player"
                 frameBorder="0"
@@ -160,6 +160,11 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
               />
             )}
             {parse(content, options)}
+            {!youtubeEmbedUrl && (
+              <div className="w-[679px] min-h-[42px]">
+                {boardDetailData?.data?.link}
+              </div>
+            )}
           </>
         )}
       </div>

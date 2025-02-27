@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    domains: ["imgnews.pstatic.net", "54.180.104.178"],
+    domains: ["imgnews.pstatic.net", "54.180.104.178", "img.youtube.com"],
     remotePatterns: [
       {
         protocol: "http",

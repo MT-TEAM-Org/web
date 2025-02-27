@@ -22,7 +22,12 @@ const LinkPreview = ({ videoUrl }: LinkPreviewProps) => {
     enabled: !!videoUrl,
   });
 
-  if (error) return <p className="text-center">URL 주소를 확인해주세요!</p>;
+  if (error)
+    return (
+      <p className="w-full h-[40px] font-semibold flex justify-center items-center border mt-2">
+        URL 주소를 확인해주세요!
+      </p>
+    );
 
   return (
     meta && (

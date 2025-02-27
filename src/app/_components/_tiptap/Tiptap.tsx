@@ -303,9 +303,9 @@ const Tiptap = ({
           </div>
         </div>
         <LinkPreview videoUrl={videoUrl} />
-        <div className="relative w-full mt-3">
+        <div className="relative w-full mt-2">
           <Toolbar editor={editor} content={watch("content")} />
-          <div className="relative h-[]">
+          <div className="relative">
             <EditorContent editor={editor} className="w-full" />
             {showPlaceholder && (
               <div

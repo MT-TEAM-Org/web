@@ -5,6 +5,7 @@ import TitleDag from "@/app/_components/_tiptap/TitleDag";
 import { CommunityData } from "@/app/_constants/categories";
 import axios from "axios";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface WriteProps {
@@ -60,6 +61,25 @@ export function Write({ category, subCategory }: WriteProps) {
       throw error;
     }
   };
+
+  const getYoutubeThumbnail = (url: string) => {
+    const match = url.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|embed\/|v\/))([^?&]+)/
+    );
+    return match
+      ? `https://img.youtube.com/vi/${match[1]}/maxresdefault.jpg`
+      : "";
+  };
+
+  useEffect(() => {
+    const link = watch("link");
+    if (link) {
+      const thumbnail = getYoutubeThumbnail(link);
+      if (thumbnail) {
+        setValue("thumbnail", thumbnail);
+      }
+    }
+  }, [watch("link")]);
 
   const onSubmit = async (data: FormData) => {
     const currentCategory = watch("categoryType");
