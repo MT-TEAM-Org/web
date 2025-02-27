@@ -69,7 +69,7 @@ const useSortedNewsDataList = ({ category, orderType, pageNum }: NewsDataParams)
         });
       }
     }
-  }, [query.isSuccess, currentPage, category, orderType, queryClient]);
+  }, [query.isSuccess, currentPage, category, orderType]);
 
   return query;
 };
