@@ -66,6 +66,21 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
     return diffMinutes < 1440;
   };
 
+  // 스타일 객체로 함축
+  const styles = {
+    title: isRead
+      ? "font-bold text-[16px] leading-6 tracking-[-2%] text-[#A6A6A6] text-ellipsis overflow-hidden whitespace-nowrap"
+      : "font-bold text-[16px] leading-6 tracking-[-2%] text-[#181818] text-ellipsis overflow-hidden whitespace-nowrap",
+
+    content: isRead
+      ? "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#A6A6A6] overflow-hidden line-clamp-2"
+      : "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#424242] overflow-hidden line-clamp-2",
+
+    info: "font-medium text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]",
+    category:
+      "font-bold text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]",
+  };
+
   return (
     <Link href={`/news/news-detail/${newsItem?.id}`}>
       <div
@@ -90,33 +105,19 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
 
         <div className="w-[524px] h-auto min-h-[90px] flex flex-col gap-1">
           <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start">
-            <h1
-              className={
-                isRead
-                  ? "font-bold text-[16px] leading-6 tracking-[-2%] text-[#A6A6A6] text-ellipsis overflow-hidden whitespace-nowrap"
-                  : "font-bold text-[16px] leading-6 tracking-[-2%] text-[#181818] text-ellipsis overflow-hidden whitespace-nowrap"
-              }
-            >
-              {newsItem?.title}
-            </h1>
+            <h1 className={styles.title}>{newsItem?.title}</h1>
             <p className="font-medium text-[14px] leading-5 text-[#00ADEE]">
               [24]
             </p>
-            {newNews(newsItem?.postDate) ? (
+            {newNews(newsItem?.postDate) && (
               <p className="font-black text-[10px] leading-[18px] align-center text-[#00ADEE]">
                 N
               </p>
-            ) : null}
+            )}
           </div>
 
           <div>
-            <p
-              className={
-                isRead
-                  ? "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#A6A6A6] overflow-hidden line-clamp-2"
-                  : "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#424242] overflow-hidden line-clamp-2"
-              }
-            >
+            <p className={styles.content}>
               컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
               컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
               컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
@@ -125,15 +126,11 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
           </div>
 
           <div className="flex gap-1">
-            <p className="font-bold text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
+            <p className={styles.category}>
               {changeCategory(newsItem?.category)}
             </p>
-            <p className="font-medium text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
-              {changeDateAgo(newsItem?.postDate)}
-            </p>
-            <p className="font-medium text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]">
-              네이버 스포츠 {/* 목 데이터 */}
-            </p>
+            <p className={styles.info}>{changeDateAgo(newsItem?.postDate)}</p>
+            <p className={styles.info}>네이버 스포츠 {/* 목 데이터 */}</p>
           </div>
         </div>
       </div>

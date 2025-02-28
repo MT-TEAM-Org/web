@@ -16,10 +16,8 @@ const RightNewsItem = ({ newsItem }: NewsItemProps) => {
 
   useEffect(() => {
     const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
-
     const isReadInStorage = readNews.includes(newsItem?.id);
     const isCurrentPage = pathname === `/news/news-detail/${newsItem?.id}`;
-
     setRead(isReadInStorage || isCurrentPage);
   }, [newsItem?.id, pathname]);
 
@@ -28,6 +26,12 @@ const RightNewsItem = ({ newsItem }: NewsItemProps) => {
   const contentStyle =
     "w-[184px] h-[40px] text-[14px] leading-5 tracking-[0%] opacity-90 line-clamp-2 overflow-hidden";
 
+  // 텍스트 스타일 객체로 함축
+  const styles = {
+    title: `${titleStyle} ${read ? "text-[#A6A6A6]" : "text-[#181818]"}`,
+    content: `${contentStyle} ${read ? "text-[#A6A6A6]" : "text-[#181818]"}`,
+  };
+
   return (
     <Link href={`/news/news-detail/${newsItem?.id}`}>
       <div
@@ -35,35 +39,17 @@ const RightNewsItem = ({ newsItem }: NewsItemProps) => {
         className="min-w-[288px] min-h-[92px] flex justify-start items-center border-b border-[#EEEEEE] p-3 cursor-pointer gap-3"
       >
         <Image
-          src={
-            newsItem?.thumbImg
-              ? newsItem?.thumbImg
-              : "/Preview_loading_image.png"
-          }
+          src={newsItem?.thumbImg || "/Preview_loading_image.png"}
           alt="news img"
           width={68}
           height={68}
           className="w-[68px] h-[68px] rounded-[4.25px]"
         />
         <div className="min-w-[184px] h-auto min-h-[68px] flex flex-col justify-center items-start gap-1">
-          <div
-            className={
-              read
-                ? `${titleStyle} text-[#A6A6A6]`
-                : `${titleStyle} text-[#181818]`
-            }
-          >
-            {newsItem.title}
-          </div>
-          <div
-            className={
-              read
-                ? `${contentStyle} text-[#A6A6A6]`
-                : `${contentStyle} text-[#181818]`
-            }
-          >
-            "컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-            컨텐츠들어갈부분"
+          <div className={styles.title}>{newsItem.title}</div>
+          <div className={styles.content}>
+            &quot;컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+            컨텐츠들어갈부분&quot;
           </div>
         </div>
       </div>
