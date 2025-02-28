@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import NewsPostItem from "../_components/NewsPostItem";
 import { useParams } from "next/navigation";
 import NewsItem from "@/app/(route)/main/_components/newsItem";
-import { NewsTalkToolbar } from "../../_components/NewsTalkToolbar";
 import useSortedNewsDataList from "@/_hooks/useSortedPosts";
+import NewsTalkToolbar from "../../_components/NewsTalkToolbar";
 
 export default function NewsPage() {
   const params = useParams();

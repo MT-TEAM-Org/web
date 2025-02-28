@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { NewsTalkToolbar } from "../_components/NewsTalkToolbar";
 import EmptyNews from "./_components/EmptyNews";
 import NewsPostItem from "./_components/NewsPostItem";
 import NewsItem from "../../main/_components/newsItem";
 import useSortedNewsDataList from "@/_hooks/useSortedPosts";
+import NewsTalkToolbar from "../_components/NewsTalkToolbar";
 
 const Page = () => {
   const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(
