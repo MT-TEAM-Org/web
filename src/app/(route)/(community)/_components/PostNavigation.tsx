@@ -3,27 +3,66 @@
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
-import { useParams, useRouter } from "next/navigation";
-import React from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-const PostNavigation = () => {
+interface PostNavigationProps {
+  scrollToCommentBar?: () => void;
+}
+
+const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
   const router = useRouter();
-  const params = useParams();
+  const queryClient = useQueryClient();
+  const pathname = usePathname();
+  const [isPrevDisabled, setIsPrevDisabled] = useState(false);
+  const [isNextDisabled, setIsNextDisabled] = useState(false);
 
-  const id = params.id;
+  // 추가 작업 필요, 현재 야구 페이지, 1 페이지에서만 작동
+  const cachedData = queryClient.getQueryData([
+    "newsDataList",
+    "BASEBALL",
+    "DATE",
+    1,
+  ]);
+
+  const ids = Array.isArray(cachedData)
+    ? cachedData.map((item) => item.id)
+    : [];
+
+  const pathnameId = pathname.split("/").pop();
+  const num = Number(pathnameId);
+
+  // 버튼 상태 설정
+  useEffect(() => {
+    if (!num) return;
+
+    const currentIndex = ids.indexOf(num);
+    setIsPrevDisabled(currentIndex <= 0); // 첫 번째 아이템이면 비활성화
+    setIsNextDisabled(currentIndex === -1 || currentIndex >= ids.length - 1); // 마지막 아이템이면 비활성화
+  }, [num, ids]);
+
+  const onClick = (type: "prev" | "next") => {
+    if (!num) return;
+
+    const currentIndex = ids.indexOf(num);
+    if (currentIndex === -1) return;
+
+    if (type === "prev" && currentIndex > 0) {
+      router.push(`/news/news-detail/${ids[currentIndex - 1]}`);
+      return;
+    }
+
+    if (type === "next" && currentIndex < ids.length - 1) {
+      router.push(`/news/news-detail/${ids[currentIndex + 1]}`);
+      return;
+    }
+  };
+
   const nextButtonStyle =
     "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px]";
   const topButtonStyle =
     "min-w-[120px] h-[auto] min-h-[40px] flex items-center justify-center rounded-[5px] border-[1px] border-[#DBDBDB] pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-[8px] font-[700] text-[14px] leading-[14px]";
-
-  const handleToPageButton = (i: string | string[], type: "prev" | "next") => {
-    // 페이지 없을 때 로직 필요
-    const id = typeof i === "string" ? i : i[0];
-    const num = parseInt(id, 10);
-
-    if (type === "prev") return router.push(`/news/news-detail/${num + 1}`);
-    if (type === "next") return router.push(`/news/news-detail/${num - 1}`);
-  };
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -36,22 +75,28 @@ const PostNavigation = () => {
     <div className="w-full max-w-[672px] min-h-[40px] flex justify-between">
       <div className="flex gap-2">
         <button
-          onClick={() => handleToPageButton(id, "prev")}
-          className={nextButtonStyle}
+          onClick={() => onClick("prev")}
+          className={`${nextButtonStyle} ${
+            isPrevDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+          }`}
+          disabled={isPrevDisabled}
         >
           <Arrow_up />
           이전글
         </button>
         <button
-          onClick={() => handleToPageButton(id, "next")}
-          className={nextButtonStyle}
+          onClick={() => onClick("next")}
+          className={`${nextButtonStyle} ${
+            isNextDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+          }`}
+          disabled={isNextDisabled}
         >
           <Arrow_down />
           다음글
         </button>
       </div>
       <div className="flex gap-2">
-        <button className={topButtonStyle}>
+        <button onClick={scrollToCommentBar} className={topButtonStyle}>
           <Arrow_up />
           댓글 맨위로
         </button>
