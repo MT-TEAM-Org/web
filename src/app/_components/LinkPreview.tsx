@@ -11,7 +11,6 @@ const LinkPreview = ({ videoUrl }: LinkPreviewProps) => {
     const { data } = await axios.get(
       `/api/preview?url=${encodeURIComponent(videoUrl)}`
     );
-    console.log(data);
     return data;
   };
 

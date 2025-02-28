@@ -71,17 +71,22 @@ export function Write({ category, subCategory }: WriteProps) {
       : "";
   };
 
+  const link = watch("link");
+
   useEffect(() => {
-    const link = watch("link");
     if (link) {
       const thumbnail = getYoutubeThumbnail(link);
       if (thumbnail) {
         setValue("thumbnail", thumbnail);
       }
+      console.log("thumbnail", thumbnail);
     }
-  }, [watch("link")]);
+  }, [link]);
 
   const onSubmit = async (data: FormData) => {
+    const thumbnail =
+      data.thumbnail || (data.link ? getYoutubeThumbnail(data.link) : "");
+
     const currentCategory = watch("categoryType");
 
     const communityData: CommunityData = {
@@ -90,8 +95,9 @@ export function Write({ category, subCategory }: WriteProps) {
       title: data.title,
       content: data.content,
       link: data.link,
-      thumbnail: data.thumbnail,
+      thumbnail,
     };
+
     postContent(communityData);
     console.log(data);
   };

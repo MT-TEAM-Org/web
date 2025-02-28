@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React from "react";
 
 const LeftSidebar = () => {
   const pathname = usePathname();
@@ -41,4 +42,4 @@ const LeftSidebar = () => {
   );
 };
 
-export default LeftSidebar;
+export default React.memo(LeftSidebar);
