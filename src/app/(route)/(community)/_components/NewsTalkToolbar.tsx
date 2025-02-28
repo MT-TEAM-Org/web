@@ -10,6 +10,7 @@ import Pg_left from "@/app/_components/icon/Pg_left";
 import Pg_right from "@/app/_components/icon/Pg_right";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import Small_Search from "@/app/_components/icon/Small_Search";
+import React from "react";
 
 interface DropdownOption {
   label: string;
@@ -21,7 +22,7 @@ interface NewsTalkToolbarProps {
   onPageChange: (page: string) => void;
 }
 
-export const NewsTalkToolbar = ({
+const NewsTalkToolbar = ({
   setOrderType,
   onPageChange,
 }: NewsTalkToolbarProps) => {
@@ -78,25 +79,16 @@ export const NewsTalkToolbar = ({
     type: "prev" | "next" | "doublePrev" | "doubleNext"
   ) => {
     const currentPageNum = Number(currentPage);
-    let newsPage = currentPageNum;
-
-    switch (type) {
-      case "prev":
-        if (currentPageNum > 1) newsPage = currentPageNum - 1;
-        break;
-      case "next":
-        if (currentPageNum < 5) newsPage = currentPageNum + 1;
-        break;
-      case "doublePrev":
-        if (currentPageNum > 2) newsPage = currentPageNum - 2;
-        break;
-      case "doubleNext":
-        if (currentPageNum < 4) newsPage = currentPageNum + 2;
-        break;
-      default:
-        return;
-    }
-
+    // 페이지 변경 로직을 객체로 관리
+    const actions: Record<typeof type, () => number> = {
+      prev: () => (currentPageNum > 1 ? currentPageNum - 1 : currentPageNum),
+      next: () => (currentPageNum < 5 ? currentPageNum + 1 : currentPageNum),
+      doublePrev: () =>
+        currentPageNum > 2 ? currentPageNum - 2 : currentPageNum,
+      doubleNext: () =>
+        currentPageNum < 4 ? currentPageNum + 2 : currentPageNum,
+    };
+    const newsPage = actions[type]();
     if (newsPage !== currentPageNum) {
       setCurrentPage(newsPage.toString());
     }
@@ -273,3 +265,5 @@ export const NewsTalkToolbar = ({
     </div>
   );
 };
+
+export default React.memo(NewsTalkToolbar);

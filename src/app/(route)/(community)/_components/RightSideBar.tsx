@@ -6,12 +6,15 @@ import Arrow_up from "@/app/_components/icon/Arrow_up";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
 import RightNewsItem from "./RightNewsItem";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 
 export const RightSideBar = () => {
   const [currentPage, setCurrentPage] = useState("1");
   const { data: newsData } = useGetNewsDataList({ page: currentPage });
-  const slicedNewsData = newsData?.slice(0, 5); //뉴스 데이터 임시로 5개만 불러오기
+
+  const slicedNewsData = useMemo(() => {
+    return newsData?.slice(0, 5);
+  }, [newsData]); //뉴스 데이터 임시로 5개만 불러오기
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -19,10 +22,6 @@ export const RightSideBar = () => {
       behavior: "smooth",
     });
   };
-
-  useEffect(() => {
-    console.log("RightSideBar Page: ", currentPage);
-  }, [currentPage]);
 
   const handleToPage = (type: "prev" | "next") => {
     const currentPageNum = Number(currentPage);
