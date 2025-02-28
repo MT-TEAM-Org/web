@@ -16,11 +16,27 @@ interface DropdownOption {
   value: string;
 }
 
-interface MypageToolbarProps {
-  mode: "posts" | "comments" | "inquries";
+interface ListConfig {
+  page: number;
+  size: number;
+  orderType: "CREATE" | "RECOMMEND" | "COMMENT";
+  searchType: "TITLE" | "CONTENT" | "TITLE_CONTENT" | "NICKNAME" | "COMMENT";
+  boardType: "ESPORTS" | "BASEBALL" | "FOOTBALL" | "";
+  categoryType: "FREE" | "QUESTION" | "ISSUE" | "VERIFICATION" | "TIP" | "";
+  search: string;
 }
 
-export const MypageToolbar = ({ mode }: MypageToolbarProps) => {
+interface MypageToolbarProps {
+  mode: "posts" | "comments" | "inquries";
+  listConfig: ListConfig;
+  setListConfig: (config: ListConfig) => void;
+}
+
+export const MypageToolbar = ({
+  mode,
+  listConfig,
+  setListConfig,
+}: MypageToolbarProps) => {
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const modeObject = {
@@ -46,12 +62,18 @@ export const MypageToolbar = ({ mode }: MypageToolbarProps) => {
     { value: "5", label: "5" },
   ];
 
-  const options: DropdownOption[] = [
-    { label: "제목+내용", value: "both" },
-    { label: "제목", value: "title" },
-    { label: "내용", value: "content" },
-    { label: "댓글", value: "comment" },
-    { label: "작성자", value: "writer" },
+  const orderOptions = [
+    { label: "최신순", value: "CREATE", logo: <Blue_outline_logo /> },
+    { label: "인기순", value: "RECOMMEND", logo: <Red_outline_logo /> },
+    { label: "댓글 많은 순", value: "COMMENT", logo: <Mini_logo /> },
+  ];
+
+  const searchOptions: DropdownOption[] = [
+    { label: "제목+내용", value: "TITLE_CONTENT" as ListConfig["searchType"] },
+    { label: "제목", value: "TITLE" as ListConfig["searchType"] },
+    { label: "내용", value: "CONTENT" as ListConfig["searchType"] },
+    { label: "댓글", value: "COMMENT" as ListConfig["searchType"] },
+    { label: "작성자", value: "NICKNAME" as ListConfig["searchType"] },
   ];
 
   const handleDivClick = () => {
@@ -61,12 +83,28 @@ export const MypageToolbar = ({ mode }: MypageToolbarProps) => {
     }
   };
 
+  const handleSearchTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setListConfig({
+      ...listConfig,
+      searchType: e.target.value as ListConfig["searchType"],
+    });
+  };
+
+  const handleOrderButtonClick = (orderType: ListConfig["orderType"]) => {
+    setListConfig({ ...listConfig, orderType });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setListConfig({ ...listConfig, search: e.target["0"].value });
+  };
+
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
   const pageButtonStyle =
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
   return (
-    <div>
+    <div className="bg-[#FFFFFF] rounded-t-[5px]">
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
         <h2 className="font-[700] text-[18px] leading-[28px] text-[#303030]">
           {modeObject[mode].title}
@@ -76,8 +114,10 @@ export const MypageToolbar = ({ mode }: MypageToolbarProps) => {
             <select
               className="appearance-none w-[120px] h-[40px] rounded-[5px] px-[12px] border text-[14px] leading-[22px] cursor-pointer [&>option]:h-[40px] [&>option]:px-[12px] [&>option]:py-[16px]"
               ref={selectRef}
+              onChange={handleSearchTypeChange}
+              value={listConfig.searchType}
             >
-              {options.map((option) => (
+              {searchOptions.map((option) => (
                 <option
                   key={option.value}
                   value={option.value}
@@ -91,7 +131,7 @@ export const MypageToolbar = ({ mode }: MypageToolbarProps) => {
               <Arrow_down />
             </div>
           </div>
-          <form className="relative">
+          <form className="relative" onSubmit={handleSubmit}>
             <input
               type="text"
               className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
@@ -105,18 +145,21 @@ export const MypageToolbar = ({ mode }: MypageToolbarProps) => {
       </div>
       <div className="flex justify-between items-center p-[12px]">
         <div className="flex w-full items-center gap-[4px]">
-          <button className={`${buttonStyle} font-[700]`}>
-            <Blue_outline_logo />
-            최신순
-          </button>
-          <button className={buttonStyle}>
-            <Red_outline_logo />
-            인기순
-          </button>
-          <button className={buttonStyle}>
-            <Mini_logo />
-            댓글 많은 순
-          </button>
+          {orderOptions.map((option) => (
+            <button
+              key={option.value}
+              className={`${buttonStyle} ${
+                option.value === listConfig.orderType &&
+                "font-[700] border-[#424242]"
+              }`}
+              onClick={() =>
+                handleOrderButtonClick(option.value as ListConfig["orderType"])
+              }
+            >
+              {option.logo}
+              {option.label}
+            </button>
+          ))}
         </div>
 
         <div className="flex">
