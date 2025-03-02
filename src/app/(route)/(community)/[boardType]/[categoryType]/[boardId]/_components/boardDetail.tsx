@@ -4,7 +4,7 @@ import React from "react";
 import useGetBoardDetail from "@/_hooks/getBoardDetail";
 import Image from "next/image";
 import parse from "html-react-parser";
-import { Spinner } from "@heroui/react";
+import { Spinner, user } from "@heroui/react";
 
 interface BoardDetailProps {
   boardId: string;
@@ -12,6 +12,8 @@ interface BoardDetailProps {
 
 const BoardDetail = ({ boardId }: BoardDetailProps) => {
   const { data: boardDetailData, isLoading } = useGetBoardDetail(boardId);
+
+  console.log(boardDetailData);
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
@@ -88,44 +90,38 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
             <hr />
           </div>
         ) : (
-          <div className="flex flex-col gap-[8px]">
-            <h1 className="font-bold text-[18px] leading-[28px] text-[#303030] mb-[-8px]">
+          <div className="flex flex-col gap-y-[8px] text-gray6">
+            <h1 className="font-bold text-[18px] leading-[28px] text-[#303030]">
               {boardDetailData?.data?.title}
             </h1>
-            <div className="flex justify-between gap-[8px] w-[672px] min-h-[20px] text-gray6">
-              <div className="flex gap-[8px] w-[421px] h-[20px]">
-                <span className="text-[14px] leading-[20px]">
+            <div className="flex gap-x-[16px] max-w-[672px] min-h-[20px]">
+              <div className="flex gap-x-[4px] w-[421px] h-[20px]">
+                <p className="font-bold text-[14px] leading-[20px] ">
                   {getKoreanBoardType(boardDetailData?.data?.boardType)}
-                </span>
-                <span className="font-medium text-[14px] leading-[20px]">
+                </p>
+                <p className="font-medium text-[14px] leading-[20px]">
                   {getKoreanCategoryType(boardDetailData?.data?.categoryType)}
-                </span>
-                <span className="font-medium text-[14px] leading-[20px]">
-                  1분 전
-                </span>
-                <span className="text-[14px] leading-[20px]">조회수</span>
-                <span className="font-medium text-[14px] leading-[20px]">
-                  {boardDetailData?.data?.viewCount}
-                </span>
-                <span className="text-[14px] leading-[20px]">댓글</span>
-                <span className="font-medium text-[14px] leading-[20px]">
-                  {boardDetailData?.data?.commentCount}
-                </span>
-                <span className="text-[14px] leading-[20px]">추천</span>
-                <span className="font-medium text-[14px] leading-[20px]">
-                  {boardDetailData?.data?.recommendCount}
-                </span>
+                </p>
+                <p className="font-medium text-[14px] leading-[20px]">1분 전</p>
+                <div className="flex gap-x-[4px] font-medium text-[14px] leading-[20px]">
+                  <p className="font-bold">조회수</p>
+                  <p> {boardDetailData?.data?.viewCount}</p>
+                </div>
+                <div className="flex gap-x-[4px] font-medium text-[14px] leading-[20px]">
+                  <p className="font-bold">댓글</p>
+                  <p> {boardDetailData?.data?.commentCount}</p>
+                </div>
+                <div className="flex gap-x-[4px] font-medium text-[14px] leading-[20px]">
+                  <p className="font-bold">추천</p>
+                  <p> {boardDetailData?.data?.recommendCount}</p>
+                </div>
               </div>
-              <div className="flex justify-end gap-[12px] w-[235px] h-[20px]">
-                <span className="font-medium text-[14px] leading-[20px]">
-                  {boardDetailData?.data?.nickname}
-                </span>
-                <span className="font-medium text-[14px] leading-[20px]">
-                  IP {maskIP(boardDetailData?.data?.clientIp)}
-                </span>
+              <div className="flex justify-end w-[235px] h-[20px] whitespace-nowrap gap-x-[4px] font-medium text-[14px] leading-[20px]">
+                <p>{boardDetailData?.data?.nickname}</p>
+                <p>IP {boardDetailData?.data?.clientIp}</p>
               </div>
             </div>
-            <div className="w-full min-h-[32px] flex justify-end my-[8px]">
+            <div className="w-full min-h-[32px] flex justify-end my-[16px]">
               <div className="max-w-[106px] h-[32px] flex gap-x-[8px] text-[14px] font-medium leading-[14px] text-gray7">
                 <button className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]">
                   수정
