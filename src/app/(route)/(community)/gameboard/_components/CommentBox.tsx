@@ -3,7 +3,6 @@ import React from "react";
 import { Plus } from "lucide-react";
 import CommentItem from "../../_components/CommentItem";
 import SendCommentBox from "../../_components/SendCommentBox";
-import ReplyCommentItem from "../../_components/ReplyCommentItem";
 
 const CommentBox = () => {
   return (
@@ -20,7 +19,7 @@ const CommentBox = () => {
           data={{ nestedComments: "@댓글유저디자인이렇게" }}
         />
         <CommentItem />
-        <ReplyCommentItem />
+        {/* <ReplyCommentItem /> */}
         <CommentItem />
         <CommentItem data={{ commentImg: "/Fake_comment_img.png" }} />
         {/* <EmptyComment /> */}
