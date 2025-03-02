@@ -1,23 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import NewsPostItem from "../_components/NewsPostItem";
 import { useParams } from "next/navigation";
 import NewsItem from "@/app/(route)/main/_components/newsItem";
 import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
 import NewsTalkToolbar from "../_components/NewsTalkToolbar";
+import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
 
 export default function NewsPage() {
   const params = useParams();
-  const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(
-    "DATE"
-  );
-  const [pageNum, setPageNum] = useState(1);
+  const { orderType, setOrderType, pageNum, onPageChange } = useNewsPageLogic();
 
   const changedCategory = (category: string): string | undefined => {
-    if (category === "esports-news") return "ESPORTS";
-    if (category === "football-news") return "FOOTBALL";
-    if (category === "baseball-news") return "BASEBALL";
+    const categoryMap: Record<string, string> = {
+      "esports-news": "ESPORTS",
+      "football-news": "FOOTBALL",
+      "baseball-news": "BASEBALL",
+    };
+    return categoryMap[category];
   };
 
   const category = changedCategory(String(params.subcategory));
@@ -27,10 +28,6 @@ export default function NewsPage() {
     orderType,
     pageNum,
   });
-
-  const onPageChange = (newPage: string) => {
-    setPageNum(Number(newPage));
-  };
 
   return (
     <div className="flex justify-center bg-gray1">
