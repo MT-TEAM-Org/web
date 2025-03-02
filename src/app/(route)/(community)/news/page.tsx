@@ -1,51 +1,36 @@
 "use client";
 
-import React, { useState } from "react";
-import EmptyNews from "./_components/EmptyNews";
-import NewsPostItem from "./_components/NewsPostItem";
-import NewsItem from "../../main/_components/newsItem";
+import React from "react";
+import NewsListContent from "./_components/NewsListContent";
 import useSortedNewsDataList from "@/_hooks/useSortedPosts";
-import NewsTalkToolbar from "../_components/NewsTalkToolbar";
+import { useNewsListLogic } from "@/_hooks/useNewsListLogic";
+import NewsTalkToolbar from "./_components/NewsTalkToolbar";
 
 const Page = () => {
-  const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(
-    "DATE"
-  );
-  const [pageNum, setPageNum] = useState(1);
-
-  // 전체 데이터 불러오는 방법을 몰라서 임시로 야구로 설정. 수정필요
-  const { data, isLoading, isError } = useSortedNewsDataList({
+  const { orderType, setOrderType, pageNum, onPageChange } = useNewsListLogic();
+  const {
+    data: newsListData,
+    isLoading,
+    isError,
+  } = useSortedNewsDataList({
     orderType,
     pageNum,
   });
 
-  console.log("NewsListData: ", data);
-
-  const onPageChange = (newPage: string) => {
-    setPageNum(Number(newPage));
-  };
+  console.log("NewsListData: ", newsListData);
 
   return (
-    <div className="w-[720px] h-auto flex flex-col justify-start bg-[#FAFAFA] rounded-[5px] overflow-hidden">
-      <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] bg-[#FFFFFF] mx-auto">
-        <NewsTalkToolbar
-          setOrderType={setOrderType}
-          onPageChange={onPageChange}
-        />
-      </div>
-      <div>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : isError ? (
-          <p>Error...</p>
-        ) : data.length === 0 ? (
-          <EmptyNews />
-        ) : (
-          data.map((newsItem: NewsItem) => (
-            <NewsPostItem key={newsItem.id} newsItem={newsItem} />
-          ))
-        )}
-      </div>
+    <div className="w-[720px] h-auto flex flex-col justify-start bg-gray1 rounded-[5px] overflow-hidden">
+      <NewsTalkToolbar
+        setOrderType={setOrderType}
+        onPageChange={onPageChange}
+      />
+
+      <NewsListContent
+        data={newsListData}
+        isLoading={isLoading}
+        isError={isError}
+      />
     </div>
   );
 };
