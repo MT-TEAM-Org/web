@@ -8,6 +8,9 @@ const fetchMatchScheduleData = async () => {
     params: {
       matchCategory: "BASEBALL",
     },
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
   });
 
   return response
