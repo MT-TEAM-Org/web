@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import Link from "next/link";
-import { useReadNews } from "@/_hooks/useReadNews";
+import { useReadNews } from "@/_hooks/useNews/useReadNews";
 import { usePathname } from "next/navigation";
 
 interface NewsItemProps {

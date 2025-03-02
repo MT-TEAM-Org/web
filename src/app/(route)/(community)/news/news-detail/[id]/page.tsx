@@ -1,35 +1,32 @@
 "use client";
 
-import React, { use, useRef, useState } from "react";
+import React, { use } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import NewsPostItem from "../../_components/NewsPostItem";
 import SendCommentBox from "../../../_components/SendCommentBox";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
-import { useReadNews } from "@/_hooks/useReadNews";
 import NewsTalkToolbar from "../../_components/NewsTalkToolbar";
 import useGetNewsInfoData from "@/_hooks/useNews/useGetNewsInfoData";
-import useTimeAgo from "@/_hooks/useTimeAgo";
+import useTimeAgo from "@/utils/useTimeAgo";
 import PostAction from "./_components/PostAction";
-import ChangedCategory from "@/_hooks/useNews/changedCategory";
-import { useNewsListLogic } from "@/_hooks/useNews/useNewsListLogic";
+import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import CommentSection from "./_components/CommentSection";
+import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   const { data: newsInfoData } = useGetNewsInfoData(id);
   console.log("newsInfoData: ", newsInfoData);
 
-  const { orderType, setOrderType, pageNum, onPageChange } = useNewsListLogic();
+  const { orderType, setOrderType, pageNum, onPageChange } = useNewsPageLogic();
   const { data: newsListData } = useSortedNewsDataList({ orderType, pageNum });
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
   const updatedImgUrl = newsInfoData?.thumbImg?.replace(
     "type=w140",
     "type=w360"
   );
-
-  const { handleRead } = useReadNews(sliceNewsListData?.id, false);
 
   return (
     <>
@@ -91,9 +88,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
       <div className="w-[720px] min-h-[348px] rounded-b-[5px] overflow-hidden shadow-md">
         {sliceNewsListData?.map((newsInfoData: NewsItemType) => (
-          <div key={newsInfoData.id} onClick={handleRead}>
-            <NewsPostItem newsItem={newsInfoData} />
-          </div>
+          <NewsPostItem newsItem={newsInfoData} key={newsInfoData.id} />
         ))}
       </div>
       <div className="shadow-md">

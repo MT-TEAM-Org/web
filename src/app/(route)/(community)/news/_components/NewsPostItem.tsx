@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import Link from "next/link";
-import { useReadNews } from "@/_hooks/useReadNews";
-import useTimeAgo from "@/_hooks/useTimeAgo";
-import ChangedCategory from "@/_hooks/useNews/changedCategory";
+import { useReadNews } from "@/_hooks/useNews/useReadNews";
+import useTimeAgo from "@/utils/useTimeAgo";
+import ChangedCategory from "@/utils/newsUtils/changedCategory";
 
 interface NewsPostItemProps {
   newsItem?: NewsItemType;
