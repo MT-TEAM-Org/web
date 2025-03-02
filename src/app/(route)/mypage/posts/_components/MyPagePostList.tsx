@@ -44,7 +44,7 @@ const MyPagePostList = () => {
     orderType: "CREATE",
     searchType: "TITLE",
     search: "",
-    boardType: "ESPORTS",
+    boardType: "BASEBALL",
     categoryType: "",
   });
   const { data, isLoading } = useMyPostList(postListConfig);
