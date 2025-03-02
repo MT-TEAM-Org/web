@@ -21,8 +21,6 @@ interface ListConfig {
   size: number;
   orderType: "CREATE" | "RECOMMEND" | "COMMENT";
   searchType: "TITLE" | "CONTENT" | "TITLE_CONTENT" | "NICKNAME" | "COMMENT";
-  boardType: "ESPORTS" | "BASEBALL" | "FOOTBALL" | "";
-  categoryType: "FREE" | "QUESTION" | "ISSUE" | "VERIFICATION" | "TIP" | "";
   search: string;
 }
 

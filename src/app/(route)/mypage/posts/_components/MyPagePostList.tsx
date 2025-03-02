@@ -11,8 +11,6 @@ interface PostListConfig {
   size: number;
   orderType: "CREATE" | "RECOMMEND" | "COMMENT";
   searchType: "TITLE" | "CONTENT" | "TITLE_CONTENT" | "NICKNAME" | "COMMENT";
-  boardType: "ESPORTS" | "BASEBALL" | "FOOTBALL" | "";
-  categoryType: "FREE" | "QUESTION" | "ISSUE" | "VERIFICATION" | "TIP" | "";
   search: string;
 }
 
@@ -44,8 +42,6 @@ const MyPagePostList = () => {
     orderType: "CREATE",
     searchType: "TITLE",
     search: "",
-    boardType: "BASEBALL",
-    categoryType: "",
   });
   const { data, isLoading } = useMyPostList(postListConfig);
   const { content, pageInfo } = data?.data?.list || {};
