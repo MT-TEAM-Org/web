@@ -21,9 +21,9 @@ const Banner = ({ url }: BannerProps) => {
     if (segment === "football") {
       bannerUrl = "soccer_banner.png";
     } else if (segment === "baseball") {
-      bannerUrl = "baseball_banner.png";
+      bannerUrl = "baseballBanner.png";
     } else if (segment === "esports") {
-      bannerUrl = "eSports_banner.png";
+      bannerUrl = "esportsBanner.png";
     }
   }
 
