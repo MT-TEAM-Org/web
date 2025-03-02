@@ -28,15 +28,15 @@ const RightNewsItem = ({ newsItem }: NewsItemProps) => {
 
   // 텍스트 스타일 객체로 함축
   const styles = {
-    title: `${titleStyle} ${read ? "text-[#A6A6A6]" : "text-[#181818]"}`,
-    content: `${contentStyle} ${read ? "text-[#A6A6A6]" : "text-[#181818]"}`,
+    title: `${titleStyle} ${read ? "text-gray5" : "text-gray9"}`,
+    content: `${contentStyle} ${read ? "text-gray5" : "text-gray9"}`,
   };
 
   return (
     <Link href={`/news/news-detail/${newsItem?.id}`}>
       <div
         onClick={handleRead}
-        className="min-w-[288px] min-h-[92px] flex justify-start items-center border-b border-[#EEEEEE] p-3 cursor-pointer gap-3"
+        className="min-w-[288px] min-h-[92px] flex justify-start items-center border-b border-gray2 p-3 cursor-pointer gap-3"
       >
         <Image
           src={newsItem?.thumbImg || "/Preview_loading_image.png"}

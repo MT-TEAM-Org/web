@@ -46,16 +46,16 @@ export const RightSideBar = () => {
         <div className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto">
           <button
             onClick={() => handleToPage("prev")}
-            className="w-[32px] h-[32px] rounded-[5px] border border-[#EEEEEE] p-[9px] flex gap-[10px] justify-center items-center"
+            className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex gap-[10px] justify-center items-center"
           >
             <Arrow_left />
           </button>
-          <div className="w-[64px] h-[32px] font-[500] text-[14px] leading-[20px] tracking-[0%] text-[#656565] flex items-center justify-center align-center">
+          <div className="w-[64px] h-[32px] font-[500] text-[14px] leading-[20px] tracking-[0%] text-gray6 flex items-center justify-center align-center">
             {currentPage} / 3
           </div>
           <button
             onClick={() => handleToPage("next")}
-            className="w-[32px] h-[32px] rounded-[5px] border border-[#EEEEEE] p-[9px] flex gap-[10px] justify-center items-center"
+            className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex gap-[10px] justify-center items-center"
           >
             <Arrow_right />
           </button>
@@ -64,7 +64,7 @@ export const RightSideBar = () => {
 
       <div
         onClick={scrollToTop}
-        className="w-[48px] h-[48px] bg-[#FFFFFF] rounded-[5px] shadow-md flex justify-center items-center p-[10px] gap-[10px] cursor-pointer"
+        className="w-[48px] h-[48px] bg-white rounded-[5px] shadow-md flex justify-center items-center p-[10px] gap-[10px] cursor-pointer"
       >
         <Arrow_up />
       </div>
