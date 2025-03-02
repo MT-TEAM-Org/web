@@ -2,9 +2,9 @@
 
 import React from "react";
 import NewsListContent from "./_components/NewsListContent";
-import useSortedNewsDataList from "@/_hooks/useSortedPosts";
-import { useNewsListLogic } from "@/_hooks/useNewsListLogic";
+import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
 import NewsTalkToolbar from "./_components/NewsTalkToolbar";
+import { useNewsListLogic } from "@/_hooks/useNews/useNewsListLogic";
 
 const Page = () => {
   const { orderType, setOrderType, pageNum, onPageChange } = useNewsListLogic();

@@ -9,7 +9,8 @@ import CommentBox from "./_components/CommentBox";
 import BaseballTab from "./_components/_baseballComponents/BaseballTab";
 import FootballTab from "./_components/_footballComponents/FootballTab";
 import LiveChat from "./_components/_LiveChatComponents/LiveChat";
-import useGetMatchSchedule from "@/_hooks/useGetMatchSchedule";
+import useGetMatchSchedule from "@/_hooks/useMatch/useGetMatchSchedule";
+
 // import EmptyComment from "./_components/EmptyComment";
 // import FootballLivePanel from "./_components/FootballLivePanel";
 

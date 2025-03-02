@@ -110,7 +110,7 @@ const NewsTalkToolbar = ({
     "bg-white text-gray-700 min-w-[57px] h-[40px] flex gap-[10px] items-center align-center border border-gray3 rounded-[5px] px-[16px] py-[13px] font-[500] text-[14px] leading-[22px] tracking-[-2%]";
 
   return (
-    <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] bg-white mx-auto">
+    <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] bg-white mx-auto shadow-sm">
       <div className="bg-white rounded-tr-[5px] rounded-t-[5px]">
         <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
           <div className="flex gap-2">

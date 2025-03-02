@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
+import useGetNewsDataList from "@/_hooks/useNews/useGetNewsDataList";
 import { useRouter } from "next/navigation";
 import { useReadNews } from "@/_hooks/useReadNews";
 

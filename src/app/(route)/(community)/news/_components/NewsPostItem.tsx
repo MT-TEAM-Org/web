@@ -5,6 +5,8 @@ import Image from "next/image";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import Link from "next/link";
 import { useReadNews } from "@/_hooks/useReadNews";
+import useTimeAgo from "@/_hooks/useTimeAgo";
+import ChangedCategory from "@/_hooks/useNews/changedCategory";
 
 interface NewsPostItemProps {
   newsItem?: NewsItemType;
@@ -13,58 +15,17 @@ interface NewsPostItemProps {
 const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
   const updatedImgUrl = newsItem?.thumbImg?.replace("type=w140", "type=w160");
   const { isRead, handleRead } = useReadNews(newsItem?.id);
+  const [isNew, setIsNew] = useState(false);
+  const date = useTimeAgo(newsItem?.postDate);
 
-  const changeCategory = (category?: string) => {
-    switch (category) {
-      case "BASEBALL":
-        return "야구";
-      case "FOOTBALL":
-        return "축구";
-      case "ESPORTS":
-        return "E스포츠";
-      default:
-        return "기타";
+  // N 표시 속성
+  useEffect(() => {
+    if (date.includes("일 전") && parseInt(date) < 1) {
+      setIsNew(true);
+    } else {
+      setIsNew(false);
     }
-  };
-
-  // 뉴스 기사 올라온 시간 확인하는 로직
-  const changeDateAgo = (newsTime: string | undefined) => {
-    if (!newsTime) return "알 수 없음";
-
-    const newsDate = new Date(newsTime);
-    const now = new Date();
-
-    const diffMs = now.getTime() - newsDate.getTime(); // 현재 시간과 뉴스 시간의 차이를 밀리초 단위로 계산
-    const diffMinutes = Math.floor(diffMs / (1000 * 60)); // 밀리초 차이를 분 단위로 변환
-    const diffHours = Math.floor(diffMinutes / 60); // 분 차이를 시 단위로 변환
-    const diffDays = Math.floor(diffHours / 24); // 시 차이를 24시간 단위로 변환하여 일 수 계산
-
-    // 24시간 이상인 경우 일 단위로 표시
-    if (diffDays > 0) {
-      return `${diffDays}일 전`;
-    }
-
-    // 1시간 이상 24시간 미만인 경우 시, 분 단위로 표시
-    if (diffHours > 0) {
-      return `${diffHours}시간 전`;
-    }
-
-    // 1시간 미만인 경우 분 단위로 표시
-    return diffMinutes > 0 ? `${diffMinutes}분 전` : "방금 전";
-  };
-
-  // 뉴스 시간 24시간이 지났는지 확인하는 로직
-  const newNews = (newsTime: string | undefined) => {
-    if (!newsTime) return false;
-
-    const newsDate = new Date(newsTime);
-    const now = new Date();
-
-    const diffMs = now.getTime() - newsDate.getTime();
-    const diffMinutes = Math.floor(diffMs / (1000 * 60));
-
-    return diffMinutes < 1440;
-  };
+  }, [date]);
 
   // 스타일 객체로 함축
   const styles = {
@@ -108,7 +69,7 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
             <p className="font-medium text-[14px] leading-5 text-[#00ADEE]">
               [24]
             </p>
-            {newNews(newsItem?.postDate) && (
+            {isNew && (
               <p className="font-black text-[10px] leading-[18px] align-center text-[#00ADEE]">
                 N
               </p>
@@ -126,9 +87,9 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
 
           <div className="flex gap-1">
             <p className={styles.category}>
-              {changeCategory(newsItem?.category)}
+              <ChangedCategory category={newsItem?.category} />
             </p>
-            <p className={styles.info}>{changeDateAgo(newsItem?.postDate)}</p>
+            <p className={styles.info}>{useTimeAgo(newsItem?.postDate)}</p>
             <p className={styles.info}>네이버 스포츠 {/* 목 데이터 */}</p>
           </div>
         </div>
