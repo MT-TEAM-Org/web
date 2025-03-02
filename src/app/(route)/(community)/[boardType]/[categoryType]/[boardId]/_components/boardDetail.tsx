@@ -118,7 +118,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
               </div>
               <div className="flex justify-end w-[235px] h-[20px] whitespace-nowrap gap-x-[4px] font-medium text-[14px] leading-[20px]">
                 <p>{boardDetailData?.data?.nickname}</p>
-                <p>IP {boardDetailData?.data?.clientIp}</p>
+                <p>IP {maskIP(boardDetailData?.data?.clientIp)}</p>
               </div>
             </div>
             <div className="w-full min-h-[32px] flex justify-end my-[16px]">
