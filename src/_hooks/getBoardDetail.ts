@@ -12,6 +12,7 @@ const useGetBoardDetail = (boardId: string) =>
   useQuery({
     queryKey: ["board", "detail", boardId],
     queryFn: () => getBoardDetail(boardId),
+    enabled: !!boardId,
   });
 
 export default useGetBoardDetail;

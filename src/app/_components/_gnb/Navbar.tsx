@@ -3,6 +3,7 @@
 import { useRouter, usePathname } from "next/navigation";
 import { Search } from "../icon/Search";
 import Link from "next/link";
+import { NAVBARS } from "@/constants/navigation";
 
 export default function Navbar() {
   const router = useRouter();
@@ -13,33 +14,10 @@ export default function Navbar() {
   const navbarClass =
     "min-h-[60px] p-[16px] whitespace-nowrap font-medium text-[18px] leading-7 tracking-[-0.04em] text-center cursor-pointer";
 
-  const NavbarObject = [
-    {
-      name: "E스포츠",
-      link: "/esports",
-    },
-    {
-      name: "축구",
-      link: "/football",
-    },
-    {
-      name: "야구",
-      link: "/baseball",
-    },
-    {
-      name: "뉴스톡톡",
-      link: "/news",
-    },
-    {
-      name: "경기중계",
-      link: "/gameboard",
-    },
-  ];
-
   return (
     <div className="w-full max-w-[1200px] min-h-[60px] flex justify-between items-center mx-auto">
       <div className="max-w-[447px] min-h-[60px] flex justify-around gap-2.5">
-        {NavbarObject.map((item, index) => (
+        {NAVBARS.map((item, index) => (
           <Link key={index} href={item.link}>
             <div
               className={`${navbarClass} flex justify-around items-center ${
