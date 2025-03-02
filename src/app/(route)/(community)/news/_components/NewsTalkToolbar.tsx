@@ -95,10 +95,10 @@ const NewsTalkToolbar = ({
   };
 
   const buttonStyle =
-    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] border-[#DBDBDB]";
+    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] border-gray3";
 
   const activeSortedStyle =
-    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] font-[700] border-[#424242]";
+    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] font-[700] border-gray7";
 
   const pageButtonStyle =
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
@@ -107,7 +107,7 @@ const NewsTalkToolbar = ({
     "bg-[#00ADEE] text-white min-w-[57px] h-[40px] flex gap-[10px] items-center align-center rounded-[5px] px-[16px] py-[13px]  font-[700] text-[14px] leading-[21px] tracking-[-2%]";
 
   const disableButtonStyle =
-    "bg-white text-gray-700 min-w-[57px] h-[40px] flex gap-[10px] items-center align-center border border-[#DBDBDB] rounded-[5px] px-[16px] py-[13px] font-[500] text-[14px] leading-[22px] tracking-[-2%]";
+    "bg-white text-gray-700 min-w-[57px] h-[40px] flex gap-[10px] items-center align-center border border-gray3 rounded-[5px] px-[16px] py-[13px] font-[500] text-[14px] leading-[22px] tracking-[-2%]";
 
   return (
     <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] bg-white mx-auto">
@@ -170,7 +170,7 @@ const NewsTalkToolbar = ({
             <form className="relative">
               <input
                 type="text"
-                className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
+                className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-gray4"
                 placeholder="검색어를 입력해주세요."
                 value={inputValue}
                 onChange={searchInput}
@@ -234,9 +234,9 @@ const NewsTalkToolbar = ({
                   key={page.value}
                   className={`${pageButtonStyle} ${
                     page.value === currentPage
-                      ? "font-[700] border border-[#424242]"
+                      ? "font-[700] border border-gray7"
                       : ""
-                  } text-[14px] leading-[20px] text-[#424242]`}
+                  } text-[14px] leading-[20px] text-gray7`}
                   onClick={() => {
                     onPageChange(page.label);
                     setCurrentPage(page.label);

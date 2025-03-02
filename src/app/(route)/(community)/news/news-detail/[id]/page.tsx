@@ -97,14 +97,14 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-[#FFFFFF] shadow-sm mb-2">
+      <div className="flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-white shadow-sm mb-2">
         <div className="w-full h-auto flex flex-col gap-2">
-          <h1 className="w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-[#303030]">
+          <h1 className="w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-gray8">
             {data?.title}
           </h1>
 
-          <div className="w-full h-auto min-h-[20px] gap-4 flex justify-between text-[#EEEEEE]">
-            <div className="flex gap-2 text-[#656565] font-[700] leading-5 text-[14px]">
+          <div className="w-full h-auto min-h-[20px] gap-4 flex justify-between text-gray2">
+            <div className="flex gap-2 text-gray6 font-[700] leading-5 text-[14px]">
               <div className="flex gap-1 font-medium text-[14px] leading-5">
                 <p className="font-bold">{changeCategory(data?.category)}</p>
                 <p>{changeDateAgo(data?.postDate)}</p>
@@ -118,7 +118,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
                 <p>{data?.recommendCount}</p>
               </div>
             </div>
-            <div className="text-[14px] flex font-[500] leading-5 gap-1 text-[#656565]">
+            <div className="text-[14px] flex font-[500] leading-5 gap-1 text-gray6">
               <p>네이버 스포츠</p>
             </div>
           </div>
@@ -131,7 +131,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             width={672}
             height={338}
           />
-          <p className="font-[500] text-[16px] leading-6 tracking-[-0.02em] text-[#424242] overflow-hidden line-clamp-2">
+          <p className="font-[500] text-[16px] leading-6 tracking-[-0.02em] text-gray7 overflow-hidden line-clamp-2">
             컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
             컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
             컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
@@ -139,25 +139,25 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
 
         <div className="w-full h-auto flex justify-center gap-2">
-          <button className="min-w-[120px] w-auto h-[40px] flex items-center text-[14px] justify-center gap-1 px-4 py-[13px] bg-[#00ADEE] text-[#FFFFFF] font-bold rounded-[5px]">
+          <button className="min-w-[120px] w-auto h-[40px] flex items-center text-[14px] justify-center gap-1 px-4 py-[13px] bg-[#00ADEE] text-white font-bold rounded-[5px]">
             <Single_logo />
             추천 12
           </button>
         </div>
 
         <div className="w-full h-auto flex justify-between">
-          <button className="min-w-[104px] w-auto min-h-[32px] rounded-[5px] text-[14px] font-[500] leading-[14px] flex items-center justify-center bg-[#FFFFFF] px-3 py-[9px] border border-[#DBDBDB]">
+          <button className="min-w-[104px] w-auto min-h-[32px] rounded-[5px] text-[14px] font-[500] leading-[14px] flex items-center justify-center bg-white px-3 py-[9px] border border-gray3">
             기사 원문 보기
           </button>
           <div className="flex gap-2">
             <button
               onClick={copyBtn}
-              className="min-w-[138px] w-auto min-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] px-3 py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium"
+              className="min-w-[138px] w-auto min-h-[32px] flex justify-center gap-1 items-center bg-white px-3 py-2 rounded-[5px] border border-gray3 text-[14px] leading-[14px] font-medium"
             >
               <Copy />
               게시글 URL 복사
             </button>
-            <button className="min-w-[91px] w-auto min-h-[32px] flex justify-center gap-1 items-center bg-[#FFFFFF] pr-[12px] pl-[10px] py-2 rounded-[5px] border border-[#DBDBDB] text-[14px] leading-[14px] font-medium">
+            <button className="min-w-[91px] w-auto min-h-[32px] flex justify-center gap-1 items-center bg-white pr-[12px] pl-[10px] py-2 rounded-[5px] border border-gray3 text-[14px] leading-[14px] font-medium">
               <Share />
               공유하기
             </button>

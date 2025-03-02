@@ -33,8 +33,8 @@ export default function NewsPage() {
   };
 
   return (
-    <div className="flex justify-center bg-[#FAFAFA]">
-      <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto">
+    <div className="flex justify-center bg-gray1">
+      <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
         <NewsTalkToolbar
           setOrderType={setOrderType}
           onPageChange={onPageChange}

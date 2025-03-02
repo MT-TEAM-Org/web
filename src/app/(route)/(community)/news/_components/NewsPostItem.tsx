@@ -69,23 +69,22 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
   // 스타일 객체로 함축
   const styles = {
     title: isRead
-      ? "font-bold text-[16px] leading-6 tracking-[-2%] text-[#A6A6A6] text-ellipsis overflow-hidden whitespace-nowrap"
-      : "font-bold text-[16px] leading-6 tracking-[-2%] text-[#181818] text-ellipsis overflow-hidden whitespace-nowrap",
+      ? "font-bold text-[16px] leading-6 tracking-[-2%] text-gray5 text-ellipsis overflow-hidden whitespace-nowrap"
+      : "font-bold text-[16px] leading-6 tracking-[-2%] text-gray9 text-ellipsis overflow-hidden whitespace-nowrap",
 
     content: isRead
-      ? "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#A6A6A6] overflow-hidden line-clamp-2"
-      : "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-[#424242] overflow-hidden line-clamp-2",
+      ? "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray5 overflow-hidden line-clamp-2"
+      : "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray7 overflow-hidden line-clamp-2",
 
-    info: "font-medium text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]",
-    category:
-      "font-bold text-[12px] leading-[18px] letter-[-2%] text-[#A6A6A6]",
+    info: "font-medium text-[12px] leading-[18px] letter-[-2%] text-gray5",
+    category: "font-bold text-[12px] leading-[18px] letter-[-2%] text-gray5",
   };
 
   return (
     <Link href={`/news/news-detail/${newsItem?.id}`}>
       <div
         onClick={handleRead}
-        className="min-w-[720px] min-h-[116px] flex justify-start gap-3 border-b border-[#FAFAFA] p-3 bg-[#FFFFFF] cursor-pointer hover:bg-[#F8FDFF]"
+        className="min-w-[720px] min-h-[116px] flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-[#F8FDFF]"
       >
         <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
           <Image
