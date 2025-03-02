@@ -19,10 +19,7 @@ interface BoardListItem {
   lastModifiedDate: string;
 }
 
-const PostItem = () => {
-  const pathName = usePathname();
-  const boardType = pathName?.split("/")[1];
-  const categoryType = pathName?.split("/")[2];
+const PostItem = ({ boardType, categoryType }) => {
   const { data: boardData } = useGetBoardData({
     boardType: boardType?.toUpperCase(),
     categoryType: categoryType,
@@ -62,7 +59,7 @@ const PostItem = () => {
     <div className="flex flex-col items-center w-full">
       {boardData?.map((data: BoardListItem, index: number) => (
         <Link
-          href={`${data.id}`}
+          href={`${categoryType}/${data.id}`}
           key={`${data.id}-${index}`}
           className="flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]"
         >

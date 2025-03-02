@@ -1,8 +1,8 @@
 "use client";
 
+import React from "react";
 import useGetBoardDetail from "@/_hooks/getBoardDetail";
 import Image from "next/image";
-import { useState } from "react";
 import parse from "html-react-parser";
 import { Spinner } from "@heroui/react";
 
@@ -12,7 +12,6 @@ interface BoardDetailProps {
 
 const BoardDetail = ({ boardId }: BoardDetailProps) => {
   const { data: boardDetailData, isLoading } = useGetBoardDetail(boardId);
-  const [imagError, setImageError] = useState(false);
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
@@ -38,14 +37,24 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
 
   const maskIP = (ip: string) => {
     if (!ip) return "";
-
     const parts = ip.split(".");
     if (parts.length !== 4) return ip;
-
     return `${parts[0]}.${parts[1]}.**.**`;
   };
 
   const content = boardDetailData?.data?.content || "";
+  const link = boardDetailData?.data?.link || "";
+
+  const getYouTubeEmbedUrl = (url: string) => {
+    const youtubeRegex =
+      /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const match = url.match(youtubeRegex);
+    return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+  };
+
+  const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
+
+  console.log("youtubeEmbedUrl", youtubeEmbedUrl);
 
   const options = {
     replace: (domNode) => {
@@ -79,7 +88,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
             <hr />
           </div>
         ) : (
-          <div className="flex flex-col gap-[16px]">
+          <div className="flex flex-col gap-[8px]">
             <h1 className="font-bold text-[18px] leading-[28px] text-[#303030] mb-[-8px]">
               {boardDetailData?.data?.title}
             </h1>
@@ -116,17 +125,47 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                 </span>
               </div>
             </div>
+            <div className="w-full min-h-[32px] flex justify-end my-[8px]">
+              <div className="max-w-[106px] h-[32px] flex gap-x-[8px] text-[14px] font-medium leading-[14px] text-gray7">
+                <button className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]">
+                  수정
+                </button>
+                <button className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]">
+                  삭제
+                </button>
+              </div>
+            </div>
             <hr />
           </div>
         )}
       </div>
+
       <div className="content flex flex-col gap-[12px] font-medium text-[16px] leading-[24px] text-gray7">
         {isLoading ? (
           <div className="flex justify-center items-center min-h-[200px]">
             <Spinner className="w-10 h-10" />
           </div>
         ) : (
-          parse(content, options)
+          <>
+            {youtubeEmbedUrl && (
+              <iframe
+                width="100%"
+                height="408"
+                src={youtubeEmbedUrl}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="mt-4"
+              />
+            )}
+            {parse(content, options)}
+            {!youtubeEmbedUrl && (
+              <div className="w-[679px] min-h-[42px]">
+                {boardDetailData?.data?.link}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

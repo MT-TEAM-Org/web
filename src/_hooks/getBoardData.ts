@@ -12,6 +12,8 @@ interface GetBoardData {
 const getBoardData = async (data: GetBoardData) => {
   const { boardType, categoryType, orderType, page = 1, size = 15 } = data;
 
+  const checkCategory = categoryType === "ALL" ? null : categoryType;
+
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}api/board`,
     {
@@ -20,7 +22,7 @@ const getBoardData = async (data: GetBoardData) => {
       },
       params: {
         boardType,
-        categoryType,
+        categoryType: checkCategory,
         orderType,
         page,
         size,
