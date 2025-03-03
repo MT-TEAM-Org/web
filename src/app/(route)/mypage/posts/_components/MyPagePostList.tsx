@@ -40,7 +40,7 @@ const MyPagePostList = () => {
     page: 1,
     size: 5,
     orderType: "CREATE",
-    searchType: "TITLE",
+    searchType: "TITLE_CONTENT",
     search: "",
   });
   const { data, isLoading } = useMyPostList(postListConfig);
@@ -52,6 +52,7 @@ const MyPagePostList = () => {
         mode="posts"
         listConfig={postListConfig}
         setListConfig={setPostListConfig}
+        pageInfo={pageInfo}
       />
       <div className="flex flex-col items-center w-full bg-[#FFFFFF] rounded-b-[5px]">
         {content?.map((post: PostListData["content"][number]) => (

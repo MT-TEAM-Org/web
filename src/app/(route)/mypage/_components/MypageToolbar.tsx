@@ -24,16 +24,24 @@ interface ListConfig {
   search: string;
 }
 
+interface PageInfo {
+  currentPage: number;
+  totalPage: number;
+  totalElement: number;
+}
+
 interface MypageToolbarProps {
   mode: "posts" | "comments" | "inquries";
   listConfig: ListConfig;
   setListConfig: (config: ListConfig) => void;
+  pageInfo: PageInfo;
 }
 
 export const MypageToolbar = ({
   mode,
   listConfig,
   setListConfig,
+  pageInfo,
 }: MypageToolbarProps) => {
   const selectRef = useRef<HTMLSelectElement>(null);
 
@@ -51,14 +59,6 @@ export const MypageToolbar = ({
       button: "최신순",
     },
   };
-
-  const pagenataion = [
-    { value: "1", label: "1" },
-    { value: "2", label: "2" },
-    { value: "3", label: "3" },
-    { value: "4", label: "4" },
-    { value: "5", label: "5" },
-  ];
 
   const orderOptions = [
     { label: "최신순", value: "CREATE", logo: <Blue_outline_logo /> },
@@ -94,7 +94,29 @@ export const MypageToolbar = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (e.target["0"].value.trim() === "") return;
     setListConfig({ ...listConfig, search: e.target["0"].value });
+  };
+
+  const handlePageButtonClick = (page: number) => {
+    setListConfig({ ...listConfig, page });
+  };
+
+  const handlePageNextPrevButtonClick = (state: "prev" | "next") => {
+    if (state === "prev" && listConfig.page > 1) {
+      setListConfig({ ...listConfig, page: listConfig.page - 1 });
+    } else if (state === "next" && listConfig.page < pageInfo.totalPage) {
+      setListConfig({ ...listConfig, page: listConfig.page + 1 });
+    }
+  };
+
+  const handlePageFirstLastButtonClick = (state: "first" | "last") => {
+    if (state === "first") {
+      setListConfig({ ...listConfig, page: 1 });
+    }
+    if (state === "last") {
+      setListConfig({ ...listConfig, page: pageInfo.totalPage });
+    }
   };
 
   const buttonStyle =
@@ -162,34 +184,51 @@ export const MypageToolbar = ({
 
         <div className="flex">
           <div className="flex items-center gap-[10px]">
-            <button className={pageButtonStyle}>
-              <Pg_double_left />
-            </button>
-            <button className={pageButtonStyle}>
+            {pageInfo?.totalPage > 1 && (
+              <button
+                className={pageButtonStyle}
+                onClick={() => handlePageFirstLastButtonClick("first")}
+              >
+                <Pg_double_left />
+              </button>
+            )}
+            <button
+              className={pageButtonStyle}
+              onClick={() => handlePageNextPrevButtonClick("prev")}
+            >
               <Pg_left />
             </button>
           </div>
 
           <div className="flex gap-[8px] mx-[8px]">
-            {pagenataion.map((page) => (
+            {Array.from({ length: pageInfo?.totalPage }, (_, index) => (
               <button
-                key={page.value}
+                key={index + 1}
                 className={`${pageButtonStyle} ${
-                  page.value === "1" && "font-[700]"
+                  index + 1 === pageInfo?.currentPage && "font-[700]"
                 } text-[14px] leading-[20px] text-[#424242]`}
+                onClick={() => handlePageButtonClick(index + 1)}
               >
-                {page.label}
+                {index + 1}
               </button>
             ))}
           </div>
 
           <div className="flex items-center gap-[10px]">
-            <button className={pageButtonStyle}>
+            <button
+              className={pageButtonStyle}
+              onClick={() => handlePageNextPrevButtonClick("next")}
+            >
               <Pg_right />
             </button>
-            <button className={pageButtonStyle}>
-              <Pg_double_right />
-            </button>
+            {pageInfo?.totalPage > 1 && (
+              <button
+                className={pageButtonStyle}
+                onClick={() => handlePageFirstLastButtonClick("last")}
+              >
+                <Pg_double_right />
+              </button>
+            )}
           </div>
         </div>
       </div>
