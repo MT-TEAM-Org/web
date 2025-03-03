@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { NewsItemType } from "@/app/_constants/newsItemType";
 import Link from "next/link";
+import { NewsItemType } from "@/app/_constants/newsItemType";
 import { useReadNews } from "@/_hooks/useNews/useReadNews";
 import useTimeAgo from "@/utils/useTimeAgo";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";

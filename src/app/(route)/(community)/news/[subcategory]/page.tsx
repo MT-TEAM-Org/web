@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import NewsPostItem from "../_components/NewsPostItem";
 import { useParams } from "next/navigation";
-import NewsItem from "@/app/(route)/main/_components/newsItem";
+import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
 import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
 import NewsTalkToolbar from "../_components/NewsTalkToolbar";
-import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
+import NewsItem from "@/app/(route)/main/_components/newsItem";
+import NewsPostItem from "../_components/NewsPostItem";
 
 export default function NewsPage() {
   const params = useParams();

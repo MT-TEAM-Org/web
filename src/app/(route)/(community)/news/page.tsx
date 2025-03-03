@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
-import NewsListContent from "./_components/NewsListContent";
 import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
-import NewsTalkToolbar from "./_components/NewsTalkToolbar";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
+import React from "react";
+import NewsTalkToolbar from "./_components/NewsTalkToolbar";
+import NewsListContent from "./_components/NewsListContent";
 
 const Page = () => {
   const { orderType, setOrderType, pageNum, onPageChange } = useNewsPageLogic();
