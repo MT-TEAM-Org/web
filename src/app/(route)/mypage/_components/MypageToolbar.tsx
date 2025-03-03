@@ -201,17 +201,27 @@ export const MypageToolbar = ({
           </div>
 
           <div className="flex gap-[8px] mx-[8px]">
-            {Array.from({ length: pageInfo?.totalPage }, (_, index) => (
+            {pageInfo?.totalPage > 0 ? (
+              Array.from({ length: pageInfo?.totalPage }, (_, index) => (
+                <button
+                  key={index + 1}
+                  className={`${pageButtonStyle} ${
+                    index + 1 === pageInfo?.currentPage &&
+                    "font-[700] border-1 border-gray7"
+                  } text-[14px] leading-[20px] text-[#424242]`}
+                  onClick={() => handlePageButtonClick(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              ))
+            ) : (
               <button
-                key={index + 1}
-                className={`${pageButtonStyle} ${
-                  index + 1 === pageInfo?.currentPage && "font-[700]"
-                } text-[14px] leading-[20px] text-[#424242]`}
-                onClick={() => handlePageButtonClick(index + 1)}
+                className={`${pageButtonStyle} font-[700] text-[14px] leading-[20px] text-[#424242] border-1 border-gray7`}
+                onClick={() => handlePageButtonClick(1)}
               >
-                {index + 1}
+                1
               </button>
-            ))}
+            )}
           </div>
 
           <div className="flex items-center gap-[10px]">

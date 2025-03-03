@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 interface PostListConfig {
   page: number;
@@ -33,6 +33,7 @@ const useMyPostList = (postListConfig: PostListConfig) => {
     queryFn: () => fetchMyPostList(postListConfig),
     queryKey: ["myPostList", postListConfig],
     retry: 1,
+    placeholderData: keepPreviousData,
     staleTime: 30 * 60 * 1000, // 30 minutes
     gcTime: 60 * 60 * 1000, // 1 hour
   });

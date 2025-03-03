@@ -55,11 +55,14 @@ const MyPagePostList = () => {
         pageInfo={pageInfo}
       />
       <div className="flex flex-col items-center w-full bg-[#FFFFFF] rounded-b-[5px]">
-        {content?.map((post: PostListData["content"][number]) => (
-          <MyPagePostItem key={post.id} data={post} />
-        ))}
+        {pageInfo?.totalElement !== 0 ? (
+          content?.map((post: PostListData["content"][number]) => (
+            <MyPagePostItem key={post.id} data={post} />
+          ))
+        ) : (
+          <MyPagePostEmpty />
+        )}
       </div>
-      {/* <MyPagePostEmpty /> */}
     </div>
   );
 };
