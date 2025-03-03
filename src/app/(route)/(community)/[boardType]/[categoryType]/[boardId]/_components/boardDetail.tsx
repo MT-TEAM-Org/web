@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import useGetBoardDetail from "@/_hooks/getBoardDetail";
 import Image from "next/image";
 import parse from "html-react-parser";
 import { Spinner, user } from "@heroui/react";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 interface BoardDetailProps {
   boardId: string;
@@ -12,8 +13,7 @@ interface BoardDetailProps {
 
 const BoardDetail = ({ boardId }: BoardDetailProps) => {
   const { data: boardDetailData, isLoading } = useGetBoardDetail(boardId);
-
-  console.log(boardDetailData);
+  const { data: userData } = useAuthCheck();
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
@@ -43,6 +43,9 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
     if (parts.length !== 4) return ip;
     return `${parts[0]}.${parts[1]}.**.**`;
   };
+
+  const isEditable =
+    userData?.data?.data?.publicId === boardDetailData?.data?.publicId;
 
   const content = boardDetailData?.data?.content || "";
   const link = boardDetailData?.data?.link || "";
@@ -121,17 +124,19 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                 <p>IP {maskIP(boardDetailData?.data?.clientIp)}</p>
               </div>
             </div>
-            <div className="w-full min-h-[32px] flex justify-end my-[16px]">
-              <div className="max-w-[106px] h-[32px] flex gap-x-[8px] text-[14px] font-medium leading-[14px] text-gray7">
-                <button className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]">
-                  수정
-                </button>
-                <button className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]">
-                  삭제
-                </button>
+            {isEditable && (
+              <div className="w-full min-h-[32px] flex justify-end my-[16px]">
+                <div className="max-w-[106px] h-[32px] flex gap-x-[8px] text-[14px] font-medium leading-[14px] text-gray7">
+                  <button className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]">
+                    수정
+                  </button>
+                  <button className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]">
+                    삭제
+                  </button>
+                </div>
               </div>
-            </div>
-            <hr />
+            )}
+            <hr className={isEditable ? "" : "mt-[16px]"} />
           </div>
         )}
       </div>
@@ -152,7 +157,6 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="mt-4"
               />
             )}
             {parse(content, options)}

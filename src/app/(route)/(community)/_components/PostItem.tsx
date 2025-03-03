@@ -3,7 +3,7 @@
 import useGetBoardData from "@/_hooks/getBoardData";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import PostItemSkeleton from "./PostItemSkelton";
 
 interface BoardListItem {
   id: number;
@@ -20,10 +20,14 @@ interface BoardListItem {
 }
 
 const PostItem = ({ boardType, categoryType }) => {
-  const { data: boardData } = useGetBoardData({
+  const { data: boardData, isLoading } = useGetBoardData({
     boardType: boardType?.toUpperCase(),
     categoryType: categoryType,
   });
+
+  if (isLoading) {
+    return <PostItemSkeleton />;
+  }
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
