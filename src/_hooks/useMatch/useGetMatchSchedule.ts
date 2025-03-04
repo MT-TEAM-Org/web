@@ -4,13 +4,18 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const fetchMatchScheduleData = async () => {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/match/schedule`, {
-    params: {
-      matchCategory: "BASEBALL",
-    },
-  });
+  const token = localStorage.getItem("accessToken");
 
-  return response
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}api/match/schedule/BASEBALL`,
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("accessToken")}`,
+      },
+    }
+  );
+
+  return response;
 };
 
 // 경기중계 api 테스트

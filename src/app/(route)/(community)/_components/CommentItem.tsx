@@ -14,7 +14,7 @@ interface CommentItemProps {
 
 const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
   const bestCommentStyle =
-    "max-w-full min-h-[132px] flex flex-col border-b border-[#FAFAFA] gap-3 p-3";
+    "max-w-full min-h-[132px] flex flex-col border-b border-gray1 gap-3 p-3";
   return (
     <div
       className={
@@ -33,16 +33,16 @@ const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
             height={20}
             className="w-5 h-5"
           />
-          <p className="text-sm text-[#656565] leading-5 font-medium">
+          <p className="text-sm text-gray6 leading-5 font-medium">
             손흥민매니아진심응원
           </p>
-          <p className="text-xs text-[#A6A6A6] leading-4 font-medium">1분 전</p>
-          <p className="text-xs text-[#CBCBCB] leading-[18px] font-medium">
+          <p className="text-xs text-gray5 leading-4 font-medium">1분 전</p>
+          <p className="text-xs text-gray4 leading-[18px] font-medium">
             IP 106.101.**.***
           </p>
         </div>
         <div>
-          <p className="text-xs text-[#A6A6A6] leading-[14px] font-medium cursor-pointer">
+          <p className="text-xs text-gray5 leading-[14px] font-medium cursor-pointer">
             신고
           </p>
         </div>
@@ -58,18 +58,14 @@ const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
           />
         </div>
       )}
-      <div className="flex">
+      <div className="flex text-[14px] leading-5">
         {data?.nestedComments ? (
           <>
-            <p className="font-bold text-[14px] leading-5 text-[#00ADEE]">
-              {data.nestedComments}
-            </p>
-            <p className="font-medium text-[14px] leading-5 text-[#424242]">
-              &nbsp; 깔끔디자인 좋네요
-            </p>
+            <p className="font-bold text-[#00ADEE]">{data.nestedComments}</p>
+            <p className="font-medium text-gray7">&nbsp; 깔끔디자인 좋네요</p>
           </>
         ) : (
-          <p className="text-sm text-[#424242] leading-5 font-medium">
+          <p className="text-gray7 font-medium">
             와 손흥민지리네 쩐다와 손흥민지리네 쩐다와 손흥민지리네 쩐다지리네
             쩐다와 손흥민지리네 쩐다지리네 쩐다와 손흥민지리네 쩐다지리네 쩐다와
             손흥민지리네 쩐다
@@ -77,11 +73,11 @@ const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
         )}
       </div>
       <div className="flex gap-2">
-        <button className="min-w-[76px] h-[24px] rounded-[5px] border border-[#DBDBDB] p-2 gap-2 flex justify-center items-center text-xs leading-[18px] font-medium">
+        <button className="min-w-[76px] h-[24px] rounded-[5px] border border-gray3 p-2 gap-2 flex justify-center items-center text-xs leading-[18px] font-medium">
           <Single_logo_color />
           추천 343
         </button>
-        <button className="w-auto min-w-[60px] h-[24px] rounded-[5px] border border-[#DBDBDB] px-[8px] py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
+        <button className="w-auto min-w-[60px] h-[24px] rounded-[5px] border border-gray3 px-[8px] py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
           답글 달기
         </button>
       </div>
