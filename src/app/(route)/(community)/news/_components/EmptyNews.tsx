@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const EmptyNews = () => {
   return (
-    <div className="w-[720px] h-[248px] top-[370px] left-[536px] rounded-[10px] bg-[#FAFAFA]">
+    <div className="w-[720px] h-[248px] top-[370px] left-[536px] rounded-[10px] bg-gray1">
       <div className="w-[720px] h-[80px] flex flex-col gap-4 items-center py-[84px]">
         <Image
           src="/Empty_news.png"
