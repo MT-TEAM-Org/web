@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useReadNews } from "@/_hooks/useReadNews";
+import { useReadNews } from "@/_hooks/useNews/useReadNews";
 
 interface NewsItem {
   id: number;
