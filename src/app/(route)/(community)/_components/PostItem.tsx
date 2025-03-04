@@ -16,7 +16,7 @@ interface BoardListItem {
   publicId: string;
   nickname: string;
   commentCount: number;
-  createDate: string;
+  createdAt: string;
   updatedAt: string;
 }
 
@@ -104,7 +104,7 @@ const PostItem = ({ boardType, categoryType }) => {
                 {getKoreanCategoryType(data?.categoryType)}
               </span>
               <span className="font-medium text-[12px] leading-[18px] text-gray5">
-                {CalculateTime(data?.updatedAt)}
+                {CalculateTime(data?.createdAt)}
               </span>
               <span className="font-medium text-[12px] leading-[18px] text-gray5">
                 {data?.nickname}

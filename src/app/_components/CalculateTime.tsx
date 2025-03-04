@@ -21,6 +21,4 @@ export const CalculateTime = (dateString: string) => {
       return `${value}${unit.name} 전`;
     }
   }
-
-  return "방금 전";
 };
