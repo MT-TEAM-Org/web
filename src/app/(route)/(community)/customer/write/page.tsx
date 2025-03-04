@@ -149,6 +149,7 @@ const Write = () => {
         <div className="relative w-[696px] min-h-[244px]  ">
           <Toolbar editor={editor} content={watch("content")} />
           <div className=" border-t-0 border rounded-b-[5px] border-[#DBDBDB] w-full h-auto px-[16px] py-[12px]  ">
+            {/* <EditorContent editor={editor} /> */}
             <div className="w-full min-h-[176px]  flex gap-[10px] ">
               <p className="font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-[#a6a6a6]">
                 내용을 입력해주세요
