@@ -5,7 +5,7 @@ export default function NotFound() {
     <div className="w-full min-h-[600px] flex justify-center items-center">
       <div className="text-center w-[265px] h-[282px] flex flex-col gap-6">
         <div className="w-full min-h-[218px] flex gap-3 flex-col">
-          <h1 className="font-bold text-[90px] leading-[124px] tracking-[-0.05em] text-[#181818]">
+          <h1 className="font-bold text-[90px] leading-[124px] tracking-[-0.05em] text-[#181818] ">
             404
           </h1>
 
