@@ -4,6 +4,7 @@ import useGetBoardData from "@/_hooks/getBoardData";
 import Image from "next/image";
 import Link from "next/link";
 import PostItemSkeleton from "./PostItemSkelton";
+import { CalculateTime } from "@/app/_components/CalculateTime";
 
 interface BoardListItem {
   id: number;
@@ -16,7 +17,7 @@ interface BoardListItem {
   nickname: string;
   commentCount: number;
   createDate: string;
-  lastModifiedDate: string;
+  updatedAt: string;
 }
 
 const PostItem = ({ boardType, categoryType }) => {
@@ -28,6 +29,8 @@ const PostItem = ({ boardType, categoryType }) => {
   if (isLoading) {
     return <PostItemSkeleton />;
   }
+
+  console.log(boardData);
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
@@ -86,6 +89,12 @@ const PostItem = ({ boardType, categoryType }) => {
               <p className="text-Primary font-medium text-[12px] leading-[18px]">
                 [{data?.commentCount}]
               </p>
+              <span className="font-black text-[10px] leading-[18px] text-primary">
+                N
+              </span>
+              <span className="font-black text-[10px] leading-[18px] text-[#DC2800]">
+                H
+              </span>
             </div>
             <div className="flex font-semibold gap-1 items-center">
               <p className="text-[12px] leading-[18px] text-gray5">
@@ -95,7 +104,7 @@ const PostItem = ({ boardType, categoryType }) => {
                 {getKoreanCategoryType(data?.categoryType)}
               </span>
               <span className="font-medium text-[12px] leading-[18px] text-gray5">
-                1분 전
+                {CalculateTime(data?.updatedAt)}
               </span>
               <span className="font-medium text-[12px] leading-[18px] text-gray5">
                 {data?.nickname}

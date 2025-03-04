@@ -8,6 +8,7 @@ import Pg_left from "@/app/_components/icon/Pg_left";
 import Pg_right from "@/app/_components/icon/Pg_right";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import Small_Search from "@/app/_components/icon/Small_Search";
+import { useEditStore } from "@/utils/Store";
 import { usePathname, useRouter } from "next/navigation";
 import { useRef } from "react";
 
@@ -17,6 +18,8 @@ interface DropdownOption {
 }
 
 export const CommunityToolbar = ({ boardType }) => {
+  const { resetEditState } = useEditStore();
+
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const router = useRouter();
@@ -48,6 +51,7 @@ export const CommunityToolbar = ({ boardType }) => {
   const handleWriteClick = () => {
     const pathParts = pathname.split("/");
     const basePath = pathParts[1];
+    resetEditState();
 
     router.push(`/${basePath}/write`);
   };

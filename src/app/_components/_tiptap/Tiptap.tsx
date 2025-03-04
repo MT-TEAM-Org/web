@@ -1,6 +1,6 @@
 "use client";
 
-import { EditorContent, useEditor } from "@tiptap/react";
+import { EditorContent, useEditor, useEditorState } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useEffect, useState } from "react";
 import Underline from "@tiptap/extension-underline";
@@ -14,11 +14,11 @@ import { LinkIcon } from "../icon/LinkIcon";
 import { useRouter } from "next/navigation";
 import LinkPreview from "../LinkPreview";
 import {
-  useForm,
   UseFormRegister,
   UseFormWatch,
   UseFormSetValue,
 } from "react-hook-form";
+import { useEditStore } from "@/utils/Store";
 
 interface TiptapProps {
   onChange: (content: string) => void;
@@ -95,7 +95,10 @@ const Tiptap = ({
   const router = useRouter();
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
-  const [showPlaceholder, setShowPlaceholder] = useState(true);
+  const [showPlaceholder, setShowPlaceholder] = useState(
+    !initialContent || initialContent === "" || initialContent === "<p></p>"
+  );
+  const { isEditMode } = useEditStore();
 
   const editor = useEditor({
     extensions: [
@@ -397,7 +400,7 @@ const Tiptap = ({
           type="submit"
           className="w-[120px] h-[40px] bg-[#00ADEE] text-[white] rounded-[5px]"
         >
-          작성완료
+          {isEditMode ? "수정완료" : "작성완료"}
         </button>
       </div>
     </div>

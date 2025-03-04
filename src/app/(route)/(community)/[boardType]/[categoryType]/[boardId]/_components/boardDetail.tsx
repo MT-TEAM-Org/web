@@ -6,14 +6,21 @@ import Image from "next/image";
 import parse from "html-react-parser";
 import { Spinner, user } from "@heroui/react";
 import useAuthCheck from "@/_hooks/useAuthCheck";
+import useDeletePost from "@/_hooks/fetcher/board/useDeletePost";
+import { useEditStore } from "@/utils/Store";
+import { Router } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface BoardDetailProps {
   boardId: string;
 }
 
 const BoardDetail = ({ boardId }: BoardDetailProps) => {
+  const router = useRouter();
+  const { setEditMode, setBoardId, setBoardData } = useEditStore();
   const { data: boardDetailData, isLoading } = useGetBoardDetail(boardId);
   const { data: userData } = useAuthCheck();
+  const { mutate: mutateDeletePost } = useDeletePost(boardId);
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
@@ -44,6 +51,25 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
     return `${parts[0]}.${parts[1]}.**.**`;
   };
 
+  const handleDeletePost = () => {
+    mutateDeletePost();
+  };
+
+  const handleEditClick = () => {
+    setEditMode(true);
+    setBoardId(boardId);
+    const editableData = {
+      categoryType: boardDetailData?.data?.categoryType,
+      content: boardDetailData?.data?.content,
+      title: boardDetailData?.data?.title,
+      link: boardDetailData?.data?.link || "",
+    };
+    setBoardData(editableData);
+
+    const routeBoardType = boardDetailData?.data?.boardType.toLowerCase();
+    router.push(`/${routeBoardType}/write?edit=true`);
+  };
+
   const isEditable =
     userData?.data?.data?.publicId === boardDetailData?.data?.publicId;
 
@@ -58,8 +84,6 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
   };
 
   const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
-
-  console.log("youtubeEmbedUrl", youtubeEmbedUrl);
 
   const options = {
     replace: (domNode) => {
@@ -127,10 +151,17 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
             {isEditable && (
               <div className="w-full min-h-[32px] flex justify-end my-[16px]">
                 <div className="max-w-[106px] h-[32px] flex gap-x-[8px] text-[14px] font-medium leading-[14px] text-gray7">
-                  <button className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]">
+                  <button
+                    onClick={handleEditClick}
+                    className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]"
+                  >
                     수정
                   </button>
-                  <button className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]">
+                  <button
+                    type="button"
+                    onClick={handleDeletePost}
+                    className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]"
+                  >
                     삭제
                   </button>
                 </div>
@@ -162,7 +193,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
             {parse(content, options)}
             {!youtubeEmbedUrl && (
               <div className="w-[679px] min-h-[42px]">
-                {boardDetailData?.data?.link}
+                <div>{boardDetailData?.data?.link}</div>
               </div>
             )}
           </>

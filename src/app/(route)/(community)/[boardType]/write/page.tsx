@@ -12,11 +12,11 @@ export default function WritePage({
   const { boardType } = unwrappedParams;
 
   const category = boardType.toUpperCase();
-  const subCategory = "ALL"; // 기본값
+  const subCategory = "ALL";
 
   return (
     <div className="flex justify-center bg-white">
-      <div className="max-w-[720px] w-full min-h-[120px] rounded-[5px] bg-[#FFFFFF] mx-auto p-4">
+      <div className="max-w-[720px] w-full min-h-[120px] rounded-[5px] bg-[#FFFFFF] mx-auto">
         <Write category={category} subCategory={subCategory} />
       </div>
     </div>

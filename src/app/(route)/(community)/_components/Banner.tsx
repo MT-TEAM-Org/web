@@ -16,7 +16,6 @@ const Banner = ({ url }: BannerProps) => {
 
   if (!bannerUrl) {
     const segment = pathname.split("/")[1].toLowerCase();
-    console.log("segment:", segment);
 
     if (segment === "football") {
       bannerUrl = "soccer_banner.png";

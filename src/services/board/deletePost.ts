@@ -1,14 +1,15 @@
 "use client";
 
-import axios from "axios";
+import { apiRequest } from "../instant";
 
-interface DeletePostData {
+type DeletePostData = {
   boardId: string;
-}
-
+};
 const deletePost = async ({ boardId }: DeletePostData) => {
-  const response = await axios.delete(`/api/board/${boardId}`);
-  return response.data;
+  const response = await apiRequest.delete(`api/board/${boardId}`);
+  return response;
 };
 
 export default deletePost;
+
+export type { DeletePostData };
