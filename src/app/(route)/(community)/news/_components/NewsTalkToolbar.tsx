@@ -83,10 +83,8 @@ const NewsTalkToolbar = ({
     const actions: Record<typeof type, () => number> = {
       prev: () => (currentPageNum > 1 ? currentPageNum - 1 : currentPageNum),
       next: () => (currentPageNum < 5 ? currentPageNum + 1 : currentPageNum),
-      doublePrev: () =>
-        currentPageNum > 2 ? currentPageNum - 2 : currentPageNum,
-      doubleNext: () =>
-        currentPageNum < 4 ? currentPageNum + 2 : currentPageNum,
+      doublePrev: () => 1,
+      doubleNext: () => 5,
     };
     const newsPage = actions[type]();
     if (newsPage !== currentPageNum) {
