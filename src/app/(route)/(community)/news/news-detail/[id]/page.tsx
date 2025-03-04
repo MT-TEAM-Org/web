@@ -10,7 +10,7 @@ import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
 import NewsTalkToolbar from "../../_components/NewsTalkToolbar";
 import useGetNewsInfoData from "@/_hooks/useNews/useGetNewsInfoData";
 import useTimeAgo from "@/utils/useTimeAgo";
-import PostAction from "./_components/PostAction";
+import PostAction from "../../../_components/PostAction";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import CommentSection from "./_components/CommentSection";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
@@ -75,7 +75,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             추천 12
           </button>
         </div>
-        <PostAction />
+        <PostAction source={newsInfoData?.source} />
         <CommentSection newsInfoData={newsInfoData} />
       </div>
 
