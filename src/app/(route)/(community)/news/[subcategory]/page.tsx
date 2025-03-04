@@ -1,23 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
-import NewsPostItem from "../_components/NewsPostItem";
+import React from "react";
 import { useParams } from "next/navigation";
+import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
+import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
+import NewsTalkToolbar from "../_components/NewsTalkToolbar";
 import NewsItem from "@/app/(route)/main/_components/newsItem";
-import { NewsTalkToolbar } from "../../_components/NewsTalkToolbar";
-import useSortedNewsDataList from "@/_hooks/useSortedPosts";
+import NewsPostItem from "../_components/NewsPostItem";
 
 export default function NewsPage() {
   const params = useParams();
-  const [orderType, setOrderType] = useState<"DATE" | "COMMENT" | "VIEW">(
-    "DATE"
-  );
-  const [pageNum, setPageNum] = useState(1);
+  const { orderType, setOrderType, pageNum, onPageChange } = useNewsPageLogic();
 
   const changedCategory = (category: string): string | undefined => {
-    if (category === "esports-news") return "ESPORTS";
-    if (category === "football-news") return "FOOTBALL";
-    if (category === "baseball-news") return "BASEBALL";
+    const categoryMap: Record<string, string> = {
+      "esports-news": "ESPORTS",
+      "football-news": "FOOTBALL",
+      "baseball-news": "BASEBALL",
+    };
+    return categoryMap[category];
   };
 
   const category = changedCategory(String(params.subcategory));
@@ -28,13 +29,9 @@ export default function NewsPage() {
     pageNum,
   });
 
-  const onPageChange = (newPage: string) => {
-    setPageNum(Number(newPage));
-  };
-
   return (
-    <div className="flex justify-center bg-[#FAFAFA]">
-      <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto">
+    <div className="flex justify-center bg-gray1">
+      <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
         <NewsTalkToolbar
           setOrderType={setOrderType}
           onPageChange={onPageChange}

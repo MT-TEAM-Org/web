@@ -7,7 +7,7 @@ import Service_PlayHive from "@/app/_components/icon/Service_PlayHive";
 
 export const metadata = {
   title: "PlayHive 서비스소개 페이지",
-  description: "야구 페이지입니다.",
+  description: "PlayHive 서비스소개 페이지입니다.",
 };
 
 const Page = () => {

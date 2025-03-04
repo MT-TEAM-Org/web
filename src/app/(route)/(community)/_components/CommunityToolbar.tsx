@@ -16,7 +16,7 @@ interface DropdownOption {
   value: string;
 }
 
-export const CommunityToolbar = () => {
+export const CommunityToolbar = ({ boardType }) => {
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const router = useRouter();
@@ -48,9 +48,8 @@ export const CommunityToolbar = () => {
   const handleWriteClick = () => {
     const pathParts = pathname.split("/");
     const basePath = pathParts[1];
-    const category = pathParts[2] === "write" ? "ALL" : pathParts[2] || "ALL";
 
-    router.push(`/${basePath}/${category}/write`);
+    router.push(`/${basePath}/write`);
   };
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";

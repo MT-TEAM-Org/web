@@ -47,5 +47,3 @@ export default function HomePage() {
     </Suspense>
   );
 }
-
-// 버셀 임시배포를 위한 브랜치 작업

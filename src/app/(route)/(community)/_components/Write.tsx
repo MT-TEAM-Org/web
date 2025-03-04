@@ -5,6 +5,7 @@ import TitleDag from "@/app/_components/_tiptap/TitleDag";
 import { CommunityData } from "@/app/_constants/categories";
 import axios from "axios";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface WriteProps {
@@ -61,7 +62,31 @@ export function Write({ category, subCategory }: WriteProps) {
     }
   };
 
+  const getYoutubeThumbnail = (url: string) => {
+    const match = url.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|embed\/|v\/))([^?&]+)/
+    );
+    return match
+      ? `https://img.youtube.com/vi/${match[1]}/maxresdefault.jpg`
+      : "";
+  };
+
+  const link = watch("link");
+
+  useEffect(() => {
+    if (link) {
+      const thumbnail = getYoutubeThumbnail(link);
+      if (thumbnail) {
+        setValue("thumbnail", thumbnail);
+      }
+      console.log("thumbnail", thumbnail);
+    }
+  }, [link]);
+
   const onSubmit = async (data: FormData) => {
+    const thumbnail =
+      data.thumbnail || (data.link ? getYoutubeThumbnail(data.link) : "");
+
     const currentCategory = watch("categoryType");
 
     const communityData: CommunityData = {
@@ -70,8 +95,9 @@ export function Write({ category, subCategory }: WriteProps) {
       title: data.title,
       content: data.content,
       link: data.link,
-      thumbnail: data.thumbnail,
+      thumbnail,
     };
+
     postContent(communityData);
     console.log(data);
   };

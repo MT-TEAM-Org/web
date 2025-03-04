@@ -2,17 +2,17 @@
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-const LeftSidebar = ({ isEsports = false }) => {
+const LeftSidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
 
   const boardList = [
-    { name: "전체", id: 0, path: `/${basePath}` },
+    { name: "전체", id: 0, path: `/${basePath}/ALL` },
     { name: "자유", id: 1, path: `/${basePath}/FREE` },
     { name: "질문", id: 2, path: `/${basePath}/QUESTION` },
     { name: "이슈", id: 3, path: `/${basePath}/ISSUE` },
-    ...(isEsports
+    ...(basePath === "esports"
       ? [
           { name: "전적 인증", id: 4, path: `/${basePath}/VERIFICATION` },
           { name: "플레이 팁", id: 5, path: `/${basePath}/TIP` },
@@ -23,7 +23,7 @@ const LeftSidebar = ({ isEsports = false }) => {
 
   const isCurrentPath = (boardPath: string) => {
     const pathParts = pathname.split("/");
-    const currentCategory = pathParts.includes("ALL") ? "" : pathParts[2] || "";
+    const currentCategory = pathParts[2];
     const boardCategory = boardPath.split("/")[2] || "";
 
     return currentCategory === boardCategory;

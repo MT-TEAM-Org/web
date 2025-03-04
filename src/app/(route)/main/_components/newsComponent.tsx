@@ -2,7 +2,7 @@
 
 import React from "react";
 import NewsItem from "./newsItem";
-import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
+import useGetNewsDataList from "@/_hooks/useNews/useGetNewsDataList";
 
 interface newsItem {
   id: number;

@@ -22,7 +22,7 @@ const fetchNewsDataList = async ({category, page}: NewsDataProps = {}) => {
 
 const useGetNewsDataList = ({category, page}: NewsDataProps = {}) => {
   return useQuery({
-    queryKey: ["newsDataList", category || "all", page || 1],
+    queryKey: ["newsDataList", category || "BASEBALL", page || 1],
     queryFn: () => fetchNewsDataList({category, page}),
     retry: 1,
   });
