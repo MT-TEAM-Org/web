@@ -1,5 +1,6 @@
 import React from "react";
 import Refresh from "../../icon/Refresh";
+import ToggleButton from "./ToggleButton";
 
 interface DataType {
   id: number;
@@ -23,9 +24,19 @@ const CommentBar = ({ data }: { data?: DataType }) => {
           {data?.commentCount ? `총 ${data?.commentCount}개` : "총 0개"}
         </p>
       </div>
-      <div className="max-w-[101px] min-h-[40px] flex justify-center items-center px-2 py-3 gap-2 mr-4 bg-[#FAFAFA] rounded-md cursor-pointer">
-        <Refresh />
-        <p className="text-[14px] leading-[14px] font-[700]">새로고침</p>
+      <div className="flex">
+        <div className="max-w-[101px] min-h-[40px] flex justify-center items-center px-2 py-3 gap-2 mr-4 bg-[#FAFAFA] rounded-md cursor-pointer">
+          <Refresh />
+          <p className="font-bold text-[14px] leading-[14px]">새로고침</p>
+        </div>
+        <div className="w-auto h-auto rounded-[5px] px-3 py-[10px] flex gap-2 items-center text-center">
+          <div className="flex gap-2 items-center justify-center">
+            <p className="font-bold text-[14px] leading-[14px] text-[#656565]">
+              클린봇 활성화
+            </p>
+            <ToggleButton />
+          </div>
+        </div>
       </div>
     </div>
   );

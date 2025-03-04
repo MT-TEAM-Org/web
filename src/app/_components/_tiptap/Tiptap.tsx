@@ -9,7 +9,6 @@ import Image from "@tiptap/extension-image";
 import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
-import Youtube from "@tiptap/extension-youtube";
 import Toolbar from "./Toolbar";
 import { LinkIcon } from "../icon/LinkIcon";
 import { useRouter } from "next/navigation";
@@ -104,7 +103,6 @@ const Tiptap = ({
       Underline,
       Link,
       CustomImage.configure({
-        // Image 대신 CustomImage 사용
         HTMLAttributes: {
           class: "max-w-full h-auto mx-auto block",
         },
@@ -120,15 +118,12 @@ const Tiptap = ({
       Color.configure({
         types: ["textStyle"],
       }),
-      Youtube.configure({
-        controls: true,
-        nocookie: true,
-      }),
     ],
     content: initialContent || "",
     editorProps: {
       attributes: {
-        class: "editor-class flex flex-col min-h-[375px]",
+        class:
+          "editor-class flex flex-col font-semibold text-[14px] leading-[20px] text-gray7 min-h-[375px] p-4 gap-y-[2px]",
       },
       handlePaste: (view, event) => {
         const items = Array.from(event.clipboardData?.items || []);
@@ -144,7 +139,6 @@ const Tiptap = ({
               reader.onload = (e) => {
                 const result = e.target?.result;
                 if (typeof result === "string") {
-                  // setImage 대신 insertContent 사용
                   editor?.commands.insertContent({
                     type: "image",
                     attrs: { src: result },
@@ -169,7 +163,6 @@ const Tiptap = ({
           if (images.length > 0) {
             event.preventDefault();
 
-            // 현재 커서 위치에 모든 이미지를 차례로 삽입
             const pos = view.posAtCoords({
               left: event.clientX,
               top: event.clientY,
@@ -228,12 +221,10 @@ const Tiptap = ({
               const downloadUrl = await onImageUpload(blob);
               processedHtml = processedHtml.replace(img.src, downloadUrl);
 
-              // 첫 번째 이미지의 URL을 저장
               if (index === 0) {
                 firstImageUrl = downloadUrl;
               }
             } else if (index === 0 && !firstImageUrl) {
-              // 이미 업로드된 첫 번째 이미지의 URL 저장
               firstImageUrl = img.src;
             }
           }
@@ -241,7 +232,6 @@ const Tiptap = ({
           setShowPlaceholder(!hasContent && !hasImage);
           onChange?.(processedHtml);
 
-          // thumbnail 업데이트
           if (firstImageUrl) {
             setValue("thumbnail", firstImageUrl);
           }
@@ -251,7 +241,6 @@ const Tiptap = ({
       } else {
         setShowPlaceholder(!hasContent && !hasImage);
         onChange?.(html);
-        // 이미지가 없는 경우 thumbnail 초기화
         setValue("thumbnail", "");
       }
     },
@@ -259,7 +248,6 @@ const Tiptap = ({
 
   useEffect(() => {
     return () => {
-      // 컴포넌트 언마운트 시 생성된 Blob URL 해제
       const cleanupBlobUrls = () => {
         const images = document.querySelectorAll('img[src^="blob:"]');
         images.forEach((img) => {
@@ -302,9 +290,9 @@ const Tiptap = ({
           </div>
         </div>
         <LinkPreview videoUrl={videoUrl} />
-        <div className="relative w-full mt-3">
+        <div className="relative w-full mt-2">
           <Toolbar editor={editor} content={watch("content")} />
-          <div className="relative h-[]">
+          <div className="relative">
             <EditorContent editor={editor} className="w-full" />
             {showPlaceholder && (
               <div

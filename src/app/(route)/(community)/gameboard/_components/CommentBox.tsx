@@ -3,7 +3,6 @@ import React from "react";
 import { Plus } from "lucide-react";
 import CommentItem from "../../_components/CommentItem";
 import SendCommentBox from "../../_components/SendCommentBox";
-// import ReplyCommentItem from "../../_components/replyCommentItem";
 
 const CommentBox = () => {
   return (

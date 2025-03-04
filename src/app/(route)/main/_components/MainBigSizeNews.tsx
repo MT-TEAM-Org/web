@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import useGetNewsDataList from "@/_hooks/useGetNewsDataList";
+import useGetNewsDataList from "@/_hooks/useNews/useGetNewsDataList";
 import { useRouter } from "next/navigation";
+import { useReadNews } from "@/_hooks/useNews/useReadNews";
 
 const MainBigSizeNews = () => {
   const router = useRouter();
@@ -13,6 +14,7 @@ const MainBigSizeNews = () => {
     "type=w140",
     "type=w410"
   );
+  const { handleRead } = useReadNews(mainPageData?.id, false);
 
   console.log(mainPageData);
 
@@ -20,10 +22,15 @@ const MainBigSizeNews = () => {
     router.push(`/news/news-detail/${mainPageData?.id}`);
   };
 
+  const handleClick = () => {
+    handleRead();
+    handleToNewsInfo();
+  };
+
   return (
     <div
       className="relative w-[410px] h-[236px] rounded-[10px] overflow-hidden cursor-pointer"
-      onClick={handleToNewsInfo}
+      onClick={handleClick}
     >
       <Image
         src={mainPageData?.thumbImg ? updatedImgUrl : "/Empty_news.png"}
