@@ -45,9 +45,7 @@ const MainBigSizeNews = () => {
           {isLoading ? "Loading..." : mainPageData?.title}
         </h3>
         <p className="w-[410px] h-[40px] opacity-90 font-medium text-[14px] leading-5 text-[#FFFFFF] line-clamp-2 overflow-hidden">
-          컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-          컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-          컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+          {mainPageData?.content}
         </p>
       </div>
     </div>

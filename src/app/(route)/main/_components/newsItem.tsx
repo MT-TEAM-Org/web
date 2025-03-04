@@ -11,6 +11,7 @@ interface NewsItem {
   category: string;
   thumbImg: string;
   postDate: string;
+  content: string;
 }
 
 interface NewsPostItemProps {
@@ -50,8 +51,7 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
           {newsItem.title}
         </h2>
         <p className="w-full h-[40px] font-[500] text-[14px] leading-5 overflow-hidden line-clamp-2">
-          컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-          컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+          {newsItem?.content}
         </p>
       </div>
     </div>
