@@ -116,17 +116,17 @@ const Write = () => {
   return (
     <div className="max-w-[720px] min-h-[648px] max-h-full h-auto flex flex-col  items-center pt-[12px] pb-[24px] px-[12px]">
       <form className="flex flex-col gap-3">
-        <h2 className="min-w-[95px]  min-h-[28px] font-bold text-[18px] leading-7 tracking-tighter flex items-center text-[#303030]">
+        <h2 className="min-w-[95px]  min-h-[28px] font-bold text-[18px] leading-7 tracking-tighter flex items-center text-gray8">
           공지사항 작성
         </h2>
-        <div className="max-w-[696px] min-h-[40px] flex flex-col items-start justify-center gap-2.5 border border-[#DBDBDB] rounded-[5px] ">
+        <div className="max-w-[696px] min-h-[40px] flex flex-col items-start justify-center gap-2.5 border border-gray3 rounded-[5px] ">
           <input
             type="text"
             placeholder="제목을 입력해주세요."
             className="px-4 py-2 w-full h-full rounded-md"
           />
         </div>
-        <div className="w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-[#DBDBDB]">
+        <div className="w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-gray3">
           <div className="flex">
             <label
               htmlFor="videoUrl"
@@ -148,17 +148,17 @@ const Write = () => {
 
         <div className="relative w-[696px] min-h-[244px]  ">
           <Toolbar editor={editor} content={watch("content")} />
-          <div className=" border-t-0 border rounded-b-[5px] border-[#DBDBDB] w-full h-auto px-[16px] py-[12px]  ">
+          <div className=" border-t-0 border rounded-b-[5px] border-gray3 w-full h-auto px-[16px] py-[12px]  ">
             {/* <EditorContent editor={editor} /> */}
             <div className="w-full min-h-[176px]  flex gap-[10px] ">
-              <p className="font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-[#a6a6a6]">
+              <p className="font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray5">
                 내용을 입력해주세요
               </p>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-y-1 w-[696px] min-h-[40px] rounded-[5px] p-[12px] bg-[#FAFAFA] text-[#656565]">
+        <div className="flex flex-col gap-y-1 w-[696px] min-h-[40px] rounded-[5px] p-[12px] bg-gray1 text-gray6">
           <p className="font-medium text-[14px] leading-[22px] ">
             불법촬영물등을 게재할 경우 전기통신사업법 제22조의5제1항에 따라
             삭제·접속차단 등의 조치가 취해질 수 있으며 관련 법률에 따라 처벌받을
@@ -181,13 +181,13 @@ const Write = () => {
         <div className="w-[696px] h-[40px] flex justify-between mt-3">
           <button
             type="button"
-            className="w-[120px] h-[40px] bg-[#FFFFFF] border border-[#DBDBDB] rounded-[5px] "
+            className="w-[120px] h-[40px] bg-white border border-gray3 rounded-[5px] "
           >
             목록
           </button>
           <button
             type="submit"
-            className="w-[120px] h-[40px] bg-[#00ADEE] text-[white] rounded-[5px]"
+            className="w-[120px] h-[40px] bg-gra  text-[white] rounded-[5px]"
           >
             작성완료
           </button>

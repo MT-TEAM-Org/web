@@ -1,4 +1,4 @@
-import {heroui} from '@heroui/theme';
+import { heroui } from "@heroui/theme";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -6,7 +6,7 @@ export default {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@heroui/theme/dist/components/spinner.js"
+    "./node_modules/@heroui/theme/dist/components/spinner.js",
   ],
   theme: {
     extend: {
@@ -20,11 +20,13 @@ export default {
         fadeOut: "fadeOut 0.5s ease-in-out 2.5s forwards",
       },
       colors: {
-        Primary: "#1228EF",
+        primary: "#1228EF",
         Secondary: "#1024D3",
         Tertiary: "#0E1FAD",
-        Quaternary: "#09126D",
+        quaternary: "#09126D",
         Fifth: "#000641",
+        gra: "#00ADEE",
+        bg0: "#F8FDFF",
         bg1: "#FAFBFF",
         bg2: "#F3F4FE",
         bg3: "#E8EAFE",
