@@ -1,5 +1,5 @@
+import CommentItem from "@/app/(route)/(community)/_components/CommentItem";
 import React from "react";
-import CommentItem from "../../../../_components/CommentItem";
 
 const CommentContainer = () => {
   return (

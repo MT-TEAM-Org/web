@@ -9,6 +9,8 @@ import CommentBox from "./_components/CommentBox";
 import BaseballTab from "./_components/_baseballComponents/BaseballTab";
 import FootballTab from "./_components/_footballComponents/FootballTab";
 import LiveChat from "./_components/_LiveChatComponents/LiveChat";
+import useGetMatchSchedule from "@/_hooks/useMatch/useGetMatchSchedule";
+
 // import EmptyComment from "./_components/EmptyComment";
 // import FootballLivePanel from "./_components/FootballLivePanel";
 
@@ -19,6 +21,8 @@ import LiveChat from "./_components/_LiveChatComponents/LiveChat";
 
 const Page = () => {
   const [selectedCategory, setSelectedCategory] = useState("E스포츠");
+  const { data: matchListData } = useGetMatchSchedule();
+  console.log(matchListData);
 
   return (
     <div className="flex flex-col gap-3 justify-center items-center mb-10">
