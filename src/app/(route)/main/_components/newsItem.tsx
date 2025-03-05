@@ -4,17 +4,10 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useReadNews } from "@/_hooks/useNews/useReadNews";
-
-interface NewsItem {
-  id: number;
-  title: string;
-  category: string;
-  thumbImg: string;
-  postDate: string;
-}
+import { NewsItemType } from "@/app/_constants/newsItemType";
 
 interface NewsPostItemProps {
-  newsItem: NewsItem;
+  newsItem: NewsItemType;
 }
 
 const NewsItem = ({ newsItem }: NewsPostItemProps) => {
@@ -50,8 +43,7 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
           {newsItem.title}
         </h2>
         <p className="w-full h-[40px] font-[500] text-[14px] leading-5 overflow-hidden line-clamp-2">
-          컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-          컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+          {newsItem?.content}
         </p>
       </div>
     </div>

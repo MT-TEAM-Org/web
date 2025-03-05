@@ -1,6 +1,14 @@
 "use client";
 
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
@@ -19,14 +27,20 @@ interface DropdownOption {
 
 interface NewsTalkToolbarProps {
   setOrderType: (value: "DATE" | "COMMENT" | "VIEW") => void;
+  setTimeType: (value: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY") => void;
   onPageChange: (page: string) => void;
+  setSearchType: Dispatch<SetStateAction<string>>;
 }
 
 const NewsTalkToolbar = ({
   setOrderType,
+  setTimeType,
   onPageChange,
+  setSearchType,
 }: NewsTalkToolbarProps) => {
-  const [activeBtn, setActiveBtn] = useState<string>("일간");
+  const [activeBtn, setActiveBtn] = useState<
+    "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"
+  >("DAILY");
   const [activeSorted, setActiveSorted] = useState<"DATE" | "COMMENT" | "VIEW">(
     "DATE"
   );
@@ -49,6 +63,31 @@ const NewsTalkToolbar = ({
     { label: "댓글", value: "comment" },
   ];
 
+  const timeButtons = [
+    { label: "일간", value: "DAILY" },
+    { label: "주간", value: "WEEKLY" },
+    { label: "월간", value: "MONTHLY" },
+    { label: "연간", value: "YEARLY" },
+  ];
+
+  const sortOptions = [
+    {
+      value: "DATE",
+      logo: <Blue_outline_logo />,
+      label: "최신순",
+    },
+    {
+      value: "VIEW",
+      logo: <Red_outline_logo />,
+      label: "인기순",
+    },
+    {
+      value: "COMMENT",
+      logo: <Mini_logo />,
+      label: "댓글 많은 순",
+    },
+  ];
+
   const handleDivClick = () => {
     if (selectRef.current) {
       selectRef.current.focus();
@@ -56,37 +95,44 @@ const NewsTalkToolbar = ({
     }
   };
 
-  const handleDateClick = (value: string) => {
-    setActiveBtn(value);
-    console.log(value);
-  };
-
   const handleSortChange = (value: "DATE" | "COMMENT" | "VIEW") => {
     setActiveSorted(value);
     setOrderType(value);
   };
 
-  const searchInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+  const handleDaySortChange = (
+    value: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"
+  ) => {
+    setActiveBtn(value);
+    setTimeType(value);
+  };
+
+  // 검색 실행 함수
+  const handleSearch = (e?: FormEvent) => {
+    if (e) e.preventDefault();
+
+    // input 비어있으면 검색 방지
+    // if (!inputValue.trim()) {
+    //   alert("검색어를 입력해주세요!");
+    //   return;
+    // }
+
+    setSearchType(inputValue);
   };
 
   useEffect(() => {
     onPageChange(currentPage);
-    console.log("현재페이지: ", currentPage);
-  }, [currentPage]);
+  }, [currentPage, onPageChange]);
 
   const handlePageChange = (
     type: "prev" | "next" | "doublePrev" | "doubleNext"
   ) => {
     const currentPageNum = Number(currentPage);
-    // 페이지 변경 로직을 객체로 관리
     const actions: Record<typeof type, () => number> = {
       prev: () => (currentPageNum > 1 ? currentPageNum - 1 : currentPageNum),
       next: () => (currentPageNum < 5 ? currentPageNum + 1 : currentPageNum),
-      doublePrev: () =>
-        currentPageNum > 2 ? currentPageNum - 2 : currentPageNum,
-      doubleNext: () =>
-        currentPageNum < 4 ? currentPageNum + 2 : currentPageNum,
+      doublePrev: () => 1,
+      doubleNext: () => 5,
     };
     const newsPage = actions[type]();
     if (newsPage !== currentPageNum) {
@@ -96,16 +142,12 @@ const NewsTalkToolbar = ({
 
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] border-gray3";
-
   const activeSortedStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] font-[700] border-gray7";
-
   const pageButtonStyle =
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
-
   const activeButtonStyle =
-    "bg-[#00ADEE] text-white min-w-[57px] h-[40px] flex gap-[10px] items-center align-center rounded-[5px] px-[16px] py-[13px]  font-[700] text-[14px] leading-[21px] tracking-[-2%]";
-
+    "bg-[#00ADEE] text-white min-w-[57px] h-[40px] flex gap-[10px] items-center align-center rounded-[5px] px-[16px] py-[13px] font-[700] text-[14px] leading-[21px] tracking-[-2%]";
   const disableButtonStyle =
     "bg-white text-gray-700 min-w-[57px] h-[40px] flex gap-[10px] items-center align-center border border-gray3 rounded-[5px] px-[16px] py-[13px] font-[500] text-[14px] leading-[22px] tracking-[-2%]";
 
@@ -114,38 +156,23 @@ const NewsTalkToolbar = ({
       <div className="bg-white rounded-tr-[5px] rounded-t-[5px]">
         <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
           <div className="flex gap-2">
-            <button
-              onClick={() => handleDateClick("일간")}
-              className={
-                activeBtn === "일간" ? activeButtonStyle : disableButtonStyle
-              }
-            >
-              일간
-            </button>
-            <button
-              onClick={() => handleDateClick("주간")}
-              className={
-                activeBtn === "주간" ? activeButtonStyle : disableButtonStyle
-              }
-            >
-              주간
-            </button>
-            <button
-              onClick={() => handleDateClick("월간")}
-              className={
-                activeBtn === "월간" ? activeButtonStyle : disableButtonStyle
-              }
-            >
-              월간
-            </button>
-            <button
-              onClick={() => handleDateClick("연간")}
-              className={
-                activeBtn === "연간" ? activeButtonStyle : disableButtonStyle
-              }
-            >
-              연간
-            </button>
+            {timeButtons.map((button) => (
+              <button
+                key={button.value}
+                onClick={() =>
+                  handleDaySortChange(
+                    button.value as "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"
+                  )
+                }
+                className={
+                  activeBtn === button.value
+                    ? activeButtonStyle
+                    : disableButtonStyle
+                }
+              >
+                {button.label}
+              </button>
+            ))}
           </div>
           <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
             <div className="relative" onClick={handleDivClick}>
@@ -167,15 +194,19 @@ const NewsTalkToolbar = ({
                 <Arrow_down />
               </div>
             </div>
-            <form className="relative">
+            <form className="relative" onSubmit={handleSearch}>
               <input
                 type="text"
                 className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-gray4"
                 placeholder="검색어를 입력해주세요."
+                onChange={(e) => setInputValue(e.target.value)}
                 value={inputValue}
-                onChange={searchInput}
               />
-              <button className="absolute top-2 left-[12px]">
+              <button
+                type="submit"
+                className="absolute top-2 left-[12px]"
+                onClick={handleSearch}
+              >
                 <Small_Search />
               </button>
             </form>
@@ -183,33 +214,22 @@ const NewsTalkToolbar = ({
         </div>
         <div className="flex justify-between items-center p-[12px]">
           <div className="flex w-full items-center gap-[4px]">
-            <button
-              onClick={() => handleSortChange("DATE")}
-              className={
-                activeSorted === "DATE" ? activeSortedStyle : buttonStyle
-              }
-            >
-              <Blue_outline_logo />
-              최신순
-            </button>
-            <button
-              onClick={() => handleSortChange("VIEW")}
-              className={
-                activeSorted === "VIEW" ? activeSortedStyle : buttonStyle
-              }
-            >
-              <Red_outline_logo />
-              인기순
-            </button>
-            <button
-              onClick={() => handleSortChange("COMMENT")}
-              className={
-                activeSorted === "COMMENT" ? activeSortedStyle : buttonStyle
-              }
-            >
-              <Mini_logo />
-              댓글 많은 순
-            </button>
+            {sortOptions.map((option) => (
+              <button
+                key={option.value}
+                onClick={() =>
+                  handleSortChange(option.value as "DATE" | "COMMENT" | "VIEW")
+                }
+                className={
+                  activeSorted === option.value
+                    ? activeSortedStyle
+                    : buttonStyle
+                }
+              >
+                {option.logo}
+                {option.label}
+              </button>
+            ))}
           </div>
 
           <div className="flex">

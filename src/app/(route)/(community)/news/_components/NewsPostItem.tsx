@@ -77,12 +77,7 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
           </div>
 
           <div>
-            <p className={styles.content}>
-              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-              컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-            </p>
+            <p className={styles.content}>{newsItem?.content}</p>
           </div>
 
           <div className="flex gap-1">

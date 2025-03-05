@@ -1,8 +1,13 @@
 import Copy from "@/app/_components/icon/Copy";
 import Share from "@/app/_components/icon/Share";
+import Link from "next/link";
 import React from "react";
 
-const PostAction = () => {
+interface PostActionProps {
+  source?: string;
+}
+
+const PostAction = ({ source }: PostActionProps) => {
   const copyBtn = async () => {
     try {
       const url = window.location.href;
@@ -15,9 +20,14 @@ const PostAction = () => {
 
   return (
     <div className="w-full h-auto flex justify-between">
-      <button className="min-w-[104px] w-auto min-h-[32px] rounded-[5px] text-[14px] font-[500] leading-[14px] flex items-center justify-center bg-white px-3 py-[9px] border border-gray3">
+      <Link
+        href={`${source}`}
+        target="_blank"
+        className="min-w-[104px] w-auto min-h-[32px] rounded-[5px] text-[14px] font-[500] leading-[14px] flex items-center justify-center bg-white px-3 py-[9px] border border-gray3"
+      >
         기사 원문 보기
-      </button>
+      </Link>
+
       <div className="flex gap-2">
         <button
           onClick={copyBtn}

@@ -51,9 +51,10 @@ export const CommunityToolbar = ({ boardType }) => {
   const handleWriteClick = () => {
     const pathParts = pathname.split("/");
     const basePath = pathParts[1];
+    const categoryType = pathParts[2] || "FREE";
     resetEditState();
 
-    router.push(`/${basePath}/write`);
+    router.push(`/${basePath}/${categoryType}/write`);
   };
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";

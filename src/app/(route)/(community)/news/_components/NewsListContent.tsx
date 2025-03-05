@@ -16,13 +16,16 @@ const NewsListContent = ({
 }: NewsListContentProps) => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error...</p>;
-  if (data.length === 0) return <EmptyNews />;
 
   return (
     <>
-      {data.map((newsItem) => (
-        <NewsPostItem key={newsItem.id} newsItem={newsItem} />
-      ))}
+      {data.length === 0 ? (
+        <EmptyNews />
+      ) : (
+        data.map((newsItem) => (
+          <NewsPostItem key={newsItem.id} newsItem={newsItem} />
+        ))
+      )}
     </>
   );
 };

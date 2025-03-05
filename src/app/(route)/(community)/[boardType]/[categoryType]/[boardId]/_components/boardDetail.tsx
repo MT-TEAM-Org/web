@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import useGetBoardDetail from "@/_hooks/getBoardDetail";
 import Image from "next/image";
 import parse from "html-react-parser";
@@ -8,7 +8,6 @@ import { Spinner, user } from "@heroui/react";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import useDeletePost from "@/_hooks/fetcher/board/useDeletePost";
 import { useEditStore } from "@/utils/Store";
-import { Router } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface BoardDetailProps {
@@ -67,7 +66,9 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
     setBoardData(editableData);
 
     const routeBoardType = boardDetailData?.data?.boardType.toLowerCase();
-    router.push(`/${routeBoardType}/write?edit=true`);
+    router.push(
+      `/${routeBoardType}/${editableData?.categoryType}/write?edit=true`
+    );
   };
 
   const isEditable =
