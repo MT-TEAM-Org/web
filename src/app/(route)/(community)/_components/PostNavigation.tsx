@@ -23,8 +23,11 @@ const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
     "newsDataList",
     "BASEBALL",
     "DATE",
+    "DAILY",
     1,
   ]);
+
+  console.log("cachedData: ", cachedData);
 
   const ids = Array.isArray(cachedData)
     ? cachedData.map((item) => item.id)
