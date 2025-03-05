@@ -70,6 +70,24 @@ const NewsTalkToolbar = ({
     { label: "연간", value: "YEARLY" },
   ];
 
+  const sortOptions = [
+    {
+      value: "DATE",
+      logo: <Blue_outline_logo />,
+      label: "최신순",
+    },
+    {
+      value: "VIEW",
+      logo: <Red_outline_logo />,
+      label: "인기순",
+    },
+    {
+      value: "COMMENT",
+      logo: <Mini_logo />,
+      label: "댓글 많은 순",
+    },
+  ];
+
   const handleDivClick = () => {
     if (selectRef.current) {
       selectRef.current.focus();
@@ -87,10 +105,6 @@ const NewsTalkToolbar = ({
   ) => {
     setActiveBtn(value);
     setTimeType(value);
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
   };
 
   // 검색 실행 함수
@@ -185,8 +199,8 @@ const NewsTalkToolbar = ({
                 type="text"
                 className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-gray4"
                 placeholder="검색어를 입력해주세요."
+                onChange={(e) => setInputValue(e.target.value)}
                 value={inputValue}
-                onChange={handleInputChange}
               />
               <button
                 type="submit"
@@ -200,33 +214,22 @@ const NewsTalkToolbar = ({
         </div>
         <div className="flex justify-between items-center p-[12px]">
           <div className="flex w-full items-center gap-[4px]">
-            <button
-              onClick={() => handleSortChange("DATE")}
-              className={
-                activeSorted === "DATE" ? activeSortedStyle : buttonStyle
-              }
-            >
-              <Blue_outline_logo />
-              최신순
-            </button>
-            <button
-              onClick={() => handleSortChange("VIEW")}
-              className={
-                activeSorted === "VIEW" ? activeSortedStyle : buttonStyle
-              }
-            >
-              <Red_outline_logo />
-              인기순
-            </button>
-            <button
-              onClick={() => handleSortChange("COMMENT")}
-              className={
-                activeSorted === "COMMENT" ? activeSortedStyle : buttonStyle
-              }
-            >
-              <Mini_logo />
-              댓글 많은 순
-            </button>
+            {sortOptions.map((option) => (
+              <button
+                key={option.value}
+                onClick={() =>
+                  handleSortChange(option.value as "DATE" | "COMMENT" | "VIEW")
+                }
+                className={
+                  activeSorted === option.value
+                    ? activeSortedStyle
+                    : buttonStyle
+                }
+              >
+                {option.logo}
+                {option.label}
+              </button>
+            ))}
           </div>
 
           <div className="flex">

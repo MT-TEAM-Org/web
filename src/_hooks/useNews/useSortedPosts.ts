@@ -58,7 +58,7 @@ const useSortedNewsDataList = ({ category, orderType, pageNum, timeType, searchT
       const isSlowNetwork = effectiveType === "2g" || effectiveType === "3g";
       if (nextPage === 6 || isSlowNetwork) return;
 
-      const nextPageQueryKey = ["newsDataList", category || "BASEBALL", orderType || "DATE", timeType || "DAILY", nextPage || ""];
+      const nextPageQueryKey = ["newsDataList", category || "BASEBALL", orderType || "DATE", timeType || "DAILY", nextPage];
       const nextPageData = queryClient.getQueryData(nextPageQueryKey);
 
       if (!nextPageData) {
