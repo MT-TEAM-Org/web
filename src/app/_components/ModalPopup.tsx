@@ -1,16 +1,45 @@
+"use client";
+
+import usePostInquiry from "@/_hooks/usePostInquiry";
+import { useForm } from "react-hook-form";
+import useAuthCheck from "@/_hooks/useAuthCheck";
+
 interface ModalPopupProps {
   show: boolean;
   setShow: (show: boolean) => void;
 }
 
+interface InquiryData {
+  content: string;
+}
+
 const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
   if (!show) return null;
+  const { data, isLoading } = useAuthCheck();
+  const memberPublicId = data?.data?.data?.publicId;
+  const { register, handleSubmit } = useForm();
+  const { mutate: postInquiry, isPending } = usePostInquiry();
+
+  const onSubmit = (data: InquiryData) => {
+    if (!memberPublicId && !isLoading) return;
+    postInquiry(
+      { content: data.content, memberPublicId },
+      {
+        onSuccess: () => {
+          setShow(false);
+        },
+      }
+    );
+  };
 
   const buttonStyle =
     "w-[160px] min-h-[48px] rounded-[5px] text-[16px] leading-[16px] font-[700]";
   return (
     <div className="fixed inset-0 bg-[#000000B2] bg-opacity-70 flex items-center justify-center z-50">
-      <div className="flex flex-col bg-[#FFFFFF] w-[548px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg">
+      <form
+        className="flex flex-col bg-[#FFFFFF] w-[548px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h1 className="text-[24px] font-[700] leading-[38px] mb-[24px]">
           1:1 문의하기
         </h1>
@@ -23,6 +52,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
             placeholder="문의 내용을 입력해주세요."
             className="resize-none w-full rounded-[5px] min-h-[200px] border px-[12px] py-[16px]"
             style={{ overflow: "hidden", overflowY: "auto" }}
+            {...register("content", { required: true })}
           />
         </div>
         <div className="p-[12px] bg-[#FAFAFA] mt-[12px] rounded-[5px]">
@@ -41,13 +71,14 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
             취소
           </button>
           <button
-            type="button"
+            type="submit"
+            disabled={isPending}
             className={`${buttonStyle} bg-[#00ADEE] text-white`}
           >
             문의하기
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
