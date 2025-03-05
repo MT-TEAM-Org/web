@@ -52,11 +52,11 @@ const MainRightBar = () => {
       </div>
 
       <div className="flex items-center justify-center gap-7 py-4 space-x-4">
-        <button className="w-[32px] h-[32px] px-2 py-1 text-gray-500 border border-[#EEEEEE] rounded">
+        <button className="w-[32px] h-[32px] px-2 py-1 text-gray-500 border border-gray2 rounded">
           <Arrow_left />
         </button>
         <div>1 / 3</div>
-        <button className="w-[32px] h-[32px] px-2 py-1 text-gray-500 border border-[#EEEEEE] rounded">
+        <button className="w-[32px] h-[32px] px-2 py-1 text-gray-500 border border-gray2 rounded">
           <Arrow_right />
         </button>
       </div>
