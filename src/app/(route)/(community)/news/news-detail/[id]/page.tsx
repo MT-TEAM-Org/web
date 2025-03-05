@@ -20,8 +20,19 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { data: newsInfoData } = useGetNewsInfoData(id);
   console.log("newsInfoData: ", newsInfoData);
 
-  const { orderType, setOrderType, pageNum, onPageChange } = useNewsPageLogic();
-  const { data: newsListData } = useSortedNewsDataList({ orderType, pageNum });
+  const {
+    orderType,
+    setOrderType,
+    timeType,
+    setTimeType,
+    pageNum,
+    onPageChange,
+  } = useNewsPageLogic();
+  const { data: newsListData } = useSortedNewsDataList({
+    orderType,
+    pageNum,
+    timeType,
+  });
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
   const updatedImgUrl = newsInfoData?.thumbImg?.replace(
     "type=w140",
@@ -81,6 +92,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
       <NewsTalkToolbar
         setOrderType={setOrderType}
+        setTimeType={setTimeType}
         onPageChange={onPageChange}
       />
 

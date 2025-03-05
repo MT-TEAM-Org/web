@@ -4,18 +4,10 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useReadNews } from "@/_hooks/useNews/useReadNews";
-
-interface NewsItem {
-  id: number;
-  title: string;
-  category: string;
-  thumbImg: string;
-  postDate: string;
-  content: string;
-}
+import { NewsItemType } from "@/app/_constants/newsItemType";
 
 interface NewsPostItemProps {
-  newsItem: NewsItem;
+  newsItem: NewsItemType;
 }
 
 const NewsItem = ({ newsItem }: NewsPostItemProps) => {

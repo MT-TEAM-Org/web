@@ -8,6 +8,7 @@ interface NewsDataParams {
   category?: string;
   orderType?: "DATE" | "COMMENT" | "VIEW";
   pageNum?: number;
+  timeType?: "DAILY" | "WEEKLY"| "MONTHLY" | "YEARLY";
 }
 
 interface ExtendedNavigator extends Navigator {
@@ -16,11 +17,12 @@ interface ExtendedNavigator extends Navigator {
   };
 }
 
-const fetchSortedNewsDataList = async ({ category, orderType, pageNum }: NewsDataParams) => {
+const fetchSortedNewsDataList = async ({ category, orderType, pageNum, timeType }: NewsDataParams) => {
   const response = await axios(`${process.env.NEXT_PUBLIC_API_URL}api/news`, {
     params: {
       category: category || "BASEBALL",
       orderType: orderType || "DATE",
+      timePeriod: timeType || "DAILY",
       page: pageNum || 1,
       size: 10,
     },
@@ -29,32 +31,28 @@ const fetchSortedNewsDataList = async ({ category, orderType, pageNum }: NewsDat
 };
 
 // 뉴스 정렬 API
-const useSortedNewsDataList = ({ category, orderType, pageNum }: NewsDataParams) => {
+const useSortedNewsDataList = ({ category, orderType, pageNum, timeType }: NewsDataParams) => {
   const queryClient = useQueryClient();
   const currentPage = pageNum || 1;
 
   const query = useQuery({
-    queryKey: ["newsDataList", category || "BASEBALL", orderType || "DATE", currentPage],
-    queryFn: () => fetchSortedNewsDataList({ category, orderType, pageNum: currentPage }),
+    queryKey: ["newsDataList", category || "BASEBALL", orderType || "DATE", timeType || "DAILY", currentPage],
+    queryFn: () => fetchSortedNewsDataList({ category, orderType, pageNum: currentPage, timeType }),
     retry: 1,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 60,
   });
 
-  // 현재 페이지 데이터 로드가 완료되면 다음 페이지 프리패칭
   useEffect(() => {
     if (query.isSuccess) {
       const nextPage = currentPage + 1;
       const effectiveType = (navigator as ExtendedNavigator).connection?.effectiveType;
-      const isSlowNetwork = effectiveType === "2g" || effectiveType === "3g"; // 네트워크가 2g 혹은 3g 상황이면 isSlowNetwork
-      if (nextPage === 6) return;
-      if (isSlowNetwork) return;
-      
-      // 다음 페이지 데이터가 이미 캐시에 있는지 확인
-      const nextPageQueryKey = ["newsDataList", category || "BASEBALL", orderType || "DATE", nextPage];
+      const isSlowNetwork = effectiveType === "2g" || effectiveType === "3g";
+      if (nextPage === 6 || isSlowNetwork) return;
+
+      const nextPageQueryKey = ["newsDataList", category || "BASEBALL", orderType || "DATE", timeType || "DAILY", nextPage];
       const nextPageData = queryClient.getQueryData(nextPageQueryKey);
-      
-      // 캐시에 데이터가 없을 경우에만 프리패칭 실행
+
       if (!nextPageData) {
         queryClient.prefetchQuery({
           queryKey: nextPageQueryKey,
@@ -62,6 +60,7 @@ const useSortedNewsDataList = ({ category, orderType, pageNum }: NewsDataParams)
             category: category || "BASEBALL",
             orderType: orderType || "DATE",
             pageNum: nextPage,
+            timeType: timeType || "DAILY",
           }),
           retry: 1,
           staleTime: 1000 * 60 * 5,
@@ -69,9 +68,8 @@ const useSortedNewsDataList = ({ category, orderType, pageNum }: NewsDataParams)
         });
       }
     }
-  }, [query.isSuccess, currentPage, category, orderType]);
+  }, [query.isSuccess, currentPage, category, orderType, timeType]);
 
   return query;
 };
-
 export default useSortedNewsDataList;

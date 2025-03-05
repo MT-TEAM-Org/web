@@ -19,14 +19,18 @@ interface DropdownOption {
 
 interface NewsTalkToolbarProps {
   setOrderType: (value: "DATE" | "COMMENT" | "VIEW") => void;
+  setTimeType: (value: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY") => void;
   onPageChange: (page: string) => void;
 }
 
 const NewsTalkToolbar = ({
   setOrderType,
+  setTimeType,
   onPageChange,
 }: NewsTalkToolbarProps) => {
-  const [activeBtn, setActiveBtn] = useState<string>("일간");
+  const [activeBtn, setActiveBtn] = useState<
+    "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"
+  >("DAILY");
   const [activeSorted, setActiveSorted] = useState<"DATE" | "COMMENT" | "VIEW">(
     "DATE"
   );
@@ -56,14 +60,16 @@ const NewsTalkToolbar = ({
     }
   };
 
-  const handleDateClick = (value: string) => {
-    setActiveBtn(value);
-    console.log(value);
-  };
-
   const handleSortChange = (value: "DATE" | "COMMENT" | "VIEW") => {
     setActiveSorted(value);
     setOrderType(value);
+  };
+
+  const handleDaySortChange = (
+    value: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"
+  ) => {
+    setActiveBtn(value);
+    setTimeType(value);
   };
 
   const searchInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,14 +78,12 @@ const NewsTalkToolbar = ({
 
   useEffect(() => {
     onPageChange(currentPage);
-    console.log("현재페이지: ", currentPage);
-  }, [currentPage]);
+  }, [currentPage, onPageChange]);
 
   const handlePageChange = (
     type: "prev" | "next" | "doublePrev" | "doubleNext"
   ) => {
     const currentPageNum = Number(currentPage);
-    // 페이지 변경 로직을 객체로 관리
     const actions: Record<typeof type, () => number> = {
       prev: () => (currentPageNum > 1 ? currentPageNum - 1 : currentPageNum),
       next: () => (currentPageNum < 5 ? currentPageNum + 1 : currentPageNum),
@@ -113,33 +117,33 @@ const NewsTalkToolbar = ({
         <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
           <div className="flex gap-2">
             <button
-              onClick={() => handleDateClick("일간")}
+              onClick={() => handleDaySortChange("DAILY")}
               className={
-                activeBtn === "일간" ? activeButtonStyle : disableButtonStyle
+                activeBtn === "DAILY" ? activeButtonStyle : disableButtonStyle
               }
             >
               일간
             </button>
             <button
-              onClick={() => handleDateClick("주간")}
+              onClick={() => handleDaySortChange("WEEKLY")}
               className={
-                activeBtn === "주간" ? activeButtonStyle : disableButtonStyle
+                activeBtn === "WEEKLY" ? activeButtonStyle : disableButtonStyle
               }
             >
               주간
             </button>
             <button
-              onClick={() => handleDateClick("월간")}
+              onClick={() => handleDaySortChange("MONTHLY")}
               className={
-                activeBtn === "월간" ? activeButtonStyle : disableButtonStyle
+                activeBtn === "MONTHLY" ? activeButtonStyle : disableButtonStyle
               }
             >
               월간
             </button>
             <button
-              onClick={() => handleDateClick("연간")}
+              onClick={() => handleDaySortChange("YEARLY")}
               className={
-                activeBtn === "연간" ? activeButtonStyle : disableButtonStyle
+                activeBtn === "YEARLY" ? activeButtonStyle : disableButtonStyle
               }
             >
               연간
