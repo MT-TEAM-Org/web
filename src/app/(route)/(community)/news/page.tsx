@@ -14,6 +14,8 @@ const Page = () => {
     setTimeType,
     pageNum,
     onPageChange,
+    searchType,
+    setSearchType,
   } = useNewsPageLogic();
   const {
     data: newsListData,
@@ -22,6 +24,7 @@ const Page = () => {
   } = useSortedNewsDataList({
     orderType,
     timeType,
+    searchType,
     pageNum,
   });
 
@@ -33,6 +36,7 @@ const Page = () => {
         setOrderType={setOrderType}
         onPageChange={onPageChange}
         setTimeType={setTimeType}
+        setSearchType={setSearchType}
       />
 
       <NewsListContent

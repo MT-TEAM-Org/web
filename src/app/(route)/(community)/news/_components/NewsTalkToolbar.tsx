@@ -1,6 +1,14 @@
 "use client";
 
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
@@ -21,12 +29,14 @@ interface NewsTalkToolbarProps {
   setOrderType: (value: "DATE" | "COMMENT" | "VIEW") => void;
   setTimeType: (value: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY") => void;
   onPageChange: (page: string) => void;
+  setSearchType: Dispatch<SetStateAction<string>>;
 }
 
 const NewsTalkToolbar = ({
   setOrderType,
   setTimeType,
   onPageChange,
+  setSearchType,
 }: NewsTalkToolbarProps) => {
   const [activeBtn, setActiveBtn] = useState<
     "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"
@@ -53,6 +63,13 @@ const NewsTalkToolbar = ({
     { label: "댓글", value: "comment" },
   ];
 
+  const timeButtons = [
+    { label: "일간", value: "DAILY" },
+    { label: "주간", value: "WEEKLY" },
+    { label: "월간", value: "MONTHLY" },
+    { label: "연간", value: "YEARLY" },
+  ];
+
   const handleDivClick = () => {
     if (selectRef.current) {
       selectRef.current.focus();
@@ -72,8 +89,21 @@ const NewsTalkToolbar = ({
     setTimeType(value);
   };
 
-  const searchInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
+  };
+
+  // 검색 실행 함수
+  const handleSearch = (e?: FormEvent) => {
+    if (e) e.preventDefault();
+
+    // input 비어있으면 검색 방지
+    // if (!inputValue.trim()) {
+    //   alert("검색어를 입력해주세요!");
+    //   return;
+    // }
+
+    setSearchType(inputValue);
   };
 
   useEffect(() => {
@@ -98,16 +128,12 @@ const NewsTalkToolbar = ({
 
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] border-gray3";
-
   const activeSortedStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] font-[700] border-gray7";
-
   const pageButtonStyle =
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
-
   const activeButtonStyle =
-    "bg-[#00ADEE] text-white min-w-[57px] h-[40px] flex gap-[10px] items-center align-center rounded-[5px] px-[16px] py-[13px]  font-[700] text-[14px] leading-[21px] tracking-[-2%]";
-
+    "bg-[#00ADEE] text-white min-w-[57px] h-[40px] flex gap-[10px] items-center align-center rounded-[5px] px-[16px] py-[13px] font-[700] text-[14px] leading-[21px] tracking-[-2%]";
   const disableButtonStyle =
     "bg-white text-gray-700 min-w-[57px] h-[40px] flex gap-[10px] items-center align-center border border-gray3 rounded-[5px] px-[16px] py-[13px] font-[500] text-[14px] leading-[22px] tracking-[-2%]";
 
@@ -116,38 +142,23 @@ const NewsTalkToolbar = ({
       <div className="bg-white rounded-tr-[5px] rounded-t-[5px]">
         <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
           <div className="flex gap-2">
-            <button
-              onClick={() => handleDaySortChange("DAILY")}
-              className={
-                activeBtn === "DAILY" ? activeButtonStyle : disableButtonStyle
-              }
-            >
-              일간
-            </button>
-            <button
-              onClick={() => handleDaySortChange("WEEKLY")}
-              className={
-                activeBtn === "WEEKLY" ? activeButtonStyle : disableButtonStyle
-              }
-            >
-              주간
-            </button>
-            <button
-              onClick={() => handleDaySortChange("MONTHLY")}
-              className={
-                activeBtn === "MONTHLY" ? activeButtonStyle : disableButtonStyle
-              }
-            >
-              월간
-            </button>
-            <button
-              onClick={() => handleDaySortChange("YEARLY")}
-              className={
-                activeBtn === "YEARLY" ? activeButtonStyle : disableButtonStyle
-              }
-            >
-              연간
-            </button>
+            {timeButtons.map((button) => (
+              <button
+                key={button.value}
+                onClick={() =>
+                  handleDaySortChange(
+                    button.value as "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"
+                  )
+                }
+                className={
+                  activeBtn === button.value
+                    ? activeButtonStyle
+                    : disableButtonStyle
+                }
+              >
+                {button.label}
+              </button>
+            ))}
           </div>
           <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
             <div className="relative" onClick={handleDivClick}>
@@ -169,15 +180,19 @@ const NewsTalkToolbar = ({
                 <Arrow_down />
               </div>
             </div>
-            <form className="relative">
+            <form className="relative" onSubmit={handleSearch}>
               <input
                 type="text"
                 className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-gray4"
                 placeholder="검색어를 입력해주세요."
                 value={inputValue}
-                onChange={searchInput}
+                onChange={handleInputChange}
               />
-              <button className="absolute top-2 left-[12px]">
+              <button
+                type="submit"
+                className="absolute top-2 left-[12px]"
+                onClick={handleSearch}
+              >
                 <Small_Search />
               </button>
             </form>

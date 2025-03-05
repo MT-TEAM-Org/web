@@ -8,7 +8,8 @@ interface NewsDataParams {
   category?: string;
   orderType?: "DATE" | "COMMENT" | "VIEW";
   pageNum?: number;
-  timeType?: "DAILY" | "WEEKLY"| "MONTHLY" | "YEARLY";
+  timeType?: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
+  searchType?: string;
 }
 
 interface ExtendedNavigator extends Navigator {
@@ -17,27 +18,34 @@ interface ExtendedNavigator extends Navigator {
   };
 }
 
-const fetchSortedNewsDataList = async ({ category, orderType, pageNum, timeType }: NewsDataParams) => {
+const fetchSortedNewsDataList = async ({ category, orderType, pageNum, timeType, searchType }: NewsDataParams) => {
+  const baseParams = {
+    category: category || "BASEBALL",
+    orderType: orderType || "DATE",
+    timePeriod: timeType || "DAILY",
+    page: pageNum || 1,
+    size: 10,
+  };
+
+  // searchType이 있을 경우에만 content 추가
+  const params = searchType
+    ? { ...baseParams, content: searchType }
+    : baseParams;
+
   const response = await axios(`${process.env.NEXT_PUBLIC_API_URL}api/news`, {
-    params: {
-      category: category || "BASEBALL",
-      orderType: orderType || "DATE",
-      timePeriod: timeType || "DAILY",
-      page: pageNum || 1,
-      size: 10,
-    },
+    params,
   });
   return response.data.data.list.content;
 };
 
 // 뉴스 정렬 API
-const useSortedNewsDataList = ({ category, orderType, pageNum, timeType }: NewsDataParams) => {
+const useSortedNewsDataList = ({ category, orderType, pageNum, timeType, searchType }: NewsDataParams) => {
   const queryClient = useQueryClient();
   const currentPage = pageNum || 1;
 
   const query = useQuery({
-    queryKey: ["newsDataList", category || "BASEBALL", orderType || "DATE", timeType || "DAILY", currentPage],
-    queryFn: () => fetchSortedNewsDataList({ category, orderType, pageNum: currentPage, timeType }),
+    queryKey: ["newsDataList", category || "BASEBALL", orderType || "DATE", timeType || "DAILY", currentPage || "", searchType],
+    queryFn: () => fetchSortedNewsDataList({ category, orderType, pageNum: currentPage, timeType, searchType }),
     retry: 1,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 60,
@@ -50,7 +58,7 @@ const useSortedNewsDataList = ({ category, orderType, pageNum, timeType }: NewsD
       const isSlowNetwork = effectiveType === "2g" || effectiveType === "3g";
       if (nextPage === 6 || isSlowNetwork) return;
 
-      const nextPageQueryKey = ["newsDataList", category || "BASEBALL", orderType || "DATE", timeType || "DAILY", nextPage];
+      const nextPageQueryKey = ["newsDataList", category || "BASEBALL", orderType || "DATE", timeType || "DAILY", nextPage || ""];
       const nextPageData = queryClient.getQueryData(nextPageQueryKey);
 
       if (!nextPageData) {
@@ -68,8 +76,9 @@ const useSortedNewsDataList = ({ category, orderType, pageNum, timeType }: NewsD
         });
       }
     }
-  }, [query.isSuccess, currentPage, category, orderType, timeType]);
+  }, [query.isSuccess, currentPage, category, orderType, timeType, searchType, queryClient]);
 
   return query;
 };
+
 export default useSortedNewsDataList;

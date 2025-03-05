@@ -14,6 +14,7 @@ import PostAction from "../../../_components/PostAction";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import CommentSection from "./_components/CommentSection";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
+import EmptyNews from "../../_components/EmptyNews";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
@@ -27,11 +28,14 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     setTimeType,
     pageNum,
     onPageChange,
+    searchType,
+    setSearchType,
   } = useNewsPageLogic();
   const { data: newsListData } = useSortedNewsDataList({
     orderType,
     pageNum,
     timeType,
+    searchType,
   });
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
   const updatedImgUrl = newsInfoData?.thumbImg?.replace(
@@ -94,12 +98,17 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         setOrderType={setOrderType}
         setTimeType={setTimeType}
         onPageChange={onPageChange}
+        setSearchType={setSearchType}
       />
 
-      <div className="w-[720px] min-h-[348px] rounded-b-[5px] overflow-hidden shadow-md">
-        {sliceNewsListData?.map((newsInfoData: NewsItemType) => (
-          <NewsPostItem newsItem={newsInfoData} key={newsInfoData.id} />
-        ))}
+      <div className="w-[720px] h-auto rounded-b-[5px] overflow-hidden shadow-md">
+        {sliceNewsListData?.length === 0 ? (
+          <EmptyNews />
+        ) : (
+          sliceNewsListData.map((newsInfoData: NewsItemType) => (
+            <NewsPostItem newsItem={newsInfoData} key={newsInfoData.id} />
+          ))
+        )}
       </div>
       <div className="shadow-md">
         <SendCommentBox />

@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
 import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
 import NewsTalkToolbar from "../_components/NewsTalkToolbar";
-import NewsItem from "@/app/(route)/main/_components/newsItem";
 import NewsPostItem from "../_components/NewsPostItem";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import EmptyNews from "../_components/EmptyNews";
@@ -19,6 +18,8 @@ export default function NewsPage() {
     onPageChange,
     timeType,
     setTimeType,
+    searchType,
+    setSearchType,
   } = useNewsPageLogic();
 
   const changedCategory = (category: string): string | undefined => {
@@ -37,6 +38,7 @@ export default function NewsPage() {
     orderType,
     timeType,
     pageNum,
+    searchType,
   });
 
   return (
@@ -46,6 +48,7 @@ export default function NewsPage() {
           setOrderType={setOrderType}
           setTimeType={setTimeType}
           onPageChange={onPageChange}
+          setSearchType={setSearchType}
         />
         <div className="w-[720px]">
           {isLoading ? (
