@@ -9,6 +9,10 @@ import useAuthCheck from "@/_hooks/useAuthCheck";
 import useDeletePost from "@/_hooks/fetcher/board/useDeletePost";
 import { useEditStore } from "@/utils/Store";
 import { useRouter } from "next/navigation";
+import PostAction from "@/app/(route)/(community)/_components/PostAction";
+import Single_logo from "@/app/_components/icon/Single_logo";
+import usePostRecommend from "@/_hooks/fetcher/board/usePostRecommend";
+import useDeleteRecommendPost from "@/_hooks/fetcher/board/useDeleteRecommnedPost";
 
 interface BoardDetailProps {
   boardId: string;
@@ -20,6 +24,8 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
   const { data: boardDetailData, isLoading } = useGetBoardDetail(boardId);
   const { data: userData } = useAuthCheck();
   const { mutate: mutateDeletePost } = useDeletePost(boardId);
+  const { mutate: mutatePostRecommend } = usePostRecommend({ boardId });
+  const { mutate: mutateDeleteRecommend } = useDeleteRecommendPost({ boardId });
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
@@ -71,10 +77,19 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
     );
   };
 
+  const handleRecommend = () => {
+    mutatePostRecommend({ boardId });
+  };
+
+  const handleDeleteRecommend = () => {
+    mutateDeleteRecommend({ boardId });
+  };
+
   const isEditable =
     userData?.data?.data?.publicId === boardDetailData?.data?.publicId;
 
   const content = boardDetailData?.data?.content || "";
+
   const link = boardDetailData?.data?.link || "";
 
   const getYouTubeEmbedUrl = (url: string) => {
@@ -87,7 +102,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
   const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
 
   const options = {
-    replace: (domNode) => {
+    replace: (domNode: any) => {
       if (domNode.name === "img") {
         const src = domNode.attribs?.src || "";
         if (src.includes("52.79.222.87")) {
@@ -200,6 +215,20 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
           </>
         )}
       </div>
+      <div className="w-full h-auto flex justify-center">
+        <button
+          onClick={() => handleRecommend()}
+          className="min-w-[120px] w-auto h-[40px] gap-x-[4px] flex items-center text-[14px] justify-center px-4 py-[13px] bg-primary text-white font-bold rounded-[5px]"
+        >
+          <Single_logo />
+          추천
+          <p>{boardDetailData?.data?.recommendCount}</p>
+        </button>
+      </div>
+      <PostAction
+        type="community"
+        onReport={() => alert("신고하기 기능 추가예정!")}
+      />
     </div>
   );
 };

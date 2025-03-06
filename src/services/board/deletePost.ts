@@ -1,5 +1,3 @@
-"use client";
-
 import { apiRequest } from "../instant";
 
 type DeletePostData = {

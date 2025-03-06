@@ -90,7 +90,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             추천 12
           </button>
         </div>
-        <PostAction source={newsInfoData?.source} />
+        <PostAction type="news" source={newsInfoData?.source} />
         <CommentSection newsInfoData={newsInfoData} />
       </div>
 
