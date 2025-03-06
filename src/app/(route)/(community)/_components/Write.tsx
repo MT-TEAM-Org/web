@@ -1,10 +1,12 @@
 import usePostCommunityContent from "@/_hooks/community";
+import usePutPost from "@/_hooks/fetcher/board/usePutPost";
 import getUpload from "@/_hooks/getUpload";
 import Tiptap from "@/app/_components/_tiptap/Tiptap";
 import TitleDag from "@/app/_components/_tiptap/TitleDag";
 import { CommunityData } from "@/app/_constants/categories";
+import { useEditStore } from "@/utils/Store";
 import axios from "axios";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -23,6 +25,13 @@ interface FormData {
 }
 
 export function Write({ category, subCategory }: WriteProps) {
+  const { isEditMode, boardId, boardData, resetEditState } = useEditStore();
+  const searchParams = useSearchParams();
+  const editParam = searchParams.get("edit");
+
+  const pathName = usePathname();
+  const boardType = pathName?.split("/")[1];
+
   const { register, handleSubmit, setValue, watch } = useForm<FormData>({
     defaultValues: {
       boardType: category,
@@ -34,10 +43,27 @@ export function Write({ category, subCategory }: WriteProps) {
     },
   });
 
-  const pathName = usePathname();
-  const boardType = pathName?.split("/")[1];
+  const link = watch("link");
+
+  useEffect(() => {
+    if (!editParam) {
+      resetEditState();
+    } else if (isEditMode && boardData) {
+      setValue("categoryType", boardData.categoryType);
+      setValue("title", boardData.title);
+      setValue("content", boardData.content);
+      if (boardData.link) setValue("link", boardData.link);
+      if (boardData.thumbnail) setValue("thumbnail", boardData.thumbnail);
+    }
+    return () => {
+      if (!editParam) {
+        resetEditState();
+      }
+    };
+  }, [editParam, isEditMode, boardData, setValue, resetEditState]);
 
   const { mutate: postContent } = usePostCommunityContent();
+  const editPost = usePutPost();
 
   const handleImageUpload = async (blob: Blob) => {
     try {
@@ -71,15 +97,12 @@ export function Write({ category, subCategory }: WriteProps) {
       : "";
   };
 
-  const link = watch("link");
-
   useEffect(() => {
     if (link) {
       const thumbnail = getYoutubeThumbnail(link);
       if (thumbnail) {
         setValue("thumbnail", thumbnail);
       }
-      console.log("thumbnail", thumbnail);
     }
   }, [link]);
 
@@ -97,9 +120,14 @@ export function Write({ category, subCategory }: WriteProps) {
       link: data.link,
       thumbnail,
     };
-
-    postContent(communityData);
-    console.log(data);
+    if (isEditMode) {
+      editPost.mutate({
+        data: communityData,
+        boardId,
+      });
+    } else {
+      postContent(communityData);
+    }
   };
 
   return (
@@ -114,7 +142,7 @@ export function Write({ category, subCategory }: WriteProps) {
           onChange={(content) => setValue("content", content)}
           register={register}
           watch={watch}
-          initialContent=""
+          initialContent={isEditMode && boardData ? boardData.content : ""}
           onImageUpload={handleImageUpload}
           setValue={setValue}
         />

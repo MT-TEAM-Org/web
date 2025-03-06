@@ -3,7 +3,7 @@
 import { useRouter, usePathname } from "next/navigation";
 import { Search } from "../icon/Search";
 import Link from "next/link";
-import { NAVBARS } from "@/constants/navigation";
+import { NAVBARS } from "@/app/_constants/navigation";
 
 export default function Navbar() {
   const router = useRouter();
