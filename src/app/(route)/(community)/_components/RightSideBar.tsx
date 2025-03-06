@@ -11,7 +11,6 @@ import { useMemo, useState } from "react";
 export const RightSideBar = () => {
   const [currentPage, setCurrentPage] = useState("1");
   const { data: newsData } = useGetNewsDataList({ page: currentPage });
-
   const slicedNewsData = useMemo(() => {
     return newsData?.slice(0, 5);
   }, [newsData]); //뉴스 데이터 임시로 5개만 불러오기

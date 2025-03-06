@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useReadNews } from "@/_hooks/useNews/useReadNews";
 import { NewsItemType } from "@/app/_constants/newsItemType";
+import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
 
 interface NewsPostItemProps {
   newsItem: NewsItemType;
@@ -12,7 +13,7 @@ interface NewsPostItemProps {
 
 const NewsItem = ({ newsItem }: NewsPostItemProps) => {
   const router = useRouter();
-  const updatedImgUrl = newsItem?.thumbImg?.replace("type=w140", "type=w68");
+  const updatedImgUrl = updateImageUrl(newsItem?.thumbImg, "w68");
   const { handleRead } = useReadNews(newsItem?.id, false);
 
   const handleToNewsInfo = () => {
@@ -35,7 +36,7 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
           alt="News img"
           width={68}
           height={68}
-          className="max-w-[68px] min-h-[68px] rounded-[4.25px]"
+          className="max-w-[68px] min-h-[68px] rounded-[4.25px] object-cover"
         />
       </div>
       <div className="w-[368px] h-[68px] flex flex-col justify-center px-4 gap-1">

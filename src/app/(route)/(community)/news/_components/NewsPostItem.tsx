@@ -7,13 +7,14 @@ import { NewsItemType } from "@/app/_constants/newsItemType";
 import { useReadNews } from "@/_hooks/useNews/useReadNews";
 import useTimeAgo from "@/utils/useTimeAgo";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";
+import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
 
 interface NewsPostItemProps {
   newsItem?: NewsItemType;
 }
 
 const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
-  const updatedImgUrl = newsItem?.thumbImg?.replace("type=w140", "type=w160");
+  const updatedImgUrl = updateImageUrl(newsItem?.thumbImg, "w160");
   const { isRead, handleRead } = useReadNews(newsItem?.id);
   const [isNew, setIsNew] = useState(false);
   const date = useTimeAgo(newsItem?.postDate);
@@ -56,7 +57,7 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
             className={`
             ${
               newsItem?.thumbImg
-                ? "w-full h-full object-cover rounded-[5px] gap-[10px] "
+                ? "w-full h-full object-cover rounded-[5px] gap-[10px]"
                 : "absolute top-[33.5px] left-[33.05px] gap-[3.24px] rounded-[3.83px]"
             }
           `}

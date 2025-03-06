@@ -15,10 +15,12 @@ import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import CommentSection from "./_components/CommentSection";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
 import EmptyNews from "../../_components/EmptyNews";
+import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   const { data: newsInfoData } = useGetNewsInfoData(id);
+  const updatedImgUrl = updateImageUrl(newsInfoData?.thumbImg, "w360");
   console.log("newsInfoData: ", newsInfoData);
 
   const {
@@ -31,6 +33,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     searchType,
     setSearchType,
   } = useNewsPageLogic();
+
   const { data: newsListData } = useSortedNewsDataList({
     orderType,
     pageNum,
@@ -38,10 +41,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     searchType,
   });
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
-  const updatedImgUrl = newsInfoData?.thumbImg?.replace(
-    "type=w140",
-    "type=w360"
-  );
 
   return (
     <>
@@ -74,7 +73,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         <hr />
         <div className="w-full h-auto flex flex-col gap-3">
           <Image
-            src={newsInfoData?.thumbImg ? updatedImgUrl : "/Empty_news.png"}
+            src={newsInfoData ? updatedImgUrl : "/Empty_news.png"}
             alt="News detail img"
             width={672}
             height={338}

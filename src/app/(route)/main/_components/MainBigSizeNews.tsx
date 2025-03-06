@@ -5,15 +5,13 @@ import Image from "next/image";
 import useGetNewsDataList from "@/_hooks/useNews/useGetNewsDataList";
 import { useRouter } from "next/navigation";
 import { useReadNews } from "@/_hooks/useNews/useReadNews";
+import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
 
 const MainBigSizeNews = () => {
   const router = useRouter();
   const { data, isLoading } = useGetNewsDataList();
   const mainPageData = data ? data[0] : null;
-  const updatedImgUrl = mainPageData?.thumbImg?.replace(
-    "type=w140",
-    "type=w410"
-  );
+  const updatedImgUrl = updateImageUrl(mainPageData?.thumbImg, "w410");
   const { handleRead } = useReadNews(mainPageData?.id, false);
 
   console.log(mainPageData);

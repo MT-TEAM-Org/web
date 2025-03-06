@@ -3,15 +3,7 @@
 import React from "react";
 import NewsItem from "./newsItem";
 import useGetNewsDataList from "@/_hooks/useNews/useGetNewsDataList";
-
-interface newsItem {
-  id: number;
-  title: string;
-  category: string;
-  thumbImg: string;
-  postDate: string;
-  content: string;
-}
+import { NewsItemType } from "@/app/_constants/newsItemType";
 
 const NewsComponent = () => {
   const { data, isLoading, isError } = useGetNewsDataList();
@@ -24,7 +16,7 @@ const NewsComponent = () => {
 
   return (
     <div className="w-[436px] min-h-[236px] flex flex-col gap-4">
-      {slicedNewsData.map((newsItem: newsItem) => (
+      {slicedNewsData.map((newsItem: NewsItemType) => (
         <NewsItem key={newsItem.id} newsItem={newsItem} />
       ))}
     </div>
