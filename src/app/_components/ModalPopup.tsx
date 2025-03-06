@@ -16,7 +16,7 @@ interface InquiryData {
 const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
   if (!show) return null;
   const { data, isLoading } = useAuthCheck();
-  const memberPublicId = data?.data?.data?.publicId;
+  const memberPublicId = show ? data?.data?.data?.publicId : null;
   const { register, handleSubmit } = useForm();
   const { mutate: postInquiry, isPending } = usePostInquiry();
 

@@ -13,10 +13,13 @@ const CustomerLeftSidebar = () => {
   useEffect(() => {
     if (show) {
       document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = "auto";
-      };
+    } else {
+      document.body.style.overflow = "auto";
     }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [show]);
 
   const boardList = [
@@ -61,7 +64,7 @@ const CustomerLeftSidebar = () => {
           <p>1:1 문의하기</p>
         </div>
       </div>
-      <ModalPopup show={show} setShow={setShow} />
+      {show && <ModalPopup show={show} setShow={setShow} />}
     </div>
   );
 };
