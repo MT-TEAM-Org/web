@@ -17,6 +17,7 @@ const Page = () => {
     searchType,
     setSearchType,
   } = useNewsPageLogic();
+
   const {
     data: newsListData,
     isLoading,

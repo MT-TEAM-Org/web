@@ -3,19 +3,19 @@
 import React, { use } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
-import NewsPostItem from "../../_components/NewsPostItem";
-import SendCommentBox from "../../../_components/SendCommentBox";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
-import NewsTalkToolbar from "../../_components/NewsTalkToolbar";
 import useGetNewsInfoData from "@/_hooks/useNews/useGetNewsInfoData";
 import useTimeAgo from "@/utils/useTimeAgo";
-import PostAction from "../../../_components/PostAction";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import CommentSection from "./_components/CommentSection";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
-import EmptyNews from "../../_components/EmptyNews";
 import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
+import EmptyNews from "../../../_components/EmptyNews";
+import NewsPostItem from "../../../_components/NewsPostItem";
+import SendCommentBox from "@/app/(route)/(community)/_components/SendCommentBox";
+import NewsTalkToolbar from "../../../_components/NewsTalkToolbar";
+import PostAction from "@/app/(route)/(community)/_components/PostAction";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);

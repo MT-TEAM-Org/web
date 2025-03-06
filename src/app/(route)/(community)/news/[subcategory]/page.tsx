@@ -24,9 +24,9 @@ export default function NewsPage() {
 
   const changedCategory = (category: string): string | undefined => {
     const categoryMap: Record<string, string> = {
-      "esports-news": "ESPORTS",
-      "football-news": "FOOTBALL",
-      "baseball-news": "BASEBALL",
+      esports: "ESPORTS",
+      football: "FOOTBALL",
+      baseball: "BASEBALL",
     };
     return categoryMap[category];
   };

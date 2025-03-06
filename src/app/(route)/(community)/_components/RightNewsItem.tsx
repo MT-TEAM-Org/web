@@ -15,6 +15,7 @@ const RightNewsItem = ({ newsItem }: NewsItemProps) => {
   const [read, setRead] = useState(false);
   const pathname = usePathname();
   const updatedImgUrl = updateImageUrl(newsItem?.thumbImg, "w68");
+  const categoryPath = newsItem?.category?.toLowerCase() || "";
 
   useEffect(() => {
     const readNews = JSON.parse(localStorage.getItem("readNews") || "[]");
@@ -34,7 +35,11 @@ const RightNewsItem = ({ newsItem }: NewsItemProps) => {
   };
 
   return (
-    <Link href={`/news/news-detail/${newsItem?.id}`}>
+    <Link
+      href={`/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
+        newsItem?.id
+      }`}
+    >
       <div
         onClick={handleRead}
         className="min-w-[288px] min-h-[92px] flex justify-start items-center border-b border-gray2 p-3 cursor-pointer gap-3"
