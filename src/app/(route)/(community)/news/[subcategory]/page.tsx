@@ -3,12 +3,12 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
-import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
 import NewsTalkToolbar from "../_components/NewsTalkToolbar";
 import NewsPostItem from "../_components/NewsPostItem";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import EmptyNews from "../_components/EmptyNews";
 import NewsPostItemSkeleton from "../_components/NewsPostItemSkeleton";
+import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 
 export default function NewsPage() {
   const params = useParams();

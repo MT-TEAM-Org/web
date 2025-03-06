@@ -1,10 +1,9 @@
 "use client";
 
-import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
+import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
-import { useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -14,7 +13,6 @@ interface PostNavigationProps {
 
 const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
   const router = useRouter();
-  const queryClient = useQueryClient();
   const pathname = usePathname();
   const [isPrevDisabled, setIsPrevDisabled] = useState(false);
   const [isNextDisabled, setIsNextDisabled] = useState(false);

@@ -4,8 +4,6 @@ import React, { use } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import { NewsItemType } from "@/app/_constants/newsItemType";
-import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
-import useGetNewsInfoData from "@/_hooks/useNews/useGetNewsInfoData";
 import useTimeAgo from "@/utils/useTimeAgo";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import CommentSection from "./_components/CommentSection";
@@ -18,6 +16,8 @@ import NewsTalkToolbar from "../../../_components/NewsTalkToolbar";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import NewsInfoSkeleton from "./_components/NewsInfoSkeleton";
 import NewsPostItemSkeleton from "../../../_components/NewsPostItemSkeleton";
+import useGetNewsInfoData from "@/_hooks/fetcher/news/useGetNewInfo";
+import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);

@@ -3,10 +3,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import useGetNewsDataList from "@/_hooks/useNews/useGetNewsDataList";
 import { useReadNews } from "@/_hooks/useNews/useReadNews";
 import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
 import MainBigSizeNewsSkeleton from "./MainBigSizeNewsSkeleton";
+import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 
 const MainBigSizeNews = () => {
   const { data, isLoading } = useGetNewsDataList();
