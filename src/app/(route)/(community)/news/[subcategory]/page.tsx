@@ -8,6 +8,7 @@ import NewsTalkToolbar from "../_components/NewsTalkToolbar";
 import NewsPostItem from "../_components/NewsPostItem";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import EmptyNews from "../_components/EmptyNews";
+import NewsPostItemSkeleton from "../_components/NewsPostItemSkeleton";
 
 export default function NewsPage() {
   const params = useParams();
@@ -52,7 +53,9 @@ export default function NewsPage() {
         />
         <div className="w-[720px]">
           {isLoading ? (
-            "Loading..."
+            Array(10)
+              .fill(0)
+              .map((_, index) => <NewsPostItemSkeleton key={index} />)
           ) : newsData.length === 0 ? (
             <EmptyNews />
           ) : (
