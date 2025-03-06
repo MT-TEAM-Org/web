@@ -3,6 +3,7 @@
 import usePostInquiry from "@/_hooks/usePostInquiry";
 import { useForm } from "react-hook-form";
 import useAuthCheck from "@/_hooks/useAuthCheck";
+import { ErrorMessage } from "@hookform/error-message";
 
 interface ModalPopupProps {
   show: boolean;
@@ -17,7 +18,11 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
   if (!show) return null;
   const { data, isLoading } = useAuthCheck();
   const memberPublicId = show ? data?.data?.data?.publicId : null;
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { mutate: postInquiry, isPending } = usePostInquiry();
 
   const onSubmit = (data: InquiryData) => {
@@ -52,7 +57,21 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
             placeholder="문의 내용을 입력해주세요."
             className="resize-none w-full rounded-[5px] min-h-[200px] border px-[12px] py-[16px]"
             style={{ overflow: "hidden", overflowY: "auto" }}
-            {...register("content", { required: true })}
+            {...register("content", {
+              required: "`5자 이상 입력해주세요`",
+              minLength: { value: 5, message: "`5자 이상 입력해주세요`" },
+              validate: (value) =>
+                value.trim().length >= 5 || "`5자 이상 입력해주세요`",
+            })}
+          />
+          <ErrorMessage
+            errors={errors}
+            name={"content"}
+            render={({ message }) => (
+              <p className="text-[14px] text-[#D1504B] ml-[16px] leading-[22px]">
+                {message}
+              </p>
+            )}
           />
         </div>
         <div className="p-[12px] bg-[#FAFAFA] mt-[12px] rounded-[5px]">
