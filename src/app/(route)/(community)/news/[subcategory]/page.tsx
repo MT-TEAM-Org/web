@@ -5,12 +5,22 @@ import { useParams } from "next/navigation";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
 import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
 import NewsTalkToolbar from "../_components/NewsTalkToolbar";
-import NewsItem from "@/app/(route)/main/_components/newsItem";
 import NewsPostItem from "../_components/NewsPostItem";
+import { NewsItemType } from "@/app/_constants/newsItemType";
+import EmptyNews from "../_components/EmptyNews";
 
 export default function NewsPage() {
   const params = useParams();
-  const { orderType, setOrderType, pageNum, onPageChange } = useNewsPageLogic();
+  const {
+    orderType,
+    setOrderType,
+    pageNum,
+    onPageChange,
+    timeType,
+    setTimeType,
+    searchType,
+    setSearchType,
+  } = useNewsPageLogic();
 
   const changedCategory = (category: string): string | undefined => {
     const categoryMap: Record<string, string> = {
@@ -26,7 +36,9 @@ export default function NewsPage() {
   const { data: newsData, isLoading } = useSortedNewsDataList({
     category,
     orderType,
+    timeType,
     pageNum,
+    searchType,
   });
 
   return (
@@ -34,14 +46,20 @@ export default function NewsPage() {
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
         <NewsTalkToolbar
           setOrderType={setOrderType}
+          setTimeType={setTimeType}
           onPageChange={onPageChange}
+          setSearchType={setSearchType}
         />
         <div className="w-[720px]">
-          {isLoading
-            ? "Loading..."
-            : newsData?.map((newsItem: NewsItem) => (
-                <NewsPostItem key={newsItem.id} newsItem={newsItem} />
-              ))}
+          {isLoading ? (
+            "Loading..."
+          ) : newsData.length === 0 ? (
+            <EmptyNews />
+          ) : (
+            newsData?.map((newsItem: NewsItemType) => (
+              <NewsPostItem key={newsItem.id} newsItem={newsItem} />
+            ))
+          )}
         </div>
       </div>
     </div>

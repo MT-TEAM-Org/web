@@ -10,18 +10,33 @@ import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
 import NewsTalkToolbar from "../../_components/NewsTalkToolbar";
 import useGetNewsInfoData from "@/_hooks/useNews/useGetNewsInfoData";
 import useTimeAgo from "@/utils/useTimeAgo";
-import PostAction from "./_components/PostAction";
+import PostAction from "../../../_components/PostAction";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import CommentSection from "./_components/CommentSection";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
+import EmptyNews from "../../_components/EmptyNews";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   const { data: newsInfoData } = useGetNewsInfoData(id);
   console.log("newsInfoData: ", newsInfoData);
 
-  const { orderType, setOrderType, pageNum, onPageChange } = useNewsPageLogic();
-  const { data: newsListData } = useSortedNewsDataList({ orderType, pageNum });
+  const {
+    orderType,
+    setOrderType,
+    timeType,
+    setTimeType,
+    pageNum,
+    onPageChange,
+    searchType,
+    setSearchType,
+  } = useNewsPageLogic();
+  const { data: newsListData } = useSortedNewsDataList({
+    orderType,
+    pageNum,
+    timeType,
+    searchType,
+  });
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
   const updatedImgUrl = newsInfoData?.thumbImg?.replace(
     "type=w140",
@@ -65,9 +80,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             height={338}
           />
           <p className="font-[500] text-[16px] leading-6 tracking-[-0.02em] text-gray7 overflow-hidden line-clamp-2">
-            컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-            컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-            컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
+            {newsInfoData?.content}
           </p>
         </div>
 
@@ -77,19 +90,25 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             추천 12
           </button>
         </div>
-        <PostAction />
+        <PostAction source={newsInfoData?.source} />
         <CommentSection newsInfoData={newsInfoData} />
       </div>
 
       <NewsTalkToolbar
         setOrderType={setOrderType}
+        setTimeType={setTimeType}
         onPageChange={onPageChange}
+        setSearchType={setSearchType}
       />
 
-      <div className="w-[720px] min-h-[348px] rounded-b-[5px] overflow-hidden shadow-md">
-        {sliceNewsListData?.map((newsInfoData: NewsItemType) => (
-          <NewsPostItem newsItem={newsInfoData} key={newsInfoData.id} />
-        ))}
+      <div className="w-[720px] h-auto rounded-b-[5px] overflow-hidden shadow-md">
+        {sliceNewsListData?.length === 0 ? (
+          <EmptyNews />
+        ) : (
+          sliceNewsListData.map((newsInfoData: NewsItemType) => (
+            <NewsPostItem newsItem={newsInfoData} key={newsInfoData.id} />
+          ))
+        )}
       </div>
       <div className="shadow-md">
         <SendCommentBox />

@@ -47,10 +47,7 @@ const RightNewsItem = ({ newsItem }: NewsItemProps) => {
         />
         <div className="min-w-[184px] h-auto min-h-[68px] flex flex-col justify-center items-start gap-1">
           <div className={styles.title}>{newsItem.title}</div>
-          <div className={styles.content}>
-            &quot;컨텐츠들어갈부분 컨텐츠들어갈부분 컨텐츠들어갈부분
-            컨텐츠들어갈부분&quot;
-          </div>
+          <div className={styles.content}>{newsItem?.content}</div>
         </div>
       </div>
     </Link>

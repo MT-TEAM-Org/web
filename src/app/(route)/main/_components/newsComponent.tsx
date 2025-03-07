@@ -10,6 +10,7 @@ interface newsItem {
   category: string;
   thumbImg: string;
   postDate: string;
+  content: string;
 }
 
 const NewsComponent = () => {

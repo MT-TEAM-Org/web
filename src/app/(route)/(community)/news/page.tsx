@@ -7,13 +7,24 @@ import NewsTalkToolbar from "./_components/NewsTalkToolbar";
 import NewsListContent from "./_components/NewsListContent";
 
 const Page = () => {
-  const { orderType, setOrderType, pageNum, onPageChange } = useNewsPageLogic();
+  const {
+    orderType,
+    setOrderType,
+    timeType,
+    setTimeType,
+    pageNum,
+    onPageChange,
+    searchType,
+    setSearchType,
+  } = useNewsPageLogic();
   const {
     data: newsListData,
     isLoading,
     isError,
   } = useSortedNewsDataList({
     orderType,
+    timeType,
+    searchType,
     pageNum,
   });
 
@@ -24,6 +35,8 @@ const Page = () => {
       <NewsTalkToolbar
         setOrderType={setOrderType}
         onPageChange={onPageChange}
+        setTimeType={setTimeType}
+        setSearchType={setSearchType}
       />
 
       <NewsListContent
