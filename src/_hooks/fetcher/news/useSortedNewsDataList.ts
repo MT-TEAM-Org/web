@@ -1,8 +1,6 @@
-"use client";
-
+import fetchSortedNewsDataList from "@/services/news/fetchSortedNewsDataList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import axios from "axios";
 
 interface NewsDataParams {
   category?: string;
@@ -18,34 +16,20 @@ interface ExtendedNavigator extends Navigator {
   };
 }
 
-const fetchSortedNewsDataList = async ({ category, orderType, pageNum, timeType, searchType }: NewsDataParams) => {
-  const baseParams = {
-    category: category || "BASEBALL",
-    orderType: orderType || "DATE",
-    timePeriod: timeType || "DAILY",
-    page: pageNum || 1,
-    size: 10,
-  };
-
-  // searchType이 있을 경우에만 content 추가
-  const params = searchType
-    ? { ...baseParams, content: searchType }
-    : baseParams;
-
-  const response = await axios(`${process.env.NEXT_PUBLIC_API_URL}api/news`, {
-    params,
-  });
-  return response.data.data.list.content;
-};
-
-// 뉴스 정렬 API
-const useSortedNewsDataList = ({ category, orderType, pageNum, timeType, searchType }: NewsDataParams) => {
+const useSortedNewsDataList = ({
+  category,
+  orderType,
+  pageNum,
+  timeType,
+  searchType,
+}: NewsDataParams) => {
   const queryClient = useQueryClient();
   const currentPage = pageNum || 1;
 
   const query = useQuery({
     queryKey: ["newsDataList", category || "BASEBALL", orderType || "DATE", timeType || "DAILY", currentPage || "", searchType],
-    queryFn: () => fetchSortedNewsDataList({ category, orderType, pageNum: currentPage, timeType, searchType }),
+    queryFn: () =>
+      fetchSortedNewsDataList({ category, orderType, pageNum: currentPage, timeType, searchType }),
     retry: 1,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 60,
@@ -58,18 +42,25 @@ const useSortedNewsDataList = ({ category, orderType, pageNum, timeType, searchT
       const isSlowNetwork = effectiveType === "2g" || effectiveType === "3g";
       if (nextPage === 6 || isSlowNetwork) return;
 
-      const nextPageQueryKey = ["newsDataList", category || "BASEBALL", orderType || "DATE", timeType || "DAILY", nextPage];
+      const nextPageQueryKey = [
+        "newsDataList",
+        category || "BASEBALL",
+        orderType || "DATE",
+        timeType || "DAILY",
+        nextPage,
+      ];
       const nextPageData = queryClient.getQueryData(nextPageQueryKey);
 
       if (!nextPageData) {
         queryClient.prefetchQuery({
           queryKey: nextPageQueryKey,
-          queryFn: () => fetchSortedNewsDataList({
-            category: category || "BASEBALL",
-            orderType: orderType || "DATE",
-            pageNum: nextPage,
-            timeType: timeType || "DAILY",
-          }),
+          queryFn: () =>
+            fetchSortedNewsDataList({
+              category: category || "BASEBALL",
+              orderType: orderType || "DATE",
+              pageNum: nextPage,
+              timeType: timeType || "DAILY",
+            }),
           retry: 1,
           staleTime: 1000 * 60 * 5,
           gcTime: 1000 * 60 * 60,

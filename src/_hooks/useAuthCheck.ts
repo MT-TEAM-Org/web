@@ -25,6 +25,8 @@ const useAuthCheck = () => {
     queryFn: fetchAuthCheck,
     enabled: !!getToken(),
     retry: false,
+    staleTime: 3600000, // 1 hour in milliseconds
+    gcTime: 3600000, // 1 hour in milliseconds
   });
 };
 
