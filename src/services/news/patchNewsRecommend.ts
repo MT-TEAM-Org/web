@@ -1,16 +1,10 @@
-import axios from "axios";
+import { apiRequest } from "../instant";
 
-const patchNewsRecommend = async ({ newsId }) => {
-    const response = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}api/news/count/recommend/${newsId}`,
-      {},
-      {
-        headers: {
-          Authorization: localStorage.getItem("accessToken"),
-        },
-      }
-    );
-    return response;
+const patchNewsRecommend = async (newsId: string) => {
+  const response = await apiRequest.patch(
+    `api/news/count/recommend/${newsId}`
+  );
+  return response;
 };
 
 export default patchNewsRecommend;
