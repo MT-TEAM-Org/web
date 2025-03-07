@@ -19,9 +19,12 @@ import NewsPostItemSkeleton from "../../../_components/NewsPostItemSkeleton";
 import useGetNewsInfoData from "@/_hooks/fetcher/news/useGetNewInfo";
 import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 import usePatchRecommend from "@/_hooks/fetcher/news/usePatchRecommend";
+import { useQueryClient } from "@tanstack/react-query";
+import useDeleteRecommend from "@/_hooks/fetcher/news/useDeleteRecommend";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
+  const queryClient = useQueryClient();
 
   const {
     orderType,
@@ -36,6 +39,8 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   const { data: newsInfoData, isLoading } = useGetNewsInfoData(id);
   const formattedTime = useTimeAgo(newsInfoData?.postDate);
+  const { mutate: newsAddCommend } = usePatchRecommend();
+  const { mutate: newsDeleteRecommend } = useDeleteRecommend();
 
   const { data: newsListData } = useSortedNewsDataList({
     orderType,
@@ -45,16 +50,28 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   });
   const updatedImgUrl = updateImageUrl(newsInfoData?.thumbImg, "w360");
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
-  const { mutate: newsCommend } = usePatchRecommend(); //
 
-  const onClick = () => {
-    newsCommend(id, {
-      onSuccess: () => {},
-      onError: () => {},
-    });
+  const handleNewsCommend = () => {
+    if (!newsInfoData?.recommend) {
+      newsAddCommend(id, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
+        },
+        onError: (error) => {
+          console.error("추천 실패:", error);
+        },
+      });
+    } else if (newsInfoData?.recommend) {
+      newsDeleteRecommend(id, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
+        },
+        onError: (error) => {
+          console.error("추천 실패:", error);
+        },
+      });
+    }
   };
-
-  console.log("newsCommend: ", newsCommend);
 
   console.log("newsInfoData: ", newsInfoData);
 
@@ -73,7 +90,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
               <div className="flex gap-2 text-gray6 font-[700] leading-5 text-[14px]">
                 <div className="flex gap-1 font-medium text-[14px] leading-5">
                   <ChangedCategory category={newsInfoData?.category} />
-                  <p>{formattedTime}</p> {/* 미리 계산된 값 사용 */}
+                  <p>{formattedTime}</p>
                 </div>
                 <div className="flex gap-1 font-medium text-[14px] leading-5">
                   <p className="font-bold">조회수 {newsInfoData?.viewCount}</p>
@@ -96,6 +113,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
               alt="News detail img"
               width={672}
               height={338}
+              className="object-cover"
             />
             <p className="font-[500] text-[16px] leading-6 tracking-[-0.02em] text-gray7 overflow-hidden line-clamp-2">
               {newsInfoData?.content}
@@ -104,7 +122,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
           <div className="w-full h-auto flex justify-center gap-2">
             <button
-              onClick={onClick}
+              onClick={handleNewsCommend}
               className="min-w-[120px] w-auto h-[40px] flex items-center text-[14px] justify-center gap-1 px-4 py-[13px] bg-[#00ADEE] text-white font-bold rounded-[5px]"
             >
               <Single_logo />
