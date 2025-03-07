@@ -3,11 +3,12 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
-import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
 import NewsTalkToolbar from "../_components/NewsTalkToolbar";
 import NewsPostItem from "../_components/NewsPostItem";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import EmptyNews from "../_components/EmptyNews";
+import NewsPostItemSkeleton from "../_components/NewsPostItemSkeleton";
+import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 
 export default function NewsPage() {
   const params = useParams();
@@ -24,9 +25,9 @@ export default function NewsPage() {
 
   const changedCategory = (category: string): string | undefined => {
     const categoryMap: Record<string, string> = {
-      "esports-news": "ESPORTS",
-      "football-news": "FOOTBALL",
-      "baseball-news": "BASEBALL",
+      esports: "ESPORTS",
+      football: "FOOTBALL",
+      baseball: "BASEBALL",
     };
     return categoryMap[category];
   };
@@ -52,7 +53,9 @@ export default function NewsPage() {
         />
         <div className="w-[720px]">
           {isLoading ? (
-            "Loading..."
+            Array(10)
+              .fill(0)
+              .map((_, index) => <NewsPostItemSkeleton key={index} />)
           ) : newsData.length === 0 ? (
             <EmptyNews />
           ) : (

@@ -1,10 +1,10 @@
 "use client";
 
-import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
 import React from "react";
 import NewsTalkToolbar from "./_components/NewsTalkToolbar";
 import NewsListContent from "./_components/NewsListContent";
+import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 
 const Page = () => {
   const {
@@ -17,6 +17,7 @@ const Page = () => {
     searchType,
     setSearchType,
   } = useNewsPageLogic();
+
   const {
     data: newsListData,
     isLoading,
