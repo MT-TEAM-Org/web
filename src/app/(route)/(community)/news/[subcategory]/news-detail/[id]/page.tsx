@@ -18,6 +18,7 @@ import NewsInfoSkeleton from "./_components/NewsInfoSkeleton";
 import NewsPostItemSkeleton from "../../../_components/NewsPostItemSkeleton";
 import useGetNewsInfoData from "@/_hooks/fetcher/news/useGetNewInfo";
 import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
+import usePatchRecommend from "@/_hooks/fetcher/news/usePatchRecommend";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
@@ -44,6 +45,16 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   });
   const updatedImgUrl = updateImageUrl(newsInfoData?.thumbImg, "w360");
   const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
+  const { mutate: newsCommend } = usePatchRecommend(); //
+
+  const onClick = () => {
+    newsCommend(id, {
+      onSuccess: () => {},
+      onError: () => {},
+    });
+  };
+
+  console.log("newsCommend: ", newsCommend);
 
   console.log("newsInfoData: ", newsInfoData);
 
@@ -92,9 +103,12 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
 
           <div className="w-full h-auto flex justify-center gap-2">
-            <button className="min-w-[120px] w-auto h-[40px] flex items-center text-[14px] justify-center gap-1 px-4 py-[13px] bg-[#00ADEE] text-white font-bold rounded-[5px]">
+            <button
+              onClick={onClick}
+              className="min-w-[120px] w-auto h-[40px] flex items-center text-[14px] justify-center gap-1 px-4 py-[13px] bg-[#00ADEE] text-white font-bold rounded-[5px]"
+            >
               <Single_logo />
-              추천 12
+              추천 <span>{newsInfoData?.recommendCount}</span>
             </button>
           </div>
           <PostAction source={newsInfoData?.source} />
