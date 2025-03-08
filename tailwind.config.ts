@@ -20,7 +20,7 @@ export default {
         fadeOut: "fadeOut 0.5s ease-in-out 2.5s forwards",
       },
       colors: {
-        primary: "#1228EF",
+        Primary: "#1228EF",
         Secondary: "#1024D3",
         Tertiary: "#0E1FAD",
         quaternary: "#09126D",
@@ -32,6 +32,7 @@ export default {
         bg3: "#E8EAFE",
         bg4: "#DCDFFD",
         bg5: "#D0D4FC",
+
         warning: "#D1504B",
         alert: "F89E21",
         ing: "#04C52E",
