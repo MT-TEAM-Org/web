@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PostItemSkeleton from "./PostItemSkelton";
 import { CalculateTime } from "@/app/_components/CalculateTime";
+import { useSearchParams } from "next/navigation";
 
 interface BoardListItem {
   id: number;
@@ -20,17 +21,24 @@ interface BoardListItem {
   updatedAt: string;
 }
 
-const PostItem = ({ boardType, categoryType }) => {
+interface PostItemProps {
+  boardType: string;
+  categoryType: string;
+}
+
+const PostItem = ({ boardType, categoryType }: PostItemProps) => {
+  const searchParams = useSearchParams();
+  const orderType = searchParams.get("orderType") || "CREATE";
+
   const { data: boardData, isLoading } = useGetBoardData({
     boardType: boardType?.toUpperCase(),
     categoryType: categoryType,
+    orderType,
   });
 
   if (isLoading) {
     return <PostItemSkeleton />;
   }
-
-  console.log(boardData);
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",

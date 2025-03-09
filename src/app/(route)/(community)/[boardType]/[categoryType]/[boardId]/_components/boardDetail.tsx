@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import useGetBoardDetail from "@/_hooks/getBoardDetail";
 import Image from "next/image";
 import parse from "html-react-parser";
@@ -83,6 +82,14 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
 
   const handleDeleteRecommend = () => {
     mutateDeleteRecommend({ boardId });
+  };
+
+  const checkRecommned = () => {
+    if (boardDetailData?.data?.isRecommended) {
+      handleDeleteRecommend();
+    } else {
+      handleRecommend();
+    }
   };
 
   const isEditable =
@@ -217,7 +224,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
       </div>
       <div className="w-full h-auto flex justify-center">
         <button
-          onClick={() => handleRecommend()}
+          onClick={checkRecommned}
           className="min-w-[120px] w-auto h-[40px] gap-x-[4px] flex items-center text-[14px] justify-center px-4 py-[13px] bg-primary text-white font-bold rounded-[5px]"
         >
           <Single_logo />

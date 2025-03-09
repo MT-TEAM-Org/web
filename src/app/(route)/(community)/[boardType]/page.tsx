@@ -2,7 +2,7 @@
 
 import PostItem from "../_components/PostItem";
 import { CommunityToolbar } from "../_components/CommunityToolbar";
-import { use } from "react";
+import { use, useState } from "react";
 
 interface BoardParams {
   boardType: string;
