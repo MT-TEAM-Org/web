@@ -2,10 +2,12 @@
 
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import React, { useRef } from "react";
-import CommentContainer from "./CommentContainer";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
+import CommentItem from "@/app/(route)/(community)/_components/CommentItem";
+import EmptyNewsComment from "../../../../_components/EmptyNewsComment";
+import { NewsCommentData } from "@/app/_constants/newsCommentType";
 
-const CommentSection = ({ newsInfoData }) => {
+const CommentSection = ({ newsInfoData, newsCommentData }) => {
   const commentBarRef = useRef(null);
 
   // useRef 사용해서 댓글 제일 위로 버튼 구현
@@ -26,7 +28,18 @@ const CommentSection = ({ newsInfoData }) => {
         <CommentBar data={newsInfoData} />
 
         <div className="max-w-full h-auto">
-          <CommentContainer />
+          {newsCommentData?.content.length === 0 ? (
+            <EmptyNewsComment />
+          ) : (
+            newsCommentData?.list?.content?.map(
+              (newsCommentData: NewsCommentData, index) => (
+                <CommentItem
+                  data={newsCommentData}
+                  key={newsCommentData?.list?.content[index].newsId}
+                />
+              )
+            )
+          )}
         </div>
       </div>
       <PostNavigation scrollToCommentBar={onHandleToTop} />{" "}
