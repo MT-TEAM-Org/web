@@ -5,32 +5,7 @@ import useGetInquiriesList from "@/_hooks/useMypage/useGetInquiriesList";
 import MyPageInquiriesItem from "./MyPageInquiriesItem";
 import MyPagePostEmpty from "../../posts/_components/MypagePostEmpty";
 import { useSearchParams } from "next/navigation";
-
-interface InquiriesListConfig {
-  page: number;
-  size: number;
-  orderType: "ANSWERED";
-  searchType: "CONTENT" | "COMMENT";
-  search: string;
-}
-
-interface InquiriesListData {
-  content: {
-    id: number;
-    content: string;
-    clientIp: string;
-    createdAt: string;
-    publicId: string;
-    nickname: string;
-    isAdminAnswered: string;
-    commentCount: number;
-  }[];
-  pageInfo: {
-    currentPage: number;
-    totalPage: number;
-    totalElement: number;
-  };
-}
+import { InquiriesListConfig, InquiriesListData } from "../_types/inquiries";
 
 const MyPageInquiriesList = () => {
   const searchParams = useSearchParams();

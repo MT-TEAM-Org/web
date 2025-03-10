@@ -2,16 +2,9 @@
 
 import getInquiriesList from "@/services/mypage/getInquiriesList";
 import { useQuery } from "@tanstack/react-query";
+import { InquiriesListConfig } from "@/app/(route)/mypage/inquiries/_types/inquiries";
 
-interface InquiryData {
-  page: number;
-  size: number;
-  orderType: "ANSWERED";
-  searchType: "CONTENT" | "COMMENT";
-  search: string;
-}
-
-const useGetInquiriesList = (data: InquiryData) => {
+const useGetInquiriesList = (data: InquiriesListConfig) => {
   return useQuery({
     queryFn: () => getInquiriesList(data),
     queryKey: ["inquiriesList", data],

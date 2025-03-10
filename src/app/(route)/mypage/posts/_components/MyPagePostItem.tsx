@@ -47,7 +47,7 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
 
     return `${parts[0]}.${parts[1]}.**.**`;
   };
-  console.log(data);
+
   return (
     <Link
       href={`/${data.boardType}/${data.categoryType}/${data.id}`}

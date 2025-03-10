@@ -1,14 +1,7 @@
 import axios from "axios";
+import { InquiriesListConfig } from "@/app/(route)/mypage/inquiries/_types/inquiries";
 
-interface InquiryData {
-  page: number;
-  size: number;
-  orderType: "ANSWERED";
-  searchType: "CONTENT" | "COMMENT";
-  search: string;
-}
-
-const getInquiriesList = async (data: InquiryData) => {
+const getInquiriesList = async (data: InquiriesListConfig) => {
   const queryString = new URLSearchParams(
     data as unknown as Record<string, string>
   ).toString();
