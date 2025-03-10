@@ -31,6 +31,9 @@ const SendCommentBox = ({ id }: SendCommentBoxProps) => {
           queryClient.invalidateQueries({
             queryKey: ["getNewsComment", String(id)],
           });
+          queryClient.invalidateQueries({
+            queryKey: ["getNewsInfo", String(id)],
+          });
           setInputValue("");
         },
         onError: (error) => {

@@ -1,8 +1,14 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Single_logo_color from "@/app/_components/icon/Single_logo_color";
 import { CommentContent } from "@/app/_constants/newsCommentType";
 import useTimeAgo from "@/utils/useTimeAgo";
+import usePatchNewsComment from "@/_hooks/fetcher/news/comment/usePatchNewsComment";
+import useDeleteNewsComment from "@/_hooks/fetcher/news/comment/useDeleteNewsComment";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 
 interface CommentItemProps {
   className?: string;
@@ -13,6 +19,41 @@ interface CommentItemProps {
 
 const CommentItem = ({ data, bestComment = false }: CommentItemProps) => {
   const formattedTime = useTimeAgo(data?.createTime);
+  const queryClient = useQueryClient();
+  const params = useParams();
+
+  const id = params.id;
+  console.log("id: ", id);
+
+  const { mutate: newsAddCommend } = usePatchNewsComment();
+  const { mutate: newsDeleteRecommend } = useDeleteNewsComment();
+
+  const handleNewsComment = () => {
+    if (!data?.recommend) {
+      newsAddCommend(data?.newsCommentId, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["getNewsComment", String(id)],
+          });
+        },
+        onError: (error) => {
+          console.error("추천 실패:", error);
+        },
+      });
+    } else if (data?.recommend) {
+      newsDeleteRecommend(data?.newsCommentId, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["getNewsComment", String(id)],
+          });
+        },
+        onError: (error) => {
+          console.error("추천 삭제 실패:", error);
+        },
+      });
+    }
+  };
+
   const divStyle =
     "w-full h-auto flex flex-col border-b border-gray1 gap-3 p-3 bg-white justify-start";
 
@@ -47,11 +88,16 @@ const CommentItem = ({ data, bestComment = false }: CommentItemProps) => {
       </div>
 
       <div className="flex gap-2">
-        <button className="min-w-[76px] h-[24px] rounded-[5px] border border-gray3 p-2 gap-1 flex justify-center items-center text-xs leading-[18px] font-medium tracking-[-0.02em]">
+        <button
+          onClick={handleNewsComment}
+          className="min-w-[76px] h-[24px] rounded-[5px] border border-gray3 p-2 flex gap-1 justify-center items-center text-xs leading-[18px] font-medium tracking-[-0.02em]"
+        >
           <Single_logo_color />
-          추천 <span>{data?.recommendCount}</span>
+          <div className="flex gap-[2px]">
+            추천 <span>{data?.recommendCount}</span>
+          </div>
         </button>
-        <button className="w-auto min-w-[60px] h-[24px] rounded-[5px] border border-gray3 px-[8px] py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
+        <button className="min-w-[60px] min-h-[24px] rounded-[5px] border border-gray3 px-2 py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
           답글 달기
         </button>
       </div>

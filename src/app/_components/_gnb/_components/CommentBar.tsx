@@ -13,25 +13,31 @@ interface DataType {
   viewCount: number;
 }
 
-const CommentBar = ({ data }: { data?: DataType }) => {
+interface CommentBarProps {
+  data?: DataType;
+  onRefresh?: () => void;
+}
+
+const CommentBar = ({ data, onRefresh }: CommentBarProps) => {
   return (
-    <div className="w-full max-w-[800px] min-h-[48px] flex justify-between items-center bg-[#FAFAFA] text-[#656565] rounded-md">
+    <div className="w-full max-w-[800px] min-h-[48px] flex justify-between items-center bg-gray1 text-gray6 rounded-md">
       <div className="flex items-center gap-2 ml-4">
-        <h1 className="text-[#303030] text-[18px] leading-7 font-[700]">
-          댓글
-        </h1>
-        <p className="text-[#A6A6A6] text-[14px] leading-5 font-[500]">
+        <h1 className="text-gray8 text-[18px] leading-7 font-[700]">댓글</h1>
+        <p className="text-gray5 text-[14px] leading-5 font-[500]">
           {data?.commentCount ? `총 ${data?.commentCount}개` : "총 0개"}
         </p>
       </div>
       <div className="flex">
-        <div className="max-w-[101px] min-h-[40px] flex justify-center items-center px-2 py-3 gap-2 mr-4 bg-[#FAFAFA] rounded-md cursor-pointer">
+        <div
+          onClick={onRefresh}
+          className="max-w-[101px] min-h-[40px] flex justify-center items-center px-2 py-3 gap-2 mr-4 bg-gray1 rounded-md cursor-pointer"
+        >
           <Refresh />
           <p className="font-bold text-[14px] leading-[14px]">새로고침</p>
         </div>
         <div className="w-auto h-auto rounded-[5px] px-3 py-[10px] flex gap-2 items-center text-center">
           <div className="flex gap-2 items-center justify-center">
-            <p className="font-bold text-[14px] leading-[14px] text-[#656565]">
+            <p className="font-bold text-[14px] leading-[14px] text-gray6">
               클린봇 활성화
             </p>
             <ToggleButton />

@@ -6,9 +6,11 @@ import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation
 import CommentItem from "@/app/(route)/(community)/_components/CommentItem";
 import EmptyNewsComment from "../../../../_components/EmptyNewsComment";
 import { CommentContent } from "@/app/_constants/newsCommentType";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CommentSection = ({ newsInfoData, newsCommentData }) => {
   const commentBarRef = useRef(null);
+  const queryClient = useQueryClient();
 
   // useRef 사용해서 댓글 제일 위로 버튼 구현
   const onHandleToTop = () => {
@@ -22,10 +24,19 @@ const CommentSection = ({ newsInfoData, newsCommentData }) => {
     }
   };
 
+  const handleRefresh = () => {
+    queryClient.invalidateQueries({
+      queryKey: ["getNewsComment", newsInfoData?.id],
+    });
+    queryClient.refetchQueries({
+      queryKey: ["getNewsComment", newsInfoData?.id],
+    });
+  };
+
   return (
     <>
       <div className="w-full h-auto" ref={commentBarRef}>
-        <CommentBar data={newsInfoData} />
+        <CommentBar data={newsInfoData} onRefresh={handleRefresh} />
 
         <div className="max-w-full h-auto">
           {!newsCommentData ||
