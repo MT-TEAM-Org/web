@@ -7,7 +7,7 @@ interface PostListConfig {
   page: number;
   size: number;
   orderType: "CREATE" | "RECOMMEND" | "COMMENT";
-  searchType: "TITLE" | "CONTENT" | "TITLE_CONTENT" | "NICKNAME" | "COMMENT";
+  searchType: "TITLE" | "CONTENT" | "TITLE_CONTENT" | "COMMENT";
   search: string;
 }
 
