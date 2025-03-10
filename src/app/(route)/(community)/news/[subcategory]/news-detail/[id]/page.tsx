@@ -21,7 +21,7 @@ import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 import usePatchRecommend from "@/_hooks/fetcher/news/usePatchRecommend";
 import { useQueryClient } from "@tanstack/react-query";
 import useDeleteRecommend from "@/_hooks/fetcher/news/useDeleteRecommend";
-import useGetNewsComment from "@/_hooks/fetcher/news/useGetNewsComment";
+import useGetNewsComment from "@/_hooks/fetcher/news/comment/useGetNewsComment";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
@@ -161,7 +161,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         )}
       </div>
       <div className="shadow-md">
-        <SendCommentBox />
+        <SendCommentBox id={id} />
       </div>
     </>
   );

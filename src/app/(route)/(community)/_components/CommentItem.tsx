@@ -1,73 +1,55 @@
 import React from "react";
 import Image from "next/image";
 import Single_logo_color from "@/app/_components/icon/Single_logo_color";
-import { NewsCommentData } from "@/app/_constants/newsCommentType";
+import { CommentContent } from "@/app/_constants/newsCommentType";
+import useTimeAgo from "@/utils/useTimeAgo";
 
 interface CommentItemProps {
   className?: string;
   bestComment?: boolean;
   replyComment?: boolean;
-  data?: NewsCommentData;
+  data?: CommentContent;
 }
 
-const CommentItem = ({
-  className = "",
-  data,
-  bestComment = false,
-}: CommentItemProps) => {
-  const bestCommentStyle =
-    "max-w-full min-h-[132px] flex flex-col border-b border-gray1 gap-3 p-3";
+const CommentItem = ({ data, bestComment = false }: CommentItemProps) => {
+  const formattedTime = useTimeAgo(data?.createTime);
+  const divStyle =
+    "w-full h-auto flex flex-col border-b border-gray1 gap-3 p-3 bg-white justify-start";
+
   return (
-    <div
-      className={
-        bestComment
-          ? `${bestCommentStyle} bg-[#F8FDFF] ${className}`
-          : `${bestCommentStyle} ${className}`
-      }
-    >
-      {/* 목 데이터 */}
-      <div className="flex justify-between">
-        <div className="flex justify-center items-center gap-2">
-          <Image
-            src="/Fake_commentImg.png"
-            alt="fake_img"
-            width={20}
-            height={20}
-            className="w-5 h-5"
-          />
-          <p className="text-sm text-gray6 leading-5 font-medium">
-            {data?.list?.content?.[0]?.memberDto?.nickName}{" "}
-          </p>
-          <p className="text-xs text-gray5 leading-4 font-medium">
-            {data?.list?.content?.[0]?.createTime}{" "}
-          </p>
-          <p className="text-xs text-gray4 leading-[18px] font-medium">
-            {data?.list?.content?.[0]?.ip}
-          </p>
+    <div className={bestComment ? `${divStyle} bg-[#F8FDFF]` : `${divStyle}`}>
+      <div className="w-full h-auto flex flex-col gap-3">
+        <div className="w-full min-h-[20px] flex justify-between">
+          <div className="flex justify-center items-center gap-2 text-xs">
+            <Image
+              src={"/Empty_news.png"} // API에 데이터없음
+              alt="fake_img"
+              width={20}
+              height={20}
+              className="w-5 h-5 rounded-full border-1 border-gray2"
+            />
+            <p className="text-sm text-gray6 leading-5 font-medium">
+              {data?.memberDto?.nickName}
+            </p>
+            <p className="text-gray5 leading-4 font-medium">{formattedTime}</p>
+            <p className="text-gray4 leading-[18px] font-medium">{data?.ip}</p>
+          </div>
+          <div className="h-[20px] rounded-[5px] py-[9px] pl-3 flex gap-[10px]">
+            <p className="text-[14px] text-gray5 leading-[14px] font-medium cursor-pointer">
+              신고
+            </p>
+          </div>
         </div>
-        <div>
-          <p className="text-xs text-gray5 leading-[14px] font-medium cursor-pointer">
-            신고
-          </p>
-        </div>
+
+        <p className="flex text-[14px] leading-5 text-gray7 font-medium">
+          {data?.comment}
+        </p>
       </div>
 
-      <div className="flex text-[14px] leading-5">
-        {/* {data?.nestedComments ? (
-          <>
-            <p className="font-bold text-[#00ADEE]">{data.nestedComments}</p>
-            <p className="font-medium text-gray7">&nbsp; 깔끔디자인 좋네요</p>
-          </>
-        ) : ( */}
-        <p className="text-gray7 font-medium">
-          {data?.list?.content?.[0]?.comment}
-        </p>
-        {/* )} */}
-      </div>
       <div className="flex gap-2">
-        <button className="min-w-[76px] h-[24px] rounded-[5px] border border-gray3 p-2 gap-2 flex justify-center items-center text-xs leading-[18px] font-medium">
+        <button className="min-w-[76px] h-[24px] rounded-[5px] border border-gray3 p-2 gap-1 flex justify-center items-center text-xs leading-[18px] font-medium tracking-[-0.02em]">
           <Single_logo_color />
-          추천 <span>{data?.list?.content?.[0]?.recommendCount}</span>
+          추천 <span>{data?.recommendCount}</span>
         </button>
         <button className="w-auto min-w-[60px] h-[24px] rounded-[5px] border border-gray3 px-[8px] py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
           답글 달기

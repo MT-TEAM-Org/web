@@ -1,10 +1,10 @@
 import axios from "axios";
 
-interface NewsCOmmentProps {
-  newsId: string;
+interface NewsCommentProps {
+  id: string;
 }
 
-const getNewsComment = async ({ newsId }: NewsCOmmentProps) => {
+const getNewsComment = async ({ id }: NewsCommentProps) => {
   const token = localStorage.getItem("accessToken");
 
   const response = await axios.get(
@@ -15,7 +15,7 @@ const getNewsComment = async ({ newsId }: NewsCOmmentProps) => {
       params: {
         page: 1,
         size: 10,
-        newsId,
+        newsId: id,
       },
     }
   );

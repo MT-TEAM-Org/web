@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import CommentItem from "@/app/(route)/(community)/_components/CommentItem";
 import EmptyNewsComment from "../../../../_components/EmptyNewsComment";
-import { NewsCommentData } from "@/app/_constants/newsCommentType";
+import { CommentContent } from "@/app/_constants/newsCommentType";
 
 const CommentSection = ({ newsInfoData, newsCommentData }) => {
   const commentBarRef = useRef(null);
@@ -28,17 +28,19 @@ const CommentSection = ({ newsInfoData, newsCommentData }) => {
         <CommentBar data={newsInfoData} />
 
         <div className="max-w-full h-auto">
-          {newsCommentData?.content.length === 0 ? (
+          {!newsCommentData ||
+          (!newsCommentData.list?.content && !newsCommentData.content) ||
+          newsCommentData.list?.content?.length === 0 ||
+          newsCommentData.content?.length === 0 ? (
             <EmptyNewsComment />
           ) : (
-            newsCommentData?.list?.content?.map(
-              (newsCommentData: NewsCommentData, index) => (
-                <CommentItem
-                  data={newsCommentData}
-                  key={newsCommentData?.list?.content[index].newsId}
-                />
-              )
-            )
+            (
+              newsCommentData.list?.content ||
+              newsCommentData.content ||
+              []
+            ).map((commentItem: CommentContent) => (
+              <CommentItem data={commentItem} key={commentItem.newsCommentId} />
+            ))
           )}
         </div>
       </div>
