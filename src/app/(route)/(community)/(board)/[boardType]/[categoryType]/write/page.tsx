@@ -1,7 +1,7 @@
 "use client";
 
+import { Write } from "@/app/(route)/(community)/_components/Write";
 import { use } from "react";
-import { Write } from "../../../_components/Write";
 
 export default function WritePage({
   params,
