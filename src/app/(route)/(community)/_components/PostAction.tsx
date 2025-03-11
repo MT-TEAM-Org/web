@@ -69,9 +69,9 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
           공유하기
         </button>
       </div>
-      {activeModal ? (
+      {activeModal && (
         <ShareModalPopUp setActiveModal={setActiveModal} url={url} />
-      ) : null}
+      )}
     </div>
   );
 };

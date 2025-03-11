@@ -108,9 +108,7 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
         <button className="min-w-[60px] min-h-[24px] rounded-[5px] border border-gray3 px-2 py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
           답글 달기
         </button>
-        {activeModal ? (
-          <ReportModalPopUp setActiveModal={setActiveModal} />
-        ) : null}
+        {activeModal && <ReportModalPopUp setActiveModal={setActiveModal} />}
       </div>
     </div>
   );
