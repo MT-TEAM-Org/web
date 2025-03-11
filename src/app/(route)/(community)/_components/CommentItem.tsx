@@ -97,7 +97,7 @@ const CommentItem = ({ data, bestComment = false }: CommentItemProps) => {
             추천 <span>{data?.recommendCount}</span>
           </div>
         </button>
-        <button className="min-w-[60px] min-h-[24px] rounded-[5px] border border-gray3 px-2 py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
+        <button className="min-w-[60px] h-[24px] rounded-[5px] border border-gray3 px-2 py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
           답글 달기
         </button>
       </div>
