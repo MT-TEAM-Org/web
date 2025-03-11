@@ -12,36 +12,69 @@ interface PaginationProps {
 }
 
 const Pagination = ({ pageInfo, onPageChange }: PaginationProps) => {
+  const { currentPage, totalPage } = pageInfo || {
+    currentPage: 1,
+    totalPage: 1,
+  };
+
+  const getPageNumbers = () => {
+    const maxVisiblePage = 5;
+    if (totalPage <= maxVisiblePage) {
+      return Array.from({ length: totalPage }, (_, i) => i + 1);
+    }
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePage / 2));
+    let endPage = startPage + maxVisiblePage - 1;
+    if (endPage > totalPage) {
+      endPage = totalPage;
+      startPage = Math.max(1, endPage - maxVisiblePage + 1);
+    }
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, i) => startPage + i
+    );
+  };
+  const pageNumbers = getPageNumbers();
+
   const pageButtonStyle =
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
+  const disabledStyle = "opacity-50 cursor-not-allowed";
+
+  const getNavButtonClass = (isDisabled: boolean) => {
+    return `${pageButtonStyle} ${isDisabled ? disabledStyle : ""}`;
+  };
+
   return (
     <div className="flex">
       <div className="flex items-center gap-[10px]">
-        {pageInfo?.totalPage > 1 && (
-          <button className={pageButtonStyle} onClick={() => onPageChange(1)}>
+        {totalPage > 1 && (
+          <button
+            className={getNavButtonClass(currentPage === 1)}
+            onClick={() => onPageChange(1)}
+            disabled={currentPage === 1}
+          >
             <Pg_double_left />
           </button>
         )}
         <button
-          className={pageButtonStyle}
-          onClick={() => onPageChange(pageInfo.currentPage - 1)}
+          className={getNavButtonClass(currentPage === 1)}
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
         >
           <Pg_left />
         </button>
       </div>
 
       <div className="flex gap-[8px] mx-[8px]">
-        {pageInfo?.totalPage > 0 ? (
-          Array.from({ length: pageInfo?.totalPage }, (_, index) => (
+        {totalPage > 0 ? (
+          pageNumbers.map((pageNumber) => (
             <button
-              key={index + 1}
+              key={pageNumber}
               className={`${pageButtonStyle} ${
-                index + 1 === pageInfo?.currentPage &&
-                "font-[700] border-1 border-gray7"
+                pageNumber === currentPage && "font-[700] border-1 border-gray7"
               } text-[14px] leading-[20px] text-[#424242]`}
-              onClick={() => onPageChange(index + 1)}
+              onClick={() => onPageChange(pageNumber)}
             >
-              {index + 1}
+              {pageNumber}
             </button>
           ))
         ) : (
@@ -56,15 +89,17 @@ const Pagination = ({ pageInfo, onPageChange }: PaginationProps) => {
 
       <div className="flex items-center gap-[10px]">
         <button
-          className={pageButtonStyle}
-          onClick={() => onPageChange(pageInfo.currentPage + 1)}
+          className={getNavButtonClass(currentPage === totalPage)}
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPage}
         >
           <Pg_right />
         </button>
-        {pageInfo?.totalPage > 1 && (
+        {totalPage > 1 && (
           <button
-            className={pageButtonStyle}
-            onClick={() => onPageChange(pageInfo.totalPage)}
+            className={getNavButtonClass(currentPage === totalPage)}
+            onClick={() => onPageChange(totalPage)}
+            disabled={currentPage === totalPage}
           >
             <Pg_double_right />
           </button>
