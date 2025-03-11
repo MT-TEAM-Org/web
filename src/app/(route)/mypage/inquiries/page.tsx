@@ -4,7 +4,7 @@ import { Suspense } from "react";
 const Inquiries = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="max-w-[720px] min-h-[450px] bg-[#FFFFFF] rounded-[5px]">
+      <div className="max-w-[720px] min-h-[450px] bg-[#FAFAFA] rounded-[5px]">
         <MyPageInquiriesList />
       </div>
     </Suspense>
