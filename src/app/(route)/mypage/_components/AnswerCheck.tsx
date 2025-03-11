@@ -13,7 +13,8 @@ const AnswerCheck = () => {
 
   const setAnswerChecked = (checked: boolean) => {
     router.push(
-      changeURLParams(searchParams, "order_type", checked ? "ANSWERED" : "")
+      changeURLParams(searchParams, "order_type", checked ? "ANSWERED" : ""),
+      { scroll: false }
     );
   };
 

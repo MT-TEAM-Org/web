@@ -41,7 +41,9 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
 
   const handleOrderButtonClick = (orderType: ListConfig["orderType"]) => {
     if (mode === "inquries") return;
-    router.push(changeURLParams(searchParams, "order_type", orderType));
+    router.push(changeURLParams(searchParams, "order_type", orderType), {
+      scroll: false,
+    });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -49,13 +51,18 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
     const inputValue = (e.target as HTMLFormElement)[0] as HTMLInputElement;
     if (inputValue.value.trim() === "") return;
     router.push(
-      changeURLParams(searchParams, "search", inputValue.value, searchType)
+      changeURLParams(searchParams, "search", inputValue.value, searchType),
+      {
+        scroll: false,
+      }
     );
   };
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > pageInfo.totalPage) return;
-    router.push(changeURLParams(searchParams, "page", page.toString()));
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
   };
 
   return (
