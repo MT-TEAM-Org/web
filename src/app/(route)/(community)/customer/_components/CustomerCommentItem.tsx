@@ -12,7 +12,11 @@ interface CommentItemProps {
   };
 }
 
-const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
+const CustomerCommentItem = ({
+  className,
+  data,
+  bestComment,
+}: CommentItemProps) => {
   const bestCommentStyle =
     "max-w-full min-h-[132px] flex flex-col border-b border-gray1 gap-3 p-3";
   return (
@@ -85,4 +89,4 @@ const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
   );
 };
 
-export default CommentItem;
+export default CustomerCommentItem;
