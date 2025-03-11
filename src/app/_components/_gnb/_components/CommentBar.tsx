@@ -2,7 +2,7 @@ import React from "react";
 import Refresh from "../../icon/Refresh";
 import ToggleButton from "./ToggleButton";
 
-interface DataType {
+interface NewsInfoDataType {
   id: number;
   title: string;
   category: string;
@@ -14,7 +14,7 @@ interface DataType {
 }
 
 interface CommentBarProps {
-  data?: DataType;
+  data?: NewsInfoDataType;
   onRefresh?: () => void;
 }
 
