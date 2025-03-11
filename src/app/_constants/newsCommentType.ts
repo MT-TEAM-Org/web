@@ -7,6 +7,7 @@ export interface CommentContent {
   newsCommentId: number;
   newsId: number;
   memberDto: MemberDto;
+  imgUrl: string;
   comment: string;
   ip: string;
   createTime: string;

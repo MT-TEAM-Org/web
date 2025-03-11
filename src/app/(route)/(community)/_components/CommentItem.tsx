@@ -63,7 +63,7 @@ const CommentItem = ({ data, bestComment = false }: CommentItemProps) => {
         <div className="w-full min-h-[20px] flex justify-between">
           <div className="flex justify-center items-center gap-2 text-xs">
             <Image
-              src={"/Empty_news.png"} // API에 데이터없음
+              src={data?.imgUrl ? data?.imgUrl : "/Empty_news.png"}
               alt="fake_img"
               width={20}
               height={20}
