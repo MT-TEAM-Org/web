@@ -17,7 +17,7 @@ const NewsComponent = () => {
         ? Array(3)
             .fill(0)
             .map((_, index) => <NewsItemSkeleton key={index} />)
-        : slicedNewsData.map((newsItem: NewsItemType) => (
+        : slicedNewsData?.map((newsItem: NewsItemType) => (
             <NewsItem key={newsItem.id} newsItem={newsItem} />
           ))}
     </div>
