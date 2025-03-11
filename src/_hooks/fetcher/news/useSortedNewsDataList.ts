@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 
 interface NewsDataParams {
-  category?: string;
+  category?: "BASEBALL" | "FOOTBALL" | "ESPORTS";
   orderType?: "DATE" | "COMMENT" | "VIEW";
   pageNum?: number;
   timeType?: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
@@ -27,7 +27,7 @@ const useSortedNewsDataList = ({
   const currentPage = pageNum || 1;
 
   const query = useQuery({
-    queryKey: ["newsDataList", category || "BASEBALL", orderType || "DATE", timeType || "DAILY", currentPage || "", searchType],
+    queryKey: ["newsDataList", category || "", orderType || "DATE", timeType || "DAILY", currentPage || "", searchType],
     queryFn: () =>
       fetchSortedNewsDataList({ category, orderType, pageNum: currentPage, timeType, searchType }),
     retry: 1,
@@ -44,7 +44,7 @@ const useSortedNewsDataList = ({
 
       const nextPageQueryKey = [
         "newsDataList",
-        category || "BASEBALL",
+        category || "",
         orderType || "DATE",
         timeType || "DAILY",
         nextPage,
@@ -56,7 +56,7 @@ const useSortedNewsDataList = ({
           queryKey: nextPageQueryKey,
           queryFn: () =>
             fetchSortedNewsDataList({
-              category: category || "BASEBALL",
+              category: category || "",
               orderType: orderType || "DATE",
               pageNum: nextPage,
               timeType: timeType || "DAILY",
