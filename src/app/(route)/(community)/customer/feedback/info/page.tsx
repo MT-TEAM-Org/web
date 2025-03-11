@@ -4,13 +4,13 @@ import Single_logo from "@/app/_components/icon/Single_logo";
 import Copy from "@/app/_components/icon/Copy";
 import Share from "@/app/_components/icon/Share";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
-import CommentItem from "../../../_components/CommentItem";
 import WriterComment from "../../_components/WriterComment";
 import LoadMoreComment from "../../../_components/LoadMoreComment";
 import PostNavigation from "../../../_components/PostNavigation";
 import { CustomerTalkToolbar } from "../../_components/CustomerTalkToolbar";
 import FeedbackNoticeItem from "../../_components/FeedbackNoticeItem";
 import FeedbackItem from "../../_components/FeedbackItem";
+import CustomerCommentItem from "../../_components/CustomerCommentItem";
 
 const infoItems = [
   { label: "조회수", value: "161" },
@@ -85,18 +85,20 @@ const page = () => {
         <div className="w-full max-w-[800px] flex flex-col">
           <CommentBar />
           <div className="w-full h-auto">
-            <CommentItem bestComment={true} />
-            <CommentItem
+            <CustomerCommentItem bestComment={true} />
+            <CustomerCommentItem
               bestComment={true}
               data={{ commentImg: "/Fake_comment_img.png" }}
             />
-            <CommentItem
+            <CustomerCommentItem
               bestComment={true}
               data={{ nestedComments: "@댓글유저디자인이렇게" }}
             />
             <WriterComment />
-            <CommentItem />
-            <CommentItem data={{ commentImg: "/Fake_comment_img.png" }} />
+            <CustomerCommentItem />
+            <CustomerCommentItem
+              data={{ commentImg: "/Fake_comment_img.png" }}
+            />
           </div>
           <LoadMoreComment />
         </div>

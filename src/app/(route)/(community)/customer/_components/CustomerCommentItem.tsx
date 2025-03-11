@@ -12,7 +12,11 @@ interface CommentItemProps {
   };
 }
 
-const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
+const CustomerCommentItem = ({
+  className,
+  data,
+  bestComment,
+}: CommentItemProps) => {
   const bestCommentStyle =
     "max-w-full min-h-[132px] flex flex-col border-b border-gray1 gap-3 p-3";
   return (
@@ -77,7 +81,7 @@ const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
           <Single_logo_color />
           추천 343
         </button>
-        <button className="min-w-[60px] h-[24px] rounded-[5px] border border-gray3 px-2 py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
+        <button className="w-auto min-w-[60px] h-[24px] rounded-[5px] border border-gray3 px-[8px] py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
           답글 달기
         </button>
       </div>
@@ -85,4 +89,4 @@ const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
   );
 };
 
-export default CommentItem;
+export default CustomerCommentItem;

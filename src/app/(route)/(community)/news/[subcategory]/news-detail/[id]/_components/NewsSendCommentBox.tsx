@@ -8,7 +8,7 @@ interface SendCommentBoxProps {
   id?: string;
 }
 
-const SendCommentBox = ({ id }: SendCommentBoxProps) => {
+const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const [inputValue, setInputValue] = useState<string>("");
   const { mutate: newsPostComment } = usePostComment();
   const queryClient = useQueryClient();
@@ -73,4 +73,4 @@ const SendCommentBox = ({ id }: SendCommentBoxProps) => {
   );
 };
 
-export default SendCommentBox;
+export default NewsSendCommentBox;

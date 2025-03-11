@@ -10,35 +10,37 @@ import EmptyNews from "../_components/EmptyNews";
 import NewsPostItemSkeleton from "../_components/NewsPostItemSkeleton";
 import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 
+type NewsCategoryType = "ESPORTS" | "FOOTBALL" | "BASEBALL";
+
 export default function NewsPage() {
-  const params = useParams();
+  const params = useParams<{ subcategory: string }>();
   const {
     orderType,
     setOrderType,
-    pageNum,
+    page,
     onPageChange,
-    timeType,
-    setTimeType,
+    timePeriod,
+    setTimePeriod,
     searchType,
     setSearchType,
   } = useNewsPageLogic();
 
-  const changedCategory = (category: string): string | undefined => {
-    const categoryMap: Record<string, string> = {
+  const changedCategory = (category: string): NewsCategoryType | undefined => {
+    const categoryMap: Record<string, NewsCategoryType> = {
       esports: "ESPORTS",
       football: "FOOTBALL",
       baseball: "BASEBALL",
     };
-    return categoryMap[category];
+    return categoryMap[category.toLowerCase()];
   };
 
-  const category = changedCategory(String(params.subcategory));
+  const category = changedCategory(params.subcategory);
 
   const { data: newsData, isLoading } = useSortedNewsDataList({
     category,
     orderType,
-    timeType,
-    pageNum,
+    timePeriod,
+    page,
     searchType,
   });
 
@@ -47,7 +49,7 @@ export default function NewsPage() {
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
         <NewsTalkToolbar
           setOrderType={setOrderType}
-          setTimeType={setTimeType}
+          setTimeType={setTimePeriod}
           onPageChange={onPageChange}
           setSearchType={setSearchType}
         />
@@ -56,7 +58,7 @@ export default function NewsPage() {
             Array(10)
               .fill(0)
               .map((_, index) => <NewsPostItemSkeleton key={index} />)
-          ) : newsData.length === 0 ? (
+          ) : newsData?.length === 0 ? (
             <EmptyNews />
           ) : (
             newsData?.map((newsItem: NewsItemType) => (

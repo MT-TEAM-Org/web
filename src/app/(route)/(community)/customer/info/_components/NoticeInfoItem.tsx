@@ -1,10 +1,9 @@
 import React from "react";
 import PostNavigation from "../../../_components/PostNavigation";
 import Image from "next/image";
-import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
-import CommentItem from "../../../_components/CommentItem";
 import WriterComment from "../../_components/WriterComment";
 import LoadMoreComment from "../../../_components/LoadMoreComment";
+import InfoCommentItem from "../../_components/CustomerCommentItem";
 
 const NoticeInfoItem = () => {
   return (
@@ -57,20 +56,20 @@ const NoticeInfoItem = () => {
         </p>
       </div>
       <div className="w-full max-w-[800px] flex flex-col">
-        <CommentBar />
+        <InfoCommentItem />
         <div className="w-full h-auto">
-          <CommentItem bestComment={true} />
-          <CommentItem
+          <InfoCommentItem bestComment={true} />
+          <InfoCommentItem
             bestComment={true}
             data={{ commentImg: "/Fake_comment_img.png" }}
           />
-          <CommentItem
+          <InfoCommentItem
             bestComment={true}
             data={{ nestedComments: "@댓글유저디자인이렇게" }}
           />
           <WriterComment />
-          <CommentItem />
-          <CommentItem data={{ commentImg: "/Fake_comment_img.png" }} />
+          <InfoCommentItem />
+          <InfoCommentItem data={{ commentImg: "/Fake_comment_img.png" }} />
         </div>
         <LoadMoreComment />
       </div>

@@ -22,7 +22,6 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
     esports: "esports",
     football: "football",
     baseball: "baseball",
-    all: "",
   };
   const categoryPath = categoryToPath[newsItem?.category.toLowerCase()] || "";
 
@@ -71,9 +70,11 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
         <div className="w-[524px] h-auto min-h-[90px] flex flex-col gap-1">
           <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start">
             <h1 className={styles.title}>{newsItem?.title}</h1>
-            <p className="font-medium text-[14px] leading-5 text-[#00ADEE]">
-              [24]
-            </p>
+            {newsItem?.commentCount ? (
+              <p className="font-medium text-[14px] leading-5 text-[#00ADEE]">
+                [<span>{newsItem?.commentCount}</span>]
+              </p>
+            ) : null}
             {isNew && (
               <p className="font-black text-[10px] leading-[18px] align-center text-[#00ADEE]">
                 N
