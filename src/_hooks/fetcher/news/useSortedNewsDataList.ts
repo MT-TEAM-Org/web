@@ -4,10 +4,10 @@ import { useEffect } from "react";
 
 interface NewsDataParams {
   category?: "BASEBALL" | "FOOTBALL" | "ESPORTS";
-  orderType?: "DATE" | "COMMENT" | "VIEW";
-  pageNum?: number;
-  timeType?: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
-  searchType?: string;
+  orderType: "DATE" | "COMMENT" | "VIEW";
+  pageNum: number;
+  timeType: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
+  searchType: string;
 }
 
 interface ExtendedNavigator extends Navigator {
@@ -18,18 +18,17 @@ interface ExtendedNavigator extends Navigator {
 
 const useSortedNewsDataList = ({
   category,
-  orderType,
-  pageNum,
-  timeType,
-  searchType,
+  orderType = "DATE",
+  pageNum = 1,
+  timeType = "DAILY",
+  searchType = "",
 }: NewsDataParams) => {
   const queryClient = useQueryClient();
-  const currentPage = pageNum || 1;
+  const currentPage = pageNum;
 
   const query = useQuery({
-    queryKey: ["newsDataList", category || "", orderType || "DATE", timeType || "DAILY", currentPage || "", searchType],
-    queryFn: () =>
-      fetchSortedNewsDataList({ category, orderType, pageNum: currentPage, timeType, searchType }),
+    queryKey: ["newsDataList", category, orderType, timeType, currentPage, searchType],
+    queryFn: () => fetchSortedNewsDataList({ category, orderType, pageNum: currentPage, timeType, searchType }),
     retry: 1,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 60,
@@ -42,32 +41,20 @@ const useSortedNewsDataList = ({
       const isSlowNetwork = effectiveType === "2g" || effectiveType === "3g";
       if (nextPage === 6 || isSlowNetwork) return;
 
-      const nextPageQueryKey = [
-        "newsDataList",
-        category || "",
-        orderType || "DATE",
-        timeType || "DAILY",
-        nextPage,
-      ];
+      const nextPageQueryKey = ["newsDataList", category, orderType, timeType, nextPage];
       const nextPageData = queryClient.getQueryData(nextPageQueryKey);
 
       if (!nextPageData) {
         queryClient.prefetchQuery({
           queryKey: nextPageQueryKey,
-          queryFn: () =>
-            fetchSortedNewsDataList({
-              category: category || "",
-              orderType: orderType || "DATE",
-              pageNum: nextPage,
-              timeType: timeType || "DAILY",
-            }),
+          queryFn: () => fetchSortedNewsDataList({ category, orderType, pageNum: nextPage, timeType }),
           retry: 1,
           staleTime: 1000 * 60 * 5,
           gcTime: 1000 * 60 * 60,
         });
       }
     }
-  }, [query.isSuccess, currentPage, category, orderType, timeType, searchType, queryClient]);
+  }, [query.isSuccess, currentPage, category, orderType, timeType, searchType]);
 
   return query;
 };
