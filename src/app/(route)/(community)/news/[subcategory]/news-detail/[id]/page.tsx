@@ -30,9 +30,9 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const {
     orderType,
     setOrderType,
-    timeType,
-    setTimeType,
-    pageNum,
+    timePeriod,
+    setTimePeriod,
+    page,
     onPageChange,
     searchType,
     setSearchType,
@@ -47,8 +47,8 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
   const { data: newsListData } = useSortedNewsDataList({
     orderType,
-    pageNum,
-    timeType,
+    page,
+    timePeriod,
     searchType,
   });
   const updatedImgUrl = updateImageUrl(newsInfoData?.thumbImg, "w360");
@@ -142,7 +142,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
 
       <NewsTalkToolbar
         setOrderType={setOrderType}
-        setTimeType={setTimeType}
+        setTimeType={setTimePeriod}
         onPageChange={onPageChange}
         setSearchType={setSearchType}
       />
