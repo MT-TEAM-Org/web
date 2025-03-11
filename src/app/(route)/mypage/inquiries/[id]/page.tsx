@@ -5,7 +5,7 @@ import Refresh from "@/app/_components/icon/Refresh";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
-import { Suspense, use } from "react";
+import { Suspense, use, useRef } from "react";
 import useGetInquiriesDetail from "@/_hooks/useMypage/useGetInquiriesDetail";
 import useDeleteInquiriesDetail from "@/_hooks/useMypage/useDeleteInquiriesDetail";
 import { useRouter } from "next/navigation";
@@ -36,12 +36,31 @@ const InquirieDetail = ({
   const { data, isLoading } = useGetInquiriesDetail(id);
   const { mutate: deleteInquiriesDetail } = useDeleteInquiriesDetail();
   const inquirieDetail: InquirieDetailData = data?.data;
+  const comments = useRef(null);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const onHandleToTop = () => {
+    if (comments.current) {
+      const navBarHeight = 130; // 네비게이션 바 높이
+      const y =
+        comments.current.getBoundingClientRect().top +
+        window.scrollY -
+        navBarHeight;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
 
   const buttons = [
     { text: "이전글", icon: Arrow_up },
     { text: "다음글", icon: Arrow_down },
-    { text: "댓글 맨위로", icon: Arrow_up },
-    { text: "게시글 맨위로", icon: Double_arrow_up },
+    { text: "댓글 맨위로", icon: Arrow_up, onClick: onHandleToTop },
+    { text: "게시글 맨위로", icon: Double_arrow_up, onClick: scrollToTop },
   ];
 
   const handleDelete = () => {
@@ -91,7 +110,10 @@ const InquirieDetail = ({
           {inquirieDetail?.content}
         </p>
 
-        <div className="min-h-[232px] bg-gray1 rounded-t-[5px] rounded-b-[10px]">
+        <div
+          className="min-h-[232px] bg-gray1 rounded-t-[5px] rounded-b-[10px]"
+          ref={comments}
+        >
           <div className="flex justify-between items-center min-h-[48px] py-[4px] pl-[16px]">
             <div className="flex items-center gap-[8px]">
               <span className="font-[700] text-[18px] leading-[28px] text-gray8">
@@ -125,6 +147,7 @@ const InquirieDetail = ({
             </div>
           </div>
         </div>
+
         <div className="flex justify-between min-h-[40px]">
           <div className="flex gap-[8px]">
             {buttons.slice(0, 2).map(({ text, icon: Icon }, index) => (
@@ -136,8 +159,8 @@ const InquirieDetail = ({
           </div>
 
           <div className="flex gap-[8px]">
-            {buttons.slice(2).map(({ text, icon: Icon }, index) => (
-              <button key={index + 2} className={buttonStyle}>
+            {buttons.slice(2).map(({ text, icon: Icon, onClick }, index) => (
+              <button key={index + 2} className={buttonStyle} onClick={onClick}>
                 <Icon />
                 {text}
               </button>
