@@ -1,16 +1,34 @@
 "use client";
-
-import PostItem from "../_components/PostItem";
-import { CommunityToolbar } from "../_components/CommunityToolbar";
-import { use, useState } from "react";
+import { notFound } from "next/navigation";
+import { use } from "react";
+import { CommunityToolbar } from "../../_components/CommunityToolbar";
+import PostItem from "../../_components/PostItem";
 
 interface BoardParams {
   boardType: string;
 }
 
-const Board = ({ params }: { params: Promise<BoardParams> }) => {
-  const unwrappedParams = use(params);
-  const { boardType } = unwrappedParams;
+const Board = ({ params }: { params: BoardParams }) => {
+  const validBoardTypes = ["esports", "football", "baseball"];
+
+  const reservedPaths = [
+    "news",
+    "customer",
+    "gameboard",
+    "service-introduction",
+    "main",
+    "mypage",
+    "sign",
+  ];
+
+  if (
+    !validBoardTypes.includes(params.boardType) &&
+    !reservedPaths.includes(params.boardType)
+  ) {
+    return notFound();
+  }
+
+  const { boardType } = params;
 
   return (
     <div className="flex justify-center bg-white">

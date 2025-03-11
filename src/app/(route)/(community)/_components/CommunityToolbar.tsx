@@ -78,7 +78,7 @@ export const CommunityToolbar = ({ boardType }: CommunityToolbarProps) => {
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
 
   return (
-    <div className="w-full sticky top-[120px] bg-white z-10">
+    <div className="w-full max-w-[720px] sticky top-[120px] bg-white z-10">
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
         <button
           onClick={handleWriteClick}

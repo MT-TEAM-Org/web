@@ -1,7 +1,7 @@
 import React from "react";
-import Banner from "../_components/Banner";
-import LeftSidebar from "../_components/LeftSidebar";
-import { RightSideBar } from "../_components/RightSideBar";
+import Banner from "../../_components/Banner";
+import LeftSidebar from "../../_components/LeftSidebar";
+import { RightSideBar } from "../../_components/RightSideBar";
 
 export const metadata = {
   title: "게시판 페이지",
