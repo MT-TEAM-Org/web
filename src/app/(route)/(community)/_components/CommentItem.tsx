@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { act, useState } from "react";
 import Image from "next/image";
 import Single_logo_color from "@/app/_components/icon/Single_logo_color";
 import { CommentContent } from "@/app/_constants/newsCommentType";
@@ -9,6 +9,7 @@ import usePatchNewsComment from "@/_hooks/fetcher/news/comment/usePatchNewsComme
 import useDeleteNewsComment from "@/_hooks/fetcher/news/comment/useDeleteNewsComment";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
+import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 
 interface CommentItemProps {
   className?: string;
@@ -21,6 +22,7 @@ const CommentItem = ({ data, bestComment = false }: CommentItemProps) => {
   const formattedTime = useTimeAgo(data?.createTime);
   const queryClient = useQueryClient();
   const params = useParams();
+  const [activeModal, setActiveModal] = useState(false);
 
   const id = params.id;
   console.log("id: ", id);
@@ -54,6 +56,10 @@ const CommentItem = ({ data, bestComment = false }: CommentItemProps) => {
     }
   };
 
+  const handleToggle = () => {
+    setActiveModal(!activeModal);
+  };
+
   const divStyle =
     "w-full h-auto flex flex-col border-b border-gray1 gap-3 p-3 bg-white justify-start";
 
@@ -75,7 +81,10 @@ const CommentItem = ({ data, bestComment = false }: CommentItemProps) => {
             <p className="text-gray5 leading-4 font-medium">{formattedTime}</p>
             <p className="text-gray4 leading-[18px] font-medium">{data?.ip}</p>
           </div>
-          <div className="h-[20px] rounded-[5px] py-[9px] pl-3 flex gap-[10px]">
+          <div
+            onClick={handleToggle}
+            className="h-[20px] rounded-[5px] py-[9px] pl-3 flex gap-[10px]"
+          >
             <p className="text-[14px] text-gray5 leading-[14px] font-medium cursor-pointer">
               신고
             </p>
@@ -100,6 +109,9 @@ const CommentItem = ({ data, bestComment = false }: CommentItemProps) => {
         <button className="min-w-[60px] h-[24px] rounded-[5px] border border-gray3 px-2 py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
           답글 달기
         </button>
+        {activeModal ? (
+          <ReportModalPopUp setActiveModal={setActiveModal} />
+        ) : null}
       </div>
     </div>
   );
