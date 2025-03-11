@@ -132,7 +132,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
               추천 <span>{newsInfoData?.recommendCount}</span>
             </button>
           </div>
-          <PostAction source={newsInfoData?.source} />
+          <PostAction type="news" source={newsInfoData?.source} />
           <CommentSection
             newsInfoData={newsInfoData}
             newsCommentData={newsCommentData}

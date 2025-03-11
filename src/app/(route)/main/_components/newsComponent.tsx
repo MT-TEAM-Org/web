@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import NewsItem from "./newsItem";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import NewsItemSkeleton from "./NewsItemSkeleton";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
+import NewsItem from "./NewsItem";
 
 const NewsComponent = () => {
   const { data, isLoading } = useGetNewsDataList();

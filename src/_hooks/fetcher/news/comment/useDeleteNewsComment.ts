@@ -8,7 +8,7 @@ const useDeleteCommentRecommend = () => {
     onSuccess: () => {
       console.log("댓글 추천 취소 성공");
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       console.error("댓글 추천 취소 실패:", error);
     },
   });
