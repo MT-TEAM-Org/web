@@ -160,7 +160,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           ))
         )}
       </div>
-      <div className="shadow-md">
+      <div className="shadow-md sticky bottom-0">
         <NewsSendCommentBox id={id} />
       </div>
     </>

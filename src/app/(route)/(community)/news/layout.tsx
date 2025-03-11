@@ -18,14 +18,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       <div className="max-w-[1200px] mx-auto flex gap-4">
-        <div className="w-[160px] min-h-[260px] rounded-[5px] overflow-hidden">
-          <NewsLeftSidebar />
+        <div className="w-[160px] min-h-[260px] rounded-[5px]">
+          <div className="sticky top-[120px]">
+            <NewsLeftSidebar />
+          </div>
         </div>
         <div className="flex-1 max-w-[720px] mb-[47px] rounded-b-[5px]">
           {children}
         </div>
         <div className="flex-1">
-          <RightSideBar />
+          <div className="sticky top-[120px]">
+            <RightSideBar />
+          </div>
         </div>
       </div>
     </div>
