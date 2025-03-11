@@ -1,7 +1,7 @@
 "use client";
 
 import getInquiriesList from "@/services/mypage/getInquiriesList";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { InquiriesListConfig } from "@/app/(route)/mypage/inquiries/_types/inquiries";
 
 const useGetInquiriesList = (data: InquiriesListConfig) => {
@@ -9,6 +9,7 @@ const useGetInquiriesList = (data: InquiriesListConfig) => {
     queryFn: () => getInquiriesList(data),
     queryKey: ["inquiriesList", data],
     retry: 1,
+    placeholderData: keepPreviousData,
     staleTime: 30 * 60 * 1000, // 30 minutes
     gcTime: 60 * 60 * 1000, // 1 hour
   });

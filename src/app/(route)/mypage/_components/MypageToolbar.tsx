@@ -13,6 +13,7 @@ import OrderButtons from "./OrderButtons";
 import SearchFilter from "./SearchFilter";
 import Pagination from "./Pagination";
 import changeURLParams from "../util/changeURLParams";
+import AnswerCheck from "./AnswerCheck";
 
 interface MypageToolbarProps {
   mode: "posts" | "inquries";
@@ -77,9 +78,7 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
             onOrderType={handleOrderButtonClick}
           />
         ) : (
-          <div className="flex gap-[8px] h-[20px]">
-            <p className="text-[14px] leading-[20px] text-gray7">답변 완료</p>
-          </div>
+          <AnswerCheck />
         )}
         <Pagination pageInfo={pageInfo} onPageChange={handlePageChange} />
       </div>

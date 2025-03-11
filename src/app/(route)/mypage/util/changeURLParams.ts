@@ -1,7 +1,7 @@
 import { ListConfig } from "../_types/toolbarType";
 
 const changeURLParams = (
-  searchParams: any,
+  searchParams: URLSearchParams,
   key: string,
   value: string,
   searchType?: string
