@@ -1,4 +1,5 @@
 "use client";
+
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
@@ -9,21 +10,28 @@ import Pg_right from "@/app/_components/icon/Pg_right";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import Small_Search from "@/app/_components/icon/Small_Search";
 import { useEditStore } from "@/utils/Store";
-import { usePathname, useRouter } from "next/navigation";
-import { useRef } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRef, useState } from "react";
 
 interface DropdownOption {
   label: string;
   value: string;
 }
 
-export const CommunityToolbar = ({ boardType }) => {
+interface CommunityToolbarProps {
+  boardType: string;
+}
+
+export const CommunityToolbar = ({ boardType }: CommunityToolbarProps) => {
   const { resetEditState } = useEditStore();
 
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const currentOrderType = searchParams.get("orderType") || "CREATE";
 
   const pagination = [
     { value: "1", label: "1" },
@@ -56,13 +64,21 @@ export const CommunityToolbar = ({ boardType }) => {
 
     router.push(`/${basePath}/${categoryType}/write`);
   };
+
+  const handleOrderClick = (type: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("orderType", type);
+
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
   const pageButtonStyle =
     "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
 
   return (
-    <div className="w-[720px]">
+    <div className="w-full max-w-[720px] sticky top-[120px] bg-white z-10">
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
         <button
           onClick={handleWriteClick}
@@ -104,15 +120,24 @@ export const CommunityToolbar = ({ boardType }) => {
       </div>
       <div className="flex justify-between items-center p-[12px]">
         <div className="flex w-full items-center gap-[4px]">
-          <button className={`${buttonStyle} font-[700]`}>
+          <button
+            onClick={() => handleOrderClick("CREATE")}
+            className={`${buttonStyle} font-[700]`}
+          >
             <Blue_outline_logo />
             최신순
           </button>
-          <button className={buttonStyle}>
+          <button
+            onClick={() => handleOrderClick("RECOMMEND")}
+            className={buttonStyle}
+          >
             <Red_outline_logo />
             인기순
           </button>
-          <button className={buttonStyle}>
+          <button
+            onClick={() => handleOrderClick("COMMENT")}
+            className={buttonStyle}
+          >
             <Mini_logo />
             댓글 많은 순
           </button>
