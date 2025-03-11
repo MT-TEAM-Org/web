@@ -3,10 +3,10 @@
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import React, { useRef } from "react";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
-import CommentItem from "@/app/(route)/(community)/_components/CommentItem";
-import EmptyNewsComment from "../../../../_components/EmptyNewsComment";
+import EmptyNewsComment from "./EmptyNewsComment";
 import { CommentContent } from "@/app/_constants/newsCommentType";
 import { useQueryClient } from "@tanstack/react-query";
+import NewsCommentItem from "@/app/(route)/(community)/news/[subcategory]/news-detail/[id]/_components/NewsCommentItem";
 
 const CommentSection = ({ newsInfoData, newsCommentData }) => {
   const commentBarRef = useRef(null);
@@ -50,7 +50,10 @@ const CommentSection = ({ newsInfoData, newsCommentData }) => {
               newsCommentData.content ||
               []
             ).map((commentItem: CommentContent) => (
-              <CommentItem data={commentItem} key={commentItem.newsCommentId} />
+              <NewsCommentItem
+                data={commentItem}
+                key={commentItem.newsCommentId}
+              />
             ))
           )}
         </div>
