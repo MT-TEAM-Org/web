@@ -1,16 +1,58 @@
+"use client";
+
 import { LogoWhite } from "@/app/_components/icon/LogoWhite";
 import Refresh from "@/app/_components/icon/Refresh";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
+import { use } from "react";
+import useGetInquiriesDetail from "@/_hooks/useMypage/useGetInquiriesDetail";
+import useDeleteInquiriesDetail from "@/_hooks/useMypage/useDeleteInquiriesDetail";
+import { useRouter } from "next/navigation";
 
-const InquirieDetail = () => {
+interface InquirieDetailProps {
+  id: string;
+}
+
+interface InquirieDetailData {
+  clientIp: string;
+  commentCount: number;
+  content: string;
+  createdAt: string;
+  inquiryId: string;
+  nickname: string;
+  publicID: string;
+}
+
+const InquirieDetail = ({
+  params,
+}: {
+  params: Promise<InquirieDetailProps>;
+}) => {
+  const unwrappedParams = use(params);
+  const { id } = unwrappedParams;
+  const router = useRouter();
+  const { data, isLoading } = useGetInquiriesDetail(id);
+  const { mutate: deleteInquiriesDetail } = useDeleteInquiriesDetail();
+  const inquirieDetail: InquirieDetailData = data?.data;
+
   const buttons = [
     { text: "이전글", icon: Arrow_up },
     { text: "다음글", icon: Arrow_down },
     { text: "댓글 맨위로", icon: Arrow_up },
     { text: "게시글 맨위로", icon: Double_arrow_up },
   ];
+
+  const handleDelete = () => {
+    deleteInquiriesDetail(id, {
+      onSuccess: () => {
+        router.replace("/mypage/inquiries");
+      },
+      onError: () => {
+        alert("삭제에 실패했습니다.");
+      },
+    });
+  };
 
   const buttonStyle =
     "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-gray3 pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px] text-7";
@@ -25,17 +67,26 @@ const InquirieDetail = () => {
           <span>나의 문의내역</span>
           <span>1분 전</span>
           <span>
-            <span className="font-[700]">댓글</span> 22
+            <span className="font-[700]">댓글</span>{" "}
+            {inquirieDetail?.commentCount}
           </span>
         </div>
         <div className="flex gap-[4px]">
-          <span>스포츠가조아여진심</span>
-          <span>IP 106.101.**.***</span>
+          <span>{inquirieDetail?.nickname}</span>
+          <span>IP {inquirieDetail?.clientIp}</span>
         </div>
+      </div>
+      <div className="flex justify-end">
+        <button
+          onClick={handleDelete}
+          className="flex justify-center items-center w-[49px] h-[32px] rounded-[5px] border-1 border-gray3 px-[9px] py-[12px] text-[14px] text-gray7"
+        >
+          삭제
+        </button>
       </div>
       <div className="h-[1px] border"></div>
       <p className="min-h-[48px] leading-[24px] text-gray7">
-        투표같은것도 할 수 있으면 좋은데
+        {inquirieDetail?.content}
       </p>
 
       <div className="min-h-[232px] bg-gray1 rounded-t-[5px] rounded-b-[10px]">
