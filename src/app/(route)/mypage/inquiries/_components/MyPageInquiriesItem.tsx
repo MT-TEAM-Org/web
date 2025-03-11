@@ -40,8 +40,8 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
         </p>
       </div>
       <div className="w-full min-h-[42px] flex flex-col gap-[4px]">
-        <div className="flex items-center gap-[2px]">
-          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap overflow-ellipsis">
+        <div className="w-[619px] flex items-center gap-[2px]">
+          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap text-ellipsis">
             {data?.content}
           </h2>
           <p className="text-Primary font-medium text-[12px] leading-[18px]">

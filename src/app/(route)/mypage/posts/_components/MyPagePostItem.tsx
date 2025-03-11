@@ -65,8 +65,8 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
         blurDataURL="/Preview_loading_image.png"
       />
       <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
-        <div className="flex items-center gap-[2px]">
-          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap overflow-ellipsis">
+        <div className="w-[584px] flex items-center gap-[2px]">
+          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap text-ellipsis">
             {data?.title}
           </h2>
           <p className="text-Primary font-medium text-[12px] leading-[18px]">
