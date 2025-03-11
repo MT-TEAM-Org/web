@@ -35,14 +35,14 @@ const CommentBar = ({ data, onRefresh }: CommentBarProps) => {
           <Refresh />
           <p className="font-bold text-[14px] leading-[14px]">새로고침</p>
         </div>
-        <div className="w-auto h-auto rounded-[5px] px-3 py-[10px] flex gap-2 items-center text-center">
+        {/* <div className="w-auto h-auto rounded-[5px] px-3 py-[10px] flex gap-2 items-center text-center">
           <div className="flex gap-2 items-center justify-center">
             <p className="font-bold text-[14px] leading-[14px] text-gray6">
               클린봇 활성화
             </p>
             <ToggleButton />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

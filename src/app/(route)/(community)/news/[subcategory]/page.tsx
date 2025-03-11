@@ -17,10 +17,10 @@ export default function NewsPage() {
   const {
     orderType,
     setOrderType,
-    pageNum,
+    page,
     onPageChange,
-    timeType,
-    setTimeType,
+    timePeriod,
+    setTimePeriod,
     searchType,
     setSearchType,
   } = useNewsPageLogic();
@@ -39,8 +39,8 @@ export default function NewsPage() {
   const { data: newsData, isLoading } = useSortedNewsDataList({
     category,
     orderType,
-    timeType,
-    pageNum,
+    timePeriod,
+    page,
     searchType,
   });
 
@@ -49,7 +49,7 @@ export default function NewsPage() {
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
         <NewsTalkToolbar
           setOrderType={setOrderType}
-          setTimeType={setTimeType}
+          setTimeType={setTimePeriod}
           onPageChange={onPageChange}
           setSearchType={setSearchType}
         />
