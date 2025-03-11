@@ -56,9 +56,25 @@ const InquirieDetail = ({
     }
   };
 
+  const handleNextPrevRoute = (state: "next" | "prev") => {
+    if (state === "next") {
+      router.push(`/mypage/inquiries/${Number(id) + 1}`);
+    } else {
+      router.push(`/mypage/inquiries/${Number(id) - 1}`);
+    }
+  };
+
   const buttons = [
-    { text: "이전글", icon: Arrow_up },
-    { text: "다음글", icon: Arrow_down },
+    {
+      text: "이전글",
+      icon: Arrow_up,
+      onClick: () => handleNextPrevRoute("prev"),
+    },
+    {
+      text: "다음글",
+      icon: Arrow_down,
+      onClick: () => handleNextPrevRoute("next"),
+    },
     { text: "댓글 맨위로", icon: Arrow_up, onClick: onHandleToTop },
     { text: "게시글 맨위로", icon: Double_arrow_up, onClick: scrollToTop },
   ];
@@ -150,8 +166,8 @@ const InquirieDetail = ({
 
         <div className="flex justify-between min-h-[40px]">
           <div className="flex gap-[8px]">
-            {buttons.slice(0, 2).map(({ text, icon: Icon }, index) => (
-              <button key={index} className={buttonStyle}>
+            {buttons.slice(0, 2).map(({ text, icon: Icon, onClick }, index) => (
+              <button key={index} className={buttonStyle} onClick={onClick}>
                 <Icon />
                 {text}
               </button>
