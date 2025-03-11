@@ -72,6 +72,12 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
           <p className="text-Primary font-medium text-[12px] leading-[18px]">
             [{data?.commentCount}]
           </p>
+          <span className="font-black text-[10px] leading-[18px] text-primary">
+            N
+          </span>
+          <span className="font-black text-[10px] leading-[18px] text-[#DC2800]">
+            H
+          </span>
         </div>
         <div className="flex font-semibold gap-1 items-center">
           <p className="text-[12px] leading-[18px] text-gray5">

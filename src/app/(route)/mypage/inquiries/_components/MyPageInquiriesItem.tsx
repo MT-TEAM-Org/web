@@ -35,9 +35,17 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
         </p>
       </div>
       <div className="w-full min-h-[42px] flex flex-col gap-[4px]">
-        <p className="w-full min-h-[20px] text-[14px] leading-[20px] text-gray7">
-          {data?.content}
-        </p>
+        <div className="flex items-center gap-[2px]">
+          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap overflow-ellipsis">
+            {data?.content}
+          </h2>
+          <p className="text-Primary font-medium text-[12px] leading-[18px]">
+            [{data?.commentCount}]
+          </p>
+          <span className="font-black text-[10px] leading-[18px] text-primary">
+            N
+          </span>
+        </div>
         <div className="flex gap-[4px] text-gray5 text-[12px] leading-[18px]">
           <span className="font-[700]">문의</span>
           <span>1분 전</span>
