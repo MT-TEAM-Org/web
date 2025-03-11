@@ -24,8 +24,14 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
   return (
     <div className="flex items-center gap-[12px] w-full min-h-[66px] border-b-1 border-[#FAFAFA] p-[12px]">
       <div className="min-w-[65px] h-[32px] rounded-[2px] px-[8px] py-[4px] bg-[#FAFAFA]">
-        <p className="font-[700] text-[14px] leading-[20px] text-gray7]">
-          접수완료
+        <p
+          className={`font-[700] text-[14px] leading-[20px] ${
+            data?.isAdminAnswered === "답변완료"
+              ? "text-[#00ADEE]"
+              : "text-gray7"
+          }`}
+        >
+          {data?.isAdminAnswered}
         </p>
       </div>
       <div className="w-full min-h-[42px] flex flex-col gap-[4px]">
