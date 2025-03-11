@@ -13,9 +13,9 @@ const Page = () => {
   const {
     orderType,
     setOrderType,
-    timeType,
-    setTimeType,
-    pageNum,
+    timePeriod,
+    setTimePeriod,
+    page,
     onPageChange,
     searchType,
     setSearchType,
@@ -27,9 +27,9 @@ const Page = () => {
     isError,
   } = useSortedNewsDataList({
     orderType,
-    timeType,
+    timePeriod,
     searchType,
-    pageNum,
+    page,
   });
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Page = () => {
       <NewsTalkToolbar
         setOrderType={setOrderType}
         onPageChange={onPageChange}
-        setTimeType={setTimeType}
+        setTimeType={setTimePeriod}
         setSearchType={setSearchType}
       />
 
