@@ -39,15 +39,6 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
     return categoryTypeMap[type] || type;
   };
 
-  const maskIP = (ip: string) => {
-    if (!ip) return "";
-
-    const parts = ip.split(".");
-    if (parts.length !== 4) return ip;
-
-    return `${parts[0]}.${parts[1]}.**.**`;
-  };
-
   return (
     <Link
       href={`/${data.boardType}/${data.categoryType}/${data.id}`}
@@ -93,7 +84,7 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
             {data?.nickname}
           </span>
           <span className="font-medium text-[12px] leading-[18px] text-gray5">
-            IP {maskIP(data?.createdIp)}
+            IP {data?.createdIp}
           </span>
         </div>
       </div>
