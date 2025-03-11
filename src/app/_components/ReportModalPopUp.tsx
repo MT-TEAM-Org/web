@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 
 const report = [
-  { label: "회원을 향한 상습비방", value: "abuse" },
-  { label: "음란하거나 성적인 게시글", value: "sexual_content" },
-  { label: "정치인 관련 게시글", value: "political" },
-  { label: "홍보성/불법광고 게시글", value: "advertisement" },
+  { label: "회원을 향한 상습비방", value: "1" },
+  { label: "음란하거나 성적인 게시글", value: "2" },
+  { label: "정치인 관련 게시글", value: "3" },
+  { label: "홍보성/불법광고 게시글", value: "4" },
   { label: "기타", value: "etc" },
 ];
 
