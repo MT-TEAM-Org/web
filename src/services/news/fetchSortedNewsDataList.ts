@@ -16,7 +16,7 @@ const fetchSortedNewsDataList = async ({
   searchType,
 }: NewsDataParams) => {
   const baseParams = {
-    category: category || "BASEBALL",
+    category: category || "",
     orderType: orderType || "DATE",
     timePeriod: timeType || "DAILY",
     page: pageNum || 1,

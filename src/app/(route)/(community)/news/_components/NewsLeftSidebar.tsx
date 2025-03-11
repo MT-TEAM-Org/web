@@ -5,10 +5,10 @@ import React from "react";
 
 const LeftSidebar = () => {
   const pathname = usePathname();
-  const basePath = pathname.split("/")[1]; // "news"
+  const basePath = pathname.split("/")[1];
 
   const boardList = [
-    { name: "전체", id: 0, path: `/${basePath}`, category: "" },
+    { name: "전체", id: 0, path: `/${basePath}/all`, category: "all" },
     {
       name: "E스포츠",
       id: 1,
