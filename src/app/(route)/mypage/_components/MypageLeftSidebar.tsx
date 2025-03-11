@@ -1,11 +1,35 @@
 "use client";
+import { useMutation } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
+import { api } from "@/_hooks/api";
 
 const MypageLeftSidebar = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
+
+  const fetchLogout = async () => {
+    const response = await api.post(
+      "/logout",
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return response;
+  };
+
+  const { mutate: logout, isPending: logoutIsPending } = useMutation({
+    mutationFn: fetchLogout,
+    onSuccess: () => {
+      localStorage.removeItem("accessToken");
+      queryClient.resetQueries({ queryKey: ["authCheck"] });
+      router.push("/");
+    },
+  });
 
   const boardList = [
     { name: "마이페이지", id: 0, path: `/${basePath}` },
@@ -26,7 +50,11 @@ const MypageLeftSidebar = () => {
   };
 
   const handleRoute = (path: string) => {
-    if (path === `/${basePath}/logout`) return;
+    if (path === `/${basePath}/logout`) {
+      logout();
+      router.replace("/");
+      return;
+    }
     router.push(path);
   };
 
