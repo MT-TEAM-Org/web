@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface MyPageInquiriesItemProps {
   data: {
     id: number;
@@ -22,7 +24,10 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
   };
 
   return (
-    <div className="flex items-center gap-[12px] w-full min-h-[66px] border-b-1 border-[#FAFAFA] p-[12px]">
+    <Link
+      href={`/mypage/inquiries/${data?.id}`}
+      className="flex items-center gap-[12px] w-full min-h-[66px] border-b-1 border-[#FAFAFA] p-[12px]"
+    >
       <div className="min-w-[65px] h-[32px] rounded-[2px] px-[8px] py-[4px] bg-[#FAFAFA]">
         <p
           className={`font-[700] text-[14px] leading-[20px] ${
@@ -53,7 +58,7 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
           <span className="text-gray4">IP {maskIP(data?.clientIp)}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

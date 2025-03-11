@@ -9,11 +9,11 @@ import { useRouter } from "next/navigation";
 const AnswerCheck = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const answerChecked = searchParams.get("answer_checked") === "true";
+  const answerChecked = searchParams.get("order_type");
 
   const setAnswerChecked = (checked: boolean) => {
     router.push(
-      changeURLParams(searchParams, "answer_checked", checked.toString())
+      changeURLParams(searchParams, "order_type", checked ? "ANSWERED" : "")
     );
   };
 
@@ -23,7 +23,7 @@ const AnswerCheck = () => {
         type="checkbox"
         className="hidden"
         id="checkbox"
-        checked={answerChecked}
+        checked={answerChecked === "ANSWERED" ? true : false}
         onChange={() => setAnswerChecked(!answerChecked)}
       />
       <label htmlFor="checkbox" className="cursor-pointer">

@@ -1,7 +1,7 @@
 export interface InquiriesListConfig {
   page: number;
   size: number;
-  orderType: "ANSWERED";
+  orderType: "" | "ANSWERED";
   searchType: "CONTENT" | "COMMENT";
   search: string;
 }
