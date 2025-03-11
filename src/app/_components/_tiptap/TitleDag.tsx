@@ -16,8 +16,6 @@ const TitleDag = ({ register }: TitleDagProps) => {
   const { isEditMode } = useEditStore();
   const [selectedCategory, setSelectedCategory] = useState("FREE");
 
-  console.log("selectedCategory", selectedCategory);
-
   const pathName = usePathname();
   const boardType = pathName.split("/")[1];
 
@@ -35,7 +33,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
   ];
 
   useEffect(() => {
-    const categoryFromPath = pathName.split("/")[1];
+    const categoryFromPath = pathName.split("/")[2] || "FREE";
     setSelectedCategory(categoryFromPath);
   }, [pathName]);
 
