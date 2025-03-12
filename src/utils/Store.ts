@@ -77,7 +77,11 @@ export const useInquiryPostIdStore = create<InquiryPostIdState>()(
     (set) => ({
       inquiryPostIds: [],
       addInquiryPostId: (id) =>
-        set((state) => ({ inquiryPostIds: [...state.inquiryPostIds, id] })),
+        set((state) => ({
+          inquiryPostIds: state.inquiryPostIds.includes(id)
+            ? state.inquiryPostIds
+            : [...state.inquiryPostIds, id],
+        })),
       removeInquiryPostId: (id) =>
         set((state) => ({
           inquiryPostIds: state.inquiryPostIds.filter(
