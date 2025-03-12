@@ -36,21 +36,31 @@ export const useSignupStore = create<SignupStateStore>((set) => ({
   setClearSignupStore: () => set({ signStateStore: "" }),
 }));
 
-interface SocialEmailStore {
-  email: string;
-  setEmail: (email: string) => void;
-  resetEmail: () => void;
+interface EditableBoardData {
+  categoryType: string;
+  content?: string;
+  title: string;
+  link?: string;
+  thumbnail?: string;
 }
 
-export const useSocialEmailStore = create<SocialEmailStore>()(
-  persist(
-    (set) => ({
-      email: "",
-      setEmail: (email) => set({ email }),
-      resetEmail: () => set({ email: "" }),
-    }),
-    {
-      name: "email-storage",
-    }
-  )
-);
+interface EditState {
+  isEditMode: boolean;
+  boardId: string | null;
+  boardData: EditableBoardData | null;
+  setEditMode: (isEdit: boolean) => void;
+  setBoardId: (id: string | null) => void;
+  setBoardData: (data: EditableBoardData | null) => void;
+  resetEditState: () => void;
+}
+
+export const useEditStore = create<EditState>((set) => ({
+  isEditMode: false,
+  boardId: null,
+  boardData: null,
+  setEditMode: (isEdit) => set({ isEditMode: isEdit }),
+  setBoardId: (id) => set({ boardId: id }),
+  setBoardData: (data) => set({ boardData: data }),
+  resetEditState: () =>
+    set({ isEditMode: false, boardId: null, boardData: null }),
+}));

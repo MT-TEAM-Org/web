@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 
 const handleReissue = async () => {
   const response = await axios.post(
-    "http://api.playhive.shop:8080/reissue",
+    `${process.env.NEXT_PUBLIC_API_URL}reissue`,
     {},
     {
       withCredentials: true,
@@ -17,11 +17,6 @@ const handleReissue = async () => {
 const useReissue = () => {
   return useMutation({
     mutationFn: handleReissue,
-    onSuccess: (data) => {
-      if (data.status === 200) {
-        localStorage.setItem("accessToken", data.headers.authorization);
-      }
-    },
   });
 };
 

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import QueryProvider from "./_components/QueryProvider";
-
 import Gnb from "./_components/_gnb/Gnb";
 import Footer from "./_components/Footer";
 
@@ -13,18 +11,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <QueryProvider>
-        <body className="defaultFont">
+      <body className="defaultFont">
+        <QueryProvider>
           <Gnb />
           {children}
-          {/* <Footer /> */}
-        </body>
-      </QueryProvider>
+          <Footer />
+        </QueryProvider>
+      </body>
     </html>
   );
 }

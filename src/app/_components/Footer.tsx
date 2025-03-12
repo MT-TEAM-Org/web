@@ -4,23 +4,23 @@ export default function Footer() {
   const footerObject = [
     {
       name: "서비스 소개",
-      link: "",
+      link: "/service-introduction",
     },
     {
       name: "개선요청",
-      link: "",
+      link: "/customer/feedback",
     },
     {
       name: "공지사항",
-      link: "",
+      link: "/customer",
     },
     {
       name: "이용약관",
-      link: "",
+      link: "/customer/terms",
     },
     {
       name: "개인정보처리방침",
-      link: "",
+      link: "/customer/privacy-policy",
     },
   ];
 
@@ -28,13 +28,13 @@ export default function Footer() {
     "font font-medium text-[16px] leading-[24px] text-[#A6A6A6]";
 
   return (
-    <div className="fixed bottom-0 left-0 w-full min-h-[356px] bg-black flex flex-col justify-center text-white pt-[40px]">
+    <div className="w-full min-h-[356px] bg-black flex flex-col justify-center text-white pt-[40px]">
       <div className="w-[1200px] min-h-[212px] gap-[24px] flex flex-col mx-auto">
         <div>
           <LogoWhite />
         </div>
         <div className="flex justify-between gap-[24px]">
-          <div className="flex flex-col jutify-around gap-[24px]">
+          <div className="flex flex-col justify-around gap-[24px]">
             <p className="font-medium text-[24px] leading-[38px]">
               열정적으로 응원하고 서로를 존중하며
               <br />

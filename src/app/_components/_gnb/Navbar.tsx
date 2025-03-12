@@ -1,53 +1,34 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Search } from "../icon/Search";
+import Link from "next/link";
+import { NAVBARS } from "@/app/_constants/navigation";
 
 export default function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
+
+  const isCurrentPath = (path: string) => pathname === path;
 
   const navbarClass =
-    "min-h-[60px] p-[16px] whitespace-nowrap font-medium text-[18px] leading-[28px] text-center";
+    "min-h-[60px] p-[16px] whitespace-nowrap font-medium text-[18px] leading-7 tracking-[-0.04em] text-center cursor-pointer";
 
-  const NavbarObject = [
-    {
-      name: "E스포츠",
-      link: "/e-sports",
-    },
-    {
-      name: "축구",
-      link: "/soccer",
-    },
-    {
-      name: "야구",
-      link: "/baseball",
-    },
-    {
-      name: "뉴스",
-      link: "/schedule",
-    },
-    {
-      name: "티키타카",
-      link: "/news",
-    },
-    {
-      name: "경기일정",
-      link: "/chat",
-    },
-  ];
   return (
     <div className="w-full max-w-[1200px] min-h-[60px] flex justify-between items-center mx-auto">
       <div className="max-w-[447px] min-h-[60px] flex justify-around gap-2.5">
-        {NavbarObject.map((item, index) => (
-          <div
-            key={index}
-            className={`${navbarClass} flex justify-around items-center cursor-pointer ${
-              index === 0 ? "pl-0" : ""
-            }`}
-            onClick={() => router.push(item.link)}
-          >
-            {item?.name}
-          </div>
+        {NAVBARS.map((item, index) => (
+          <Link key={index} href={item.link}>
+            <div
+              className={`${navbarClass} flex justify-around items-center ${
+                isCurrentPath(item.link)
+                  ? "font-normal text-[#00ADEE]"
+                  : "font-normal text-[#424242]"
+              } ${index === 0 ? "pl-0" : ""}`}
+            >
+              {item.name}
+            </div>
+          </Link>
         ))}
       </div>
       <div className="flex items-center mb-2">

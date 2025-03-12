@@ -1,33 +1,50 @@
-import Fake_scheduleItem from '@/app/_components/icon/Fake_scheduleItem';
-import Fake_scheduleItem2 from '@/app/_components/icon/Fake_scheduleItem2';
-import React from 'react';
+"use client";
 
-const scheduleItem = () => {
+import Fake_scheduleItem from "@/app/_components/icon/Fake_scheduleItem";
+import Fake_scheduleItem2 from "@/app/_components/icon/Fake_scheduleItem2";
+import React from "react";
+
+const ScheduleItem = ({
+  isSelected,
+  onClick,
+}: {
+  isSelected: boolean;
+  onClick: () => void;
+}) => {
   return (
-    <div className="flex flex-col items-center justify-center w-[214px] h-[98px] bg-white rounded-lg shadow-md p-4">
-      <div className="text-xs text-[#A6A6A6] mb-4">E스포츠</div>
-
-      <div className="flex items-center justify-center gap-2">
-        {/* T1 */}
-        <div className="w-[55px] h-[48px] flex flex-col gap-1 items-center">
-          <Fake_scheduleItem />
-          <span className="text-base font-bold">T1</span>
+    <div
+      onClick={onClick}
+      className={`w-[275px] h-auto min-h-[126px] rounded-[5px] border p-3 flex flex-col gap-2 justify-center items-center bg-[#FFFFFF] cursor-pointer 
+        ${isSelected ? "border-[#424242]" : "border-gray-300"}
+      `}
+    >
+      {/* 목 데이터 */}
+      <div className="w-[251px] h-auto min-h-[26px] flex gap-2 items-center">
+        <div className="w-auto min-w-[37px] h-auto min-h-[26px] rounded-[5px] py-1 px-2 flex gap-1 bg-[#EEEEEE] items-center justify-center">
+          <p className="font-medium text-[12px] leading-[18px] flex text-center justify-center align-center text-[#A6A6A6]">
+            예정
+          </p>
         </div>
-        {/* 중앙 */}
-        <div className='flex flex-col gap-1 justify-center items-center'>
-          <div className="text-[#CBCBCB] text-sm">VS</div>
-          <div className="text-xs text-[#656565]">19:00 예정</div>
+        <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] flex align-center text-[#A6A6A6]">
+          <p>02.04</p>
+          <p>19:30</p>
         </div>
-        {/* 젠지 */}
-        <div className="w-[55px] h-[48px] flex flex-col gap-1 items-center">
-          <Fake_scheduleItem2 />
-          <span className="text-base font-bold">젠지</span>
+        <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] align-center text-[#A6A6A6]">
+          <p>2025 LCK CUP 그룹 배틀</p>
         </div>
-
       </div>
-
+      <div className="w-full min-h-[68px] flex flex-col gap-1">
+        <div className="w-full min-h-[32px] flex gap-2 justify-start items-center">
+          <Fake_scheduleItem />
+          <div className="font-bold text-[14px] leading-5">T1</div>
+        </div>
+        <div className="w-full min-h-[32px] flex gap-2 justify-start items-center">
+          <Fake_scheduleItem2 />
+          <div className="font-bold text-[14px] leading-5">젠지</div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default scheduleItem;
+export default ScheduleItem;

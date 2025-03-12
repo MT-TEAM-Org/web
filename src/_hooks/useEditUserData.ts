@@ -10,13 +10,12 @@ interface EditUserData {
 }
 
 const fetchEditUserData = async (data: EditUserData) => {
-  const response = await axios.post(
+  const response = await axios.put(
     `${process.env.NEXT_PUBLIC_API_URL}api/me/update`,
     data,
     {
       headers: {
         Authorization: localStorage.getItem("accessToken"),
-        // Bearer 접두사를 붙이면 접두사가 두 번 붙는 문제가 발생함
       },
       withCredentials: true,
     }
