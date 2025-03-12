@@ -8,9 +8,11 @@ interface BoardParams {
   boardType: string;
 }
 
-const Board = ({ params }: { params: BoardParams }) => {
-  const validBoardTypes = ["esports", "football", "baseball"];
+const Board = ({ params }: { params: Promise<BoardParams> }) => {
+  const unwrappedParams = use(params);
+  const { boardType } = unwrappedParams;
 
+  const validBoardTypes = ["esports", "football", "baseball"];
   const reservedPaths = [
     "news",
     "customer",
@@ -22,13 +24,11 @@ const Board = ({ params }: { params: BoardParams }) => {
   ];
 
   if (
-    !validBoardTypes.includes(params.boardType) &&
-    !reservedPaths.includes(params.boardType)
+    !validBoardTypes.includes(boardType) &&
+    !reservedPaths.includes(boardType)
   ) {
     return notFound();
   }
-
-  const { boardType } = params;
 
   return (
     <div className="flex justify-center bg-white">
