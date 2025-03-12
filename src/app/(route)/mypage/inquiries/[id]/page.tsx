@@ -38,7 +38,7 @@ const InquirieDetail = ({
   const { mutate: deleteInquiriesDetail } = useDeleteInquiriesDetail();
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);
-  const { addInquiryPostId } = useInquiryPostIdStore();
+  const { addInquiryPostId, removeInquiryPostId } = useInquiryPostIdStore();
 
   useEffect(() => {
     if (!id) return;
@@ -89,6 +89,7 @@ const InquirieDetail = ({
   const handleDelete = () => {
     deleteInquiriesDetail(id, {
       onSuccess: () => {
+        removeInquiryPostId(Number(id));
         router.replace("/mypage/inquiries");
       },
       onError: () => {
