@@ -58,7 +58,7 @@ const CommentSection = ({ newsInfoData, newsCommentData }) => {
           )}
         </div>
       </div>
-      <PostNavigation scrollToCommentBar={onHandleToTop} />{" "}
+      <PostNavigation scrollToCommentBar={onHandleToTop} />
     </>
   );
 };
