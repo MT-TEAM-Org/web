@@ -28,6 +28,8 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const [activeDeleteModal, setActiveDeleteModal] = useState(false);
 
+  console.log("bestComment: ", bestComment);
+
   const id = params.id;
 
   const { mutate: mutatePostRecommend } = usePatchNewsComment();
@@ -90,6 +92,7 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
 
   const divStyle =
     "w-full h-auto flex flex-col border-b border-gray1 gap-3 p-3 bg-white justify-start";
+  const recommendDivStyle = `data?.recommendCount ? "min-w-[70px] : "w-[53px]`;
 
   return (
     <div className={bestComment ? `${divStyle} bg-[#F8FDFF]` : `${divStyle}`}>
@@ -137,11 +140,12 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
       <div className="flex gap-2">
         <button
           onClick={handleNewsComment}
-          className="min-w-[76px] h-[24px] rounded-[5px] border border-gray3 p-2 flex gap-1 justify-center items-center text-xs leading-[18px] font-medium tracking-[-0.02em]"
+          className={`${recommendDivStyle} h-[24px] rounded-[5px] border border-gray3 p-2 flex gap-1 justify-center items-center text-xs leading-[18px] font-medium tracking-[-0.02em]`}
         >
           <Single_logo_color />
           <div className="flex gap-[2px]">
-            추천 <span>{data?.recommendCount}</span>
+            추천
+            {data?.recommendCount ? <span>{data?.recommendCount}</span> : null}
           </div>
         </button>
         <button className="min-w-[60px] min-h-[24px] rounded-[5px] border border-gray3 px-2 py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">

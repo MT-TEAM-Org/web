@@ -8,10 +8,19 @@ import { CommentContent } from "@/app/_constants/newsCommentType";
 import { useQueryClient } from "@tanstack/react-query";
 import NewsCommentItem from "../[subcategory]/news-detail/[id]/_components/NewsCommentItem";
 
-const CommentSection = ({ newsInfoData, newsCommentData }) => {
+interface CommentSectionProps {
+  newsInfoData?: any;
+  newsCommentData?: any;
+  newsBestCommentData?: any;
+}
+
+const CommentSection = ({
+  newsInfoData,
+  newsCommentData,
+  newsBestCommentData,
+}: CommentSectionProps) => {
   const commentBarRef = useRef(null);
   const queryClient = useQueryClient();
-  const id = newsInfoData?.id;
 
   const onHandleToTop = () => {
     if (commentBarRef.current) {
@@ -33,23 +42,49 @@ const CommentSection = ({ newsInfoData, newsCommentData }) => {
     });
   };
 
+  // newsBestCommentData의 newsCommentId 배열 추출
+  const bestCommentIds =
+    newsBestCommentData?.list?.content?.map(
+      (item: CommentContent) => item.newsCommentId
+    ) || [];
+
+  // newsCommentData에서 bestCommentIds와 겹치지 않는 댓글만 필터링
+  const filteredComments = (
+    newsCommentData?.list?.content ||
+    newsCommentData?.content ||
+    []
+  ).filter(
+    (commentItem: CommentContent) =>
+      !bestCommentIds.includes(commentItem.newsCommentId)
+  );
+
+  console.log("newsBestCommentData: ", newsBestCommentData);
+  console.log("newsCommentData: ", newsCommentData);
+  console.log("filteredComments: ", filteredComments);
+
   return (
     <>
       <div className="w-full h-auto" ref={commentBarRef}>
         <CommentBar data={newsInfoData} onRefresh={handleRefresh} />
+        <div className="w-full h-auto">
+          {newsBestCommentData?.length === 0
+            ? null
+            : newsBestCommentData?.map((bestCommentItem: CommentContent) => (
+                <NewsCommentItem
+                  data={bestCommentItem}
+                  bestComment={true}
+                  key={bestCommentItem.newsCommentId}
+                />
+              ))}
+        </div>
 
         <div className="max-w-full h-auto">
           {!newsCommentData ||
           (!newsCommentData.list?.content && !newsCommentData.content) ||
-          newsCommentData.list?.content?.length === 0 ||
-          newsCommentData.content?.length === 0 ? (
+          filteredComments.length === 0 ? (
             <EmptyNewsComment />
           ) : (
-            (
-              newsCommentData.list?.content ||
-              newsCommentData.content ||
-              []
-            ).map((commentItem: CommentContent) => (
+            filteredComments.map((commentItem: CommentContent) => (
               <NewsCommentItem
                 data={commentItem}
                 key={commentItem.newsCommentId}

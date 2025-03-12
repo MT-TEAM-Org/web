@@ -22,6 +22,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import useDeleteRecommend from "@/_hooks/fetcher/news/useDeleteRecommend";
 import useGetNewsComment from "@/_hooks/fetcher/news/comment/useGetNewsComment";
 import NewsSendCommentBox from "./_components/NewsSendCommentBox";
+import useGetBestComment from "@/_hooks/fetcher/news/comment/useGetBestComment";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
@@ -39,11 +40,11 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   } = useNewsPageLogic();
 
   const { data: newsInfoData, isLoading } = useGetNewsInfoData(id);
+  const { data: newsBestCommentData } = useGetBestComment(newsInfoData?.id);
+  const { data: newsCommentData } = useGetNewsComment(id);
   const formattedTime = useTimeAgo(newsInfoData?.postDate);
   const { mutate: newsAddCommend } = usePatchRecommend();
   const { mutate: newsDeleteRecommend } = useDeleteRecommend();
-  const { data: newsCommentData } = useGetNewsComment(id);
-  console.log("newsCommentData: ", newsCommentData?.content);
 
   const { data: newsListData } = useSortedNewsDataList({
     orderType,
@@ -136,6 +137,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <CommentSection
             newsInfoData={newsInfoData}
             newsCommentData={newsCommentData}
+            newsBestCommentData={newsBestCommentData}
           />
         </div>
       )}
