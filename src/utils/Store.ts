@@ -64,3 +64,30 @@ export const useEditStore = create<EditState>((set) => ({
   resetEditState: () =>
     set({ isEditMode: false, boardId: null, boardData: null }),
 }));
+
+interface InquiryPostIdState {
+  inquiryPostIds: number[];
+  addInquiryPostId: (id: number) => void;
+  removeInquiryPostId: (id: number) => void;
+  clearInquiryPostIds: () => void;
+}
+
+export const useInquiryPostIdStore = create<InquiryPostIdState>()(
+  persist(
+    (set) => ({
+      inquiryPostIds: [],
+      addInquiryPostId: (id) =>
+        set((state) => ({ inquiryPostIds: [...state.inquiryPostIds, id] })),
+      removeInquiryPostId: (id) =>
+        set((state) => ({
+          inquiryPostIds: state.inquiryPostIds.filter(
+            (postId) => postId !== id
+          ),
+        })),
+      clearInquiryPostIds: () => set({ inquiryPostIds: [] }),
+    }),
+    {
+      name: "inquiry-post-id-storage",
+    }
+  )
+);

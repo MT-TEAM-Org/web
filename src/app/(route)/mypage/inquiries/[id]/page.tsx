@@ -5,11 +5,12 @@ import Refresh from "@/app/_components/icon/Refresh";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
-import { Suspense, use, useRef } from "react";
+import { Suspense, use, useEffect, useRef } from "react";
 import useGetInquiriesDetail from "@/_hooks/useMypage/useGetInquiriesDetail";
 import useDeleteInquiriesDetail from "@/_hooks/useMypage/useDeleteInquiriesDetail";
 import { useRouter } from "next/navigation";
 import MyPageInquiriesList from "../_components/MyPageInquiriesList";
+import { useInquiryPostIdStore } from "@/utils/Store";
 
 interface InquirieDetailProps {
   id: string;
@@ -37,6 +38,12 @@ const InquirieDetail = ({
   const { mutate: deleteInquiriesDetail } = useDeleteInquiriesDetail();
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);
+  const { addInquiryPostId } = useInquiryPostIdStore();
+
+  useEffect(() => {
+    if (!id) return;
+    addInquiryPostId(Number(id));
+  }, [id]);
 
   const scrollToTop = () => {
     window.scrollTo({

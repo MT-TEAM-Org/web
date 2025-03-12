@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useInquiryPostIdStore } from "@/utils/Store";
 
 interface MyPageInquiriesItemProps {
   data: {
@@ -14,6 +18,9 @@ interface MyPageInquiriesItemProps {
 }
 
 const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
+  const searchParams = useSearchParams();
+  const { inquiryPostIds } = useInquiryPostIdStore();
+  const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
   const maskIP = (ip: string) => {
     if (!ip) return "";
 
@@ -23,9 +30,13 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
     return `${parts[0]}.${parts[1]}.**.**`;
   };
 
+  const isInquiryPostIdExists = () => {
+    return inquiryPostIds.includes(data?.id);
+  };
+
   return (
     <Link
-      href={`/mypage/inquiries/${data?.id}`}
+      href={`/mypage/inquiries/${data?.id}?page=${page}`}
       className="flex items-center gap-[12px] w-full min-h-[66px] border-b-1 border-[#FAFAFA] p-[12px]"
     >
       <div className="min-w-[65px] h-[32px] rounded-[2px] px-[8px] py-[4px] bg-[#FAFAFA]">
@@ -41,7 +52,11 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
       </div>
       <div className="w-full min-h-[42px] flex flex-col gap-[4px]">
         <div className="w-[619px] flex items-center gap-[2px]">
-          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap text-ellipsis">
+          <h2
+            className={`text-[14px] leading-[20px] overflow-hidden whitespace-nowrap text-ellipsis ${
+              isInquiryPostIdExists() ? "text-gray5" : "text-gray7"
+            }`}
+          >
             {data?.content}
           </h2>
           <p className="text-Primary font-medium text-[12px] leading-[18px]">
