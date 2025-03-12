@@ -15,7 +15,6 @@ interface InquiryData {
 }
 
 const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
-  if (!show) return null;
   const { data, isLoading } = useAuthCheck();
   const memberPublicId = show ? data?.data?.data?.publicId : null;
   const {
@@ -36,6 +35,8 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
       }
     );
   };
+
+  if (!show) return null;
 
   const buttonStyle =
     "w-[160px] min-h-[48px] rounded-[5px] text-[16px] leading-[16px] font-[700]";
