@@ -68,7 +68,7 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
         <div className="w-full min-h-[20px] flex justify-between">
           <div className="flex justify-center items-center gap-2 text-xs">
             <Image
-              src={data?.imgUrl ? data?.imgUrl : "/Empty_news.png"}
+              src={"/Empty_news.png"} // api 없는 부분 수정 필요
               alt="fake_img"
               width={20}
               height={20}
@@ -89,6 +89,15 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
             </p>
           </div>
         </div>
+        {data?.imgUrl && (
+          <Image
+            src={`${data?.imgUrl}`}
+            alt="comment img"
+            width={200}
+            height={200}
+            className="object-cover"
+          />
+        )}
 
         <p className="flex text-[14px] leading-5 text-gray7 font-medium">
           {data?.comment}

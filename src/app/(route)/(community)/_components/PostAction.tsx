@@ -55,13 +55,6 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
       )}
       <div className="flex gap-2">
         <button
-          onClick={copyBtn}
-          className="min-w-[138px] w-auto min-h-[32px] flex justify-center gap-1 items-center bg-white px-3 py-2 rounded-[5px] border border-gray3 text-[14px] leading-[14px] font-medium"
-        >
-          <Copy />
-          게시글 URL 복사
-        </button>
-        <button
           onClick={modalPopUp}
           className="min-w-[91px] w-auto min-h-[32px] flex justify-center gap-1 items-center bg-white pr-[12px] pl-[10px] py-2 rounded-[5px] border border-gray3 text-[14px] leading-[14px] font-medium"
         >

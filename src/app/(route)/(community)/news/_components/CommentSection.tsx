@@ -12,10 +12,9 @@ const CommentSection = ({ newsInfoData, newsCommentData }) => {
   const commentBarRef = useRef(null);
   const queryClient = useQueryClient();
 
-  // useRef 사용해서 댓글 제일 위로 버튼 구현
   const onHandleToTop = () => {
     if (commentBarRef.current) {
-      const navBarHeight = 130; // 네비게이션 바 높이
+      const navBarHeight = 130;
       const y =
         commentBarRef.current.getBoundingClientRect().top +
         window.scrollY -
