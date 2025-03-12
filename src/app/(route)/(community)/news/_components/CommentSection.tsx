@@ -6,11 +6,12 @@ import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation
 import EmptyNewsComment from "./EmptyNewsComment";
 import { CommentContent } from "@/app/_constants/newsCommentType";
 import { useQueryClient } from "@tanstack/react-query";
-import NewsCommentItem from "@/app/(route)/(community)/news/[subcategory]/news-detail/[id]/_components/NewsCommentItem";
+import NewsCommentItem from "../[subcategory]/news-detail/[id]/_components/NewsCommentItem";
 
 const CommentSection = ({ newsInfoData, newsCommentData }) => {
   const commentBarRef = useRef(null);
   const queryClient = useQueryClient();
+  const id = newsInfoData?.id;
 
   const onHandleToTop = () => {
     if (commentBarRef.current) {

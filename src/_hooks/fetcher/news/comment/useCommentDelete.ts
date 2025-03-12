@@ -1,7 +1,7 @@
 import deleteComment from "@/services/news/comment/deleteComment";
 import { useMutation } from "@tanstack/react-query";
 
-const useDeleteCommentRecommend = () => {
+const useCommentDelete = () => {
   return useMutation({
     mutationFn: (newsCommentId: number) => deleteComment(newsCommentId),
     retry: 1,
@@ -14,4 +14,4 @@ const useDeleteCommentRecommend = () => {
   });
 };
 
-export default useDeleteCommentRecommend;
+export default useCommentDelete;
