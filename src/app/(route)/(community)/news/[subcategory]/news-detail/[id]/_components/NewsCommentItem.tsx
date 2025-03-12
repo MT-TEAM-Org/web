@@ -28,8 +28,6 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const [activeDeleteModal, setActiveDeleteModal] = useState(false);
 
-  console.log("bestComment: ", bestComment);
-
   const id = params.id;
 
   const { mutate: mutatePostRecommend } = usePatchNewsComment();
@@ -92,10 +90,11 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
 
   const divStyle =
     "w-full h-auto flex flex-col border-b border-gray1 gap-3 p-3 bg-white justify-start";
-  const recommendDivStyle = `data?.recommendCount ? "min-w-[70px] : "w-[53px]`;
+  const recommendDivStyle =
+    data?.recommendCount >= 1 ? "min-w-[70px]" : "w-[55px]";
 
   return (
-    <div className={bestComment ? `${divStyle} bg-[#F8FDFF]` : `${divStyle}`}>
+    <div className={bestComment ? divStyle + " !bg-[#F8FDFF]" : divStyle}>
       <div className="w-full h-auto flex flex-col gap-3">
         <div className="w-full min-h-[20px] flex justify-between">
           <div className="flex justify-center items-center gap-2 text-xs">

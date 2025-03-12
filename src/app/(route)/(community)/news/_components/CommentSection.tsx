@@ -42,52 +42,44 @@ const CommentSection = ({
     });
   };
 
-  // newsBestCommentData의 newsCommentId 배열 추출
-  const bestCommentIds =
-    newsBestCommentData?.list?.content?.map(
-      (item: CommentContent) => item.newsCommentId
-    ) || [];
+  const bestComments =
+    newsBestCommentData?.list?.content || newsBestCommentData || [];
+  const bestCommentIds = bestComments.map(
+    (item: CommentContent) => item.newsCommentId
+  );
 
-  // newsCommentData에서 bestCommentIds와 겹치지 않는 댓글만 필터링
-  const filteredComments = (
-    newsCommentData?.list?.content ||
-    newsCommentData?.content ||
-    []
-  ).filter(
+  const commentsList =
+    newsCommentData?.list?.content || newsCommentData?.content || [];
+  const filteredComments = commentsList.filter(
     (commentItem: CommentContent) =>
       !bestCommentIds.includes(commentItem.newsCommentId)
   );
-
-  console.log("newsBestCommentData: ", newsBestCommentData);
-  console.log("newsCommentData: ", newsCommentData);
-  console.log("filteredComments: ", filteredComments);
 
   return (
     <>
       <div className="w-full h-auto" ref={commentBarRef}>
         <CommentBar data={newsInfoData} onRefresh={handleRefresh} />
+
         <div className="w-full h-auto">
-          {newsBestCommentData?.length === 0
-            ? null
-            : newsBestCommentData?.map((bestCommentItem: CommentContent) => (
-                <NewsCommentItem
-                  data={bestCommentItem}
-                  bestComment={true}
-                  key={bestCommentItem.newsCommentId}
-                />
-              ))}
+          {bestComments.length > 0 &&
+            bestComments.map((bestCommentItem: CommentContent) => (
+              <NewsCommentItem
+                data={bestCommentItem}
+                bestComment={true}
+                key={`best-${bestCommentItem.newsCommentId}`}
+              />
+            ))}
         </div>
 
         <div className="max-w-full h-auto">
-          {!newsCommentData ||
-          (!newsCommentData.list?.content && !newsCommentData.content) ||
-          filteredComments.length === 0 ? (
+          {filteredComments.length === 0 ? (
             <EmptyNewsComment />
           ) : (
             filteredComments.map((commentItem: CommentContent) => (
               <NewsCommentItem
                 data={commentItem}
-                key={commentItem.newsCommentId}
+                bestComment={false}
+                key={`regular-${commentItem.newsCommentId}`}
               />
             ))
           )}
