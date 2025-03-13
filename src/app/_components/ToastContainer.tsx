@@ -4,9 +4,10 @@ import ToastPopUp from "./_toastPopUp/toastPopUp";
 
 export const ToastContainer = () => {
   const toast = useToastStore((state) => state.toast);
-  const hideToast = useToastStore((state) => state.hideToast);
 
   if (!toast.visible) return null;
+
+  const hideToast = useToastStore((state) => state.hideToast);
 
   return (
     <ToastPopUp
