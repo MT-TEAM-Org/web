@@ -21,14 +21,6 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
   const searchParams = useSearchParams();
   const { inquiryPostIds } = useInquiryPostIdStore();
   const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
-  const maskIP = (ip: string) => {
-    if (!ip) return "";
-
-    const parts = ip.split(".");
-    if (parts.length !== 4) return ip;
-
-    return `${parts[0]}.${parts[1]}.**.**`;
-  };
 
   const isInquiryPostIdExists = () => {
     return inquiryPostIds.includes(data?.id);
@@ -70,7 +62,7 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
           <span className="font-[700]">문의</span>
           <span>1분 전</span>
           <span>{data?.nickname}</span>
-          <span className="text-gray4">IP {maskIP(data?.clientIp)}</span>
+          <span className="text-gray4">IP {data?.clientIp}</span>
         </div>
       </div>
     </Link>
