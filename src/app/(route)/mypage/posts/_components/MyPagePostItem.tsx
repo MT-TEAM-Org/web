@@ -39,15 +39,6 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
     return categoryTypeMap[type] || type;
   };
 
-  const maskIP = (ip: string) => {
-    if (!ip) return "";
-
-    const parts = ip.split(".");
-    if (parts.length !== 4) return ip;
-
-    return `${parts[0]}.${parts[1]}.**.**`;
-  };
-  console.log(data);
   return (
     <Link
       href={`/${data.boardType}/${data.categoryType}/${data.id}`}
@@ -65,13 +56,19 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
         blurDataURL="/Preview_loading_image.png"
       />
       <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
-        <div className="flex items-center gap-[2px]">
-          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap overflow-ellipsis">
+        <div className="w-[584px] flex items-center gap-[2px]">
+          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap text-ellipsis">
             {data?.title}
           </h2>
           <p className="text-Primary font-medium text-[12px] leading-[18px]">
             [{data?.commentCount}]
           </p>
+          <span className="font-black text-[10px] leading-[18px] text-primary">
+            N
+          </span>
+          <span className="font-black text-[10px] leading-[18px] text-[#DC2800]">
+            H
+          </span>
         </div>
         <div className="flex font-semibold gap-1 items-center">
           <p className="text-[12px] leading-[18px] text-gray5">
@@ -87,7 +84,7 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
             {data?.nickname}
           </span>
           <span className="font-medium text-[12px] leading-[18px] text-gray5">
-            IP {maskIP(data?.createdIp)}
+            IP {data?.createdIp}
           </span>
         </div>
       </div>
