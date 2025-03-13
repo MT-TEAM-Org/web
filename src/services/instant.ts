@@ -29,19 +29,15 @@ interface ApiRequestMethods {
 
 export const apiRequest: ApiRequestMethods = {
   get: (url, request) => {
-    console.log("🧸 get", { url, request });
     return baseInstance.get(url, request);
   },
   post: (url, data, config) => {
-    console.log("🐈 post", { url, data, config });
     return baseInstance.post(url, data, config);
   },
   put: (url, data, config) => {
-    console.log("🐶 put", { url, data, config });
     return baseInstance.put(url, data, config);
   },
   patch: (url, data, config) => {
-    console.log("🐰 patch", { url, data, config });
     return baseInstance.patch(url, data, config);
   },
   delete: (url, request) => baseInstance.delete(url, request),

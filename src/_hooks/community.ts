@@ -25,7 +25,6 @@ const usePostCommunityContent = () => {
     mutationFn: (data: CommunityData) => postCommunitycontent(data),
     onSuccess: (response, variables) => {
       toast.success("게시글 등록 성공", " 게시글 등록이 완료되었습니다.");
-      console.log(response);
       const boardType = response?.data?.boardType.toLowerCase();
       const categoryType = response?.data?.categoryType;
       const boardId = response?.data?.boardId;
