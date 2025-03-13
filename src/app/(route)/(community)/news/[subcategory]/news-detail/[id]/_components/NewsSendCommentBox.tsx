@@ -133,7 +133,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
   return (
     <div className="w-full min-h-[72px] p-4 bg-white">
       <form onSubmit={handleNewsComment} className="w-full flex flex-col gap-2">
-        <div className="w-full flex items-center gap-4">
+        <div className="w-full flex items-end gap-4">
           <button
             type="button"
             onClick={handleFileSelect}
@@ -189,9 +189,12 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
           </div>
           <button
             type="submit"
+            disabled={!inputValue.trim() && !selectedImage}
             className="w-10 h-10 flex items-center justify-center rounded-[5px] border border-gray2 bg-gray1"
           >
-            <Send_icon fill={inputValue.trim() ? "#00ADEE" : "#C0C0C0"} />
+            <Send_icon
+              fill={inputValue.trim() || selectedImage ? "#00ADEE" : "#C0C0C0"}
+            />
           </button>
         </div>
       </form>
