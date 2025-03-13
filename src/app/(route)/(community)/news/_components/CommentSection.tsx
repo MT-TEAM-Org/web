@@ -4,14 +4,20 @@ import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import React, { useRef } from "react";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import EmptyNewsComment from "./EmptyNewsComment";
-import { CommentContent } from "@/app/_constants/newsCommentType";
 import { useQueryClient } from "@tanstack/react-query";
 import NewsCommentItem from "../[subcategory]/news-detail/[id]/_components/NewsCommentItem";
+import {
+  NewsCommentList,
+  NewsCommentResponse,
+} from "@/app/_constants/newsCommentType";
+import { NewsInfoDataType } from "@/app/_constants/newsInfoType";
+
+type NewsCommentDataType = NewsCommentResponse | NewsCommentList;
 
 interface CommentSectionProps {
-  newsInfoData?: any;
-  newsCommentData?: any;
-  newsBestCommentData?: any;
+  newsInfoData?: NewsInfoDataType;
+  newsCommentData?: NewsCommentDataType;
+  newsBestCommentData?: NewsCommentDataType;
 }
 
 const CommentSection = ({
@@ -19,7 +25,7 @@ const CommentSection = ({
   newsCommentData,
   newsBestCommentData,
 }: CommentSectionProps) => {
-  const commentBarRef = useRef(null);
+  const commentBarRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
 
   const onHandleToTop = () => {
@@ -42,17 +48,16 @@ const CommentSection = ({
     });
   };
 
-  const bestComments =
-    newsBestCommentData?.list?.content || newsBestCommentData || [];
-  const bestCommentIds = bestComments.map(
-    (item: CommentContent) => item.newsCommentId
-  );
+  const bestComments: NewsCommentList = Array.isArray(newsBestCommentData)
+    ? newsBestCommentData
+    : newsBestCommentData?.list?.content || newsBestCommentData?.content || [];
+  const bestCommentIds = bestComments.map((item) => item.newsCommentId);
 
-  const commentsList =
-    newsCommentData?.list?.content || newsCommentData?.content || [];
+  const commentsList: NewsCommentList = Array.isArray(newsCommentData)
+    ? newsCommentData
+    : newsCommentData?.list?.content || newsCommentData?.content || [];
   const filteredComments = commentsList.filter(
-    (commentItem: CommentContent) =>
-      !bestCommentIds.includes(commentItem.newsCommentId)
+    (commentItem) => !bestCommentIds.includes(commentItem.newsCommentId)
   );
 
   return (
@@ -62,7 +67,7 @@ const CommentSection = ({
 
         <div className="w-full h-auto">
           {bestComments.length > 0 &&
-            bestComments.map((bestCommentItem: CommentContent) => (
+            bestComments.map((bestCommentItem) => (
               <NewsCommentItem
                 data={bestCommentItem}
                 bestComment={true}
@@ -75,7 +80,7 @@ const CommentSection = ({
           {filteredComments.length === 0 && bestComments.length === 0 ? (
             <EmptyNewsComment />
           ) : (
-            filteredComments.map((commentItem: CommentContent) => (
+            filteredComments.map((commentItem) => (
               <NewsCommentItem
                 data={commentItem}
                 bestComment={false}

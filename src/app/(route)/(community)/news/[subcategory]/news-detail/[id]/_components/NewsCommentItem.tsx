@@ -150,7 +150,7 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
           <Single_logo_color />
           <div className="flex gap-[2px]">
             추천
-            {data?.recommendCount ? <span>{data?.recommendCount}</span> : null}
+            {data?.recommendCount >= 1 && <span>{data?.recommendCount}</span>}
           </div>
         </button>
         <button className="min-w-[60px] min-h-[24px] rounded-[5px] border border-gray3 px-2 py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
