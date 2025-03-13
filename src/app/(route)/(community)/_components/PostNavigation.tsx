@@ -1,9 +1,9 @@
 "use client";
 
+import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
-import { useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -13,18 +13,19 @@ interface PostNavigationProps {
 
 const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
   const router = useRouter();
-  const queryClient = useQueryClient();
   const pathname = usePathname();
   const [isPrevDisabled, setIsPrevDisabled] = useState(false);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
 
   // 추가 작업 필요, 현재 야구 페이지, 1 페이지에서만 작동
-  const cachedData = queryClient.getQueryData([
-    "newsDataList",
-    "BASEBALL",
-    "DATE",
-    1,
-  ]);
+  const { data: cachedData } = useSortedNewsDataList({
+    category: "BASEBALL",
+    orderType: "DATE",
+    pageNum: 1,
+    timeType: "DAILY",
+  });
+
+  console.log("cachedData: ", cachedData);
 
   const ids = Array.isArray(cachedData)
     ? cachedData.map((item) => item.id)
@@ -33,13 +34,12 @@ const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
   const pathnameId = pathname.split("/").pop();
   const num = Number(pathnameId);
 
-  // 버튼 상태 설정
   useEffect(() => {
     if (!num) return;
 
     const currentIndex = ids.indexOf(num);
-    setIsPrevDisabled(currentIndex <= 0); // 첫 번째 아이템이면 비활성화
-    setIsNextDisabled(currentIndex === -1 || currentIndex >= ids.length - 1); // 마지막 아이템이면 비활성화
+    setIsPrevDisabled(currentIndex <= 0);
+    setIsNextDisabled(currentIndex === -1 || currentIndex >= ids.length - 1);
   }, [num, ids]);
 
   const onClick = (type: "prev" | "next") => {
@@ -48,13 +48,31 @@ const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
     const currentIndex = ids.indexOf(num);
     if (currentIndex === -1) return;
 
+    // 현재 경로에서 카테고리 추출
+    const pathParts = pathname.split("/");
+    // news/baseball/news-detail/123 형태에서 'baseball' 추출
+    const categoryPath =
+      pathParts.length >= 3 &&
+      pathParts[1] === "news" &&
+      pathParts[2] !== "news-detail"
+        ? pathParts[2]
+        : "";
+
     if (type === "prev" && currentIndex > 0) {
-      router.push(`/news/news-detail/${ids[currentIndex - 1]}`);
+      router.push(
+        `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
+          ids[currentIndex - 1]
+        }`
+      );
       return;
     }
 
     if (type === "next" && currentIndex < ids.length - 1) {
-      router.push(`/news/news-detail/${ids[currentIndex + 1]}`);
+      router.push(
+        `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
+          ids[currentIndex + 1]
+        }`
+      );
       return;
     }
   };

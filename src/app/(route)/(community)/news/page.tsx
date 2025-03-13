@@ -1,21 +1,40 @@
 "use client";
 
-import useSortedNewsDataList from "@/_hooks/useNews/useSortedPosts";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
-import React from "react";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import NewsTalkToolbar from "./_components/NewsTalkToolbar";
 import NewsListContent from "./_components/NewsListContent";
+import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 
 const Page = () => {
-  const { orderType, setOrderType, pageNum, onPageChange } = useNewsPageLogic();
+  const router = useRouter();
+
+  const {
+    orderType,
+    setOrderType,
+    timePeriod,
+    setTimePeriod,
+    page,
+    onPageChange,
+    searchType,
+    setSearchType,
+  } = useNewsPageLogic();
+
   const {
     data: newsListData,
     isLoading,
     isError,
   } = useSortedNewsDataList({
     orderType,
-    pageNum,
+    timePeriod,
+    searchType,
+    page,
   });
+
+  useEffect(() => {
+    router.push("/news/all");
+  }, [router]);
 
   console.log("NewsListData: ", newsListData);
 
@@ -24,6 +43,8 @@ const Page = () => {
       <NewsTalkToolbar
         setOrderType={setOrderType}
         onPageChange={onPageChange}
+        setTimeType={setTimePeriod}
+        setSearchType={setSearchType}
       />
 
       <NewsListContent

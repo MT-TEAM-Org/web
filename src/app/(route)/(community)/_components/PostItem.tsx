@@ -3,7 +3,9 @@
 import useGetBoardData from "@/_hooks/getBoardData";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import PostItemSkeleton from "./PostItemSkelton";
+import { CalculateTime } from "@/app/_components/CalculateTime";
+import { useSearchParams } from "next/navigation";
 
 interface BoardListItem {
   id: number;
@@ -15,15 +17,28 @@ interface BoardListItem {
   publicId: string;
   nickname: string;
   commentCount: number;
-  createDate: string;
-  lastModifiedDate: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-const PostItem = ({ boardType, categoryType }) => {
-  const { data: boardData } = useGetBoardData({
+interface PostItemProps {
+  boardType: string;
+  categoryType: string;
+}
+
+const PostItem = ({ boardType, categoryType }: PostItemProps) => {
+  const searchParams = useSearchParams();
+  const orderType = searchParams.get("orderType") || "CREATE";
+
+  const { data: boardData, isLoading } = useGetBoardData({
     boardType: boardType?.toUpperCase(),
     categoryType: categoryType,
+    orderType,
   });
+
+  if (isLoading) {
+    return <PostItemSkeleton />;
+  }
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
@@ -82,6 +97,12 @@ const PostItem = ({ boardType, categoryType }) => {
               <p className="text-Primary font-medium text-[12px] leading-[18px]">
                 [{data?.commentCount}]
               </p>
+              <span className="font-black text-[10px] leading-[18px] text-primary">
+                N
+              </span>
+              <span className="font-black text-[10px] leading-[18px] text-[#DC2800]">
+                H
+              </span>
             </div>
             <div className="flex font-semibold gap-1 items-center">
               <p className="text-[12px] leading-[18px] text-gray5">
@@ -91,7 +112,7 @@ const PostItem = ({ boardType, categoryType }) => {
                 {getKoreanCategoryType(data?.categoryType)}
               </span>
               <span className="font-medium text-[12px] leading-[18px] text-gray5">
-                1분 전
+                {CalculateTime(data?.createdAt)}
               </span>
               <span className="font-medium text-[12px] leading-[18px] text-gray5">
                 {data?.nickname}

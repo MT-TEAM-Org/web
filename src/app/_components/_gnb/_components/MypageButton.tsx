@@ -44,19 +44,19 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
     },
     {
       name: "내가 쓴 게시물",
-      link: "",
+      link: "/mypage/posts",
     },
     {
       name: "내가 쓴 댓글",
-      link: "",
+      link: "/mypage/comments",
     },
     {
       name: "내 정보 수정",
-      link: "",
+      link: "/mypage/edit-profile",
     },
     {
       name: "나의 문의내역",
-      link: "",
+      link: "inquiries",
     },
     {
       name: "로그아웃",

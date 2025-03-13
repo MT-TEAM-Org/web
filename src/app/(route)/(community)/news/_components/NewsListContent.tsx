@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import EmptyNews from "./EmptyNews";
 import NewsPostItem from "./NewsPostItem";
+import NewsPostItemSkeleton from "./NewsPostItemSkeleton";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 
 interface NewsListContentProps {
@@ -9,20 +12,28 @@ interface NewsListContentProps {
   isError: boolean;
 }
 
-const NewsListContent = ({
-  data,
-  isLoading,
-  isError,
-}: NewsListContentProps) => {
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error...</p>;
-  if (data.length === 0) return <EmptyNews />;
+const NewsListContent = ({ data, isLoading }: NewsListContentProps) => {
+  if (isLoading) {
+    return (
+      <div className="flex flex-col w-full">
+        {Array(10)
+          .fill(0)
+          .map((_, index) => (
+            <NewsPostItemSkeleton key={index} />
+          ))}
+      </div>
+    );
+  }
 
   return (
     <>
-      {data.map((newsItem) => (
-        <NewsPostItem key={newsItem.id} newsItem={newsItem} />
-      ))}
+      {data.length === 0 ? (
+        <EmptyNews />
+      ) : (
+        data.map((newsItem) => (
+          <NewsPostItem key={newsItem.id} newsItem={newsItem} />
+        ))
+      )}
     </>
   );
 };

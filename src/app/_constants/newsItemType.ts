@@ -4,4 +4,9 @@ export interface NewsItemType {
   category: string;
   thumbImg: string;
   postDate: string;
+  content: string;
+  source: string;
+  viewCount: number;
+  commentCount: number;
+  recommendCount: number;
 }

@@ -9,8 +9,6 @@ const DetailBanner = () => {
   const boardId = params.boardId as string;
   const { data, isLoading } = useGetBoardDetail(boardId);
 
-  console.log(data);
-
   const getBannerUrl = () => {
     const boardType = data?.data?.boardType?.toLowerCase();
 

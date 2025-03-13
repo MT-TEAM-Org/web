@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 const ToggleButton = () => {
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
 
   const handleToggle = () => {
     setIsActive(!isActive);
