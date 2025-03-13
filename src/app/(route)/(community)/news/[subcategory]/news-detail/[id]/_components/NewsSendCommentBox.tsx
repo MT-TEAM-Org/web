@@ -20,7 +20,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const textRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
   const { mutate: newsPostComment } = usePostComment();
-  const maxChars = 78;
+  const maxChars = selectedImage ? 70 : 78;
 
   const handleContentChange = () => {
     if (textRef.current) {
