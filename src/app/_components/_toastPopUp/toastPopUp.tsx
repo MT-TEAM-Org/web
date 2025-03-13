@@ -5,11 +5,11 @@ import CustomIcon from "../IconComponents/Icon";
 import { ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from "../ToastIcon";
 
 interface ToastPopUpProps {
+  visible: boolean;
   state: "success" | "info" | "warning" | "error";
   size: "PC" | "MOBILE";
   title: string;
   message: string;
-  duration?: number;
   onClose?: () => void;
 }
 
@@ -18,21 +18,25 @@ const ToastPopUp = ({
   size,
   title,
   message,
-  duration = 3000,
   onClose,
+  visible,
 }: ToastPopUpProps) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
-    if (duration) {
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-        if (onClose) onClose();
-      }, duration);
-
-      return () => clearTimeout(timer);
+    if (visible) {
+      setShouldRender(true);
     }
-  }, [duration, onClose]);
+    // visible이 false로 바뀌면 exit 애니메이션이 시작됨
+    // shouldRender는 애니메이션 완료 후에 변경됨
+  }, [visible]);
+
+  const handleExitComplete = () => {
+    // visible이 false일 때만 shouldRender를 false로 설정
+    if (!visible) {
+      setShouldRender(false);
+    }
+  };
 
   const stateIcons = {
     success: <SuccessIcon />,
@@ -65,7 +69,7 @@ const ToastPopUp = ({
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {visible && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -80,10 +84,7 @@ const ToastPopUp = ({
             <div>{title}</div>
             <div>{message}</div>
           </div>
-          <button
-            className="w-[24px] h-[24px]"
-            onClick={() => setIsVisible(false)}
-          >
+          <button className="w-[24px] h-[24px]" onClick={onClose}>
             <CustomIcon
               icon="CLOSE_X"
               className={stateConfig[state].textColor}

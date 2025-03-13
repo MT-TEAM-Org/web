@@ -10,6 +10,7 @@ export const ToastContainer = () => {
 
   return (
     <ToastPopUp
+      visible={toast.visible}
       state={toast.type}
       size={toast.size}
       title={toast.title}
