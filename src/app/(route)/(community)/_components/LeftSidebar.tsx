@@ -18,7 +18,7 @@ const LeftSidebar = () => {
           { name: "플레이 팁", id: 5, path: `/${basePath}/TIP` },
         ]
       : []),
-    { name: "개선요청", id: 6, path: `/${basePath}/SUGGESTION` },
+    { name: "개선요청", id: 6, path: `/customer/feedback` },
   ];
 
   const isCurrentPath = (boardPath: string) => {

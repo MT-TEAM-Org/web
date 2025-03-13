@@ -1,4 +1,4 @@
-import {heroui} from '@heroui/theme';
+import { heroui } from "@heroui/theme";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -6,7 +6,7 @@ export default {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@heroui/theme/dist/components/(skeleton|spinner).js"
+    "./node_modules/@heroui/theme/dist/components/(skeleton|spinner).js",
   ],
   theme: {
     extend: {
@@ -47,6 +47,13 @@ export default {
         black: "#000000",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        //토스트팝업 색상
+        toastSuccess: "#009AD4",
+        toastInfo: "#FFFFFF",
+        toastInfoBorder: "#FAFAFA",
+        toastWarning: "#FFFFFF",
+        toastWarningBorder: "#D1504B",
+        toastError: "#D1504B",
       },
     },
   },
