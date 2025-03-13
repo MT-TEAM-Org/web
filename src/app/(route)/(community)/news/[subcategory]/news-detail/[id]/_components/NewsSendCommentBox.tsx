@@ -1,10 +1,10 @@
 import usePostComment from "@/_hooks/fetcher/news/comment/usePostComment";
 import Send_icon from "@/app/_components/icon/Send_icon";
-import { Plus, X } from "lucide-react";
 import React, { useState, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import getUpload from "@/_hooks/getUpload";
+import Plus from "@/app/_components/icon/Plus";
 
 interface SendCommentBoxProps {
   id?: string;
@@ -42,10 +42,15 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
     } catch (error) {
       console.error("이미지 업로드 실패:", error);
     }
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const removeImage = () => {
     setSelectedImage(null);
+
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -53,7 +58,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
 
   const handleNewsComment = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputValue.trim()) return;
+    if (!inputValue.trim() && !selectedImage) return;
 
     newsPostComment(
       {
@@ -79,10 +84,47 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
     );
   };
 
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    const lines = value.split("\n");
+
+    if (lines.length > 2) {
+      setInputValue(lines.slice(0, 2).join("\n"));
+      return;
+    }
+
+    const maxChars = 78;
+    if (value.length > maxChars) {
+      setInputValue(value.slice(0, maxChars));
+      return;
+    }
+
+    setInputValue(value);
+  };
+
+  const textareaHeight = inputValue.length > 40 ? "h-[68px]" : "h-[40px]";
+
   return (
     <div className="w-full min-h-[72px] p-4 bg-white">
       <form onSubmit={handleNewsComment} className="w-full flex flex-col gap-2">
-        <div className="w-full flex gap-4 items-center justify-between">
+        {selectedImage && (
+          <div className="relative w-20 h-20">
+            <img
+              src={selectedImage}
+              alt="미리보기"
+              className="w-full h-full object-cover rounded-md"
+            />
+            <button
+              type="button"
+              onClick={removeImage}
+              className="absolute top-[-10px] right-[-5px] bg-black opacity-80 text-white text-xs px-1 rounded-full"
+            >
+              X
+            </button>
+          </div>
+        )}
+
+        <div className="w-full flex gap-4 place-items-end justify-between">
           <button
             type="button"
             onClick={handleFileSelect}
@@ -97,41 +139,27 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
             accept="image/*"
             className="hidden"
           />
-          <div className="relative w-full max-w-[576px]">
-            <input
-              type="text"
+          <div className="w-full max-w-[576px] flex justify-center items-center">
+            <textarea
+              maxLength={78}
+              rows={2}
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={handleTextChange}
               placeholder="상대를 존중하는 클린한 댓글을 남겨주세요! 추천은 센스!"
-              className="w-full h-10 rounded-[5px] border border-gray7 py-3 px-4 gap-4"
+              className={`w-full ${textareaHeight} rounded-[5px] border border-gray7 px-3 py-2 overflow-hidden resize-none placeholder:text-start placeholder:items-center placeholder:justify-center`}
             />
-            {selectedImage && (
-              <div className="absolute -bottom-16 left-0 right-0">
-                <div className="relative h-14 border rounded-md p-1 bg-gray-50">
-                  <img
-                    src={selectedImage}
-                    alt="선택된 이미지"
-                    className="h-full object-contain"
-                  />
-                  <button
-                    type="button"
-                    onClick={removeImage}
-                    className="absolute -top-2 -right-2 bg-gray-200 rounded-full p-1"
-                  >
-                    <X size={16} />
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
           <button
             type="submit"
             className="w-10 h-10 flex items-center justify-center rounded-[5px] border border-gray2 py-4 gap-2.5 bg-gray1"
           >
-            <Send_icon />
+            {inputValue || selectedImage ? (
+              <Send_icon fill="#00ADEE" />
+            ) : (
+              <Send_icon />
+            )}
           </button>
         </div>
-        {selectedImage && <div className="h-16"></div>}
       </form>
     </div>
   );

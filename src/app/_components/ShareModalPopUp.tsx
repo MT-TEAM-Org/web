@@ -33,11 +33,11 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
       src: "/Share_facebook.png",
       alt: "Share to Facebook",
       onClick: () => {
-        const popupWidth = 655;
+        const popupWidth = 1000;
         const popupHeight = 520;
         const left = (window.innerWidth - popupWidth) / 2 + window.screenX;
         const top =
-          (window.innerHeight - popupHeight) / 2 + window.screenY + 50; // 기존보다 50px 아래
+          (window.innerHeight - popupHeight) / 2 + window.screenY + 50;
 
         window.open(
           `http://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
@@ -55,7 +55,7 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
         const popupHeight = 700;
         const left = (window.innerWidth - popupWidth) / 2 + window.screenX;
         const top =
-          (window.innerHeight - popupHeight) / 2 + window.screenY + 50; // 기존보다 50px 아래
+          (window.innerHeight - popupHeight) / 2 + window.screenY + 50;
 
         window.open(
           `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${message}`,
@@ -73,7 +73,7 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
         const popupHeight = 700;
         const left = (window.innerWidth - popupWidth) / 2 + window.screenX;
         const top =
-          (window.innerHeight - popupHeight) / 2 + window.screenY + 50; // 기존보다 50px 아래
+          (window.innerHeight - popupHeight) / 2 + window.screenY + 50;
 
         window.open(
           `https://share.naver.com/web/shareView?url=${encodedUrl}&title=${message}`,

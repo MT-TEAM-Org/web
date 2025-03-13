@@ -127,11 +127,11 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
             alt="comment img"
             width={200}
             height={200}
-            className="object-cover"
+            className="w-[200px] h-[200px] object-cover"
           />
         )}
 
-        <p className="flex text-[14px] leading-5 text-gray7 font-medium">
+        <p className="flex text-[14px] leading-5 text-gray7 font-medium overflow-hidden text-ellipsis whitespace-pre-wrap max-h-[40px]">
           {data?.comment}
         </p>
       </div>

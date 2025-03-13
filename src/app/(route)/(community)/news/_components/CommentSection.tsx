@@ -72,14 +72,14 @@ const CommentSection = ({
         </div>
 
         <div className="max-w-full h-auto">
-          {filteredComments.length === 0 ? (
+          {filteredComments.length && bestComments.length === 0 ? (
             <EmptyNewsComment />
           ) : (
             filteredComments.map((commentItem: CommentContent) => (
               <NewsCommentItem
                 data={commentItem}
                 bestComment={false}
-                key={`regular-${commentItem.newsCommentId}`}
+                key={`${commentItem.newsCommentId}`}
               />
             ))
           )}
