@@ -7,7 +7,6 @@ import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
 import { Suspense, use, useEffect, useRef } from "react";
 import useGetInquiriesDetail from "@/_hooks/useMypage/useGetInquiriesDetail";
-import useDeleteInquiriesDetail from "@/_hooks/useMypage/useDeleteInquiriesDetail";
 import { useRouter } from "next/navigation";
 import MyPageInquiriesList from "../_components/MyPageInquiriesList";
 import { useInquiryPostIdStore } from "@/utils/Store";
@@ -35,7 +34,6 @@ const InquirieDetail = ({
   const { id } = unwrappedParams;
   const router = useRouter();
   const { data, isLoading } = useGetInquiriesDetail(id);
-  const { mutate: deleteInquiriesDetail } = useDeleteInquiriesDetail();
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);
   const { addInquiryPostId, removeInquiryPostId } = useInquiryPostIdStore();
@@ -86,18 +84,6 @@ const InquirieDetail = ({
     { text: "게시글 맨위로", icon: Double_arrow_up, onClick: scrollToTop },
   ];
 
-  const handleDelete = () => {
-    deleteInquiriesDetail(id, {
-      onSuccess: () => {
-        removeInquiryPostId(Number(id));
-        router.replace("/mypage/inquiries");
-      },
-      onError: () => {
-        alert("삭제에 실패했습니다.");
-      },
-    });
-  };
-
   const buttonStyle =
     "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-gray3 pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px] text-7";
   return (
@@ -120,14 +106,6 @@ const InquirieDetail = ({
             <span>{inquirieDetail?.nickname}</span>
             <span>IP {inquirieDetail?.clientIp}</span>
           </div>
-        </div>
-        <div className="flex justify-end">
-          <button
-            onClick={handleDelete}
-            className="flex justify-center items-center w-[49px] h-[32px] rounded-[5px] border-1 border-gray3 px-[9px] py-[12px] text-[14px] text-gray7"
-          >
-            삭제
-          </button>
         </div>
         <div className="h-[1px] border"></div>
         <p className="min-h-[48px] leading-[24px] text-gray7">
