@@ -1,7 +1,5 @@
 "use client";
 
-import { useToast } from "@/_hooks/useToast";
-import ToastPopUp from "../_toastPopUp/toastPopUp";
 import Header from "./Header";
 import Navbar from "./Navbar";
 
