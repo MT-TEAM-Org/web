@@ -72,7 +72,7 @@ const CommentSection = ({
         </div>
 
         <div className="max-w-full h-auto">
-          {filteredComments.length && bestComments.length === 0 ? (
+          {filteredComments.length === 0 && bestComments.length === 0 ? (
             <EmptyNewsComment />
           ) : (
             filteredComments.map((commentItem: CommentContent) => (

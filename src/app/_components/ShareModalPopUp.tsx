@@ -29,24 +29,6 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
 
   const socialMedia = [
     {
-      name: "facebook",
-      src: "/Share_facebook.png",
-      alt: "Share to Facebook",
-      onClick: () => {
-        const popupWidth = 1000;
-        const popupHeight = 520;
-        const left = (window.innerWidth - popupWidth) / 2 + window.screenX;
-        const top =
-          (window.innerHeight - popupHeight) / 2 + window.screenY + 50;
-
-        window.open(
-          `http://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
-          "facebook",
-          `toolbar=0,status=0,width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
-        );
-      },
-    },
-    {
       name: "x",
       src: "/Share_x.png",
       alt: "Share to X",
@@ -61,6 +43,24 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
           `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${message}`,
           "x",
           `width=${popupWidth},height=${popupHeight},resizable=no,left=${left},top=${top}`
+        );
+      },
+    },
+    {
+      name: "facebook",
+      src: "/Share_facebook.png",
+      alt: "Share to Facebook",
+      onClick: () => {
+        const popupWidth = 1000;
+        const popupHeight = 520;
+        const left = (window.innerWidth - popupWidth) / 2 + window.screenX;
+        const top =
+          (window.innerHeight - popupHeight) / 2 + window.screenY + 50;
+
+        window.open(
+          `http://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+          "facebook",
+          `toolbar=0,status=0,width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
         );
       },
     },
@@ -85,11 +85,11 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
   ];
 
   const buttonBaseStyle =
-    "w-[160px] min-h-[48px] rounded-[5px] py-4 px-5 flex gap-[10px] font-bold text-[16px] justify-center";
+    "w-[160px] min-h-[40px] rounded-[5px] py-4 px-5 flex gap-[10px] font-bold text-[16px] items-center justify-center";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-[408px] min-h-[346px] rounded-[10px] p-10 flex flex-col gap-6 bg-white shadow-md relative">
+      <div className="w-[408px] min-h-[274px] rounded-[10px] p-10 flex flex-col gap-6 bg-white shadow-md relative">
         <p className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-center">
           공유하기
         </p>
@@ -106,15 +106,7 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
             />
           ))}
         </div>
-        <div className="w-full h-[48px] rounded-[5px] border flex justify-between p-3 border-gray3 items-center">
-          <div className="w-full min-h-[28px] flex gap-4 items-center justify-start">
-            <LinkIcon />
-            <p className="font-medium text-[18px] leading-7 tracking-[-0.04em] text-gray8 truncate">
-              {url}
-            </p>
-          </div>
-        </div>
-        <div className="w-full min-h-[48px] flex gap-2">
+        <div className="w-full h-[40px] flex gap-2">
           <button
             onClick={closeModal}
             className={`${buttonBaseStyle} bg-white border border-gray3`}
