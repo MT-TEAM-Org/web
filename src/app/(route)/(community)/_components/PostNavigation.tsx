@@ -21,8 +21,8 @@ const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
   const { data: cachedData } = useSortedNewsDataList({
     category: "BASEBALL",
     orderType: "DATE",
-    pageNum: 1,
-    timeType: "DAILY",
+    page: 1,
+    timePeriod: "DAILY",
   });
 
   console.log("cachedData: ", cachedData);
@@ -48,9 +48,7 @@ const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
     const currentIndex = ids.indexOf(num);
     if (currentIndex === -1) return;
 
-    // 현재 경로에서 카테고리 추출
     const pathParts = pathname.split("/");
-    // news/baseball/news-detail/123 형태에서 'baseball' 추출
     const categoryPath =
       pathParts.length >= 3 &&
       pathParts[1] === "news" &&

@@ -1,6 +1,5 @@
 "use client";
 
-import useGetBoardDetail from "@/_hooks/getBoardDetail";
 import Image from "next/image";
 import parse from "html-react-parser";
 import { Spinner, user } from "@heroui/react";
@@ -12,6 +11,7 @@ import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import usePostRecommend from "@/_hooks/fetcher/board/usePostRecommend";
 import useDeleteRecommendPost from "@/_hooks/fetcher/board/useDeleteRecommnedPost";
+import useGetBoardDetail from "@/_hooks/fetcher/board/useGetBoardDetail";
 
 interface BoardDetailProps {
   boardId: string;
@@ -86,8 +86,10 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
 
   const checkRecommned = () => {
     if (boardDetailData?.data?.isRecommended) {
+      console.log("추천취소");
       handleDeleteRecommend();
     } else {
+      console.log("추천");
       handleRecommend();
     }
   };
