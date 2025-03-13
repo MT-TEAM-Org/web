@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import CustomIcon from "../IconComponents/Icon";
 import { ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from "../ToastIcon";
 
@@ -22,23 +23,16 @@ const ToastPopUp = ({
 }: ToastPopUpProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
-  const handleClose = () => {
-    setIsVisible(false);
-    if (onClose) onClose();
-  };
-  // useEffect(() => {
-  //   if (duration) {
-  //     const timer = setTimeout(() => {
-  //       handleClose();
-  //     }, duration);
+  useEffect(() => {
+    if (duration) {
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+        if (onClose) onClose();
+      }, duration);
 
-  //     return () => {
-  //       clearTimeout(timer);
-  //     };
-  //   }
-  // }, [duration]);
-
-  if (!isVisible) return null;
+      return () => clearTimeout(timer);
+    }
+  }, [duration, onClose]);
 
   const stateIcons = {
     success: <SuccessIcon />,
@@ -67,21 +61,37 @@ const ToastPopUp = ({
   };
 
   const defaultToastStyle =
-    "fixed top-[160px] left-1/2 transform -translate-x-1/2 flex gap-x-[16px] justify-center items-center max-w-[640px] min-h-[56px] rounded-[10px] px-[16px] py-[8px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.1)]";
+    "fixed top-[160px] inset-x-0 mx-auto flex gap-x-[16px] justify-center items-center max-w-[640px] min-h-[56px] rounded-[10px] px-[16px] py-[8px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.1)]";
 
   return (
-    <div className={`${defaultToastStyle} ${stateConfig[state].style}`}>
-      {stateIcons[state]}
-      <div
-        className={`flex gap-x-[16px] w-[512px] min-h-[26px] ${stateConfig[state].textColor}`}
-      >
-        <div>{title}</div>
-        <div>{message}</div>
-      </div>
-      <button className="w-[24px] h-[24px]" onClick={handleClose}>
-        <CustomIcon icon="CLOSE_X" className={stateConfig[state].textColor} />
-      </button>
-    </div>
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+          className={`${defaultToastStyle} ${stateConfig[state].style}`}
+        >
+          {stateIcons[state]}
+          <div
+            className={`flex gap-x-[16px] w-[512px] min-h-[26px] ${stateConfig[state].textColor}`}
+          >
+            <div>{title}</div>
+            <div>{message}</div>
+          </div>
+          <button
+            className="w-[24px] h-[24px]"
+            onClick={() => setIsVisible(false)}
+          >
+            <CustomIcon
+              icon="CLOSE_X"
+              className={stateConfig[state].textColor}
+            />
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
