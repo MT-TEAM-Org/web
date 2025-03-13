@@ -1,11 +1,35 @@
 "use client";
+import { useMutation } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
+import { api } from "@/_hooks/api";
 
 const MypageLeftSidebar = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
+
+  const fetchLogout = async () => {
+    const response = await api.post(
+      "/logout",
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return response;
+  };
+
+  const { mutate: logout, isPending: logoutIsPending } = useMutation({
+    mutationFn: fetchLogout,
+    onSuccess: () => {
+      localStorage.removeItem("accessToken");
+      queryClient.resetQueries({ queryKey: ["authCheck"] });
+      router.push("/");
+    },
+  });
 
   const boardList = [
     { name: "마이페이지", id: 0, path: `/${basePath}` },
@@ -13,7 +37,7 @@ const MypageLeftSidebar = () => {
     { name: "내가 쓴 댓글", id: 2, path: `/${basePath}/comments` },
     { name: "내 정보 수정", id: 4, path: `/${basePath}/edit-profile` },
     { name: "나의 문의내역", id: 3, path: `/${basePath}/inquiries` },
-    { name: "개선요청", id: 5, path: `/${basePath}/feedback` },
+    { name: "개선요청", id: 5, path: `/customer/feedback` },
     { name: "로그아웃", id: 6, path: `/${basePath}/logout` },
   ];
 
@@ -26,7 +50,11 @@ const MypageLeftSidebar = () => {
   };
 
   const handleRoute = (path: string) => {
-    if (path === `/${basePath}/logout`) return;
+    if (path === `/${basePath}/logout`) {
+      logout();
+      router.replace("/");
+      return;
+    }
     router.push(path);
   };
 
