@@ -77,8 +77,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     }
   };
 
-  console.log("newsInfoData: ", newsInfoData);
-
   return (
     <>
       {isLoading ? (

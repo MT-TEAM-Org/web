@@ -45,6 +45,9 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
           queryClient.invalidateQueries({
             queryKey: ["getNewsComment", String(id)],
           });
+          queryClient.invalidateQueries({
+            queryKey: ["getNewsInfo", String(id)],
+          });
         },
         onError: (error) => {
           console.error("추천 실패:", error);
@@ -55,6 +58,9 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
         onSuccess: () => {
           queryClient.invalidateQueries({
             queryKey: ["getNewsComment", String(id)],
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["getNewsInfo", String(id)],
           });
         },
         onError: (error) => {
