@@ -5,7 +5,7 @@ const getMyPageData = async () => {
     `${process.env.NEXT_PUBLIC_API_URL}api/my-page`,
     {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        Authorization: localStorage.getItem("accessToken"),
       },
     }
   );
