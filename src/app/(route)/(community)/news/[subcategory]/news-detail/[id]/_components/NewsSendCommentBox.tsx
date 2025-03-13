@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import getUpload from "@/_hooks/getUpload";
 import Plus from "@/app/_components/icon/Plus";
+import Cancel_icon from "@/app/_components/icon/Cancel_icon";
 
 interface SendCommentBoxProps {
   id?: string;
@@ -149,7 +150,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
           />
           <div ref={containerRef} className="flex-grow max-w-[576px] relative">
             <div
-              className={`w-full rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-2 ${getEditorHeight()}`}
+              className={`w-full rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-4 ${getEditorHeight()}`}
               onClick={handleEditorClick}
             >
               {selectedImage && (
@@ -164,7 +165,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
                     onClick={removeImage}
                     className="w-4 h-4 absolute top-[-8px] right-[-8px] bg-black opacity-70 text-white text-xs flex items-center justify-center rounded-full"
                   >
-                    X
+                    <Cancel_icon />
                   </button>
                 </div>
               )}
