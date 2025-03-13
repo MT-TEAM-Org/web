@@ -64,3 +64,67 @@ export const useEditStore = create<EditState>((set) => ({
   resetEditState: () =>
     set({ isEditMode: false, boardId: null, boardData: null }),
 }));
+
+type ToastType = "success" | "info" | "warning" | "error";
+type ToastSize = "PC" | "MOBILE";
+
+interface Toast {
+  visible: boolean;
+  type: ToastType;
+  size: ToastSize;
+  title: string;
+  message: string;
+}
+
+interface ToastStore {
+  toast: Toast;
+  showToast: (
+    type: ToastType,
+    title: string,
+    message: string,
+    size?: ToastSize
+  ) => void;
+  hideToast: () => void;
+}
+
+const initialState: Toast = {
+  visible: false,
+  type: "success",
+  size: "PC",
+  title: "",
+  message: "",
+};
+
+export const useToastStore = create<ToastStore>((set) => ({
+  toast: initialState,
+
+  showToast: (type, title, message, size = "PC") => {
+    set({
+      toast: {
+        visible: true,
+        type,
+        size,
+        title,
+        message,
+      },
+    });
+
+    setTimeout(() => {
+      set((state) => ({
+        toast: {
+          ...state.toast,
+          visible: false,
+        },
+      }));
+    }, 3000);
+  },
+
+  hideToast: () => {
+    set((state) => ({
+      toast: {
+        ...state.toast,
+        visible: false,
+      },
+    }));
+  },
+}));
