@@ -11,11 +11,15 @@ const usePostComment = () => {
       postNewsComment({ newsId, comment, imgUrl }),
     retry: 1,
     onSuccess: () => {
-      toast.success("댓글 추가 성공", "댓글 추가 성공")
+      toast.success("댓글 추가 성공", "")
     },
-    onError: (error: any) => {
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        toast.error("댓글 추가 실패", "로그인이 필요한 서비스입니다.")
+    onError: (error) => {
+      if (axios.isAxiosError(error) && error.response) {
+        const errorMessage =
+          error.response.data.message || "알 수 없는 오류가 발생했습니다.";
+        toast.error("댓글 추가 실패", errorMessage);
+      } else {
+        toast.error("댓글 추가 실패", "댓글 추가 중 오류가 발생했습니다.");
       }
     },
   });

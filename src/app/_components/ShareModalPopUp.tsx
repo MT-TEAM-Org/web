@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
-import { LinkIcon } from "./icon/LinkIcon";
 import { useToast } from "@/_hooks/useToast";
 
 const ShareModalPopUp = ({ setActiveModal, url }) => {

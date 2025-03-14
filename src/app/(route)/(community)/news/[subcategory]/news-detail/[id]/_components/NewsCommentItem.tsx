@@ -13,6 +13,7 @@ import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 import useCommentDelete from "@/_hooks/fetcher/news/comment/useCommentDelete";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import DeleteCommentModalPopUp from "@/app/_components/DeleteCommentModalPopUp";
+import Single_logo from "@/app/_components/icon/Single_logo";
 
 interface CommentItemProps {
   className?: string;
@@ -27,6 +28,7 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
   const params = useParams();
   const [activeModal, setActiveModal] = useState(false);
   const [activeDeleteModal, setActiveDeleteModal] = useState(false);
+  console.log("data: ", data);
 
   const id = params.id;
 
@@ -49,9 +51,6 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
             queryKey: ["getNewsInfo", String(id)],
           });
         },
-        onError: (error) => {
-          console.error("추천 실패:", error);
-        },
       });
     } else if (data?.recommend) {
       mutateDeleteRecommend(data?.newsCommentId, {
@@ -62,9 +61,6 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
           queryClient.invalidateQueries({
             queryKey: ["getNewsInfo", String(id)],
           });
-        },
-        onError: (error) => {
-          console.error("추천 삭제 실패:", error);
         },
       });
     }
@@ -80,9 +76,6 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
           queryKey: ["getNewsInfo", String(id)],
         });
       },
-      onError: (error) => {
-        console.error("댓글 삭제 실패:", error);
-      },
     });
   };
 
@@ -97,7 +90,7 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
   const divStyle =
     "w-full h-auto flex flex-col border-b border-gray1 gap-3 p-3 bg-white justify-start";
   const recommendDivStyle =
-    data?.recommendCount >= 1 ? "min-w-[70px]" : "w-[55px]";
+    data?.recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
 
   return (
     <div className={bestComment ? divStyle + " !bg-[#F8FDFF]" : divStyle}>
@@ -145,10 +138,15 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
       <div className="flex gap-2">
         <button
           onClick={handleNewsComment}
-          className={`${recommendDivStyle} h-[24px] rounded-[5px] border border-gray3 p-2 flex gap-1 justify-center items-center text-xs leading-[18px] font-medium tracking-[-0.02em]`}
+          // test
+          className={`${recommendDivStyle} h-[24px] rounded-[5px] border border-gray3 p-1 flex gap-1 justify-center items-center text-[12px] leading-[18px] font-medium tracking-[-0.02em]`}
         >
-          <Single_logo_color />
-          <div className="flex gap-[2px]">
+          <Single_logo width="12" height="12" fill="#00ADEE" />
+          <div
+            className={`flex gap-[2px] ${
+              data?.recommend && "text-[#00ADEE] bg-white border-[#00ADEE]"
+            }`}
+          >
             추천
             {data?.recommendCount >= 1 && <span>{data?.recommendCount}</span>}
           </div>
