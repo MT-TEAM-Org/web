@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import DiscountItemSkeleton from "./discountItemSkeleton";
+import DiscountItemSkeleton from "./DiscountItemSkeleton";
 import Link from "next/link";
 
 interface DiscountItemProps {
@@ -12,19 +12,27 @@ const formatNumber = (number: number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const discountItem = ({ gameDiscountData, isLoading }: DiscountItemProps) => {
+const DiscountItem = ({ gameDiscountData, isLoading }: DiscountItemProps) => {
   return isLoading ? (
     <DiscountItemSkeleton />
   ) : (
     <Link href={gameDiscountData?.link} target="blank">
       <div className="w-[298px] min-h-[84px] flex items-center border border-gray2 rounded-[10px] p-3 gap-3 cursor-pointer">
-        <Image
-          src={gameDiscountData?.thumbImg}
-          alt={gameDiscountData?.title}
-          width={60}
-          height={60}
-          className="min-w-[60px] min-h-[60px] object-cover rounded-[3.75px]"
-        />
+        <div
+          style={{
+            width: 60,
+            height: 60,
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          <Image
+            src={gameDiscountData?.thumbImg}
+            alt={gameDiscountData?.title}
+            fill
+            style={{ objectFit: "cover" }}
+          />
+        </div>
         <div className="max-w-[202px] min-h-[58px]">
           <p className="text-[12px] font-[700] leading-[18px] text-new">
             {gameDiscountData?.discountPercent}
@@ -41,4 +49,4 @@ const discountItem = ({ gameDiscountData, isLoading }: DiscountItemProps) => {
   );
 };
 
-export default discountItem;
+export default DiscountItem;

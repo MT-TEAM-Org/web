@@ -1,10 +1,10 @@
 import getDiscountGame from "@/services/main/mainRightBar/getDiscountGame";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetGameDiscount = () => {
+const useGetGameDiscount = ({ pageNum }: { pageNum: number }) => {
   return useQuery({
-    queryKey: ["gameDiscount"],
-    queryFn: getDiscountGame,
+    queryKey: ["gameDiscount", pageNum],
+    queryFn: () => getDiscountGame({ pageNum }),
   });
 };
 
