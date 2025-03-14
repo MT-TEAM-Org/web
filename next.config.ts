@@ -4,7 +4,12 @@ const nextConfig: NextConfig = {
   reactStrictMode: false,
 
   images: {
-    domains: ["imgnews.pstatic.net", "54.180.104.178"],
+    domains: [
+      "imgnews.pstatic.net",
+      "54.180.104.178",
+      "rs.nxfs.nexon.com",
+      "shared.fastly.steamstatic.com",
+    ],
     remotePatterns: [
       {
         protocol: "http",

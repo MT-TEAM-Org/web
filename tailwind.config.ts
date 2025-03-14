@@ -1,4 +1,4 @@
-import {heroui} from '@heroui/theme';
+import { heroui } from "@heroui/theme";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -6,7 +6,7 @@ export default {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@heroui/theme/dist/components/(skeleton|spinner).js"
+    "./node_modules/@heroui/theme/dist/components/(skeleton|spinner).js",
   ],
   theme: {
     extend: {
@@ -31,6 +31,7 @@ export default {
         bg4: "#DCDFFD",
         bg5: "#D0D4FC",
         warning: "#D1504B",
+        new: "#DC2800",
         alert: "F89E21",
         ing: "#04C52E",
         finish: "#0066FF",
