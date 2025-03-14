@@ -28,7 +28,6 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
   const params = useParams();
   const [activeModal, setActiveModal] = useState(false);
   const [activeDeleteModal, setActiveDeleteModal] = useState(false);
-  console.log("data: ", data);
 
   const id = params.id;
 
@@ -50,6 +49,9 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
           queryClient.invalidateQueries({
             queryKey: ["getNewsInfo", String(id)],
           });
+          queryClient.invalidateQueries({
+            queryKey: ["getBestComment", String(id)],
+          });
         },
       });
     } else if (data?.recommend) {
@@ -60,6 +62,9 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
           });
           queryClient.invalidateQueries({
             queryKey: ["getNewsInfo", String(id)],
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["getBestComment", String(id)],
           });
         },
       });
@@ -138,7 +143,6 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
       <div className="flex gap-2">
         <button
           onClick={handleNewsComment}
-          // test
           className={`${recommendDivStyle} h-[24px] rounded-[5px] border border-gray3 p-1 flex gap-1 justify-center items-center text-[12px] leading-[18px] font-medium tracking-[-0.02em]`}
         >
           <Single_logo width="12" height="12" fill="#00ADEE" />
