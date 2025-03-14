@@ -21,22 +21,15 @@ const ToastPopUp = ({
   onClose,
   visible,
 }: ToastPopUpProps) => {
-  const [shouldRender, setShouldRender] = useState(false);
+  const [toastKey, setToastKey] = useState(1);
+
+  console.log(toastKey);
 
   useEffect(() => {
     if (visible) {
-      setShouldRender(true);
+      setToastKey((prev) => prev + 1);
     }
-    // visible이 false로 바뀌면 exit 애니메이션이 시작됨
-    // shouldRender는 애니메이션 완료 후에 변경됨
   }, [visible]);
-
-  const handleExitComplete = () => {
-    // visible이 false일 때만 shouldRender를 false로 설정
-    if (!visible) {
-      setShouldRender(false);
-    }
-  };
 
   const stateIcons = {
     success: <SuccessIcon />,
@@ -68,13 +61,24 @@ const ToastPopUp = ({
     "fixed top-[160px] inset-x-0 mx-auto flex gap-x-[16px] justify-center items-center max-w-[640px] min-h-[56px] rounded-[10px] px-[16px] py-[8px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.1)]";
 
   return (
-    <AnimatePresence>
+    <AnimatePresence
+      mode="wait"
+      onExitComplete={() => {
+        if (!visible && onClose) {
+          onClose();
+        }
+      }}
+    >
       {visible && (
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          key={toastKey}
+          initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
+          exit={{ opacity: 0, y: -100 }}
+          transition={{
+            duration: 0.3,
+            ease: "easeInOut",
+          }}
           className={`${defaultToastStyle} ${stateConfig[state].style}`}
         >
           {stateIcons[state]}
@@ -84,7 +88,12 @@ const ToastPopUp = ({
             <div>{title}</div>
             <div>{message}</div>
           </div>
-          <button className="w-[24px] h-[24px]" onClick={onClose}>
+          <button
+            className="w-[24px] h-[24px]"
+            onClick={() => {
+              if (onClose) onClose();
+            }}
+          >
             <CustomIcon
               icon="CLOSE_X"
               className={stateConfig[state].textColor}
