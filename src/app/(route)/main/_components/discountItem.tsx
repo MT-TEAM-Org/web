@@ -1,21 +1,17 @@
 import React from "react";
 import Image from "next/image";
-import DiscountItemSkeleton from "./DiscountItemSkeleton";
 import Link from "next/link";
 
 interface DiscountItemProps {
   gameDiscountData: any;
-  isLoading: boolean;
 }
 
 const formatNumber = (number: number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-const DiscountItem = ({ gameDiscountData, isLoading }: DiscountItemProps) => {
-  return isLoading ? (
-    <DiscountItemSkeleton />
-  ) : (
+const DiscountItem = ({ gameDiscountData }: DiscountItemProps) => {
+  return (
     <Link href={gameDiscountData?.link} target="blank">
       <div className="w-[298px] min-h-[84px] flex items-center border border-gray2 rounded-[10px] p-3 gap-3 cursor-pointer">
         <div

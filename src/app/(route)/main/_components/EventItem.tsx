@@ -1,17 +1,13 @@
 import React from "react";
 import Image from "next/image";
-import EventItemSkeleton from "./EventItemSkeleton";
 import Link from "next/link";
 
 interface EventItemProps {
   gameEventData: any;
-  isLoading: boolean;
 }
 
-const EventItem = ({ gameEventData, isLoading }: EventItemProps) => {
-  return isLoading ? (
-    <EventItemSkeleton />
-  ) : (
+const EventItem = ({ gameEventData }: EventItemProps) => {
+  return (
     <Link href={gameEventData?.link} target="_blank">
       <div className="w-[298px] min-h-[84px] flex items-center border border-gray2 rounded-[10px] p-3 gap-3 cursor-pointer">
         <Image
