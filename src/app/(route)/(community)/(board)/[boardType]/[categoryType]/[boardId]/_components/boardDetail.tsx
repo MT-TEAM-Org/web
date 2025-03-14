@@ -86,10 +86,8 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
 
   const checkRecommned = () => {
     if (boardDetailData?.data?.isRecommended) {
-      console.log("추천취소");
       handleDeleteRecommend();
     } else {
-      console.log("추천");
       handleRecommend();
     }
   };
