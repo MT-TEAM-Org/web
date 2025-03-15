@@ -10,7 +10,7 @@ const useDeleteCommentRecommend = () => {
     mutationFn: (newsCommentId: number) => deleteNewsComment(newsCommentId),
     retry: 1,
     onSuccess: () => {
-      toast.success("댓글 추천 삭제 성공", "댓글 추천이 삭제되었습니다.")
+      toast.success("댓글 추천이 삭제되었습니다.", "")
     },
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {

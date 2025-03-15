@@ -10,7 +10,7 @@ const usePatchRecommend = () => {
     mutationFn: (newsId: string) => patchNewsRecommend(newsId),
     retry: 1,
     onSuccess: () => {
-      toast.success("뉴스 추천 성공", "")
+      toast.success("뉴스 추천이 완료되었습니다.", "")
     },
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {

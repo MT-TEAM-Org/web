@@ -10,7 +10,7 @@ const usePatchCommentRecommend = () => {
     mutationFn: (newsCommentId: number) => patchNewsComment(newsCommentId),
     retry: 1,
     onSuccess: () => {
-      toast.success("댓글 추천 성공", "댓글 추천 성공했습니다.");
+      toast.success("댓글 추천이 완료되었습니다.", "");
     },
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {
