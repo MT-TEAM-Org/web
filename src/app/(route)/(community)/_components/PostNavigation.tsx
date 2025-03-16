@@ -25,8 +25,6 @@ const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
     timePeriod: "DAILY",
   });
 
-  console.log("cachedData: ", cachedData);
-
   const ids = Array.isArray(cachedData)
     ? cachedData.map((item) => item.id)
     : [];

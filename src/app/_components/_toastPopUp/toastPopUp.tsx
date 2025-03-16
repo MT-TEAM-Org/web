@@ -59,7 +59,7 @@ const ToastPopUp = ({
 
   const defaultToastStyle =
     "fixed top-[160px] inset-x-0 mx-auto flex gap-x-[16px] justify-center items-center max-w-[640px] min-h-[56px] rounded-[10px] px-[16px] py-[8px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.1)]";
-
+  //TODO: 종료 애니메이션이 작동 안 됨 / 애니메이션 효과 추후 수정 필요
   return (
     <AnimatePresence
       mode="wait"

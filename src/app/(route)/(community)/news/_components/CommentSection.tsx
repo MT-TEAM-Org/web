@@ -4,18 +4,33 @@ import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import React, { useRef } from "react";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import EmptyNewsComment from "./EmptyNewsComment";
-import { CommentContent } from "@/app/_constants/newsCommentType";
 import { useQueryClient } from "@tanstack/react-query";
-import NewsCommentItem from "@/app/(route)/(community)/news/[subcategory]/news-detail/[id]/_components/NewsCommentItem";
+import NewsCommentItem from "../[subcategory]/news-detail/[id]/_components/NewsCommentItem";
+import {
+  NewsCommentList,
+  NewsCommentResponse,
+} from "@/app/_constants/newsCommentType";
+import { NewsInfoDataType } from "@/app/_constants/newsInfoType";
 
-const CommentSection = ({ newsInfoData, newsCommentData }) => {
-  const commentBarRef = useRef(null);
+type NewsCommentDataType = NewsCommentResponse | NewsCommentList;
+
+interface CommentSectionProps {
+  newsInfoData?: NewsInfoDataType;
+  newsCommentData?: NewsCommentDataType;
+  newsBestCommentData?: NewsCommentDataType;
+}
+
+const CommentSection = ({
+  newsInfoData,
+  newsCommentData,
+  newsBestCommentData,
+}: CommentSectionProps) => {
+  const commentBarRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
 
-  // useRef 사용해서 댓글 제일 위로 버튼 구현
   const onHandleToTop = () => {
     if (commentBarRef.current) {
-      const navBarHeight = 130; // 네비게이션 바 높이
+      const navBarHeight = 130;
       const y =
         commentBarRef.current.getBoundingClientRect().top +
         window.scrollY -
@@ -33,26 +48,43 @@ const CommentSection = ({ newsInfoData, newsCommentData }) => {
     });
   };
 
+  const bestComments: NewsCommentList = Array.isArray(newsBestCommentData)
+    ? newsBestCommentData
+    : newsBestCommentData?.list?.content || newsBestCommentData?.content || [];
+  const bestCommentIds = bestComments.map((item) => item.newsCommentId);
+
+  const commentsList: NewsCommentList = Array.isArray(newsCommentData)
+    ? newsCommentData
+    : newsCommentData?.list?.content || newsCommentData?.content || [];
+  const filteredComments = commentsList.filter(
+    (commentItem) => !bestCommentIds.includes(commentItem.newsCommentId)
+  );
+
   return (
     <>
       <div className="w-full h-auto" ref={commentBarRef}>
         <CommentBar data={newsInfoData} onRefresh={handleRefresh} />
 
+        <div className="w-full h-auto">
+          {bestComments.length > 0 &&
+            bestComments.map((bestCommentItem) => (
+              <NewsCommentItem
+                data={bestCommentItem}
+                bestComment={true}
+                key={`best-${bestCommentItem.newsCommentId}`}
+              />
+            ))}
+        </div>
+
         <div className="max-w-full h-auto">
-          {!newsCommentData ||
-          (!newsCommentData.list?.content && !newsCommentData.content) ||
-          newsCommentData.list?.content?.length === 0 ||
-          newsCommentData.content?.length === 0 ? (
+          {filteredComments.length === 0 && bestComments.length === 0 ? (
             <EmptyNewsComment />
           ) : (
-            (
-              newsCommentData.list?.content ||
-              newsCommentData.content ||
-              []
-            ).map((commentItem: CommentContent) => (
+            filteredComments.map((commentItem) => (
               <NewsCommentItem
                 data={commentItem}
-                key={commentItem.newsCommentId}
+                bestComment={false}
+                key={`${commentItem.newsCommentId}`}
               />
             ))
           )}
