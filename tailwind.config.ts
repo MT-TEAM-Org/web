@@ -48,6 +48,13 @@ export default {
         black: "#000000",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        //토스트팝업 색상
+        toastSuccess: "#009AD4",
+        toastInfo: "#FFFFFF",
+        toastInfoBorder: "#FAFAFA",
+        toastWarning: "#FFFFFF",
+        toastWarningBorder: "#D1504B",
+        toastError: "#D1504B",
       },
     },
   },

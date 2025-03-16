@@ -2,14 +2,7 @@
 
 import axios from "axios";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-
-interface PostListConfig {
-  page: number;
-  size: number;
-  orderType: "CREATE" | "RECOMMEND" | "COMMENT";
-  searchType: "TITLE" | "CONTENT" | "TITLE_CONTENT" | "NICKNAME" | "COMMENT";
-  search: string;
-}
+import { PostListConfig } from "@/app/(route)/mypage/posts/_types/postTypes";
 
 const fetchMyPostList = async (postListConfig: PostListConfig) => {
   const queryString = new URLSearchParams(

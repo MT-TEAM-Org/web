@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import EventItem from "./EventItem";
 import useGetGameEvent from "@/_hooks/fetcher/main/mainRightBar/useGetGameEvent";
 import useGetGameDiscount from "@/_hooks/fetcher/main/mainRightBar/useGetGameDiscount";
-import DiscountItem from "./DiscountItem";
 import EmptyGameBox from "./EmptyGameBox";
 import MainRightBarPagination from "./MainRightBarPagination";
 import DiscountItemSkeleton from "./DiscountItemSkeleton";
 import EventItemSkeleton from "./EventItemSkeleton";
+import DiscountItem from "./discountItem";
 const MainRightBar = () => {
   const [pageNum, setPageNum] = useState(1);
   const [buttonActive, setButtonActive] = useState(true);
