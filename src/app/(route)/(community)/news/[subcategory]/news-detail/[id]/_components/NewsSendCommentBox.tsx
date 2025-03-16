@@ -84,8 +84,6 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
     if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
 
-    console.log("handleNewsComment 실행됨");
-
     newsPostComment(
       {
         newsId: id ? Number(id) : 0,
@@ -130,7 +128,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const getEditorHeight = () => {
     return inputValue.length > 39 || selectedImage
       ? "min-h-[68px]"
-      : "h-[40px]";
+      : "h-[40px] overflow-y-hidden";
   };
 
   return (
