@@ -1,16 +1,23 @@
 import { useToast } from "@/_hooks/useToast";
 import deleteComment from "@/services/news/comment/deleteComment";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-const useCommentDelete = () => {
+const useCommentDelete = (id: number) => {
+  const queryClient = useQueryClient();
   const toast = useToast();
 
   return useMutation({
     mutationFn: (newsCommentId: number) => deleteComment(newsCommentId),
     retry: 1,
     onSuccess: () => {
-      toast.success("댓글이 삭제되었습니다.", "");
+        queryClient.refetchQueries({
+          queryKey: ["getNewsComment", String(id)],
+        });
+        queryClient.refetchQueries({
+          queryKey: ["getBestComment", id],
+        });
+        toast.success("댓글이 삭제되었습니다.", "");
     },
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {

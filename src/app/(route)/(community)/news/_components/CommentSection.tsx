@@ -39,7 +39,7 @@ const CommentSection = ({
     }
   };
 
-  const handleRefresh = () => {
+  const RefreshButton = () => {
     queryClient.invalidateQueries({
       queryKey: ["getNewsComment", newsInfoData?.id],
     });
@@ -69,7 +69,7 @@ const CommentSection = ({
   return (
     <>
       <div className="w-full h-auto" ref={commentBarRef}>
-        <CommentBar data={newsInfoData} onRefresh={handleRefresh} />
+        <CommentBar data={newsInfoData} onRefresh={RefreshButton} />
 
         <div className="w-full h-auto">
           {bestComments.length > 0 &&

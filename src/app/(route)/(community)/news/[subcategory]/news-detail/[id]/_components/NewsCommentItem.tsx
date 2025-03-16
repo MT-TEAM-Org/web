@@ -6,7 +6,6 @@ import { CommentContent } from "@/app/_constants/newsCommentType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import usePatchNewsComment from "@/_hooks/fetcher/news/comment/usePatchNewsComment";
 import useDeleteNewsComment from "@/_hooks/fetcher/news/comment/useDeleteNewsComment";
-import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 import useCommentDelete from "@/_hooks/fetcher/news/comment/useCommentDelete";
@@ -23,16 +22,15 @@ interface CommentItemProps {
 
 const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
   const formattedTime = useTimeAgo(data?.createTime);
-  const queryClient = useQueryClient();
   const params = useParams();
   const [activeModal, setActiveModal] = useState(false);
   const [activeDeleteModal, setActiveDeleteModal] = useState(false);
 
   const id = Number(params.id);
 
-  const { mutate: mutatePostRecommend } = usePatchNewsComment();
-  const { mutate: mutateDeleteRecommend } = useDeleteNewsComment();
-  const { mutate: mutateDeleteComment } = useCommentDelete();
+  const { mutate: mutatePostRecommend } = usePatchNewsComment(id);
+  const { mutate: mutateDeleteRecommend } = useDeleteNewsComment(id);
+  const { mutate: mutateDeleteComment } = useCommentDelete(id);
   const { data: meData } = useAuthCheck();
 
   const mePublicId = meData?.data?.data?.publicId;
@@ -50,12 +48,6 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
         onSuccess: () => {
           setIsRecommended(true);
           setRecommendCount(recommendCount + 1);
-          queryClient.refetchQueries({
-            queryKey: ["getNewsComment", String(id)],
-          });
-          queryClient.refetchQueries({
-            queryKey: ["getBestComment", id],
-          });
         },
       });
     } else {
@@ -63,32 +55,15 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
         onSuccess: () => {
           setIsRecommended(false);
           setRecommendCount(recommendCount - 1);
-          queryClient.refetchQueries({
-            queryKey: ["getNewsComment", String(id)],
-          });
-          queryClient.refetchQueries({
-            queryKey: ["getBestComment", id],
-          });
         },
       });
     }
   };
 
-  console.log(queryClient.getQueryCache().findAll());
-
   // 댓글 삭제 실행 함수
   const deleteComment = () => {
     setActiveDeleteModal(false);
-    mutateDeleteComment(data?.newsCommentId, {
-      onSuccess: () => {
-        queryClient.refetchQueries({
-          queryKey: ["getNewsComment", String(id)],
-        });
-        queryClient.refetchQueries({
-          queryKey: ["getBestComment", id],
-        });
-      },
-    });
+    mutateDeleteComment(data?.newsCommentId, {});
   };
 
   const handleToggle = () => {

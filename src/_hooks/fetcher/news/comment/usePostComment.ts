@@ -1,16 +1,25 @@
 import { useToast } from "@/_hooks/useToast";
 import postNewsComment from "@/services/news/comment/postNewsComment";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-const usePostComment = () => {
+const usePostComment = (id: string) => {
+  const queryClient = useQueryClient();
   const toast = useToast();
 
   return useMutation({
     mutationFn: ({ newsId, comment, imgUrl }: { newsId: number; comment: string; imgUrl: string }) =>
       postNewsComment({ newsId, comment, imgUrl }),
-    retry: 1,
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["getNewsComment", String(id)],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["getNewsInfo", String(id)],
+      });
+      queryClient.refetchQueries({
+        queryKey: ["getBestComment", Number(id)],
+      });
       toast.success("댓글 입력이 완료되었습니다.", "")
     },
     onError: (error) => {

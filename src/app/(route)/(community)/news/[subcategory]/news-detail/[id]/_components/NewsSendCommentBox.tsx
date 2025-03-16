@@ -1,7 +1,6 @@
 import usePostComment from "@/_hooks/fetcher/news/comment/usePostComment";
 import Send_icon from "@/app/_components/icon/Send_icon";
 import React, { useState, useRef, useEffect } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import getUpload from "@/_hooks/getUpload";
 import Plus from "@/app/_components/icon/Plus";
@@ -20,9 +19,8 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const isSubmittingRef = useRef(false);
-  const queryClient = useQueryClient();
   const toast = useToast();
-  const { mutate: newsPostComment } = usePostComment();
+  const { mutate: newsPostComment } = usePostComment(id);
   const maxChars = selectedImage ? 70 : 78;
 
   const handleContentChange = () => {
@@ -96,19 +94,13 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: ["getNewsComment", String(id)],
-          });
-          queryClient.invalidateQueries({
-            queryKey: ["getNewsInfo", String(id)],
-          });
           setInputValue("");
           setSelectedImage(null);
           if (textRef.current) textRef.current.innerText = "";
-          isSubmittingRef.current = false; // 실행 완료 후 초기화
+          isSubmittingRef.current = false;
         },
         onError: () => {
-          isSubmittingRef.current = false; // 실패 시에도 초기화
+          isSubmittingRef.current = false;
         },
       }
     );
