@@ -22,8 +22,8 @@ const ScheduleNavbar = ({ setSelectedCategory }: ScheduleNavbarProps) => {
           onClick={() => handleActiveCategory(category)}
           className={`min-w-[77px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] items-center justify-center font-bold text-[14px] leading-[21px] tracking-[-0.02em] cursor-pointer ${
             selectedCategory === category
-              ? "border border-[#424242]"
-              : "border border-[#DBDBDB]"
+              ? "border border-gray7"
+              : "border border-gray3"
           }`}
         >
           {category}

@@ -3,7 +3,7 @@ import React from "react";
 
 const EmptyComment = () => {
   return (
-    <div className="w-full max-w-[800px] h-[184px] rounded-[10px] px-10 bg-[#FAFAFA] flex">
+    <div className="w-full max-w-[800px] h-[184px] rounded-[10px] px-10 bg-gray1 flex">
       <div className="w-full min-h-[104px] flex flex-col gap-4 items-center justify-center">
         <LogoWhite />
         <div className="flex flex-col items-center">
