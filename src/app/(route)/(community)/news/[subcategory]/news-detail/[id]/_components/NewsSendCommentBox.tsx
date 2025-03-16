@@ -75,9 +75,13 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const handleNewsComment = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleNewsComment = (e: React.FormEvent | React.KeyboardEvent) => {
+    e.preventDefault(); // form 제출 방지
+
     if (!inputValue.trim() && !selectedImage) return;
+
+    console.log("handleNewsComment 실행됨");
+
     newsPostComment(
       {
         newsId: id ? Number(id) : 0,
@@ -96,9 +100,6 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
           setSelectedImage(null);
           if (textRef.current) textRef.current.innerText = "";
         },
-        onError: (error) => {
-          console.error("댓글 추가 실패:", error);
-        },
       }
     );
   };
@@ -106,6 +107,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
+      if (!inputValue.trim() && !selectedImage) return;
       handleNewsComment(e);
     }
   };

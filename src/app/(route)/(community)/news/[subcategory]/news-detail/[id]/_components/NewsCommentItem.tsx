@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Single_logo_color from "@/app/_components/icon/Single_logo_color";
 import { CommentContent } from "@/app/_constants/newsCommentType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import usePatchNewsComment from "@/_hooks/fetcher/news/comment/usePatchNewsComment";
@@ -39,31 +38,35 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
   const mePublicId = meData?.data?.data?.publicId;
   const isMyComment = mePublicId === data?.memberDto?.publicId;
 
-  const handleNewsComment = () => {
-    if (!data?.recommend) {
+  const [isRecommended, setIsRecommended] = useState(data?.recommend || false);
+  const [recommendCount, setRecommendCount] = useState(
+    data?.recommendCount || 0
+  );
+
+  // 댓글 추천, 추천 삭제 함수
+  const handleCommentLikeToggle = () => {
+    if (!isRecommended) {
       mutatePostRecommend(data?.newsCommentId, {
         onSuccess: () => {
-          queryClient.invalidateQueries({
+          setIsRecommended(true);
+          setRecommendCount(recommendCount + 1);
+          queryClient.refetchQueries({
             queryKey: ["getNewsComment", String(id)],
           });
-          queryClient.invalidateQueries({
-            queryKey: ["getNewsInfo", String(id)],
-          });
-          queryClient.invalidateQueries({
+          queryClient.refetchQueries({
             queryKey: ["getBestComment", String(id)],
           });
         },
       });
-    } else if (data?.recommend) {
+    } else {
       mutateDeleteRecommend(data?.newsCommentId, {
         onSuccess: () => {
-          queryClient.invalidateQueries({
+          setIsRecommended(false);
+          setRecommendCount(recommendCount - 1);
+          queryClient.refetchQueries({
             queryKey: ["getNewsComment", String(id)],
           });
-          queryClient.invalidateQueries({
-            queryKey: ["getNewsInfo", String(id)],
-          });
-          queryClient.invalidateQueries({
+          queryClient.refetchQueries({
             queryKey: ["getBestComment", String(id)],
           });
         },
@@ -71,16 +74,15 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
     }
   };
 
-  const handleDeleteComment = () => {
-    mutateDeleteComment(data?.newsCommentId, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["getNewsComment", String(id)],
-        });
-        queryClient.invalidateQueries({
-          queryKey: ["getNewsInfo", String(id)],
-        });
-      },
+  // 댓글 삭제 실행 함수
+  const deleteComment = () => {
+    setActiveDeleteModal(false);
+    mutateDeleteComment(data?.newsCommentId);
+    queryClient.refetchQueries({
+      queryKey: ["getNewsComment", String(id)],
+    });
+    queryClient.refetchQueries({
+      queryKey: ["getBestComment", String(id)],
     });
   };
 
@@ -94,14 +96,13 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
 
   const divStyle =
     "w-full h-auto flex flex-col border-b border-gray1 gap-3 p-3 bg-white justify-start";
-  const recommendDivStyle =
-    data?.recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
+  const recommendDivStyle = recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
 
   return (
     <div className={bestComment ? divStyle + " !bg-[#F8FDFF]" : divStyle}>
       <div className="w-full h-auto flex flex-col gap-3">
         <div className="w-full min-h-[20px] flex justify-between">
-          <div className="flex justify-center items-center gap-2 text-xs">
+          <div className="flex justify-center items-center gap-2 text-xs font-medium">
             <Image
               src={"/Empty_news.png"}
               alt="fake_img"
@@ -109,11 +110,11 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
               height={20}
               className="w-5 h-5 rounded-full border-1 border-gray2"
             />
-            <p className="text-sm text-gray6 leading-5 font-medium">
+            <p className="text-sm text-gray6 leading-5">
               {data?.memberDto?.nickName}
             </p>
-            <p className="text-gray5 leading-4 font-medium">{formattedTime}</p>
-            <p className="text-gray4 leading-[18px] font-medium">{data?.ip}</p>
+            <p className="text-gray5 leading-4">{formattedTime}</p>
+            <p className="text-gray4 leading-[18px]">{data?.ip}</p>
           </div>
 
           <div
@@ -142,17 +143,17 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
 
       <div className="flex gap-2">
         <button
-          onClick={handleNewsComment}
+          onClick={handleCommentLikeToggle}
           className={`${recommendDivStyle} h-[24px] rounded-[5px] border border-gray3 p-1 flex gap-1 justify-center items-center text-[12px] leading-[18px] font-medium tracking-[-0.02em]`}
         >
           <Single_logo width="12" height="12" fill="#00ADEE" />
           <div
             className={`flex gap-[2px] ${
-              data?.recommend && "text-[#00ADEE] bg-white border-[#00ADEE]"
+              isRecommended && "text-[#00ADEE] bg-white border-[#00ADEE]"
             }`}
           >
             추천
-            {data?.recommendCount >= 1 && <span>{data?.recommendCount}</span>}
+            {recommendCount >= 1 && <span>{recommendCount}</span>}
           </div>
         </button>
         <button className="min-w-[60px] min-h-[24px] rounded-[5px] border border-gray3 px-2 py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
@@ -162,7 +163,7 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
         {activeDeleteModal && (
           <DeleteCommentModalPopUp
             setActiveModal={setActiveDeleteModal}
-            onDelete={handleDeleteComment}
+            onDelete={deleteComment}
           />
         )}
       </div>
