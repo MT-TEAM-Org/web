@@ -6,6 +6,7 @@ import axios from "axios";
 import getUpload from "@/_hooks/getUpload";
 import Plus from "@/app/_components/icon/Plus";
 import Cancel_icon from "@/app/_components/icon/Cancel_icon";
+import { useToast } from "@/_hooks/useToast";
 
 interface SendCommentBoxProps {
   id?: string;
@@ -18,7 +19,9 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const isSubmittingRef = useRef(false);
   const queryClient = useQueryClient();
+  const toast = useToast();
   const { mutate: newsPostComment } = usePostComment();
   const maxChars = selectedImage ? 70 : 78;
 
@@ -64,7 +67,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
       });
       setSelectedImage(downloadUrl);
     } catch (error) {
-      console.error("이미지 업로드 실패:", error);
+      toast.error("이미지 업로드에 실패했습니다.", "");
     }
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
@@ -75,10 +78,13 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const handleNewsComment = (e: React.FormEvent | React.KeyboardEvent) => {
-    e.preventDefault(); // form 제출 방지
-
+  const handleNewsComment = async (
+    e: React.FormEvent | React.KeyboardEvent
+  ) => {
+    e.preventDefault();
     if (!inputValue.trim() && !selectedImage) return;
+    if (isSubmittingRef.current) return;
+    isSubmittingRef.current = true;
 
     console.log("handleNewsComment 실행됨");
 
@@ -99,6 +105,10 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
           setInputValue("");
           setSelectedImage(null);
           if (textRef.current) textRef.current.innerText = "";
+          isSubmittingRef.current = false; // 실행 완료 후 초기화
+        },
+        onError: () => {
+          isSubmittingRef.current = false; // 실패 시에도 초기화
         },
       }
     );
@@ -107,7 +117,6 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      if (!inputValue.trim() && !selectedImage) return;
       handleNewsComment(e);
     }
   };
@@ -178,7 +187,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
                 onKeyDown={handleKeyDown}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                className="flex-grow outline-none min-w-0"
+                className="flex-grow outline-none min-w-0 overflow-y-hidden"
               />
               {!inputValue.trim() && !selectedImage && (
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">

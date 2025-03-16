@@ -42,7 +42,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { data: newsInfoData, isLoading } = useGetNewsInfoData(id);
   const { data: newsBestCommentData } = useGetBestComment(newsInfoData?.id);
   const { data: newsCommentData } = useGetNewsComment(id);
-  console.log(newsInfoData);
   const formattedTime = useTimeAgo(newsInfoData?.postDate);
   const { mutate: newsAddCommend } = usePatchRecommend();
   const { mutate: newsDeleteRecommend } = useDeleteRecommend();

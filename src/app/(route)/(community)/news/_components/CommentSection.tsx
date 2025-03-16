@@ -46,6 +46,12 @@ const CommentSection = ({
     queryClient.refetchQueries({
       queryKey: ["getNewsComment", newsInfoData?.id],
     });
+    queryClient.invalidateQueries({
+      queryKey: ["getBestComment", newsInfoData?.id],
+    });
+    queryClient.refetchQueries({
+      queryKey: ["getBestComment", newsInfoData?.id],
+    });
   };
 
   const bestComments: NewsCommentList = Array.isArray(newsBestCommentData)

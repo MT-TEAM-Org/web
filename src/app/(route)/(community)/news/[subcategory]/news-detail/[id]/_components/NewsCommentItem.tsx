@@ -28,7 +28,7 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const [activeDeleteModal, setActiveDeleteModal] = useState(false);
 
-  const id = params.id;
+  const id = Number(params.id);
 
   const { mutate: mutatePostRecommend } = usePatchNewsComment();
   const { mutate: mutateDeleteRecommend } = useDeleteNewsComment();
@@ -54,7 +54,7 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
             queryKey: ["getNewsComment", String(id)],
           });
           queryClient.refetchQueries({
-            queryKey: ["getBestComment", String(id)],
+            queryKey: ["getBestComment", id],
           });
         },
       });
@@ -67,22 +67,27 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
             queryKey: ["getNewsComment", String(id)],
           });
           queryClient.refetchQueries({
-            queryKey: ["getBestComment", String(id)],
+            queryKey: ["getBestComment", id],
           });
         },
       });
     }
   };
 
+  console.log(queryClient.getQueryCache().findAll());
+
   // 댓글 삭제 실행 함수
   const deleteComment = () => {
     setActiveDeleteModal(false);
-    mutateDeleteComment(data?.newsCommentId);
-    queryClient.refetchQueries({
-      queryKey: ["getNewsComment", String(id)],
-    });
-    queryClient.refetchQueries({
-      queryKey: ["getBestComment", String(id)],
+    mutateDeleteComment(data?.newsCommentId, {
+      onSuccess: () => {
+        queryClient.refetchQueries({
+          queryKey: ["getNewsComment", String(id)],
+        });
+        queryClient.refetchQueries({
+          queryKey: ["getBestComment", id],
+        });
+      },
     });
   };
 
@@ -156,7 +161,7 @@ const NewsCommentItem = ({ data, bestComment = false }: CommentItemProps) => {
             {recommendCount >= 1 && <span>{recommendCount}</span>}
           </div>
         </button>
-        <button className="min-w-[60px] min-h-[24px] rounded-[5px] border border-gray3 px-2 py-[6px] gap-[10px] text-xs font-medium leading-[12px] tracking-[-0.02em]">
+        <button className="inline-flex h-6 items-center justify-center rounded-[5px] border border-gray3 bg-white px-2 py-[6px] gap-[10px] text-[12px] font-medium leading-none tracking-[-0.02em] text-gray7">
           답글 달기
         </button>
         {activeModal && <ReportModalPopUp setActiveModal={setActiveModal} />}
