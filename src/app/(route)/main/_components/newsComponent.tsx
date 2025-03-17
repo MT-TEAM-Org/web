@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { NewsItemType } from "@/app/_constants/newsItemType";
 import NewsItemSkeleton from "./NewsItemSkeleton";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
-import NewsItem from "./newsItem";
+import NewsItem from "./NewsItem";
+import { NewsListType } from "@/app/_constants/newsListItemType";
 
 const NewsComponent = () => {
   const { data, isLoading } = useGetNewsDataList();
@@ -17,8 +17,8 @@ const NewsComponent = () => {
         ? Array(3)
             .fill(0)
             .map((_, index) => <NewsItemSkeleton key={index} />)
-        : slicedNewsData?.map((newsItem: NewsItemType) => (
-            <NewsItem key={newsItem.id} newsItem={newsItem} />
+        : slicedNewsData?.map((newsItem: NewsListType) => (
+            <NewsItem key={newsItem?.id} newsItem={newsItem} />
           ))}
     </div>
   );

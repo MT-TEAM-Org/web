@@ -36,8 +36,6 @@ const Page = () => {
     router.push("/news/all");
   }, [router]);
 
-  console.log("NewsListData: ", newsListData);
-
   return (
     <div className="w-[720px] h-auto flex flex-col justify-start bg-gray1 rounded-[5px] overflow-hidden">
       <NewsTalkToolbar
@@ -45,6 +43,7 @@ const Page = () => {
         onPageChange={onPageChange}
         setTimeType={setTimePeriod}
         setSearchType={setSearchType}
+        paginationData={newsListData?.pageInfo}
       />
 
       <NewsListContent

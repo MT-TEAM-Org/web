@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ChangeEvent,
   FormEvent,
   useEffect,
   useRef,
@@ -19,6 +18,7 @@ import Pg_right from "@/app/_components/icon/Pg_right";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import Small_Search from "@/app/_components/icon/Small_Search";
 import React from "react";
+import { NewsListPageInfoType } from "@/app/_constants/newsListItemType";
 
 interface DropdownOption {
   label: string;
@@ -30,6 +30,7 @@ interface NewsTalkToolbarProps {
   setTimeType: (value: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY") => void;
   onPageChange: (page: string) => void;
   setSearchType: Dispatch<SetStateAction<string>>;
+  paginationData: NewsListPageInfoType;
 }
 
 const NewsTalkToolbar = ({
@@ -37,6 +38,7 @@ const NewsTalkToolbar = ({
   setTimeType,
   onPageChange,
   setSearchType,
+  paginationData,
 }: NewsTalkToolbarProps) => {
   const [activeBtn, setActiveBtn] = useState<
     "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"
@@ -47,6 +49,7 @@ const NewsTalkToolbar = ({
   const selectRef = useRef<HTMLSelectElement>(null);
   const [inputValue, setInputValue] = useState("");
   const [currentPage, setCurrentPage] = useState("1");
+  console.log("paginationData: ", paginationData);
 
   const pagination = [
     { value: "1", label: "1" },

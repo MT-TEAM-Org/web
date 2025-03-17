@@ -3,11 +3,11 @@
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
-import { NewsItemType } from "@/app/_constants/newsItemType";
 import RightNewsItem from "./RightNewsItem";
 import { useMemo, useState } from "react";
 import RightNewsItemSkeleton from "./RightNewsItemSkeleton";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
+import { NewsItemType } from "@/app/_constants/newsItemType";
 
 export const RightSideBar = () => {
   const [currentPage, setCurrentPage] = useState("1");
