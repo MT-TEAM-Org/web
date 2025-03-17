@@ -3,7 +3,7 @@
 import React from "react";
 import NewsItemSkeleton from "./NewsItemSkeleton";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
-import NewsItem from "./NewsItem";
+import NewsItem from "./newsItem";
 import { NewsListType } from "@/app/_constants/newsListItemType";
 
 const NewsComponent = () => {
