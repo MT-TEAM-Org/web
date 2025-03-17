@@ -3,10 +3,6 @@
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
-import Pg_double_left from "@/app/_components/icon/Pg_double_left";
-import Pg_double_right from "@/app/_components/icon/Pg_double_right";
-import Pg_left from "@/app/_components/icon/Pg_left";
-import Pg_right from "@/app/_components/icon/Pg_right";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import Small_Search from "@/app/_components/icon/Small_Search";
 import { useEditStore } from "@/utils/Store";

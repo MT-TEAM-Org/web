@@ -30,7 +30,7 @@ export default function NewsPage() {
     orderType,
     setOrderType,
     page,
-    onPageChange,
+    onPageChangeAction,
     timePeriod,
     setTimePeriod,
     searchType,
@@ -62,7 +62,7 @@ export default function NewsPage() {
         <NewsTalkToolbar
           setOrderType={setOrderType}
           setTimeType={setTimePeriod}
-          onPageChange={onPageChange}
+          onPageChangeAction={onPageChangeAction}
           setSearchType={setSearchType}
           paginationData={newsData?.pageInfo}
         />
