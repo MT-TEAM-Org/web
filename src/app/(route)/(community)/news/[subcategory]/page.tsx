@@ -71,7 +71,7 @@ export default function NewsPage() {
             Array(10)
               .fill(0)
               .map((_, index) => <NewsPostItemSkeleton key={index} />)
-          ) : newsData?.length === 0 ? (
+          ) : newsData?.length === 0 || !newsData ? (
             <EmptyNews />
           ) : (
             newsData?.content?.map((newsItem: NewsItemType) => (

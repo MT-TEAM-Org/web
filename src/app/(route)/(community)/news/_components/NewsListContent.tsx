@@ -30,7 +30,7 @@ const NewsListContent = ({ data, isLoading }: NewsListContentProps) => {
 
   return (
     <>
-      {data?.content?.length === 0 ? (
+      {data?.content?.length === 0 || !data ? (
         <EmptyNews />
       ) : (
         data?.content.map((newsItem: NewsListType) => (
