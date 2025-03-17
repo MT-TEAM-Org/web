@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
       "rs.nxfs.nexon.com",
       "shared.fastly.steamstatic.com",
     ],
+
     remotePatterns: [
       {
         protocol: "http",

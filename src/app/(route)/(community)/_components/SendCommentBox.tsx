@@ -10,7 +10,7 @@ interface SendCommentBoxProps {
 
 const SendCommentBox = ({ id }: SendCommentBoxProps) => {
   const [inputValue, setInputValue] = useState<string>("");
-  const { mutate: newsPostComment } = usePostComment();
+  const { mutate: newsPostComment } = usePostComment(id);
   const queryClient = useQueryClient();
 
   const handleNewsComment = (e: React.FormEvent) => {

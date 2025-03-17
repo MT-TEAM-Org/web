@@ -42,7 +42,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { data: newsInfoData, isLoading } = useGetNewsInfoData(id);
   const { data: newsBestCommentData } = useGetBestComment(newsInfoData?.id);
   const { data: newsCommentData } = useGetNewsComment(id);
-  console.log(newsInfoData);
   const formattedTime = useTimeAgo(newsInfoData?.postDate);
   const { mutate: newsAddCommend } = usePatchRecommend();
   const { mutate: newsDeleteRecommend } = useDeleteRecommend();
@@ -62,21 +61,18 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
         },
-        onError: (error) => {
-          console.error("추천 실패:", error);
-        },
       });
     } else if (newsInfoData?.recommend) {
       newsDeleteRecommend(id, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
         },
-        onError: (error) => {
-          console.error("추천 실패:", error);
-        },
       });
     }
   };
+
+  const recommendButtonBaseStyle =
+    "h-[40px] rounded-[5px] border px-[13px] py-4 flex gap-1 bg-white items-center justify-center text-[14px] font-bold";
 
   return (
     <>
@@ -126,10 +122,18 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <div className="w-full h-auto flex justify-center gap-2">
             <button
               onClick={handleNewsCommend}
-              className="min-w-[120px] w-auto h-[40px] flex items-center text-[14px] justify-center gap-1 px-4 py-[13px] bg-[#00ADEE] text-white font-bold rounded-[5px]"
+              className={
+                newsInfoData?.recommend
+                  ? `${recommendButtonBaseStyle} w-[123px] border-[#00ADEE] text-[#00ADEE]`
+                  : `${recommendButtonBaseStyle} w-[120px] border-gray3`
+              }
             >
-              <Single_logo />
-              추천 <span>{newsInfoData?.recommendCount}</span>
+              <Single_logo width="16" height="16" fill="#00ADEE" />
+              추천
+              <span>
+                {newsInfoData?.recommendCount >= 1 &&
+                  newsInfoData?.recommendCount}
+              </span>
             </button>
           </div>
           <PostAction type="news" source={newsInfoData?.source} />
