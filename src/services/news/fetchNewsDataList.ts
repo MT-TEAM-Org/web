@@ -8,10 +8,10 @@ interface NewsDataProps {
 const fetchNewsDataList = async ({ category, page }: NewsDataProps = {}) => {
   const response = await axios(`${process.env.NEXT_PUBLIC_API_URL}api/news`, {
     params: {
-      category: category || 'BASEBALL',
+      category: category || "BASEBALL",
       orderType: "DATE",
       page: page || 1,
-      size: 10,
+      size: 5,
     },
   });
   return response.data.data.list.content;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import EventItem from "./EventItem";
 import useGetGameEvent from "@/_hooks/fetcher/main/mainRightBar/useGetGameEvent";
 import useGetGameDiscount from "@/_hooks/fetcher/main/mainRightBar/useGetGameDiscount";
@@ -7,6 +7,10 @@ import MainRightBarPagination from "./MainRightBarPagination";
 import DiscountItemSkeleton from "./DiscountItemSkeleton";
 import EventItemSkeleton from "./EventItemSkeleton";
 import DiscountItem from "./discountItem";
+import RightNewsItemSkeleton from "../../(community)/_components/RightNewsItemSkeleton";
+import RightNewsItem from "../../(community)/_components/RightNewsItem";
+import { NewsItemType } from "@/app/_constants/newsItemType";
+import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 const MainRightBar = () => {
   const [pageNum, setPageNum] = useState(1);
   const [buttonActive, setButtonActive] = useState(true);
@@ -18,6 +22,8 @@ const MainRightBar = () => {
   const handleButtonStyle = (value: boolean) => {
     setButtonActive(value);
   };
+  const { data: newsData, isLoading } = useGetNewsDataList({});
+
   const btnStyle =
     "w-1/2 h-10 flex gap-[10px] px-[16px] py-[13px] items-center justify-center rounded-t-[5px] cursor-pointer border-gray8";
   const activeBtnStyle =
@@ -33,7 +39,7 @@ const MainRightBar = () => {
             buttonActive ? activeBtnStyle : passiveBtnStyle
           }`}
         >
-          게임 할인정보
+          뉴스
         </button>
         <button
           onClick={() => handleButtonStyle(false)}
@@ -46,17 +52,15 @@ const MainRightBar = () => {
       </div>
       <div className="flex flex-col gap-2">
         {buttonActive ? (
-          discoutIsLoading ? (
-            Array.from({ length: 5 }, (_, index) => (
-              <DiscountItemSkeleton key={index} />
-            ))
-          ) : gameDiscountData?.content?.length === 0 ? (
-            <EmptyGameBox title={"할인정보"} />
-          ) : (
-            gameDiscountData?.content?.map((discount) => (
-              <DiscountItem key={discount.id} gameDiscountData={discount} />
-            ))
-          )
+          <div className="w-full h-auto max-h-[736px] rounded-[10px]">
+            {isLoading
+              ? Array(5)
+                  .fill(0)
+                  .map((_, index) => <RightNewsItemSkeleton key={index} />)
+              : newsData?.map((data: NewsItemType) => (
+                  <RightNewsItem key={data?.id} newsItem={data} />
+                ))}
+          </div>
         ) : eventIsLoading ? (
           Array.from({ length: 5 }, (_, index) => (
             <EventItemSkeleton key={index} />
@@ -65,7 +69,7 @@ const MainRightBar = () => {
           <EmptyGameBox title={"이벤트 정보"} />
         ) : (
           gameEventData?.content?.map((event) => (
-            <EventItem key={event.id} gameEventData={event} />
+            <EventItem key={event?.id} gameEventData={event} />
           ))
         )}
       </div>
