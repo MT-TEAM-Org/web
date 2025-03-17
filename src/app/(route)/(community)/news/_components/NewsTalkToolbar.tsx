@@ -27,7 +27,7 @@ interface DropdownOption {
 interface NewsTalkToolbarProps {
   setOrderType: (value: "DATE" | "COMMENT" | "VIEW") => void;
   setTimeType: (value: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY") => void;
-  onPageChange: (page: string) => void;
+  onPageChangeAction: (page: string) => void;
   setSearchType: Dispatch<SetStateAction<string>>;
   paginationData: NewsListPageInfoType;
 }
@@ -35,7 +35,7 @@ interface NewsTalkToolbarProps {
 const NewsTalkToolbar = ({
   setOrderType,
   setTimeType,
-  onPageChange,
+  onPageChangeAction,
   setSearchType,
   paginationData,
 }: NewsTalkToolbarProps) => {
@@ -135,7 +135,7 @@ const NewsTalkToolbar = ({
     router.push(changeURLParams(searchParams, "page", page.toString()), {
       scroll: false,
     });
-    onPageChange(page.toString());
+    onPageChangeAction(page.toString());
   };
 
   useEffect(() => {
@@ -151,8 +151,8 @@ const NewsTalkToolbar = ({
     setActiveBtn(timeFromUrl);
     setOrderType(sortFromUrl);
     setTimeType(timeFromUrl);
-    onPageChange(pageFromUrl);
-  }, [searchParams, onPageChange, setOrderType, setTimeType]);
+    onPageChangeAction(pageFromUrl);
+  }, [searchParams, onPageChangeAction, setOrderType, setTimeType]);
 
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] border-gray3";
@@ -245,7 +245,7 @@ const NewsTalkToolbar = ({
           </div>
           <Pagination
             pageInfo={paginationData}
-            onPageChange={handlePageChange}
+            onPageChangeAction={handlePageChange}
           />
         </div>
       </div>
