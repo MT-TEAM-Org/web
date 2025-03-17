@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useRef } from "react";
+import getUpload from "@/_hooks/getUpload";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ProfileImageProps {
   imageUrl: string;
@@ -10,6 +12,20 @@ interface ProfileImageProps {
 
 const ProfileImage = ({ imageUrl, setImageUrl }: ProfileImageProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const queryClient = useQueryClient();
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      getUpload({
+        fileName: file.name,
+        contentType: file.type,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-[4px] items-center w-full min-h-[158px]">
@@ -24,7 +40,12 @@ const ProfileImage = ({ imageUrl, setImageUrl }: ProfileImageProps) => {
           height={80}
           className="rounded-full"
         />
-        <input type="file" className="hidden" ref={inputRef} />
+        <input
+          type="file"
+          className="hidden"
+          ref={inputRef}
+          onChange={handleImageChange}
+        />
         <button
           type="button"
           onClick={() => inputRef.current?.click()}

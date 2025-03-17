@@ -8,6 +8,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { REGISTRATION } from "@/constants/userRegistration";
 import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
 import ProfileImage from "./_components/ProfileImage";
+import { useToast } from "@/_hooks/useToast";
 
 interface FormData {
   email: string;
@@ -64,6 +65,7 @@ const useModifyUserInfo = () => {
 
 const EditProfile = () => {
   const queryClient = useQueryClient();
+  const { error, success, warning } = useToast();
   const { data: userInfo, isLoading: userInfoIsLoading } = useUserInfo();
   const { data: mypageData, isLoading } = useGetMyPageData();
   const { mutate: modifyUserInfo, isPending: modifyUserInfoIsPending } =
@@ -116,10 +118,22 @@ const EditProfile = () => {
   ];
 
   const onSubmit = (data: FormData) => {
+    if (
+      data.tel === userInfo.data.tel &&
+      data.nickname === userInfo.data.nickname &&
+      data.birthDate === userInfo.data.birthDate &&
+      genderType === userInfo.data.genderType
+    ) {
+      error("수정이 실패하였습니다.", "회원정보를 변경해주세요!");
+      return;
+    }
+
     const requestData = { ...data, genderType };
     modifyUserInfo(requestData, {
       onSuccess: () => {
+        success("수정이 완료되었습니다.", "플레이하이브에서 재밌게 놀아봐요!");
         queryClient.invalidateQueries({ queryKey: ["userInfo"] });
+        queryClient.invalidateQueries({ queryKey: ["authCheck"] });
       },
     });
   };
