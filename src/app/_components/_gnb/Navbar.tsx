@@ -1,15 +1,17 @@
 "use client";
 
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Search } from "../icon/Search";
 import Link from "next/link";
 import { NAVBARS } from "@/app/_constants/navigation";
 
 export default function Navbar() {
-  const router = useRouter();
   const pathname = usePathname();
 
-  const isCurrentPath = (path: string) => pathname === path;
+  const isCurrentPath = (path: string) => {
+    const fullPath = path.startsWith("/") ? path : `/${path}`;
+    return pathname === fullPath;
+  };
 
   const navbarClass =
     "min-h-[60px] p-[16px] whitespace-nowrap font-medium text-[18px] leading-7 tracking-[-0.04em] text-center cursor-pointer";
@@ -20,6 +22,7 @@ export default function Navbar() {
         {NAVBARS.map((item, index) => (
           <Link key={index} href={item.link}>
             <div
+              onClick={() => console.log(item.link)}
               className={`${navbarClass} flex justify-around items-center ${
                 isCurrentPath(item.link)
                   ? "font-normal text-[#00ADEE]"

@@ -31,8 +31,6 @@ export const CommunityToolbar = ({ boardType }: CommunityToolbarProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const currentOrderType = searchParams.get("orderType") || "CREATE";
-
   const pagination = [
     { value: "1", label: "1" },
     { value: "2", label: "2" },
@@ -59,10 +57,11 @@ export const CommunityToolbar = ({ boardType }: CommunityToolbarProps) => {
   const handleWriteClick = () => {
     const pathParts = pathname.split("/");
     const basePath = pathParts[1];
-    const categoryType = pathParts[2] || "FREE";
+    const boardType = pathParts[2];
+    const categoryType = pathParts[3] || "FREE";
     resetEditState();
 
-    router.push(`/${basePath}/${categoryType}/write`);
+    router.push(`/${basePath}/${boardType}/${categoryType}/write`);
   };
 
   const handleOrderClick = (type: string) => {
