@@ -39,12 +39,18 @@ const CommentSection = ({
     }
   };
 
-  const handleRefresh = () => {
+  const RefreshButton = () => {
     queryClient.invalidateQueries({
       queryKey: ["getNewsComment", newsInfoData?.id],
     });
     queryClient.refetchQueries({
       queryKey: ["getNewsComment", newsInfoData?.id],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ["getBestComment", newsInfoData?.id],
+    });
+    queryClient.refetchQueries({
+      queryKey: ["getBestComment", newsInfoData?.id],
     });
   };
 
@@ -63,7 +69,7 @@ const CommentSection = ({
   return (
     <>
       <div className="w-full h-auto" ref={commentBarRef}>
-        <CommentBar data={newsInfoData} onRefresh={handleRefresh} />
+        <CommentBar data={newsInfoData} onRefresh={RefreshButton} />
 
         <div className="w-full h-auto">
           {bestComments.length > 0 &&

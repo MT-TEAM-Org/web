@@ -1,10 +1,10 @@
 import getBestComment from "@/services/news/comment/getBestComment";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetBestComment = (newsId: string) => {
+const useGetBestComment = (id: string) => {
   return useQuery({
-    queryKey: ["getBestComment", newsId],
-    queryFn: () => getBestComment(newsId),
+    queryKey: ["getBestComment", id],
+    queryFn: () => getBestComment(id),
     retry: 1,
   });
 };

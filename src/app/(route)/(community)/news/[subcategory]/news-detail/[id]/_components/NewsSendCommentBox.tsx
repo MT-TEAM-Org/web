@@ -1,11 +1,11 @@
 import usePostComment from "@/_hooks/fetcher/news/comment/usePostComment";
 import Send_icon from "@/app/_components/icon/Send_icon";
 import React, { useState, useRef, useEffect } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import getUpload from "@/_hooks/getUpload";
 import Plus from "@/app/_components/icon/Plus";
 import Cancel_icon from "@/app/_components/icon/Cancel_icon";
+import { useToast } from "@/_hooks/useToast";
 
 interface SendCommentBoxProps {
   id?: string;
@@ -18,8 +18,9 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
-  const queryClient = useQueryClient();
-  const { mutate: newsPostComment } = usePostComment();
+  const isSubmittingRef = useRef(false);
+  const toast = useToast();
+  const { mutate: newsPostComment } = usePostComment(id);
   const maxChars = selectedImage ? 70 : 78;
 
   const handleContentChange = () => {
@@ -64,7 +65,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
       });
       setSelectedImage(downloadUrl);
     } catch (error) {
-      console.error("이미지 업로드 실패:", error);
+      toast.error("이미지 업로드에 실패했습니다.", "");
     }
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
@@ -75,9 +76,14 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const handleNewsComment = (e: React.FormEvent) => {
+  const handleNewsComment = async (
+    e: React.FormEvent | React.KeyboardEvent
+  ) => {
     e.preventDefault();
     if (!inputValue.trim() && !selectedImage) return;
+    if (isSubmittingRef.current) return;
+    isSubmittingRef.current = true;
+
     newsPostComment(
       {
         newsId: id ? Number(id) : 0,
@@ -86,18 +92,13 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: ["getNewsComment", String(id)],
-          });
-          queryClient.invalidateQueries({
-            queryKey: ["getNewsInfo", String(id)],
-          });
           setInputValue("");
           setSelectedImage(null);
           if (textRef.current) textRef.current.innerText = "";
+          isSubmittingRef.current = false;
         },
-        onError: (error) => {
-          console.error("댓글 추가 실패:", error);
+        onError: () => {
+          isSubmittingRef.current = false;
         },
       }
     );
@@ -127,7 +128,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const getEditorHeight = () => {
     return inputValue.length > 39 || selectedImage
       ? "min-h-[68px]"
-      : "h-[40px]";
+      : "h-[40px] overflow-y-hidden";
   };
 
   return (
@@ -176,7 +177,7 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
                 onKeyDown={handleKeyDown}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                className="flex-grow outline-none min-w-0"
+                className="flex-grow outline-none min-w-0 overflow-y-hidden"
               />
               {!inputValue.trim() && !selectedImage && (
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
