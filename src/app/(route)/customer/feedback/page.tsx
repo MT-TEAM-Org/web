@@ -7,6 +7,7 @@ import FeedbackNoticeItem from "../_components/FeedbackNoticeItem";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import EmptyItem from "../_components/EmptyItem";
 import NoticeItemSkeleton from "../_components/NoticeItemSkeleton";
+import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType";
 
 const Page = () => {
   const [pageNum, setPageNum] = useState(1);
@@ -44,9 +45,11 @@ const Page = () => {
         ) : feedbackDataList?.content?.length === 0 || isError ? (
           <EmptyItem title="개선요청 사항이" />
         ) : (
-          feedbackDataList?.content?.map((noticeListData) => {
-            <FeedbackItem />;
-          })
+          feedbackDataList?.content?.map(
+            (feedbackListData: FeedbackContentType) => {
+              <FeedbackItem feedbackData={feedbackListData} />;
+            }
+          )
         )}
       </div>
     </>
