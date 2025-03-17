@@ -1,46 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-
-const fetchMypage = async () => {
-  const response = await axios(
-    `${process.env.NEXT_PUBLIC_API_URL}api/my-page`,
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    }
-  );
-  return response.data;
-};
-
-const useMypage = () => {
-  return useQuery({
-    queryKey: ["mypage"],
-    queryFn: fetchMypage,
-    retry: false,
-    staleTime: 1000 * 60 * 60,
-    gcTime: 1000 * 60 * 60 * 2,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-};
+import { REGISTRATION } from "@/constants/userRegistration";
+import useGetMyPageData from "@/_hooks/useMypage/useGetMyPageData";
 
 const Mypage = () => {
-  const { data, isLoading } = useMypage();
+  const { data, isLoading } = useGetMyPageData();
   const mypage = data?.data;
   const role = isLoading
     ? ""
     : mypage?.role === "USER"
     ? "일반 회원님"
     : "관리자님";
-  const registrationMethod = isLoading
-    ? ""
-    : mypage?.registrationMethod === "LOCAL"
-    ? "일반 회원가입"
-    : "SNS 소셜 회원가입";
 
   const mypageInfo = [
     { name: "나의 방문횟수", id: 0, value: mypage?.totalVisitCount },
@@ -115,7 +86,10 @@ const Mypage = () => {
             회원가입일: {mypage?.registeredAt}
           </p>
           <p className="text-[14px] leading-[20px] font-[400] text-[#656565]">
-            가입 유형 : {registrationMethod}
+            가입 유형 : {REGISTRATION[mypage?.registrationMethod]?.defaultText}
+            {mypage?.registrationMethod !== "LOCAL"
+              ? `, ${REGISTRATION[mypage?.registrationMethod]?.value}`
+              : "일반 회원가입"}
           </p>
         </div>
       </div>

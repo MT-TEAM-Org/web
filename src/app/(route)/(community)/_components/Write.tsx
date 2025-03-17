@@ -1,6 +1,7 @@
 import usePostCommunityContent from "@/_hooks/community";
 import usePutPost from "@/_hooks/fetcher/board/usePutPost";
 import getUpload from "@/_hooks/getUpload";
+import { useToast } from "@/_hooks/useToast";
 import Tiptap from "@/app/_components/_tiptap/Tiptap";
 import TitleDag from "@/app/_components/_tiptap/TitleDag";
 import { CommunityData } from "@/app/_constants/categories";
@@ -25,6 +26,7 @@ interface FormData {
 }
 
 export function Write({ category, subCategory }: WriteProps) {
+  const toast = useToast();
   const { isEditMode, boardId, boardData, resetEditState } = useEditStore();
   const searchParams = useSearchParams();
   const editParam = searchParams.get("edit");
@@ -145,6 +147,7 @@ export function Write({ category, subCategory }: WriteProps) {
           initialContent={isEditMode && boardData ? boardData.content : ""}
           onImageUpload={handleImageUpload}
           setValue={setValue}
+          onSubmit={handleSubmit(onSubmit)}
         />
       </form>
     </div>
