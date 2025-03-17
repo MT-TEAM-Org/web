@@ -53,8 +53,6 @@ const NewsTalkToolbar = ({
     searchParams.get("page") || "1"
   );
 
-  console.log("paginationData: ", paginationData);
-
   const options: DropdownOption[] = [
     { label: "제목+내용", value: "both" },
     { label: "제목", value: "title" },
