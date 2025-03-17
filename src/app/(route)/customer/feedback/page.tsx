@@ -7,7 +7,10 @@ const page = () => {
   return (
     <>
       <div className="w-[720px] min-h-[120px] rounded-t-[5px]">
-        <CustomerTalkToolbar showOptions={true} />
+        <CustomerTalkToolbar
+          showOptions={false}
+          // paginationData={noticeListData?.pageInfo}
+        />
       </div>
 
       <div className="w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">

@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: false,
 
   images: {
-    domains: ["imgnews.pstatic.net", "43.201.99.157"],
+    domains: ["imgnews.pstatic.net", "43.201.99.157", 'media.playhive.co.kr'],
     remotePatterns: [
       {
         protocol: "http",

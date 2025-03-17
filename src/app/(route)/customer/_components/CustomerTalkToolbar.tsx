@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
@@ -10,6 +10,7 @@ import Pg_left from "@/app/_components/icon/Pg_left";
 import Pg_right from "@/app/_components/icon/Pg_right";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import Small_Search from "@/app/_components/icon/Small_Search";
+import { NoticePageInfoType } from "@/app/_constants/customer/NoticeItemType";
 
 interface DropdownOption {
   label: string;
@@ -18,10 +19,20 @@ interface DropdownOption {
 
 interface ToolbarProps {
   showOptions?: boolean;
+  paginationData?: NoticePageInfoType;
+  onPageChange?: (page: number) => void;
+  setSearchType?: (value: string) => void;
 }
 
-export const CustomerTalkToolbar = ({ showOptions = true }: ToolbarProps) => {
+export const CustomerTalkToolbar = ({
+  showOptions = true,
+  paginationData,
+  onPageChange,
+  setSearchType,
+}: ToolbarProps) => {
   const selectRef = useRef<HTMLSelectElement>(null);
+  const [inputValue, setInputValue] = useState("");
+  console.log("paginationData: ", paginationData);
 
   const pagination = [
     { value: "1", label: "1" },
@@ -44,6 +55,12 @@ export const CustomerTalkToolbar = ({ showOptions = true }: ToolbarProps) => {
       selectRef.current.focus();
       selectRef.current.click();
     }
+  };
+
+  const handleSearch = (e?: FormEvent) => {
+    if (e) e.preventDefault();
+
+    setSearchType(inputValue);
   };
 
   const buttonStyle =
@@ -83,6 +100,8 @@ export const CustomerTalkToolbar = ({ showOptions = true }: ToolbarProps) => {
               type="text"
               className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
               placeholder="검색어를 입력해주세요."
+              onChange={(e) => setInputValue(e.target.value)}
+              value={inputValue}
             />
             <button className="absolute top-2 left-[12px]">
               <Small_Search />

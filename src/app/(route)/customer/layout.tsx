@@ -1,6 +1,6 @@
 import React from "react";
 import CustomerLeftSidebar from "./_components/CustomerLeftSidebar";
-import { RightSideBar } from "../_components/RightSideBar";
+import { RightSideBar } from "../(community)/_components/RightSideBar";
 
 export const metadata = {
   title: "PlayHive 고객센터 페이지",
