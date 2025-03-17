@@ -22,7 +22,6 @@ export default function Navbar() {
         {NAVBARS.map((item, index) => (
           <Link key={index} href={item.link}>
             <div
-              onClick={() => console.log(item.link)}
               className={`${navbarClass} flex justify-around items-center ${
                 isCurrentPath(item.link)
                   ? "font-normal text-[#00ADEE]"
