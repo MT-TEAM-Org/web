@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import NoticeInfoItem from "./_components/NoticeInfoItem";
-import { CustomerTalkToolbar } from "../../_components/CustomerTalkToolbar";
+import CustomerTalkToolbar from "../../_components/CustomerTalkToolbar";
 import NoticeItem from "../../_components/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import NoticeItemSkeleton from "../../_components/NoticeItemSkeleton";

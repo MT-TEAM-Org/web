@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { CustomerTalkToolbar } from "./_components/CustomerTalkToolbar";
+import CustomerTalkToolbar from "./_components/CustomerTalkToolbar";
 import NoticeItem from "./_components/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import EmptyNoticeItem from "./_components/EmptyNoticeItem";
@@ -17,7 +17,6 @@ const Page = () => {
     isLoading,
     isError,
   } = useGetNoticeDataList(pageNum, searchType);
-  console.log("noticeListData: ", noticeListData);
 
   const onPageChange = (newPage: number) => {
     setPageNum(newPage);

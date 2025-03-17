@@ -1,16 +1,16 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
-import Pg_double_left from "@/app/_components/icon/Pg_double_left";
-import Pg_double_right from "@/app/_components/icon/Pg_double_right";
-import Pg_left from "@/app/_components/icon/Pg_left";
-import Pg_right from "@/app/_components/icon/Pg_right";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import Small_Search from "@/app/_components/icon/Small_Search";
 import { NoticePageInfoType } from "@/app/_constants/customer/NoticeItemType";
+import { useRouter, useSearchParams } from "next/navigation";
+import Pagination from "../../mypage/_components/Pagination";
+import changeURLParams from "../../mypage/util/changeURLParams";
+import React from "react";
 
 interface DropdownOption {
   label: string;
@@ -24,23 +24,17 @@ interface ToolbarProps {
   setSearchType?: (value: string) => void;
 }
 
-export const CustomerTalkToolbar = ({
+const CustomerTalkToolbar = ({
   showOptions = true,
   paginationData,
   onPageChange,
   setSearchType,
 }: ToolbarProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const selectRef = useRef<HTMLSelectElement>(null);
   const [inputValue, setInputValue] = useState("");
-  console.log("paginationData: ", paginationData);
-
-  const pagination = [
-    { value: "1", label: "1" },
-    { value: "2", label: "2" },
-    { value: "3", label: "3" },
-    { value: "4", label: "4" },
-    { value: "5", label: "5" },
-  ];
+  const [currentPage, setCurrentPage] = useState(1);
 
   const options: DropdownOption[] = [
     { label: "제목+내용", value: "both" },
@@ -49,6 +43,10 @@ export const CustomerTalkToolbar = ({
     { label: "댓글", value: "comment" },
     { label: "작성자", value: "writer" },
   ];
+
+  useEffect(() => {
+    onPageChange(currentPage);
+  }, [currentPage, onPageChange]);
 
   const handleDivClick = () => {
     if (selectRef.current) {
@@ -59,15 +57,19 @@ export const CustomerTalkToolbar = ({
 
   const handleSearch = (e?: FormEvent) => {
     if (e) e.preventDefault();
-
     setSearchType(inputValue);
+    console.log("검색기능");
+  };
+
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > paginationData.totalPage) return;
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
   };
 
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
-
-  const pageButtonStyle =
-    "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
 
   return (
     <div className="rounded-[5px]">
@@ -95,7 +97,7 @@ export const CustomerTalkToolbar = ({
               <Arrow_down />
             </div>
           </div>
-          <form className="relative">
+          <form className="relative" onSubmit={handleSearch}>
             <input
               type="text"
               className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
@@ -103,7 +105,10 @@ export const CustomerTalkToolbar = ({
               onChange={(e) => setInputValue(e.target.value)}
               value={inputValue}
             />
-            <button className="absolute top-2 left-[12px]">
+            <button
+              className="absolute top-2 left-[12px]"
+              onClick={handleSearch}
+            >
               <Small_Search />
             </button>
           </form>
@@ -129,39 +134,10 @@ export const CustomerTalkToolbar = ({
           ) : null}
         </div>
 
-        <div className="flex">
-          <div className="flex items-center gap-[10px]">
-            <button className={pageButtonStyle}>
-              <Pg_double_left />
-            </button>
-            <button className={pageButtonStyle}>
-              <Pg_left />
-            </button>
-          </div>
-
-          <div className="flex gap-[8px] mx-[8px]">
-            {pagination.map((page) => (
-              <button
-                key={page.value}
-                className={`${pageButtonStyle} ${
-                  page.value === "1" && "font-[700]"
-                } text-[14px] leading-[20px] text-[#424242]`}
-              >
-                {page.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-[10px]">
-            <button className={pageButtonStyle}>
-              <Pg_right />
-            </button>
-            <button className={pageButtonStyle}>
-              <Pg_double_right />
-            </button>
-          </div>
-        </div>
+        <Pagination pageInfo={paginationData} onPageChange={handlePageChange} />
       </div>
     </div>
   );
 };
+
+export default React.memo(CustomerTalkToolbar);
