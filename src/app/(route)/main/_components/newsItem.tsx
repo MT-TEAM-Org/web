@@ -4,11 +4,14 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useReadNews } from "@/_hooks/useNews/useReadNews";
-import { NewsItemType } from "@/app/_constants/newsItemType";
 import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
+import {
+  NewsListDataType,
+  NewsListType,
+} from "@/app/_constants/newsListItemType";
 
 interface NewsPostItemProps {
-  newsItem: NewsItemType;
+  newsItem: NewsListType;
 }
 
 const NewsItem = ({ newsItem }: NewsPostItemProps) => {
@@ -37,7 +40,7 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
         </div>
         <div className="w-[368px] h-[68px] flex flex-col justify-center px-4 gap-1">
           <h2 className="w-full h-[24px] font-[700] text-[16px] leading-6 text-ellipsis overflow-hidden whitespace-nowrap">
-            {newsItem.title}
+            {newsItem?.title}
           </h2>
           <p className="w-full h-[40px] font-[500] text-[14px] leading-5 overflow-hidden line-clamp-2">
             {newsItem?.content}

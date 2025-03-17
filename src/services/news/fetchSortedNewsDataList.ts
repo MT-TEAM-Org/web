@@ -23,7 +23,7 @@ const fetchSortedNewsDataList = async ({
   const response = await axios(`${process.env.NEXT_PUBLIC_API_URL}api/news`, {
     params,
   });
-  return response.data.data.list.content;
+  return response.data.data.list;
 };
 
 export default fetchSortedNewsDataList;
