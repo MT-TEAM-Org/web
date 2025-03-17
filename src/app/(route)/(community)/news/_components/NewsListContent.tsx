@@ -4,10 +4,11 @@ import React from "react";
 import EmptyNews from "./EmptyNews";
 import NewsPostItem from "./NewsPostItem";
 import NewsPostItemSkeleton from "./NewsPostItemSkeleton";
-import { NewsItemType } from "@/app/_constants/newsItemType";
+import { NewsListDataType } from "@/app/_constants/newsListItemType";
+import { NewsListType } from "@/app/_constants/newsListItemType";
 
 interface NewsListContentProps {
-  data: NewsItemType[];
+  data: NewsListDataType | undefined;
   isLoading: boolean;
   isError: boolean;
 }
@@ -25,12 +26,14 @@ const NewsListContent = ({ data, isLoading }: NewsListContentProps) => {
     );
   }
 
+  console.log("data: ", data);
+
   return (
     <>
-      {data.length === 0 ? (
+      {data?.content?.length === 0 || !data ? (
         <EmptyNews />
       ) : (
-        data.map((newsItem) => (
+        data?.content.map((newsItem: NewsListType) => (
           <NewsPostItem key={newsItem.id} newsItem={newsItem} />
         ))
       )}

@@ -5,17 +5,24 @@ import { useRouter } from "next/navigation";
 const LeftSidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const basePath = pathname.split("/")[1];
+  const pathParts = pathname.split("/");
+
+  const rootPath = pathParts[1];
+  const boardType = pathname.split("/")[2];
 
   const boardList = [
-    { name: "전체", id: 0, path: `/${basePath}/ALL` },
-    { name: "자유", id: 1, path: `/${basePath}/FREE` },
-    { name: "질문", id: 2, path: `/${basePath}/QUESTION` },
-    { name: "이슈", id: 3, path: `/${basePath}/ISSUE` },
-    ...(basePath === "esports"
+    { name: "전체", id: 0, path: `/${rootPath}/${boardType}/ALL` },
+    { name: "자유", id: 1, path: `/${rootPath}/${boardType}/FREE` },
+    { name: "질문", id: 2, path: `/${rootPath}/${boardType}/QUESTION` },
+    { name: "이슈", id: 3, path: `/${rootPath}/${boardType}/ISSUE` },
+    ...(boardType === "esports"
       ? [
-          { name: "전적 인증", id: 4, path: `/${basePath}/VERIFICATION` },
-          { name: "플레이 팁", id: 5, path: `/${basePath}/TIP` },
+          {
+            name: "전적 인증",
+            id: 4,
+            path: `/${rootPath}/${boardType}/VERIFICATION`,
+          },
+          { name: "플레이 팁", id: 5, path: `/${rootPath}/${boardType}/TIP` },
         ]
       : []),
     { name: "개선요청", id: 6, path: `/customer/feedback` },
@@ -23,8 +30,8 @@ const LeftSidebar = () => {
 
   const isCurrentPath = (boardPath: string) => {
     const pathParts = pathname.split("/");
-    const currentCategory = pathParts[2];
-    const boardCategory = boardPath.split("/")[2] || "";
+    const currentCategory = pathParts[3];
+    const boardCategory = boardPath.split("/")[3] || "";
 
     return currentCategory === boardCategory;
   };

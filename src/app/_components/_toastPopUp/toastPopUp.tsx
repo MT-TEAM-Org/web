@@ -5,11 +5,11 @@ import CustomIcon from "../IconComponents/Icon";
 import { ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from "../ToastIcon";
 
 interface ToastPopUpProps {
+  visible: boolean;
   state: "success" | "info" | "warning" | "error";
   size: "PC" | "MOBILE";
   title: string;
   message: string;
-  duration?: number;
   onClose?: () => void;
 }
 
@@ -18,21 +18,16 @@ const ToastPopUp = ({
   size,
   title,
   message,
-  duration = 3000,
   onClose,
+  visible,
 }: ToastPopUpProps) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [toastKey, setToastKey] = useState(1);
 
   useEffect(() => {
-    if (duration) {
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-        if (onClose) onClose();
-      }, duration);
-
-      return () => clearTimeout(timer);
+    if (visible) {
+      setToastKey((prev) => prev + 1);
     }
-  }, [duration, onClose]);
+  }, [visible]);
 
   const stateIcons = {
     success: <SuccessIcon />,
@@ -61,16 +56,27 @@ const ToastPopUp = ({
   };
 
   const defaultToastStyle =
-    "fixed top-[160px] inset-x-0 mx-auto flex gap-x-[16px] justify-center items-center max-w-[640px] min-h-[56px] rounded-[10px] px-[16px] py-[8px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.1)]";
-
+    "fixed z-[999] top-[160px] inset-x-0 mx-auto flex gap-x-[16px] justify-center items-center max-w-[640px] min-h-[56px] rounded-[10px] px-[16px] py-[8px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.1)]";
+  //TODO: 종료 애니메이션이 작동 안 됨 / 애니메이션 효과 추후 수정 필요
   return (
-    <AnimatePresence>
-      {isVisible && (
+    <AnimatePresence
+      mode="wait"
+      onExitComplete={() => {
+        if (!visible && onClose) {
+          onClose();
+        }
+      }}
+    >
+      {visible && (
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          key={toastKey}
+          initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
+          exit={{ opacity: 0, y: -100 }}
+          transition={{
+            duration: 0.3,
+            ease: "easeInOut",
+          }}
           className={`${defaultToastStyle} ${stateConfig[state].style}`}
         >
           {stateIcons[state]}
@@ -82,7 +88,9 @@ const ToastPopUp = ({
           </div>
           <button
             className="w-[24px] h-[24px]"
-            onClick={() => setIsVisible(false)}
+            onClick={() => {
+              if (onClose) onClose();
+            }}
           >
             <CustomIcon
               icon="CLOSE_X"

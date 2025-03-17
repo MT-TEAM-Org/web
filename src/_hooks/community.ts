@@ -29,7 +29,7 @@ const usePostCommunityContent = () => {
       const categoryType = response?.data?.categoryType;
       const boardId = response?.data?.boardId;
       if (boardId) {
-        router.push(`/${boardType}/${categoryType}/${boardId}`);
+        router.push(`/board/${boardType}/${categoryType}/${boardId}`);
       } else {
         router.back();
       }
