@@ -170,7 +170,7 @@ const InquirieDetail = ({
           </div>
         </div>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={""}>
         <div className="max-w-[720px] min-h-[450px] bg-[#FAFAFA] rounded-[5px]">
           <MyPageInquiriesList />
         </div>

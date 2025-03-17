@@ -42,7 +42,7 @@ function HomePageContent() {
 
 export default function HomePage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={""}>
       <HomePageContent />
     </Suspense>
   );
