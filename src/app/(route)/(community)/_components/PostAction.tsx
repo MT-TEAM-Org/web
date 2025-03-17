@@ -7,10 +7,12 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 interface PostActionProps {
+  type: "news" | "community";
   source?: string;
+  onReport?: () => void;
 }
 
-const PostAction = ({ source }: PostActionProps) => {
+const PostAction = ({ type, onReport, source }: PostActionProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const url = window.location.href;
 
@@ -27,16 +29,30 @@ const PostAction = ({ source }: PostActionProps) => {
     }
   };
 
+  const handleReport = () => {
+    if (onReport) {
+      onReport();
+    }
+  };
+
   return (
     <div className="w-full h-auto flex justify-between">
-      <Link
-        href={`${source}`}
-        target="_blank"
-        className="min-w-[104px] w-auto min-h-[32px] rounded-[5px] text-[14px] font-[500] leading-[14px] flex items-center justify-center bg-white px-3 py-[9px] border border-gray3"
-      >
-        기사 원문 보기
-      </Link>
-
+      {type === "news" ? (
+        <Link
+          href={`${source}`}
+          target="_blank"
+          className="min-w-[104px] w-auto min-h-[32px] rounded-[5px] text-[14px] font-[500] leading-[14px] flex items-center justify-center bg-white px-3 py-[9px] border border-gray3"
+        >
+          기사 원문 보기
+        </Link>
+      ) : (
+        <button
+          onClick={handleReport}
+          className="w-full max-w-[73px] min-h-[32px] rounded-[5px] text-[14px] font-[500] leading-[14px] flex items-center justify-center bg-white px-3 py-[9px] border border-gray3 whitespace-nowrap"
+        >
+          신고하기
+        </button>
+      )}
       <div className="flex gap-2">
         <button
           onClick={copyBtn}
@@ -53,9 +69,9 @@ const PostAction = ({ source }: PostActionProps) => {
           공유하기
         </button>
       </div>
-      {activeModal ? (
+      {activeModal && (
         <ShareModalPopUp setActiveModal={setActiveModal} url={url} />
-      ) : null}
+      )}
     </div>
   );
 };

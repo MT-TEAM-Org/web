@@ -1,18 +1,21 @@
 "use client";
 
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
-import React from "react";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import NewsTalkToolbar from "./_components/NewsTalkToolbar";
 import NewsListContent from "./_components/NewsListContent";
 import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 
 const Page = () => {
+  const router = useRouter();
+
   const {
     orderType,
     setOrderType,
-    timeType,
-    setTimeType,
-    pageNum,
+    timePeriod,
+    setTimePeriod,
+    page,
     onPageChange,
     searchType,
     setSearchType,
@@ -24,10 +27,14 @@ const Page = () => {
     isError,
   } = useSortedNewsDataList({
     orderType,
-    timeType,
+    timePeriod,
     searchType,
-    pageNum,
+    page,
   });
+
+  useEffect(() => {
+    router.push("/news/all");
+  }, [router]);
 
   console.log("NewsListData: ", newsListData);
 
@@ -36,7 +43,7 @@ const Page = () => {
       <NewsTalkToolbar
         setOrderType={setOrderType}
         onPageChange={onPageChange}
-        setTimeType={setTimeType}
+        setTimeType={setTimePeriod}
         setSearchType={setSearchType}
       />
 

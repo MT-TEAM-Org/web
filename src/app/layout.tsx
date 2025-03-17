@@ -3,6 +3,7 @@ import "./globals.css";
 import QueryProvider from "./_components/QueryProvider";
 import Gnb from "./_components/_gnb/Gnb";
 import Footer from "./_components/Footer";
+import { ToastContainer } from "./_components/ToastContainer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,6 +22,7 @@ export default function RootLayout({
           <Gnb />
           {children}
           <Footer />
+          <ToastContainer />
         </QueryProvider>
       </body>
     </html>

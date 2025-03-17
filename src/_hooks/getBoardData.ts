@@ -10,7 +10,7 @@ interface GetBoardData {
 }
 
 const getBoardData = async (data: GetBoardData) => {
-  const { boardType, categoryType, orderType, page = 1, size = 15 } = data;
+  const { boardType, categoryType, orderType, page = 1, size = 20 } = data;
 
   const checkCategory = categoryType === "ALL" ? null : categoryType;
 

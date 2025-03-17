@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { REGISTRATION } from "@/constants/userRegistration";
+import useGetMyPageData from "@/_hooks/useMypage/useGetMyPageData";
 
 interface FormData {
   email: string;
@@ -61,6 +63,7 @@ const useModifyUserInfo = () => {
 const EditProfile = () => {
   const queryClient = useQueryClient();
   const { data: userInfo, isLoading: userInfoIsLoading } = useUserInfo();
+  const { data: mypageData, isLoading } = useGetMyPageData();
   const { mutate: modifyUserInfo, isPending: modifyUserInfoIsPending } =
     useModifyUserInfo();
   const [genderType, setGenderType] = useState<"M" | "W" | null>(null);
@@ -147,10 +150,19 @@ const EditProfile = () => {
               </div>
             </div>
 
-            {/* <div className="flex justify-between min-h-[56px] rounded-[10px] p-[16px] bg-[#FAFAFA] text-[#303030]">
+            <div className="flex justify-between min-h-[56px] rounded-[10px] p-[16px] bg-[#FAFAFA] text-gray8">
               <p className="leading-[24px]">가입 유형</p>
-              <p className="font-[700] leading-[24px]">SNS 회원가입 (구글)</p>
-            </div> */}
+              <p className="font-[700] leading-[24px]">
+                {mypageData?.data?.registrationMethod === "LOCAL"
+                  ? "일반 회원가입"
+                  : `${
+                      REGISTRATION[mypageData?.data?.registrationMethod]
+                        ?.defaultText
+                    }(${
+                      REGISTRATION[mypageData?.data?.registrationMethod]?.value
+                    })`}
+              </p>
+            </div>
 
             {inputObject.map((input) => (
               <div key={input.id} className="flex flex-col gap-[4px]">

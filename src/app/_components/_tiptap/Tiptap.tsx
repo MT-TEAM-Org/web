@@ -27,6 +27,7 @@ interface TiptapProps {
   initialContent?: string;
   onImageUpload: (blob: Blob) => Promise<string>;
   setValue: UseFormSetValue<FormData>;
+  onSubmit?: () => void;
 }
 
 interface FormData {
@@ -91,6 +92,7 @@ const Tiptap = ({
   setValue,
   initialContent,
   onImageUpload,
+  onSubmit,
 }: TiptapProps) => {
   const router = useRouter();
   const [isEditorReady, setIsEditorReady] = useState(false);
@@ -397,7 +399,10 @@ const Tiptap = ({
           목록
         </button>
         <button
-          type="submit"
+          type="button"
+          onClick={() => {
+            if (onSubmit) onSubmit();
+          }}
           className="w-[120px] h-[40px] bg-[#00ADEE] text-[white] rounded-[5px]"
         >
           {isEditMode ? "수정완료" : "작성완료"}

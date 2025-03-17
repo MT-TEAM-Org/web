@@ -1,4 +1,4 @@
-import CommentItem from "@/app/(route)/(community)/_components/CommentItem";
+import CommentItem from "@/app/(route)/(community)/news/[subcategory]/news-detail/[id]/_components/NewsCommentItem";
 import React from "react";
 
 const CommentContainer = () => {

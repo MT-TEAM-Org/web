@@ -1,4 +1,3 @@
-import axios from "axios";
 import { apiRequest } from "../instant";
 
 interface EditBoardData {
