@@ -1,15 +1,35 @@
-import React from "react";
-import { CustomerTalkToolbar } from "../_components/CustomerTalkToolbar";
+"use client";
+
+import React, { useState } from "react";
+import CustomerTalkToolbar from "../_components/CustomerTalkToolbar";
 import FeedbackItem from "../_components/FeedbackItem";
 import FeedbackNoticeItem from "../_components/FeedbackNoticeItem";
+import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
+import EmptyItem from "../_components/EmptyNoticeItem";
 
 const page = () => {
+  const [pageNum, setPageNum] = useState(1);
+  const [searchType, setSearchType] = useState("");
+  const [order, setOrder] = useState<"CREATE">("CREATE");
+
+  const {
+    data: feedbackDataList,
+    isLoading,
+    isError,
+  } = useGetFeedbackDataList({ pageNum, order, searchType });
+
+  const onPageChange = (newPage: number) => {
+    setPageNum(newPage);
+  };
+
   return (
     <>
       <div className="w-[720px] min-h-[120px] rounded-t-[5px]">
         <CustomerTalkToolbar
           showOptions={false}
-          paginationData={noticeListData?.pageInfo}
+          paginationData={feedbackDataList?.pageInfo}
+          onPageChange={onPageChange}
+          setSearchType={setSearchType}
         />
       </div>
 
@@ -25,7 +45,7 @@ const page = () => {
           />
         ))}
       </div>
-      {/* <EmptyNoticeItem /> 공지사항 없을 때 */}
+      <EmptyItem title="개선요청 사항이" />
     </>
   );
 };

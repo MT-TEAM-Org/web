@@ -1,7 +1,11 @@
 import React from "react";
 import Image from "next/image";
 
-const EmptyItem = (title: string) => {
+interface EmptyNoticeItemProps {
+  title: string;
+}
+
+const EmptyItem = ({ title }: EmptyNoticeItemProps) => {
   return (
     <div className="w-[720px] h-[248px] rounded-b-[10px] bg-[#FAFAFA] flex items-center">
       <div className="w-full min-h-[80px] flex flex-col gap-4 items-center justify-center">
