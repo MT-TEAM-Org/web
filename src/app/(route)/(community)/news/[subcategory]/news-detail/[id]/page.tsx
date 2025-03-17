@@ -34,7 +34,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     timePeriod,
     setTimePeriod,
     page,
-    onPageChange,
+    onPageChangeAction,
     searchType,
     setSearchType,
   } = useNewsPageLogic();
@@ -150,7 +150,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
       <NewsTalkToolbar
         setOrderType={setOrderType}
         setTimeType={setTimePeriod}
-        onPageChange={onPageChange}
+        onPageChangeAction={onPageChangeAction}
         setSearchType={setSearchType}
         paginationData={newsListData?.pageInfo}
       />

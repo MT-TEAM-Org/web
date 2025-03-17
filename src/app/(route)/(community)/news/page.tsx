@@ -16,7 +16,7 @@ const Page = () => {
     timePeriod,
     setTimePeriod,
     page,
-    onPageChange,
+    onPageChangeAction,
     searchType,
     setSearchType,
   } = useNewsPageLogic();
@@ -41,7 +41,7 @@ const Page = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <NewsTalkToolbar
           setOrderType={setOrderType}
-          onPageChange={onPageChange}
+          onPageChangeAction={onPageChangeAction}
           setTimeType={setTimePeriod}
           setSearchType={setSearchType}
           paginationData={newsListData?.pageInfo}
