@@ -10,7 +10,7 @@ interface useGetFeedbackDataListProps {
 
 const useGetFeedbackDataList = ({pageNum, order, searchType, search}: useGetFeedbackDataListProps) => {
   return useQuery({
-    queryKey: ["feedbackList", pageNum, order, searchType, search],
+    queryKey: ["feedbackDataList", pageNum, order, searchType, search],
     queryFn: () => getFeedbackDataList({pageNum, order, searchType, search}),
     retry: 1,
   });

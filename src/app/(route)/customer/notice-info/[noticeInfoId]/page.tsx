@@ -54,7 +54,7 @@ const Page = () => {
             <NoticeItemSkeleton key={index} />
           ))
         ) : noticeListData?.content?.length === 0 || isError ? (
-          <EmptyItem title={"공지사항이"} />
+          <EmptyItem title="공지사항이" />
         ) : (
           noticeListData?.content?.map(
             (noticeListData: NoticeContentType, index) => {
