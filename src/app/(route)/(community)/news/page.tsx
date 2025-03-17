@@ -1,7 +1,7 @@
 "use client";
 
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import NewsTalkToolbar from "./_components/NewsTalkToolbar";
 import NewsListContent from "./_components/NewsListContent";
@@ -38,13 +38,15 @@ const Page = () => {
 
   return (
     <div className="w-[720px] h-auto flex flex-col justify-start bg-gray1 rounded-[5px] overflow-hidden">
-      <NewsTalkToolbar
-        setOrderType={setOrderType}
-        onPageChange={onPageChange}
-        setTimeType={setTimePeriod}
-        setSearchType={setSearchType}
-        paginationData={newsListData?.pageInfo}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <NewsTalkToolbar
+          setOrderType={setOrderType}
+          onPageChange={onPageChange}
+          setTimeType={setTimePeriod}
+          setSearchType={setSearchType}
+          paginationData={newsListData?.pageInfo}
+        />
+      </Suspense>
 
       <NewsListContent
         data={newsListData}
