@@ -1,4 +1,4 @@
-import {heroui} from '@heroui/theme';
+import { heroui } from "@heroui/theme";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -6,7 +6,7 @@ export default {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@heroui/theme/dist/components/(skeleton|spinner).js"
+    "./node_modules/@heroui/theme/dist/components/(skeleton|spinner).js",
   ],
   theme: {
     extend: {
@@ -23,13 +23,16 @@ export default {
         Primary: "#1228EF",
         Secondary: "#1024D3",
         Tertiary: "#0E1FAD",
-        Quaternary: "#09126D",
+        quaternary: "#09126D",
         Fifth: "#000641",
+        gra: "#00ADEE",
+        bg0: "#F8FDFF",
         bg1: "#FAFBFF",
         bg2: "#F3F4FE",
         bg3: "#E8EAFE",
         bg4: "#DCDFFD",
         bg5: "#D0D4FC",
+
         warning: "#D1504B",
         alert: "F89E21",
         ing: "#04C52E",
@@ -47,6 +50,13 @@ export default {
         black: "#000000",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        //토스트팝업 색상
+        toastSuccess: "#009AD4",
+        toastInfo: "#FFFFFF",
+        toastInfoBorder: "#FAFAFA",
+        toastWarning: "#FFFFFF",
+        toastWarningBorder: "#D1504B",
+        toastError: "#D1504B",
       },
     },
   },

@@ -30,7 +30,8 @@ export function Write({ category, subCategory }: WriteProps) {
   const editParam = searchParams.get("edit");
 
   const pathName = usePathname();
-  const boardType = pathName?.split("/")[1];
+  const rootPath = pathName?.split("/")[1];
+  const boardType = pathName?.split("/")[2];
 
   const { register, handleSubmit, setValue, watch } = useForm<FormData>({
     defaultValues: {
@@ -145,6 +146,7 @@ export function Write({ category, subCategory }: WriteProps) {
           initialContent={isEditMode && boardData ? boardData.content : ""}
           onImageUpload={handleImageUpload}
           setValue={setValue}
+          onSubmit={handleSubmit(onSubmit)}
         />
       </form>
     </div>

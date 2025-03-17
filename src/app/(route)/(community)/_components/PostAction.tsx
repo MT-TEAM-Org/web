@@ -1,5 +1,6 @@
 "use client";
 
+import { useToast } from "@/_hooks/useToast";
 import Copy from "@/app/_components/icon/Copy";
 import Share from "@/app/_components/icon/Share";
 import ShareModalPopUp from "@/app/_components/ShareModalPopUp";
@@ -15,6 +16,7 @@ interface PostActionProps {
 const PostAction = ({ type, onReport, source }: PostActionProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const url = window.location.href;
+  const toast = useToast();
 
   const modalPopUp = () => {
     setActiveModal((prev) => !prev);
@@ -23,9 +25,12 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
   const copyBtn = async () => {
     try {
       await navigator.clipboard.writeText(url);
-      alert("URL이 클립보드에 복사되었습니다!"); // 임시
+      toast.success(
+        "주소가 복사되었습니다.",
+        "원하는 곳에 붙여넣기를 해주세요."
+      );
     } catch (err) {
-      alert("복사에 실패했습니다.");
+      toast.error("주소가 복사되지 않았습니다.", "다시 시도 해주세요.");
     }
   };
 

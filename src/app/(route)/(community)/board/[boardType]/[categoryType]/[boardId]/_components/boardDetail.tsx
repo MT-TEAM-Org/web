@@ -1,17 +1,17 @@
 "use client";
 
-import useGetBoardDetail from "@/_hooks/getBoardDetail";
 import Image from "next/image";
 import parse from "html-react-parser";
 import { Spinner, user } from "@heroui/react";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import useDeletePost from "@/_hooks/fetcher/board/useDeletePost";
 import { useEditStore } from "@/utils/Store";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import usePostRecommend from "@/_hooks/fetcher/board/usePostRecommend";
 import useDeleteRecommendPost from "@/_hooks/fetcher/board/useDeleteRecommnedPost";
+import useGetBoardDetail from "@/_hooks/fetcher/board/useGetBoardDetail";
 
 interface BoardDetailProps {
   boardId: string;
@@ -71,8 +71,10 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
     setBoardData(editableData);
 
     const routeBoardType = boardDetailData?.data?.boardType.toLowerCase();
+    const pathname = window.location.pathname;
+    const rootPath = pathname.split("/")[1];
     router.push(
-      `/${routeBoardType}/${editableData?.categoryType}/write?edit=true`
+      `/${rootPath}/${routeBoardType}/${editableData?.categoryType}/write?edit=true`
     );
   };
 

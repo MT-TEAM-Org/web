@@ -3,7 +3,6 @@
 import React, { use } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
-import { NewsItemType } from "@/app/_constants/newsItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import CommentSection from "../../../_components/CommentSection";
@@ -22,6 +21,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import useDeleteRecommend from "@/_hooks/fetcher/news/useDeleteRecommend";
 import useGetNewsComment from "@/_hooks/fetcher/news/comment/useGetNewsComment";
 import NewsSendCommentBox from "./_components/NewsSendCommentBox";
+import useGetBestComment from "@/_hooks/fetcher/news/comment/useGetBestComment";
+import { NewsListType } from "@/app/_constants/newsListItemType";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
@@ -39,11 +40,11 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   } = useNewsPageLogic();
 
   const { data: newsInfoData, isLoading } = useGetNewsInfoData(id);
+  const { data: newsBestCommentData } = useGetBestComment(newsInfoData?.id);
+  const { data: newsCommentData } = useGetNewsComment(id);
   const formattedTime = useTimeAgo(newsInfoData?.postDate);
   const { mutate: newsAddCommend } = usePatchRecommend();
   const { mutate: newsDeleteRecommend } = useDeleteRecommend();
-  const { data: newsCommentData } = useGetNewsComment(id);
-  console.log("newsCommentData: ", newsCommentData?.content);
 
   const { data: newsListData } = useSortedNewsDataList({
     orderType,
@@ -52,7 +53,9 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     searchType,
   });
   const updatedImgUrl = updateImageUrl(newsInfoData?.thumbImg, "w360");
-  const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
+  const sliceNewsListData = newsListData
+    ? newsListData?.content?.slice(0, 3)
+    : [];
 
   const handleNewsCommend = () => {
     if (!newsInfoData?.recommend) {
@@ -60,23 +63,18 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
         },
-        onError: (error) => {
-          console.error("추천 실패:", error);
-        },
       });
     } else if (newsInfoData?.recommend) {
       newsDeleteRecommend(id, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
         },
-        onError: (error) => {
-          console.error("추천 실패:", error);
-        },
       });
     }
   };
 
-  console.log("newsInfoData: ", newsInfoData);
+  const recommendButtonBaseStyle =
+    "h-[40px] rounded-[5px] border px-[13px] py-4 flex gap-1 bg-white items-center justify-center text-[14px] font-bold";
 
   return (
     <>
@@ -126,16 +124,25 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           <div className="w-full h-auto flex justify-center gap-2">
             <button
               onClick={handleNewsCommend}
-              className="min-w-[120px] w-auto h-[40px] flex items-center text-[14px] justify-center gap-1 px-4 py-[13px] bg-[#00ADEE] text-white font-bold rounded-[5px]"
+              className={
+                newsInfoData?.recommend
+                  ? `${recommendButtonBaseStyle} w-[123px] border-[#00ADEE] text-[#00ADEE]`
+                  : `${recommendButtonBaseStyle} w-[120px] border-gray3`
+              }
             >
-              <Single_logo />
-              추천 <span>{newsInfoData?.recommendCount}</span>
+              <Single_logo width="16" height="16" fill="#00ADEE" />
+              추천
+              <span>
+                {newsInfoData?.recommendCount >= 1 &&
+                  newsInfoData?.recommendCount}
+              </span>
             </button>
           </div>
           <PostAction type="news" source={newsInfoData?.source} />
           <CommentSection
             newsInfoData={newsInfoData}
             newsCommentData={newsCommentData}
+            newsBestCommentData={newsBestCommentData}
           />
         </div>
       )}
@@ -145,6 +152,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         setTimeType={setTimePeriod}
         onPageChange={onPageChange}
         setSearchType={setSearchType}
+        paginationData={newsListData?.pageInfo}
       />
 
       <div className="w-[720px] h-auto rounded-b-[5px] overflow-hidden shadow-md">
@@ -155,8 +163,8 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         ) : sliceNewsListData?.length === 0 ? (
           <EmptyNews />
         ) : (
-          sliceNewsListData.map((newsInfoData: NewsItemType) => (
-            <NewsPostItem newsItem={newsInfoData} key={newsInfoData.id} />
+          sliceNewsListData.map((newsInfoData: NewsListType) => (
+            <NewsPostItem newsItem={newsInfoData} key={newsInfoData?.id} />
           ))
         )}
       </div>
