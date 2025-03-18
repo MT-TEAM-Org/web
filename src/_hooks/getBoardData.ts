@@ -5,12 +5,22 @@ interface GetBoardData {
   boardType: string;
   categoryType?: string;
   orderType?: string;
+  searchType?: string;
+  search?: string;
   page?: number;
   size?: number;
 }
 
 const getBoardData = async (data: GetBoardData) => {
-  const { boardType, categoryType, orderType, page = 1, size = 20 } = data;
+  const {
+    boardType,
+    categoryType,
+    searchType,
+    search,
+    orderType,
+    page = 1,
+    size = 20,
+  } = data;
 
   const checkCategory = categoryType === "ALL" ? null : categoryType;
 
@@ -24,6 +34,8 @@ const getBoardData = async (data: GetBoardData) => {
         boardType,
         categoryType: checkCategory,
         orderType,
+        searchType,
+        search,
         page,
         size,
       },

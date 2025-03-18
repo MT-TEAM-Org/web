@@ -21,12 +21,16 @@ export default function Category({
 
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page") || "1";
+  const searchQuery = searchParams.get("search");
+  const searchType = searchParams.get("search_type");
 
   const { data: boardData, isLoading } = useGetBoardData({
     boardType: boardType?.toUpperCase(),
     categoryType: categoryType,
     orderType: "CREATE",
     page: Number(currentPage),
+    searchType: searchQuery ? searchType : undefined,
+    search: searchQuery,
   });
 
   if (isLoading) {
