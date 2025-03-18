@@ -9,7 +9,7 @@ interface EventItemProps {
 const EventItem = ({ gameEventData }: EventItemProps) => {
   return (
     <Link href={gameEventData?.link} target="_blank">
-      <div className="w-[298px] h-[92px] flex items-center border border-gray2 rounded-[5px] p-3 gap-3 cursor-pointer box-border overflow-hidden">
+      <div className="w-[298px] h-[92px] flex items-center border border-gray2 rounded-[5px] p-3 gap-3 cursor-pointer ">
         <Image
           src={gameEventData?.thumbImg || "/Fake_event_game.png"}
           alt={gameEventData?.title || "game event"}

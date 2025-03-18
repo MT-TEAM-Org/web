@@ -32,7 +32,7 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
 
   const styles = {
     title: `${titleStyle} ${read ? "text-gray5" : "text-gray9"}`,
-    content: `${contentStyle} ${read ? "text-gray5" : "text-gray9"}`,
+    content: `${contentStyle} ${read ? "text-gray5" : "text-gray7"}`,
   };
 
   return (
