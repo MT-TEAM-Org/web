@@ -8,9 +8,10 @@ import { NewsItemType } from "@/app/_constants/newsItemType";
 
 interface NewsItemProps {
   newsItem: NewsItemType;
+  customClass?: string;
 }
 
-const RightNewsItem = ({ newsItem }: NewsItemProps) => {
+const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
   const { handleRead } = useReadNews(newsItem?.id, false);
   const [read, setRead] = useState(false);
   const pathname = usePathname();
@@ -42,7 +43,7 @@ const RightNewsItem = ({ newsItem }: NewsItemProps) => {
     >
       <div
         onClick={handleRead}
-        className="min-w-[288px] min-h-[92px] flex justify-start items-center border-b border-gray2 p-3 cursor-pointer gap-3"
+        className={`min-w-[288px] min-h-[92px] flex justify-start items-center border-b border-gray2 p-3 cursor-pointer gap-3 ${customClass}`}
       >
         <Image
           src={newsItem.thumbImg ? updatedImgUrl : "/Preview_loading_image.png"}

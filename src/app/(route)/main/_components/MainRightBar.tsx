@@ -51,7 +51,7 @@ const MainRightBar = () => {
   const activeBtnStyle =
     "border-[1px] border-b-0 font-[700] text-[14px] leading-[21px] text-gray7";
   const passiveBtnStyle =
-    "border-b-2 border-gray5 font-[500] text-[14px] leading-[22px] text-gray5";
+    "border-b border-b-gray5 border-gray5 font-[500] text-[14px] leading-[22px] text-gray5";
 
   return (
     <div className="flex flex-col w-[298px] min-h-[668px] gap-6 bg-white rounded-lg">
@@ -75,13 +75,17 @@ const MainRightBar = () => {
       </div>
       <div className="flex flex-col gap-2">
         {buttonActive ? (
-          <div className="w-full h-auto max-h-[736px] rounded-[10px]">
+          <div className="w-full h-auto max-h-[736px] rounded-[10px] flex flex-col gap-2 ">
             {newsIsLoading
               ? Array(5)
                   .fill(0)
                   .map((_, index) => <RightNewsItemSkeleton key={index} />)
               : newsData?.map((data: NewsItemType) => (
-                  <RightNewsItem key={data?.id} newsItem={data} />
+                  <RightNewsItem
+                    key={data?.id}
+                    newsItem={data}
+                    customClass="w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3"
+                  />
                 ))}
           </div>
         ) : eventIsLoading ? (
