@@ -3,15 +3,12 @@
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
-import Pg_double_left from "@/app/_components/icon/Pg_double_left";
-import Pg_double_right from "@/app/_components/icon/Pg_double_right";
-import Pg_left from "@/app/_components/icon/Pg_left";
-import Pg_right from "@/app/_components/icon/Pg_right";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import Small_Search from "@/app/_components/icon/Small_Search";
 import { useEditStore } from "@/utils/Store";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
+import Pagination from "../../mypage/_components/Pagination";
 
 interface DropdownOption {
   label: string;
@@ -20,9 +17,17 @@ interface DropdownOption {
 
 interface CommunityToolbarProps {
   boardType: string;
+  pageInfo: {
+    currentPage: number;
+    totalPage: number;
+    totalElement: number;
+  };
 }
 
-export const CommunityToolbar = ({ boardType }: CommunityToolbarProps) => {
+export const CommunityToolbar = ({
+  boardType,
+  pageInfo,
+}: CommunityToolbarProps) => {
   const { resetEditState } = useEditStore();
 
   const selectRef = useRef<HTMLSelectElement>(null);
@@ -30,16 +35,6 @@ export const CommunityToolbar = ({ boardType }: CommunityToolbarProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  const currentOrderType = searchParams.get("orderType") || "CREATE";
-
-  const pagination = [
-    { value: "1", label: "1" },
-    { value: "2", label: "2" },
-    { value: "3", label: "3" },
-    { value: "4", label: "4" },
-    { value: "5", label: "5" },
-  ];
 
   const options: DropdownOption[] = [
     { label: "제목+내용", value: "both" },
@@ -59,10 +54,11 @@ export const CommunityToolbar = ({ boardType }: CommunityToolbarProps) => {
   const handleWriteClick = () => {
     const pathParts = pathname.split("/");
     const basePath = pathParts[1];
-    const categoryType = pathParts[2] || "FREE";
+    const boardType = pathParts[2];
+    const categoryType = pathParts[3] || "FREE";
     resetEditState();
 
-    router.push(`/${basePath}/${categoryType}/write`);
+    router.push(`/${basePath}/${boardType}/${categoryType}/write`);
   };
 
   const handleOrderClick = (type: string) => {
@@ -72,10 +68,18 @@ export const CommunityToolbar = ({ boardType }: CommunityToolbarProps) => {
     router.push(`${pathname}?${params.toString()}`);
   };
 
+  const handlePageChange = (page: number) => {
+    if (pageInfo && pageInfo.totalPage) {
+      if (page < 1 || page > pageInfo.totalPage) return;
+
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", page.toString());
+      router.push(`${pathname}?${params.toString()}`);
+    }
+  };
+
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
-  const pageButtonStyle =
-    "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
 
   return (
     <div className="w-full max-w-[720px] sticky top-[120px] bg-white z-10">
@@ -143,37 +147,11 @@ export const CommunityToolbar = ({ boardType }: CommunityToolbarProps) => {
           </button>
         </div>
 
-        <div className="flex">
-          <div className="flex items-center gap-[10px]">
-            <button className={pageButtonStyle}>
-              <Pg_double_left />
-            </button>
-            <button className={pageButtonStyle}>
-              <Pg_left />
-            </button>
-          </div>
-
-          <div className="flex gap-[8px] mx-[8px]">
-            {pagination.map((page) => (
-              <button
-                key={page.value}
-                className={`${pageButtonStyle} ${
-                  page.value === "1" && "font-[700]"
-                } text-[14px] leading-[20px] text-[#424242]`}
-              >
-                {page.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-[10px]">
-            <button className={pageButtonStyle}>
-              <Pg_right />
-            </button>
-            <button className={pageButtonStyle}>
-              <Pg_double_right />
-            </button>
-          </div>
+        <div className="flex gap-[8px] mx-[8px]">
+          <Pagination
+            pageInfo={pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
         </div>
       </div>
     </div>

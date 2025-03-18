@@ -21,24 +21,24 @@ interface BoardListItem {
   updatedAt: string;
 }
 
+interface BoardData {
+  content: BoardListItem[];
+  pageInfo: {
+    currentPage: number;
+    totalPage: number;
+    totalElement: number;
+  };
+  noticeList?: any[];
+}
+
 interface PostItemProps {
   boardType: string;
   categoryType: string;
+  boardData?: BoardData;
 }
 
-const PostItem = ({ boardType, categoryType }: PostItemProps) => {
-  const searchParams = useSearchParams();
-  const orderType = searchParams.get("orderType") || "CREATE";
-
-  const { data: boardData, isLoading } = useGetBoardData({
-    boardType: boardType?.toUpperCase(),
-    categoryType: categoryType,
-    orderType,
-  });
-
-  if (isLoading) {
-    return <PostItemSkeleton />;
-  }
+const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
+  const postsData = boardData?.content;
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
@@ -72,7 +72,7 @@ const PostItem = ({ boardType, categoryType }: PostItemProps) => {
   };
   return (
     <div className="flex flex-col items-center w-full">
-      {boardData?.map((data: BoardListItem, index: number) => (
+      {postsData?.map((data: BoardListItem, index: number) => (
         <Link
           href={`${categoryType}/${data.id}`}
           key={`${data.id}-${index}`}
