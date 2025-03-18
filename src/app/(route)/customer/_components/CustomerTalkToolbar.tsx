@@ -90,9 +90,11 @@ const CustomerTalkToolbar = ({
             </h1>
           ) : null
         ) : (
-          <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
-            공지사항
-          </h1>
+          <Link href={"/customer/feedback/write"}>
+            <button className="w-[120px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-gra font-bold text-[14px] text-white items-center justify-center">
+              글쓰기
+            </button>
+          </Link>
         )}
 
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
