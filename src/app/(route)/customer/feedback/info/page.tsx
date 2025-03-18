@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Copy from "@/app/_components/icon/Copy";
@@ -8,6 +10,10 @@ import CustomerTalkToolbar from "../../_components/CustomerTalkToolbar";
 import NoticeItemSkeleton from "../../_components/NoticeItemSkeleton";
 import NoticeItem from "../../_components/NoticeItem";
 import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import EmptyItem from "../../_components/EmptyItem";
+import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
+import useGetFeedbackInfoData from "@/_hooks/fetcher/customer/useGetFeedbackInfoData";
+import { useParams } from "next/navigation";
 
 const infoItems = [
   { label: "조회수", value: "161" },
@@ -15,7 +21,27 @@ const infoItems = [
   { label: "추천", value: "13" },
 ];
 
-const page = () => {
+const Page = () => {
+  const [pageNum, setPageNum] = useState(1);
+  const [searchType, setSearchType] = useState("");
+  const params = useParams();
+  const id = params;
+  console.log(params);
+
+  const {
+    data: feedbackInfoData,
+    isLoading: feedbackIsLoading,
+    isError: feedbackIsError,
+  } = useGetFeedbackInfoData({ id });
+
+  console.log("feedbackInfoData: ", feedbackInfoData);
+
+  const {
+    data: noticeListData,
+    isLoading,
+    isError,
+  } = useGetFeedbackDataList(pageNum, searchType);
+
   return (
     <>
       <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
@@ -106,4 +132,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
