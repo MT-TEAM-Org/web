@@ -1,7 +1,11 @@
 import getFeedbackInfoData from "@/services/customer/getFeedbackInfoData";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetFeedbackInfoData = ({id}) => {
+interface useGetFeedbackInfoDataProps {
+  id: number;
+}
+
+const useGetFeedbackInfoData = ({id}: useGetFeedbackInfoDataProps) => {
   return useQuery({
     queryKey: ["noticeInfo", id],
     queryFn: () => getFeedbackInfoData({id}),

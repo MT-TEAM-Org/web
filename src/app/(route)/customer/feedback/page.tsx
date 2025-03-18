@@ -46,9 +46,12 @@ const Page = () => {
           <EmptyItem title="개선요청 사항이" />
         ) : (
           feedbackDataList?.content?.map(
-            (feedbackListData: FeedbackContentType) => {
-              <FeedbackItem feedbackData={feedbackListData} />;
-            }
+            (feedbackListData: FeedbackContentType) => (
+              <FeedbackItem
+                feedbackData={feedbackListData}
+                key={feedbackListData?.id}
+              />
+            )
           )
         )}
       </div>

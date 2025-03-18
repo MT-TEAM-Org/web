@@ -9,7 +9,7 @@ const getFeedbackInfoData = async ({id}: getFeedbackInfoDataProps) => {
     
   });
 
-  return response.data.data.list;
+  return response.data.data;
 };
 
 export default getFeedbackInfoData;

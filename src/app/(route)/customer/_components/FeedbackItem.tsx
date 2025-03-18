@@ -25,26 +25,28 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
   }, [feedbackData?.createdAt]);
 
   return (
-    <Link href={`/customer/feedback/info`}>
+    <Link href={`/customer/feedback/feedback-info/${feedbackData?.id}`}>
       <div className="w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer hover:bg-[#F8FDFF]">
         <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">
           <p className="font-bold text-[14px] leading-5">{feedbackData?.id}</p>
         </div>
         <Image
           src={feedbackData?.thumbnail}
-          alt="img"
+          alt="feedback img"
           width={56}
           height={42}
           className="w-[56px] h-[42px] rounded-[5px] flex gap-[10px] bg-gray1"
         />
         <div className="w-full min-h-[42px] flex gap-1 flex-col">
-          <div className="w-full min-h-[20px] flex gap-[2px]">
+          <div className="w-full min-h-[20px] flex gap-[2px] items-center">
             <p className="text-[14px] leading-5 text-gray7">
               {feedbackData?.title}
             </p>
-            <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-[#00ADEE]">
-              [24]
-            </p>
+            {feedbackData?.recommendCount >= 1 && (
+              <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-[#00ADEE]">
+                {feedbackData?.recommendCount}
+              </p>
+            )}
             <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
               {isNew && (
                 <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
@@ -56,16 +58,16 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
           </div>
           <div className="min-w-[109px] min-h-[18px] flex gap-1 text-[12px] leading-[18px] tracking-[-0.02em] text-gray5 align-center justify-start">
             <p className="font-bold">개선요청</p>
-            <p>1분 전</p>
+            <p>{timeAgo}</p>
             {feedbackData?.nickname}
             {feedbackData?.createdIp}
           </div>
         </div>
         <div className="min-w-[69px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px] bg-[#F8FDFF] font-bold text-[14px] leading-5">
           {feedbackData?.status === "PENDING" ? (
-            <p className="text-[#00ADEE]">개선 완료</p>
-          ) : (
             <p>접수 완료</p>
+          ) : (
+            <p className="text-[#00ADEE]">개선 완료</p>
           )}
         </div>
       </div>
