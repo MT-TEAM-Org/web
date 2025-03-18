@@ -1,15 +1,15 @@
 export const NAVBARS = [
   {
     name: "E스포츠",
-    link: "/esports/ALL",
+    link: "/board/esports/ALL",
   },
   {
     name: "축구",
-    link: "/football/ALL",
+    link: "/board/football/ALL",
   },
   {
     name: "야구",
-    link: "/baseball/ALL",
+    link: "/board/baseball/ALL",
   },
   {
     name: "뉴스톡톡",

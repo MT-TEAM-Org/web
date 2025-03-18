@@ -30,7 +30,7 @@ export default function Header() {
           <Logo />
         </Link>
         <p className="font-bold max-w-[325px] min-h-[12px] text-[16px] leading-[19.97px] text-[#00ADEE] whitespace-nowrap">
-          모두 함께 즐기는 클린 스포츠 커뮤니티 플레이 하이브!
+          함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!
         </p>
       </div>
       <div className="flex max-w-[323px] min-h-[40px] items-center whitespace-nowrap">

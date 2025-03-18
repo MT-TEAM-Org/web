@@ -4,11 +4,11 @@ const nextConfig: NextConfig = {
   reactStrictMode: false,
 
   images: {
-    domains: ["imgnews.pstatic.net", "43.201.99.157", 'media.playhive.co.kr', "naver.com"],
+    domains: ["imgnews.pstatic.net", "43.201.99.157", "54.180.104.178", 'media.playhive.co.kr', "naver.com"],
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "52.79.222.87",
+        hostname: "43.201.99.157",
         port: "9000",
         pathname: "/devbucket/**",
       },

@@ -9,7 +9,7 @@ const LiveMatchPanel = () => {
         <h1 className="font-bold text-[24px] leading-[38px] tracking-[-0.04em]">
           승부예측
         </h1>
-        <div className="min-w-[81px] h-[28px] rounded-[5px] py-1 px-2 flex gap-1 bg-[#D1504B] text-[#FFFFFF]">
+        <div className="min-w-[81px] h-[28px] rounded-[5px] py-1 px-2 flex gap-1 bg-warning text-white">
           <p className="font-bold text-[14px] leading-5 align-center">
             예측 진행중
           </p>
@@ -36,17 +36,17 @@ const LiveMatchPanel = () => {
           </div>
         </div>
         <div className="w-full min-h-[54px] rounded-[5px] overflow-hidden flex">
-          <div className="w-full max-w-[400px] min-h-[54px] py-2 px-4 flex gap-1 bg-[#DBDBDB] justify-start items-center cursor-pointer">
-            <p className="text-bold text-[24px] leading-[38px] tracking-[-0.04em] text-[#FFFFFF]">
+          <div className="w-full max-w-[400px] min-h-[54px] py-2 px-4 flex gap-1 bg-gray3 justify-start items-center cursor-pointer">
+            <p className="text-bold text-[24px] leading-[38px] tracking-[-0.04em] text-white">
               0 %
             </p>
           </div>
-          <p className="absolute left-[636px] mt-[5px] font-bold text-[24px] leading-[38px] align-center text-[#FFFFFF]">
+          <p className="absolute left-[636px] mt-[5px] font-bold text-[24px] leading-[38px] align-center text-white">
             VS
             {/* 수정필요 */}
           </p>
-          <div className="w-full max-w-[400px] min-h-[54px] py-2 px-4 flex gap-1 bg-[#DBDBDB] justify-end items-center cursor-pointer">
-            <p className="text-bold text-[24px] leading-[38px] tracking-[-0.04em] text-[#FFFFFF]">
+          <div className="w-full max-w-[400px] min-h-[54px] py-2 px-4 flex gap-1 bg-gray3 justify-end items-center cursor-pointer">
+            <p className="text-bold text-[24px] leading-[38px] tracking-[-0.04em] text-white">
               0 %
             </p>
           </div>
