@@ -14,7 +14,9 @@ import NoticeInfoItemSkeleton from "./_components/NoticeInfoItemSkeleton";
 
 const Page = () => {
   const params = useParams();
-  const id = params;
+  const id = params.noticeInfoId;
+  console.log(id);
+  const numericId = Number(id);
   const [pageNum, setPageNum] = useState(1);
   const [searchType, setSearchType] = useState("");
 
@@ -22,7 +24,7 @@ const Page = () => {
     data: noticeInfoData,
     isLoading: infoIsLoading,
     isError: infoIsError,
-  } = useGetNoticeInfoData({ id });
+  } = useGetNoticeInfoData({ id: numericId });
   const {
     data: noticeListData,
     isLoading,

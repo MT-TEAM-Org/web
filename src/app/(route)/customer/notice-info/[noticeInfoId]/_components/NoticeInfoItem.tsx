@@ -10,6 +10,8 @@ interface NoticeInfoItemProps {
 const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
   const timeAgo = useTimeAgo(data?.createdAt);
 
+  console.log(data);
+
   const noticeStats = [
     { label: "조회수", value: data?.viewCount },
     { label: "댓글", value: data?.commentCount },
@@ -41,7 +43,7 @@ const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
               ))}
             </div>
           </div>
-          <div className="min-w-[235px] min-h-[20px] flex gap-1 text-[14px] leading-5 text-gray6">
+          <div className="w-auto min-h-[20px] flex gap-1 text-[14px] leading-5 text-gray6">
             <p>{data?.nickname}</p>
             <p>{data?.clientIp}</p>
           </div>
@@ -51,7 +53,12 @@ const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
       <hr />
 
       <div className="w-full max-w-[672px] min-h-[188px] flex flex-col gap-3">
-        <Image src={data?.imgUrl} alt="notice img" width={672} height={128} />
+        <Image
+          src={data?.imgUrl || "/Empty_news.png"}
+          alt="notice img"
+          width={672}
+          height={128}
+        />
         <p className="w-full max-w-[672px] min-h-[48px] font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray7">
           {data?.content}
         </p>
