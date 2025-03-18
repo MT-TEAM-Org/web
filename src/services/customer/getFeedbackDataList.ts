@@ -7,7 +7,8 @@ interface getFeedbackDataListProps {
   search?: string;
 }
 
-const getFeedbackDataList = async ({pageNum, order, searchType, search}: getFeedbackDataListProps) => {
+const getFeedbackDataList = async ({ pageNum, order, searchType, search }: getFeedbackDataListProps) => {
+  const token = localStorage.getItem("accessToken");
   const params: Record<string, any> = {
     page: pageNum || 1,
     orderType: order || "CREATE",
@@ -17,7 +18,12 @@ const getFeedbackDataList = async ({pageNum, order, searchType, search}: getFeed
   if (searchType) params.searchType = searchType;
   if (search) params.search = search;
 
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/improvement`, { params });
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/improvement`, {
+    headers: {
+      Authorization: token ? `${token}` : "",
+    },
+    params,
+  });
 
   return response.data.data.list;
 };

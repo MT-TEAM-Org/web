@@ -24,9 +24,10 @@ const infoItems = [
 const Page = () => {
   const [pageNum, setPageNum] = useState(1);
   const [searchType, setSearchType] = useState("");
+  const [order, setOrder] = useState("CREATE");
+  const [search, setSearch] = useState("");
   const params = useParams();
   const id = params;
-  console.log(params);
 
   const {
     data: feedbackInfoData,
@@ -40,7 +41,7 @@ const Page = () => {
     data: noticeListData,
     isLoading,
     isError,
-  } = useGetFeedbackDataList(pageNum, searchType);
+  } = useGetFeedbackDataList({ pageNum, order, searchType, search });
 
   return (
     <>

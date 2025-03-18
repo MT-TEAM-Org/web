@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 const useGetFeedbackInfoData = ({id}) => {
   return useQuery({
     queryKey: ["noticeInfo", id],
-    queryFn: () => getFeedbackInfoData(id),
+    queryFn: () => getFeedbackInfoData({id}),
     retry: 1,
   });
 };
