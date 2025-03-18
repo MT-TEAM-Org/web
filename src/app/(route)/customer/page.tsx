@@ -13,9 +13,11 @@ const Page = () => {
   const [pageNum, setPageNum] = useState(1);
   const [searchType, setSearchType] = useState("");
   const queryClient = useQueryClient();
-  const authStatus = queryClient.getQueryData(["authCheck"]);
+  const authStatus = queryClient.getQueryData(["authCheck"]) as {
+    data: { data: { role: string } };
+  };
   console.log("authStatus: ", authStatus);
-  const adminChecker = authStatus?.data?.data?.role;
+  const adminChecker = authStatus?.data?.data?.role as "USER" | "ADMIN";
   console.log("adminChecker: ", adminChecker);
 
   const {

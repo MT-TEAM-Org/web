@@ -3,12 +3,12 @@ import { apiRequest } from "../instant";
 interface postNoticeProps {
   title: string;
   content: string;
-  imgUrl: string;
+  imgUrl?: string;
 }
 
 const postNotice = async ({ title, content, imgUrl }: postNoticeProps) => {
   const response = await apiRequest.post(
-    `api/news/comment`, 
+    `api/notice`, 
     {
       title,
       content,

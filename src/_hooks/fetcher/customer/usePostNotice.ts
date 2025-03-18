@@ -3,17 +3,17 @@ import postNotice from "@/services/customer/postNotice";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
-interface usePostNoticeData {
+interface NoticeData {
   title: string;
   content: string;
-  imgUrl: string;
+  imgUrl?: string;
 }
 
-const usePostNotice = ({ title, content, imgUrl }: usePostNoticeData) => {
+const usePostNotice = () => {
   const toast = useToast();
 
   return useMutation({
-    mutationFn: () => postNotice({ title, content, imgUrl }),
+    mutationFn: (data: NoticeData) => postNotice(data),
     retry: 1,
     onSuccess: () => {
       toast.success("공지사항 생성이 완료되었습니다.", "");
