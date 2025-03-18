@@ -29,9 +29,7 @@ const NoticeItem = ({ noticeData }: NoticeItemProps) => {
     <Link href={`/customer/${noticeData?.id}`}>
       <div className="w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer hover:bg-[#F8FDFF]">
         <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">
-          <p className="font-bold text-[14px] leading-5">
-            {noticeData?.publicId}
-          </p>
+          <p className="font-bold text-[14px] leading-5">{noticeData?.id}</p>
         </div>
         <div className="w-[56px] h-[42px] rounded-[5px] p-4 flex gap-[10px] bg-gray1">
           <Image
@@ -42,13 +40,15 @@ const NoticeItem = ({ noticeData }: NoticeItemProps) => {
           />
         </div>
         <div className="w-full min-h-[42px] flex gap-1 flex-col">
-          <div className="w-full min-h-[20px] flex gap-[2px]">
+          <div className="w-full min-h-[20px] flex items-center gap-[2px]">
             <p className="text-[14px] leading-5 text-gray7">
               {noticeData?.title}
             </p>
-            <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-[#00ADEE]">
-              {noticeData?.commentCount}
-            </p>
+            {noticeData?.commentCount && (
+              <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-[#00ADEE]">
+                {noticeData?.commentCount}
+              </p>
+            )}
             {isNew && (
               <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
                 <p className="text-[#00ADEE]">N</p>

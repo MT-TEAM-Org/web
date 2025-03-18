@@ -42,9 +42,9 @@ const Page = () => {
           <EmptyNoticeItem />
         ) : (
           noticeListData?.content?.map(
-            (noticeListData: NoticeContentType, index) => {
-              <NoticeItem noticeData={noticeListData} />;
-            }
+            (noticeListData: NoticeContentType, index) => (
+              <NoticeItem key={index} noticeData={noticeListData} />
+            )
           )
         )}
       </div>
