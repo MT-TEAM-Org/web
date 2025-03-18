@@ -10,6 +10,7 @@ import BaseballTab from "./_components/_baseballComponents/BaseballTab";
 import FootballTab from "./_components/_footballComponents/FootballTab";
 import LiveChat from "./_components/_LiveChatComponents/LiveChat";
 import useGetMatchSchedule from "@/_hooks/useMatch/useGetMatchSchedule";
+import UpcomingChat from "./_components/_LiveChatComponents/UpcomingChat";
 
 // import EmptyComment from "./_components/EmptyComment";
 // import FootballLivePanel from "./_components/FootballLivePanel";
@@ -26,7 +27,7 @@ const Page = () => {
 
   return (
     <div className="flex flex-col gap-3 justify-center items-center mb-10">
-      <div className="w-[1920px] h-auto min-h-[226px] flex flex-col gap-3 items-center justify-center bg-[#FAFAFA]">
+      <div className="w-[1920px] h-auto min-h-[226px] flex flex-col gap-3 items-center justify-center bg-gray1">
         <ScheduleNavbar setSelectedCategory={setSelectedCategory} />
         <ScheduleContainer />
       </div>
@@ -40,7 +41,8 @@ const Page = () => {
               <CommentBox />
             </div>
           </div>
-          <LiveChat />
+          <UpcomingChat />
+          {/* <LiveChat /> */}
         </div>
       )}
 
@@ -48,7 +50,8 @@ const Page = () => {
         <div className="min-w-[1200px] min-h-[1455px] flex gap-10 justify-center">
           <FootballTab />
           <div>
-            <LiveChat />
+            <UpcomingChat />
+            {/* <LiveChat /> */}
           </div>
         </div>
       )}
@@ -57,7 +60,8 @@ const Page = () => {
         <div className="min-w-[1200px] min-h-[935px] flex gap-10">
           <BaseballTab />
           <div>
-            <LiveChat />
+            <UpcomingChat />
+            {/* <LiveChat /> */}
           </div>
         </div>
       )}
