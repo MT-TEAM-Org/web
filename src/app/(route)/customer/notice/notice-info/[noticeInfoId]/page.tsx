@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import NoticeInfoItem from "./_components/NoticeInfoItem";
-import CustomerTalkToolbar from "../../_components/CustomerTalkToolbar";
-import NoticeItem from "../../_components/NoticeItem";
+import CustomerTalkToolbar from "../../../_components/CustomerTalkToolbar";
+import NoticeItem from "../../../_components/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
-import NoticeItemSkeleton from "../../_components/NoticeItemSkeleton";
-import EmptyNoticeItem from "../../_components/EmptyNoticeItem";
+import NoticeItemSkeleton from "../../../_components/NoticeItemSkeleton";
+import EmptyNoticeItem from "../../../_components/EmptyNoticeItem";
 import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
 import useGetNoticeInfoData from "@/_hooks/fetcher/customer/useGetNoticeInfoData";
 import { useParams } from "next/navigation";
@@ -58,11 +58,9 @@ const Page = () => {
         ) : noticeListData?.content?.length === 0 || isError ? (
           <EmptyNoticeItem />
         ) : (
-          noticeListData?.content?.map(
-            (noticeListData: NoticeContentType, index) => {
-              <NoticeItem noticeData={noticeListData} />;
-            }
-          )
+          noticeListData?.content?.map((noticeListData: NoticeContentType) => (
+            <NoticeItem noticeData={noticeListData} key={noticeListData?.id} />
+          ))
         )}
       </div>
     </>

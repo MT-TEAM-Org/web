@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import { NoticeInfoItemType } from "@/app/_constants/customer/NoticeInfoItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
+import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
+import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 
 interface NoticeInfoItemProps {
   data: NoticeInfoItemType;
@@ -63,10 +65,9 @@ const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
           {data?.content}
         </p>
       </div>
-      {/* <div className="w-full max-w-[800px] flex flex-col">
-        댓글부분
-      </div> */}
-      {/* <PostNavigation /> */}
+      <CommentBar />
+      <div className="w-full max-w-[800px] h-[300px] flex flex-col"></div>
+      <PostNavigation />
     </div>
   );
 };
