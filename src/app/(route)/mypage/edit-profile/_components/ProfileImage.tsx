@@ -46,7 +46,7 @@ const ProfileImage = ({ imageUrl, setImageUrl }: ProfileImageProps) => {
           alt="profile-image"
           width={80}
           height={80}
-          className="rounded-full"
+          className="w-[80px] h-[80px] rounded-full object-cover"
         />
         <input
           type="file"
