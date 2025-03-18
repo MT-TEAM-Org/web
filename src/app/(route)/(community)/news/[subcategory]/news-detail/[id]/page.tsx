@@ -3,7 +3,6 @@
 import React, { use } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
-import { NewsItemType } from "@/app/_constants/newsItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import CommentSection from "../../../_components/CommentSection";
@@ -23,6 +22,7 @@ import useDeleteRecommend from "@/_hooks/fetcher/news/useDeleteRecommend";
 import useGetNewsComment from "@/_hooks/fetcher/news/comment/useGetNewsComment";
 import NewsSendCommentBox from "./_components/NewsSendCommentBox";
 import useGetBestComment from "@/_hooks/fetcher/news/comment/useGetBestComment";
+import { NewsListType } from "@/app/_constants/newsListItemType";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
@@ -34,7 +34,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     timePeriod,
     setTimePeriod,
     page,
-    onPageChange,
+    onPageChangeAction,
     searchType,
     setSearchType,
   } = useNewsPageLogic();
@@ -53,7 +53,9 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     searchType,
   });
   const updatedImgUrl = updateImageUrl(newsInfoData?.thumbImg, "w360");
-  const sliceNewsListData = newsListData ? newsListData.slice(0, 3) : [];
+  const sliceNewsListData = newsListData
+    ? newsListData?.content?.slice(0, 3)
+    : [];
 
   const handleNewsCommend = () => {
     if (!newsInfoData?.recommend) {
@@ -148,8 +150,9 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
       <NewsTalkToolbar
         setOrderType={setOrderType}
         setTimeType={setTimePeriod}
-        onPageChange={onPageChange}
+        onPageChangeAction={onPageChangeAction}
         setSearchType={setSearchType}
+        paginationData={newsListData?.pageInfo}
       />
 
       <div className="w-[720px] h-auto rounded-b-[5px] overflow-hidden shadow-md">
@@ -160,8 +163,8 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         ) : sliceNewsListData?.length === 0 ? (
           <EmptyNews />
         ) : (
-          sliceNewsListData.map((newsInfoData: NewsItemType) => (
-            <NewsPostItem newsItem={newsInfoData} key={newsInfoData.id} />
+          sliceNewsListData.map((newsInfoData: NewsListType) => (
+            <NewsPostItem newsItem={newsInfoData} key={newsInfoData?.id} />
           ))
         )}
       </div>

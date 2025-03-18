@@ -128,6 +128,7 @@ export const useToastStore = create<ToastStore>((set) => ({
     }));
   },
 }));
+
 interface InquiryPostIdState {
   inquiryPostIds: number[];
   addInquiryPostId: (id: number) => void;

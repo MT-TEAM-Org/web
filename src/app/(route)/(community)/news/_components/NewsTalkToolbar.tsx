@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ChangeEvent,
   FormEvent,
   useEffect,
   useRef,
@@ -9,16 +8,16 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
-import Pg_double_left from "@/app/_components/icon/Pg_double_left";
-import Pg_double_right from "@/app/_components/icon/Pg_double_right";
-import Pg_left from "@/app/_components/icon/Pg_left";
-import Pg_right from "@/app/_components/icon/Pg_right";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import Small_Search from "@/app/_components/icon/Small_Search";
 import React from "react";
+import { NewsListPageInfoType } from "@/app/_constants/newsListItemType";
+import Pagination from "@/app/(route)/mypage/_components/Pagination";
+import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 
 interface DropdownOption {
   label: string;
@@ -28,16 +27,20 @@ interface DropdownOption {
 interface NewsTalkToolbarProps {
   setOrderType: (value: "DATE" | "COMMENT" | "VIEW") => void;
   setTimeType: (value: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY") => void;
-  onPageChange: (page: string) => void;
+  onPageChangeAction: (page: string) => void;
   setSearchType: Dispatch<SetStateAction<string>>;
+  paginationData: NewsListPageInfoType;
 }
 
 const NewsTalkToolbar = ({
   setOrderType,
   setTimeType,
-  onPageChange,
+  onPageChangeAction,
   setSearchType,
+  paginationData,
 }: NewsTalkToolbarProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [activeBtn, setActiveBtn] = useState<
     "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"
   >("DAILY");
@@ -46,15 +49,9 @@ const NewsTalkToolbar = ({
   );
   const selectRef = useRef<HTMLSelectElement>(null);
   const [inputValue, setInputValue] = useState("");
-  const [currentPage, setCurrentPage] = useState("1");
-
-  const pagination = [
-    { value: "1", label: "1" },
-    { value: "2", label: "2" },
-    { value: "3", label: "3" },
-    { value: "4", label: "4" },
-    { value: "5", label: "5" },
-  ];
+  const [currentPage, setCurrentPage] = useState(
+    searchParams.get("page") || "1"
+  );
 
   const options: DropdownOption[] = [
     { label: "제목+내용", value: "both" },
@@ -71,21 +68,9 @@ const NewsTalkToolbar = ({
   ];
 
   const sortOptions = [
-    {
-      value: "DATE",
-      logo: <Blue_outline_logo />,
-      label: "최신순",
-    },
-    {
-      value: "VIEW",
-      logo: <Red_outline_logo />,
-      label: "인기순",
-    },
-    {
-      value: "COMMENT",
-      logo: <Mini_logo />,
-      label: "댓글 많은 순",
-    },
+    { value: "DATE", logo: <Blue_outline_logo />, label: "최신순" },
+    { value: "VIEW", logo: <Red_outline_logo />, label: "인기순" },
+    { value: "COMMENT", logo: <Mini_logo />, label: "댓글 많은 순" },
   ];
 
   const handleDivClick = () => {
@@ -98,6 +83,22 @@ const NewsTalkToolbar = ({
   const handleSortChange = (value: "DATE" | "COMMENT" | "VIEW") => {
     setActiveSorted(value);
     setOrderType(value);
+    setCurrentPage("1");
+    let newUrl = changeURLParams(searchParams, "sort", value);
+    newUrl = changeURLParams(
+      new URLSearchParams(newUrl.split("?")[1]),
+      "page",
+      "1"
+    ).split("?")[1]
+      ? `${newUrl.split("?")[0]}?${
+          changeURLParams(
+            new URLSearchParams(newUrl.split("?")[1]),
+            "page",
+            "1"
+          ).split("?")[1]
+        }`
+      : newUrl;
+    router.push(newUrl, { scroll: false });
   };
 
   const handleDaySortChange = (
@@ -105,47 +106,58 @@ const NewsTalkToolbar = ({
   ) => {
     setActiveBtn(value);
     setTimeType(value);
+    setCurrentPage("1");
+    let newUrl = changeURLParams(searchParams, "time", value);
+    newUrl = changeURLParams(
+      new URLSearchParams(newUrl.split("?")[1]),
+      "page",
+      "1"
+    ).split("?")[1]
+      ? `${newUrl.split("?")[0]}?${
+          changeURLParams(
+            new URLSearchParams(newUrl.split("?")[1]),
+            "page",
+            "1"
+          ).split("?")[1]
+        }`
+      : newUrl;
+    router.push(newUrl, { scroll: false });
   };
 
-  // 검색 실행 함수
   const handleSearch = (e?: FormEvent) => {
     if (e) e.preventDefault();
-
-    // input 비어있으면 검색 방지
-    // if (!inputValue.trim()) {
-    //   alert("검색어를 입력해주세요!");
-    //   return;
-    // }
-
     setSearchType(inputValue);
   };
 
-  useEffect(() => {
-    onPageChange(currentPage);
-  }, [currentPage, onPageChange]);
-
-  const handlePageChange = (
-    type: "prev" | "next" | "doublePrev" | "doubleNext"
-  ) => {
-    const currentPageNum = Number(currentPage);
-    const actions: Record<typeof type, () => number> = {
-      prev: () => (currentPageNum > 1 ? currentPageNum - 1 : currentPageNum),
-      next: () => (currentPageNum < 5 ? currentPageNum + 1 : currentPageNum),
-      doublePrev: () => 1,
-      doubleNext: () => 5,
-    };
-    const newsPage = actions[type]();
-    if (newsPage !== currentPageNum) {
-      setCurrentPage(newsPage.toString());
-    }
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > paginationData.totalPage) return;
+    setCurrentPage(page.toString());
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
+    onPageChangeAction(page.toString());
   };
+
+  useEffect(() => {
+    const pageFromUrl = searchParams.get("page") || "1";
+    const sortFromUrl =
+      (searchParams.get("sort") as "DATE" | "COMMENT" | "VIEW") || "DATE";
+    const timeFromUrl =
+      (searchParams.get("time") as "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY") ||
+      "DAILY";
+
+    setCurrentPage(pageFromUrl);
+    setActiveSorted(sortFromUrl);
+    setActiveBtn(timeFromUrl);
+    setOrderType(sortFromUrl);
+    setTimeType(timeFromUrl);
+    onPageChangeAction(pageFromUrl);
+  }, [searchParams, onPageChangeAction, setOrderType, setTimeType]);
 
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] border-gray3";
   const activeSortedStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] font-[700] border-gray7";
-  const pageButtonStyle =
-    "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
   const activeButtonStyle =
     "bg-[#00ADEE] text-white min-w-[57px] h-[40px] flex gap-[10px] items-center align-center rounded-[5px] px-[16px] py-[13px] font-[700] text-[14px] leading-[21px] tracking-[-2%]";
   const disableButtonStyle =
@@ -231,57 +243,10 @@ const NewsTalkToolbar = ({
               </button>
             ))}
           </div>
-
-          <div className="flex">
-            <div className="flex items-center gap-[10px]">
-              <button
-                className={pageButtonStyle}
-                onClick={() => handlePageChange("doublePrev")}
-              >
-                <Pg_double_left />
-              </button>
-              <button
-                className={pageButtonStyle}
-                onClick={() => handlePageChange("prev")}
-              >
-                <Pg_left />
-              </button>
-            </div>
-
-            <div className="flex gap-[8px] mx-[8px]">
-              {pagination.map((page) => (
-                <button
-                  key={page.value}
-                  className={`${pageButtonStyle} ${
-                    page.value === currentPage
-                      ? "font-[700] border border-gray7"
-                      : ""
-                  } text-[14px] leading-[20px] text-gray7`}
-                  onClick={() => {
-                    onPageChange(page.label);
-                    setCurrentPage(page.label);
-                  }}
-                >
-                  {page.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-[10px]">
-              <button
-                className={pageButtonStyle}
-                onClick={() => handlePageChange("next")}
-              >
-                <Pg_right />
-              </button>
-              <button
-                className={pageButtonStyle}
-                onClick={() => handlePageChange("doubleNext")}
-              >
-                <Pg_double_right />
-              </button>
-            </div>
-          </div>
+          <Pagination
+            pageInfo={paginationData}
+            onPageChangeAction={handlePageChange}
+          />
         </div>
       </div>
     </div>

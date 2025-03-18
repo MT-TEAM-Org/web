@@ -17,7 +17,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
   const [selectedCategory, setSelectedCategory] = useState("FREE");
 
   const pathName = usePathname();
-  const boardType = pathName.split("/")[1];
+  const boardType = pathName.split("/")[2];
 
   const optionValues = [
     { name: "자유", value: "FREE" },
@@ -33,7 +33,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
   ];
 
   useEffect(() => {
-    const categoryFromPath = pathName.split("/")[2] || "FREE";
+    const categoryFromPath = pathName.split("/")[3] || "FREE";
     setSelectedCategory(categoryFromPath);
   }, [pathName]);
 

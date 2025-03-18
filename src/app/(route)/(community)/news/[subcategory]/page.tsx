@@ -5,12 +5,24 @@ import { useParams } from "next/navigation";
 import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
 import NewsTalkToolbar from "../_components/NewsTalkToolbar";
 import NewsPostItem from "../_components/NewsPostItem";
-import { NewsItemType } from "@/app/_constants/newsItemType";
 import EmptyNews from "../_components/EmptyNews";
 import NewsPostItemSkeleton from "../_components/NewsPostItemSkeleton";
 import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 
 type NewsCategoryType = "ESPORTS" | "FOOTBALL" | "BASEBALL";
+
+interface NewsItemType {
+  id: number;
+  title: string;
+  category: string;
+  thumbImg: string;
+  postDate: string;
+  content: string;
+  source: string;
+  viewCount: number;
+  commentCount: number;
+  recommendCount: number;
+}
 
 export default function NewsPage() {
   const params = useParams<{ subcategory: string }>();
@@ -18,7 +30,7 @@ export default function NewsPage() {
     orderType,
     setOrderType,
     page,
-    onPageChange,
+    onPageChangeAction,
     timePeriod,
     setTimePeriod,
     searchType,
@@ -50,19 +62,20 @@ export default function NewsPage() {
         <NewsTalkToolbar
           setOrderType={setOrderType}
           setTimeType={setTimePeriod}
-          onPageChange={onPageChange}
+          onPageChangeAction={onPageChangeAction}
           setSearchType={setSearchType}
+          paginationData={newsData?.pageInfo}
         />
         <div className="w-[720px]">
           {isLoading ? (
             Array(10)
               .fill(0)
               .map((_, index) => <NewsPostItemSkeleton key={index} />)
-          ) : newsData?.length === 0 ? (
+          ) : newsData?.length === 0 || !newsData ? (
             <EmptyNews />
           ) : (
-            newsData?.map((newsItem: NewsItemType) => (
-              <NewsPostItem key={newsItem.id} newsItem={newsItem} />
+            newsData?.content?.map((newsItem: NewsItemType) => (
+              <NewsPostItem key={newsItem?.id} newsItem={newsItem} />
             ))
           )}
         </div>

@@ -2,14 +2,14 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { NewsItemType } from "@/app/_constants/newsItemType";
 import { useReadNews } from "@/_hooks/useNews/useReadNews";
 import useTimeAgo from "@/utils/useTimeAgo";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
+import { NewsListType } from "@/app/_constants/newsListItemType";
 
 interface NewsPostItemProps {
-  newsItem?: NewsItemType;
+  newsItem: NewsListType;
 }
 
 const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
@@ -23,7 +23,7 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
     football: "football",
     baseball: "baseball",
   };
-  const categoryPath = categoryToPath[newsItem?.category.toLowerCase()] || "";
+  const categoryPath = categoryToPath[newsItem?.category?.toLowerCase()] || "";
 
   useEffect(() => {
     if (date.includes("일 전") && parseInt(date) < 1) {

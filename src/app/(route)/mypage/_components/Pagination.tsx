@@ -8,10 +8,10 @@ import Pg_double_right from "@/app/_components/icon/Pg_double_right";
 
 interface PaginationProps {
   pageInfo: PageInfo;
-  onPageChange: (page: number) => void;
+  onPageChangeAction: (page: number) => void;
 }
 
-const Pagination = ({ pageInfo, onPageChange }: PaginationProps) => {
+const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
   const { currentPage, totalPage } = pageInfo || {
     currentPage: 1,
     totalPage: 1,
@@ -49,7 +49,7 @@ const Pagination = ({ pageInfo, onPageChange }: PaginationProps) => {
         {totalPage > 1 && (
           <button
             className={getNavButtonClass(currentPage === 1)}
-            onClick={() => onPageChange(1)}
+            onClick={() => onPageChangeAction(1)}
             disabled={currentPage === 1}
           >
             <Pg_double_left />
@@ -57,7 +57,7 @@ const Pagination = ({ pageInfo, onPageChange }: PaginationProps) => {
         )}
         <button
           className={getNavButtonClass(currentPage === 1)}
-          onClick={() => onPageChange(currentPage - 1)}
+          onClick={() => onPageChangeAction(currentPage - 1)}
           disabled={currentPage === 1}
         >
           <Pg_left />
@@ -72,7 +72,7 @@ const Pagination = ({ pageInfo, onPageChange }: PaginationProps) => {
               className={`${pageButtonStyle} ${
                 pageNumber === currentPage && "font-[700] border-1 border-gray7"
               } text-[14px] leading-[20px] text-[#424242]`}
-              onClick={() => onPageChange(pageNumber)}
+              onClick={() => onPageChangeAction(pageNumber)}
             >
               {pageNumber}
             </button>
@@ -80,7 +80,7 @@ const Pagination = ({ pageInfo, onPageChange }: PaginationProps) => {
         ) : (
           <button
             className={`${pageButtonStyle} font-[700] text-[14px] leading-[20px] text-[#424242] border-1 border-gray7`}
-            onClick={() => onPageChange(1)}
+            onClick={() => onPageChangeAction(1)}
           >
             1
           </button>
@@ -90,7 +90,7 @@ const Pagination = ({ pageInfo, onPageChange }: PaginationProps) => {
       <div className="flex items-center gap-[10px]">
         <button
           className={getNavButtonClass(currentPage === totalPage)}
-          onClick={() => onPageChange(currentPage + 1)}
+          onClick={() => onPageChangeAction(currentPage + 1)}
           disabled={currentPage === totalPage}
         >
           <Pg_right />
@@ -98,7 +98,7 @@ const Pagination = ({ pageInfo, onPageChange }: PaginationProps) => {
         {totalPage > 1 && (
           <button
             className={getNavButtonClass(currentPage === totalPage)}
-            onClick={() => onPageChange(totalPage)}
+            onClick={() => onPageChangeAction(totalPage)}
             disabled={currentPage === totalPage}
           >
             <Pg_double_right />
