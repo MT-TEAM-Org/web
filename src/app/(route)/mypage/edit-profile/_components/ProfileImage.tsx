@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useRef } from "react";
 import getUpload from "@/_hooks/getUpload";
-import { useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/_hooks/useToast";
+import axios from "axios";
 
 interface ProfileImageProps {
   imageUrl: string;
@@ -12,19 +13,26 @@ interface ProfileImageProps {
 
 const ProfileImage = ({ imageUrl, setImageUrl }: ProfileImageProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const queryClient = useQueryClient();
+  const { error } = useToast();
 
-  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     try {
-      getUpload({
-        fileName: file.name,
+      const response = await getUpload({
         contentType: file.type,
+        fileName: `image-${Date.now()}.${file.type.split("/")[1]}`,
       });
-    } catch (error) {
-      console.log(error);
+      const presignedUrl = response.data.presignedUrl;
+      const downloadUrl = response.data.downloadUrl;
+      await axios.put(presignedUrl, file, {
+        headers: { "Content-Type": file.type },
+      });
+      setImageUrl(downloadUrl);
+    } catch {
+      error("이미지 업로드에 실패했습니다.", "");
     }
+    if (inputRef.current) inputRef.current.value = "";
   };
 
   return (
@@ -44,7 +52,7 @@ const ProfileImage = ({ imageUrl, setImageUrl }: ProfileImageProps) => {
           type="file"
           className="hidden"
           ref={inputRef}
-          onChange={handleImageChange}
+          onChange={handleFileChange}
         />
         <button
           type="button"

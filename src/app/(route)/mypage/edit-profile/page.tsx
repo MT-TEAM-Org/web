@@ -122,13 +122,14 @@ const EditProfile = () => {
       data.tel === userInfo.data.tel &&
       data.nickname === userInfo.data.nickname &&
       data.birthDate === userInfo.data.birthDate &&
-      genderType === userInfo.data.genderType
+      genderType === userInfo.data.genderType &&
+      imageUrl === userInfo.data.imageUrl
     ) {
       error("수정이 실패하였습니다.", "회원정보를 변경해주세요!");
       return;
     }
 
-    const requestData = { ...data, genderType };
+    const requestData = { ...data, genderType, imageUrl };
     modifyUserInfo(requestData, {
       onSuccess: () => {
         success("수정이 완료되었습니다.", "플레이하이브에서 재밌게 놀아봐요!");
