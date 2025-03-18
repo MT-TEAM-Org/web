@@ -25,7 +25,7 @@ const ScheduleItem = ({
             예정
           </p>
         </div>
-        <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] flex align-center text-gray5 gap-1">
+        <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] flex align-center text-gray5 gap-[3px]">
           <p>02.04</p>
           <p>19:30</p>
         </div>
