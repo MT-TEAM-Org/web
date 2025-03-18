@@ -24,7 +24,6 @@ const NoticeItem = ({ noticeData }: NoticeItemProps) => {
     }
   }, [noticeData?.createdAt]);
 
-  console.log("NoticeItemData: ", noticeData);
   return (
     <Link href={`/customer/notice/notice-info/${noticeData?.id}`}>
       <div className="w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer hover:bg-[#F8FDFF]">

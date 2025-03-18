@@ -11,6 +11,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Pagination from "../../mypage/_components/Pagination";
 import changeURLParams from "../../mypage/util/changeURLParams";
 import React from "react";
+import Link from "next/link";
 
 interface DropdownOption {
   label: string;
@@ -22,6 +23,7 @@ interface ToolbarProps {
   paginationData?: NoticePageInfoType;
   onPageChange?: (page: number) => void;
   setSearchType?: (value: string) => void;
+  adminChecker?: "USER" | "ADMIN" | undefined;
 }
 
 const CustomerTalkToolbar = ({
@@ -29,6 +31,7 @@ const CustomerTalkToolbar = ({
   paginationData,
   onPageChange,
   setSearchType,
+  adminChecker,
 }: ToolbarProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -74,9 +77,24 @@ const CustomerTalkToolbar = ({
   return (
     <div className="rounded-[5px]">
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-[#FFFFFF] ">
-        <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
-          공지사항
-        </h1>
+        {showOptions === false ? (
+          adminChecker === "USER" ? (
+            <Link href={"/customer/notice/write"}>
+              <button className="w-[120px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-gra font-bold text-[14px] text-white items-center justify-center">
+                글쓰기
+              </button>
+            </Link>
+          ) : adminChecker === "ADMIN" || adminChecker === undefined ? (
+            <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
+              공지사항
+            </h1>
+          ) : null
+        ) : (
+          <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
+            공지사항
+          </h1>
+        )}
+
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
           <div className="relative" onClick={handleDivClick}>
             <select
