@@ -16,6 +16,7 @@ import useGetFeedbackInfoData from "@/_hooks/fetcher/customer/useGetFeedbackInfo
 import { useParams } from "next/navigation";
 import useTimeAgo from "@/utils/useTimeAgo";
 import FeedbackInfoSkeleton from "./_components/FeedbackInfoSkeleton";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Page = () => {
   const [pageNum, setPageNum] = useState(1);
@@ -25,6 +26,9 @@ const Page = () => {
   const params = useParams();
   const id = params.feedbackId;
   const infoId = Number(id);
+  const queryClient = useQueryClient();
+  const authStatus = queryClient.getQueryData(["authCheck"]);
+  console.log("authStatus: ", authStatus);
 
   const {
     data: feedbackInfoData,
@@ -33,7 +37,6 @@ const Page = () => {
   } = useGetFeedbackInfoData({ id: infoId });
 
   const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
-  console.log("feedbackInfoData: ", feedbackInfoData);
 
   const {
     data: noticeListData,
@@ -49,7 +52,7 @@ const Page = () => {
 
   return (
     <>
-      {feedbackIsLoading ? (
+      {feedbackIsLoading || feedbackIsError ? (
         <FeedbackInfoSkeleton />
       ) : (
         <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
