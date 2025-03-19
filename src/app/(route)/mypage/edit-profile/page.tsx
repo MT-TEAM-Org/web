@@ -125,7 +125,8 @@ const EditProfile = () => {
       data.nickname === userInfo.data.nickname &&
       data.birthDate === userInfo.data.birthDate &&
       genderType === userInfo.data.genderType &&
-      imageUrl === userInfo.data.imageUrl
+      imageUrl === userInfo.data.imageUrl &&
+      data.password === ""
     ) {
       error("수정이 실패하였습니다.", "회원정보를 변경해주세요!");
       return;
