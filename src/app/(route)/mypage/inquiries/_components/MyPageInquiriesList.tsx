@@ -1,7 +1,7 @@
 "use client";
 
 import { MypageToolbar } from "../../_components/MypageToolbar";
-import useGetInquiriesList from "@/_hooks/useMypage/useGetInquiriesList";
+import useGetInquiriesList from "@/_hooks/fetcher/mypage/useGetInquiriesList";
 import MyPageInquiriesItem from "./MyPageInquiriesItem";
 import MyPagePostEmpty from "../../posts/_components/MypagePostEmpty";
 import { useSearchParams } from "next/navigation";

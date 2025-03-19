@@ -5,12 +5,12 @@ import Copy from "@/app/_components/icon/Copy";
 import Share from "@/app/_components/icon/Share";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import WriterComment from "../../_components/WriterComment";
-import LoadMoreComment from "../../../_components/LoadMoreComment";
-import PostNavigation from "../../../_components/PostNavigation";
 import { CustomerTalkToolbar } from "../../_components/CustomerTalkToolbar";
 import FeedbackNoticeItem from "../../_components/FeedbackNoticeItem";
 import FeedbackItem from "../../_components/FeedbackItem";
 import CustomerCommentItem from "../../_components/CustomerCommentItem";
+import LoadMoreComment from "@/app/(route)/(community)/_components/LoadMoreComment";
+import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 
 const infoItems = [
   { label: "조회수", value: "161" },

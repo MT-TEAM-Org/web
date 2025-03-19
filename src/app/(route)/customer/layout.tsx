@@ -1,6 +1,6 @@
 import React from "react";
 import CustomerLeftSidebar from "./_components/CustomerLeftSidebar";
-import { RightSideBar } from "../_components/RightSideBar";
+import { RightSideBar } from "../(community)/_components/RightSideBar";
 
 export const metadata = {
   title: "PlayHive 고객센터 페이지",
@@ -17,7 +17,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       <div className="max-w-[1200px] mx-auto flex gap-4 items-start justify-center">
-        <div className="w-[160px] min-h-[260px] rounded-5px overflow-hidden bg-[#FFFFFF] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+        <div className="w-[160px] min-h-[260px] rounded-5px overflow-hidden bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
           <CustomerLeftSidebar />
         </div>
         <div>{children}</div>
