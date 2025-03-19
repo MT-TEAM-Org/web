@@ -199,7 +199,7 @@ function Sign() {
 
 const SignSuspense = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={""}>
       <Sign />
     </Suspense>
   );
