@@ -3,7 +3,7 @@ import { Suspense } from "react";
 
 const Posts = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={""}>
       <div className="max-w-[720px] min-h-[450px] bg-gray1 rounded-[5px]">
         <MyPagePostList />
       </div>
