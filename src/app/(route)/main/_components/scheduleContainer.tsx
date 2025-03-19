@@ -46,7 +46,7 @@ const ScheduleContainer = () => {
           <AnimatePresence initial={false} mode="wait">
             <motion.div
               key={currentPage}
-              initial={{ x: "10%" }}
+              initial={{ x: "3%" }}
               animate={{ x: 0 }}
               exit={{ opacity: 0.5, x: "0%" }}
               transition={{

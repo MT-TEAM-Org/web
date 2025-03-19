@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
       "54.180.104.178",
       "media.playhive.co.kr",
       "rs.nxfs.nexon.com",
+      "shared.fastly.steamstatic.com",
       "naver.com",
       "sports-phinf.pstatic.net",
     ],
