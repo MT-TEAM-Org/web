@@ -8,7 +8,8 @@ const nextConfig: NextConfig = {
       "imgnews.pstatic.net",
       "43.201.99.157",
       "54.180.104.178",
-      "media.playhive.co.kr",
+      "rs.nxfs.nexon.com",
+      "shared.fastly.steamstatic.com",
       "naver.com",
     ],
     remotePatterns: [
