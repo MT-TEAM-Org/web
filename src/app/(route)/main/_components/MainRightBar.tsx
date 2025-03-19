@@ -43,8 +43,6 @@ const MainRightBar = () => {
       setCurrentPage(prevPage);
     }
   };
-  console.log(newsData, "뉴스데엍");
-  console.log(gameEventData, "게임데엍");
 
   const btnStyle =
     "w-1/2 h-10 flex gap-[10px] px-[16px] py-[13px] items-center justify-center rounded-t-[5px] cursor-pointer border-gray8";
