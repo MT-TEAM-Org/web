@@ -3,7 +3,7 @@
 import { MypageToolbar } from "../../_components/MypageToolbar";
 import useGetInquiriesList from "@/_hooks/fetcher/mypage/useGetInquiriesList";
 import MyPageInquiriesItem from "./MyPageInquiriesItem";
-import MyPagePostEmpty from "../../posts/_components/MypagePostEmpty";
+import MyPageInquiriesEmpty from "./MyPageInquiriesEmpty";
 import { useSearchParams } from "next/navigation";
 import { InquiriesListConfig, InquiriesListData } from "../_types/inquiries";
 
@@ -33,7 +33,7 @@ const MyPageInquiriesList = () => {
             <MyPageInquiriesItem key={inquiries.id} data={inquiries} />
           ))
         ) : (
-          <MyPagePostEmpty />
+          <MyPageInquiriesEmpty />
         )}
       </div>
     </div>
