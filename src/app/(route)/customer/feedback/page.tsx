@@ -31,7 +31,7 @@ const Page = () => {
     <>
       <div className="w-[720px] min-h-[120px] rounded-t-[5px]">
         <CustomerTalkToolbar
-          showOptions={false}
+          showOptions={true}
           paginationData={noticeListData?.pageInfo}
           adminChecker={adminRole}
         />
