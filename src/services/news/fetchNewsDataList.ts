@@ -6,15 +6,15 @@ interface NewsDataProps {
 }
 
 const fetchNewsDataList = async ({
-  page,
+  page = "1",
   startIndex = 0,
 }: NewsDataProps = {}) => {
   const response = await axios(`${process.env.NEXT_PUBLIC_API_URL}api/news`, {
     params: {
       category: "",
       orderType: "DATE",
-      page: page || "1",
-      size: 9,
+      page: "1",
+      size: 20,
     },
   });
 
