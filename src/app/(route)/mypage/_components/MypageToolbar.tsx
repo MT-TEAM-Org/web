@@ -14,6 +14,7 @@ import SearchFilter from "./SearchFilter";
 import Pagination from "./Pagination";
 import changeURLParams from "../util/changeURLParams";
 import AnswerCheck from "./AnswerCheck";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface MypageToolbarProps {
   mode: "posts" | "inquries";
@@ -23,6 +24,7 @@ interface MypageToolbarProps {
 export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [searchType, setSearchType] = useState(
     searchParams.get("search_type") ||
       (mode === "inquries" ? "CONTENT" : "TITLE_CONTENT")
@@ -32,6 +34,9 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
     search: searchParams.get("search") || "",
     page: searchParams.get("page") || 1,
   };
+  const userRole = queryClient.getQueryData<{
+    data: { data: { role: string } };
+  }>(["authCheck"])?.data?.data?.role;
 
   const searchOptions =
     mode === "inquries" ? INQURIES_SEARCH_OPTIONS : POST_SEARCH_OPTIONS;
@@ -69,7 +74,9 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
     <div className="bg-[#FFFFFF] rounded-t-[5px]">
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
         <h2 className="font-[700] text-[18px] leading-[28px] text-[#303030]">
-          {MODE_OBJECT[mode].title}
+          {mode === "inquries" && userRole === "ADMIN"
+            ? "문의내역"
+            : MODE_OBJECT[mode].title}
         </h2>
         <SearchFilter
           searchType={searchType}
