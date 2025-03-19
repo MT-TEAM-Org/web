@@ -31,8 +31,12 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
           <p className="font-bold text-[14px] leading-5">{feedbackData?.id}</p>
         </div>
         <Image
-          src={feedbackData?.thumbnail}
-          alt="feedback img"
+          src={
+            feedbackData?.thumbnail
+              ? feedbackData?.thumbnail
+              : "/Empty_news.png"
+          }
+          alt="img"
           width={56}
           height={42}
           className="w-[56px] h-[42px] rounded-[5px] flex gap-[10px] bg-gray1"
@@ -63,11 +67,14 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
             {feedbackData?.createdIp}
           </div>
         </div>
-        <div className="min-w-[69px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px] bg-[#F8FDFF] font-bold text-[14px] leading-5">
-          {feedbackData?.status === "PENDING" ? (
+        <div className="min-w-[69px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px] bg-bg0 font-bold text-[14px] leading-5">
+          {feedbackData?.status === "PENDING" ? null : feedbackData?.status ===
+            "RECEIVED" ? (
             <p>접수 완료</p>
           ) : (
-            <p className="text-[#00ADEE]">개선 완료</p>
+            feedbackData?.status === "COMPLETED" && (
+              <p className="text-gra">개선 완료</p>
+            )
           )}
         </div>
       </div>
