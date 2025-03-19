@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { REGISTRATION } from "@/constants/userRegistration";
 import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
+import Image from "next/image";
 
 const Mypage = () => {
   const { data, isLoading } = useGetMyPageData();
@@ -39,14 +40,21 @@ const Mypage = () => {
     <div className="flex flex-col gap-[24px] max-w-[720px] min-h-[238px] bg-[#FFFFFF] rounded-[10px] p-[24px]">
       <div className="flex justify-between items-center min-h-[48px]">
         <div className="flex gap-[12px]">
-          <div className="w-[48px] h-[48px] rounded-full bg-black"></div>
+          {/* <div className="w-[48px] h-[48px] rounded-full bg-black"></div> */}
+          <Image
+            alt="profile-image"
+            src={"/userProfileIsNull.png"}
+            width={48}
+            height={48}
+            className="w-[48px] h-[48px] rounded-full object-cover"
+          />
           <div>
-            <p className="font-[700] text-[#181818] leading-[24px]">
-              {mypage?.nickname}
-              <span className="ml-[4px] text-[14px] font-[500] leading-[20px] text-[#424242]">
+            <div className="text-[#181818] leading-[24px]">
+              <h2 className="font-[700]"> {mypage?.nickname}</h2>
+              <span className="ml-[4px] text-[14px] leading-[20px] text-[#424242] font-[500]">
                 {role}
               </span>
-            </p>
+            </div>
             <p className="text-[14px] leading-[20px] text-[#424242]">
               플레이 하이브 방문을 진심으로 감사드립니다.
             </p>
