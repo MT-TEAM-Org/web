@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import EventItem from "./EventItem";
 import useGetGameEvent from "@/_hooks/fetcher/main/mainRightBar/useGetGameEvent";
 import EmptyGameBox from "./EmptyGameBox";
@@ -13,8 +13,10 @@ import Arrow_right from "@/app/_components/icon/Arrow_right";
 
 const MainRightBar = () => {
   const [pageNum, setPageNum] = useState(1);
-  const [currentPage, setCurrentPage] = useState("1"); // 수정 예정
+  const [currentPage, setCurrentPage] = useState("1");
   const [buttonActive, setButtonActive] = useState(true);
+  const [startIndex, setStartIndex] = useState(4);
+
   const {
     data: gameEventData,
     isLoading: eventIsLoading,
@@ -22,25 +24,27 @@ const MainRightBar = () => {
   } = useGetGameEvent({
     pageNum,
   });
-  const handleButtonStyle = (value: boolean) => {
-    setButtonActive(value);
-  };
+
   const {
     data: newsData,
     isLoading: newsIsLoading,
     isError: newsIsError,
   } = useGetNewsDataList({
-    page: currentPage,
+    page: currentPage.toString(),
+    startIndex: buttonActive ? 4 : 0,
   });
+
+  const handleButtonStyle = (value: boolean, index: number) => {
+    setButtonActive(value);
+    setStartIndex(index);
+  };
 
   const handleToPage = (type: "prev" | "next") => {
     const currentPageNum = Number(currentPage);
     if (type === "prev" && currentPageNum > 1) {
-      const prevPage = (currentPageNum - 1).toString();
-      setCurrentPage(prevPage);
+      setCurrentPage((currentPageNum - 1).toString());
     } else if (type === "next" && currentPageNum < 3) {
-      const prevPage = (currentPageNum + 1).toString();
-      setCurrentPage(prevPage);
+      setCurrentPage((currentPageNum + 1).toString());
     }
   };
 
@@ -52,10 +56,10 @@ const MainRightBar = () => {
     "border-b border-b-gray5 border-gray5 font-[500] text-[14px] leading-[22px] text-gray5";
 
   return (
-    <div className="flex flex-col w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px] ">
+    <div className="flex flex-col w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px]">
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px] h-auto">
         <button
-          onClick={() => handleButtonStyle(true)}
+          onClick={() => handleButtonStyle(true, 4)}
           className={`${btnStyle} ${
             buttonActive ? activeBtnStyle : passiveBtnStyle
           }`}
@@ -63,7 +67,7 @@ const MainRightBar = () => {
           뉴스
         </button>
         <button
-          onClick={() => handleButtonStyle(false)}
+          onClick={() => handleButtonStyle(false, 0)}
           className={`${btnStyle} ${
             !buttonActive ? activeBtnStyle : passiveBtnStyle
           }`}
@@ -71,9 +75,10 @@ const MainRightBar = () => {
           게임 이벤트
         </button>
       </div>
+
       <div className="flex flex-col gap-2">
         {buttonActive ? (
-          <div className="w-full h-auto max-h-[736px] rounded-[5px] flex flex-col gap-2 ">
+          <div className="w-full h-auto max-h-[736px] rounded-[5px] flex flex-col gap-2">
             {newsIsLoading
               ? Array(5)
                   .fill(0)
@@ -99,9 +104,8 @@ const MainRightBar = () => {
         )}
       </div>
 
-      {/*수정 예정*/}
       {buttonActive && newsData?.length > 0 && (
-        <div className="w-[160px] min-h-[32px] flex mx-auto gap-4 ">
+        <div className="w-[160px] min-h-[32px] flex mx-auto gap-4">
           <button
             onClick={() => handleToPage("prev")}
             className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex gap-[10px] justify-center items-center"
@@ -132,4 +136,5 @@ const MainRightBar = () => {
     </div>
   );
 };
+
 export default MainRightBar;

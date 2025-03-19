@@ -6,19 +6,12 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       "imgnews.pstatic.net",
-<<<<<<< HEAD
+      "43.201.99.157",
       "54.180.104.178",
       "rs.nxfs.nexon.com",
       "shared.fastly.steamstatic.com",
-    ],
-
-=======
-      "43.201.99.157",
-      "54.180.104.178",
-      "media.playhive.co.kr",
       "naver.com",
     ],
->>>>>>> 363494cff0194a5eeda0fb3e9f3ec7d6052d69f9
     remotePatterns: [
       {
         protocol: "http",
