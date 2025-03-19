@@ -2,7 +2,7 @@
 
 import React, { FocusEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor } from "@tiptap/react";
 import Toolbar from "@/app/_components/_tiptap/Toolbar";
 import LinkPreview from "@/app/_components/LinkPreview";
 import { LinkIcon } from "@/app/_components/icon/LinkIcon";
@@ -15,7 +15,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
 import { useForm } from "react-hook-form";
 import Underline from "@tiptap/extension-underline";
-import usePostNotice from "@/_hooks/fetcher/customer/usePostNotice";
+import usePostFeedback from "@/_hooks/fetcher/customer/usePostFeedback";
 
 // Base64 to Blob 변환 함수
 const base64ToBlob = (base64: string) => {
@@ -61,14 +61,14 @@ const CustomImage = Image.extend({
   },
 });
 
-const Write = () => {
+const FeedbackWrite = () => {
   const router = useRouter();
   const { register, watch, setValue, handleSubmit } = useForm();
-  const { mutate: postNotice } = usePostNotice();
+  const { mutate: postFeedback } = usePostFeedback();
   const [videoUrl, setVideoUrl] = useState("");
 
   const onSubmit = (data: any) => {
-    postNotice({
+    postFeedback({
       title: data.title,
       content: data.content,
       imgUrl: data.imgUrl,
@@ -236,4 +236,4 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default FeedbackWrite;

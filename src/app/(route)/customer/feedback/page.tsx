@@ -1,9 +1,11 @@
+"use client";
+
 import React from "react";
 import { CustomerTalkToolbar } from "../_components/CustomerTalkToolbar";
 import FeedbackItem from "../_components/FeedbackItem";
 import FeedbackNoticeItem from "../_components/FeedbackNoticeItem";
 
-const page = () => {
+const Page = () => {
   return (
     <>
       <div className="w-[720px] min-h-[120px] rounded-t-[5px]">
@@ -30,4 +32,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
