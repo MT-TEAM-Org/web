@@ -50,7 +50,7 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
           alt="news img"
           width={68}
           height={68}
-          className="w-[68px] h-[68px] rounded-[4.25px] object-cover"
+          className="w-[68px] h-[68px] rounded-[5px] object-cover"
         />
         <div className="min-w-[184px] h-auto min-h-[68px] flex flex-col justify-center items-start gap-1">
           <div className={styles.title}>{newsItem.title}</div>

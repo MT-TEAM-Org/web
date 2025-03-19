@@ -22,10 +22,11 @@ const MainRightBarPagination = ({
       setPageNum(currentPage + 1);
     }
   };
-  const ButtonStyle = "w-[32px] h-[32px] px-2 py-1 border border-gray2 rounded";
+  const ButtonStyle =
+    "w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex gap-[10px] justify-center items-center";
 
   return (
-    <div className="flex items-center justify-center gap-7 py-4 space-x-4">
+    <div className="w-[160px] min-h-[32px] flex mx-auto gap-4">
       <button
         className={ButtonStyle}
         onClick={() => handleArrowClick("left")}
@@ -33,7 +34,7 @@ const MainRightBarPagination = ({
       >
         <Arrow_left />
       </button>
-      <div>
+      <div className="w-[64px] h-[32px] font-[500] text-[14px] leading-[20px] tracking-[0%] text-gray6 flex items-center justify-center align-center">
         {currentPage} / {totalPage}
       </div>
       <button

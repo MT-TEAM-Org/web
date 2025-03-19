@@ -54,7 +54,7 @@ const MainRightBar = () => {
     "border-b border-b-gray5 border-gray5 font-[500] text-[14px] leading-[22px] text-gray5";
 
   return (
-    <div className="flex flex-col w-[298px] min-h-[668px] gap-6 bg-white rounded-lg">
+    <div className="flex flex-col w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px] ">
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px] h-auto">
         <button
           onClick={() => handleButtonStyle(true)}
@@ -75,7 +75,7 @@ const MainRightBar = () => {
       </div>
       <div className="flex flex-col gap-2">
         {buttonActive ? (
-          <div className="w-full h-auto max-h-[736px] rounded-[10px] flex flex-col gap-2 ">
+          <div className="w-full h-auto max-h-[736px] rounded-[5px] flex flex-col gap-2 ">
             {newsIsLoading
               ? Array(5)
                   .fill(0)
@@ -103,7 +103,7 @@ const MainRightBar = () => {
 
       {/*수정 예정*/}
       {buttonActive && newsData?.length > 0 && (
-        <div className="flex justify-center gap-4">
+        <div className="w-[160px] min-h-[32px] flex mx-auto gap-4 ">
           <button
             onClick={() => handleToPage("prev")}
             className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex gap-[10px] justify-center items-center"
