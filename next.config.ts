@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
       "rs.nxfs.nexon.com",
       "shared.fastly.steamstatic.com",
       "naver.com",
+      "media.playhive.co.kr",
     ],
     remotePatterns: [
       {
