@@ -129,7 +129,6 @@ const FeedbackWrite = () => {
     }
   };
 
-  // 중복된 ol 항목을 객체 배열로 정리
   const noticeRules = [
     "허용 확장자 (jpg, jpeg, png,webp,heic, mp4,mov,webm,gif) 총 15개 까지, 파일당 50MB 까지 업로드 가능합니다.",
     "50MB보다 더 큰 용량의 영상물은 유튜브 링크 첨부시 재생이 가능합니다.",
@@ -144,7 +143,7 @@ const FeedbackWrite = () => {
     <div className="w-[720px] min-h-[648px] h-auto flex flex-col justify-center items-center bg-white shadow-sm rounded-[5px] border px-3 pt-3 pb-6 gap-3 mb-10">
       <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="w-[95px] min-h-[28px] flex gap-3 font-bold text-[18px] leading-7 tracking-[-0.72px] items-center text-gray8">
-          공지사항 작성
+          개선요청 작성
         </h2>
         <div className="w-full h-[40px] flex items-center justify-center gap-5 border border-gray3 rounded-[5px]">
           <input

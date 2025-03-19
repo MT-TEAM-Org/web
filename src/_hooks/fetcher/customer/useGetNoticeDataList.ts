@@ -1,10 +1,11 @@
+import { noticeListConfig } from "@/app/(route)/customer/_types/customer";
 import getNoticeDataList from "@/services/customer/getNoticeDataList";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetNoticeDataList = (pageNum: number, searchType?: string, search?: string) => {
+const useGetNoticeDataList = (data: noticeListConfig) => {
   return useQuery({
-    queryKey: ["noticeList", pageNum, searchType, search],
-    queryFn: () => getNoticeDataList(pageNum, searchType, search),
+    queryKey: ["noticeList", data],
+    queryFn: () => getNoticeDataList(data),
     retry: 1,
   });
 };

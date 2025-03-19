@@ -17,11 +17,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       <div className="max-w-[1200px] mx-auto flex gap-4 items-start justify-center">
-        <div className="w-[160px] min-h-[260px] rounded-5px overflow-hidden bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+        <div className="w-[160px] min-h-[260px] rounded-5px bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] sticky top-[120px]">
           <CustomerLeftSidebar />
         </div>
         <div>{children}</div>
-        <div>
+        <div className="sticky top-[120px]">
           <RightSideBar />
         </div>
       </div>
