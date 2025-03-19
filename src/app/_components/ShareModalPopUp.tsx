@@ -18,6 +18,7 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
   }, []);
 
   const copyBtn = async () => {
+    setActiveModal(false);
     try {
       await navigator.clipboard.writeText(url);
       toast.success(
@@ -26,6 +27,12 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
       );
     } catch (err) {
       toast.error("주소가 복사되지 않았습니다.", "다시 시도 해주세요.");
+    }
+  };
+
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      setActiveModal(false);
     }
   };
 
@@ -93,7 +100,10 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
     "w-[160px] min-h-[40px] rounded-[5px] py-4 px-5 flex gap-[10px] font-bold text-[16px] items-center justify-center";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div
+      onClick={handleOverlayClick}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+    >
       <div className="w-[408px] min-h-[274px] rounded-[10px] p-10 flex flex-col gap-6 bg-white shadow-md relative">
         <p className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-center">
           공유하기
@@ -120,7 +130,7 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
           </button>
           <button
             onClick={copyBtn}
-            className={`${buttonBaseStyle} bg-[#00ADEE] text-white`}
+            className={`${buttonBaseStyle} bg-gra text-white`}
           >
             링크복사
           </button>

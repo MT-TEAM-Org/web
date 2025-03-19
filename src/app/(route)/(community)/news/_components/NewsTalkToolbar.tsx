@@ -159,14 +159,14 @@ const NewsTalkToolbar = ({
   const activeSortedStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px] font-[700] border-gray7";
   const activeButtonStyle =
-    "bg-[#00ADEE] text-white min-w-[57px] h-[40px] flex gap-[10px] items-center align-center rounded-[5px] px-[16px] py-[13px] font-[700] text-[14px] leading-[21px] tracking-[-2%]";
+    "bg-[#00ADEE] text-white min-w-[57px] h-[40px] flex gap-[10px] items-center align-center rounded-[5px] px-[16px] py-[13px] font-bold text-[14px] leading-[21px] tracking-[-0.02em]";
   const disableButtonStyle =
-    "bg-white text-gray-700 min-w-[57px] h-[40px] flex gap-[10px] items-center align-center border border-gray3 rounded-[5px] px-[16px] py-[13px] font-[500] text-[14px] leading-[22px] tracking-[-2%]";
+    "bg-white text-gray-700 min-w-[57px] h-[40px] flex gap-[10px] items-center align-center border border-gray3 rounded-[5px] px-[16px] py-[13px] font-medium text-[14px] leading-[22px] tracking-[-0.02em]";
 
   return (
     <div className="w-[720px] min-h-[120px] rounded-tl-[5px] rounded-tr-[5px] bg-white mx-auto shadow-sm">
       <div className="bg-white rounded-tr-[5px] rounded-t-[5px]">
-        <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
+        <div className="w-full flex justify-between items-center h-[64px] p-[12px] border-b">
           <div className="flex gap-2">
             {timeButtons.map((button) => (
               <button
@@ -179,7 +179,7 @@ const NewsTalkToolbar = ({
                 className={
                   activeBtn === button.value
                     ? activeButtonStyle
-                    : disableButtonStyle
+                    : `${disableButtonStyle} !font-medium`
                 }
               >
                 {button.label}
@@ -225,7 +225,7 @@ const NewsTalkToolbar = ({
           </div>
         </div>
         <div className="flex justify-between items-center p-[12px]">
-          <div className="flex w-full items-center gap-[4px]">
+          <div className="flex w-full items-center gap-[8px]">
             {sortOptions.map((option) => (
               <button
                 key={option.value}

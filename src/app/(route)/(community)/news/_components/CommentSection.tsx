@@ -96,7 +96,11 @@ const CommentSection = ({
           )}
         </div>
       </div>
-      <PostNavigation scrollToCommentBar={onHandleToTop} />
+      <PostNavigation
+        scrollToCommentBar={onHandleToTop}
+        nextId={newsInfoData?.nextId}
+        previousId={newsInfoData?.previousId}
+      />
     </>
   );
 };

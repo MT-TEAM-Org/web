@@ -23,6 +23,7 @@ import useGetNewsComment from "@/_hooks/fetcher/news/comment/useGetNewsComment";
 import NewsSendCommentBox from "./_components/NewsSendCommentBox";
 import useGetBestComment from "@/_hooks/fetcher/news/comment/useGetBestComment";
 import { NewsListType } from "@/app/_constants/newsListItemType";
+import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
@@ -73,9 +74,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     }
   };
 
-  const recommendButtonBaseStyle =
-    "h-[40px] rounded-[5px] border px-[13px] py-4 flex gap-1 bg-white items-center justify-center text-[14px] font-bold";
-
   return (
     <>
       {isLoading ? (
@@ -90,7 +88,9 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             <div className="w-full h-auto min-h-[20px] gap-4 flex justify-between text-gray2">
               <div className="flex gap-2 text-gray6 font-[700] leading-5 text-[14px]">
                 <div className="flex gap-1 font-medium text-[14px] leading-5">
-                  <ChangedCategory category={newsInfoData?.category} />
+                  <div className="font-bold">
+                    <ChangedCategory category={newsInfoData?.category} />
+                  </div>
                   <p>{formattedTime}</p>
                 </div>
                 <div className="flex gap-1 font-medium text-[14px] leading-5">
@@ -121,23 +121,11 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
             </p>
           </div>
 
-          <div className="w-full h-auto flex justify-center gap-2">
-            <button
-              onClick={handleNewsCommend}
-              className={
-                newsInfoData?.recommend
-                  ? `${recommendButtonBaseStyle} w-[123px] border-[#00ADEE] text-[#00ADEE]`
-                  : `${recommendButtonBaseStyle} w-[120px] border-gray3`
-              }
-            >
-              <Single_logo width="16" height="16" fill="#00ADEE" />
-              추천
-              <span>
-                {newsInfoData?.recommendCount >= 1 &&
-                  newsInfoData?.recommendCount}
-              </span>
-            </button>
-          </div>
+          <RecommendButton
+            handleCommend={handleNewsCommend}
+            recommendCount={newsInfoData?.recommendCount}
+            isRecommend={newsInfoData?.recommend}
+          />
           <PostAction type="news" source={newsInfoData?.source} />
           <CommentSection
             newsInfoData={newsInfoData}
