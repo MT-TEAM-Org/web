@@ -27,7 +27,7 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
 
   console.log("NoticeItemData: ", noticeData);
   return (
-    <Link href={`/customer/${noticeData?.id}`}>
+    <Link href={`/customer/notice/notice-info/${noticeData?.id}`}>
       <div
         className={`${
           isFeedback ? "bg-[#F8FDFF]" : "hover:bg-[#F8FDFF]"
