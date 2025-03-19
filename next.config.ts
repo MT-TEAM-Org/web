@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       "imgnews.pstatic.net",
+      "43.201.99.157",
       "54.180.104.178",
       "rs.nxfs.nexon.com",
       "shared.fastly.steamstatic.com",
