@@ -8,9 +8,10 @@ import { NewsItemType } from "@/app/_constants/newsItemType";
 
 interface NewsItemProps {
   newsItem: NewsItemType;
+  customClass?: string;
 }
 
-const RightNewsItem = ({ newsItem }: NewsItemProps) => {
+const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
   const { handleRead } = useReadNews(newsItem?.id, false);
   const [read, setRead] = useState(false);
   const pathname = usePathname();
@@ -31,7 +32,7 @@ const RightNewsItem = ({ newsItem }: NewsItemProps) => {
 
   const styles = {
     title: `${titleStyle} ${read ? "text-gray5" : "text-gray9"}`,
-    content: `${contentStyle} ${read ? "text-gray5" : "text-gray9"}`,
+    content: `${contentStyle} ${read ? "text-gray5" : "text-gray7"}`,
   };
 
   return (
@@ -42,14 +43,14 @@ const RightNewsItem = ({ newsItem }: NewsItemProps) => {
     >
       <div
         onClick={handleRead}
-        className="min-w-[288px] min-h-[92px] flex justify-start items-center border-b border-gray2 p-3 cursor-pointer gap-3"
+        className={`min-w-[288px] min-h-[92px] flex justify-start items-center border-b border-gray2 p-3 cursor-pointer gap-3 ${customClass}`}
       >
         <Image
           src={newsItem.thumbImg ? updatedImgUrl : "/Preview_loading_image.png"}
           alt="news img"
           width={68}
           height={68}
-          className="w-[68px] h-[68px] rounded-[4.25px] object-cover"
+          className="w-[68px] h-[68px] rounded-[5px] object-cover"
         />
         <div className="min-w-[184px] h-auto min-h-[68px] flex flex-col justify-center items-start gap-1">
           <div className={styles.title}>{newsItem.title}</div>
