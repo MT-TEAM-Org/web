@@ -6,7 +6,7 @@ import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
 import { Suspense, use, useEffect, useRef } from "react";
-import useGetInquiriesDetail from "@/_hooks/useMypage/useGetInquiriesDetail";
+import useGetInquiriesDetail from "@/_hooks/fetcher/mypage/useGetInquiriesDetail";
 import { useRouter } from "next/navigation";
 import MyPageInquiriesList from "../_components/MyPageInquiriesList";
 import { useInquiryPostIdStore } from "@/utils/Store";
@@ -170,7 +170,7 @@ const InquirieDetail = ({
           </div>
         </div>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={""}>
         <div className="max-w-[720px] min-h-[450px] bg-[#FAFAFA] rounded-[5px]">
           <MyPageInquiriesList />
         </div>
