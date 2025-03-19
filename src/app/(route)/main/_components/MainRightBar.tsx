@@ -25,7 +25,7 @@ const MainRightBar = () => {
   const handleButtonStyle = (value: boolean) => {
     setButtonActive(value);
   };
-  const { data: filteredNewsData, isLoading: newsIsLoading } =
+  const { data: filteredNewsData, isLoading: newsIsLoading,isError: newsIsError, } =
     useGetMainRightBarNewsData({
       page: currentPage.toString(),
     });
