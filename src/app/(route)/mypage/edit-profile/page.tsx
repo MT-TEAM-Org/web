@@ -168,7 +168,7 @@ const EditProfile = () => {
             <ProfileImage imageUrl={imageUrl} setImageUrl={setImageUrl} />
             <div className="flex justify-between min-h-[56px] rounded-[10px] p-[16px] bg-[#FAFAFA] text-gray8">
               <p className="leading-[24px]">가입 유형</p>
-              <p className="font-[700] leading-[24px]">
+              <p className="font-[700] leading-[24px] text-gray7">
                 {mypageData?.data?.registrationMethod === "LOCAL"
                   ? "일반 회원가입"
                   : `${
