@@ -47,9 +47,9 @@ const CustomerTalkToolbar = ({
     { label: "작성자", value: "writer" },
   ];
 
-  useEffect(() => {
-    onPageChange(currentPage);
-  }, [currentPage, onPageChange]);
+  // useEffect(() => {
+  //   onPageChange(currentPage);
+  // }, [currentPage, onPageChange]);
 
   const handleDivClick = () => {
     if (selectRef.current) {

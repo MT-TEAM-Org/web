@@ -6,7 +6,10 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { REGISTRATION } from "@/constants/userRegistration";
-import useGetMyPageData from "@/_hooks/useMypage/useGetMyPageData";
+import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
+import ProfileImage from "./_components/ProfileImage";
+import { useToast } from "@/_hooks/useToast";
+import useDeleteImage from "@/_hooks/fetcher/mypage/useDeleteImage";
 
 interface FormData {
   email: string;
@@ -15,6 +18,7 @@ interface FormData {
   nickname: string;
   birthDate: string;
   genderType: "M" | "W" | null;
+  imageUrl: string;
 }
 
 const fetchUserInfo = async () => {
@@ -62,11 +66,14 @@ const useModifyUserInfo = () => {
 
 const EditProfile = () => {
   const queryClient = useQueryClient();
+  const { error, success } = useToast();
   const { data: userInfo, isLoading: userInfoIsLoading } = useUserInfo();
   const { data: mypageData, isLoading } = useGetMyPageData();
   const { mutate: modifyUserInfo, isPending: modifyUserInfoIsPending } =
     useModifyUserInfo();
+  const { mutate: deleteImage } = useDeleteImage();
   const [genderType, setGenderType] = useState<"M" | "W" | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -81,6 +88,7 @@ const EditProfile = () => {
       setValue("tel", userInfo.data.tel);
       setValue("nickname", userInfo.data.nickname);
       setValue("birthDate", userInfo.data.birthDate);
+      setImageUrl(userInfo.data.imageUrl);
     }
   }, [userInfo]);
 
@@ -112,10 +120,32 @@ const EditProfile = () => {
   ];
 
   const onSubmit = (data: FormData) => {
-    const requestData = { ...data, genderType };
+    if (
+      data.tel === userInfo.data.tel &&
+      data.nickname === userInfo.data.nickname &&
+      data.birthDate === userInfo.data.birthDate &&
+      genderType === userInfo.data.genderType &&
+      imageUrl === userInfo.data.imageUrl &&
+      data.password === ""
+    ) {
+      error("수정이 실패하였습니다.", "회원정보를 변경해주세요!");
+      return;
+    }
+
+    const requestData = { ...data, genderType, imageUrl };
     modifyUserInfo(requestData, {
       onSuccess: () => {
+        if (
+          imageUrl !== userInfo.data.imageUrl &&
+          userInfo.data.imageUrl !== null
+        ) {
+          deleteImage(
+            userInfo.data.imageUrl.split("media.playhive.co.kr/").pop()
+          );
+        }
+        success("수정이 완료되었습니다.", "플레이하이브에서 재밌게 놀아봐요!");
         queryClient.invalidateQueries({ queryKey: ["userInfo"] });
+        queryClient.invalidateQueries({ queryKey: ["authCheck"] });
       },
     });
   };
@@ -135,21 +165,7 @@ const EditProfile = () => {
             className="max-w-[328px] min-h-[910px] mx-auto space-y-[24px]"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="flex flex-col gap-[4px] items-center w-full min-h-[158px]">
-              <p className="text-center text-[14px] leading-[22px] text-[#424242]">
-                프로필 사진
-              </p>
-              <div className="flex flex-col items-center gap-[12px]">
-                <div className="w-[80px] h-[80px] rounded-full bg-black"></div>
-                <button
-                  type="button"
-                  className="flex items-center h-[40px] rounded-[5px] border-[1px] border-[#DBDBDB] px-[16px] py-[13px] text-[14px] leading-[22px] text-[#424242]"
-                >
-                  사진 수정
-                </button>
-              </div>
-            </div>
-
+            <ProfileImage imageUrl={imageUrl} setImageUrl={setImageUrl} />
             <div className="flex justify-between min-h-[56px] rounded-[10px] p-[16px] bg-[#FAFAFA] text-gray8">
               <p className="leading-[24px]">가입 유형</p>
               <p className="font-[700] leading-[24px]">

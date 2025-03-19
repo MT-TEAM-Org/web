@@ -8,9 +8,10 @@ import useTimeAgo from "@/utils/useTimeAgo";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
+  isFeedback?: boolean;
 }
 
-const NoticeItem = ({ noticeData }: NoticeItemProps) => {
+const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
   const [isNew, setIsNew] = useState(false);
   const timeAgo = useTimeAgo(noticeData?.createdAt);
 
@@ -26,9 +27,14 @@ const NoticeItem = ({ noticeData }: NoticeItemProps) => {
 
   return (
     <Link href={`/customer/notice/notice-info/${noticeData?.id}`}>
-      <div className="w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer hover:bg-[#F8FDFF]">
-        <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">
-          <p className="font-bold text-[14px] leading-5">{noticeData?.id}</p>
+      <div
+        className={`${
+          isFeedback ? "bg-bg0" : "hover:bg-bg0"
+        } w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer`}
+      >
+        <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center font-bold text-[14px] leading-5">
+          {/* <p>{noticeData?.id}</p> */}
+          <p>공지</p>
         </div>
         <div className="w-[56px] h-[42px] rounded-[5px] p-4 flex gap-[10px] bg-gray1">
           <Image
@@ -44,13 +50,13 @@ const NoticeItem = ({ noticeData }: NoticeItemProps) => {
               {noticeData?.title}
             </p>
             {noticeData?.commentCount >= 1 && (
-              <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-[#00ADEE]">
+              <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
                 {noticeData?.commentCount}
               </p>
             )}
             {isNew && (
               <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
-                <p className="text-[#00ADEE]">N</p>
+                <p className="text-gra">N</p>
               </div>
             )}
           </div>
