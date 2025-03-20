@@ -42,7 +42,7 @@ const ScheduleContainer = () => {
   return (
     <div className="w-full h-full min-h-[126px] flex gap-3 bg-gray1 justify-center">
       <div className="w-[1200px] h-full min-h-[126px] flex gap-6 justify-center items-center">
-        <div className="w-[1136px] h-auto min-h-[126px] flex justify-between items-center gap-3">
+        <div className="flex justify-between items-center gap-3">
           <AnimatePresence initial={false} mode="wait">
             <motion.div
               key={currentPage}

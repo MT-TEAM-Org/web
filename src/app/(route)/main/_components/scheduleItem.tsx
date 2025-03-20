@@ -14,7 +14,7 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
   return (
     <div
       onClick={onClick}
-      className={`w-full min-h-[126px] p-[12px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] border
+      className={`w-full min-h-[126px] cursor-pointer p-[12px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] border
       ${isSelected ? "border-gray7" : "border-gray3"}
     `}
     >
