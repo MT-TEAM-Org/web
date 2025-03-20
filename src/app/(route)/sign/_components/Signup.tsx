@@ -5,7 +5,7 @@ import { SymbolLogo } from "./SymbolLogo";
 import SnsButtons from "./SnsButtons";
 import Input from "@/app/_components/Input";
 import AccountHelp from "./AccountHelp";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { CheckboxNull } from "@/app/_components/icon/CheckboxNull";
 import { Checkbox } from "@/app/_components/icon/Checkbox";
 import { Google } from "@/app/_components/icon/Google";
@@ -16,8 +16,10 @@ import { useApiMutation } from "@/_hooks/query";
 import { useSocialStore } from "@/utils/Store";
 import { FieldErrors } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import TearmsModal from "@/app/_components/TermsModal";
-import TermsPersonalText from "@/app/_components/TermsPersonalText";
+
+const TearmsModal = lazy(
+  () => import("@/app/_components/termsModal/TermsModal")
+);
 
 interface FormData {
   username: string;
@@ -545,7 +547,9 @@ const Signup = ({
         <AccountHelp signState="signup" />
       </div>
       {(show.service || show.personal) && (
-        <TearmsModal show={show} setShow={setShow} />
+        <Suspense fallback="">
+          <TearmsModal show={show} setShow={setShow} />
+        </Suspense>
       )}
     </>
   );

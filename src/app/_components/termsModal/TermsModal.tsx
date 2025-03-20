@@ -1,7 +1,7 @@
 "use client";
 
-import TermsServiceText from "./TermsServiceText";
 import TermsPersonalText from "./TermsPersonalText";
+import TermsServiceText from "./TermsServiceText";
 
 interface Show {
   service: boolean;
@@ -29,7 +29,7 @@ const TearmsModal = ({ show, setShow }: TearmsModalProps) => {
           <h1 className="font-[700] text-[24px] leading-[38px] text-[#000000]">
             {show.service ? "이용약관" : "개인정보 수집 및 이용 동의"}
           </h1>
-          <div className="overflow-y-auto h-[390px] bg-[#FAFAFA] rounded-[10px] p-[32px]">
+          <div className="overflow-y-auto min-w-[560px] h-[390px] bg-[#FAFAFA] rounded-[10px] p-[32px]">
             {show.service ? <TermsServiceText /> : <TermsPersonalText />}
           </div>
         </div>
