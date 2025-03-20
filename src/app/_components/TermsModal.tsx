@@ -27,7 +27,7 @@ const TearmsModal = ({ show, setShow }: TearmsModalProps) => {
       >
         <div className="flex flex-col items-center gap-[16px]">
           <h1 className="font-[700] text-[24px] leading-[38px] text-[#000000]">
-            이용약관
+            {show.service ? "이용약관" : "개인정보 수집 및 이용 동의"}
           </h1>
           <div className="overflow-y-auto h-[390px] bg-[#FAFAFA] rounded-[10px] p-[32px]">
             {show.service ? <TermsServiceText /> : <TermsPersonalText />}
