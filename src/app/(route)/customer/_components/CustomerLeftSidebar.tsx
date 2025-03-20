@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ModalPopup from "@/app/_components/ModalPopup";
 
@@ -9,6 +9,7 @@ const CustomerLeftSidebar = () => {
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
   const [show, setShow] = useState(false);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (show) {
@@ -30,11 +31,16 @@ const CustomerLeftSidebar = () => {
   ];
 
   const isCurrentPath = (boardPath: string) => {
-    const pathParts = pathname.split("/");
-    const currentCategory = pathParts.includes("ALL") ? "" : pathParts[2] || "";
     const boardCategory = boardPath.split("/")[2] || "";
 
-    return currentCategory === boardCategory;
+    if (boardCategory === "") {
+      return (
+        pathname === `/${basePath}` ||
+        pathname.startsWith(`/${basePath}/notice`)
+      );
+    } else {
+      return pathname === boardPath || pathname.startsWith(`${boardPath}/`);
+    }
   };
 
   const currentPathStyle = "font-bold text-gra bg-bg0";

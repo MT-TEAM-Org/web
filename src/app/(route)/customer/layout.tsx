@@ -1,13 +1,16 @@
+"use client";
+
 import React from "react";
 import CustomerLeftSidebar from "./_components/CustomerLeftSidebar";
 import { RightSideBar } from "../(community)/_components/RightSideBar";
-
-export const metadata = {
-  title: "PlayHive 고객센터 페이지",
-  description: "고객센터 페이지입니다.",
-};
+import { usePathname } from "next/navigation";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  const pathname = usePathname();
+  const isNoticeWritePage =
+    pathname === "/customer/notice/write" ||
+    pathname === "/customer/feedback/write";
+
   return (
     <div className="flex flex-col justify-between items-center">
       <div className="w-[1200px] min-h-[120px] flex items-center">
@@ -21,8 +24,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <CustomerLeftSidebar />
         </div>
         <div className="min-h-[calc(100vh-476px)]">{children}</div>
-        <div className="sticky top-[120px]">
-          <RightSideBar />
+        <div className="w-[288px] sticky top-[120px]">
+          {!isNoticeWritePage && <RightSideBar />}
         </div>
       </div>
     </div>
