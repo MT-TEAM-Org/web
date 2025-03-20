@@ -8,22 +8,10 @@ import LiveMatchPanel from "./_components/LiveMatchPanel";
 import CommentBox from "./_components/CommentBox";
 import BaseballTab from "./_components/_baseballComponents/BaseballTab";
 import FootballTab from "./_components/_footballComponents/FootballTab";
-import LiveChat from "./_components/_LiveChatComponents/LiveChat";
-import useGetMatchSchedule from "@/_hooks/useMatch/useGetMatchSchedule";
 import UpcomingChat from "./_components/_LiveChatComponents/UpcomingChat";
-
-// import EmptyComment from "./_components/EmptyComment";
-// import FootballLivePanel from "./_components/FootballLivePanel";
-
-// export const metadata = {
-//   title: "경기중계 페이지",
-//   description: "경기중계 페이지입니다.",
-// };
 
 const Page = () => {
   const [selectedCategory, setSelectedCategory] = useState("E스포츠");
-  const { data: matchListData } = useGetMatchSchedule();
-  console.log(matchListData);
 
   return (
     <div className="flex flex-col gap-3 justify-center items-center mb-10">

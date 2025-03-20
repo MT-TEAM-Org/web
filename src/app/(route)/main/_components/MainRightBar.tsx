@@ -7,9 +7,9 @@ import EventItemSkeleton from "./EventItemSkeleton";
 import RightNewsItemSkeleton from "../../(community)/_components/RightNewsItemSkeleton";
 import RightNewsItem from "../../(community)/_components/RightNewsItem";
 import { NewsItemType } from "@/app/_constants/newsItemType";
-import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
+import useGetMainRightBarNewsData from "@/_hooks/fetcher/news/comment/useGetMainRightBarNewsData";
 
 const MainRightBar = () => {
   const [pageNum, setPageNum] = useState(1);
@@ -25,13 +25,10 @@ const MainRightBar = () => {
   const handleButtonStyle = (value: boolean) => {
     setButtonActive(value);
   };
-  const {
-    data: newsData,
-    isLoading: newsIsLoading,
-    isError: newsIsError,
-  } = useGetNewsDataList({
-    page: currentPage,
-  });
+  const { data: filteredNewsData, isLoading: newsIsLoading,isError: newsIsError, } =
+    useGetMainRightBarNewsData({
+      page: currentPage.toString(),
+    });
 
   const handleToPage = (type: "prev" | "next") => {
     const currentPageNum = Number(currentPage);
@@ -78,7 +75,7 @@ const MainRightBar = () => {
               ? Array(5)
                   .fill(0)
                   .map((_, index) => <RightNewsItemSkeleton key={index} />)
-              : newsData?.map((data: NewsItemType) => (
+              : filteredNewsData?.map((data: NewsItemType) => (
                   <RightNewsItem
                     key={data?.id}
                     newsItem={data}
@@ -100,7 +97,7 @@ const MainRightBar = () => {
       </div>
 
       {/*수정 예정*/}
-      {buttonActive && newsData?.length > 0 && (
+      {buttonActive && filteredNewsData?.length > 0 && (
         <div className="w-[160px] min-h-[32px] flex mx-auto gap-4 ">
           <button
             onClick={() => handleToPage("prev")}

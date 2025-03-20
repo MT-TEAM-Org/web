@@ -19,6 +19,7 @@ export default {
       animation: {
         fadeOut: "fadeOut 0.5s ease-in-out 2.5s forwards",
       },
+
       colors: {
         Primary: "#1228EF",
         Secondary: "#1024D3",

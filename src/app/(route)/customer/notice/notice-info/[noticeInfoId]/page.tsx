@@ -15,7 +15,6 @@ import EmptyItem from "../../../_components/EmptyItem";
 const Page = () => {
   const params = useParams();
   const id = params.noticeInfoId;
-  console.log(id);
   const numericId = Number(id);
   const [pageNum, setPageNum] = useState(1);
   const [searchType, setSearchType] = useState("");
@@ -50,7 +49,7 @@ const Page = () => {
           setSearchType={setSearchType}
         />
       </div>
-      <div className="w-[720px] h-auto rounded-[5px] bg-white">
+      <div className="w-[720px] h-auto rounded-[5px] bg-white shadow-md mb-10">
         {isLoading ? (
           Array.from({ length: 10 }).map((_, index) => (
             <NoticeItemSkeleton key={index} />
