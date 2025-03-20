@@ -73,7 +73,7 @@ const Mypage = () => {
           {mypageInfo.map((info, index: number) => (
             <div key={info.id} className="mx-auto flex items-center">
               <div className="w-[149.25px] min-h-[62px] space-y-[4px]">
-                <p className="text-[14px] leading-[20px] text-center">
+                <p className="text-[14px] leading-[20px] text-center text-gray7">
                   {info.name}
                 </p>
                 <Link href={info.path || ""}>
