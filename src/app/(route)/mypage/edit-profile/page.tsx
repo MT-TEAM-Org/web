@@ -188,6 +188,7 @@ const EditProfile = () => {
                   label={input.label}
                   type={input.type}
                   id={input.id}
+                  gap={4}
                   isDisabled={input.id === "email"}
                 />
                 <label
@@ -233,6 +234,7 @@ const EditProfile = () => {
               </label>
               <Input
                 height={48}
+                type="number"
                 id="birthDate"
                 register={register}
                 required={false}
