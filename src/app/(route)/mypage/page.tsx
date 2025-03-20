@@ -40,7 +40,6 @@ const Mypage = () => {
     <div className="flex flex-col gap-[24px] max-w-[720px] min-h-[238px] bg-[#FFFFFF] rounded-[10px] p-[24px]">
       <div className="flex justify-between items-center min-h-[48px]">
         <div className="flex gap-[12px]">
-          {/* <div className="w-[48px] h-[48px] rounded-full bg-black"></div> */}
           <Image
             alt="profile-image"
             src={"/userProfileIsNull.png"}
@@ -49,7 +48,7 @@ const Mypage = () => {
             className="w-[48px] h-[48px] rounded-full object-cover"
           />
           <div>
-            <div className="flex gap-[4px] text-[#181818] leading-[24px]">
+            <div className="flex items-center gap-[4px] text-[#181818] leading-[24px]">
               <h2 className="font-[700]">{mypage?.nickname}</h2>
               <span className="text-[14px] leading-[20px] text-[#424242] font-[500]">
                 {role}
