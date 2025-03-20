@@ -10,11 +10,7 @@ import Link from "next/link";
 import SearchFilter from "../../mypage/_components/SearchFilter";
 import OrderButtons from "../../mypage/_components/OrderButtons";
 import { feedbackListConfig } from "../_types/feedbackListConfig";
-
-interface DropdownOption {
-  label: string;
-  value: string;
-}
+import { POST_SEARCH_OPTIONS } from "../../mypage/_constants/toolbarObject";
 
 interface ToolbarProps {
   showOptions?: boolean;
@@ -30,15 +26,10 @@ const CustomerTalkToolbar = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [searchType, setSearchType] = useState("TITLE");
-
-  const options: DropdownOption[] = [
-    { label: "제목+내용", value: "both" },
-    { label: "제목", value: "title" },
-    { label: "내용", value: "content" },
-    { label: "댓글", value: "comment" },
-    { label: "작성자", value: "writer" },
-  ];
+  const [searchType, setSearchType] = useState(
+    searchParams.get("search_type") || "TITLE_CONTENT"
+  );
+  const searchOptions = POST_SEARCH_OPTIONS;
 
   const paramsConfig = {
     orderType: searchParams.get("order_type") || "CREATE",
@@ -63,6 +54,7 @@ const CustomerTalkToolbar = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const inputValue = (e.target as HTMLFormElement)[0] as HTMLInputElement;
+    if (inputValue.value.trim() === "") return;
     router.push(
       changeURLParams(searchParams, "search", inputValue.value, searchType),
       {
@@ -78,9 +70,6 @@ const CustomerTalkToolbar = ({
       scroll: false,
     });
   };
-
-  const buttonStyle =
-    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
 
   const writeButton = (href: string) => (
     <Link href={href}>
@@ -109,7 +98,7 @@ const CustomerTalkToolbar = ({
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
           <SearchFilter
             searchType={searchType}
-            searchOptions={options}
+            searchOptions={searchOptions}
             onSearchTypeChange={handleSearchTypeChange}
             onSubmit={handleSubmit}
           />

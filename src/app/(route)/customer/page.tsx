@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import CustomerTalkToolbar from "./_components/CustomerTalkToolbar";
 import NoticeItem from "./_components/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
@@ -14,8 +14,8 @@ import { getAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 
 const Page = () => {
   const queryClient = useQueryClient();
-  const adminRole = getAdminRole(queryClient);
   const searchParams = useSearchParams();
+  const adminChecker = getAdminRole(queryClient);
 
   const noticeOption: noticeListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
@@ -37,7 +37,7 @@ const Page = () => {
         <CustomerTalkToolbar
           showOptions={false}
           paginationData={noticeListData?.pageInfo}
-          adminChecker={adminRole}
+          adminChecker={adminChecker}
         />
       </div>
 

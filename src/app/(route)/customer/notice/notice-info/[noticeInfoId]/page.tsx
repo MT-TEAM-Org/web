@@ -12,16 +12,20 @@ import { useParams, useSearchParams } from "next/navigation";
 import NoticeInfoItemSkeleton from "./_components/NoticeInfoItemSkeleton";
 import { noticeListConfig } from "../../../_types/noticeListConfig";
 import EmptyItem from "../../../_components/EmptyItem";
+import { getAdminRole } from "../../../_utils/adminChecker";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Page = () => {
   const params = useParams();
   const searchParams = useSearchParams();
   const id = params.noticeInfoId;
   const numericId = Number(id);
+  const queryClient = useQueryClient();
+  const adminChecker = getAdminRole(queryClient);
 
   const noticeOption: noticeListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-    size: 10,
+    size: 20,
     searchType:
       (searchParams.get("search_type") as noticeListConfig["searchType"]) || "",
     search: searchParams.get("search") || "",
@@ -50,6 +54,7 @@ const Page = () => {
         <CustomerTalkToolbar
           showOptions={false}
           paginationData={noticeListData?.pageInfo}
+          adminChecker={adminChecker}
         />
       </div>
       <div className="w-[720px] h-auto rounded-[5px] bg-white shadow-md mb-10">
