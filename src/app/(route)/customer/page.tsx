@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import CustomerTalkToolbar from "./_components/CustomerTalkToolbar";
 import NoticeItem from "./_components/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
@@ -13,6 +13,14 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 
 const Page = () => {
+  return (
+    <Suspense fallback={""}>
+      <NoticePageContent />
+    </Suspense>
+  );
+};
+
+const NoticePageContent = () => {
   const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const adminChecker = getAdminRole(queryClient);

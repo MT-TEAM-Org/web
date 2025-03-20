@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import CustomerTalkToolbar from "../_components/CustomerTalkToolbar";
 import FeedbackItem from "../_components/FeedbackItem";
 import { useSearchParams } from "next/navigation";
@@ -10,7 +10,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { getAdminRole } from "../_utils/adminChecker";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import EmptyItem from "../_components/EmptyItem";
-import NoticeItemSkeleton from "../_components/NoticeItemSkeleton";
 import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType";
 import NoticeItem from "../_components/NoticeItem";
 import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
@@ -18,6 +17,14 @@ import FeedbackItemSkeleton from "../_components/FeedbackItemSkeleton";
 import { feedbackListConfig } from "../_types/feedbackListConfig";
 
 const Page = () => {
+  return (
+    <Suspense fallback={""}>
+      <FeedbackPageContent />
+    </Suspense>
+  );
+};
+
+const FeedbackPageContent = () => {
   const queryClient = useQueryClient();
   const adminRole = getAdminRole(queryClient);
   const searchParams = useSearchParams();
