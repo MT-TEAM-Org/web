@@ -52,7 +52,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
       onClick={() => setShow(false)}
     >
       <form
-        className="flex flex-col bg-[#FFFFFF] w-[548px] min-h-[520px] rounded-[10px] py-[40px] px-[15px] shadow-lg text-[#000000]"
+        className="flex flex-col bg-[#FFFFFF] w-[548px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg text-[#000000]"
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit(onSubmit)}
       >
