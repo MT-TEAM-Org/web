@@ -66,7 +66,13 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
   const handleClickMenu = (item: DropDownMenuItem) => {
     const { name, link } = item;
     if (name === "로그아웃") {
-      logout();
+      logout(undefined, {
+        onSuccess: () => {
+          localStorage.removeItem("accessToken");
+          queryClient.invalidateQueries({ queryKey: ["authCheck"] });
+          router.push("/");
+        },
+      });
     } else {
       if (link) {
         router.push(link);
