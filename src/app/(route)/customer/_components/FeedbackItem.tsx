@@ -14,6 +14,12 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
   const [isNew, setIsNew] = useState(false);
   const timeAgo = useTimeAgo(feedbackData?.createdAt);
 
+  const statusContent = {
+    PENDING: null,
+    RECEIVED: <p>접수 완료</p>,
+    COMPLETED: <p className="text-gra">개선 완료</p>,
+  };
+
   useEffect(() => {
     if (feedbackData?.createdAt) {
       const createdDate = new Date(feedbackData.createdAt);
@@ -68,14 +74,7 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
           </div>
         </div>
         <div className="min-w-[69px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px] bg-bg0 font-bold text-[14px] leading-5">
-          {feedbackData?.status === "PENDING" ? null : feedbackData?.status ===
-            "RECEIVED" ? (
-            <p>접수 완료</p>
-          ) : (
-            feedbackData?.status === "COMPLETED" && (
-              <p className="text-gra">개선 완료</p>
-            )
-          )}
+          {statusContent[feedbackData?.status] || null}
         </div>
       </div>
     </Link>

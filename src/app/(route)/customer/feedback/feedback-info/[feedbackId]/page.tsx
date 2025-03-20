@@ -31,10 +31,7 @@ const Page = () => {
   const queryClient = useQueryClient();
   const authStatus = queryClient.getQueryData(["authCheck"]);
   console.log(authStatus);
-  const adminChecker = authStatus?.data?.data?.role as
-    | "USER"
-    | "ADMIN"
-    | undefined;
+  const adminChecker = authStatus?.data?.data?.role as "USER" | "ADMIN";
 
   const {
     data: feedbackInfoData,
@@ -56,6 +53,22 @@ const Page = () => {
     { label: "추천", value: feedbackInfoData?.commentCount },
   ];
 
+  const statusBoxClass =
+    "w-[65px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px]";
+
+  const statusContent = {
+    RECEIVED: (
+      <div className={`${statusBoxClass} bg-gray1`}>
+        <p className="font-bold text-[14px] leading-5">접수 완료</p>
+      </div>
+    ),
+    COMPLETED: (
+      <div className={`${statusBoxClass} bg-bg0`}>
+        <p className="font-bold text-[14px] leading-5 text-gra">개선 완료</p>
+      </div>
+    ),
+  };
+
   return (
     <>
       {feedbackIsLoading || feedbackIsError ? (
@@ -64,22 +77,8 @@ const Page = () => {
         <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
           {adminChecker === "ADMIN" && <StatusSaver />}
           <div className="w-full h-[96px] flex gap-2 flex-col">
-            {adminChecker === "USER" ||
-              (adminChecker === undefined ||
-              feedbackInfoData?.status ===
-                "PENDING" ? null : feedbackInfoData?.status === "RECEIVED" ? (
-                <div className="w-[65px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px] bg-gray1">
-                  <p className="font-bold text-[14px] leading-5">접수 완료</p>
-                </div>
-              ) : (
-                feedbackInfoData?.status === "COMPLETED" && (
-                  <div className="w-[65px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px] bg-bg0">
-                    <p className="font-bold text-[14px] leading-5 text-gra">
-                      개선 완료
-                    </p>
-                  </div>
-                )
-              ))}
+            {adminChecker === "ADMIN" &&
+              statusContent[feedbackInfoData?.status]}
             <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
               {feedbackInfoData?.title}
             </h1>

@@ -32,7 +32,7 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
           isFeedback ? "bg-bg0" : "hover:bg-bg0"
         } w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer`}
       >
-        <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center text-center font-bold text-[14px] leading-5">
+        <div className="w-[32px] h-[132px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center text-center font-bold text-[14px] leading-5">
           <p>{noticeData?.id}</p>
         </div>
         <div className="w-[56px] h-[42px] rounded-[5px] p-4 flex gap-[10px] bg-gray1">

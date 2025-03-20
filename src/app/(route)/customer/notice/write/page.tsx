@@ -16,6 +16,7 @@ import Image from "@tiptap/extension-image";
 import { useForm } from "react-hook-form";
 import Underline from "@tiptap/extension-underline";
 import usePostNotice from "@/_hooks/fetcher/customer/usePostNotice";
+import { NOTICE_RULES } from "@/constants/noticeRules";
 
 // Base64 to Blob 변환 함수
 const base64ToBlob = (base64: string) => {
@@ -129,14 +130,6 @@ const Write = () => {
     }
   };
 
-  // 중복된 ol 항목을 객체 배열로 정리
-  const noticeRules = [
-    "허용 확장자 (jpg, jpeg, png,webp,heic, mp4,mov,webm,gif) 총 15개 까지, 파일당 50MB 까지 업로드 가능합니다.",
-    "50MB보다 더 큰 용량의 영상물은 유튜브 링크 첨부시 재생이 가능합니다.",
-    "11MB~50MB 움짤은 11MB 이하로 자동변환됩니다.",
-    "음원 있는 움짤/동영상은 45초 이내 길이만 가능합니다.",
-  ];
-
   const listItemClassName =
     "font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6";
 
@@ -209,7 +202,7 @@ const Write = () => {
             수 있습니다.
           </p>
           <ol>
-            {noticeRules.map((rule, index) => (
+            {NOTICE_RULES.map((rule, index) => (
               <li key={index} className={listItemClassName}>
                 • {rule}
               </li>
