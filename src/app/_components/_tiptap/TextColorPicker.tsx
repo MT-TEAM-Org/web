@@ -34,6 +34,7 @@ const TextColorPicker = ({ editor }: TextColorPickerProps) => {
   return (
     <div className="relative flex items-center justify-center">
       <button
+        type="button"
         onClick={toggleMenu}
         className="p-2 rounded-md hover:bg-gray-200"
         title="black color"
