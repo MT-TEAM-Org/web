@@ -25,7 +25,7 @@ const Page = () => {
 
   const noticeOption: noticeListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-    size: 10,
+    size: 20,
     searchType:
       (searchParams.get("search_type") as noticeListConfig["searchType"]) || "",
     search: searchParams.get("search") || "",
@@ -33,11 +33,12 @@ const Page = () => {
 
   const feedbackOption: feedbackListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-    size: 10,
+    size: 20,
     orderType:
-      (searchParams.get("order_type") as noticeListConfig["orderType"]) || "",
+      (searchParams.get("order_type") as feedbackListConfig["orderType"]) || "",
     searchType:
-      (searchParams.get("search_type") as noticeListConfig["searchType"]) || "",
+      (searchParams.get("search_type") as feedbackListConfig["searchType"]) ||
+      "",
     search: searchParams.get("search") || "",
   };
 

@@ -19,9 +19,7 @@ const Page = () => {
 
   const noticeOption: noticeListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-    size: 10,
-    orderType:
-      (searchParams.get("order_type") as noticeListConfig["orderType"]) || "",
+    size: 20,
     searchType:
       (searchParams.get("search_type") as noticeListConfig["searchType"]) || "",
     search: searchParams.get("search") || "",
