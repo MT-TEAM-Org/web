@@ -49,9 +49,9 @@ const Mypage = () => {
             className="w-[48px] h-[48px] rounded-full object-cover"
           />
           <div>
-            <div className="text-[#181818] leading-[24px]">
-              <h2 className="font-[700]"> {mypage?.nickname}</h2>
-              <span className="ml-[4px] text-[14px] leading-[20px] text-[#424242] font-[500]">
+            <div className="flex gap-[4px] text-[#181818] leading-[24px]">
+              <h2 className="font-[700]">{mypage?.nickname}</h2>
+              <span className="text-[14px] leading-[20px] text-[#424242] font-[500]">
                 {role}
               </span>
             </div>
