@@ -1,9 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
-import Mini_logo from "@/app/_components/icon/Mini_logo";
-import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
 import { NoticePageInfoType } from "@/app/_constants/customer/NoticeItemType";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Pagination from "../../mypage/_components/Pagination";
@@ -11,6 +8,8 @@ import changeURLParams from "../../mypage/util/changeURLParams";
 import React from "react";
 import Link from "next/link";
 import SearchFilter from "../../mypage/_components/SearchFilter";
+import OrderButtons from "../../mypage/_components/OrderButtons";
+import { feedbackListConfig } from "../_types/feedbackListConfig";
 
 interface DropdownOption {
   label: string;
@@ -41,6 +40,12 @@ const CustomerTalkToolbar = ({
     { label: "작성자", value: "writer" },
   ];
 
+  const paramsConfig = {
+    orderType: searchParams.get("order_type") || "CREATE",
+    search: searchParams.get("search") || "",
+    page: searchParams.get("page") || 1,
+  };
+
   const handlePageChange = (page: number) => {
     if (paginationData && paginationData.totalPage) {
       if (page < 1 || page > paginationData.totalPage) return;
@@ -64,6 +69,14 @@ const CustomerTalkToolbar = ({
         scroll: false,
       }
     );
+  };
+
+  const handleOrderButtonClick = (
+    orderType: feedbackListConfig["orderType"]
+  ) => {
+    router.push(changeURLParams(searchParams, "order_type", orderType), {
+      scroll: false,
+    });
   };
 
   const buttonStyle =
@@ -104,20 +117,12 @@ const CustomerTalkToolbar = ({
       <div className="flex justify-between items-center p-[12px]">
         <div className="flex w-full items-center gap-[4px]">
           {showOptions && (
-            <>
-              <button className={`${buttonStyle} font-[700]`}>
-                <Blue_outline_logo />
-                최신순
-              </button>
-              <button className={buttonStyle}>
-                <Red_outline_logo />
-                인기순
-              </button>
-              <button className={buttonStyle}>
-                <Mini_logo />
-                댓글 많은 순
-              </button>
-            </>
+            <OrderButtons
+              orderType={
+                paramsConfig.orderType as feedbackListConfig["orderType"]
+              }
+              onOrderType={handleOrderButtonClick}
+            />
           )}
         </div>
 
