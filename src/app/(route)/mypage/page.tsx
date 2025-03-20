@@ -59,7 +59,6 @@ const Mypage = () => {
             </p>
           </div>
         </div>
-
         <Link href="/mypage/edit-profile">
           <button className="w-[120px] min-h-[40px] bg-[#FFFFFF] text-[#424242] rounded-[5px] px-[16px] py-[13px] border border-[#DBDBDB] text-[14px] font-[700] leading-[14px]">
             내 정보 수정
