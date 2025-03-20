@@ -43,9 +43,9 @@ const FeedbackPageContent = () => {
     orderType:
       (searchParams.get("order_type") as feedbackListConfig["orderType"]) ||
       "CREATE",
-    searchType: searchParams.get(
-      "search_type"
-    ) as feedbackListConfig["searchType"],
+    searchType:
+      (searchParams.get("search_type") as feedbackListConfig["searchType"]) ||
+      "",
     search: searchParams.get("search") || "",
   };
 
@@ -61,7 +61,9 @@ const FeedbackPageContent = () => {
     isLoading: noticeIsLoading,
   } = useGetNoticeDataList(noticeOption);
 
-  const slicedNoticeDataList = noticeListData?.content?.slice(-2);
+  const slicedNoticeDataList = (noticeListData?.content as NoticeContentType[])
+    ?.sort((a, b) => b.id - a.id)
+    .slice(0, 2);
 
   return (
     <>

@@ -86,14 +86,14 @@ const Page = () => {
       ) : (
         <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
           {adminChecker === "ADMIN" && <StatusSaver />}
-          <div className="w-full h-[96px] flex gap-2 flex-col">
+          <div className="w-full h-[56px] flex gap-2 flex-col">
             {adminChecker === "ADMIN" &&
               statusContent[feedbackInfoData?.status]}
             <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
               {feedbackInfoData?.title}
             </h1>
             <div className="w-full max-h-[20px] flex gap-4">
-              <div className="w-full min-h-full flex gap-2 text-[14px] leading-5 text-gray6">
+              <div className="min-w-[421px] min-h-[20px] flex gap-2 text-[14px] leading-5 text-gray6">
                 <p className="font-bold">고객센터</p>
                 <p>개선요청</p>
                 <p>{timeAgo}</p>
@@ -104,9 +104,9 @@ const Page = () => {
                   </div>
                 ))}
               </div>
-              <div className="w-auto min-h-[20px] flex gap-1 text-[14px] leading-5 text-gray6">
+              <div className="min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6">
                 <p>{feedbackInfoData?.nickname}</p>
-                <p>{feedbackInfoData?.clientIp}</p>
+                <p>IP {feedbackInfoData?.clientIp}</p>
               </div>
             </div>
           </div>
