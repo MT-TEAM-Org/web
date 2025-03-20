@@ -7,8 +7,12 @@ import Tiptap from "@/app/_components/_tiptap/Tiptap";
 import axios from "axios";
 import getUpload from "@/_hooks/getUpload";
 import { CustomerFormData } from "../../_types/customerFormType";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/_hooks/useToast";
 
 const NoticeWrite = () => {
+  const router = useRouter();
+  const toast = useToast();
   const { mutate: postNotice } = usePostNotice();
 
   const { register, watch, setValue, handleSubmit } = useForm<CustomerFormData>(
@@ -52,18 +56,15 @@ const NoticeWrite = () => {
 
     postNotice(noticeData, {
       onSuccess: () => {
-        console.log("공지사항 등록 성공");
-      },
-      onError: (error) => {
-        console.error("공지사항 등록 실패:", error);
+        router.replace("/customer");
       },
     });
   };
 
   return (
-    <div className="w-[720px] min-h-[648px] h-auto flex flex-col items-center bg-white shadow-sm rounded-[5px] p-6">
+    <div className="w-[720px] min-h-[648px] h-auto flex flex-col items-center bg-white shadow-md rounded-[5px] p-6">
       <form
-        className="w-full flex flex-col gap-4"
+        className="w-full flex flex-col gap-1 items-start justify-center"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="font-bold text-[18px] leading-7 tracking-[-0.72px] text-gray8">
@@ -77,15 +78,17 @@ const NoticeWrite = () => {
             className="w-full h-[40px] rounded-[5px] border border-gray3 px-4 py-2 placeholder:text-gray5"
           />
         </div>
-        <Tiptap
-          onChange={(content) => setValue("content", content)}
-          register={register}
-          watch={watch}
-          setValue={setValue}
-          initialContent=""
-          onImageUpload={handleImageUpload}
-          onSubmit={handleSubmit(onSubmit)}
-        />
+        <div className="flex items-center w-full">
+          <Tiptap
+            onChange={(content) => setValue("content", content)}
+            register={register}
+            watch={watch}
+            setValue={setValue}
+            initialContent=""
+            onImageUpload={handleImageUpload}
+            onSubmit={handleSubmit(onSubmit)}
+          />
+        </div>
       </form>
     </div>
   );

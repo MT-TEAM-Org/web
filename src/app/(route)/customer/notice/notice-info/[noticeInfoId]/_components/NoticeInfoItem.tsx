@@ -13,6 +13,8 @@ interface NoticeInfoItemProps {
 const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
   const timeAgo = useTimeAgo(data?.createdAt);
 
+  console.log(data);
+
   const noticeStats = [
     { label: "조회수", value: data?.viewCount },
     { label: "댓글", value: data?.commentCount },
@@ -61,7 +63,7 @@ const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
           height={128}
         />
         <p className="w-full max-w-[672px] min-h-[48px] font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray7">
-          {data?.content}
+          <span>{data?.content}</span>
         </p>
       </div>
       <div className="w-full h-auto flex flex-col">
