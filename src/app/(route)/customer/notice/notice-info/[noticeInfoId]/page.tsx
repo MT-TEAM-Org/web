@@ -22,8 +22,6 @@ const Page = () => {
   const noticeOption: noticeListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
     size: 10,
-    orderType:
-      (searchParams.get("order_type") as noticeListConfig["orderType"]) || "",
     searchType:
       (searchParams.get("search_type") as noticeListConfig["searchType"]) || "",
     search: searchParams.get("search") || "",
@@ -54,7 +52,7 @@ const Page = () => {
           paginationData={noticeListData?.pageInfo}
         />
       </div>
-      <div className="w-[720px] h-auto rounded-[5px] bg-white mb-10 shadow-sm">
+      <div className="w-[720px] h-auto rounded-[5px] bg-white shadow-md mb-10">
         {isLoading ? (
           Array.from({ length: 10 }).map((_, index) => (
             <NoticeItemSkeleton key={index} />

@@ -1,11 +1,8 @@
 "use client";
 
-import useGetBoardData from "@/_hooks/getBoardData";
 import Image from "next/image";
 import Link from "next/link";
-import PostItemSkeleton from "./PostItemSkelton";
 import { CalculateTime } from "@/app/_components/CalculateTime";
-import { useSearchParams } from "next/navigation";
 
 interface BoardListItem {
   id: number;

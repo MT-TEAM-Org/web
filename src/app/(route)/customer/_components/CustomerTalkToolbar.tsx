@@ -82,28 +82,29 @@ const CustomerTalkToolbar = ({
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
 
+  const writeButton = (href: string) => (
+    <Link href={href}>
+      <button className="w-[120px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-gra font-bold text-[14px] text-white items-center justify-center">
+        글쓰기
+      </button>
+    </Link>
+  );
+
+  const toolbarContent =
+    showOptions === false && adminChecker === "ADMIN" ? (
+      writeButton("/customer/notice/write")
+    ) : showOptions === false && (adminChecker === "USER" || !adminChecker) ? (
+      <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
+        공지사항
+      </h1>
+    ) : (
+      writeButton("/customer/feedback/write")
+    );
+
   return (
     <div className="rounded-[5px]">
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-[#FFFFFF] ">
-        {showOptions === false ? (
-          adminChecker === "ADMIN" ? (
-            <Link href={"/customer/notice/write"}>
-              <button className="w-[120px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-gra font-bold text-[14px] text-white items-center justify-center">
-                글쓰기
-              </button>
-            </Link>
-          ) : adminChecker === "USER" || adminChecker === undefined ? (
-            <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
-              공지사항
-            </h1>
-          ) : null
-        ) : (
-          <Link href={"/customer/feedback/write"}>
-            <button className="w-[120px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-gra font-bold text-[14px] text-white items-center justify-center">
-              글쓰기
-            </button>
-          </Link>
-        )}
+        {toolbarContent}
 
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
           <SearchFilter
