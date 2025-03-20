@@ -56,7 +56,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
     },
     {
       name: "나의 문의내역",
-      link: "inquiries",
+      link: "/mypage/inquiries",
     },
     {
       name: "로그아웃",
