@@ -2,7 +2,7 @@
 
 import React, { FocusEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor } from "@tiptap/react";
 import Toolbar from "@/app/_components/_tiptap/Toolbar";
 import LinkPreview from "@/app/_components/LinkPreview";
 import { LinkIcon } from "@/app/_components/icon/LinkIcon";
@@ -15,8 +15,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
 import { useForm } from "react-hook-form";
 import Underline from "@tiptap/extension-underline";
-import usePostNotice from "@/_hooks/fetcher/customer/usePostNotice";
-import { NOTICE_RULES } from "@/constants/noticeRules";
+import usePostFeedback from "@/_hooks/fetcher/customer/usePostFeedback";
 
 // Base64 to Blob 변환 함수
 const base64ToBlob = (base64: string) => {
@@ -62,14 +61,14 @@ const CustomImage = Image.extend({
   },
 });
 
-const Write = () => {
+const FeedbackWrite = () => {
   const router = useRouter();
   const { register, watch, setValue, handleSubmit } = useForm();
-  const { mutate: postNotice } = usePostNotice();
+  const { mutate: postFeedback } = usePostFeedback();
   const [videoUrl, setVideoUrl] = useState("");
 
   const onSubmit = (data: any) => {
-    postNotice({
+    postFeedback({
       title: data.title,
       content: data.content,
       imgUrl: data.imgUrl,
@@ -130,6 +129,14 @@ const Write = () => {
     }
   };
 
+  // 중복된 ol 항목을 객체 배열로 정리
+  const noticeRules = [
+    "허용 확장자 (jpg, jpeg, png,webp,heic, mp4,mov,webm,gif) 총 15개 까지, 파일당 50MB 까지 업로드 가능합니다.",
+    "50MB보다 더 큰 용량의 영상물은 유튜브 링크 첨부시 재생이 가능합니다.",
+    "11MB~50MB 움짤은 11MB 이하로 자동변환됩니다.",
+    "음원 있는 움짤/동영상은 45초 이내 길이만 가능합니다.",
+  ];
+
   const listItemClassName =
     "font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6";
 
@@ -137,7 +144,7 @@ const Write = () => {
     <div className="w-[720px] min-h-[648px] h-auto flex flex-col justify-center items-center bg-white shadow-sm rounded-[5px] border px-3 pt-3 pb-6 gap-3 mb-10">
       <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="w-[95px] min-h-[28px] flex gap-3 font-bold text-[18px] leading-7 tracking-[-0.72px] items-center text-gray8">
-          공지사항 작성
+          개선요청 작성
         </h2>
         <div className="w-full h-[40px] flex items-center justify-center gap-5 border border-gray3 rounded-[5px]">
           <input
@@ -202,7 +209,7 @@ const Write = () => {
             수 있습니다.
           </p>
           <ol>
-            {NOTICE_RULES.map((rule, index) => (
+            {noticeRules.map((rule, index) => (
               <li key={index} className={listItemClassName}>
                 • {rule}
               </li>
@@ -229,4 +236,4 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default FeedbackWrite;

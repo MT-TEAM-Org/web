@@ -25,23 +25,25 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
     }
   }, [noticeData?.createdAt]);
 
-  console.log("NoticeItemData: ", noticeData);
   return (
     <Link href={`/customer/notice/notice-info/${noticeData?.id}`}>
       <div
         className={`${
-          isFeedback ? "bg-[#F8FDFF]" : "hover:bg-[#F8FDFF]"
+          isFeedback ? "bg-bg0" : "hover:bg-bg0"
         } w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer`}
       >
-        <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">
-          <p className="font-bold text-[14px] leading-5">{noticeData?.id}</p>
+        <div className="w-[32px] h-[132px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center text-center font-bold text-[14px] leading-5">
+          <p>{noticeData?.id}</p>
         </div>
         <div className="w-[56px] h-[42px] rounded-[5px] p-4 flex gap-[10px] bg-gray1">
           <Image
-            src={noticeData?.thumbnail || "/Empty_news.png"}
-            alt="notice img"
+            src={
+              noticeData?.thumbnail ? noticeData?.thumbnail : "/Empty_news.png"
+            }
+            alt="img"
             width={56}
             height={42}
+            className="object-cover"
           />
         </div>
         <div className="w-full min-h-[42px] flex gap-1 flex-col">
@@ -50,20 +52,20 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
               {noticeData?.title}
             </p>
             {noticeData?.commentCount >= 1 && (
-              <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-[#00ADEE]">
+              <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
                 {noticeData?.commentCount}
               </p>
             )}
             {isNew && (
               <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
-                <p className="text-[#00ADEE]">N</p>
+                <p className="text-gra">N</p>
               </div>
             )}
           </div>
           <div className="min-w-[109px] min-h-[18px] flex gap-1 text-[12px] leading-[18px] tracking-[-0.02em] text-gray5 align-center justify-start">
             <p className="font-bold">공지사항</p>
             <p>{timeAgo}</p>
-            <p>관리자</p>
+            <p>{noticeData?.nickname}</p>
           </div>
         </div>
       </div>
