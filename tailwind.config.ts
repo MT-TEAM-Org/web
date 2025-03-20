@@ -34,6 +34,7 @@ export default {
         bg5: "#D0D4FC",
 
         warning: "#D1504B",
+        new: "#DC2800",
         alert: "F89E21",
         ing: "#04C52E",
         finish: "#0066FF",

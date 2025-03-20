@@ -30,6 +30,8 @@ const CustomerTalkToolbar = ({
 }: ToolbarProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const [searchType, setSearchType] = useState("TITLE");
 
   const options: DropdownOption[] = [
     { label: "제목+내용", value: "both" },
@@ -38,9 +40,6 @@ const CustomerTalkToolbar = ({
     { label: "댓글", value: "comment" },
     { label: "작성자", value: "writer" },
   ];
-
-  const pathname = usePathname();
-  const [searchType, setSearchType] = useState("TITLE");
 
   const handlePageChange = (page: number) => {
     if (paginationData && paginationData.totalPage) {

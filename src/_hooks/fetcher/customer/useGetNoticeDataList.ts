@@ -1,4 +1,4 @@
-import { noticeListConfig } from "@/app/(route)/customer/_types/customer";
+import { noticeListConfig } from "@/app/(route)/customer/_types/noticeListConfig";
 import getNoticeDataList from "@/services/customer/getNoticeDataList";
 import { useQuery } from "@tanstack/react-query";
 

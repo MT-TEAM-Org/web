@@ -2,14 +2,13 @@ import fetchNewsDataList from "@/services/news/fetchNewsDataList";
 import { useQuery } from "@tanstack/react-query";
 
 interface NewsDataProps {
-  category?: string;
   page?: string;
 }
 
-const useGetNewsDataList = ({ category, page }: NewsDataProps = {}) => {
+const useGetNewsDataList = ({ page }: NewsDataProps = {}) => {
   return useQuery({
-    queryKey: ["newsDataList", category || "BASEBALL", page || 1],
-    queryFn: () => fetchNewsDataList({ category, page }),
+    queryKey: ["newsDataList", page || 1],
+    queryFn: () => fetchNewsDataList({ page }),
     retry: 1,
   });
 };

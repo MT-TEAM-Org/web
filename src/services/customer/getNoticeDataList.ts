@@ -1,4 +1,4 @@
-import { noticeListConfig } from "@/app/(route)/customer/_types/customer";
+import { noticeListConfig } from "@/app/(route)/customer/_types/noticeListConfig";
 import axios from "axios";
 
 const getNoticeDataList = async (data: noticeListConfig) => {

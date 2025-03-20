@@ -8,9 +8,10 @@ import useTimeAgo from "@/utils/useTimeAgo";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
+  isFeedback?: boolean;
 }
 
-const NoticeItem = ({ noticeData }: NoticeItemProps) => {
+const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
   const [isNew, setIsNew] = useState(false);
   const timeAgo = useTimeAgo(noticeData?.createdAt);
 
@@ -26,7 +27,11 @@ const NoticeItem = ({ noticeData }: NoticeItemProps) => {
 
   return (
     <Link href={`/customer/notice/notice-info/${noticeData?.id}`}>
-      <div className="w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer hover:bg-[#F8FDFF]">
+      <div
+        className={`${
+          isFeedback ? "bg-[#F8FDFF]" : "hover:bg-[#F8FDFF]"
+        } w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer`}
+      >
         <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">
           <p className="font-bold text-[14px] leading-5">{noticeData?.id}</p>
         </div>
