@@ -315,7 +315,7 @@ const Signup = ({
 
   return (
     <>
-      <div className="space-y-[24px]">
+      <div className="space-y-[24px] mb-[40px]">
         <div className="flex flex-col items-center gap-[8px] min-h-[86px]">
           <div className="flex justify-center items-center w-[52px] h-[52px] bg-[#FAFAFA] rounded-full border-[1px] border-[#EEEEEE]">
             {headLogoSign()}
