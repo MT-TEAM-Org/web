@@ -13,7 +13,7 @@ const fetchNewsDataList = async ({
     params: {
       category: "",
       orderType: "DATE",
-      page: "1",
+      page,
       size: 20,
     },
   });

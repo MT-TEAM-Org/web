@@ -7,7 +7,7 @@ interface NewsDataProps {
 
 const useGetMainRightBarNewsData = ({ page }: NewsDataProps = {}) => {
   return useQuery({
-    queryKey: ["mainRightBarNewsDataList", page],
+    queryKey: ["mainRigNewsDataList", page],
     queryFn: () =>
       fetchNewsDataList({
         page,

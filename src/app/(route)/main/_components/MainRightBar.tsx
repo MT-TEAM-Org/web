@@ -9,7 +9,7 @@ import RightNewsItem from "../../(community)/_components/RightNewsItem";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
-import useGetMainRightBarNewsData from "@/_hooks/fetcher/news/comment/useGetMainRightBarNewsData";
+import useGetMainRightBarNewsData from "@/_hooks/fetcher/main/mainRightBar/useGetMainRightBarNewsData";
 
 const MainRightBar = () => {
   const [pageNum, setPageNum] = useState(1);
@@ -25,10 +25,13 @@ const MainRightBar = () => {
   const handleButtonStyle = (value: boolean) => {
     setButtonActive(value);
   };
-  const { data: filteredNewsData, isLoading: newsIsLoading } =
-    useGetMainRightBarNewsData({
-      page: currentPage.toString(),
-    });
+  const {
+    data: filteredNewsData,
+    isLoading: newsIsLoading,
+    isError: newsIsError,
+  } = useGetMainRightBarNewsData({
+    page: currentPage.toString(),
+  });
 
   const handleToPage = (type: "prev" | "next") => {
     const currentPageNum = Number(currentPage);
@@ -71,17 +74,21 @@ const MainRightBar = () => {
       <div className="flex flex-col gap-2">
         {buttonActive ? (
           <div className="w-full h-auto max-h-[736px] rounded-[5px] flex flex-col gap-2 ">
-            {newsIsLoading
-              ? Array(5)
-                  .fill(0)
-                  .map((_, index) => <RightNewsItemSkeleton key={index} />)
-              : filteredNewsData?.map((data: NewsItemType) => (
-                  <RightNewsItem
-                    key={data?.id}
-                    newsItem={data}
-                    customClass="w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3"
-                  />
-                ))}
+            {newsIsLoading ? (
+              Array.from({ length: 5 }, (_, index) => (
+                <RightNewsItemSkeleton key={index} />
+              ))
+            ) : filteredNewsData?.length === 0 || newsIsError ? (
+              <EmptyGameBox title={"뉴스 정보"} />
+            ) : (
+              filteredNewsData?.map((data: NewsItemType) => (
+                <RightNewsItem
+                  key={data?.id}
+                  newsItem={data}
+                  customClass="w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3"
+                />
+              ))
+            )}
           </div>
         ) : eventIsLoading ? (
           Array.from({ length: 5 }, (_, index) => (
