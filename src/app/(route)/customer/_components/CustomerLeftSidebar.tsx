@@ -40,7 +40,7 @@ const CustomerLeftSidebar = () => {
   const currentPathStyle = "font-bold text-gra bg-bg0";
   const defaultStyle = "font-[400] text-gray7 bg-white";
   return (
-    <div className="w-[160px] h-[260px]">
+    <div className="w-[160px]">
       <div className="w-full bg-white">
         {boardList.map((board) => (
           <Link key={board.id} href={board.path}>

@@ -45,7 +45,7 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
           alt="img"
           width={56}
           height={42}
-          className="w-[56px] h-[42px] rounded-[5px] flex gap-[10px] bg-gray1"
+          className="w-[56px] h-[42px] rounded-[5px] flex gap-[10px] bg-gray1 object-cover"
         />
         <div className="w-full min-h-[42px] flex gap-1 flex-col">
           <div className="w-full min-h-[20px] flex gap-[2px] items-center">
@@ -53,14 +53,14 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
               {feedbackData?.title}
             </p>
             {feedbackData?.recommendCount >= 1 && (
-              <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-[#00ADEE]">
+              <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
                 {feedbackData?.recommendCount}
               </p>
             )}
             <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
               {isNew && (
                 <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
-                  <p className="text-[#00ADEE]">N</p>
+                  <p className="text-gra">N</p>
                 </div>
               )}
               {/* <p className="text-[#DC2800]">H</p> */}
@@ -69,8 +69,8 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
           <div className="min-w-[109px] min-h-[18px] flex gap-1 text-[12px] leading-[18px] tracking-[-0.02em] text-gray5 align-center justify-start">
             <p className="font-bold">개선요청</p>
             <p>{timeAgo}</p>
-            {feedbackData?.nickname}
-            {feedbackData?.createdIp}
+            <p>{feedbackData?.nickname}</p>
+            <p>{feedbackData?.createdIp}</p>
           </div>
         </div>
         <div className="min-w-[69px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px] bg-bg0 font-bold text-[14px] leading-5">

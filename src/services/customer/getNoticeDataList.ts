@@ -1,15 +1,12 @@
+import { noticeListConfig } from "@/app/(route)/customer/_types/noticeListConfig";
 import axios from "axios";
 
-const getNoticeDataList = async (pageNum: number, searchType?: string, search?: string) => {
-  const params: Record<string, any> = {
-    page: 1 || pageNum,
-    size: 20,
-  };
+const getNoticeDataList = async (data: noticeListConfig) => {
+  const queryString = new URLSearchParams(
+    data as unknown as Record<string, string>
+  ).toString();
 
-  if (searchType) params.searchType = searchType;
-  if (search) params.search = search;
-
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/notice`, { params });
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/notice?${queryString}`);
 
   return response.data.data.list;
 };
