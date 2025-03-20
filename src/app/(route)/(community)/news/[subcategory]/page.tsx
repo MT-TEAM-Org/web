@@ -57,7 +57,7 @@ export default function NewsPage() {
   });
 
   return (
-    <div className="flex justify-center bg-gray1 h-[2000px]">
+    <div className="flex justify-center bg-gray1 min-h-[calc(100vh-476px)]">
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
         <div className="sticky top-0">
           <NewsTalkToolbar
