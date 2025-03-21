@@ -89,14 +89,15 @@ const Login = ({
   };
 
   const inputStyle =
-    "w-full h-[48px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6]";
+    "w-full h-[48px] border-[1px] py-[12px] px-[16px] pr-[44px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6]";
   const isDisabledInputStyle = inputStyle + " bg-[#EEEEEE] border-[#DBDBDB]";
-  const isEmptyOrErrorInputStyle = inputStyle + " border-[#424242]";
+  const isEmptyOrErrorInputStyle =
+    inputStyle + " border-[#D1504B] focus:border-[#D1504B]";
   const iconButtonStyle = "absolute right-[16px] top-[38px]";
   return (
     <div className="space-y-[24px]">
       {inputObject.map((input) => (
-        <div className="space-y-[2px] relative" key={input.id}>
+        <div className="space-y-[4px] relative" key={input.id}>
           <label
             htmlFor={input.id}
             className="text-[14px] leading-[22px] text-[#424242]"
@@ -109,7 +110,7 @@ const Login = ({
             className={
               isPending
                 ? isDisabledInputStyle
-                : isError
+                : isError || formErrors[input.id]
                 ? isEmptyOrErrorInputStyle
                 : inputStyle
             }

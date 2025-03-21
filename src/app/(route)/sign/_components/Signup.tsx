@@ -5,7 +5,7 @@ import { SymbolLogo } from "./SymbolLogo";
 import SnsButtons from "./SnsButtons";
 import Input from "@/app/_components/Input";
 import AccountHelp from "./AccountHelp";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { CheckboxNull } from "@/app/_components/icon/CheckboxNull";
 import { Checkbox } from "@/app/_components/icon/Checkbox";
 import { Google } from "@/app/_components/icon/Google";
@@ -16,6 +16,10 @@ import { useApiMutation } from "@/_hooks/query";
 import { useSocialStore } from "@/utils/Store";
 import { FieldErrors } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+
+const TearmsModal = lazy(
+  () => import("@/app/_components/termsModal/TermsModal")
+);
 
 interface FormData {
   username: string;
@@ -68,7 +72,22 @@ const Signup = ({
     personalAgree: false,
     marketingAgree: false,
   });
+  const [show, setShow] = useState({
+    service: false,
+    personal: false,
+  });
   const { social } = useSocialStore();
+
+  useEffect(() => {
+    if (show.service || show.personal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [show]);
 
   useEffect(() => {
     if (timeLeft === null || timeLeft <= 0) {
@@ -295,121 +314,155 @@ const Signup = ({
     "w-[80px] bg-[#FAFAFA] text-[#424242] text-[16px] rounded-[5px] font-[700]";
 
   return (
-    <div className="space-y-[24px]">
-      <div className="flex flex-col items-center gap-[8px] min-h-[86px]">
-        <div className="flex justify-center items-center w-[52px] h-[52px] bg-[#FAFAFA] rounded-full border-[1px] border-[#EEEEEE]">
-          {headLogoSign()}
-        </div>
-        <p className="font-[700] text-[16px] leading-[26px] text-[#424242]">
-          {headTextSign()}
-        </p>
-      </div>
-      <SnsButtons signState="signup" />
-      {social === "" && (
-        <div className="space-y-[8px]">
-          <div className="space-y-[2px]">
-            <label
-              htmlFor="email"
-              className="text-[14px] leading-[22px] text-[#424242]"
-            >
-              이메일 인증<span className="text-[#D1504B]">*</span>
-            </label>
-            <div className="flex justify-between gap-[8px]">
-              <input
-                {...register("email", { required: true })}
-                type="text"
-                className={`${
-                  isPending ? isDisabledInputStyle : inputStyle
-                } w-[240px]`}
-                id="email"
-                disabled={isPending || checkVerificationIsSuccess}
-                placeholder="이메일 아이디를 입력해주세요."
-              />
-              {sendVerificationIsSuccess ? (
-                <button
-                  className={disabledVerificationButton}
-                  type="button"
-                  onClick={handleSendVerification}
-                  disabled={checkVerificationIsSuccess}
-                >
-                  재전송
-                </button>
-              ) : (
-                <button
-                  className={verificationButton}
-                  type="button"
-                  onClick={handleSendVerification}
-                >
-                  인증 전송
-                </button>
-              )}
-            </div>
-            {formErrors.email && (
-              <p className="text-[14px] text-[#D1504B] ml-[16px]">
-                이메일 인증을 진행해주세요.
-              </p>
-            )}
+    <>
+      <div className="space-y-[24px] mb-[40px]">
+        <div className="flex flex-col items-center gap-[8px] min-h-[86px]">
+          <div className="flex justify-center items-center w-[52px] h-[52px] bg-[#FAFAFA] rounded-full border-[1px] border-[#EEEEEE]">
+            {headLogoSign()}
           </div>
-          <div className="space-y-[4px]">
-            {sendVerificationIsSuccess && (
+          <p className="font-[700] text-[16px] leading-[26px] text-[#424242]">
+            {headTextSign()}
+          </p>
+        </div>
+        <SnsButtons signState="signup" />
+        {social === "" && (
+          <div className="space-y-[8px]">
+            <div className="space-y-[2px]">
+              <label
+                htmlFor="email"
+                className="text-[14px] leading-[22px] text-[#424242]"
+              >
+                이메일 인증<span className="text-[#D1504B]">*</span>
+              </label>
               <div className="flex justify-between gap-[8px]">
                 <input
+                  {...register("email", { required: true })}
                   type="text"
                   className={`${
                     isPending ? isDisabledInputStyle : inputStyle
                   } w-[240px]`}
-                  id="code"
+                  id="email"
                   disabled={isPending || checkVerificationIsSuccess}
-                  placeholder="인증코드를 입력해주세요."
-                  value={verificationCode}
-                  onChange={(e) => setVerificationCode(e.target.value)}
+                  placeholder="이메일 아이디를 입력해주세요."
                 />
-                {checkVerificationIsSuccess ? (
+                {sendVerificationIsSuccess ? (
                   <button
                     className={disabledVerificationButton}
-                    disabled={true}
                     type="button"
+                    onClick={handleSendVerification}
+                    disabled={checkVerificationIsSuccess}
                   >
-                    인증완료
+                    재전송
                   </button>
                 ) : (
                   <button
-                    onClick={handleCheckVerification}
                     className={verificationButton}
                     type="button"
+                    onClick={handleSendVerification}
                   >
-                    인증
+                    인증 전송
                   </button>
                 )}
               </div>
-            )}
-            {checkVerificationIsError ? (
-              <p className="text-[14px] text-[#D1504B] ml-[16px]">
-                이메일 인증코드를 확인해주세요.
-              </p>
-            ) : isExpired ? (
-              <p className="text-[14px] text-[#D1504B] ml-[16px]">
-                인증 시간이 만료되었습니다. 다시 인증해주세요.
-              </p>
-            ) : sendVerificationIsSuccess &&
-              !checkVerificationIsSuccess &&
-              !isExpired ? (
-              <p
-                className={isPending ? isDisabledHelpTextStyle : helpTextStyle}
-              >
-                인증 시간 제한{" "}
-                {timeLeft !== null &&
-                  `${Math.floor(timeLeft / 60)}:${String(
-                    timeLeft % 60
-                  ).padStart(2, "0")}`}
-              </p>
-            ) : null}
+              {formErrors.email && (
+                <p className="text-[14px] text-[#D1504B] ml-[16px]">
+                  이메일 인증을 진행해주세요.
+                </p>
+              )}
+            </div>
+            <div className="space-y-[4px]">
+              {sendVerificationIsSuccess && (
+                <div className="flex justify-between gap-[8px]">
+                  <input
+                    type="text"
+                    className={`${
+                      isPending ? isDisabledInputStyle : inputStyle
+                    } w-[240px]`}
+                    id="code"
+                    disabled={isPending || checkVerificationIsSuccess}
+                    placeholder="인증코드를 입력해주세요."
+                    value={verificationCode}
+                    onChange={(e) => setVerificationCode(e.target.value)}
+                  />
+                  {checkVerificationIsSuccess ? (
+                    <button
+                      className={disabledVerificationButton}
+                      disabled={true}
+                      type="button"
+                    >
+                      인증완료
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleCheckVerification}
+                      className={verificationButton}
+                      type="button"
+                    >
+                      인증
+                    </button>
+                  )}
+                </div>
+              )}
+              {checkVerificationIsError ? (
+                <p className="text-[14px] text-[#D1504B] ml-[16px]">
+                  이메일 인증코드를 확인해주세요.
+                </p>
+              ) : isExpired ? (
+                <p className="text-[14px] text-[#D1504B] ml-[16px]">
+                  인증 시간이 만료되었습니다. 다시 인증해주세요.
+                </p>
+              ) : sendVerificationIsSuccess &&
+                !checkVerificationIsSuccess &&
+                !isExpired ? (
+                <p
+                  className={
+                    isPending ? isDisabledHelpTextStyle : helpTextStyle
+                  }
+                >
+                  인증 시간 제한{" "}
+                  {timeLeft !== null &&
+                    `${Math.floor(timeLeft / 60)}:${String(
+                      timeLeft % 60
+                    ).padStart(2, "0")}`}
+                </p>
+              ) : null}
+            </div>
           </div>
-        </div>
-      )}
-      {social === ""
-        ? inputObject.map((input) => (
-            <div className="space-y-[4px]" key={input.id}>
+        )}
+        {social === ""
+          ? inputObject.map((input) => (
+              <div className="space-y-[4px]" key={input.id}>
+                <Input
+                  key={input.id}
+                  height={48}
+                  type={input.type}
+                  id={input.id}
+                  register={register}
+                  placeholder={input.placeholder}
+                  helpText={input.validation}
+                  label={input.label}
+                  isDisabled={isPending}
+                  validation={input.validation}
+                />
+                <ErrorMessage
+                  errors={formErrors}
+                  name={input.id}
+                  render={({ message }) =>
+                    !isError && (
+                      <p className="text-[14px] text-[#D1504B] ml-[16px]">
+                        {message}
+                      </p>
+                    )
+                  }
+                />
+                {!isError && !formErrors[input.id] ? (
+                  <p className="text-[14px] text-[#A6A6A6] ml-[16px]">
+                    {input.validation}
+                  </p>
+                ) : null}
+              </div>
+            ))
+          : snsInputObject.map((input) => (
               <Input
                 key={input.id}
                 height={48}
@@ -419,98 +472,86 @@ const Signup = ({
                 placeholder={input.placeholder}
                 helpText={input.validation}
                 label={input.label}
-                isDisabled={isPending}
-                validation={input.validation}
+                isDisabled={input.disabled}
               />
-              <ErrorMessage
-                errors={formErrors}
-                name={input.id}
-                render={({ message }) =>
-                  !isError && (
-                    <p className="text-[14px] text-[#D1504B] ml-[16px]">
-                      {message}
-                    </p>
-                  )
-                }
-              />
-              {!isError && !formErrors[input.id] ? (
-                <p className="text-[14px] text-[#A6A6A6] ml-[16px]">
-                  {input.validation}
-                </p>
-              ) : null}
-            </div>
-          ))
-        : snsInputObject.map((input) => (
-            <Input
-              key={input.id}
-              height={48}
-              type={input.type}
-              id={input.id}
-              register={register}
-              placeholder={input.placeholder}
-              helpText={input.validation}
-              label={input.label}
-              isDisabled={input.disabled}
+            ))}
+        <div className="space-y-[16px] p-[16px] rounded-[5px] bg-[#FAFAFA]">
+          <div className="flex items-center gap-[8px]">
+            <input
+              type="checkbox"
+              className="hidden"
+              id="allAgree"
+              checked={selected.allAgree}
+              onChange={handleAllAgree}
             />
-          ))}
-      <div className="space-y-[16px] p-[16px] rounded-[5px] bg-[#FAFAFA]">
-        <div className="flex items-center gap-[8px]">
-          <input
-            type="checkbox"
-            className="hidden"
-            id="allAgree"
-            checked={selected.allAgree}
-            onChange={handleAllAgree}
-          />
-          <label className="cursor-pointer" htmlFor="allAgree">
-            {selected.allAgree ? <Checkbox /> : <CheckboxNull />}
-          </label>
-          <label
-            htmlFor="allAgree"
-            className="font-[700] leading-[24px] text-[#424242] select-none"
-          >
-            전체 동의
-          </label>
+            <label className="cursor-pointer" htmlFor="allAgree">
+              {selected.allAgree ? <Checkbox /> : <CheckboxNull />}
+            </label>
+            <label
+              htmlFor="allAgree"
+              className="font-[700] leading-[24px] text-[#424242] select-none"
+            >
+              전체 동의
+            </label>
+          </div>
+          <div className="space-y-[4px]">
+            {agreementObject.map((agreement) => (
+              <div className="flex items-center gap-[8px]" key={agreement.id}>
+                <input
+                  type="checkbox"
+                  id={agreement.id}
+                  checked={selected[agreement.id]}
+                  onChange={() => {
+                    if (
+                      agreement.id !== "marketingAgree" &&
+                      !selected[agreement.id]
+                    ) {
+                      setShow((prev) => {
+                        return {
+                          ...prev,
+                          [agreement.id === "serviceAgree"
+                            ? "service"
+                            : "personal"]: true,
+                        };
+                      });
+                    }
+                    setSelected((prev) => ({
+                      ...prev,
+                      [agreement.id]: !prev[agreement.id],
+                    }));
+                  }}
+                  className="hidden"
+                />
+                <label className="cursor-pointer" htmlFor={agreement.id}>
+                  {selected[agreement.id] ? <Checkbox /> : <CheckboxNull />}
+                </label>
+                <label
+                  htmlFor={agreement.id}
+                  className={`text-[14px] leading-[22px] text-[#424242] select-none underline ${
+                    agreement.id === "marketingAgree" && "no-underline"
+                  }`}
+                >
+                  {agreement.label}
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="space-y-[4px]">
-          {agreementObject.map((agreement) => (
-            <div className="flex items-center gap-[8px]" key={agreement.id}>
-              <input
-                type="checkbox"
-                id={agreement.id}
-                checked={selected[agreement.id]}
-                onChange={() =>
-                  setSelected((prev) => ({
-                    ...prev,
-                    [agreement.id]: !prev[agreement.id],
-                  }))
-                }
-                className="hidden"
-              />
-              <label className="cursor-pointer" htmlFor={agreement.id}>
-                {selected[agreement.id] ? <Checkbox /> : <CheckboxNull />}
-              </label>
-              <label
-                htmlFor={agreement.id}
-                className={`text-[14px] leading-[22px] text-[#424242] select-none ${
-                  selected[agreement.id] && "underline"
-                }`}
-              >
-                {agreement.label}
-              </label>
-            </div>
-          ))}
-        </div>
+        <button
+          className="w-full h-[48px] text-[#FFFFFF] px-[20px] py-[16px] rounded-[5px] font-[700] leading-[16px] defaultButtonColor select-none"
+          disabled={isPending}
+          type="submit"
+        >
+          회원가입 완료
+        </button>
+        <AccountHelp signState="signup" />
       </div>
-      <button
-        className="w-full h-[48px] text-[#FFFFFF] px-[20px] py-[16px] rounded-[5px] font-[700] leading-[16px] defaultButtonColor select-none"
-        disabled={isPending}
-        type="submit"
-      >
-        회원가입 완료
-      </button>
-      <AccountHelp signState="signup" />
-    </div>
+      {(show.service || show.personal) && (
+        <Suspense fallback="">
+          <TearmsModal show={show} setShow={setShow} />
+        </Suspense>
+      )}
+    </>
   );
 };
 

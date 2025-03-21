@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { REGISTRATION } from "@/constants/userRegistration";
 import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
+import Image from "next/image";
 
 const Mypage = () => {
   const { data, isLoading } = useGetMyPageData();
@@ -39,20 +40,25 @@ const Mypage = () => {
     <div className="flex flex-col gap-[24px] max-w-[720px] min-h-[238px] bg-[#FFFFFF] rounded-[10px] p-[24px]">
       <div className="flex justify-between items-center min-h-[48px]">
         <div className="flex gap-[12px]">
-          <div className="w-[48px] h-[48px] rounded-full bg-black"></div>
+          <Image
+            alt="profile-image"
+            src={"/userProfileIsNull.png"}
+            width={48}
+            height={48}
+            className="w-[48px] h-[48px] rounded-full object-cover"
+          />
           <div>
-            <p className="font-[700] text-[#181818] leading-[24px]">
-              {mypage?.nickname}
-              <span className="ml-[4px] text-[14px] font-[500] leading-[20px] text-[#424242]">
+            <div className="flex items-center gap-[4px] text-[#181818] leading-[24px]">
+              <h2 className="font-[700]">{mypage?.nickname}</h2>
+              <span className="text-[14px] leading-[20px] text-[#424242] font-[500]">
                 {role}
               </span>
-            </p>
+            </div>
             <p className="text-[14px] leading-[20px] text-[#424242]">
               플레이 하이브 방문을 진심으로 감사드립니다.
             </p>
           </div>
         </div>
-
         <Link href="/mypage/edit-profile">
           <button className="w-[120px] min-h-[40px] bg-[#FFFFFF] text-[#424242] rounded-[5px] px-[16px] py-[13px] border border-[#DBDBDB] text-[14px] font-[700] leading-[14px]">
             내 정보 수정
@@ -65,7 +71,7 @@ const Mypage = () => {
           {mypageInfo.map((info, index: number) => (
             <div key={info.id} className="mx-auto flex items-center">
               <div className="w-[149.25px] min-h-[62px] space-y-[4px]">
-                <p className="text-[14px] leading-[20px] text-center">
+                <p className="text-[14px] leading-[20px] text-center text-gray7">
                   {info.name}
                 </p>
                 <Link href={info.path || ""}>

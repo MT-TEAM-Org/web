@@ -7,6 +7,7 @@ interface InputProps {
   helpText?: string;
   placeholder?: string;
   height: number;
+  gap?: number;
   type?: string;
   id: string;
   register: UseFormRegister<any>;
@@ -20,6 +21,7 @@ const Input: React.FC<InputProps> = ({
   label,
   placeholder = "",
   height,
+  gap = 2,
   type = "text",
   id,
   register,
@@ -35,7 +37,7 @@ const Input: React.FC<InputProps> = ({
   const isDisabledHelpTextStyle = helpTextStyle + " text-[#A6A6A6]";
   const isErrorTextStyle = helpTextStyle + " text-[#D1504B]";
   return (
-    <div className="flex flex-col gap-[2px]">
+    <div className={`flex flex-col gap-[${gap}px]`}>
       <label htmlFor={id} className={labelStyle}>
         {label}
         {required && <span className="text-[#D1504B]">*</span>}

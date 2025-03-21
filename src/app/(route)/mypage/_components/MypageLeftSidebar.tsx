@@ -65,7 +65,7 @@ const MypageLeftSidebar = () => {
           <div
             onClick={() => board.path && handleRoute(board.path)}
             key={board.id}
-            className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
+            className={`flex items-center w-full h-[52px] px-[16px] py-[12px] cursor-pointer ${
               isCurrentPath(board.path)
                 ? "font-[700] text-[#00ADEE]"
                 : "font-[400] text-[#424242]"
