@@ -66,8 +66,6 @@ const Page = () => {
     ?.sort((a, b) => b.id - a.id)
     .slice(0, 2);
 
-  console.log(slicedNoticeDataList);
-
   const infoItems = [
     { label: "조회수", value: feedbackInfoData?.viewCount },
     { label: "댓글", value: feedbackInfoData?.commentCount가 },

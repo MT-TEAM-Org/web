@@ -13,8 +13,6 @@ interface NoticeInfoItemProps {
 const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
   const timeAgo = useTimeAgo(data?.createdAt);
 
-  console.log(data);
-
   const noticeStats = [
     { label: "조회수", value: data?.viewCount },
     { label: "댓글", value: data?.commentCount },
