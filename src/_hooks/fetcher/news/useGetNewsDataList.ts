@@ -14,6 +14,8 @@ const useGetNewsDataList = ({ page }: NewsDataProps = {}) => {
       fetchNewsDataList({
         page: String(currentPage),
         startIndex: (currentPage - 1) * 5,
+        size: 4,
+        withPageInfo: false,
       }),
     retry: 1,
   });

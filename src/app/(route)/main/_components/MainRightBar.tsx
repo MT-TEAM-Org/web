@@ -78,10 +78,10 @@ const MainRightBar = () => {
               Array.from({ length: 5 }, (_, index) => (
                 <RightNewsItemSkeleton key={index} />
               ))
-            ) : filteredNewsData?.length === 0 || newsIsError ? (
+            ) : filteredNewsData?.content?.length === 0 || newsIsError ? (
               <EmptyGameBox title={"뉴스 정보"} />
             ) : (
-              filteredNewsData?.map((data: NewsItemType) => (
+              filteredNewsData?.content?.map((data: NewsItemType) => (
                 <RightNewsItem
                   key={data?.id}
                   newsItem={data}
@@ -104,7 +104,7 @@ const MainRightBar = () => {
       </div>
 
       {/*수정 예정*/}
-      {buttonActive && filteredNewsData?.length > 0 && (
+      {buttonActive && filteredNewsData?.content?.length > 0 && (
         <div className="w-[160px] min-h-[32px] flex mx-auto gap-4 ">
           <button
             onClick={() => handleToPage("prev")}
