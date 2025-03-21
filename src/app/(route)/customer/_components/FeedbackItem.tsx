@@ -47,7 +47,7 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
           height={42}
           className="w-[56px] h-[42px] rounded-[5px] flex gap-[10px] bg-gray1 object-cover"
         />
-        <div className="w-full min-h-[42px] flex gap-1 flex-col">
+        <div className="min-w-[503px] min-h-[42px] flex gap-1 flex-col">
           <div className="w-full min-h-[20px] flex gap-[2px] items-center">
             <p className="text-[14px] leading-5 text-gray7">
               {feedbackData?.title}

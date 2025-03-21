@@ -1,19 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import usePostNotice from "@/_hooks/fetcher/customer/usePostNotice";
 import Tiptap from "@/app/_components/_tiptap/Tiptap";
 import axios from "axios";
 import getUpload from "@/_hooks/getUpload";
 import { CustomerFormData } from "../../_types/customerFormType";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/_hooks/useToast";
+import { useEditStore } from "@/utils/Store";
 
 const NoticeWrite = () => {
+  const { isEditMode, boardData, resetEditState } = useEditStore();
   const router = useRouter();
-  const toast = useToast();
   const { mutate: postNotice } = usePostNotice();
+  const searchParams = useSearchParams();
+  const editParam = searchParams.get("edit");
 
   const { register, watch, setValue, handleSubmit } = useForm<CustomerFormData>(
     {
@@ -34,9 +37,11 @@ const NoticeWrite = () => {
         contentType: blob.type,
         fileName: `notice-image-${Date.now()}.${blob.type.split("/")[1]}`,
       });
+      console.log("response: ", response);
       await axios.put(response.data.presignedUrl, blob, {
         headers: { "Content-Type": blob.type },
       });
+      console.log("presignedUrl: ", response.data.presignedUrl);
       return response.data.downloadUrl;
     } catch (error) {
       console.error("Image upload failed:", error);
@@ -44,7 +49,49 @@ const NoticeWrite = () => {
     }
   };
 
+  const link = watch("link");
+
+  useEffect(() => {
+    if (!editParam) {
+      resetEditState();
+    } else if (isEditMode && boardData) {
+      setValue("categoryType", boardData.categoryType);
+      setValue("title", boardData.title);
+      setValue("content", boardData.content);
+      if (boardData.link) setValue("link", boardData.link);
+      if (boardData.thumbnail) setValue("thumbnail", boardData.thumbnail);
+    }
+    return () => {
+      if (!editParam) {
+        resetEditState();
+      }
+    };
+  }, [editParam, isEditMode, boardData, setValue, resetEditState]);
+
+  const getYoutubeThumbnail = (url: string) => {
+    const match = url.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|embed\/|v\/))([^?&]+)/
+    );
+    return match
+      ? `https://img.youtube.com/vi/${match[1]}/maxresdefault.jpg`
+      : "";
+  };
+
+  useEffect(() => {
+    if (link) {
+      const thumbnail = getYoutubeThumbnail(link);
+      if (thumbnail) {
+        setValue("thumbnail", thumbnail);
+      }
+    }
+  }, [link]);
+
   const onSubmit = (data: CustomerFormData) => {
+    const thumbnail =
+      data.thumbnail || (data.link ? getYoutubeThumbnail(data.link) : "");
+
+    const currentCategory = watch("categoryType");
+
     const noticeData = {
       title: data.title,
       content: data.content,
@@ -95,3 +142,6 @@ const NoticeWrite = () => {
 };
 
 export default NoticeWrite;
+function resetEditState() {
+  throw new Error("Function not implemented.");
+}
