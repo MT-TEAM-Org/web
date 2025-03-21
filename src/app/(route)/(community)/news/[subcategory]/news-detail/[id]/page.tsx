@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import useTimeAgo from "@/utils/useTimeAgo";
@@ -24,10 +24,14 @@ import NewsSendCommentBox from "./_components/NewsSendCommentBox";
 import useGetBestComment from "@/_hooks/fetcher/news/comment/useGetBestComment";
 import { NewsListType } from "@/app/_constants/newsListItemType";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
+import { AxiosError } from "axios";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   const queryClient = useQueryClient();
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
 
   const {
     orderType,
@@ -64,11 +68,25 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
         },
+        onError: (error: AxiosError) => {
+          // AxiosError로 타입 지정
+          // response가 존재하고 상태 코드가 401일 경우 모달 표시
+          if (error.response?.status === 401) {
+            setIsModalOpen(true);
+          }
+        },
       });
     } else if (newsInfoData?.recommend) {
       newsDeleteRecommend(id, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
+        },
+        onError: (error: AxiosError) => {
+          // AxiosError로 타입 지정
+          // response가 존재하고 상태 코드가 401일 경우 모달 표시
+          if (error.response?.status === 401) {
+            setIsModalOpen(true);
+          }
         },
       });
     }
@@ -159,6 +177,12 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
       <div className="shadow-md sticky bottom-0">
         <NewsSendCommentBox id={id} />
       </div>
+
+      {/* SignInModalPopUp 추가 */}
+      <SignInModalPopUp
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 };
