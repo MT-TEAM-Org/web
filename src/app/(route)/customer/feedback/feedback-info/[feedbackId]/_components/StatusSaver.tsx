@@ -32,9 +32,23 @@ const statusOptions = [
 const StatusSaver = ({ id }) => {
   const [selectedStatus, setSelectedStatus] = useState("pending");
 
-  const { mutate: feedbackUpdate } = usePostFeedbackStatus({ id });
+  const { mutate: feedbackUpdate } = usePostFeedbackStatus();
 
-  const handleUpdatedStatus = () => {};
+  const handleUpdatedStatus = () => {
+    if (!id) return; // id가 없으면 실행하지 않음
+
+    feedbackUpdate(
+      { id, status: selectedStatus }, // 선택한 상태를 서버로 전송
+      {
+        onSuccess: () => {
+          alert("상태가 성공적으로 업데이트되었습니다.");
+        },
+        onError: () => {
+          alert("상태 업데이트에 실패했습니다.");
+        },
+      }
+    );
+  };
 
   return (
     <div className="min-w-[672px] h-[40px] flex justify-between items-center">
@@ -56,7 +70,10 @@ const StatusSaver = ({ id }) => {
           </div>
         ))}
       </div>
-      <button className="w-[120px] h-[40px] rounded-[5px] px-4 py-[16px] flex gap-[10px] bg-gra font-bold text-[14px] text-white items-center justify-center">
+      <button
+        className="w-[120px] h-[40px] rounded-[5px] px-4 py-[16px] flex gap-[10px] bg-gra font-bold text-[14px] text-white items-center justify-center"
+        onClick={handleUpdatedStatus} // ✅ 버튼 클릭 시 업데이트 실행
+      >
         저장
       </button>
     </div>
