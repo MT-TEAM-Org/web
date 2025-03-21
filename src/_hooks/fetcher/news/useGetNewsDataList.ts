@@ -6,12 +6,14 @@ interface NewsDataProps {
 }
 
 const useGetNewsDataList = ({ page }: NewsDataProps = {}) => {
+  const currentPage = Number(page || 1);
+
   return useQuery({
-    queryKey: ["newsDataList", page || 1],
+    queryKey: ["newsDataList", currentPage],
     queryFn: () =>
       fetchNewsDataList({
-        page,
-        startIndex: (Number(page) - 1) * 5, // ✅ 페이지별로 다른 뉴스 가져오기
+        page: String(currentPage),
+        startIndex: (currentPage - 1) * 5,
       }),
     retry: 1,
   });
