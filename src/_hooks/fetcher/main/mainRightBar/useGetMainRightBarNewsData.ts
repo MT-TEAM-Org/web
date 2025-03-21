@@ -2,6 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import fetchNewsDataList from "@/services/news/fetchNewsDataList";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 
+interface NewsDataProps {
+  page?: string;
+}
+
 interface NewsListWithPageInfo {
   content: NewsItemType[];
   pageInfo: {
