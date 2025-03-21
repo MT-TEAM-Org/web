@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import EventItem from "./EventItem";
 import useGetGameEvent from "@/_hooks/fetcher/main/mainRightBar/useGetGameEvent";
 import EmptyGameBox from "./EmptyGameBox";
@@ -25,6 +25,7 @@ const MainRightBar = () => {
   const handleButtonStyle = (value: boolean) => {
     setButtonActive(value);
   };
+
   const {
     data: filteredNewsData,
     isLoading: newsIsLoading,

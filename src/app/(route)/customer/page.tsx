@@ -7,10 +7,18 @@ import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList
 import EmptyItem from "./_components/EmptyItem";
 import NoticeItemSkeleton from "./_components/NoticeItemSkeleton";
 import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Page = () => {
   const [pageNum, setPageNum] = useState(1);
   const [searchType, setSearchType] = useState("");
+  const queryClient = useQueryClient();
+  const authStatus = queryClient.getQueryData(["authCheck"]) as {
+    data: { data: { role: string } };
+  };
+  console.log("authStatus: ", authStatus);
+  const adminChecker = authStatus?.data?.data?.role as "USER" | "ADMIN";
+  console.log("adminChecker: ", adminChecker);
 
   const {
     data: noticeListData,
@@ -30,6 +38,7 @@ const Page = () => {
           paginationData={noticeListData?.pageInfo}
           onPageChange={onPageChange}
           setSearchType={setSearchType}
+          adminChecker={adminChecker}
         />
       </div>
 

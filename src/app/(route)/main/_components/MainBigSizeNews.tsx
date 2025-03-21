@@ -31,7 +31,7 @@ const MainBigSizeNews = () => {
         className="relative w-[410px] h-[236px] rounded-[10px] overflow-hidden cursor-pointer"
       >
         <Image
-          src={updatedImgUrl || "/Empty_news.png"}
+          src={mainPageData?.thumbImg ? updatedImgUrl : "/Empty_news.png"}
           alt="main news"
           width={410}
           height={236}

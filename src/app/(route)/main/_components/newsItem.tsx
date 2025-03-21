@@ -31,7 +31,7 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
       >
         <div className="flex-shrink-0 max-w-[68px] max-h-[68px] rounded overflow-hidden bg-gray-300">
           <Image
-            src={updatedImgUrl || "/Empty_news.png"}
+            src={newsItem?.thumbImg ? updatedImgUrl : "/Empty_news.png"}
             alt="News img"
             width={68}
             height={68}
