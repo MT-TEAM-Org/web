@@ -1,11 +1,9 @@
 import React from "react";
-import { LogoWhite } from "./icon/LogoWhite";
+import Link from "next/link";
+import { Logo } from "./icon/Logo";
 
 const SignInModalPopUp = ({ isOpen, onClose }) => {
-  const buttonBaseStyle =
-    "w-[160px] h-[48px] rounded-[5px] px-5 py-4 flex gap-[10px] font-bold text-[16px]";
-
-  const handleOverlayClick = (e) => {
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
@@ -13,17 +11,20 @@ const SignInModalPopUp = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
+  const buttonBaseStyle =
+    "w-[160px] h-[48px] rounded-[5px] px-5 py-4 flex gap-[10px] items-center justify-center font-bold text-[16px]";
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleOverlayClick}
     >
       <div
-        className="w-[408px] h-[208px] rounded-[10px] p-10 flex gap-6 flex-col bg-white shadow-sm"
+        className="w-[408px] h-[280px] rounded-[10px] p-10 flex gap-6 flex-col items-center justify-center text-center bg-white shadow-sm"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-full h-[128px] flex flex-col gap-4">
-          <LogoWhite />
+        <div className="w-full h-[128px] flex flex-col gap-4 items-center justify-center">
+          <Logo />
           <div className="w-full h-[80px] flex flex-col gap-1">
             <p className="font-bold text-[18px] leading-7 tracking-[-0.04em] text-black">
               로그인이 필요한 서비스입니다.
@@ -36,13 +37,16 @@ const SignInModalPopUp = ({ isOpen, onClose }) => {
         </div>
         <div className="w-full h-[48px] flex gap-2">
           <button
-            className={`${buttonBaseStyle} bg-white border-gray3 text=gray7`}
+            onClick={onClose}
+            className={`${buttonBaseStyle} bg-white border border-gray3 text-gray7`}
           >
-            3초만에 회원가입
+            닫기
           </button>
-          <button className={`${buttonBaseStyle} bg-gra text-white`}>
-            로그인
-          </button>
+          <Link href="/sign">
+            <button className={`${buttonBaseStyle} bg-gra text-white`}>
+              로그인/회원가입
+            </button>
+          </Link>
         </div>
       </div>
     </div>
