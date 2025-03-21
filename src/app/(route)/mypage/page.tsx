@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { REGISTRATION } from "@/constants/userRegistration";
-import useGetMyPageData from "@/_hooks/useMypage/useGetMyPageData";
+import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
 
 const Mypage = () => {
   const { data, isLoading } = useGetMyPageData();

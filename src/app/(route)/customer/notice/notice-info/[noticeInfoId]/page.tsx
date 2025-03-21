@@ -6,16 +6,15 @@ import CustomerTalkToolbar from "../../../_components/CustomerTalkToolbar";
 import NoticeItem from "../../../_components/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import NoticeItemSkeleton from "../../../_components/NoticeItemSkeleton";
-import EmptyNoticeItem from "../../../_components/EmptyNoticeItem";
 import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
 import useGetNoticeInfoData from "@/_hooks/fetcher/customer/useGetNoticeInfoData";
 import { useParams } from "next/navigation";
 import NoticeInfoItemSkeleton from "./_components/NoticeInfoItemSkeleton";
+import EmptyItem from "../../../_components/EmptyItem";
 
 const Page = () => {
   const params = useParams();
   const id = params.noticeInfoId;
-  console.log(id);
   const numericId = Number(id);
   const [pageNum, setPageNum] = useState(1);
   const [searchType, setSearchType] = useState("");
@@ -50,13 +49,13 @@ const Page = () => {
           setSearchType={setSearchType}
         />
       </div>
-      <div className="w-[720px] h-auto rounded-[5px] bg-white">
+      <div className="w-[720px] h-auto rounded-[5px] bg-white shadow-md mb-10">
         {isLoading ? (
           Array.from({ length: 10 }).map((_, index) => (
             <NoticeItemSkeleton key={index} />
           ))
         ) : noticeListData?.content?.length === 0 || isError ? (
-          <EmptyNoticeItem />
+          <EmptyItem title="공지사항이" />
         ) : (
           noticeListData?.content?.map((noticeListData: NoticeContentType) => (
             <NoticeItem noticeData={noticeListData} key={noticeListData?.id} />

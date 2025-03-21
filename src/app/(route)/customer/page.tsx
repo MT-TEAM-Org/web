@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import CustomerTalkToolbar from "./_components/CustomerTalkToolbar";
 import NoticeItem from "./_components/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
-import EmptyNoticeItem from "./_components/EmptyNoticeItem";
+import EmptyItem from "./_components/EmptyItem";
 import NoticeItemSkeleton from "./_components/NoticeItemSkeleton";
 import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
 import { useQueryClient } from "@tanstack/react-query";
@@ -48,13 +48,11 @@ const Page = () => {
             <NoticeItemSkeleton key={index} />
           ))
         ) : noticeListData?.content?.length === 0 || isError ? (
-          <EmptyNoticeItem />
+          <EmptyItem title="공지사항이" />
         ) : (
-          noticeListData?.content?.map(
-            (noticeListData: NoticeContentType, index) => (
-              <NoticeItem key={index} noticeData={noticeListData} />
-            )
-          )
+          noticeListData?.content?.map((noticeListData: NoticeContentType) => (
+            <NoticeItem key={noticeListData.id} noticeData={noticeListData} />
+          ))
         )}
       </div>
     </>
