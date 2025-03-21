@@ -3,29 +3,40 @@ import { useEffect, useState } from "react";
 
 interface WritGuideProps {
   modalId: string;
+  forceShow?: boolean;
+  onClose?: () => void;
 }
 
-const WriteModal = ({ modalId = `write-modal` }: WritGuideProps) => {
+const WriteModal = ({
+  modalId = `write-modal`,
+  forceShow = false,
+  onClose,
+}: WritGuideProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [dontShowAgain, setDontShowAgain] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const hasSeenModal = localStorage.getItem(`modal-${modalId}-seen`);
-
-      if (!hasSeenModal) {
-        setIsVisible(true);
+    if (forceShow) {
+      setIsVisible(true);
+    } else {
+      if (typeof window !== "undefined") {
+        const hasSeenModal = localStorage.getItem(`modal-${modalId}-seen`);
+        if (!hasSeenModal) {
+          setIsVisible(true);
+        }
       }
     }
-  }, [modalId]);
+  }, [modalId, forceShow]);
 
   const handleDontShowAgain = () => {
     localStorage.setItem(`modal-${modalId}-seen`, `true`);
     setIsVisible(false);
+    if (onClose) onClose();
   };
 
   const handleConfirm = () => {
     setIsVisible(false);
+    if (onClose) onClose();
   };
   if (!isVisible) return null;
 
