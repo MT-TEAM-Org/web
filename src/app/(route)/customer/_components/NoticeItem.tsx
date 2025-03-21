@@ -32,8 +32,10 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
           isFeedback ? "bg-bg0" : "hover:bg-bg0"
         } w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer`}
       >
-        <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex bg-gray1 items-center justify-center">
-          <p className="font-bold text-[14px] leading-5">{noticeData?.id}</p>
+        <div className="w-[32px] h-[32px] rounded-[2px] p-1 bg-gray1 items-center justify-center text-center text-gray7">
+          <p className="w-[25px] font-bold text-[14px] leading-5">
+            {!isFeedback ? noticeData?.id : "공지"}
+          </p>
         </div>
         <div className="w-[56px] h-[42px] rounded-[5px] bg-gray1">
           <Image
@@ -44,8 +46,8 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
             className="object-cover"
           />
         </div>
-        <div className="w-[584px] min-h-[42px] flex gap-1 flex-col">
-          <div className="w-[584px] min-h-[20px] flex items-center gap-[2px]">
+        <div className="min-w-[584px] min-h-[42px] flex gap-1 flex-col">
+          <div className="w-auto min-h-[20px] flex items-center gap-[2px]">
             <p className="text-[14px] leading-5 text-gray7">
               {noticeData?.title}
             </p>

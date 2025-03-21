@@ -21,6 +21,9 @@ import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import FeedbackItem from "../../../_components/FeedbackItem";
 import FeedbackItemSkeleton from "../../../_components/FeedbackItemSkeleton";
 import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType";
+import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
+import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import NoticeItem from "../../../_components/NoticeItem";
 
 const Page = () => {
   const params = useParams();
@@ -57,10 +60,18 @@ const Page = () => {
     isError,
   } = useGetFeedbackDataList(feedbackOption);
 
+  const { data: noticeListData } = useGetNoticeDataList();
+
+  const slicedNoticeDataList = (noticeListData?.content as NoticeContentType[])
+    ?.sort((a, b) => b.id - a.id)
+    .slice(0, 2);
+
+  console.log(slicedNoticeDataList);
+
   const infoItems = [
     { label: "조회수", value: feedbackInfoData?.viewCount },
-    { label: "댓글", value: feedbackInfoData?.recommendCount },
-    { label: "추천", value: feedbackInfoData?.commentCount },
+    { label: "댓글", value: feedbackInfoData?.commentCount가 },
+    { label: "추천", value: feedbackInfoData?.recommendCount },
   ];
 
   const statusBoxClass =
@@ -111,21 +122,24 @@ const Page = () => {
             </div>
           </div>
           <hr />
-          <div className="w-full min-h-aut flex flex-col gap-3">
-            <Image
-              src={feedbackInfoData?.imgUrl || "/Preview_loading_image.png"}
-              alt="Feedback img"
-              width={672}
-              height={128}
+          <div className="w-full min-h-auto flex flex-col gap-3">
+            {feedbackInfoData?.thumbnail && (
+              <Image
+                src={feedbackInfoData?.imgUrl}
+                alt="Feedback img"
+                width={672}
+                height={128}
+              />
+            )}
+            <div
+              className="text-[16px] leading-6 tracking-[-0.02em] text-gray7"
+              dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
             />
-            <p className="text-[16px] leading-6 tracking-[-0.02em] text-gray7">
-              {feedbackInfoData?.content}
-            </p>
           </div>
           <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
             <button className="flex items-center text-[14px] justify-center gap-2 min-w-[120px] w-auto h-[40px] px-4 py-[13px] mt-4 bg-[#00ADEE] text-white rounded-[5px]">
               <Single_logo />
-              추천 13
+              추천 {feedbackInfoData?.recommendCount || 0}
             </button>
           </div>
           <PostAction type="community" />
@@ -143,6 +157,17 @@ const Page = () => {
       />
       <div className="w-full h-auto rounded-[5px] shadow-md bg-white">
         <div className="w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+          {isLoading
+            ? Array.from({ length: 2 }).map((_, index) => (
+                <FeedbackItemSkeleton key={index} />
+              ))
+            : slicedNoticeDataList?.map((noticeData) => (
+                <NoticeItem
+                  isFeedback={true}
+                  noticeData={noticeData}
+                  key={noticeData.id}
+                />
+              ))}
           {isLoading ? (
             Array.from({ length: 10 }).map((_, index) => (
               <FeedbackItemSkeleton key={index} />
