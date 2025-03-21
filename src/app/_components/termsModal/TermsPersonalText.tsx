@@ -5,29 +5,24 @@ const TermsPersonalText = () => {
   return (
     <div className="text-[14px] leading-[22px] text-gray6">
       {termsPersonalObject.sections.map((section) => (
-        <div key={section.id} className="policy-section">
-          <div className="policy-title">
+        <div key={section.id}>
+          <div>
             {!isNaN(Number(section.id)) && <span>{section.id}. </span>}
             {isNaN(Number(section.id)) &&
               typeof section.id === "string" &&
               section.id.length === 1 &&
               /[a-zA-Z]/.test(section.id) && <span>{section.id}. </span>}
             {typeof section.id === "string" &&
-              section.id.startsWith("disc-") && (
-                <span className="bullet">• </span>
-              )}
+              section.id.startsWith("disc-") && <span>• </span>}
             <span>{section.title}</span>
           </div>
           {section.content &&
             Array.isArray(section.content) &&
             section.content.map((contentItem, index) => (
-              <div
-                key={contentItem.id || index}
-                className="ml-2 policy-content-item"
-              >
-                <div className="content-title">
+              <div key={contentItem.id || index} className="ml-2">
+                <div>
                   {contentItem.id && contentItem.id.startsWith("disc-") && (
-                    <span className="bullet">• </span>
+                    <span>• </span>
                   )}
                   {contentItem.id &&
                     !contentItem.id.startsWith("disc-") &&
@@ -46,13 +41,10 @@ const TermsPersonalText = () => {
                 {contentItem.content &&
                   Array.isArray(contentItem.content) &&
                   contentItem.content.map((subItem, subIndex) => (
-                    <div
-                      key={subItem.id || subIndex}
-                      className="ml-2 policy-subcontent-item"
-                    >
-                      <div className="subcontent-title">
+                    <div key={subItem.id || subIndex} className="ml-2">
+                      <div>
                         {subItem.id && subItem.id.startsWith("disc-") && (
-                          <span className="bullet">• </span>
+                          <span>• </span>
                         )}
                         {subItem.id &&
                           !subItem.id.startsWith("disc-") &&
@@ -71,14 +63,11 @@ const TermsPersonalText = () => {
                       {subItem.content &&
                         Array.isArray(subItem.content) &&
                         subItem.content.map((deepItem, deepIndex) => (
-                          <div
-                            key={deepItem.id || deepIndex}
-                            className="ml-2 policy-deepcontent-item"
-                          >
-                            <div className="deepcontent-title">
+                          <div key={deepItem.id || deepIndex} className="ml-2">
+                            <div>
                               {deepItem.id &&
                                 deepItem.id.startsWith("disc-") && (
-                                  <span className="bullet">• </span>
+                                  <span>• </span>
                                 )}
                               {deepItem.id &&
                                 !deepItem.id.startsWith("disc-") &&
