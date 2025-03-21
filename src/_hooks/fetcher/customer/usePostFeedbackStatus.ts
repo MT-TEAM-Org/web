@@ -14,7 +14,7 @@ const usePostFeedbackStatus = ({id}: usePostFeedbackStatus) => {
     mutationFn: () => postFeedbackStatus({id}),
     retry: 1,
     onSuccess: () => {
-      toast.success("개선요청 상태가 수정되었습니다.", "");
+      toast.success("상태가 변경되었습니다.", "");
     },
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {

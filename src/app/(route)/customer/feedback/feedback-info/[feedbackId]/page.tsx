@@ -64,13 +64,12 @@ const Page = () => {
     { label: "추천", value: feedbackInfoData?.commentCount },
   ];
 
-  const statusBoxClass =
-    "w-[65px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px]";
+  const statusBoxClass = "w-[69px] h-[32px] rounded-[2px] px-2 py-[6px] flex";
 
   const statusContent = {
     RECEIVED: (
       <div className={`${statusBoxClass} bg-gray1`}>
-        <p className="font-bold text-[14px] leading-5">접수 완료</p>
+        <p className="font-bold text-[14px] leading-5 text-gray7">접수 완료</p>
       </div>
     ),
     COMPLETED: (
@@ -87,9 +86,11 @@ const Page = () => {
       ) : (
         <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
           {adminChecker === "ADMIN" && <StatusSaver id={infoId} />}
-          <div className="w-full h-[56px] flex gap-2 flex-col">
-            {adminChecker === "ADMIN" &&
-              statusContent[feedbackInfoData?.status]}
+          <div className="w-full h-[96px] flex gap-2 flex-col">
+            <div>
+              {(adminChecker !== "ADMIN" || adminChecker === undefined) &&
+                statusContent[feedbackInfoData?.status]}
+            </div>
             <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
               {feedbackInfoData?.title}
             </h1>
@@ -113,12 +114,14 @@ const Page = () => {
           </div>
           <hr />
           <div className="w-full min-h-aut flex flex-col gap-3">
-            <Image
-              src={feedbackInfoData?.imgUrl || "/Preview_loading_image.png"}
-              alt="Feedback img"
-              width={672}
-              height={128}
-            />
+            {feedbackInfoData?.imgUrl && (
+              <Image
+                src={feedbackInfoData?.imgUrl}
+                alt="Feedback img"
+                width={672}
+                height={128}
+              />
+            )}
             <p className="text-[16px] leading-6 tracking-[-0.02em] text-gray7">
               {feedbackInfoData?.content}
             </p>

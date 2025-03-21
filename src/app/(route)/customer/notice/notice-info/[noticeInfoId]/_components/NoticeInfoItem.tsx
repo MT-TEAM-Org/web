@@ -56,12 +56,9 @@ const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
       <hr />
 
       <div className="w-full max-w-[672px] min-h-[188px] flex flex-col gap-3">
-        <Image
-          src={data?.imgUrl || "/Empty_news.png"}
-          alt="notice img"
-          width={672}
-          height={128}
-        />
+        {data?.imgUrl && (
+          <Image src={data?.imgUrl} alt="notice img" width={672} height={128} />
+        )}
         <p className="w-full max-w-[672px] min-h-[48px] font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray7">
           <span>{data?.content}</span>
         </p>
