@@ -16,8 +16,6 @@ const MainBigSizeNews = () => {
 
   const categoryPath = mainPageData?.category?.toLowerCase() || "";
 
-  console.log(mainPageData);
-
   if (isLoading) return <MainBigSizeNewsSkeleton />;
 
   return (
