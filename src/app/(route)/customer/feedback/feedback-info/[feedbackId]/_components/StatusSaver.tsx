@@ -1,3 +1,4 @@
+import usePostFeedbackStatus from "@/_hooks/fetcher/customer/usePostFeedbackStatus";
 import React, { useState } from "react";
 
 const inputClassNames = `
@@ -28,8 +29,12 @@ const statusOptions = [
   { label: "개선 완료", value: "completed" },
 ];
 
-const StatusSaver = () => {
+const StatusSaver = ({ id }) => {
   const [selectedStatus, setSelectedStatus] = useState("pending");
+
+  const { mutate: feedbackUpdate } = usePostFeedbackStatus({ id });
+
+  const handleUpdatedStatus = () => {};
 
   return (
     <div className="min-w-[672px] h-[40px] flex justify-between items-center">

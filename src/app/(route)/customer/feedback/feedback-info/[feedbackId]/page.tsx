@@ -21,6 +21,7 @@ import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import FeedbackItem from "../../../_components/FeedbackItem";
 import FeedbackItemSkeleton from "../../../_components/FeedbackItemSkeleton";
 import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType";
+import usePostFeedbackStatus from "@/_hooks/fetcher/customer/usePostFeedbackStatus";
 
 const Page = () => {
   const params = useParams();
@@ -85,7 +86,7 @@ const Page = () => {
         <FeedbackInfoSkeleton />
       ) : (
         <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
-          {adminChecker === "ADMIN" && <StatusSaver />}
+          {adminChecker === "ADMIN" && <StatusSaver id={infoId} />}
           <div className="w-full h-[56px] flex gap-2 flex-col">
             {adminChecker === "ADMIN" &&
               statusContent[feedbackInfoData?.status]}
