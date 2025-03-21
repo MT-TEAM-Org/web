@@ -61,7 +61,7 @@ const CustomImage = Image.extend({
   },
 });
 
-const FeedbackWrite = () => {
+const CustomerWrite = () => {
   const router = useRouter();
   const { register, watch, setValue, handleSubmit } = useForm();
   const { mutate: postFeedback } = usePostFeedback();
@@ -235,4 +235,4 @@ const FeedbackWrite = () => {
   );
 };
 
-export default FeedbackWrite;
+export default CustomerWrite;

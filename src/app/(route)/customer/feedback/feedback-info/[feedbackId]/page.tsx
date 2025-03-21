@@ -5,9 +5,6 @@ import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import CustomerTalkToolbar from "../../../_components/CustomerTalkToolbar";
-import NoticeItemSkeleton from "../../../_components/NoticeItemSkeleton";
-import NoticeItem from "../../../_components/NoticeItem";
-import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
 import EmptyItem from "../../../_components/EmptyItem";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import useGetFeedbackInfoData from "@/_hooks/fetcher/customer/useGetFeedbackInfoData";
@@ -21,6 +18,9 @@ import StatusSaver from "./_components/StatusSaver";
 import EmptyComment from "@/app/(route)/(community)/gameboard/_components/EmptyComment";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
+import FeedbackItem from "../../../_components/FeedbackItem";
+import FeedbackItemSkeleton from "../../../_components/FeedbackItemSkeleton";
+import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType";
 
 const Page = () => {
   const params = useParams();
@@ -113,11 +113,7 @@ const Page = () => {
           <hr />
           <div className="w-full min-h-aut flex flex-col gap-3">
             <Image
-              src={
-                feedbackInfoData?.imgUrl
-                  ? feedbackInfoData?.imgUrl
-                  : "/Empty_news.png"
-              }
+              src={feedbackInfoData?.imgUrl || "/Preview_loading_image.png"}
               alt="Feedback img"
               width={672}
               height={128}
@@ -149,16 +145,16 @@ const Page = () => {
         <div className="w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
           {isLoading ? (
             Array.from({ length: 10 }).map((_, index) => (
-              <NoticeItemSkeleton key={index} />
+              <FeedbackItemSkeleton key={index} />
             ))
           ) : feedbackDataList?.content?.length === 0 || isError ? (
             <EmptyItem title="공지사항이" />
           ) : (
             feedbackDataList?.content?.map(
-              (noticeListData: NoticeContentType) => (
-                <NoticeItem
-                  noticeData={noticeListData}
-                  key={noticeListData?.id}
+              (feedbackDataList: FeedbackContentType) => (
+                <FeedbackItem
+                  feedbackData={feedbackDataList}
+                  key={feedbackDataList?.id}
                 />
               )
             )
