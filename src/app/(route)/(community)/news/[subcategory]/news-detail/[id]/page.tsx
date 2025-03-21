@@ -26,12 +26,13 @@ import { NewsListType } from "@/app/_constants/newsListItemType";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import { AxiosError } from "axios";
+import { useToast } from "@/_hooks/useToast";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   const queryClient = useQueryClient();
 
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
     orderType,
@@ -50,6 +51,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const formattedTime = useTimeAgo(newsInfoData?.postDate);
   const { mutate: newsAddCommend } = usePatchRecommend();
   const { mutate: newsDeleteRecommend } = useDeleteRecommend();
+  const toast = useToast();
 
   const { data: newsListData } = useSortedNewsDataList({
     orderType,
@@ -69,9 +71,8 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
         },
         onError: (error: AxiosError) => {
-          // AxiosError로 타입 지정
-          // response가 존재하고 상태 코드가 401일 경우 모달 표시
           if (error.response?.status === 401) {
+            toast.error("뉴스 추천 실패", "로그인이 필요한 서비스입니다.");
             setIsModalOpen(true);
           }
         },
@@ -82,9 +83,8 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
         },
         onError: (error: AxiosError) => {
-          // AxiosError로 타입 지정
-          // response가 존재하고 상태 코드가 401일 경우 모달 표시
           if (error.response?.status === 401) {
+            toast.error("뉴스 추천 실패", "로그인이 필요한 서비스입니다.");
             setIsModalOpen(true);
           }
         },
@@ -178,7 +178,6 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         <NewsSendCommentBox id={id} />
       </div>
 
-      {/* SignInModalPopUp 추가 */}
       <SignInModalPopUp
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
