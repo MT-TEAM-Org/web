@@ -16,7 +16,7 @@ export const RightSideBar = () => {
   });
   const slicedNewsData = useMemo(() => {
     return newsData?.content.slice(0, 5);
-  }, [newsData]); //뉴스 데이터 임시로 5개만 불러오기
+  }, [newsData]);
 
   const scrollToTop = () => {
     window.scrollTo({
