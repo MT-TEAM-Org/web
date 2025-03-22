@@ -20,7 +20,12 @@ interface CustomerFormData {
 }
 
 const CustomerWrite = () => {
-  const { isEditMode, boardId, boardData, resetEditState } = useEditStore();
+  const {
+    isEditMode,
+    boardId,
+    boardData: customerData,
+    resetEditState,
+  } = useEditStore();
   const router = useRouter();
   const pathName = usePathname();
   const writeType = pathName.split("/")[2];
@@ -50,27 +55,24 @@ const CustomerWrite = () => {
     }
   );
 
-  const link = watch("link");
-  const imgUrl = watch("imgUrl");
-
   const [categoryType, setCategoryType] = React.useState(writeType);
 
   useEffect(() => {
     if (!editParam) {
       resetEditState();
-    } else if (isEditMode && boardData) {
-      setCategoryType(boardData.categoryType);
-      setValue("title", boardData.title);
-      setValue("content", boardData.content);
-      if (boardData.link) setValue("link", boardData.link);
-      if (boardData.thumbnail) setValue("imgUrl", boardData.thumbnail);
+    } else if (isEditMode && customerData) {
+      setCategoryType(customerData.categoryType);
+      setValue("title", customerData.title);
+      setValue("content", customerData.content);
+      if (customerData.link) setValue("link", customerData.link);
+      if (customerData.thumbnail) setValue("imgUrl", customerData.thumbnail);
     }
     return () => {
       if (!editParam) {
         resetEditState();
       }
     };
-  }, [editParam, isEditMode, boardData, setValue, resetEditState]);
+  }, [editParam, isEditMode, customerData, setValue, resetEditState]);
 
   const handleImageUpload = async (blob: Blob) => {
     try {
@@ -86,6 +88,7 @@ const CustomerWrite = () => {
       });
 
       const uploadedUrl = response.data.downloadUrl;
+      console.log(uploadedUrl);
       setValue("imgUrl", uploadedUrl);
       return uploadedUrl;
     } catch (error) {
@@ -93,6 +96,7 @@ const CustomerWrite = () => {
       throw error;
     }
   };
+
   const getYoutubeThumbnail = (url: string) => {
     const match = url.match(
       /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|embed\/|v\/))([^?&]+)/
@@ -102,27 +106,16 @@ const CustomerWrite = () => {
       : "";
   };
 
-  useEffect(() => {
-    if (link) {
-      const youtubeThumbnail = getYoutubeThumbnail(link);
-      setValue("imgUrl", youtubeThumbnail);
-    }
-  }, [link, setValue]);
-
   const onSubmit = async (data: CustomerFormData) => {
-    let finalImgUrl = data.imgUrl;
-
-    if (data.link) {
-      finalImgUrl = getYoutubeThumbnail(data.link);
-    }
-
+    const thumbnail =
+      data.imgUrl || (data.link ? getYoutubeThumbnail(data.link) : "");
     const communityData = {
       boardType: writeType.toUpperCase(),
       categoryType: categoryType,
       title: data.title,
       content: data.content,
       link: data.link || "",
-      imgUrl: finalImgUrl,
+      imgUrl: thumbnail,
     };
 
     if (isEditMode) {
@@ -140,7 +133,7 @@ const CustomerWrite = () => {
     <div className="w-[720px] min-h-[648px] h-auto flex flex-col justify-center items-center bg-white shadow-sm rounded-[5px] border px-3 pt-3 pb-6 gap-3 mb-10">
       <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="w-[95px] min-h-[28px] flex gap-3 font-bold text-[18px] leading-7 tracking-[-0.72px] items-center text-gray8">
-          개선요청 작성
+          {writeType === "notice" ? "공지사항 작성" : "개선요청 작성"}
         </h2>
         <div className="w-full h-[40px] flex items-center justify-center gap-5 border border-gray3 rounded-[5px]">
           <input
@@ -151,10 +144,14 @@ const CustomerWrite = () => {
           />
         </div>
         <CustomerTiptap
-          onChange={(content) => setValue("content", content)}
+          onChange={(content) => {
+            setValue("content", content);
+          }}
           register={register}
           watch={watch}
-          initialContent={isEditMode && boardData ? boardData.content : ""}
+          initialContent={
+            isEditMode && customerData ? customerData.content : ""
+          }
           onImageUpload={handleImageUpload}
           setValue={setValue}
           onSubmit={handleSubmit(onSubmit)}

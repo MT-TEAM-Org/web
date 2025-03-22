@@ -9,6 +9,8 @@ interface NoticeData {
   title: string;
   content: string;
   imgUrl?: string;
+  link?: string;
+  thumbUrl?: string;
 }
 
 const usePostNotice = () => {

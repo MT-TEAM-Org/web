@@ -61,6 +61,8 @@ const FeedbackPageContent = () => {
     isLoading: noticeIsLoading,
   } = useGetNoticeDataList(noticeOption);
 
+  console.log(feedbackDataList); //test
+
   const slicedNoticeDataList = (noticeListData?.content as NoticeContentType[])
     ?.sort((a, b) => b.id - a.id)
     .slice(0, 2);

@@ -73,7 +73,6 @@ export function Write({ category, subCategory }: WriteProps) {
         contentType: blob.type,
         fileName: `image-${Date.now()}.${blob.type.split("/")[1]}`,
       });
-      console.log("response: ", response);
 
       // presigned URL로 실제 파일 업로드
       await axios.put(response.data.presignedUrl, blob, {
@@ -81,7 +80,7 @@ export function Write({ category, subCategory }: WriteProps) {
           "Content-Type": blob.type,
         },
       });
-      console.log("response.data.downloadUrl: ", response.data.downloadUrl);
+
       // 다운로드 URL 반환
       return response.data.downloadUrl;
     } catch (error) {

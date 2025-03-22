@@ -33,6 +33,8 @@ interface FeedbackData {
   title: string;
   content: string;
   imgUrl?: string;
+  link?: string;
+  thumbUrl?: string;
 }
 
 const usePostFeedback = () => {

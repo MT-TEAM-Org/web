@@ -90,6 +90,18 @@ const Page = () => {
     ),
   };
 
+  const link = feedbackInfoData?.link || "";
+
+  const getYouTubeEmbedUrl = (url: string) => {
+    if (!url) return null;
+    const youtubeRegex =
+      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(youtubeRegex);
+    return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+  };
+
+  const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
+
   return (
     <>
       {feedbackIsLoading || feedbackIsError ? (
@@ -123,13 +135,29 @@ const Page = () => {
           </div>
           <hr />
           <div className="w-full min-h-auto flex flex-col gap-3">
-            {feedbackInfoData?.imgUrl && (
+            {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
               <Image
                 src={feedbackInfoData?.imgUrl}
                 alt="Feedback img"
                 width={672}
                 height={128}
               />
+            )}
+            {youtubeEmbedUrl && (
+              <iframe
+                width="100%"
+                height="408"
+                src={youtubeEmbedUrl}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            )}
+            {!youtubeEmbedUrl && (
+              <div className="w-[679px] min-h-[42px]">
+                <div>{feedbackInfoData?.data?.link}</div>
+              </div>
             )}
             <div
               className="text-[16px] leading-6 tracking-[-0.02em] text-gray7"
