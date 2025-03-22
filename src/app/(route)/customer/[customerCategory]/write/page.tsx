@@ -8,7 +8,6 @@ import usePostNotice from "@/_hooks/fetcher/customer/usePostNotice";
 import { useEditStore } from "@/utils/Store";
 import axios from "axios";
 import getUpload from "@/_hooks/getUpload";
-import { CommunityData } from "@/app/_constants/categories";
 import usePutPost from "@/_hooks/fetcher/board/usePutPost";
 import CustomerTiptap from "../../_components/CustomerTiptap";
 
@@ -17,7 +16,7 @@ interface CustomerFormData {
   title: string;
   content: string;
   link: string;
-  thumbnail: string;
+  imgUrl: string;
 }
 
 const CustomerWrite = () => {
@@ -29,6 +28,13 @@ const CustomerWrite = () => {
   const searchParams = useSearchParams();
   const editParam = searchParams.get("edit");
 
+  useEffect(() => {
+    const validTypes = ["notice", "feedback"];
+    if (!validTypes.includes(writeType)) {
+      router.push("/404");
+    }
+  }, [writeType, router]);
+
   const { mutate: postNotice } = usePostNotice();
   const { mutate: postFeedback } = usePostFeedback();
 
@@ -39,12 +45,13 @@ const CustomerWrite = () => {
         content: "",
         title: "",
         link: "",
-        thumbnail: "",
+        imgUrl: "",
       },
     }
   );
 
   const link = watch("link");
+  const imgUrl = watch("imgUrl");
 
   const [categoryType, setCategoryType] = React.useState(writeType);
 
@@ -56,7 +63,7 @@ const CustomerWrite = () => {
       setValue("title", boardData.title);
       setValue("content", boardData.content);
       if (boardData.link) setValue("link", boardData.link);
-      if (boardData.thumbnail) setValue("thumbnail", boardData.thumbnail);
+      if (boardData.thumbnail) setValue("imgUrl", boardData.thumbnail);
     }
     return () => {
       if (!editParam) {
@@ -78,13 +85,14 @@ const CustomerWrite = () => {
         },
       });
 
-      return response.data.downloadUrl;
+      const uploadedUrl = response.data.downloadUrl;
+      setValue("imgUrl", uploadedUrl);
+      return uploadedUrl;
     } catch (error) {
       console.error("Image upload failed:", error);
       throw error;
     }
   };
-
   const getYoutubeThumbnail = (url: string) => {
     const match = url.match(
       /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|embed\/|v\/))([^?&]+)/
@@ -96,23 +104,25 @@ const CustomerWrite = () => {
 
   useEffect(() => {
     if (link) {
-      const thumbnail = getYoutubeThumbnail(link);
-      if (thumbnail) {
-        setValue("thumbnail", thumbnail);
-      }
+      const youtubeThumbnail = getYoutubeThumbnail(link);
+      setValue("imgUrl", youtubeThumbnail);
     }
   }, [link, setValue]);
 
   const onSubmit = async (data: CustomerFormData) => {
-    const thumbnail =
-      data.thumbnail || (data.link ? getYoutubeThumbnail(data.link) : "");
+    let finalImgUrl = data.imgUrl;
+
+    if (data.link) {
+      finalImgUrl = getYoutubeThumbnail(data.link);
+    }
+
     const communityData = {
       boardType: writeType.toUpperCase(),
       categoryType: categoryType,
       title: data.title,
       content: data.content,
-      link: data.link,
-      thumbnail,
+      link: data.link || "",
+      imgUrl: finalImgUrl,
     };
 
     if (isEditMode) {
@@ -125,6 +135,7 @@ const CustomerWrite = () => {
       }
     }
   };
+
   return (
     <div className="w-[720px] min-h-[648px] h-auto flex flex-col justify-center items-center bg-white shadow-sm rounded-[5px] border px-3 pt-3 pb-6 gap-3 mb-10">
       <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>

@@ -72,6 +72,8 @@ const Page = () => {
     { label: "추천", value: feedbackInfoData?.recommendCount },
   ];
 
+  console.log(feedbackInfoData);
+
   const statusBoxClass =
     "w-[65px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px]";
 
@@ -121,7 +123,7 @@ const Page = () => {
           </div>
           <hr />
           <div className="w-full min-h-auto flex flex-col gap-3">
-            {feedbackInfoData?.thumbnail && (
+            {feedbackInfoData?.imgUrl && (
               <Image
                 src={feedbackInfoData?.imgUrl}
                 alt="Feedback img"

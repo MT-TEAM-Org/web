@@ -37,7 +37,7 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
             {!isFeedback ? noticeData?.id : "공지"}
           </p>
         </div>
-        <div className="w-[56px] h-[42px] rounded-[5px] bg-gray1">
+        <div className="w-[56px] h-[42px] rounded-[5px] overflow-hidden bg-gray1">
           <Image
             src={noticeData?.thumbnail || "/Preview_loading_image.png"}
             alt="img"
