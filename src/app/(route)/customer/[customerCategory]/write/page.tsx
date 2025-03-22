@@ -88,7 +88,6 @@ const CustomerWrite = () => {
       });
 
       const uploadedUrl = response.data.downloadUrl;
-      console.log(uploadedUrl);
       setValue("imgUrl", uploadedUrl);
       return uploadedUrl;
     } catch (error) {

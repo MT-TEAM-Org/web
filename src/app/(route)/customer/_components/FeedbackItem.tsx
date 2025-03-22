@@ -25,8 +25,6 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
     }
   }, [feedbackData?.createdAt]);
 
-  // console.log(feedbackData);
-
   return (
     <Link href={`/customer/feedback/feedback-info/${feedbackData?.id}`}>
       <div className="w-full h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer hover:bg-[#F8FDFF]">
