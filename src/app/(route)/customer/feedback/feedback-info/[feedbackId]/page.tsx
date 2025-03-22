@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
@@ -26,6 +26,14 @@ import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
 import NoticeItem from "../../../_components/NoticeItem";
 
 const Page = () => {
+  return (
+    <Suspense fallback={""}>
+      <FeedbackInfoPage />
+    </Suspense>
+  );
+};
+
+const FeedbackInfoPage = () => {
   const params = useParams();
   const id = params.feedbackId;
   const infoId = Number(id);
@@ -71,8 +79,6 @@ const Page = () => {
     { label: "댓글", value: feedbackInfoData?.commentCount가 },
     { label: "추천", value: feedbackInfoData?.recommendCount },
   ];
-
-  console.log(feedbackInfoData);
 
   const statusBoxClass =
     "w-[65px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px]";

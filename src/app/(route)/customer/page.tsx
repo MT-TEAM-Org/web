@@ -7,10 +7,10 @@ import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList
 import EmptyItem from "./_components/EmptyItem";
 import NoticeItemSkeleton from "./_components/NoticeItemSkeleton";
 import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
-import { useSearchParams } from "next/navigation";
 import { noticeListConfig } from "./_types/noticeListConfig";
 import { useQueryClient } from "@tanstack/react-query";
 import { getAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
+import { useSearchParams } from "next/navigation";
 
 const Page = () => {
   return (

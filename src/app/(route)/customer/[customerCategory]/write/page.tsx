@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import usePostFeedback from "@/_hooks/fetcher/customer/usePostFeedback";
@@ -18,6 +18,14 @@ interface CustomerFormData {
   link: string;
   imgUrl: string;
 }
+
+const Page = () => {
+  return (
+    <Suspense fallback={""}>
+      <CustomerWrite />
+    </Suspense>
+  );
+};
 
 const CustomerWrite = () => {
   const {
@@ -160,4 +168,4 @@ const CustomerWrite = () => {
   );
 };
 
-export default CustomerWrite;
+export default Page;

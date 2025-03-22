@@ -1,6 +1,6 @@
 import React from "react";
 
-const page = () => {
+const Page = () => {
   const privacyItems = [
     {
       title: "개인정보 수집에 대한 동의",
@@ -179,4 +179,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
