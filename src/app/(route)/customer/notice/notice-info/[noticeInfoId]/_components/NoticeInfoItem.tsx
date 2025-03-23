@@ -5,6 +5,7 @@ import useTimeAgo from "@/utils/useTimeAgo";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import EmptyComment from "@/app/(route)/(community)/gameboard/_components/EmptyComment";
+import PostAction from "@/app/(route)/(community)/_components/PostAction";
 
 interface NoticeInfoItemProps {
   data: NoticeInfoItemType;
@@ -95,6 +96,7 @@ const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
           dangerouslySetInnerHTML={{ __html: data?.content }}
         />
       </div>
+      <PostAction type="community" />
       <div className="w-full h-auto flex flex-col">
         <CommentBar />
         <EmptyComment />
