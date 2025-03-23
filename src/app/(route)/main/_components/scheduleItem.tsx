@@ -2,7 +2,7 @@
 
 import { MatchItem } from "@/services/match-controller/getMatchSchedule";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface ScheduleDataProps {
   isSelected: boolean;
@@ -11,6 +11,57 @@ interface ScheduleDataProps {
 }
 
 const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
+  const [gameStatus, setGameStatus] = useState<string>("예정");
+
+  const formatDate = (isoDateString: string) => {
+    const date = new Date(isoDateString);
+
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${month}.${day} ${hours}:${minutes}`;
+  };
+
+  const formattedData = formatDate(data.startTime);
+
+  const checkGameStatus = () => {
+    if (!data?.startTime) return;
+
+    const currentTime = new Date();
+    const startTime = new Date(data.startTime);
+
+    if (startTime > currentTime) {
+      setGameStatus("예정");
+      return;
+    }
+
+    const gameDurations = {
+      FOOTBALL: 140,
+      BASEBALL: 210,
+      ESPRTS: 150,
+    };
+
+    const gameType = "BASEBALL";
+
+    const duration = gameDurations[gameType];
+    const expectedEndTime = new Date(
+      startTime.getTime() + duration * 60 * 1000
+    );
+
+    if (currentTime > expectedEndTime) {
+      setGameStatus("종료");
+    } else {
+      setGameStatus("진행중");
+    }
+  };
+
+  useEffect(() => {
+    checkGameStatus();
+  }, [data]);
+
   return (
     <div
       onClick={onClick}
@@ -21,12 +72,11 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
       <div className="w-[275px] flex mb-[8px] items-center gap-x-[8px]">
         <div className="w-auto min-w-[37px] h-auto min-h-[26px] rounded-[5px] py-1 px-2 flex gap-1 bg-gray2 items-center justify-center">
           <p className="font-medium text-[12px] leading-[18px] flex text-center justify-center align-center text-gray5">
-            예정
+            {gameStatus}
           </p>
         </div>
         <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] flex align-center text-gray5 gap-[3px]">
-          <p>02.04</p>
-          <p>19:30</p>
+          {formattedData}
         </div>
         <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] align-center text-gray5">
           <p>2025 LCK CUP 그룹 배틀</p>
@@ -61,3 +111,9 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
 };
 
 export default ScheduleItem;
+
+const gameDuration = {
+  FOOTBALL: 140,
+  BASEBALL: 210,
+  ESPORTS: 150,
+};
