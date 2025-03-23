@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import Arrow_down from "../icon/Arrow_down";
-import { UseFormRegister, UseFormWatch } from "react-hook-form";
+import { set, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { usePathname } from "next/navigation";
 import { useEditStore } from "@/utils/Store";
+import WriteModal from "../WriteModal";
 
 interface TitleDagProps {
   register: UseFormRegister<any>;
@@ -15,9 +16,11 @@ interface TitleDagProps {
 const TitleDag = ({ register }: TitleDagProps) => {
   const { isEditMode } = useEditStore();
   const [selectedCategory, setSelectedCategory] = useState("FREE");
+  const [writeGuideVisible, setWriteGuideVisible] = useState(false);
 
   const pathName = usePathname();
   const boardType = pathName.split("/")[2];
+  const modalId = `write-guide-global`;
 
   const optionValues = [
     { name: "자유", value: "FREE" },
@@ -37,13 +40,28 @@ const TitleDag = ({ register }: TitleDagProps) => {
     setSelectedCategory(categoryFromPath);
   }, [pathName]);
 
+  const writeGuidClick = () => {
+    setWriteGuideVisible(true);
+  };
+  const handleCloseModal = () => {
+    setWriteGuideVisible(false);
+  };
+
   return (
     <div className="w-full h-full">
+      {writeGuideVisible && (
+        <WriteModal
+          modalId={modalId}
+          forceShow={true}
+          onClose={handleCloseModal}
+        />
+      )}
       <div className="flex justify-between items-center mx-auto max-w-[696px] min-h-[40px] pt-2">
         <h1 className="max-w-[80px] min-h-[28px] font-[700] text-[18px] leading-[28px] whitespace-nowrap">
           {isEditMode ? "게시글 수정" : "게시글 작성"}
         </h1>
         <button
+          onClick={writeGuidClick}
           type="button"
           className="max-w-[121px] min-h-[40px] rounded-[5px] border border-[#DBDBDB] py-[13px] px-[16px] font-[700] text-[14px] leading-[14px] whitespace-nowrap bg-[#FAFAFA]"
         >
