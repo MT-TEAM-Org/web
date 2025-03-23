@@ -11,6 +11,14 @@ import getUpload from "@/_hooks/getUpload";
 import usePutPost from "@/_hooks/fetcher/board/usePutPost";
 import CustomerTiptap from "../../_components/CustomerTiptap";
 
+const Page = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CustomerWrite />
+    </Suspense>
+  );
+};
+
 interface CustomerFormData {
   boardType: string;
   title: string;
@@ -18,14 +26,6 @@ interface CustomerFormData {
   link: string;
   imgUrl: string;
 }
-
-const Page = () => {
-  return (
-    <Suspense fallback={""}>
-      <CustomerWrite />
-    </Suspense>
-  );
-};
 
 const CustomerWrite = () => {
   const {

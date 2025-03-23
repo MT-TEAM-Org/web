@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React from "react";
 import CustomerTalkToolbar from "../_components/CustomerTalkToolbar";
 import FeedbackItem from "../_components/FeedbackItem";
 import { useSearchParams } from "next/navigation";
@@ -17,14 +17,6 @@ import FeedbackItemSkeleton from "../_components/FeedbackItemSkeleton";
 import { feedbackListConfig } from "../_types/feedbackListConfig";
 
 const Page = () => {
-  return (
-    <Suspense fallback={""}>
-      <FeedbackPageContent />
-    </Suspense>
-  );
-};
-
-const FeedbackPageContent = () => {
   const queryClient = useQueryClient();
   const adminRole = getAdminRole(queryClient);
   const searchParams = useSearchParams();

@@ -27,7 +27,7 @@ import NoticeItem from "../../../_components/NoticeItem";
 
 const Page = () => {
   return (
-    <Suspense fallback={""}>
+    <Suspense fallback={<div>Loading...</div>}>
       <FeedbackInfoPage />
     </Suspense>
   );
