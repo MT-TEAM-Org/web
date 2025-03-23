@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
       <div className="mt-[20px] max-w-[1200px] flex mx-auto gap-[20px]">
         <div className="w-[160px] min-h-[364px]">
-          <div className="sticky top-[140px]">
+          <div className="sticky top-0">
             <MypageLeftSidebar />
           </div>
         </div>

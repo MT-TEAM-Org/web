@@ -58,7 +58,7 @@ const SnsButtons = ({ signState }: SnsButtonsProps) => {
         </p>
         {snsGrayLine()}
       </div>
-      <div className="flex gap-[10px] justify-around mt-[8px] px-[10px]">
+      <div className="flex justify-center gap-[24px] mt-[8px]">
         {snsButtonObject.map((snsButton) => (
           <button
             type="button"

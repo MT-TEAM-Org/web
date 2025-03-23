@@ -1,15 +1,15 @@
 "use client";
 
-import { LogoWhite } from "@/app/_components/icon/LogoWhite";
-import Refresh from "@/app/_components/icon/Refresh";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
 import { Suspense, use, useEffect, useRef } from "react";
-import useGetInquiriesDetail from "@/_hooks/useMypage/useGetInquiriesDetail";
+import useGetInquiriesDetail from "@/_hooks/fetcher/mypage/useGetInquiriesDetail";
 import { useRouter } from "next/navigation";
 import MyPageInquiriesList from "../_components/MyPageInquiriesList";
 import { useInquiryPostIdStore } from "@/utils/Store";
+import MyPageInquirieSendCommentBox from "../_components/MyPageInquirieSendCommentBox";
+import MyPageInquirieComment from "../_components/MyPageInquirieComment";
 
 interface InquirieDetailProps {
   id: string;
@@ -111,45 +111,11 @@ const InquirieDetail = ({
         <p className="min-h-[48px] leading-[24px] text-gray7">
           {inquirieDetail?.content}
         </p>
-
-        <div
-          className="min-h-[232px] bg-gray1 rounded-t-[5px] rounded-b-[10px]"
+        <MyPageInquirieComment
           ref={comments}
-        >
-          <div className="flex justify-between items-center min-h-[48px] py-[4px] pl-[16px]">
-            <div className="flex items-center gap-[8px]">
-              <span className="font-[700] text-[18px] leading-[28px] text-gray8">
-                댓글
-              </span>
-              <span className="text-[14px] leading-[20px] text-gray5">
-                총 0개
-              </span>
-            </div>
-            <div className="max-w-[101px] min-h-[40px] flex items-center px-[12px] py-[10px] gap-[8px] bg-[#FAFAFA] rounded-md">
-              <div className="cursor-pointer">
-                <Refresh />
-              </div>
-              <p className="font-bold text-[14px] leading-[14px] text-gray6">
-                새로고침
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-[16px] min-h-[184px] py-[40px]">
-            <div className="opacity-30">
-              <LogoWhite />
-            </div>
-            <div className="flex flex-col items-center gap-[4px] text-gray7">
-              <p className="font-[700] leading-[24px]">
-                등록된 댓글이 없습니다.
-              </p>
-              <p className="text-[14px] leading-[20px]">
-                이야기 나누고 싶다면 댓글을 남겨보세요.
-              </p>
-            </div>
-          </div>
-        </div>
-
+          id={inquirieDetail?.inquiryId}
+          publicId={data?.data?.publicID}
+        />
         <div className="flex justify-between min-h-[40px]">
           <div className="flex gap-[8px]">
             {buttons.slice(0, 2).map(({ text, icon: Icon, onClick }, index) => (
@@ -170,11 +136,14 @@ const InquirieDetail = ({
           </div>
         </div>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={""}>
         <div className="max-w-[720px] min-h-[450px] bg-[#FAFAFA] rounded-[5px]">
           <MyPageInquiriesList />
         </div>
       </Suspense>
+      <div className="shadow-md sticky bottom-0">
+        <MyPageInquirieSendCommentBox id={id} />
+      </div>
     </div>
   );
 };

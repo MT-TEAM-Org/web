@@ -21,12 +21,16 @@ export default function Category({
 
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page") || "1";
+  const searchQuery = searchParams.get("search");
+  const searchType = searchParams.get("search_type");
 
   const { data: boardData, isLoading } = useGetBoardData({
     boardType: boardType?.toUpperCase(),
     categoryType: categoryType,
     orderType: "CREATE",
     page: Number(currentPage),
+    searchType: searchQuery ? searchType : undefined,
+    search: searchQuery,
   });
 
   if (isLoading) {
@@ -36,7 +40,7 @@ export default function Category({
   const pageInfo = boardData?.pageInfo;
 
   return (
-    <div className="w-[720px] flex justify-center bg-[#FAFAFA]">
+    <div className="w-[720px] flex justify-center bg-[#FAFAFA]  mb-[46px] min-h-[calc(100vh-476px)]">
       <div className="w-full min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto">
         <CommunityToolbar boardType={boardType} pageInfo={pageInfo} />
         <PostItem

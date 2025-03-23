@@ -13,7 +13,7 @@ function HomePageContent() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="p-6 bg-[#FAFAFA]">
+      <div className="p-6 bg-gray1">
         <ScheduleContainer />
       </div>
 
@@ -25,7 +25,7 @@ function HomePageContent() {
                 <MainBigSizeNews />
                 <NewsComponent />
               </div>
-              <div className="flex gap-6">
+              <div className="w-full min-h-[392px] flex gap-6">
                 <HotPost />
                 <NewPost />
               </div>
@@ -42,7 +42,7 @@ function HomePageContent() {
 
 export default function HomePage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={""}>
       <HomePageContent />
     </Suspense>
   );

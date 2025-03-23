@@ -140,7 +140,6 @@ function Sign() {
       onSuccess: (data) => {
         if (loginSignupState === "login") {
           localStorage.setItem("accessToken", data.headers.authorization);
-          queryClient.setQueryData(["authCheck"], null);
           queryClient.invalidateQueries({ queryKey: ["authCheck"] });
           router.push("/");
         } else {
@@ -156,7 +155,7 @@ function Sign() {
   const loginSignupStyle =
     "w-1/2 flex items-center justify-center rounded-t-[5px] cursor-pointer border-gray-600 border-[#303030] text-[#424242]";
   return (
-    <div className="w-[328px] min-h-[480px] mb-[356px] mx-auto mt-[40px] select-none">
+    <div className="w-[328px] min-h-[480px] mx-auto mt-[40px] select-none">
       <div className="w-full min-h-[52px] flex">
         {tabs.map(({ id, label }) => (
           <div
@@ -199,9 +198,11 @@ function Sign() {
 
 const SignSuspense = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Sign />
-    </Suspense>
+    <div className="min-h-[calc(100vh-516px)]">
+      <Suspense fallback={""}>
+        <Sign />
+      </Suspense>
+    </div>
   );
 };
 

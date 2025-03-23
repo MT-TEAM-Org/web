@@ -70,7 +70,7 @@ export const RightSideBar = () => {
 
       <div
         onClick={scrollToTop}
-        className="w-[48px] h-[48px] bg-white rounded-[5px] shadow-md flex justify-center items-center p-[10px] gap-[10px] cursor-pointer"
+        className="w-[48px] h-[48px] bg-white rounded-[10px] shadow-md flex justify-center items-center p-[10px] gap-[10px] cursor-pointer"
       >
         <Arrow_up />
       </div>

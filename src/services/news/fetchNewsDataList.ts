@@ -1,20 +1,24 @@
 import axios from "axios";
 
 interface NewsDataProps {
-  category?: string;
   page?: string;
+  startIndex?: number;
 }
 
-const fetchNewsDataList = async ({ category, page }: NewsDataProps = {}) => {
+const fetchNewsDataList = async ({
+  page = "1",
+  startIndex = 0,
+}: NewsDataProps = {}) => {
   const response = await axios(`${process.env.NEXT_PUBLIC_API_URL}api/news`, {
     params: {
-      category: category || 'BASEBALL',
+      category: "",
       orderType: "DATE",
-      page: page || 1,
-      size: 10,
+      page: "1",
+      size: 20,
     },
   });
-  return response.data.data.list.content;
+
+  return response.data.data.list.content.slice(startIndex, startIndex + 5);
 };
 
 export default fetchNewsDataList;
