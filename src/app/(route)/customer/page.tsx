@@ -1,34 +1,43 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense } from "react";
 import CustomerTalkToolbar from "./_components/CustomerTalkToolbar";
 import NoticeItem from "./_components/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import EmptyItem from "./_components/EmptyItem";
 import NoticeItemSkeleton from "./_components/NoticeItemSkeleton";
 import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import { useSearchParams } from "next/navigation";
+import { noticeListConfig } from "./_types/noticeListConfig";
 import { useQueryClient } from "@tanstack/react-query";
+import { getAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 
 const Page = () => {
-  const [pageNum, setPageNum] = useState(1);
-  const [searchType, setSearchType] = useState("");
+  return (
+    <Suspense fallback={""}>
+      <NoticePageContent />
+    </Suspense>
+  );
+};
+
+const NoticePageContent = () => {
   const queryClient = useQueryClient();
-  const authStatus = queryClient.getQueryData(["authCheck"]) as {
-    data: { data: { role: string } };
+  const searchParams = useSearchParams();
+  const adminChecker = getAdminRole(queryClient);
+
+  const noticeOption: noticeListConfig = {
+    page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
+    size: 20,
+    searchType:
+      (searchParams.get("search_type") as noticeListConfig["searchType"]) || "",
+    search: searchParams.get("search") || "",
   };
-  console.log("authStatus: ", authStatus);
-  const adminChecker = authStatus?.data?.data?.role as "USER" | "ADMIN";
-  console.log("adminChecker: ", adminChecker);
 
   const {
     data: noticeListData,
     isLoading,
     isError,
-  } = useGetNoticeDataList(pageNum, searchType);
-
-  const onPageChange = (newPage: number) => {
-    setPageNum(newPage);
-  };
+  } = useGetNoticeDataList(noticeOption);
 
   return (
     <>
@@ -36,8 +45,6 @@ const Page = () => {
         <CustomerTalkToolbar
           showOptions={false}
           paginationData={noticeListData?.pageInfo}
-          onPageChange={onPageChange}
-          setSearchType={setSearchType}
           adminChecker={adminChecker}
         />
       </div>
@@ -51,7 +58,7 @@ const Page = () => {
           <EmptyItem title="공지사항이" />
         ) : (
           noticeListData?.content?.map((noticeListData: NoticeContentType) => (
-            <NoticeItem key={noticeListData.id} noticeData={noticeListData} />
+            <NoticeItem key={noticeListData?.id} noticeData={noticeListData} />
           ))
         )}
       </div>

@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <div className="max-w-[1200px] mx-auto flex gap-4">
         <div className="w-[160px] min-h-[260px] rounded-[5px]">
-          <div className="sticky top-[120px]">
+          <div className="sticky top-0">
             <NewsLeftSidebar />
           </div>
         </div>
@@ -27,7 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {children}
         </div>
         <div className="flex-1 mb-12">
-          <div className="sticky top-[120px]">
+          <div className="sticky top-0">
             <RightSideBar />
           </div>
         </div>

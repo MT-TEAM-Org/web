@@ -168,7 +168,7 @@ const EditProfile = () => {
             <ProfileImage imageUrl={imageUrl} setImageUrl={setImageUrl} />
             <div className="flex justify-between min-h-[56px] rounded-[10px] p-[16px] bg-[#FAFAFA] text-gray8">
               <p className="leading-[24px]">가입 유형</p>
-              <p className="font-[700] leading-[24px]">
+              <p className="font-[700] leading-[24px] text-gray7">
                 {mypageData?.data?.registrationMethod === "LOCAL"
                   ? "일반 회원가입"
                   : `${
@@ -188,6 +188,7 @@ const EditProfile = () => {
                   label={input.label}
                   type={input.type}
                   id={input.id}
+                  gap={4}
                   isDisabled={input.id === "email"}
                 />
                 <label
@@ -233,6 +234,7 @@ const EditProfile = () => {
               </label>
               <Input
                 height={48}
+                type="number"
                 id="birthDate"
                 register={register}
                 required={false}

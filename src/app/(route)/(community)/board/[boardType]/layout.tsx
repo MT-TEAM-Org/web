@@ -14,13 +14,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Banner />
       <div className="mt-[24px] w-[1200px] flex justify-center mx-auto gap-[16px]">
         <div className="w-[160px] min-h-[364px]">
-          <div className="sticky top-[120px]">
+          <div className="sticky top-0">
             <LeftSidebar />
           </div>
         </div>
         <div className="flex-1 max-w-[720px] min-h-[120px]">{children}</div>
         <div className="flex-1">
-          <div className="sticky top-[120px]">
+          <div className="sticky top-0">
             <RightSideBar />
           </div>
         </div>

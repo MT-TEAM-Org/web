@@ -13,6 +13,7 @@ type MatchItem = {
   awayTeam: Team;
   place: string;
   category: string;
+  startTime: string;
 };
 
 type MatchScheduleResponse = {
