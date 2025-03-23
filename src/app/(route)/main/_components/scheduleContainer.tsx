@@ -18,10 +18,11 @@ const ScheduleContainer = () => {
   );
 
   const itemsPerPage = 4;
-  //TODO: 상기님이 전체 데이터 조회 만드시면 수정 예정
-  const category = "BASEBALL";
+  const category = "ALL";
   const { data: scheduleResponse, isLoading } = useGetMatchSchedule(category);
   const scheduleData = scheduleResponse?.data?.list || [];
+
+  console.log("scheduleData", scheduleData);
 
   const displayedItems = scheduleData.slice(
     currentPage * itemsPerPage,
