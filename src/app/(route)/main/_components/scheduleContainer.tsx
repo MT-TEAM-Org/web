@@ -22,8 +22,6 @@ const ScheduleContainer = () => {
   const { data: scheduleResponse, isLoading } = useGetMatchSchedule(category);
   const scheduleData = scheduleResponse?.data?.list || [];
 
-  console.log("scheduleData", scheduleData);
-
   const displayedItems = scheduleData.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
