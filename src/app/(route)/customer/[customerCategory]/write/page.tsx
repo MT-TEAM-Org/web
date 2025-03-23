@@ -16,6 +16,7 @@ import Image from "@tiptap/extension-image";
 import { useForm } from "react-hook-form";
 import Underline from "@tiptap/extension-underline";
 import usePostFeedback from "@/_hooks/fetcher/customer/usePostFeedback";
+import { NOTICE_RULES } from "@/app/(route)/customer/_utils/noticeRules";
 
 // Base64 to Blob 변환 함수
 const base64ToBlob = (base64: string) => {
@@ -129,13 +130,6 @@ const CustomerWrite = () => {
     }
   };
 
-  const noticeRules = [
-    "허용 확장자 (jpg, jpeg, png,webp,heic, mp4,mov,webm,gif) 총 15개 까지, 파일당 50MB 까지 업로드 가능합니다.",
-    "50MB보다 더 큰 용량의 영상물은 유튜브 링크 첨부시 재생이 가능합니다.",
-    "11MB~50MB 움짤은 11MB 이하로 자동변환됩니다.",
-    "음원 있는 움짤/동영상은 45초 이내 길이만 가능합니다.",
-  ];
-
   const listItemClassName =
     "font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6";
 
@@ -154,7 +148,7 @@ const CustomerWrite = () => {
           />
         </div>
         <div className="w-full h-[40px] flex border flex-col rounded-[5px] border-gray3">
-          <div className="flex">
+          <div className="flex justify-start items-center">
             <label
               htmlFor="videoUrl"
               className="w-[24px] h-[40px] flex items-center justify-center mx-2"
@@ -166,7 +160,7 @@ const CustomerWrite = () => {
               type="text"
               id="videoUrl"
               placeholder="동영상 또는 출처 링크를 입력해주세요."
-              className="w-full rounded-md py-[6px] px-[6px] placeholder:text-gray4"
+              className="w-full h-[22px] rounded-md py-[6px] px-[6px] placeholder:text-gray4 focus:outline-none focus:border-none"
               onChange={(e) => setVideoUrl(e.target.value)}
             />
           </div>
@@ -208,7 +202,7 @@ const CustomerWrite = () => {
             수 있습니다.
           </p>
           <ol>
-            {noticeRules.map((rule, index) => (
+            {NOTICE_RULES.map((rule, index) => (
               <li key={index} className={listItemClassName}>
                 • {rule}
               </li>
