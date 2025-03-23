@@ -3,6 +3,7 @@ import usePutPost from "@/_hooks/fetcher/board/usePutPost";
 import getUpload from "@/_hooks/getUpload";
 import Tiptap from "@/app/_components/_tiptap/Tiptap";
 import TitleDag from "@/app/_components/_tiptap/TitleDag";
+import WriteModal from "@/app/_components/WriteModal";
 import { CommunityData } from "@/app/_constants/categories";
 import { useEditStore } from "@/utils/Store";
 import axios from "axios";
@@ -13,6 +14,7 @@ import { useForm } from "react-hook-form";
 interface WriteProps {
   category: string;
   subCategory: string;
+  modalId?: string;
 }
 
 interface FormData {
@@ -24,7 +26,7 @@ interface FormData {
   thumbnail: string;
 }
 
-export function Write({ category, subCategory }: WriteProps) {
+export function Write({ category, subCategory, modalId }: WriteProps) {
   const { isEditMode, boardId, boardData, resetEditState } = useEditStore();
   const searchParams = useSearchParams();
   const editParam = searchParams.get("edit");
@@ -134,6 +136,7 @@ export function Write({ category, subCategory }: WriteProps) {
 
   return (
     <div>
+      <WriteModal modalId={modalId} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <TitleDag
           register={register}

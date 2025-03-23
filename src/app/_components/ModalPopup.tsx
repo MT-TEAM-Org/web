@@ -4,6 +4,7 @@ import usePostInquiry from "@/_hooks/usePostInquiry";
 import { useForm } from "react-hook-form";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { ErrorMessage } from "@hookform/error-message";
+import { useToast } from "@/_hooks/useToast";
 
 interface ModalPopupProps {
   show: boolean;
@@ -15,6 +16,7 @@ interface InquiryData {
 }
 
 const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
+  const { success } = useToast();
   const { data, isLoading } = useAuthCheck();
   const memberPublicId = show ? data?.data?.data?.publicId : null;
   const {
@@ -31,6 +33,10 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
       {
         onSuccess: () => {
           setShow(false);
+          success(
+            "문의가 접수되었습니다.",
+            "문의내역은 마이페이지에서 확인 가능합니다."
+          );
         },
       }
     );
@@ -41,9 +47,13 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
   const buttonStyle =
     "w-[160px] min-h-[48px] rounded-[5px] text-[16px] leading-[16px] font-[700]";
   return (
-    <div className="fixed inset-0 bg-[#000000B2] bg-opacity-70 flex items-center justify-center z-50">
+    <div
+      className="fixed inset-0 bg-[#000000B2] bg-opacity-70 flex items-center justify-center z-50 mt-0"
+      onClick={() => setShow(false)}
+    >
       <form
-        className="flex flex-col bg-[#FFFFFF] w-[548px] min-h-[520px] rounded-[10px] py-[40px] px-[15px] shadow-lg"
+        className="flex flex-col bg-[#FFFFFF] w-[548px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg text-[#000000]"
+        onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit(onSubmit)}
       >
         <h1 className="text-center text-[24px] font-[700] leading-[38px] mb-[24px]">
@@ -88,7 +98,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
         <div className="flex justify-center gap-[8px] mt-[24px]">
           <button
             type="button"
-            className={`${buttonStyle} border-[#DBDBDB] border-[1px]`}
+            className={`${buttonStyle} border-[#DBDBDB] border-[1px] text-gray7`}
             onClick={() => setShow(false)}
           >
             취소
