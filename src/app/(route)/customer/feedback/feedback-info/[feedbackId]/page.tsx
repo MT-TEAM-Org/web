@@ -85,7 +85,9 @@ const Page = () => {
         <FeedbackInfoSkeleton />
       ) : (
         <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
-          {adminChecker === "ADMIN" && <StatusSaver id={infoId} />}
+          {adminChecker === "ADMIN" && (
+            <StatusSaver id={infoId} status={feedbackInfoData?.status} />
+          )}
           <div className="w-full h-[96px] flex gap-2 flex-col">
             <div>
               {(adminChecker !== "ADMIN" || adminChecker === undefined) &&

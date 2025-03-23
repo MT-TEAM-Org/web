@@ -1,6 +1,6 @@
 import { useToast } from "@/_hooks/useToast";
 import postFeedbackStatus from "@/services/customer/postFeedbackStatus";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 interface usePostFeedbackStatus {
@@ -9,12 +9,19 @@ interface usePostFeedbackStatus {
 
 const usePostFeedbackStatus = ({id}: usePostFeedbackStatus) => {
   const toast = useToast();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: () => postFeedbackStatus({id}),
     retry: 1,
     onSuccess: () => {
       toast.success("상태가 변경되었습니다.", "");
+      queryClient.refetchQueries({
+        queryKey: ["feedbackInfo", id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["feedbackInfo", id],
+      });
     },
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {

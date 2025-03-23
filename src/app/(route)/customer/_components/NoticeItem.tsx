@@ -35,7 +35,7 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
         <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex bg-gray1 items-center justify-center">
           <p className="font-bold text-[14px] leading-5">{noticeData?.id}</p>
         </div>
-        <div className="w-[56px] h-[42px] rounded-[5px] bg-gray1">
+        <div className="w-[56px] h-[42px] rounded-[5px] bg-gray1 overflow-hidden">
           <Image
             src={noticeData?.thumbnail || "/Preview_loading_image.png"}
             alt="img"
