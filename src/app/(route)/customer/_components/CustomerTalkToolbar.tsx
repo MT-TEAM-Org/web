@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { NoticePageInfoType } from "@/app/_constants/customer/NoticeItemType";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Pagination from "../../mypage/_components/Pagination";
@@ -18,7 +18,7 @@ interface ToolbarProps {
   adminChecker?: "USER" | "ADMIN" | undefined;
 }
 
-const CustomerTalkToolbar = ({
+const CustomerTalkToolbarContent = ({
   showOptions = true,
   paginationData,
   adminChecker,
@@ -27,7 +27,7 @@ const CustomerTalkToolbar = ({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const [searchType, setSearchType] = useState(
-    searchParams.get("search_type") || "TITLE_CONTENT"
+    searchParams.get("search_type") || "TITLE rubCONTENT"
   );
   const searchOptions = POST_SEARCH_OPTIONS;
 
@@ -91,10 +91,9 @@ const CustomerTalkToolbar = ({
     );
 
   return (
-    <div className="rounded-[5px]">
+    <div className="rounded-[5px] bg-white">
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-[#FFFFFF] ">
         {toolbarContent}
-
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
           <SearchFilter
             searchType={searchType}
@@ -115,13 +114,20 @@ const CustomerTalkToolbar = ({
             />
           )}
         </div>
-
         <Pagination
           pageInfo={paginationData}
           onPageChangeAction={handlePageChange}
         />
       </div>
     </div>
+  );
+};
+
+const CustomerTalkToolbar = (props: ToolbarProps) => {
+  return (
+    <Suspense fallback={""}>
+      <CustomerTalkToolbarContent {...props} />
+    </Suspense>
   );
 };
 

@@ -13,7 +13,7 @@ import CustomerTiptap from "../../_components/CustomerTiptap";
 
 const Page = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={""}>
       <CustomerWrite />
     </Suspense>
   );

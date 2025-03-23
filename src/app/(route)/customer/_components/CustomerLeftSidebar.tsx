@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ModalPopup from "@/app/_components/ModalPopup";
 
@@ -9,7 +9,6 @@ const CustomerLeftSidebar = () => {
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
   const [show, setShow] = useState(false);
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (show) {
