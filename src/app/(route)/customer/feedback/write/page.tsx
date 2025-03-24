@@ -129,7 +129,6 @@ const FeedbackWrite = () => {
     }
   };
 
-  // 중복된 ol 항목을 객체 배열로 정리
   const noticeRules = [
     "허용 확장자 (jpg, jpeg, png,webp,heic, mp4,mov,webm,gif) 총 15개 까지, 파일당 50MB 까지 업로드 가능합니다.",
     "50MB보다 더 큰 용량의 영상물은 유튜브 링크 첨부시 재생이 가능합니다.",

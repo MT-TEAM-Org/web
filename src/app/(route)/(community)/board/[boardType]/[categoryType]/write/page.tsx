@@ -14,10 +14,16 @@ export default function WritePage({
   const category = boardType.toUpperCase();
   const subCategory = categoryType || "ALL";
 
+  const modalId = `write-guide-global`;
+
   return (
     <div className="flex justify-center bg-white">
       <div className="max-w-[720px] w-full min-h-[120px] rounded-[5px] bg-[#FFFFFF] mx-auto">
-        <Write category={category} subCategory={subCategory} />
+        <Write
+          category={category}
+          subCategory={subCategory}
+          modalId={modalId}
+        />
       </div>
     </div>
   );
