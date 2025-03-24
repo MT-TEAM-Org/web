@@ -431,19 +431,6 @@ const Tiptap = ({
         </button>
         <button
           onClick={() => {
-            const html = editor?.getHTML() || "";
-            const match = html.match(/data:image\/[a-z]+;base64,[^\"]+/);
-
-            if (match) {
-              const base64String = match[0];
-              const blob = base64ToBlob(base64String);
-              if (blob) {
-                console.log("Blob 변환 성공:", blob);
-              } else {
-                console.error("Blob 변환 실패");
-              }
-            }
-
             if (onSubmit) onSubmit();
           }}
           className="w-[120px] h-[40px] bg-[#00ADEE] text-[white] rounded-[5px]"
