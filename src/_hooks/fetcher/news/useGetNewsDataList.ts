@@ -1,22 +1,34 @@
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import fetchNewsDataList from "@/services/news/fetchNewsDataList";
-import { useQuery } from "@tanstack/react-query";
+import { NewsItemType } from "@/app/_constants/newsItemType";
 
 interface NewsDataProps {
   page?: string;
+  size?: number;
+  timePeriod?: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
+  category?: string;
+  orderType?: "DATE" | "COMMENT" | "VIEW";
+  content?: string;
+  withPageInfo?: boolean;
 }
 
-const useGetNewsDataList = ({ page }: NewsDataProps = {}) => {
-  const currentPage = Number(page || 1);
+interface NewsListWithPageInfo {
+  content: NewsItemType[];
+  pageInfo: {
+    currentPage: number;
+    totalPage: number;
+    totalElements: number;
+  };
+}
 
+type NewsDataReturnType = NewsListWithPageInfo | NewsItemType[];
+
+const useGetNewsDataList = (
+  params: NewsDataProps = {}
+): UseQueryResult<NewsDataReturnType> => {
   return useQuery({
-    queryKey: ["newsDataList", currentPage],
-    queryFn: () =>
-      fetchNewsDataList({
-        page: String(currentPage),
-        startIndex: (currentPage - 1) * 5,
-        size: 4,
-        withPageInfo: false,
-      }),
+    queryKey: ["newsDataList", params],
+    queryFn: () => fetchNewsDataList(params),
     retry: 1,
   });
 };

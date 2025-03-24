@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,15 +7,20 @@ import MainBigSizeNewsSkeleton from "./MainBigSizeNewsSkeleton";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 
 const MainBigSizeNews = () => {
-  const { data, isLoading } = useGetNewsDataList();
-  const mainPageData = data ? data[0] : null;
+  const { data, isLoading } = useGetNewsDataList({
+    page: "1",
+    orderType: "VIEW",
+    size: 1,
+    timePeriod: "WEEKLY",
+    withPageInfo: false,
+  });
+
+  const mainPageData = data?.[0];
   const updatedImgUrl = updateImageUrl(mainPageData?.thumbImg, "w410");
   const { handleRead } = useReadNews(mainPageData?.id, false);
-
   const categoryPath = mainPageData?.category?.toLowerCase() || "";
 
   if (isLoading) return <MainBigSizeNewsSkeleton />;
-
   return (
     <Link
       href={`/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${

@@ -4,6 +4,7 @@ import { NewsItemType } from "@/app/_constants/newsItemType";
 
 interface NewsDataProps {
   page?: string;
+  isMainPage?: boolean;
 }
 
 interface NewsListWithPageInfo {
@@ -15,15 +16,20 @@ interface NewsListWithPageInfo {
   };
 }
 
-const useGetMainRightBarNewsData = ({ page }: NewsDataProps = {}) => {
+const useGetMainRightBarNewsData = ({
+  page = "1",
+  isMainPage = false,
+}: NewsDataProps = {}) => {
+  const currentPage = Number(page);
+
   return useQuery<NewsListWithPageInfo>({
-    queryKey: ["mainRightBarNewsDataList", page],
+    queryKey: ["mainRightBarNewsDataList", currentPage, isMainPage],
     queryFn: () =>
       fetchNewsDataList({
-        page,
-        startIndex: Number(page) === 1 ? 4 : (Number(page) - 1) * 5 + 4,
+        page: String(currentPage),
         size: 5,
         withPageInfo: true,
+        timePeriod: "WEEKLY",
       }),
     retry: 1,
   });

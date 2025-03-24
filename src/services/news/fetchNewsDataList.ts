@@ -2,39 +2,47 @@ import axios from "axios";
 
 interface NewsDataProps {
   page?: string;
-  startIndex?: number;
   size?: number;
+  timePeriod?: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
+  category?: string;
+  orderType?: "DATE" | "COMMENT" | "VIEW";
+  content?: string;
   withPageInfo?: boolean;
 }
 
 const fetchNewsDataList = async ({
   page = "1",
-  startIndex = 0,
   size = 5,
   withPageInfo = false,
+  timePeriod = "WEEKLY",
+  category = "",
+  orderType = "DATE",
+  content,
 }: NewsDataProps = {}) => {
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}api/news`,
     {
       params: {
-        category: "",
-        orderType: "DATE",
+        category,
+        orderType,
         page,
-        size: 20,
+        size,
+        timePeriod,
+        content,
       },
     }
   );
 
   const list = response.data?.data?.list;
-
+  console.log(list, "전체데이터");
   if (withPageInfo) {
     return {
-      content: list?.content?.slice(startIndex, startIndex + size) ?? [],
+      content: list?.content ?? [],
       pageInfo: list?.pageInfo ?? null,
     };
   }
 
-  return list?.content?.slice(startIndex, startIndex + size) ?? [];
+  return list?.content ?? [];
 };
 
 export default fetchNewsDataList;
