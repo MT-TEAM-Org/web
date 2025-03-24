@@ -4,8 +4,7 @@
 
 @font-face {
   font-family: "SUIT-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2")
-    format("woff2");
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -29,6 +28,7 @@ input[type="number"] {
 .defaultButtonColor {
   background-color: #00adee;
 }
+
 .defaultButtonColor:hover {
   background-color: #009ad4;
 }
@@ -48,6 +48,7 @@ textarea:focus {
 
 .tiptap {
   min-height: 415px;
+
   :first-child {
     margin-top: 0;
   }
@@ -91,6 +92,7 @@ textarea:focus {
   :first-child {
     margin-top: 0;
   }
+
   /* list 스타일 */
 
   ul,
@@ -103,6 +105,7 @@ textarea:focus {
     list-style: decimal;
   }
 }
+
 /* 인용구에 스타일 */
 blockquote {
   border-left: 4px solid #ccc;
@@ -151,6 +154,7 @@ button {
   border-right: 5px solid transparent;
   border-bottom: 5px solid #333;
 }
+
 /* 툴바 스타일 */
 .toolbar {
   display: flex;
@@ -181,11 +185,13 @@ button {
 .ProseMirror {
   color: selectedColor !important;
 }
+
 .toolbar .divider {
   width: 1px;
   height: 24px;
   background-color: #ccc;
 }
+
 .ProseMirror p.is-editor-empty:first-child::before {
   color: #424242;
   font-weight: 500;
@@ -193,6 +199,7 @@ button {
   line-height: 22px;
   text-align: left;
 }
+
 .ProseMirror img {
   display: block;
   margin-left: auto;
