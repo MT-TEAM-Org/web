@@ -15,6 +15,12 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const [isDropDown, setIsDropDown] = useState(false);
+  const userRole =
+    queryClient.getQueryData<{
+      data: { data: { role: string } };
+    }>(["authCheck"])?.data?.data?.role === "USER"
+      ? "나의 문의내역"
+      : "문의내역";
 
   const fetchLogout = async () => {
     const response = await api.post(
@@ -55,7 +61,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
       link: "/mypage/edit-profile",
     },
     {
-      name: "나의 문의내역",
+      name: userRole,
       link: "/mypage/inquiries",
     },
     {
