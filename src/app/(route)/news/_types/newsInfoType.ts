@@ -7,4 +7,6 @@ export interface NewsInfoDataType {
   commentCount: number;
   recommendCount: number;
   viewCount: number;
+  nextId: number;
+  previousId: number;
 }

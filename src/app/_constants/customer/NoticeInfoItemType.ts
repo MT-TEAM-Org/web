@@ -13,4 +13,6 @@ export interface NoticeInfoItemType {
   modifiedAt: string;
   isRecommended: boolean;
   link: string;
+  nextId: number;
+  previousId: number;
 }
