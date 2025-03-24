@@ -2,7 +2,7 @@ import React from "react";
 import HotPostItem from "./hotPostItem";
 import useGetHotPost from "@/_hooks/fetcher/main/useGetHotPost";
 
-const hotPost = () => {
+const HotPost = () => {
   const { data: response } = useGetHotPost();
   const hotPosts = response?.data || [];
 
@@ -23,4 +23,4 @@ const hotPost = () => {
   );
 };
 
-export default hotPost;
+export default HotPost;

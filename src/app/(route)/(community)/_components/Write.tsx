@@ -127,7 +127,7 @@ export function Write({ category, subCategory, modalId }: WriteProps) {
     const matches = content.match(/data:image\/[a-z]+;base64,[^\"]+/g);
 
     if (matches) {
-      for (let base64String of matches) {
+      for (const base64String of matches) {
         try {
           const blob = base64ToBlob(base64String);
           if (!blob) continue;
