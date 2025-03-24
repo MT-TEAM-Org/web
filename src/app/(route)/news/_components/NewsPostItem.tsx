@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
 import useTimeAgo from "@/utils/useTimeAgo";
-import ChangedCategory from "@/utils/newsUtils/changedCategory";
-import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
+import ChangedCategory from "@/app/(route)/news/_utils/changedCategory";
+import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 
 interface NewsPostItemProps {

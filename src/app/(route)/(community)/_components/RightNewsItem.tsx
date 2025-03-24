@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
 import { usePathname } from "next/navigation";
-import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
+import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 
 interface NewsItemProps {

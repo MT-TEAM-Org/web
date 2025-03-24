@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
-import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
+import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import {
   NewsListDataType,
   NewsListType,
