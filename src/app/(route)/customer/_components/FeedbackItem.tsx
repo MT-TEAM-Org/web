@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
+import FeedbackItemStatus from "./FeedbackItemStatus";
 
 interface FeedbackItemProps {
   feedbackData: FeedbackContentType;
@@ -13,12 +14,6 @@ interface FeedbackItemProps {
 const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
   const [isNew, setIsNew] = useState(false);
   const timeAgo = useTimeAgo(feedbackData?.createdAt);
-
-  const statusContent = {
-    PENDING: null,
-    RECEIVED: <p>접수 완료</p>,
-    COMPLETED: <p className="text-gra">개선 완료</p>,
-  };
 
   useEffect(() => {
     if (feedbackData?.createdAt) {
@@ -32,22 +27,21 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
 
   return (
     <Link href={`/customer/feedback/feedback-info/${feedbackData?.id}`}>
-      <div className="w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer hover:bg-[#F8FDFF]">
+      <div className="w-full h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer hover:bg-[#F8FDFF]">
         <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">
           <p className="font-bold text-[14px] leading-5">{feedbackData?.id}</p>
         </div>
-        <Image
-          src={
-            feedbackData?.thumbnail
-              ? feedbackData?.thumbnail
-              : "/Empty_news.png"
-          }
-          alt="img"
-          width={56}
-          height={42}
-          className="w-[56px] h-[42px] rounded-[5px] flex gap-[10px] bg-gray1 object-cover"
-        />
-        <div className="w-full min-h-[42px] flex gap-1 flex-col">
+        <div className="w-[56px] h-[42px] rounded-[5px] bg-gray1 overflow-hidden">
+          <Image
+            src={feedbackData?.thumbnail || "/Preview_loading_image.png"}
+            alt="img"
+            width={56}
+            height={42}
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        <div className="min-w-[503px] min-h-[42px] flex gap-1 flex-col">
           <div className="w-full min-h-[20px] flex gap-[2px] items-center">
             <p className="text-[14px] leading-5 text-gray7">
               {feedbackData?.title}
@@ -73,9 +67,7 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
             <p>{feedbackData?.createdIp}</p>
           </div>
         </div>
-        <div className="min-w-[69px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px] bg-bg0 font-bold text-[14px] leading-5">
-          {statusContent[feedbackData?.status] || null}
-        </div>
+        <FeedbackItemStatus status={feedbackData?.status} />
       </div>
     </Link>
   );
