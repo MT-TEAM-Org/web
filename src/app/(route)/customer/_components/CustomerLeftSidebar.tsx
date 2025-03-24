@@ -30,17 +30,22 @@ const CustomerLeftSidebar = () => {
   ];
 
   const isCurrentPath = (boardPath: string) => {
-    const pathParts = pathname.split("/");
-    const currentCategory = pathParts.includes("ALL") ? "" : pathParts[2] || "";
     const boardCategory = boardPath.split("/")[2] || "";
 
-    return currentCategory === boardCategory;
+    if (boardCategory === "") {
+      return (
+        pathname === `/${basePath}` ||
+        pathname.startsWith(`/${basePath}/notice`)
+      );
+    } else {
+      return pathname === boardPath || pathname.startsWith(`${boardPath}/`);
+    }
   };
 
   const currentPathStyle = "font-bold text-gra bg-bg0";
   const defaultStyle = "font-[400] text-gray7 bg-white";
   return (
-    <div className="w-[160px] h-[260px]">
+    <div className="w-[160px]">
       <div className="w-full bg-white">
         {boardList.map((board) => (
           <Link key={board.id} href={board.path}>

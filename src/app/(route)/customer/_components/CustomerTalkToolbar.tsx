@@ -1,74 +1,75 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
-import Arrow_down from "@/app/_components/icon/Arrow_down";
-import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
-import Mini_logo from "@/app/_components/icon/Mini_logo";
-import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
-import Small_Search from "@/app/_components/icon/Small_Search";
+import { Suspense, useState } from "react";
 import { NoticePageInfoType } from "@/app/_constants/customer/NoticeItemType";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Pagination from "../../mypage/_components/Pagination";
 import changeURLParams from "../../mypage/util/changeURLParams";
 import React from "react";
 import Link from "next/link";
-
-interface DropdownOption {
-  label: string;
-  value: string;
-}
+import SearchFilter from "../../mypage/_components/SearchFilter";
+import OrderButtons from "../../mypage/_components/OrderButtons";
+import { feedbackListConfig } from "../_types/feedbackListConfig";
+import { POST_SEARCH_OPTIONS } from "../../mypage/_constants/toolbarObject";
 
 interface ToolbarProps {
   showOptions?: boolean;
   paginationData?: NoticePageInfoType;
-  onPageChange?: (page: number) => void;
-  setSearchType?: (value: string) => void;
-  adminChecker?: "USER" | "ADMIN";
+  adminChecker?: "USER" | "ADMIN" | undefined;
 }
 
-const CustomerTalkToolbar = ({
+const CustomerTalkToolbarContent = ({
   showOptions = true,
   paginationData,
-  onPageChange,
-  setSearchType,
   adminChecker,
 }: ToolbarProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const selectRef = useRef<HTMLSelectElement>(null);
-  const [inputValue, setInputValue] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const pathname = usePathname();
+  const [searchType, setSearchType] = useState(
+    searchParams.get("search_type") || "TITLE rubCONTENT"
+  );
+  const searchOptions = POST_SEARCH_OPTIONS;
 
-  const options: DropdownOption[] = [
-    { label: "제목+내용", value: "both" },
-    { label: "제목", value: "title" },
-    { label: "내용", value: "content" },
-    { label: "댓글", value: "comment" },
-    { label: "작성자", value: "writer" },
-  ];
-
-  const handleDivClick = () => {
-    if (selectRef.current) {
-      selectRef.current.focus();
-      selectRef.current.click();
-    }
-  };
-
-  const handleSearch = (e?: FormEvent) => {
-    if (e) e.preventDefault();
-    setSearchType(inputValue);
-    console.log("검색기능");
+  const paramsConfig = {
+    orderType: searchParams.get("order_type") || "CREATE",
+    search: searchParams.get("search") || "",
+    page: searchParams.get("page") || 1,
   };
 
   const handlePageChange = (page: number) => {
-    if (page < 1 || page > paginationData.totalPage) return;
-    router.push(changeURLParams(searchParams, "page", page.toString()), {
+    if (paginationData && paginationData.totalPage) {
+      if (page < 1 || page > paginationData.totalPage) return;
+
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", page.toString());
+      router.push(`${pathname}?${params.toString()}`);
+    }
+  };
+
+  const handleSearchTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchType(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const inputValue = (e.target as HTMLFormElement)[0] as HTMLInputElement;
+    if (inputValue.value.trim() === "") return;
+    router.push(
+      changeURLParams(searchParams, "search", inputValue.value, searchType),
+      {
+        scroll: false,
+      }
+    );
+  };
+
+  const handleOrderButtonClick = (
+    orderType: feedbackListConfig["orderType"]
+  ) => {
+    router.push(changeURLParams(searchParams, "order_type", orderType), {
       scroll: false,
     });
   };
-
-  const buttonStyle =
-    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
 
   const writeButton = (href: string) => (
     <Link href={href}>
@@ -90,70 +91,43 @@ const CustomerTalkToolbar = ({
     );
 
   return (
-    <div className="rounded-[5px]">
+    <div className="rounded-[5px] bg-white">
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-[#FFFFFF] ">
         {toolbarContent}
-
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
-          <div className="relative" onClick={handleDivClick}>
-            <select
-              className="appearance-none w-[120px] h-[40px] rounded-[5px] px-[12px] border text-[14px] leading-[22px] cursor-pointer [&>option]:h-[40px] [&>option]:px-[12px] [&>option]:py-[16px]"
-              ref={selectRef}
-            >
-              {options.map((option) => (
-                <option
-                  key={option.value}
-                  value={option.value}
-                  className="h-[40px] px-[12px] py-[16px]"
-                >
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            <div className="absolute top-2 right-2 pointer-events-none">
-              <Arrow_down />
-            </div>
-          </div>
-          <form className="relative" onSubmit={handleSearch}>
-            <input
-              type="text"
-              className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
-              placeholder="검색어를 입력해주세요."
-              onChange={(e) => setInputValue(e.target.value)}
-              value={inputValue}
-            />
-            <button
-              className="absolute top-2 left-[12px]"
-              onClick={handleSearch}
-            >
-              <Small_Search />
-            </button>
-          </form>
+          <SearchFilter
+            searchType={searchType}
+            searchOptions={searchOptions}
+            onSearchTypeChange={handleSearchTypeChange}
+            onSubmit={handleSubmit}
+          />
         </div>
       </div>
       <div className="flex justify-between items-center p-[12px]">
         <div className="flex w-full items-center gap-[4px]">
-          {showOptions ? (
-            <>
-              <button className={`${buttonStyle} font-[700]`}>
-                <Blue_outline_logo />
-                최신순
-              </button>
-              <button className={buttonStyle}>
-                <Red_outline_logo />
-                인기순
-              </button>
-              <button className={buttonStyle}>
-                <Mini_logo />
-                댓글 많은 순
-              </button>
-            </>
-          ) : null}
+          {showOptions && (
+            <OrderButtons
+              orderType={
+                paramsConfig.orderType as feedbackListConfig["orderType"]
+              }
+              onOrderType={handleOrderButtonClick}
+            />
+          )}
         </div>
-
-        <Pagination pageInfo={paginationData} onPageChange={handlePageChange} />
+        <Pagination
+          pageInfo={paginationData}
+          onPageChangeAction={handlePageChange}
+        />
       </div>
     </div>
+  );
+};
+
+const CustomerTalkToolbar = (props: ToolbarProps) => {
+  return (
+    <Suspense fallback={""}>
+      <CustomerTalkToolbarContent {...props} />
+    </Suspense>
   );
 };
 
