@@ -2,7 +2,7 @@ import { noticeListConfig } from "@/app/(route)/customer/_types/noticeListConfig
 import getNoticeDataList from "@/services/customer/getNoticeDataList";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-const useGetNoticeDataList = (data: noticeListConfig) => {
+const useGetNoticeDataList = (data?: noticeListConfig) => {
   return useQuery({
     queryKey: ["noticeList", data],
     queryFn: () => getNoticeDataList(data),
