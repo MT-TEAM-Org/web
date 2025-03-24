@@ -3,10 +3,12 @@ import axios from "axios";
 export type GetHotContentItem = {
   rank: number;
   boardType: string;
+  categoryType: string;
   id: number;
   title: string;
   commentCount: number;
   isHot: boolean;
+  isImage: boolean;
 };
 
 const getHotContent = async () => {

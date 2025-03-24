@@ -1,10 +1,13 @@
 import React from "react";
 import Gallery_icon from "@/app/_components/icon/Gallery_icon";
 import { getKoreanBoardType } from "@/utils/boardType/boardTypeKorean";
+import { GetHotContentItem } from "@/services/main/getHotContent";
+import ICONS from "@/app/_components/IconComponents/constants";
+import CustomIcon from "@/app/_components/IconComponents/Icon";
 
 interface HotPostItemProps {
   number: number;
-  hotPosts: any;
+  hotPosts: GetHotContentItem;
 }
 
 const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
@@ -23,7 +26,9 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
             {hotPosts?.title}
           </span>
           <div className="w-[14px] h-[14px] object-cover">
-            <Gallery_icon />
+            {hotPosts?.isImage && (
+              <CustomIcon icon="ISPHOTO_ICON" className="text-white" />
+            )}
           </div>
         </div>
 
