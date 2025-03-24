@@ -2,8 +2,8 @@ import React from "react";
 
 const TermsOfService = () => {
   return (
-    <div className="w-[720px] h-auto rounded-[5px] border-b bg-[#FFFFFF] flex flex-col shadow-md">
-      <div className="w-full min-h-[64px] border-b p-4 flex justify-between items-center border-[#EEEEEE] bg-[#F9F9F9]">
+    <div className="w-[720px] h-auto rounded-[5px] border-b bg-[#FFFFFF] flex flex-col shadow-sm mb-10">
+      <div className="w-full min-h-[64px] border-b p-4 flex justify-between items-center border-[#EEEEEE] bg-[#F9F9F9] sticky top-0 z-10">
         <h1 className="font-bold text-[18px] leading-7 text-[#303030]">
           이용약관
         </h1>

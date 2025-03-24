@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
@@ -21,9 +21,19 @@ import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import FeedbackItem from "../../../_components/FeedbackItem";
 import FeedbackItemSkeleton from "../../../_components/FeedbackItemSkeleton";
 import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType";
-import usePostFeedbackStatus from "@/_hooks/fetcher/customer/usePostFeedbackStatus";
+import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
+import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import NoticeItem from "../../../_components/NoticeItem";
 
 const Page = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <FeedbackInfoPage />
+    </Suspense>
+  );
+};
+
+const FeedbackInfoPage = () => {
   const params = useParams();
   const id = params.feedbackId;
   const infoId = Number(id);
@@ -58,10 +68,16 @@ const Page = () => {
     isError,
   } = useGetFeedbackDataList(feedbackOption);
 
+  const { data: noticeListData } = useGetNoticeDataList();
+
+  const slicedNoticeDataList = (noticeListData?.content as NoticeContentType[])
+    ?.sort((a, b) => b.id - a.id)
+    .slice(0, 2);
+
   const infoItems = [
     { label: "조회수", value: feedbackInfoData?.viewCount },
-    { label: "댓글", value: feedbackInfoData?.recommendCount },
-    { label: "추천", value: feedbackInfoData?.commentCount },
+    { label: "댓글", value: feedbackInfoData?.commentCount },
+    { label: "추천", value: feedbackInfoData?.recommendCount },
   ];
 
   const statusBoxClass = "w-[69px] h-[32px] rounded-[2px] px-2 py-[6px] flex";
@@ -78,6 +94,18 @@ const Page = () => {
       </div>
     ),
   };
+
+  const link = feedbackInfoData?.link || "";
+
+  const getYouTubeEmbedUrl = (url: string) => {
+    if (!url) return null;
+    const youtubeRegex =
+      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(youtubeRegex);
+    return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+  };
+
+  const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
 
   return (
     <>
@@ -115,8 +143,8 @@ const Page = () => {
             </div>
           </div>
           <hr />
-          <div className="w-full min-h-aut flex flex-col gap-3">
-            {feedbackInfoData?.imgUrl && (
+          <div className="w-full min-h-auto flex flex-col gap-3">
+            {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
               <Image
                 src={feedbackInfoData?.imgUrl}
                 alt="Feedback img"
@@ -124,14 +152,31 @@ const Page = () => {
                 height={128}
               />
             )}
-            <p className="text-[16px] leading-6 tracking-[-0.02em] text-gray7">
-              {feedbackInfoData?.content}
-            </p>
+            {youtubeEmbedUrl && (
+              <iframe
+                width="100%"
+                height="408"
+                src={youtubeEmbedUrl}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            )}
+            {!youtubeEmbedUrl && (
+              <div className="w-[679px] min-h-[42px]">
+                <div>{feedbackInfoData?.data?.link}</div>
+              </div>
+            )}
+            <div
+              className="text-[16px] leading-6 tracking-[-0.02em] text-gray7"
+              dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
+            />
           </div>
           <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
             <button className="flex items-center text-[14px] justify-center gap-2 min-w-[120px] w-auto h-[40px] px-4 py-[13px] mt-4 bg-[#00ADEE] text-white rounded-[5px]">
               <Single_logo />
-              추천 13
+              추천 {feedbackInfoData?.recommendCount || 0}
             </button>
           </div>
           <PostAction type="community" />
@@ -149,6 +194,17 @@ const Page = () => {
       />
       <div className="w-full h-auto rounded-[5px] shadow-md bg-white">
         <div className="w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+          {isLoading
+            ? Array.from({ length: 2 }).map((_, index) => (
+                <FeedbackItemSkeleton key={index} />
+              ))
+            : slicedNoticeDataList?.map((noticeData) => (
+                <NoticeItem
+                  isFeedback={true}
+                  noticeData={noticeData}
+                  key={noticeData.id}
+                />
+              ))}
           {isLoading ? (
             Array.from({ length: 10 }).map((_, index) => (
               <FeedbackItemSkeleton key={index} />

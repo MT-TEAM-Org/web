@@ -17,11 +17,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       <div className="max-w-[1200px] mx-auto flex gap-4 items-start justify-center">
-        <div className="w-[160px] min-h-[260px] rounded-5px bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] sticky top-[120px]">
+        <div className="w-[160px] min-h-[260px] rounded-5px bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] sticky top-[0]">
           <CustomerLeftSidebar />
         </div>
         <div className="min-h-[calc(100vh-476px)]">{children}</div>
-        <RightSidebarWrapper />
+        <div className="mb-[42px] sticky top-[0]">
+          <RightSidebarWrapper />
+        </div>
       </div>
     </div>
   );
