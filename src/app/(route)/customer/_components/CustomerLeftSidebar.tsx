@@ -30,11 +30,16 @@ const CustomerLeftSidebar = () => {
   ];
 
   const isCurrentPath = (boardPath: string) => {
-    const pathParts = pathname.split("/");
-    const currentCategory = pathParts.includes("ALL") ? "" : pathParts[2] || "";
     const boardCategory = boardPath.split("/")[2] || "";
 
-    return currentCategory === boardCategory;
+    if (boardCategory === "") {
+      return (
+        pathname === `/${basePath}` ||
+        pathname.startsWith(`/${basePath}/notice`)
+      );
+    } else {
+      return pathname === boardPath || pathname.startsWith(`${boardPath}/`);
+    }
   };
 
   const currentPathStyle = "font-bold text-gra bg-bg0";

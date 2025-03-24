@@ -2,21 +2,27 @@ import { useToast } from "@/_hooks/useToast";
 import postNotice from "@/services/customer/postNotice";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { PostCustomerResponse } from "./usePostFeedback";
 
 interface NoticeData {
   title: string;
   content: string;
   imgUrl?: string;
+  link?: string;
+  thumbUrl?: string;
 }
 
 const usePostNotice = () => {
   const toast = useToast();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: (data: NoticeData) => postNotice(data),
     retry: 1,
-    onSuccess: () => {
-      toast.success("공지사항 생성이 완료되었습니다.", "");
+    onSuccess: (response: PostCustomerResponse) => {
+      toast.success("공지사항이 생성되었습니다.", "");
+      router.push(`/customer/notice/notice-info/${response?.data?.noticeId}`);
     },
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {
