@@ -8,24 +8,24 @@ const LeftSidebar = () => {
   const basePath = pathname.split("/")[1];
 
   const boardList = [
-    { name: "전체", id: 0, path: `/${basePath}/all`, category: "all" },
+    { name: "전체", id: 0, path: `/${basePath}/ALL`, category: "ALL" },
     {
       name: "E스포츠",
       id: 1,
-      path: `/${basePath}/esports`,
-      category: "esports",
+      path: `/${basePath}/ESPORTS`,
+      category: "ESPORTS",
     },
     {
       name: "축구",
       id: 2,
-      path: `/${basePath}/football`,
-      category: "football",
+      path: `news?category=FOOTBALL`,
+      category: "FOOTBALL",
     },
     {
       name: "야구",
       id: 3,
-      path: `/${basePath}/baseball`,
-      category: "baseball",
+      path: `/${basePath}/BASEBALL`,
+      category: "BASEBALL",
     },
     {
       name: "개선요청",

@@ -22,21 +22,15 @@ import useGetNewsComment from "@/_hooks/fetcher/news/comment/useGetNewsComment";
 import NewsSendCommentBox from "./_components/NewsSendCommentBox";
 import useGetBestComment from "@/_hooks/fetcher/news/comment/useGetBestComment";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
+import { newsListConfig } from "../../../_types/newsListConfig";
+import { useSearchParams } from "next/navigation";
+
+type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
   const queryClient = useQueryClient();
-
-  const {
-    orderType,
-    setOrderType,
-    timePeriod,
-    setTimePeriod,
-    page,
-    onPageChangeAction,
-    searchType,
-    setSearchType,
-  } = useNewsPageLogic();
+  const searchParams = useSearchParams();
 
   const { data: newsInfoData, isLoading } = useGetNewsInfoData(id);
   const { data: newsBestCommentData } = useGetBestComment(newsInfoData?.id);
@@ -45,12 +39,29 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { mutate: newsAddCommend } = usePatchRecommend();
   const { mutate: newsDeleteRecommend } = useDeleteRecommend();
 
-  const { data: newsListData } = useSortedNewsDataList({
-    orderType,
-    page,
-    timePeriod,
-    searchType,
-  });
+  const changedCategory = (category: string): NewsCategoryType | undefined => {
+    const categoryMap: Record<string, NewsCategoryType> = {
+      esports: "ESPORTS",
+      football: "FOOTBALL",
+      baseball: "BASEBALL",
+    };
+    return categoryMap[category?.toLowerCase()] || "";
+  };
+
+  const category = changedCategory(params.subcategory);
+
+  const newsOption: newsListConfig = {
+    page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
+    size: 20,
+    category: searchParams.get("category") as newsListConfig["category"],
+    orderType: searchParams.get("order_type") as newsListConfig["orderType"],
+    searchType:
+      (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
+    content: searchParams.get("search") || "",
+    timePeriod: searchParams.get("time_period") as newsListConfig["timePeriod"],
+  };
+
+  const { data: newsListData } = useSortedNewsDataList(newsOption);
   const updatedImgUrl = updateImageUrl(newsInfoData?.thumbImg, "w360");
   const sliceNewsListData = newsListData
     ? newsListData?.content?.slice(0, 3)
@@ -146,13 +157,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       )}
 
-      <NewsTalkToolbar
-        setOrderType={setOrderType}
-        setTimeType={setTimePeriod}
-        onPageChangeAction={onPageChangeAction}
-        setSearchType={setSearchType}
-        paginationData={newsListData?.pageInfo}
-      />
+      <NewsTalkToolbar newsType={category} pageInfo={newsListData?.pageInfo} />
 
       <div className="w-[720px] h-auto rounded-b-[5px] overflow-hidden shadow-md">
         {isLoading ? (

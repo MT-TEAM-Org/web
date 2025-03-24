@@ -37,7 +37,6 @@ export default function NewsPage() {
   // 카테고리 변환 로직
   const changedCategory = (category: string): NewsCategoryType | undefined => {
     const categoryMap: Record<string, NewsCategoryType> = {
-      // all: "ALL",
       esports: "ESPORTS",
       football: "FOOTBALL",
       baseball: "BASEBALL",
@@ -50,12 +49,15 @@ export default function NewsPage() {
   const newsOption: newsListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
     size: 20,
-    category: searchParams.get("category") as NewsCategoryType,
-    orderType: searchParams.get("order_type") as newsListConfig["orderType"],
+    category: (searchParams.get("category") as NewsCategoryType) || "",
+    orderType:
+      (searchParams.get("order_type") as newsListConfig["orderType"]) || "DATE",
     searchType:
       (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
     content: searchParams.get("search") || "",
-    timePeriod: searchParams.get("time_period") as newsListConfig["timePeriod"],
+    timePeriod:
+      (searchParams.get("time_period") as newsListConfig["timePeriod"]) ||
+      "DAILY",
   };
 
   const { data: newsData, isLoading } = useSortedNewsDataList(newsOption);
@@ -64,7 +66,7 @@ export default function NewsPage() {
     <div className="flex justify-center bg-gray1 min-h-[calc(100vh-476px)]">
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
         <div className="sticky top-0 z-10">
-          <NewsTalkToolbar boardType={category} pageInfo={newsData?.pageInfo} />
+          <NewsTalkToolbar newsType={category} pageInfo={newsData?.pageInfo} />
         </div>
         <div className="w-[720px]">
           {isLoading ? (
