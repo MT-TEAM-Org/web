@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import NoticeInfoItem from "./_components/NoticeInfoItem";
 import CustomerTalkToolbar from "../../../_components/CustomerTalkToolbar";
 import NoticeItem from "../../../_components/NoticeItem";
@@ -16,6 +16,14 @@ import { getAdminRole } from "../../../_utils/adminChecker";
 import { useQueryClient } from "@tanstack/react-query";
 
 const Page = () => {
+  return (
+    <Suspense fallback={""}>
+      <NoticeInfoContent />
+    </Suspense>
+  );
+};
+
+const NoticeInfoContent = () => {
   const params = useParams();
   const searchParams = useSearchParams();
   const id = params.noticeInfoId;
