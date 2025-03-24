@@ -72,8 +72,7 @@ const Page = ({
       (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
     content: searchParams.get("search") || "",
     timePeriod:
-      (searchParams.get("timePeriod") as newsListConfig["timePeriod"]) ||
-      "DAILY",
+      (searchParams.get("time") as newsListConfig["timePeriod"]) || "DAILY",
   };
 
   const { data: newsListData } = useSortedNewsDataList(newsOption);

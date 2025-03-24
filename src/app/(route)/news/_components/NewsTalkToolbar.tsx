@@ -37,9 +37,14 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
     if (pageInfo && pageInfo.totalPage) {
       if (page < 1 || page > pageInfo.totalPage) return;
 
+      const scrollPosition = window.scrollY;
+
       const params = new URLSearchParams(searchParams.toString());
       params.set("page", page.toString());
-      router.push(`${pathname}?${params.toString()}`);
+
+      router.push(`${pathname}?${params.toString()}`, {
+        scroll: false,
+      });
     }
   };
 
