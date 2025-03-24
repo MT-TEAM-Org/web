@@ -2,7 +2,7 @@
 
 import { EditorContent, useEditor, useEditorState } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
@@ -95,12 +95,29 @@ const Tiptap = ({
   onSubmit,
 }: TiptapProps) => {
   const router = useRouter();
+  const [processingImage, setProcessingImage] = useState(false);
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [showPlaceholder, setShowPlaceholder] = useState(
     !initialContent || initialContent === "" || initialContent === "<p></p>"
   );
   const { isEditMode } = useEditStore();
+
+  const detectImageAddition = (prevHTML: string, currentHTML: string) => {
+    const prevHasImage = prevHTML.includes("<img");
+    const currentHasImage = currentHTML.includes("<img");
+
+    // 이전에 이미지가 없었는데 현재 이미지가 있으면 이미지 추가됨
+    if (!prevHasImage && currentHasImage) return true;
+
+    // 이미지 태그 개수 비교
+    const prevImageCount = (prevHTML.match(/<img/g) || []).length;
+    const currentImageCount = (currentHTML.match(/<img/g) || []).length;
+
+    return currentImageCount > prevImageCount;
+  };
+
+  const prevHtmlRef = useRef("");
 
   const editor = useEditor({
     extensions: [
@@ -203,50 +220,64 @@ const Tiptap = ({
     onUpdate: async ({ editor }) => {
       const html = editor.getHTML();
       const hasContent = html !== "" && html !== "<p></p>";
-      const hasImage = html.includes("<img");
 
       setShowPlaceholder(false);
 
-      if (hasImage) {
-        try {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, "text/html");
-          const images = doc.getElementsByTagName("img");
+      // 이미지 처리 중에는 추가 업데이트 무시
+      if (processingImage) return;
 
-          let processedHtml = html;
-          let firstImageUrl = null;
+      // 새 이미지 감지
+      if (detectImageAddition(prevHtmlRef.current, html)) {
+        setProcessingImage(true); // 이미지 처리 중 상태 설정
 
-          for (const [index, img] of Array.from(images).entries()) {
-            if (
-              img.src.startsWith("data:image") ||
-              img.src.startsWith("blob:")
-            ) {
-              const response = await fetch(img.src);
-              const blob = await response.blob();
-              const downloadUrl = await onImageUpload(blob);
-              processedHtml = processedHtml.replace(img.src, downloadUrl);
+        // 이미지 처리 로직 실행
+        (async () => {
+          try {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+            const images = doc.getElementsByTagName("img");
+            let processedHtml = html;
+            let firstImageUrl = null;
 
-              if (index === 0) {
-                firstImageUrl = downloadUrl;
+            for (const [index, img] of Array.from(images).entries()) {
+              if (
+                img.src.startsWith("data:image") ||
+                img.src.startsWith("blob:")
+              ) {
+                const response = await fetch(img.src);
+                const blob = await response.blob();
+                const downloadUrl = await onImageUpload(blob);
+                processedHtml = processedHtml.replace(img.src, downloadUrl);
+                console.log("downloadUrl", downloadUrl);
+
+                if (index === 0) {
+                  firstImageUrl = downloadUrl;
+                }
+              } else if (index === 0 && !firstImageUrl) {
+                firstImageUrl = img.src;
               }
-            } else if (index === 0 && !firstImageUrl) {
-              firstImageUrl = img.src;
             }
-          }
 
-          setShowPlaceholder(!hasContent && !hasImage);
-          onChange?.(processedHtml);
+            // 이미지 처리 완료 후 상태 업데이트
+            onChange?.(processedHtml);
+            prevHtmlRef.current = processedHtml;
 
-          if (firstImageUrl) {
-            setValue("thumbnail", firstImageUrl);
+            if (firstImageUrl) {
+              setValue("thumbnail", firstImageUrl);
+            }
+          } catch (error) {
+            console.error("Error:", error);
+          } finally {
+            setProcessingImage(false); // 이미지 처리 상태 해제
           }
-        } catch (error) {
-          console.error("Error:", error);
-        }
+        })();
       } else {
-        setShowPlaceholder(!hasContent && !hasImage);
+        // 이미지 추가가 없는 일반 텍스트 업데이트
+        // 편집 중인 내용을 저장만 하고 API 호출은 하지 않음
+        prevHtmlRef.current = html;
+
+        // 폼 전송 시 사용될 최신 내용 업데이트
         onChange?.(html);
-        setValue("thumbnail", "");
       }
     },
   });
@@ -399,8 +430,20 @@ const Tiptap = ({
           목록
         </button>
         <button
-          type="button"
           onClick={() => {
+            const html = editor?.getHTML() || "";
+            const match = html.match(/data:image\/[a-z]+;base64,[^\"]+/);
+
+            if (match) {
+              const base64String = match[0];
+              const blob = base64ToBlob(base64String);
+              if (blob) {
+                console.log("Blob 변환 성공:", blob);
+              } else {
+                console.error("Blob 변환 실패");
+              }
+            }
+
             if (onSubmit) onSubmit();
           }}
           className="w-[120px] h-[40px] bg-[#00ADEE] text-[white] rounded-[5px]"

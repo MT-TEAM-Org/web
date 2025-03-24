@@ -12,6 +12,10 @@ import Single_logo from "@/app/_components/icon/Single_logo";
 import usePostRecommend from "@/_hooks/fetcher/board/usePostRecommend";
 import useDeleteRecommendPost from "@/_hooks/fetcher/board/useDeleteRecommnedPost";
 import useGetBoardDetail from "@/_hooks/fetcher/board/useGetBoardDetail";
+import {
+  getKoreanBoardType,
+  getKoreanCategoryType,
+} from "@/utils/boardType/boardTypeKorean";
 
 interface BoardDetailProps {
   boardId: string;
@@ -25,28 +29,6 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
   const { mutate: mutateDeletePost } = useDeletePost(boardId);
   const { mutate: mutatePostRecommend } = usePostRecommend({ boardId });
   const { mutate: mutateDeleteRecommend } = useDeleteRecommendPost({ boardId });
-
-  const boardTypeMap: { [key: string]: string } = {
-    FOOTBALL: "축구",
-    BASEBALL: "야구",
-    ESPORTS: "E스포츠",
-  };
-
-  const categoryTypeMap: { [key: string]: string } = {
-    FREE: "자유",
-    QUESTION: "질문",
-    ISSUE: "이슈",
-    VERIFICATION: "리뷰",
-    TIP: "플레이 팁",
-  };
-
-  const getKoreanBoardType = (type: string) => {
-    return boardTypeMap[type] || type;
-  };
-
-  const getKoreanCategoryType = (type: string) => {
-    return categoryTypeMap[type] || type;
-  };
 
   const maskIP = (ip: string) => {
     if (!ip) return "";

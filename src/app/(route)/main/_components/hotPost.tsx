@@ -1,7 +1,13 @@
 import React from "react";
 import HotPostItem from "./hotPostItem";
+import useGetHotPost from "@/_hooks/fetcher/main/useGetHotPost";
 
 const hotPost = () => {
+  const { data: response } = useGetHotPost();
+  const hotPosts = response?.data || [];
+
+  const displayPosts = hotPosts.slice(0, 10);
+
   return (
     <div className="w-full min-h-[392px] flex flex-col gap-2">
       {/* 목 데이터 */}
@@ -9,8 +15,8 @@ const hotPost = () => {
         실시간 HOT 게시글
       </h3>
       <div className="w-full min-h-[360px]">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <HotPostItem key={index} number={index + 1} />
+        {displayPosts.map((post, index) => (
+          <HotPostItem key={post.id} number={index + 1} hotPosts={post} />
         ))}
       </div>
     </div>
