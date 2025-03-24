@@ -3,13 +3,13 @@
 import React from "react";
 import { useSearchParams, useParams } from "next/navigation";
 import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
-import NewsTalkToolbar from "../../_components/NewsTalkToolbar";
-import NewsPostItemSkeleton from "../../_components/NewsPostItemSkeleton";
-import NewsPostItem from "../../_components/NewsPostItem";
-import { newsListConfig } from "../../_types/newsListConfig";
-import EmptyNews from "../../_components/EmptyNews";
+import NewsTalkToolbar from "../_components/NewsTalkToolbar";
+import NewsPostItemSkeleton from "../_components/NewsPostItemSkeleton";
+import NewsPostItem from "../_components/NewsPostItem";
+import { newsListConfig } from "../_types/newsListConfig";
+import EmptyNews from "../_components/EmptyNews";
 
-type NewsCategoryType = "ESPORTS" | "FOOTBALL" | "BASEBALL";
+type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
 interface NewsItemType {
   id: number;
@@ -32,15 +32,17 @@ export default function NewsPage() {
   const currentPage = searchParams.get("page") || "1";
   const searchQuery = searchParams.get("search");
   const searchType = searchParams.get("search_type");
+  const categoryType = searchParams.get("category");
 
   // 카테고리 변환 로직
   const changedCategory = (category: string): NewsCategoryType | undefined => {
     const categoryMap: Record<string, NewsCategoryType> = {
+      // all: "ALL",
       esports: "ESPORTS",
       football: "FOOTBALL",
       baseball: "BASEBALL",
     };
-    return categoryMap[category.toLowerCase()];
+    return categoryMap[category?.toLowerCase()] || "";
   };
 
   const category = changedCategory(params.subcategory);

@@ -6,7 +6,6 @@ import Single_logo from "@/app/_components/icon/Single_logo";
 import useTimeAgo from "@/utils/useTimeAgo";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import CommentSection from "../../../_components/CommentSection";
-import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
 import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
 import EmptyNews from "../../../_components/EmptyNews";
 import NewsPostItem from "../../../_components/NewsPostItem";
