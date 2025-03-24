@@ -4,8 +4,8 @@ import React from "react";
 import EmptyNews from "./EmptyNews";
 import NewsPostItem from "./NewsPostItem";
 import NewsPostItemSkeleton from "./NewsPostItemSkeleton";
-import { NewsListDataType } from "@/app/_constants/newsListItemType";
-import { NewsListType } from "@/app/_constants/newsListItemType";
+import { NewsListDataType } from "@/app/(route)/news/_types/newsListItemType";
+import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 
 interface NewsListContentProps {
   data: NewsListDataType | undefined;

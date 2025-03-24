@@ -8,7 +8,7 @@ import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
 import {
   NewsListDataType,
   NewsListType,
-} from "@/app/_constants/newsListItemType";
+} from "@/app/(route)/news/_types/newsListItemType";
 
 interface NewsPostItemProps {
   newsItem: NewsListType;

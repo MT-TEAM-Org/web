@@ -9,8 +9,8 @@ import NewsCommentItem from "../[subcategory]/news-detail/[id]/_components/NewsC
 import {
   NewsCommentList,
   NewsCommentResponse,
-} from "@/app/_constants/newsCommentType";
-import { NewsInfoDataType } from "@/app/_constants/newsInfoType";
+} from "@/app/(route)/news/_types/newsCommentType";
+import { NewsInfoDataType } from "@/app/(route)/news/_types/newsInfoType";
 
 type NewsCommentDataType = NewsCommentResponse | NewsCommentList;
 

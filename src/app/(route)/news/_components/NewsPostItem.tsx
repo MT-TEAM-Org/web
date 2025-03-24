@@ -6,7 +6,7 @@ import { useReadNews } from "@/_hooks/useNews/useReadNews";
 import useTimeAgo from "@/utils/useTimeAgo";
 import ChangedCategory from "@/utils/newsUtils/changedCategory";
 import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
-import { NewsListType } from "@/app/_constants/newsListItemType";
+import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 
 interface NewsPostItemProps {
   newsItem: NewsListType;

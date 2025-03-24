@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useReadNews } from "@/_hooks/useNews/useReadNews";
 import { usePathname } from "next/navigation";
 import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
-import { NewsItemType } from "@/app/_constants/newsItemType";
+import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 
 interface NewsItemProps {
   newsItem: NewsItemType;

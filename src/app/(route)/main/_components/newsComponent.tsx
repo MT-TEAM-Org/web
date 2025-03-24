@@ -4,7 +4,7 @@ import React from "react";
 import NewsItemSkeleton from "./NewsItemSkeleton";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import NewsItem from "./newsItem";
-import { NewsListType } from "@/app/_constants/newsListItemType";
+import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 
 const NewsComponent = () => {
   const { data, isLoading } = useGetNewsDataList();

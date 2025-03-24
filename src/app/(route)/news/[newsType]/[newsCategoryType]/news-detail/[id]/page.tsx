@@ -22,7 +22,7 @@ import useDeleteRecommend from "@/_hooks/fetcher/news/useDeleteRecommend";
 import useGetNewsComment from "@/_hooks/fetcher/news/comment/useGetNewsComment";
 import NewsSendCommentBox from "./_components/NewsSendCommentBox";
 import useGetBestComment from "@/_hooks/fetcher/news/comment/useGetBestComment";
-import { NewsListType } from "@/app/_constants/newsListItemType";
+import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
