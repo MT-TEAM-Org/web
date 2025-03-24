@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useSearchParams, useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useSearchParams, useParams, usePathname } from "next/navigation";
 import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 import NewsTalkToolbar from "../_components/NewsTalkToolbar";
 import NewsPostItemSkeleton from "../_components/NewsPostItemSkeleton";
@@ -9,15 +9,26 @@ import NewsPostItem from "../_components/NewsPostItem";
 import { newsListConfig } from "../_types/newsListConfig";
 import EmptyNews from "../_components/EmptyNews";
 import { NewsItemType } from "../_types/newsItemType";
+import { useRouter } from "next/navigation";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
 export default function NewsPage() {
   const params = useParams<{ newsCategoryType: string }>();
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const newsType = pathname.split("/")[2];
 
   const category =
     params.newsCategoryType === "ALL" ? "" : params.newsCategoryType;
+
+  useEffect(() => {
+    const validTypes = ["ALL", "ESPORTS", "FOOTBALL", "BASEBALL"];
+    if (!validTypes.includes(newsType)) {
+      router.push("/404");
+    }
+  }, [newsType, router]);
 
   const orderType = () => {
     const orderTypeParam = searchParams.get("order_type");

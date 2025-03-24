@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use } from "react";
+import React, { use, useEffect } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import useTimeAgo from "@/utils/useTimeAgo";
@@ -23,7 +23,7 @@ import NewsSendCommentBox from "./_components/NewsSendCommentBox";
 import useGetBestComment from "@/_hooks/fetcher/news/comment/useGetBestComment";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { newsListConfig } from "../../../_types/newsListConfig";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -35,6 +35,16 @@ const Page = ({
   const { id, newsCategoryType } = use(params);
   const queryClient = useQueryClient();
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const newsDetailType = pathname.split("/")[2];
+
+  useEffect(() => {
+    const validTypes = ["esports", "football", "baseball"];
+    if (!validTypes.includes(newsDetailType)) {
+      router.push("/404");
+    }
+  }, [newsDetailType, router]);
 
   const { data: newsInfoData, isLoading } = useGetNewsInfoData(id);
   const { data: newsBestCommentData } = useGetBestComment(newsInfoData?.id);
