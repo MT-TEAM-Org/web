@@ -26,8 +26,6 @@ const NewsListContent = ({ data, isLoading }: NewsListContentProps) => {
     );
   }
 
-  console.log("data: ", data);
-
   return (
     <>
       {data?.content?.length === 0 || !data ? (

@@ -2,7 +2,6 @@
 
 import React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 
 const OrderDateButton = () => {
   const router = useRouter();
@@ -23,7 +22,14 @@ const OrderDateButton = () => {
   const handleTimePeriodChange = (
     timePeriod: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"
   ) => {
-    router.push(changeURLParams(searchParams, "time", timePeriod), {
+    const newSearchParams = new URLSearchParams(searchParams);
+
+    newSearchParams.set("time", timePeriod);
+    newSearchParams.set("page", "1");
+
+    const queryString = newSearchParams.toString();
+
+    router.push(`${pathname}?${queryString}`, {
       scroll: false,
     });
   };

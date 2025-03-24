@@ -20,12 +20,21 @@ export default function NewsPage() {
     params.newsCategoryType === "ALL" ? "" : params.newsCategoryType;
 
   const orderType = () => {
-    if (searchParams.get("order_type") === "RECOMMEND") {
+    const orderTypeParam = searchParams.get("order_type");
+
+    if (!orderTypeParam) {
       return "DATE";
-    } else if (searchParams.get("order_type") === "CREATE") {
-      return "VIEW";
-    } else {
-      return "COMMENT";
+    }
+
+    switch (searchParams.get("order_type")) {
+      case "RECOMMEND":
+        return "VIEW";
+      case "CREATE":
+        return "DATE";
+      case "COMMENT":
+        return "COMMENT";
+      default:
+        return "COMMENT";
     }
   };
 
@@ -38,13 +47,10 @@ export default function NewsPage() {
       (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
     content: searchParams.get("search") || "",
     timePeriod:
-      (searchParams.get("time_period") as newsListConfig["timePeriod"]) ||
-      "DAILY",
+      (searchParams.get("time") as newsListConfig["timePeriod"]) || "DAILY",
   };
 
   const { data: newsData, isLoading } = useSortedNewsDataList(newsOption);
-
-  console.log("newsData: ", newsData);
 
   return (
     <div className="flex justify-center bg-gray1 min-h-[calc(100vh-476px)]">

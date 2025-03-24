@@ -43,6 +43,7 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
     }
   };
 
+  // 검색 기능 추가 요청 상태 (현재 제목만 가능)
   const handleSearchTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchType(e.target.value);
   };

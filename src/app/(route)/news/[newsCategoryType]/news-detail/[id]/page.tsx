@@ -72,7 +72,7 @@ const Page = ({
       (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
     content: searchParams.get("search") || "",
     timePeriod:
-      (searchParams.get("time_period") as newsListConfig["timePeriod"]) ||
+      (searchParams.get("timePeriod") as newsListConfig["timePeriod"]) ||
       "DAILY",
   };
 

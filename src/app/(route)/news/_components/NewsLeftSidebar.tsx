@@ -39,8 +39,7 @@ const LeftSidebar = () => {
     const pathParts = pathname.split("/");
 
     if (pathParts.includes("news-detail")) {
-      const currentCategory = pathParts[2] || "";
-      return currentCategory === boardCategory;
+      return pathParts[2].toUpperCase() === boardCategory;
     }
 
     const currentCategory = pathParts[2] || "";
