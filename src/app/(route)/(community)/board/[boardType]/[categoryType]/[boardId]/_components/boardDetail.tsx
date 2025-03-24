@@ -209,9 +209,13 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
       <div className="w-full h-auto flex justify-center">
         <button
           onClick={checkRecommned}
-          className="min-w-[120px] w-auto h-[40px] gap-x-[4px] flex items-center text-[14px] justify-center px-4 py-[13px] bg-primary text-white font-bold rounded-[5px]"
+          className={`min-w-[120px] w-auto h-[40px] gap-x-[4px] flex items-center text-[14px] justify-center px-4 py-[13px] font-bold rounded-[5px] ${
+            boardDetailData?.data?.isRecommended
+              ? "bg-white text-primary border border-primary"
+              : "bg-white text-gray7 border border-gray3"
+          }`}
         >
-          <Single_logo />
+          <Single_logo width="16" height="16" fill="#00ADEE" />
           추천
           <p>{boardDetailData?.data?.recommendCount}</p>
         </button>
