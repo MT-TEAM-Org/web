@@ -12,23 +12,21 @@ import { newsListConfig } from "../_types/newsListConfig";
 import OrderDateButton from "./OrderDateButton";
 
 interface NewsTalkToolbarProps {
-  newsType?: string; // NewsPage에서 전달받은 category 사용 가능
-  pageInfo?: NewsListPageInfoType; // Pagination 데이터
+  newsType?: string;
+  pageInfo?: NewsListPageInfoType;
 }
 
 const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const categoryFromPath = pathname.split("/")[2] || "";
 
-  // 검색 타입 상태 관리 (URL에서 초기값 가져오기)
   const [searchType, setSearchType] = useState(
     searchParams.get("search_type") || "both"
   );
 
   const paramsConfig = {
-    category: categoryFromPath || searchParams.get("category") || "",
+    category: newsType,
     orderType: searchParams.get("order_type") || "DATE",
     timePeriod: searchParams.get("time") || "DAILY",
     content: searchParams.get("content") || "",
@@ -67,21 +65,10 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
     });
   };
 
-  const handleDaySortChange = (
-    value: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"
-  ) => {
-    setActiveBtn(value);
-
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("timePeriod", value);
-
-    router.push(`?${params.toString()}`);
-  };
-
   return (
     <div className="rounded-[5px] bg-white">
-      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-[#FFFFFF]">
-        <OrderDateButton daySortChange={handleDaySortChange} />
+      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white">
+        <OrderDateButton />
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
           <SearchFilter
             searchType={searchType}
@@ -93,7 +80,6 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
       </div>
       <div className="flex justify-between items-center p-[12px]">
         <div className="flex w-full items-center gap-[4px]">
-          {/* 정렬 버튼 */}
           <OrderButtons
             orderType={paramsConfig.orderType as newsListConfig["orderType"]}
             onOrderType={handleOrderButtonClick}

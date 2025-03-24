@@ -27,8 +27,12 @@ import { useSearchParams } from "next/navigation";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
-const Page = ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = use(params);
+const Page = ({
+  params,
+}: {
+  params: Promise<{ newsCategoryType: string; id: string }>;
+}) => {
+  const { id, newsCategoryType } = use(params);
   const queryClient = useQueryClient();
   const searchParams = useSearchParams();
 
@@ -48,17 +52,28 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
     return categoryMap[category?.toLowerCase()] || "";
   };
 
-  const category = changedCategory(params.subcategory);
+  const category = changedCategory(newsCategoryType);
+  const orderType = () => {
+    if (searchParams.get("order_type") === "RECOMMEND") {
+      return "DATE";
+    } else if (searchParams.get("order_type") === "CREATE") {
+      return "VIEW";
+    } else {
+      return "COMMENT";
+    }
+  };
 
   const newsOption: newsListConfig = {
-    page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
+    page: Number(searchParams.get("page")) || 1,
     size: 20,
-    category: searchParams.get("category") as newsListConfig["category"],
-    orderType: searchParams.get("order_type") as newsListConfig["orderType"],
+    category: (category as NewsCategoryType) || "",
+    orderType: orderType() as newsListConfig["orderType"],
     searchType:
       (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
     content: searchParams.get("search") || "",
-    timePeriod: searchParams.get("time_period") as newsListConfig["timePeriod"],
+    timePeriod:
+      (searchParams.get("time_period") as newsListConfig["timePeriod"]) ||
+      "DAILY",
   };
 
   const { data: newsListData } = useSortedNewsDataList(newsOption);
@@ -119,13 +134,15 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
           <hr />
           <div className="w-full h-auto flex flex-col gap-3">
-            <Image
-              src={newsInfoData ? updatedImgUrl : "/Empty_news.png"}
-              alt="News detail img"
-              width={672}
-              height={338}
-              className="object-cover"
-            />
+            {newsInfoData?.thumbImg && (
+              <Image
+                src={newsInfoData ? updatedImgUrl : "/Empty_news.png"}
+                alt="News detail img"
+                width={672}
+                height={338}
+                className="object-cover"
+              />
+            )}
             <p className="font-[500] text-[16px] leading-6 tracking-[-0.02em] text-gray7 overflow-hidden line-clamp-2">
               {newsInfoData?.content}
             </p>
@@ -136,7 +153,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
               onClick={handleNewsCommend}
               className={
                 newsInfoData?.recommend
-                  ? `${recommendButtonBaseStyle} w-[123px] border-[#00ADEE] text-[#00ADEE]`
+                  ? `${recommendButtonBaseStyle} w-[123px] border-gra text-gra`
                   : `${recommendButtonBaseStyle} w-[120px] border-gray3`
               }
             >

@@ -5,12 +5,12 @@ import React, { useRef } from "react";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import EmptyNewsComment from "./EmptyNewsComment";
 import { useQueryClient } from "@tanstack/react-query";
-import NewsCommentItem from "../[subcategory]/news-detail/[id]/_components/NewsCommentItem";
 import {
   NewsCommentList,
   NewsCommentResponse,
 } from "@/app/(route)/news/_types/newsCommentType";
 import { NewsInfoDataType } from "@/app/(route)/news/_types/newsInfoType";
+import NewsCommentItem from "../[newsCategoryType]/news-detail/[id]/_components/NewsCommentItem";
 
 type NewsCommentDataType = NewsCommentResponse | NewsCommentList;
 

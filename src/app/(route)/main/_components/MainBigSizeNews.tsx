@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useReadNews } from "@/_hooks/useNews/useReadNews";
+import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
 import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
 import MainBigSizeNewsSkeleton from "./MainBigSizeNewsSkeleton";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";

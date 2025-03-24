@@ -18,7 +18,7 @@ const LeftSidebar = () => {
     {
       name: "축구",
       id: 2,
-      path: `news?category=FOOTBALL`,
+      path: `/${basePath}/FOOTBALL`,
       category: "FOOTBALL",
     },
     {
@@ -54,7 +54,7 @@ const LeftSidebar = () => {
           <div
             className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
               isCurrentPath(board.category)
-                ? "font-[700] text-[#00ADEE] bg-[#F8FDFF]"
+                ? "font-[700] text-gra bg-bg0"
                 : "font-[400] text-gray7 bg-white"
             }`}
           >

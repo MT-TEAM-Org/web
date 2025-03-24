@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useReadNews } from "@/_hooks/useNews/useReadNews";
+import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
 import { usePathname } from "next/navigation";
 import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
 import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
