@@ -39,6 +39,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
     onSuccess: () => {
       localStorage.removeItem("accessToken");
       queryClient.resetQueries({ queryKey: ["authCheck"] });
+      queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
       router.push("/");
     },
   });
