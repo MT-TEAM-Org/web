@@ -10,6 +10,12 @@ const MypageLeftSidebar = () => {
   const queryClient = useQueryClient();
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
+  const userRole =
+    queryClient.getQueryData<{
+      data: { data: { role: string } };
+    }>(["authCheck"])?.data?.data?.role === "USER"
+      ? "나의 문의내역"
+      : "문의내역";
 
   const fetchLogout = async () => {
     const response = await api.post(
@@ -36,7 +42,11 @@ const MypageLeftSidebar = () => {
     { name: "내가 쓴 게시물", id: 1, path: `/${basePath}/posts` },
     { name: "내가 쓴 댓글", id: 2, path: `/${basePath}/comments` },
     { name: "내 정보 수정", id: 4, path: `/${basePath}/edit-profile` },
-    { name: "나의 문의내역", id: 3, path: `/${basePath}/inquiries` },
+    {
+      name: userRole,
+      id: 3,
+      path: `/${basePath}/inquiries`,
+    },
     { name: "개선요청", id: 5, path: `/customer/feedback` },
     { name: "로그아웃", id: 6, path: `/${basePath}/logout` },
   ];

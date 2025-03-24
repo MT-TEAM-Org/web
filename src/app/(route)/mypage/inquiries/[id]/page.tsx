@@ -10,6 +10,7 @@ import MyPageInquiriesList from "../_components/MyPageInquiriesList";
 import { useInquiryPostIdStore } from "@/utils/Store";
 import MyPageInquirieSendCommentBox from "../_components/MyPageInquirieSendCommentBox";
 import MyPageInquirieComment from "../_components/MyPageInquirieComment";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface InquirieDetailProps {
   id: string;
@@ -33,10 +34,15 @@ const InquirieDetail = ({
   const unwrappedParams = use(params);
   const { id } = unwrappedParams;
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { data, isLoading } = useGetInquiriesDetail(id);
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);
   const { addInquiryPostId, removeInquiryPostId } = useInquiryPostIdStore();
+  const userRole =
+    queryClient.getQueryData<{
+      data: { data: { role: string } };
+    }>(["authCheck"])?.data?.data?.role || "USER";
 
   useEffect(() => {
     if (!id) return;
@@ -90,12 +96,12 @@ const InquirieDetail = ({
     <div className="space-y-[12px]">
       <div className="flex flex-col justify-center gap-[16px] w-[720px] min-h-[497px] rounded-b-[5px] p-[24px] bg-white">
         <h1 className="text-[18px] font-[700] leading-[28px] text-gray8">
-          나의 문의내역 상세
+          {userRole === "ADMIN" ? "문의내역 상세" : "나의 문의내역 상세"}
         </h1>
         <div className="flex justify-between items-center text-[14px] leading-[20px] text-gray6">
           <div className="flex gap-[8px]">
             <span className="font-[700]">마이페이지</span>
-            <span>나의 문의내역</span>
+            <span>{userRole === "ADMIN" ? "문의내역" : "나의 문의내역"}</span>
             <span>1분 전</span>
             <span>
               <span className="font-[700]">댓글</span>{" "}

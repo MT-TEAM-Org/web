@@ -34,9 +34,10 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
     search: searchParams.get("search") || "",
     page: searchParams.get("page") || 1,
   };
-  const userRole = queryClient.getQueryData<{
-    data: { data: { role: string } };
-  }>(["authCheck"])?.data?.data?.role;
+  const userRole =
+    queryClient.getQueryData<{
+      data: { data: { role: string } };
+    }>(["authCheck"])?.data?.data?.role || "USER";
 
   const searchOptions =
     mode === "inquries" ? INQURIES_SEARCH_OPTIONS : POST_SEARCH_OPTIONS;
