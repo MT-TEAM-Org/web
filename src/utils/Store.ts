@@ -95,39 +95,54 @@ const initialState: Toast = {
   message: "",
 };
 
-export const useToastStore = create<ToastStore>((set) => ({
-  toast: initialState,
+export const useToastStore = create<ToastStore>((set) => {
+  let toastTimer: NodeJS.Timeout | null = null;
 
-  showToast: (type, title, message, size = "PC") => {
-    set({
-      toast: {
-        visible: true,
-        type,
-        size,
-        title,
-        message,
-      },
-    });
+  return {
+    toast: initialState,
 
-    setTimeout(() => {
+    showToast: (type, title, message, size = "PC") => {
+      if (toastTimer) {
+        clearTimeout(toastTimer);
+        toastTimer = null;
+      }
+
+      set({
+        toast: {
+          visible: true,
+          type,
+          size,
+          title,
+          message,
+        },
+      });
+
+      toastTimer = setTimeout(() => {
+        set((state) => ({
+          toast: {
+            ...state.toast,
+            visible: false,
+          },
+        }));
+        toastTimer = null;
+      }, 3000);
+    },
+
+    hideToast: () => {
+      if (toastTimer) {
+        clearTimeout(toastTimer);
+        toastTimer = null;
+      }
+
       set((state) => ({
         toast: {
           ...state.toast,
           visible: false,
         },
       }));
-    }, 3000);
-  },
-
-  hideToast: () => {
-    set((state) => ({
-      toast: {
-        ...state.toast,
-        visible: false,
-      },
-    }));
-  },
-}));
+    },
+  };
+});
 
 interface InquiryPostIdState {
   inquiryPostIds: number[];
