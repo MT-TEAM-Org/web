@@ -8,7 +8,7 @@ import { CommunityData } from "@/app/_constants/categories";
 import { useEditStore } from "@/utils/Store";
 import axios from "axios";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface WriteProps {
@@ -28,6 +28,7 @@ interface FormData {
 
 export function Write({ category, subCategory, modalId }: WriteProps) {
   const { isEditMode, boardId, boardData, resetEditState } = useEditStore();
+
   const searchParams = useSearchParams();
   const editParam = searchParams.get("edit");
 
@@ -70,20 +71,17 @@ export function Write({ category, subCategory, modalId }: WriteProps) {
 
   const handleImageUpload = async (blob: Blob) => {
     try {
-      // presigned URL 받아오기
       const response = await getUpload({
         contentType: blob.type,
         fileName: `image-${Date.now()}.${blob.type.split("/")[1]}`,
       });
 
-      // presigned URL로 실제 파일 업로드
       await axios.put(response.data.presignedUrl, blob, {
         headers: {
           "Content-Type": blob.type,
         },
       });
 
-      // 다운로드 URL 반환
       return response.data.downloadUrl;
     } catch (error) {
       console.error("Image upload failed:", error);
@@ -109,7 +107,40 @@ export function Write({ category, subCategory, modalId }: WriteProps) {
     }
   }, [link]);
 
+  const base64ToBlob = (base64: string) => {
+    const parts = base64.split(";base64,");
+    const contentType = parts[0].split(":")[1];
+    const raw = window.atob(parts[1]);
+    const rawLength = raw.length;
+    const uInt8Array = new Uint8Array(rawLength);
+
+    for (let i = 0; i < rawLength; ++i) {
+      uInt8Array[i] = raw.charCodeAt(i);
+    }
+
+    return new Blob([uInt8Array], { type: contentType });
+  };
+
   const onSubmit = async (data: FormData) => {
+    let content = data.content;
+
+    const matches = content.match(/data:image\/[a-z]+;base64,[^\"]+/g);
+
+    if (matches) {
+      for (const base64String of matches) {
+        try {
+          const blob = base64ToBlob(base64String);
+          if (!blob) continue;
+
+          const imageUrl = await handleImageUpload(blob);
+
+          content = content.replace(base64String, imageUrl);
+        } catch (error) {
+          console.error("이미지 업로드 실패:", error);
+        }
+      }
+    }
+
     const thumbnail =
       data.thumbnail || (data.link ? getYoutubeThumbnail(data.link) : "");
 
@@ -119,10 +150,11 @@ export function Write({ category, subCategory, modalId }: WriteProps) {
       boardType: boardType.toLocaleUpperCase(),
       categoryType: currentCategory,
       title: data.title,
-      content: data.content,
+      content,
       link: data.link,
       thumbnail,
     };
+
     if (isEditMode) {
       editPost.mutate({
         data: communityData,
@@ -132,7 +164,6 @@ export function Write({ category, subCategory, modalId }: WriteProps) {
       postContent(communityData);
     }
   };
-
   return (
     <div>
       <WriteModal modalId={modalId} />

@@ -8,7 +8,7 @@ import CustomerTalkToolbar from "../../../_components/CustomerTalkToolbar";
 import EmptyItem from "../../../_components/EmptyItem";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import useGetFeedbackInfoData from "@/_hooks/fetcher/customer/useGetFeedbackInfoData";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import useTimeAgo from "@/utils/useTimeAgo";
 import FeedbackInfoSkeleton from "./_components/FeedbackInfoSkeleton";
 import { useQueryClient } from "@tanstack/react-query";
@@ -41,6 +41,7 @@ const FeedbackInfoPage = () => {
   const adminRole = getAdminRole(queryClient);
   const searchParams = useSearchParams();
   const adminChecker = getAdminRole(queryClient);
+  const pathname = usePathname();
 
   const feedbackOption: feedbackListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
@@ -184,7 +185,11 @@ const FeedbackInfoPage = () => {
             <CommentBar />
             <EmptyComment />
           </div>
-          <PostNavigation />
+          <PostNavigation
+            nextId={feedbackInfoData?.nextId}
+            previousId={feedbackInfoData?.previousId}
+            currentPath={pathname}
+          />
         </div>
       )}
       <CustomerTalkToolbar

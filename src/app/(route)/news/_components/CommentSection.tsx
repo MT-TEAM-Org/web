@@ -5,12 +5,13 @@ import React, { useRef } from "react";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import EmptyNewsComment from "./EmptyNewsComment";
 import { useQueryClient } from "@tanstack/react-query";
-import NewsCommentItem from "../[subcategory]/news-detail/[id]/_components/NewsCommentItem";
 import {
   NewsCommentList,
   NewsCommentResponse,
-} from "@/app/_constants/newsCommentType";
-import { NewsInfoDataType } from "@/app/_constants/newsInfoType";
+} from "@/app/(route)/news/_types/newsCommentType";
+import { NewsInfoDataType } from "@/app/(route)/news/_types/newsInfoType";
+import NewsCommentItem from "../[newsCategoryType]/news-detail/[id]/_components/NewsCommentItem";
+import { usePathname } from "next/navigation";
 
 type NewsCommentDataType = NewsCommentResponse | NewsCommentList;
 
@@ -27,6 +28,7 @@ const CommentSection = ({
 }: CommentSectionProps) => {
   const commentBarRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
+  const pathname = usePathname();
 
   const onHandleToTop = () => {
     if (commentBarRef.current) {
@@ -97,6 +99,7 @@ const CommentSection = ({
         </div>
       </div>
       <PostNavigation
+        currentPath={pathname}
         scrollToCommentBar={onHandleToTop}
         nextId={newsInfoData?.nextId}
         previousId={newsInfoData?.previousId}
