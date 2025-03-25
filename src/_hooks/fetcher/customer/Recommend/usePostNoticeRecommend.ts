@@ -1,3 +1,5 @@
+"use client"
+
 import { useToast } from "@/_hooks/useToast";
 import postNoticeRecommend from "@/services/customer/Recommend/postNoticeRecommend";
 import { useMutation } from "@tanstack/react-query";
@@ -8,7 +10,6 @@ const usePostNoticeRecommend = () => {
   const toast = useToast();
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   
-
   const mutation = useMutation({
     mutationFn: (noticeId: number) => postNoticeRecommend(noticeId),
     retry: 1,

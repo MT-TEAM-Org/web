@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { NoticePageInfoType } from "@/app/_constants/customer/NoticeItemType";
+import { NoticePageInfoType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Pagination from "../../mypage/_components/Pagination";
 import changeURLParams from "../../mypage/util/changeURLParams";

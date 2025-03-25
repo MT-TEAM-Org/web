@@ -1,3 +1,5 @@
+"use client"
+
 import { useToast } from "@/_hooks/useToast";
 import postFeedbackRecommend from "@/services/customer/Recommend/postFeedbackRecommend";
 import { useMutation } from "@tanstack/react-query";
@@ -8,7 +10,6 @@ const usePostFeedbackRecommend = () => {
   const toast = useToast();
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   
-
   const mutation = useMutation({
     mutationFn: (feedbackId: number) => postFeedbackRecommend(feedbackId),
     retry: 1,

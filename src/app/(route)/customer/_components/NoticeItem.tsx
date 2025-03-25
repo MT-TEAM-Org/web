@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 
 interface NoticeItemProps {

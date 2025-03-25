@@ -6,7 +6,7 @@ import NoticeItem from "./_components/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import EmptyItem from "./_components/EmptyItem";
 import NoticeItemSkeleton from "./_components/NoticeItemSkeleton";
-import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { noticeListConfig } from "./_types/noticeListConfig";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import { useSearchParams } from "next/navigation";

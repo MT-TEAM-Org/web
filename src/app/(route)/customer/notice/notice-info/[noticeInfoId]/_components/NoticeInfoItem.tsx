@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
-import { NoticeInfoItemType } from "@/app/_constants/customer/NoticeInfoItemType";
+import { NoticeInfoItemType } from "@/app/(route)/customer/_types/NoticeInfoItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";

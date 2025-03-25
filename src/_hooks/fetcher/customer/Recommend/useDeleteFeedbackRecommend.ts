@@ -7,7 +7,7 @@ const useDeleteFeedbackRecommend = () => {
   const toast = useToast();
 
   return useMutation({
-    mutationFn: (improvementId: number) => deleteFeedbackRecommend(improvementId),
+    mutationFn: (feedbackId: number) => deleteFeedbackRecommend(feedbackId),
     retry: 1,
     onSuccess: () => {
       toast.success("추천이 삭제되었습니다.", "")

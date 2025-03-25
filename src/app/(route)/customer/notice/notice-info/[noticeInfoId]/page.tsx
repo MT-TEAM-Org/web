@@ -6,7 +6,7 @@ import CustomerTalkToolbar from "../../../_components/CustomerTalkToolbar";
 import NoticeItem from "../../../_components/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import NoticeItemSkeleton from "../../../_components/NoticeItemSkeleton";
-import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import useGetNoticeInfoData from "@/_hooks/fetcher/customer/useGetNoticeInfoData";
 import { useParams, useSearchParams } from "next/navigation";
 import NoticeInfoItemSkeleton from "./_components/NoticeInfoItemSkeleton";

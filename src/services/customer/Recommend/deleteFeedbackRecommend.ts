@@ -1,8 +1,8 @@
 import { apiRequest } from "@/services/instant";
 
-const deleteFeedbackRecommend = async (improvementId: number) => {
+const deleteFeedbackRecommend = async (feedbackId: number) => {
   const response = await apiRequest.delete(
-    `api/recommend/improvement/${improvementId}`
+    `api/recommend/improvement/${feedbackId}`
   );
   return response;
 };

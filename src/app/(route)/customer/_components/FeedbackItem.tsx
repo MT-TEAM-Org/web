@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType";
+import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import FeedbackItemStatus from "./FeedbackItemStatus";
 
