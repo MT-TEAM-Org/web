@@ -26,6 +26,7 @@ import NoticeItem from "../../../_components/NoticeItem";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 import usePostFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/usePostFeedbackRecommend";
 import useDeleteFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteFeedbackRecommend";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 
 const Page = () => {
   return (
@@ -61,7 +62,11 @@ const FeedbackInfoPage = () => {
     isLoading: feedbackIsLoading,
     isError: feedbackIsError,
   } = useGetFeedbackInfoData({ id: infoId });
-  const { mutate: feedbackAddRecommend } = usePostFeedbackRecommend();
+  const {
+    mutate: feedbackAddRecommend,
+    isSignInModalOpen,
+    setIsSignInModalOpen,
+  } = usePostFeedbackRecommend();
   const { mutate: feedbackDeleteRecommend } = useDeleteFeedbackRecommend();
 
   const handleFeedbackCommend = () => {
@@ -253,6 +258,10 @@ const FeedbackInfoPage = () => {
             )
           )}
         </div>
+        <SignInModalPopUp
+          isOpen={isSignInModalOpen}
+          onClose={() => setIsSignInModalOpen(false)}
+        />
       </div>
     </>
   );

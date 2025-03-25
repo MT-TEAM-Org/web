@@ -1,8 +1,23 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { Logo } from "./icon/Logo";
+import { createPortal } from "react-dom";
 
 const SignInModalPopUp = ({ isOpen, onClose }) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -14,7 +29,7 @@ const SignInModalPopUp = ({ isOpen, onClose }) => {
   const buttonBaseStyle =
     "w-[160px] h-[48px] rounded-[5px] px-5 py-4 flex gap-[10px] items-center justify-center font-bold text-[16px]";
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleOverlayClick}
@@ -49,7 +64,8 @@ const SignInModalPopUp = ({ isOpen, onClose }) => {
           </Link>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

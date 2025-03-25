@@ -24,6 +24,7 @@ import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { newsListConfig } from "../../../_types/newsListConfig";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -50,7 +51,12 @@ const Page = ({
   const { data: newsBestCommentData } = useGetBestComment(newsInfoData?.id);
   const { data: newsCommentData } = useGetNewsComment(id);
   const formattedTime = useTimeAgo(newsInfoData?.postDate);
-  const { mutate: newsAddCommend } = usePatchRecommend();
+  const {
+    mutate: newsAddCommend,
+    isSignInModalOpen,
+    setIsSignInModalOpen,
+  } = usePatchRecommend();
+
   const { mutate: newsDeleteRecommend } = useDeleteRecommend();
 
   const changedCategory = (category: string): NewsCategoryType | undefined => {
@@ -187,6 +193,10 @@ const Page = ({
       <div className="shadow-md sticky bottom-0">
         <NewsSendCommentBox id={id} />
       </div>
+      <SignInModalPopUp
+        isOpen={isSignInModalOpen}
+        onClose={() => setIsSignInModalOpen(false)}
+      />
     </>
   );
 };

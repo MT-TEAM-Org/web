@@ -11,6 +11,7 @@ import RecommendButton from "@/app/(route)/(community)/_components/RecommendButt
 import { useQueryClient } from "@tanstack/react-query";
 import usePostNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/usePostNoticeRecommend";
 import useDeleteNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteNoticeRecommend";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 
 interface NoticeInfoItemProps {
   data: NoticeInfoItemType;
@@ -22,7 +23,11 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
   const pathname = usePathname();
   const queryClient = useQueryClient();
 
-  const { mutate: noticeAddRecommend } = usePostNoticeRecommend();
+  const {
+    mutate: noticeAddRecommend,
+    isSignInModalOpen,
+    setIsSignInModalOpen,
+  } = usePostNoticeRecommend();
   const { mutate: noticeDeleteRecommend } = useDeleteNoticeRecommend();
 
   const handleFeedbackCommend = () => {
@@ -139,6 +144,10 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
         nextId={data?.nextId}
         previousId={data?.previousId}
         currentPath={pathname}
+      />
+      <SignInModalPopUp
+        isOpen={isSignInModalOpen}
+        onClose={() => setIsSignInModalOpen(false)}
       />
     </div>
   );
