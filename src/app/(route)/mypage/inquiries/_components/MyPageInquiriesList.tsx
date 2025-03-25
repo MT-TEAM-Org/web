@@ -6,6 +6,7 @@ import MyPageInquiriesItem from "./MyPageInquiriesItem";
 import MyPageInquiriesEmpty from "./MyPageInquiriesEmpty";
 import { useSearchParams } from "next/navigation";
 import { InquiriesListConfig, InquiriesListData } from "../_types/inquiries";
+import MypageInquirieSkelton from "./MypageInquirieSkelton";
 
 const MyPageInquiriesList = () => {
   const searchParams = useSearchParams();
@@ -35,6 +36,7 @@ const MyPageInquiriesList = () => {
         ) : (
           <MyPageInquiriesEmpty />
         )}
+        {isLoading && <MypageInquirieSkelton />}
       </div>
     </div>
   );
