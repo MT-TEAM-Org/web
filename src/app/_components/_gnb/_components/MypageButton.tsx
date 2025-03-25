@@ -2,9 +2,10 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProfileLogo } from "../../icon/ProfileLogo";
 import { api } from "@/_hooks/api";
+import ConfirmModal from "../../ConfirmModal";
 
 interface DropDownMenuItem {
   name: string;
@@ -21,6 +22,16 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
     }>(["authCheck"])?.data?.data?.role === "USER"
       ? "나의 문의내역"
       : "문의내역";
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "auto";
+      };
+    }
+  }, [show]);
 
   const fetchLogout = async () => {
     const response = await api.post(
@@ -74,18 +85,26 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
   const handleClickMenu = (item: DropDownMenuItem) => {
     const { name, link } = item;
     if (name === "로그아웃") {
-      logout(undefined, {
-        onSuccess: () => {
-          localStorage.removeItem("accessToken");
-          queryClient.invalidateQueries({ queryKey: ["authCheck"] });
-          router.push("/");
-        },
-      });
+      setShow(true);
     } else {
       if (link) {
         router.push(link);
       }
     }
+  };
+
+  const onClose = () => setShow(false);
+
+  const onConfirm = () => {
+    logout(undefined, {
+      onSuccess: () => {
+        localStorage.removeItem("accessToken");
+        queryClient.invalidateQueries({ queryKey: ["authCheck"] });
+        router.push("/");
+      },
+    });
+    setShow(false);
+    router.push("/");
   };
 
   return (
@@ -120,6 +139,15 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
           ))}
         </ul>
       )}
+      <ConfirmModal
+        show={show}
+        onClose={onClose}
+        title="로그아웃 하시겠습니까?"
+        message="다시 로그인 하셔야합니다."
+        onConfirm={onConfirm}
+        closeText="취소"
+        confirmText="로그아웃"
+      />
     </div>
   );
 };
