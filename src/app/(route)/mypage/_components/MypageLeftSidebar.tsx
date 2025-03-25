@@ -15,9 +15,7 @@ const MypageLeftSidebar = () => {
   const userRole =
     queryClient.getQueryData<{
       data: { data: { role: string } };
-    }>(["authCheck"])?.data?.data?.role === "USER"
-      ? "나의 문의내역"
-      : "문의내역";
+    }>(["authCheck"])?.data?.data?.role || "USER";
   const [show, setShow] = useState(false);
   const { mutate: logout, isPending: logoutIsPending } = useLogout();
 
@@ -36,7 +34,7 @@ const MypageLeftSidebar = () => {
     { name: "내가 쓴 댓글", id: 2, path: `/${basePath}/comments` },
     { name: "내 정보 수정", id: 4, path: `/${basePath}/edit-profile` },
     {
-      name: userRole,
+      name: userRole === "USER" ? "나의 문의내역" : "문의내역",
       id: 3,
       path: `/${basePath}/inquiries`,
     },
