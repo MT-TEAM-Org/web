@@ -55,7 +55,7 @@ const InquirieDetail = ({
       behavior: "smooth",
     });
   };
-  console.log(data?.data);
+
   const onHandleToTop = () => {
     if (comments.current) {
       const navBarHeight = 130; // 네비게이션 바 높이
