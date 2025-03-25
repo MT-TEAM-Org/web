@@ -7,15 +7,11 @@ import useGetBoardData from "@/_hooks/getBoardData";
 import PostItemSkeleton from "../../../_components/PostItemSkelton";
 import { useSearchParams } from "next/navigation";
 
-interface categiotyType {
+interface categorype {
   boardType: string;
   categoryType: string;
 }
-export default function Category({
-  params,
-}: {
-  params: Promise<categiotyType>;
-}) {
+export default function Category({ params }: { params: Promise<categorype> }) {
   const unwrappedParams = use(params);
   const { boardType, categoryType } = unwrappedParams;
 
@@ -23,11 +19,12 @@ export default function Category({
   const currentPage = searchParams.get("page") || "1";
   const searchQuery = searchParams.get("search");
   const searchType = searchParams.get("search_type");
+  const orderType = searchParams.get("orderType") || "CREATE";
 
   const { data: boardData, isLoading } = useGetBoardData({
     boardType: boardType?.toUpperCase(),
     categoryType: categoryType,
-    orderType: "CREATE",
+    orderType: orderType,
     page: Number(currentPage),
     searchType: searchQuery ? searchType : undefined,
     search: searchQuery,

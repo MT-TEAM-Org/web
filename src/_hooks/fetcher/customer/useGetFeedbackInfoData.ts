@@ -7,7 +7,7 @@ interface useGetFeedbackInfoDataProps {
 
 const useGetFeedbackInfoData = ({id}: useGetFeedbackInfoDataProps) => {
   return useQuery({
-    queryKey: ["noticeInfo", id],
+    queryKey: ["feedbackInfo", id],
     queryFn: () => getFeedbackInfoData({id}),
     retry: 1,
   });
