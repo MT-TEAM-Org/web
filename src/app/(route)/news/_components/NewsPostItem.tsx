@@ -7,12 +7,19 @@ import useTimeAgo from "@/utils/useTimeAgo";
 import ChangedCategory from "@/app/(route)/news/_utils/changedCategory";
 import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
+import { highlightText } from "@/utils/searchHighlightText";
 
 interface NewsPostItemProps {
   newsItem: NewsListType;
+  searchType: string;
+  searchString: string;
 }
 
-const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
+const NewsPostItem = ({
+  newsItem,
+  searchType,
+  searchString,
+}: NewsPostItemProps) => {
   const updatedImgUrl = updateImageUrl(newsItem?.thumbImg, "w160");
   const { isRead, handleRead } = useReadNews(newsItem?.id);
   const [isNew, setIsNew] = useState(false);
@@ -52,7 +59,7 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
     >
       <div
         onClick={handleRead}
-        className="min-w-[720px] min-h-[116px] flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-[#F8FDFF]"
+        className="min-w-[720px] min-h-[116px] flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0"
       >
         <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
           <Image
@@ -69,20 +76,28 @@ const NewsPostItem = ({ newsItem }: NewsPostItemProps) => {
         </div>
         <div className="w-[524px] h-auto min-h-[90px] flex flex-col gap-1">
           <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start">
-            <h1 className={styles.title}>{newsItem?.title}</h1>
+            <h1 className={styles.title}>
+              {searchType === "TITLE" || searchType === "TITLE_CONTENT"
+                ? highlightText(newsItem?.title, searchType, searchString)
+                : newsItem?.title}
+            </h1>
             {newsItem?.commentCount ? (
-              <p className="font-medium text-[14px] leading-5 text-[#00ADEE]">
+              <p className="font-medium text-[14px] leading-5 text-gra">
                 [<span>{newsItem?.commentCount}</span>]
               </p>
             ) : null}
             {isNew && (
-              <p className="font-black text-[10px] leading-[18px] align-center text-[#00ADEE]">
+              <p className="font-black text-[10px] leading-[18px] align-center text-gra">
                 N
               </p>
             )}
           </div>
           <div>
-            <p className={styles.content}>{newsItem?.content}</p>
+            <p className={styles.content}>
+              {searchType === "CONTENT" || searchType === "TITLE_CONTENT"
+                ? highlightText(newsItem?.content, searchType, searchString)
+                : newsItem?.content}
+            </p>
           </div>
           <div className="flex gap-1">
             <p className={styles.category}>

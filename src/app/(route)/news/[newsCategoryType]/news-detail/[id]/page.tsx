@@ -185,8 +185,13 @@ const Page = ({
         ) : sliceNewsListData?.length === 0 ? (
           <EmptyNews />
         ) : (
-          sliceNewsListData.map((newsInfoData: NewsListType) => (
-            <NewsPostItem newsItem={newsInfoData} key={newsInfoData?.id} />
+          sliceNewsListData.map((newsItem: NewsListType) => (
+            <NewsPostItem
+              key={newsItem?.id}
+              newsItem={newsItem}
+              searchType={searchParams.get("search_type")}
+              searchString={searchParams.get("search")}
+            />
           ))
         )}
       </div>

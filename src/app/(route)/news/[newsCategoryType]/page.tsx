@@ -78,7 +78,12 @@ export default function NewsPage() {
             <EmptyNews />
           ) : (
             newsData?.content?.map((newsItem: NewsItemType) => (
-              <NewsPostItem key={newsItem?.id} newsItem={newsItem} />
+              <NewsPostItem
+                key={newsItem?.id}
+                newsItem={newsItem}
+                searchType={searchParams.get("search_type")}
+                searchString={searchParams.get("search")}
+              />
             ))
           )}
         </div>
