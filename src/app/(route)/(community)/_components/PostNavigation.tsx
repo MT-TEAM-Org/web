@@ -1,75 +1,34 @@
 "use client";
 
-import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
-import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 interface PostNavigationProps {
   scrollToCommentBar?: () => void;
+  nextId: number;
+  previousId: number;
+  currentPath: string;
 }
 
-const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
+const PostNavigation = ({
+  scrollToCommentBar,
+  nextId,
+  previousId,
+  currentPath,
+}: PostNavigationProps) => {
   const router = useRouter();
-  const pathname = usePathname();
-  const [isPrevDisabled, setIsPrevDisabled] = useState(false);
-  const [isNextDisabled, setIsNextDisabled] = useState(false);
 
-  // 추가 작업 필요, 현재 야구 페이지, 1 페이지에서만 작동
-  const { data: cachedData } = useSortedNewsDataList({
-    category: "BASEBALL",
-    orderType: "DATE",
-    page: 1,
-    timePeriod: "DAILY",
-  });
-
-  const ids = Array.isArray(cachedData)
-    ? cachedData.map((item) => item.id)
-    : [];
-
-  const pathnameId = pathname.split("/").pop();
-  const num = Number(pathnameId);
-
-  useEffect(() => {
-    if (!num) return;
-
-    const currentIndex = ids.indexOf(num);
-    setIsPrevDisabled(currentIndex <= 0);
-    setIsNextDisabled(currentIndex === -1 || currentIndex >= ids.length - 1);
-  }, [num, ids]);
+  const basePathArray = currentPath.split("/").slice(0, -1);
+  const basePath = basePathArray.join("/");
 
   const onClick = (type: "prev" | "next") => {
-    if (!num) return;
-
-    const currentIndex = ids.indexOf(num);
-    if (currentIndex === -1) return;
-
-    const pathParts = pathname.split("/");
-    const categoryPath =
-      pathParts.length >= 3 &&
-      pathParts[1] === "news" &&
-      pathParts[2] !== "news-detail"
-        ? pathParts[2]
-        : "";
-
-    if (type === "prev" && currentIndex > 0) {
-      router.push(
-        `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
-          ids[currentIndex - 1]
-        }`
-      );
-      return;
-    }
-
-    if (type === "next" && currentIndex < ids.length - 1) {
-      router.push(
-        `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
-          ids[currentIndex + 1]
-        }`
-      );
-      return;
+    if (type === "next" && nextId) {
+      return router.push(`${basePath}/${nextId}`);
+    } else if (type === "prev" && previousId) {
+      return router.push(`${basePath}/${previousId}`);
     }
   };
 
@@ -91,9 +50,9 @@ const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
         <button
           onClick={() => onClick("prev")}
           className={`${nextButtonStyle} ${
-            isPrevDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+            !previousId ? "cursor-not-allowed opacity-50" : "cursor-pointer"
           }`}
-          disabled={isPrevDisabled}
+          disabled={!previousId}
         >
           <Arrow_up />
           이전글
@@ -101,9 +60,9 @@ const PostNavigation = ({ scrollToCommentBar }: PostNavigationProps) => {
         <button
           onClick={() => onClick("next")}
           className={`${nextButtonStyle} ${
-            isNextDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+            !nextId ? "cursor-not-allowed opacity-50" : "cursor-pointer"
           }`}
-          disabled={isNextDisabled}
+          disabled={!nextId}
         >
           <Arrow_down />
           다음글

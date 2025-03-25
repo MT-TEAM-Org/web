@@ -6,7 +6,7 @@ import MainRightBarPagination from "./MainRightBarPagination";
 import EventItemSkeleton from "./EventItemSkeleton";
 import RightNewsItemSkeleton from "../../(community)/_components/RightNewsItemSkeleton";
 import RightNewsItem from "../../(community)/_components/RightNewsItem";
-import { NewsItemType } from "@/app/_constants/newsItemType";
+import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import useGetMainRightBarNewsData from "@/_hooks/fetcher/news/comment/useGetMainRightBarNewsData";
@@ -25,10 +25,13 @@ const MainRightBar = () => {
   const handleButtonStyle = (value: boolean) => {
     setButtonActive(value);
   };
-  const { data: filteredNewsData, isLoading: newsIsLoading,isError: newsIsError, } =
-    useGetMainRightBarNewsData({
-      page: currentPage.toString(),
-    });
+  const {
+    data: filteredNewsData,
+    isLoading: newsIsLoading,
+    isError: newsIsError,
+  } = useGetMainRightBarNewsData({
+    page: currentPage.toString(),
+  });
 
   const handleToPage = (type: "prev" | "next") => {
     const currentPageNum = Number(currentPage);

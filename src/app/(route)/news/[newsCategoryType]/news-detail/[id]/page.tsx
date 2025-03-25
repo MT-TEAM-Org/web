@@ -1,13 +1,12 @@
 "use client";
 
-import React, { use } from "react";
+import React, { use, useEffect } from "react";
 import Image from "next/image";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import useTimeAgo from "@/utils/useTimeAgo";
-import ChangedCategory from "@/utils/newsUtils/changedCategory";
+import ChangedCategory from "@/app/(route)/news/_utils/changedCategory";
 import CommentSection from "../../../_components/CommentSection";
-import { useNewsPageLogic } from "@/utils/newsUtils/useNewsPageLogic";
-import { updateImageUrl } from "@/utils/newsUtils/updatedImgUrl";
+import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import EmptyNews from "../../../_components/EmptyNews";
 import NewsPostItem from "../../../_components/NewsPostItem";
 import NewsTalkToolbar from "../../../_components/NewsTalkToolbar";
@@ -22,22 +21,30 @@ import useDeleteRecommend from "@/_hooks/fetcher/news/useDeleteRecommend";
 import useGetNewsComment from "@/_hooks/fetcher/news/comment/useGetNewsComment";
 import NewsSendCommentBox from "./_components/NewsSendCommentBox";
 import useGetBestComment from "@/_hooks/fetcher/news/comment/useGetBestComment";
-import { NewsListType } from "@/app/_constants/newsListItemType";
+import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
+import { newsListConfig } from "../../../_types/newsListConfig";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const Page = ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = use(params);
+type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
+
+const Page = ({
+  params,
+}: {
+  params: Promise<{ newsCategoryType: string; id: string }>;
+}) => {
+  const { id, newsCategoryType } = use(params);
   const queryClient = useQueryClient();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const newsDetailType = pathname.split("/")[2];
 
-  const {
-    orderType,
-    setOrderType,
-    timePeriod,
-    setTimePeriod,
-    page,
-    onPageChangeAction,
-    searchType,
-    setSearchType,
-  } = useNewsPageLogic();
+  useEffect(() => {
+    const validTypes = ["esports", "football", "baseball"];
+    if (!validTypes.includes(newsDetailType)) {
+      router.push("/404");
+    }
+  }, [newsDetailType, router]);
 
   const { data: newsInfoData, isLoading } = useGetNewsInfoData(id);
   const { data: newsBestCommentData } = useGetBestComment(newsInfoData?.id);
@@ -46,12 +53,39 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
   const { mutate: newsAddCommend } = usePatchRecommend();
   const { mutate: newsDeleteRecommend } = useDeleteRecommend();
 
-  const { data: newsListData } = useSortedNewsDataList({
-    orderType,
-    page,
-    timePeriod,
-    searchType,
-  });
+  const changedCategory = (category: string): NewsCategoryType | undefined => {
+    const categoryMap: Record<string, NewsCategoryType> = {
+      esports: "ESPORTS",
+      football: "FOOTBALL",
+      baseball: "BASEBALL",
+    };
+    return categoryMap[category?.toLowerCase()] || "";
+  };
+
+  const category = changedCategory(newsCategoryType);
+  const orderType = () => {
+    if (searchParams.get("order_type") === "RECOMMEND") {
+      return "DATE";
+    } else if (searchParams.get("order_type") === "CREATE") {
+      return "VIEW";
+    } else {
+      return "COMMENT";
+    }
+  };
+
+  const newsOption: newsListConfig = {
+    page: Number(searchParams.get("page")) || 1,
+    size: 20,
+    category: (category as NewsCategoryType) || "",
+    orderType: orderType() as newsListConfig["orderType"],
+    searchType:
+      (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
+    content: searchParams.get("search") || "",
+    timePeriod:
+      (searchParams.get("time") as newsListConfig["timePeriod"]) || "DAILY",
+  };
+
+  const { data: newsListData } = useSortedNewsDataList(newsOption);
   const updatedImgUrl = updateImageUrl(newsInfoData?.thumbImg, "w360");
   const sliceNewsListData = newsListData
     ? newsListData?.content?.slice(0, 3)
@@ -109,13 +143,15 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
           <hr />
           <div className="w-full h-auto flex flex-col gap-3">
-            <Image
-              src={newsInfoData ? updatedImgUrl : "/Empty_news.png"}
-              alt="News detail img"
-              width={672}
-              height={338}
-              className="object-cover"
-            />
+            {newsInfoData?.thumbImg && (
+              <Image
+                src={newsInfoData ? updatedImgUrl : "/Empty_news.png"}
+                alt="News detail img"
+                width={672}
+                height={338}
+                className="object-cover"
+              />
+            )}
             <p className="font-[500] text-[16px] leading-6 tracking-[-0.02em] text-gray7 overflow-hidden line-clamp-2">
               {newsInfoData?.content}
             </p>
@@ -126,7 +162,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
               onClick={handleNewsCommend}
               className={
                 newsInfoData?.recommend
-                  ? `${recommendButtonBaseStyle} w-[123px] border-[#00ADEE] text-[#00ADEE]`
+                  ? `${recommendButtonBaseStyle} w-[123px] border-gra text-gra`
                   : `${recommendButtonBaseStyle} w-[120px] border-gray3`
               }
             >
@@ -147,13 +183,7 @@ const Page = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       )}
 
-      <NewsTalkToolbar
-        setOrderType={setOrderType}
-        setTimeType={setTimePeriod}
-        onPageChangeAction={onPageChangeAction}
-        setSearchType={setSearchType}
-        paginationData={newsListData?.pageInfo}
-      />
+      <NewsTalkToolbar newsType={category} pageInfo={newsListData?.pageInfo} />
 
       <div className="w-[720px] h-auto rounded-b-[5px] overflow-hidden shadow-md">
         {isLoading ? (
