@@ -8,8 +8,7 @@ import EmptyItem from "./_components/EmptyItem";
 import NoticeItemSkeleton from "./_components/NoticeItemSkeleton";
 import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
 import { noticeListConfig } from "./_types/noticeListConfig";
-import { useQueryClient } from "@tanstack/react-query";
-import { getAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
+import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import { useSearchParams } from "next/navigation";
 
 const Page = () => {
@@ -21,9 +20,8 @@ const Page = () => {
 };
 
 const NoticePageContent = () => {
-  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
-  const adminChecker = getAdminRole(queryClient);
+  const adminChecker = useAdminRole();
 
   const noticeOption: noticeListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,

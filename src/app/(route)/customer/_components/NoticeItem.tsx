@@ -53,7 +53,7 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
             </p>
             {noticeData?.commentCount >= 1 && (
               <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
-                {noticeData?.commentCount}
+                [<span>{noticeData?.commentCount}</span>]
               </p>
             )}
             {isNew && (

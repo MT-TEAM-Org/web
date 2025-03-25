@@ -1,9 +1,15 @@
-import { QueryClient } from "@tanstack/react-query";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
-export const getAdminRole = (queryClient: QueryClient): "USER" | "ADMIN" => {
-  const authStatus = queryClient.getQueryData(["authCheck"]) as {
-    data: { data: { role: string } };
-  } | undefined;
+export const useAdminRole = (): "USER" | "ADMIN" | null => {
+  const { data, isLoading, isError } = useAuthCheck();
 
-  return authStatus?.data?.data?.role as "USER" | "ADMIN";
+  if (isLoading) {
+    return undefined;
+  }
+
+  if (isError || !data) {
+    return undefined;
+  }
+
+  return data?.data?.data?.role as "USER" | "ADMIN";
 };

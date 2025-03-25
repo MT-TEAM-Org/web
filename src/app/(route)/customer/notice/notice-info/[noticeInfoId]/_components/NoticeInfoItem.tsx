@@ -22,8 +22,6 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
   const pathname = usePathname();
   const queryClient = useQueryClient();
 
-  console.log(data);
-
   const { mutate: noticeAddRecommend } = usePostNoticeRecommend();
   const { mutate: noticeDeleteRecommend } = useDeleteNoticeRecommend();
 

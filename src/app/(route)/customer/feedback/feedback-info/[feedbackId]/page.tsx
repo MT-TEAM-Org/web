@@ -12,7 +12,7 @@ import useTimeAgo from "@/utils/useTimeAgo";
 import FeedbackInfoSkeleton from "./_components/FeedbackInfoSkeleton";
 import { useQueryClient } from "@tanstack/react-query";
 import { feedbackListConfig } from "../../../_types/feedbackListConfig";
-import { getAdminRole } from "../../../_utils/adminChecker";
+import { useAdminRole } from "../../../_utils/adminChecker";
 import StatusSaver from "./_components/StatusSaver";
 import EmptyComment from "@/app/(route)/(community)/gameboard/_components/EmptyComment";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
@@ -40,9 +40,8 @@ const FeedbackInfoPage = () => {
   const id = params.feedbackId;
   const infoId = Number(id);
   const queryClient = useQueryClient();
-  const adminRole = getAdminRole(queryClient);
   const searchParams = useSearchParams();
-  const adminChecker = getAdminRole(queryClient);
+  const adminRole = useAdminRole();
   const pathname = usePathname();
 
   const feedbackOption: feedbackListConfig = {
@@ -80,8 +79,6 @@ const FeedbackInfoPage = () => {
       });
     }
   };
-
-  console.log(feedbackInfoData);
 
   const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
 
@@ -136,18 +133,18 @@ const FeedbackInfoPage = () => {
         <FeedbackInfoSkeleton />
       ) : (
         <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
-          {adminChecker === "ADMIN" && (
+          {adminRole === "ADMIN" && (
             <StatusSaver id={infoId} status={feedbackInfoData?.status} />
           )}
           <div
             className={`w-full ${
-              adminChecker !== "ADMIN" || adminChecker === undefined
+              adminRole !== "ADMIN" || adminRole === undefined
                 ? "h-[96px]"
                 : "h-[56px]"
             } flex gap-2 flex-col`}
           >
             <div>
-              {(adminChecker !== "ADMIN" || adminChecker === undefined) &&
+              {(adminRole !== "ADMIN" || adminRole === undefined) &&
                 statusContent[feedbackInfoData?.status]}
             </div>
             <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
