@@ -8,6 +8,7 @@ interface ConfirmModalProps {
   message: string;
   closeText: string;
   confirmText: string;
+  isPending: boolean;
 }
 
 const ConfirmModal = ({
@@ -18,6 +19,7 @@ const ConfirmModal = ({
   message,
   closeText,
   confirmText,
+  isPending,
 }: ConfirmModalProps) => {
   if (!show) return null;
 
@@ -47,6 +49,7 @@ const ConfirmModal = ({
           <button
             className="flex justify-center items-center w-[160px] h-[48px] rounded-[5px] px-[16px] py-[20px] bg-[#00ADEE] font-[700] text-[#FFFFFF]"
             onClick={onConfirm}
+            disabled={isPending}
           >
             {confirmText}
           </button>

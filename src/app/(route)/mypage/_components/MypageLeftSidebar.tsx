@@ -1,11 +1,11 @@
 "use client";
-import { useMutation } from "@tanstack/react-query";
+
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { api } from "@/_hooks/api";
 import { useEffect, useState } from "react";
 import ConfirmModal from "@/app/_components/ConfirmModal";
+import useLogout from "@/_hooks/fetcher/mypage/useLogout";
 
 const MypageLeftSidebar = () => {
   const router = useRouter();
@@ -19,6 +19,7 @@ const MypageLeftSidebar = () => {
       ? "나의 문의내역"
       : "문의내역";
   const [show, setShow] = useState(false);
+  const { mutate: logout, isPending: logoutIsPending } = useLogout();
 
   useEffect(() => {
     if (show) {
@@ -28,26 +29,6 @@ const MypageLeftSidebar = () => {
       };
     }
   }, [show]);
-
-  const fetchLogout = async () => {
-    const response = await api.post(
-      "/logout",
-      {},
-      {
-        withCredentials: true,
-      }
-    );
-    return response;
-  };
-
-  const { mutate: logout, isPending: logoutIsPending } = useMutation({
-    mutationFn: fetchLogout,
-    onSuccess: () => {
-      localStorage.removeItem("accessToken");
-      queryClient.resetQueries({ queryKey: ["authCheck"] });
-      router.push("/");
-    },
-  });
 
   const boardList = [
     { name: "마이페이지", id: 0, path: `/${basePath}` },
@@ -82,9 +63,8 @@ const MypageLeftSidebar = () => {
   const onClose = () => setShow(false);
 
   const onConfirm = () => {
-    logout();
     setShow(false);
-    router.push("/");
+    logout();
   };
 
   return (
@@ -112,6 +92,7 @@ const MypageLeftSidebar = () => {
         onConfirm={onConfirm}
         closeText="취소"
         confirmText="로그아웃"
+        isPending={logoutIsPending}
       />
     </div>
   );

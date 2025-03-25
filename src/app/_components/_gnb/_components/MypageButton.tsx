@@ -1,11 +1,11 @@
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ProfileLogo } from "../../icon/ProfileLogo";
-import { api } from "@/_hooks/api";
 import ConfirmModal from "../../ConfirmModal";
+import useLogout from "@/_hooks/fetcher/mypage/useLogout";
 
 interface DropDownMenuItem {
   name: string;
@@ -23,6 +23,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
       ? "나의 문의내역"
       : "문의내역";
   const [show, setShow] = useState(false);
+  const { mutate: logout, isPending: logoutIsPending } = useLogout();
 
   useEffect(() => {
     if (show) {
@@ -32,29 +33,6 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
       };
     }
   }, [show]);
-
-  const fetchLogout = async () => {
-    const response = await api.post(
-      "/logout",
-      {},
-      {
-        withCredentials: true,
-      }
-    );
-    return response;
-  };
-
-  const { mutate: logout, isPending: logoutIsPending } = useMutation({
-    mutationFn: fetchLogout,
-
-    onSuccess: () => {
-      localStorage.removeItem("accessToken");
-      queryClient.resetQueries({ queryKey: ["authCheck"] });
-      queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
-      queryClient.invalidateQueries({ queryKey: ["myPostList"] });
-      router.push("/");
-    },
-  });
 
   const dropDownMenu = [
     {
@@ -96,6 +74,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
   const onClose = () => setShow(false);
 
   const onConfirm = () => {
+    setShow(false);
     logout(undefined, {
       onSuccess: () => {
         localStorage.removeItem("accessToken");
@@ -103,8 +82,6 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
         router.push("/");
       },
     });
-    setShow(false);
-    router.push("/");
   };
 
   return (
@@ -147,6 +124,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
         onConfirm={onConfirm}
         closeText="취소"
         confirmText="로그아웃"
+        isPending={logoutIsPending}
       />
     </div>
   );
