@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 interface PostInquirieCommentProps {
   comment: string;
   imageUrl: string;
+  mentionedPublicId: string;
 }
 
 const usePostInquirieComment = (id: string) => {

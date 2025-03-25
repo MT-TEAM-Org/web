@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ProfileLogo } from "../../icon/ProfileLogo";
 import ConfirmModal from "../../ConfirmModal";
 import useLogout from "@/_hooks/fetcher/mypage/useLogout";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 interface DropDownMenuItem {
   name: string;
@@ -16,12 +17,8 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const [isDropDown, setIsDropDown] = useState(false);
-  const userRole =
-    queryClient.getQueryData<{
-      data: { data: { role: string } };
-    }>(["authCheck"])?.data?.data?.role === "USER"
-      ? "나의 문의내역"
-      : "문의내역";
+  const { data: authCheckData } = useAuthCheck();
+  const userRole = authCheckData?.data?.data?.role;
   const [show, setShow] = useState(false);
   const { mutate: logout, isPending: logoutIsPending } = useLogout();
 
@@ -52,7 +49,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
       link: "/mypage/edit-profile",
     },
     {
-      name: userRole,
+      name: userRole === "USER" ? "나의 문의내역" : "문의내역",
       link: "/mypage/inquiries",
     },
     {

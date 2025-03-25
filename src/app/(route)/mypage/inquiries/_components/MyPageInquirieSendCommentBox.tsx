@@ -93,6 +93,7 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
       {
         comment: inputValue,
         imageUrl: selectedImage || null,
+        mentionedPublicId: "",
       },
       {
         onSuccess: () => {

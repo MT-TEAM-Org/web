@@ -6,16 +6,15 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import ConfirmModal from "@/app/_components/ConfirmModal";
 import useLogout from "@/_hooks/fetcher/mypage/useLogout";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 const MypageLeftSidebar = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
-  const userRole =
-    queryClient.getQueryData<{
-      data: { data: { role: string } };
-    }>(["authCheck"])?.data?.data?.role || "USER";
+  const { data: authCheckData } = useAuthCheck();
+  const userRole = authCheckData?.data?.data?.role;
   const [show, setShow] = useState(false);
   const { mutate: logout, isPending: logoutIsPending } = useLogout();
 

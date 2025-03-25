@@ -11,6 +11,7 @@ import { useInquiryPostIdStore } from "@/utils/Store";
 import MyPageInquirieSendCommentBox from "../_components/MyPageInquirieSendCommentBox";
 import MyPageInquirieComment from "../_components/MyPageInquirieComment";
 import { useQueryClient } from "@tanstack/react-query";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 interface InquirieDetailProps {
   id: string;
@@ -39,10 +40,8 @@ const InquirieDetail = ({
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);
   const { addInquiryPostId, removeInquiryPostId } = useInquiryPostIdStore();
-  const userRole =
-    queryClient.getQueryData<{
-      data: { data: { role: string } };
-    }>(["authCheck"])?.data?.data?.role || "USER";
+  const { data: authCheckData } = useAuthCheck();
+  const userRole = authCheckData?.data?.data?.role;
 
   useEffect(() => {
     if (!id) return;
