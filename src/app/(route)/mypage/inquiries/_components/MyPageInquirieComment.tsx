@@ -4,6 +4,7 @@ import Refresh from "@/app/_components/icon/Refresh";
 import useGetInquiriesCommentList from "@/_hooks/fetcher/mypage/useGetInquiriesCommentList";
 import MyPageInquirieCommentEmpty from "./MyPageInquirieCommentEmpty";
 import MyPageInquirieCommentItem from "./MyPageInquirieCommentItem";
+import { useState } from "react";
 
 interface MyPageInquirieCommentProps {
   ref: React.RefObject<HTMLDivElement>;
@@ -51,7 +52,15 @@ const MyPageInquirieComment = ({
 }: MyPageInquirieCommentProps) => {
   const { data: commentList, refetch } = useGetInquiriesCommentList(id, !!id);
   const { total, content } = (commentList?.data as InquirieCommentData) || {};
-  const refetchComment = () => refetch();
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+
+  const refetchComment = () => {
+    setIsFocused(true);
+    refetch();
+    setTimeout(() => {
+      setIsFocused(false);
+    }, 550);
+  };
 
   return (
     <div
@@ -68,7 +77,10 @@ const MyPageInquirieComment = ({
           </span>
         </div>
         <div className="max-w-[101px] min-h-[40px] flex items-center px-[12px] py-[10px] gap-[8px] bg-[#FAFAFA] rounded-md">
-          <div className="cursor-pointer" onClick={refetchComment}>
+          <div
+            className={`cursor-pointer ${isFocused && "animate-spin"}`}
+            onClick={refetchComment}
+          >
             <Refresh />
           </div>
           <p className="font-bold text-[14px] leading-[14px] text-gray6">
