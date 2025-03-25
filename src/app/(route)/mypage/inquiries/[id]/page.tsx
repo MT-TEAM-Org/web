@@ -55,7 +55,7 @@ const InquirieDetail = ({
       behavior: "smooth",
     });
   };
-
+  console.log(data?.data);
   const onHandleToTop = () => {
     if (comments.current) {
       const navBarHeight = 130; // 네비게이션 바 높이
@@ -69,9 +69,9 @@ const InquirieDetail = ({
 
   const handleNextPrevRoute = (state: "next" | "prev") => {
     if (state === "next") {
-      router.push(`/mypage/inquiries/${Number(id) + 1}`);
+      router.push(`/mypage/inquiries/${data?.data?.nextId}`);
     } else {
-      router.push(`/mypage/inquiries/${Number(id) - 1}`);
+      router.push(`/mypage/inquiries/${data?.data?.previousId}`);
     }
   };
 
@@ -80,11 +80,13 @@ const InquirieDetail = ({
       text: "이전글",
       icon: Arrow_up,
       onClick: () => handleNextPrevRoute("prev"),
+      disabled: !data?.data?.previousId,
     },
     {
       text: "다음글",
       icon: Arrow_down,
       onClick: () => handleNextPrevRoute("next"),
+      disabled: !data?.data?.nextId,
     },
     { text: "댓글 맨위로", icon: Arrow_up, onClick: onHandleToTop },
     { text: "게시글 맨위로", icon: Double_arrow_up, onClick: scrollToTop },
@@ -125,7 +127,16 @@ const InquirieDetail = ({
         <div className="flex justify-between min-h-[40px]">
           <div className="flex gap-[8px]">
             {buttons.slice(0, 2).map(({ text, icon: Icon, onClick }, index) => (
-              <button key={index} className={buttonStyle} onClick={onClick}>
+              <button
+                key={index}
+                className={`${buttonStyle} ${
+                  buttons[index].disabled
+                    ? "cursor-not-allowed opacity-50"
+                    : "cursor-pointer"
+                }`}
+                onClick={onClick}
+                disabled={buttons[index].disabled}
+              >
                 <Icon />
                 {text}
               </button>
