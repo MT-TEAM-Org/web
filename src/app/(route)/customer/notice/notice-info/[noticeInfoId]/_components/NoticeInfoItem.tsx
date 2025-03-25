@@ -7,14 +7,41 @@ import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import EmptyComment from "@/app/(route)/(community)/gameboard/_components/EmptyComment";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import { usePathname } from "next/navigation";
+import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
+import { useQueryClient } from "@tanstack/react-query";
+import usePostNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/usePostNoticeRecommend";
+import useDeleteNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteNoticeRecommend";
 
 interface NoticeInfoItemProps {
   data: NoticeInfoItemType;
+  id: number;
 }
 
-const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
+const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
   const timeAgo = useTimeAgo(data?.createdAt);
   const pathname = usePathname();
+  const queryClient = useQueryClient();
+
+  console.log(data);
+
+  const { mutate: noticeAddRecommend } = usePostNoticeRecommend();
+  const { mutate: noticeDeleteRecommend } = useDeleteNoticeRecommend();
+
+  const handleFeedbackCommend = () => {
+    if (!data?.isRecommended) {
+      noticeAddRecommend(id, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["noticeInfo", id] });
+        },
+      });
+    } else if (data?.isRecommended) {
+      noticeDeleteRecommend(id, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["noticeInfo", id] });
+        },
+      });
+    }
+  };
 
   const noticeStats = [
     { label: "조회수", value: data?.viewCount },
@@ -96,6 +123,13 @@ const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
         <div
           className="w-full max-w-[672px] min-h-[48px] font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray7"
           dangerouslySetInnerHTML={{ __html: data?.content }}
+        />
+      </div>
+      <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
+        <RecommendButton
+          handleCommend={handleFeedbackCommend}
+          recommendCount={data?.recommendCount}
+          isRecommend={data?.isRecommended}
         />
       </div>
       <PostAction type="community" />

@@ -2,7 +2,6 @@
 
 import React, { Suspense } from "react";
 import Image from "next/image";
-import Single_logo from "@/app/_components/icon/Single_logo";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import CustomerTalkToolbar from "../../../_components/CustomerTalkToolbar";
 import EmptyItem from "../../../_components/EmptyItem";
@@ -24,10 +23,13 @@ import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType"
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
 import NoticeItem from "../../../_components/NoticeItem";
+import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
+import usePostFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/usePostFeedbackRecommend";
+import useDeleteFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteFeedbackRecommend";
 
 const Page = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={""}>
       <FeedbackInfoPage />
     </Suspense>
   );
@@ -60,6 +62,26 @@ const FeedbackInfoPage = () => {
     isLoading: feedbackIsLoading,
     isError: feedbackIsError,
   } = useGetFeedbackInfoData({ id: infoId });
+  const { mutate: feedbackAddRecommend } = usePostFeedbackRecommend();
+  const { mutate: feedbackDeleteRecommend } = useDeleteFeedbackRecommend();
+
+  const handleFeedbackCommend = () => {
+    if (!feedbackInfoData?.recommend) {
+      feedbackAddRecommend(infoId, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", id] });
+        },
+      });
+    } else if (feedbackInfoData?.recommend) {
+      feedbackDeleteRecommend(infoId, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", id] });
+        },
+      });
+    }
+  };
+
+  console.log(feedbackInfoData);
 
   const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
 
@@ -117,7 +139,13 @@ const FeedbackInfoPage = () => {
           {adminChecker === "ADMIN" && (
             <StatusSaver id={infoId} status={feedbackInfoData?.status} />
           )}
-          <div className="w-full h-[96px] flex gap-2 flex-col">
+          <div
+            className={`w-full ${
+              adminChecker !== "ADMIN" || adminChecker === undefined
+                ? "h-[96px]"
+                : "h-[56px]"
+            } flex gap-2 flex-col`}
+          >
             <div>
               {(adminChecker !== "ADMIN" || adminChecker === undefined) &&
                 statusContent[feedbackInfoData?.status]}
@@ -175,10 +203,11 @@ const FeedbackInfoPage = () => {
             />
           </div>
           <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
-            <button className="flex items-center text-[14px] justify-center gap-2 min-w-[120px] w-auto h-[40px] px-4 py-[13px] mt-4 bg-[#00ADEE] text-white rounded-[5px]">
-              <Single_logo />
-              추천 {feedbackInfoData?.recommendCount || 0}
-            </button>
+            <RecommendButton
+              handleCommend={handleFeedbackCommend}
+              recommendCount={feedbackInfoData?.recommendCount}
+              isRecommend={feedbackInfoData?.isRecommend}
+            />
           </div>
           <PostAction type="community" />
           <div className="w-full max-w-[800px] flex flex-col">

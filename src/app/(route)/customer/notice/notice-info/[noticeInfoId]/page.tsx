@@ -27,7 +27,7 @@ const NoticeInfoContent = () => {
   const params = useParams();
   const searchParams = useSearchParams();
   const id = params.noticeInfoId;
-  const numericId = Number(id);
+  const numberId = Number(id);
   const queryClient = useQueryClient();
   const adminChecker = getAdminRole(queryClient);
 
@@ -43,7 +43,7 @@ const NoticeInfoContent = () => {
     data: noticeInfoData,
     isLoading: infoIsLoading,
     isError: infoIsError,
-  } = useGetNoticeInfoData({ id: numericId });
+  } = useGetNoticeInfoData({ id: numberId });
 
   const {
     data: noticeListData,
@@ -56,7 +56,7 @@ const NoticeInfoContent = () => {
       {infoIsLoading || infoIsError ? (
         <NoticeInfoItemSkeleton />
       ) : (
-        <NoticeInfoItem data={noticeInfoData} />
+        <NoticeInfoItem data={noticeInfoData} id={numberId} />
       )}
       <div className="w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden">
         <CustomerTalkToolbar

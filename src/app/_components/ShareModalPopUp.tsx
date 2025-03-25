@@ -39,7 +39,7 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
   const message = encodeURIComponent("PlayHive");
 
   const buttonBaseStyle =
-    "w-[160px] min-h-[40px] rounded-[5px] py-4 px-5 flex gap-[10px] font-bold text-[16px] items-center justify-center";
+    "w-[160px] min-h-[48px] rounded-[5px] py-4 px-5 flex gap-[10px] font-bold text-[16px] items-center justify-center";
 
   const shareOptions = [
     {

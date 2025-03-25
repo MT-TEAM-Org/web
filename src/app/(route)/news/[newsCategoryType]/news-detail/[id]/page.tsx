@@ -2,7 +2,6 @@
 
 import React, { use, useEffect } from "react";
 import Image from "next/image";
-import Single_logo from "@/app/_components/icon/Single_logo";
 import useTimeAgo from "@/utils/useTimeAgo";
 import ChangedCategory from "@/app/(route)/news/_utils/changedCategory";
 import CommentSection from "../../../_components/CommentSection";
@@ -24,6 +23,7 @@ import useGetBestComment from "@/_hooks/fetcher/news/comment/useGetBestComment";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { newsListConfig } from "../../../_types/newsListConfig";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -107,9 +107,6 @@ const Page = ({
     }
   };
 
-  const recommendButtonBaseStyle =
-    "h-[40px] rounded-[5px] border px-[13px] py-4 flex gap-1 bg-white items-center justify-center text-[14px] font-bold";
-
   return (
     <>
       {isLoading ? (
@@ -157,23 +154,12 @@ const Page = ({
             </p>
           </div>
 
-          <div className="w-full h-auto flex justify-center gap-2">
-            <button
-              onClick={handleNewsCommend}
-              className={
-                newsInfoData?.recommend
-                  ? `${recommendButtonBaseStyle} w-[123px] border-gra text-gra`
-                  : `${recommendButtonBaseStyle} w-[120px] border-gray3`
-              }
-            >
-              <Single_logo width="16" height="16" fill="#00ADEE" />
-              추천
-              <span>
-                {newsInfoData?.recommendCount >= 1 &&
-                  newsInfoData?.recommendCount}
-              </span>
-            </button>
-          </div>
+          <RecommendButton
+            handleCommend={handleNewsCommend}
+            recommendCount={newsInfoData?.recommendCount}
+            isRecommend={newsInfoData?.recommend}
+          />
+
           <PostAction type="news" source={newsInfoData?.source} />
           <CommentSection
             newsInfoData={newsInfoData}
