@@ -75,7 +75,9 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
 
   return (
     <div
-      className="relative flex items-center gap-[16px] max-w-[165px] min-h-[42px] rounded-full py-[8px] px-[16px] cursor-pointer"
+      className={`relative flex items-center gap-[16px] max-w-[165px] min-h-[42px] rounded-full py-[8px] px-[16px] ${
+        !show && "cursor-pointer"
+      }`}
       onMouseEnter={() => setIsDropDown(true)}
     >
       <ProfileLogo />
