@@ -6,7 +6,10 @@ const MypageInquirieSkelton = () => {
       {Array(10)
         .fill(0)
         .map((_, index) => (
-          <div className="flex items-center gap-[12px] w-full min-h-[66px] border-b-1 border-[#FAFAFA] p-[12px]">
+          <div
+            key={index}
+            className="flex items-center gap-[12px] w-full min-h-[66px] border-b-1 border-[#FAFAFA] p-[12px]"
+          >
             <Skeleton className="min-w-[65px] h-[32px] rounded-[2px]" />
             <div className="w-full min-h-[42px] flex flex-col justify-center gap-[4px]">
               <div className="w-[619px] flex items-center gap-[2px]">
