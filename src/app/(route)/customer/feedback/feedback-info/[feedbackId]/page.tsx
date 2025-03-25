@@ -8,7 +8,7 @@ import CustomerTalkToolbar from "../../../_components/CustomerTalkToolbar";
 import EmptyItem from "../../../_components/EmptyItem";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import useGetFeedbackInfoData from "@/_hooks/fetcher/customer/useGetFeedbackInfoData";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import useTimeAgo from "@/utils/useTimeAgo";
 import FeedbackInfoSkeleton from "./_components/FeedbackInfoSkeleton";
 import { useQueryClient } from "@tanstack/react-query";
@@ -41,6 +41,7 @@ const FeedbackInfoPage = () => {
   const adminRole = getAdminRole(queryClient);
   const searchParams = useSearchParams();
   const adminChecker = getAdminRole(queryClient);
+  const pathname = usePathname();
 
   const feedbackOption: feedbackListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
@@ -80,13 +81,12 @@ const FeedbackInfoPage = () => {
     { label: "추천", value: feedbackInfoData?.recommendCount },
   ];
 
-  const statusBoxClass =
-    "w-[65px] h-[32px] rounded-[2px] py-1 px-2 flex gap-[10px]";
+  const statusBoxClass = "w-[69px] h-[32px] rounded-[2px] px-2 py-[6px] flex";
 
   const statusContent = {
     RECEIVED: (
       <div className={`${statusBoxClass} bg-gray1`}>
-        <p className="font-bold text-[14px] leading-5">접수 완료</p>
+        <p className="font-bold text-[14px] leading-5 text-gray7">접수 완료</p>
       </div>
     ),
     COMPLETED: (
@@ -114,10 +114,14 @@ const FeedbackInfoPage = () => {
         <FeedbackInfoSkeleton />
       ) : (
         <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
-          {adminChecker === "ADMIN" && <StatusSaver />}
-          <div className="w-full h-[56px] flex gap-2 flex-col">
-            {adminChecker === "ADMIN" &&
-              statusContent[feedbackInfoData?.status]}
+          {adminChecker === "ADMIN" && (
+            <StatusSaver id={infoId} status={feedbackInfoData?.status} />
+          )}
+          <div className="w-full h-[96px] flex gap-2 flex-col">
+            <div>
+              {(adminChecker !== "ADMIN" || adminChecker === undefined) &&
+                statusContent[feedbackInfoData?.status]}
+            </div>
             <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
               {feedbackInfoData?.title}
             </h1>
@@ -181,7 +185,11 @@ const FeedbackInfoPage = () => {
             <CommentBar />
             <EmptyComment />
           </div>
-          <PostNavigation />
+          <PostNavigation
+            nextId={feedbackInfoData?.nextId}
+            previousId={feedbackInfoData?.previousId}
+            currentPath={pathname}
+          />
         </div>
       )}
       <CustomerTalkToolbar

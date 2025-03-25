@@ -8,24 +8,24 @@ const LeftSidebar = () => {
   const basePath = pathname.split("/")[1];
 
   const boardList = [
-    { name: "전체", id: 0, path: `/${basePath}/all`, category: "all" },
+    { name: "전체", id: 0, path: `/${basePath}/ALL`, category: "ALL" },
     {
       name: "E스포츠",
       id: 1,
-      path: `/${basePath}/esports`,
-      category: "esports",
+      path: `/${basePath}/ESPORTS`,
+      category: "ESPORTS",
     },
     {
       name: "축구",
       id: 2,
-      path: `/${basePath}/football`,
-      category: "football",
+      path: `/${basePath}/FOOTBALL`,
+      category: "FOOTBALL",
     },
     {
       name: "야구",
       id: 3,
-      path: `/${basePath}/baseball`,
-      category: "baseball",
+      path: `/${basePath}/BASEBALL`,
+      category: "BASEBALL",
     },
     {
       name: "개선요청",
@@ -39,8 +39,7 @@ const LeftSidebar = () => {
     const pathParts = pathname.split("/");
 
     if (pathParts.includes("news-detail")) {
-      const currentCategory = pathParts[2] || "";
-      return currentCategory === boardCategory;
+      return pathParts[2].toUpperCase() === boardCategory;
     }
 
     const currentCategory = pathParts[2] || "";
@@ -54,7 +53,7 @@ const LeftSidebar = () => {
           <div
             className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
               isCurrentPath(board.category)
-                ? "font-[700] text-[#00ADEE] bg-[#F8FDFF]"
+                ? "font-[700] text-gra bg-bg0"
                 : "font-[400] text-gray7 bg-white"
             }`}
           >

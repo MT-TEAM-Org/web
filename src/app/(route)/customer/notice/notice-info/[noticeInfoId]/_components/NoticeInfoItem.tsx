@@ -6,6 +6,7 @@ import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import EmptyComment from "@/app/(route)/(community)/gameboard/_components/EmptyComment";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
+import { usePathname } from "next/navigation";
 
 interface NoticeInfoItemProps {
   data: NoticeInfoItemType;
@@ -13,6 +14,7 @@ interface NoticeInfoItemProps {
 
 const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
   const timeAgo = useTimeAgo(data?.createdAt);
+  const pathname = usePathname();
 
   const noticeStats = [
     { label: "조회수", value: data?.viewCount },
@@ -101,7 +103,11 @@ const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
         <CommentBar />
         <EmptyComment />
       </div>
-      <PostNavigation />
+      <PostNavigation
+        nextId={data?.nextId}
+        previousId={data?.previousId}
+        currentPath={pathname}
+      />
     </div>
   );
 };

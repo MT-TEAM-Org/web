@@ -1,7 +1,7 @@
 import React from "react";
 
-import NewsLeftSidebar from "./_components/NewsLeftSidebar";
-import { RightSideBar } from "../_components/RightSideBar";
+import NewsLeftSidebar from "../_components/NewsLeftSidebar";
+import { RightSideBar } from "../../(community)/_components/RightSideBar";
 
 export const metadata = {
   title: "뉴스 페이지",
