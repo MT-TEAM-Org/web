@@ -9,6 +9,7 @@ const fetchAuthCheck = async () => {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },
   });
+
   return response;
 };
 
