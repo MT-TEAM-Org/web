@@ -7,8 +7,8 @@ import { MypageButton } from "./_components/MypageButton";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 
 export default function Header() {
-  const { data: userData, isSuccess, isPending, isError } = useAuthCheck();
-  const isLogout = isError || isPending || !isSuccess || !userData;
+  const { data: userData, isSuccess, isError } = useAuthCheck();
+  const isLogout = isError || !isSuccess;
 
   const headerButtonClass =
     "w-[87px] min-h-[40px] p-[10px] font-medium text-[16px] leading-[24px] text-center";

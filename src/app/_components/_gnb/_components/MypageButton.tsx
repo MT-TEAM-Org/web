@@ -1,6 +1,5 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ProfileLogo } from "../../icon/ProfileLogo";
@@ -14,7 +13,6 @@ interface DropDownMenuItem {
 }
 
 export const MypageButton = ({ userNickname }: { userNickname: string }) => {
-  const queryClient = useQueryClient();
   const router = useRouter();
   const [isDropDown, setIsDropDown] = useState(false);
   const { data: authCheckData } = useAuthCheck();
@@ -72,13 +70,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
 
   const onConfirm = () => {
     setShow(false);
-    logout(undefined, {
-      onSuccess: () => {
-        localStorage.removeItem("accessToken");
-        queryClient.invalidateQueries({ queryKey: ["authCheck"] });
-        router.push("/");
-      },
-    });
+    logout();
   };
 
   return (
