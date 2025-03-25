@@ -10,7 +10,6 @@ import MyPageInquiriesList from "../_components/MyPageInquiriesList";
 import { useInquiryPostIdStore } from "@/utils/Store";
 import MyPageInquirieSendCommentBox from "../_components/MyPageInquirieSendCommentBox";
 import MyPageInquirieComment from "../_components/MyPageInquirieComment";
-import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 
 interface InquirieDetailProps {
@@ -35,7 +34,6 @@ const InquirieDetail = ({
   const unwrappedParams = use(params);
   const { id } = unwrappedParams;
   const router = useRouter();
-  const queryClient = useQueryClient();
   const { data, isLoading } = useGetInquiriesDetail(id);
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);

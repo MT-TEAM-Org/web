@@ -9,6 +9,7 @@ import Plus from "@/app/_components/icon/Plus";
 import Cancel_icon from "@/app/_components/icon/Cancel_icon";
 import { useToast } from "@/_hooks/useToast";
 import { useQueryClient } from "@tanstack/react-query";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 interface SendCommentBoxProps {
   id?: string;
@@ -25,6 +26,8 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const isSubmittingRef = useRef(false);
   const toast = useToast();
   const { mutate: newsPostComment } = usePostInquirieComment(id);
+  const { data: authCheckData } = useAuthCheck();
+  const mentionedPublicId = authCheckData?.data?.data?.publicId;
 
   const maxChars = selectedImage ? 70 : 78;
 
@@ -93,12 +96,12 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
       {
         comment: inputValue,
         imageUrl: selectedImage || null,
-        mentionedPublicId: "",
+        mentionedPublicId,
       },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: ["inquiriesCommentList", id],
+            queryKey: ["inquiriesCommentList", Number(id)],
           });
           setInputValue("");
           setSelectedImage(null);
