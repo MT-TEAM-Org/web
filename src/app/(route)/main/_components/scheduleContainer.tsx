@@ -8,7 +8,13 @@ import EmptyScheduleItem from "./EmptyScheduleItem";
 import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
 import { motion, AnimatePresence } from "framer-motion";
 
-const ScheduleContainer = () => {
+interface ScheduleContainerProps {
+  showCategoryButtons?: boolean;
+}
+
+const ScheduleContainer = ({
+  showCategoryButtons = false,
+}: ScheduleContainerProps) => {
   const pathname = usePathname();
   const isGameboard = pathname === "/gameboard";
 
@@ -16,9 +22,10 @@ const ScheduleContainer = () => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(
     isGameboard ? 0 : null
   );
+  const [selectedCategory, setSelectedCategory] = useState("ALL");
 
   const itemsPerPage = 4;
-  const category = "ALL";
+  const category = selectedCategory;
   const { data: scheduleResponse, isLoading } = useGetMatchSchedule(category);
   const scheduleData = scheduleResponse?.data?.list || [];
 
@@ -38,9 +45,49 @@ const ScheduleContainer = () => {
     setSelectedIndex(isGameboard ? 0 : null);
   };
 
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setCurrentPage(0);
+    setSelectedIndex(isGameboard ? 0 : null);
+  };
+  const buttonStyyle =
+    "w-[78px] h-[40px] rounded-[5px] border py-[13px] pb-[16px] flex items-center justify-center font-[700] text-[14px] leading-[20px] text-center";
+  const categoryButtons = [
+    {
+      name: "E스포츠",
+      value: "ESPORTS",
+      style: buttonStyyle,
+    },
+    {
+      name: "축구",
+      value: "FOOTBALL",
+      style: buttonStyyle,
+    },
+    {
+      name: "야구",
+      value: "BASEBALL",
+      style: buttonStyyle,
+    },
+  ];
+
   return (
-    <div className="w-full h-full min-h-[126px] flex gap-3 bg-gray1 justify-center">
-      <div className="w-[1200px] h-full min-h-[126px] flex gap-6 justify-center items-center">
+    <div className="w-full h-full min-h-[126px] flex flex-col bg-gray1 justify-center items-center">
+      {showCategoryButtons && (
+        <div className="w-[1200px] h-[40px] flex mb-[12px] gap-x-[8px]">
+          {categoryButtons.map((item, index) => (
+            <button
+              key={index}
+              onClick={() => handleCategoryChange(item.value)}
+              className={`${buttonStyyle} ${
+                selectedCategory === item.value ? "border-gray7" : ""
+              }`}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+      )}
+      <div className="w-[1200px] h-full min-h-[126px] flex gap-x-[24px] justify-center items-center">
         <div className="w-[1136px] h-auto min-h-[126px] flex justify-between items-center gap-3">
           <AnimatePresence initial={false} mode="wait">
             <motion.div

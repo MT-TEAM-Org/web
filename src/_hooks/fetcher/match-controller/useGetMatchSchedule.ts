@@ -1,9 +1,10 @@
 import getMatchSchedule, {
   MatchScheduleResponse,
 } from "@/services/match-controller/getMatchSchedule";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const useGetMatchSchedule = (category?: string) => {
+  const queryClient = useQueryClient();
   return useQuery<MatchScheduleResponse>({
     queryFn: () => getMatchSchedule(category),
     queryKey: ["matchSchedule", category],

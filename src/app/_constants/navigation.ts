@@ -17,6 +17,6 @@ export const NAVBARS = [
   },
   {
     name: "경기중계",
-    link: "/gameboard",
+    link: "/matchBroadcast",
   },
 ];

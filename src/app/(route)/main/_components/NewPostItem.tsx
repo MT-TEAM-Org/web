@@ -13,7 +13,7 @@ const NewPostItem = ({ newPosts }: NewPostItemProps) => {
     <Link
       href={`/board/${newPosts?.boardType}/${newPosts?.categoryType}/${newPosts?.id}`}
     >
-      <div className="w-full h-[36px] border-b border-gray1 py-2 pr-2 flex justify-start items-center text-center gap-2 cursor-pointer">
+      <div className="w-full h-[36px] border-b border-gray1 py-2 pr-2 flex justify-start items-center text-center cursor-pointer">
         <div className="w-[20px] h-[20px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">
           <p className="text-bold text-[12px] leading-[18px] tracking-[-0.02em] text-gray7">
             {newPosts?.id}
