@@ -16,15 +16,17 @@ interface InquirieCommentReply {
 }
 
 interface InquirieCommentContent {
-  inquiryCommentId: number;
-  inquiryId: number;
+  commentId: number;
   createdIp: string;
   publicId: string;
   nickname: string;
   imageUrl: string;
-  recommendCount: number;
   comment: string;
+  recommendCount: number;
+  mentionedPublicId: string;
+  mentionedNickname: string;
   createDate: string;
+  lastModifiedDate: string;
   boardReplyList: InquirieCommentReply[];
 }
 

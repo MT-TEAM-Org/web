@@ -28,15 +28,17 @@ interface InquirieCommentReply {
 }
 
 interface InquirieCommentContent {
-  inquiryCommentId: number;
-  inquiryId: number;
+  commentId: number;
   createdIp: string;
   publicId: string;
   nickname: string;
   imageUrl: string;
-  recommendCount: number;
   comment: string;
+  recommendCount: number;
+  mentionedPublicId: string;
+  mentionedNickname: string;
   createDate: string;
+  lastModifiedDate: string;
   boardReplyList: InquirieCommentReply[];
 }
 
@@ -91,9 +93,9 @@ const MyPageInquirieComment = ({
       {!total ? (
         <MyPageInquirieCommentEmpty />
       ) : (
-        content.map((comment) => (
+        content.map((comment, i) => (
           <MyPageInquirieCommentItem
-            key={comment.inquiryCommentId}
+            key={comment.commentId}
             comment={comment}
             publicId={publicId}
           />
