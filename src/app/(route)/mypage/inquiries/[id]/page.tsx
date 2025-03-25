@@ -11,6 +11,7 @@ import { useInquiryPostIdStore } from "@/utils/Store";
 import MyPageInquirieSendCommentBox from "../_components/MyPageInquirieSendCommentBox";
 import MyPageInquirieComment from "../_components/MyPageInquirieComment";
 import useAuthCheck from "@/_hooks/useAuthCheck";
+import { CalculateTime } from "@/app/_components/CalculateTime";
 
 interface InquirieDetailProps {
   id: string;
@@ -101,7 +102,7 @@ const InquirieDetail = ({
           <div className="flex gap-[8px]">
             <span className="font-[700]">마이페이지</span>
             <span>{userRole === "ADMIN" ? "문의내역" : "나의 문의내역"}</span>
-            <span>1분 전</span>
+            <span>{CalculateTime(inquirieDetail?.createdAt)}</span>
             <span>
               <span className="font-[700]">댓글</span>{" "}
               {inquirieDetail?.commentCount}

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CalculateTime } from "@/app/_components/CalculateTime";
 
 interface MyPagePostItemProps {
   data: {
@@ -12,7 +13,7 @@ interface MyPagePostItemProps {
     publicId: string;
     nickname: string;
     commentCount: number;
-    createDate: string;
+    createdAt: string;
     lastModifiedDate: string;
   };
 }
@@ -78,7 +79,7 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
             {getKoreanCategoryType(data?.categoryType)}
           </span>
           <span className="font-medium text-[12px] leading-[18px] text-gray5">
-            1분 전
+            {CalculateTime(data?.createdAt)}
           </span>
           <span className="font-medium text-[12px] leading-[18px] text-gray5">
             {data?.nickname}

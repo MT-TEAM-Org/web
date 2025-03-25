@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CalculateTime } from "@/app/_components/CalculateTime";
 
 interface InquirieCommentReply {
   inquiryReplyId: number;
@@ -59,7 +60,9 @@ const MyPageInquirieCommentItem = ({
           <h2 className="text-[14px] leading-[20px] text-gray6">
             {comment?.nickname}
           </h2>
-          <span className="text-[12px] leading-[18px] text-gray5">1분 전</span>
+          <span className="text-[12px] leading-[18px] text-gray5">
+            {CalculateTime(comment?.createDate)}
+          </span>
           <span className="text-[12px] leading-[18px] text-gray4">
             {comment?.createdIp}
           </span>
