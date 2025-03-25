@@ -86,7 +86,7 @@ const Page = ({
     orderType: orderType() as newsListConfig["orderType"],
     searchType:
       (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
-    content: searchParams.get("search") || "",
+    search: searchParams.get("search") || "",
     timePeriod:
       (searchParams.get("time") as newsListConfig["timePeriod"]) || "DAILY",
   };

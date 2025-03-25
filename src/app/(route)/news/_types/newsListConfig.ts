@@ -4,6 +4,6 @@ export interface newsListConfig {
   category: "" | "BASEBALL" | "FOOTBALL" | "ESPORTS";
   orderType: "RECOMMEND" | "CREATE" | "COMMENT";
   searchType: "" | "TITLE" | "CONTENT" | "TITLE_CONTENT" | "NICKNAME" | "COMMENT";
-  content: string;
+  search: string;
   timePeriod: "DAILY" | "WEEKLY" | "MONTHLY";
 }

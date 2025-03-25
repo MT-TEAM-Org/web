@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSearchParams, useParams, usePathname } from "next/navigation";
 import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 import NewsTalkToolbar from "../_components/NewsTalkToolbar";
@@ -45,7 +45,7 @@ export default function NewsPage() {
       case "COMMENT":
         return "COMMENT";
       default:
-        return "COMMENT";
+        return "DATE";
     }
   };
 
@@ -56,7 +56,7 @@ export default function NewsPage() {
     orderType: orderType() as newsListConfig["orderType"],
     searchType:
       (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
-    content: searchParams.get("search") || "",
+    search: searchParams.get("search") || "",
     timePeriod:
       (searchParams.get("time") as newsListConfig["timePeriod"]) || "DAILY",
   };
