@@ -13,7 +13,7 @@ const useLogout = () => {
     mutationFn: logout,
     onSuccess: () => {
       localStorage.removeItem("accessToken");
-      queryClient.resetQueries({ queryKey: ["authCheck"] });
+      queryClient.invalidateQueries({ queryKey: ["authCheck"] });
       queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
       queryClient.invalidateQueries({ queryKey: ["myPostList"] });
       router.push("/");
