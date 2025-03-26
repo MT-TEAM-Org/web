@@ -143,9 +143,7 @@ const FeedbackInfoPage = () => {
           )}
           <div
             className={`w-full ${
-              adminRole !== "ADMIN" || adminRole === undefined
-                ? "h-[96px]"
-                : "h-[56px]"
+              adminRole !== "ADMIN" || (adminRole === undefined && "h-[56px]")
             } flex gap-2 flex-col`}
           >
             <div>
@@ -174,36 +172,38 @@ const FeedbackInfoPage = () => {
             </div>
           </div>
           <hr />
-          <div className="w-full min-h-auto flex flex-col gap-3">
-            {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
-              <Image
-                src={feedbackInfoData?.imgUrl}
-                alt="Feedback img"
-                width={672}
-                height={128}
-              />
-            )}
-            {youtubeEmbedUrl && (
-              <iframe
-                width="100%"
-                height="408"
-                src={youtubeEmbedUrl}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            )}
-            {!youtubeEmbedUrl && (
-              <div className="w-[679px] min-h-[42px]">
-                <div>{feedbackInfoData?.data?.link}</div>
-              </div>
-            )}
-            <div
-              className="text-[16px] leading-6 tracking-[-0.02em] text-gray7"
-              dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
-            />
-          </div>
+          {(feedbackInfoData?.imgUrl || youtubeEmbedUrl) && (
+            <div className="w-full min-h-auto flex flex-col gap-3">
+              {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
+                <Image
+                  src={feedbackInfoData?.imgUrl}
+                  alt="Feedback img"
+                  width={672}
+                  height={128}
+                />
+              )}
+              {youtubeEmbedUrl && (
+                <iframe
+                  width="100%"
+                  height="408"
+                  src={youtubeEmbedUrl}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
+              {!youtubeEmbedUrl && feedbackInfoData?.data?.link && (
+                <div className="w-[679px] min-h-[42px]">
+                  <div>{feedbackInfoData?.data?.link}</div>
+                </div>
+              )}
+            </div>
+          )}
+          <div
+            className="text-[16px] leading-6 tracking-[-0.02em] text-gray7"
+            dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
+          />
           <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
             <RecommendButton
               handleCommend={handleFeedbackCommend}

@@ -12,8 +12,10 @@ import { usePathname } from "next/navigation";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 import { useQueryClient } from "@tanstack/react-query";
 import usePostNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/usePostNoticeRecommend";
-import useDeleteNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteNoticeRecommend";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
+import useDeleteNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteNoticeRecommend";
+import axios from "axios";
+import { useToast } from "@/_hooks/useToast";
 
 interface NoticeInfoItemProps {
   data: NoticeInfoItemType;
@@ -24,6 +26,7 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
   const timeAgo = useTimeAgo(data?.createdAt);
   const pathname = usePathname();
   const queryClient = useQueryClient();
+  const toast = useToast();
 
   const {
     mutate: noticeAddRecommend,
@@ -37,6 +40,11 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
       noticeAddRecommend(id, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["noticeInfo", id] });
+        },
+        onError: (error) => {
+          if (axios.isAxiosError(error) && error.response?.status === 409) {
+            toast.error("이미 추천이 되어있습니다.", "");
+          }
         },
       });
     } else if (data?.isRecommended) {
@@ -100,36 +108,39 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
 
       <hr />
 
-      <div className="w-full max-w-[672px] min-h-[188px] flex flex-col gap-3">
-        {data?.imgUrl && !youtubeEmbedUrl && (
-          <Image
-            src={data?.imgUrl}
-            alt="Feedback img"
-            width={672}
-            height={128}
-          />
-        )}
-        {youtubeEmbedUrl && (
-          <iframe
-            width="100%"
-            height="408"
-            src={youtubeEmbedUrl}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        )}
-        {!youtubeEmbedUrl && (
-          <div className="w-[679px] min-h-[42px]">
-            <div>{data?.link}</div>
-          </div>
-        )}
-        <div
-          className="w-full max-w-[672px] min-h-[48px] font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray7"
-          dangerouslySetInnerHTML={{ __html: data?.content }}
-        />
-      </div>
+      {(data?.imgUrl || youtubeEmbedUrl) && (
+        <div className="w-full max-w-[672px] min-h-[188px] flex flex-col gap-3">
+          {data?.imgUrl && !youtubeEmbedUrl && (
+            <Image
+              src={data?.imgUrl}
+              alt="Feedback img"
+              width={672}
+              height={128}
+            />
+          )}
+          {youtubeEmbedUrl && (
+            <iframe
+              width="100%"
+              height="408"
+              src={youtubeEmbedUrl}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          )}
+          {!youtubeEmbedUrl && data?.link && (
+            <div className="w-[679px] min-h-[42px]">
+              <div>{data?.link}</div>
+            </div>
+          )}
+        </div>
+      )}
+
+      <div
+        className="w-full max-w-[672px] min-h-[48px] font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray7"
+        dangerouslySetInnerHTML={{ __html: data?.content }}
+      />
       <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
         <RecommendButton
           handleCommend={handleFeedbackCommend}
