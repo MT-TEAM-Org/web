@@ -16,7 +16,6 @@ const usePostFeedbackRecommend = () => {
     onSuccess: () => {
       toast.success("추천이 완료되었습니다.", "")
     },
-    
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
         setIsSignInModalOpen(true);

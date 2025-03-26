@@ -38,7 +38,7 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
             className="max-w-[68px] min-h-[68px] rounded-[5px] object-cover"
           />
         </div>
-        <div className="w-[368px] h-[68px] flex flex-col justify-center gap-1">
+        <div className="w-[352px] h-[68px] flex flex-col justify-center gap-1">
           <h2 className="w-full h-[24px] font-[700] text-[16px] leading-6 text-ellipsis overflow-hidden whitespace-nowrap">
             {newsItem?.title}
           </h2>

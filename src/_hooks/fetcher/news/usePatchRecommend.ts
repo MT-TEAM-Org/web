@@ -1,3 +1,5 @@
+"use client"
+
 import { useToast } from "@/_hooks/useToast";
 import patchNewsRecommend from "@/services/news/patchNewsRecommend";
 import { useMutation } from "@tanstack/react-query";
