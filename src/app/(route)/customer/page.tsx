@@ -37,37 +37,32 @@ const NoticePageContent = () => {
     isError,
   } = useGetNoticeDataList(noticeOption);
 
-  return (
-    <>
-      <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
-        <div className="sticky top-0 z-10">
-          <CustomerTalkToolbar
-            showOptions={false}
-            paginationData={noticeListData?.pageInfo}
-            adminChecker={adminChecker}
-          />
-        </div>
+  console.log(noticeListData);
 
-        <div className="w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
-          {isLoading ? (
-            Array.from({ length: 10 }).map((_, index) => (
-              <NoticeItemSkeleton key={index} />
-            ))
-          ) : noticeListData?.content?.length === 0 || isError ? (
-            <EmptyItem title="공지사항이" />
-          ) : (
-            noticeListData?.content?.map(
-              (noticeListData: NoticeContentType) => (
-                <NoticeItem
-                  key={noticeListData?.id}
-                  noticeData={noticeListData}
-                />
-              )
-            )
-          )}
-        </div>
+  return (
+    <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10">
+      <div className="sticky top-0 z-10">
+        <CustomerTalkToolbar
+          showOptions={false}
+          paginationData={noticeListData?.pageInfo}
+          adminChecker={adminChecker}
+        />
       </div>
-    </>
+
+      <div className="w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+        {isLoading ? (
+          Array.from({ length: 10 }).map((_, index) => (
+            <NoticeItemSkeleton key={index} />
+          ))
+        ) : noticeListData?.content?.length === 0 || isError ? (
+          <EmptyItem title="공지사항이" />
+        ) : (
+          noticeListData?.content?.map((noticeListData: NoticeContentType) => (
+            <NoticeItem key={noticeListData?.id} noticeData={noticeListData} />
+          ))
+        )}
+      </div>
+    </div>
   );
 };
 

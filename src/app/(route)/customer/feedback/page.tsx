@@ -74,7 +74,7 @@ const FeedbackPage = () => {
           />
         </div>
 
-        <div className="w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+        <div className="w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
           {noticeIsLoading || isLoading ? (
             <>
               {Array.from({ length: 10 }).map((_, index) => (

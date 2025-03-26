@@ -63,7 +63,7 @@ const NoticeInfoContent = () => {
           adminChecker={adminChecker}
         />
       </div>
-      <div className="w-[720px] h-auto rounded-[5px] bg-white shadow-md mb-10">
+      <div className="w-[720px] h-auto rounded-[5px] bg-white shadow-md">
         {isLoading ? (
           Array.from({ length: 10 }).map((_, index) => (
             <NoticeItemSkeleton key={index} />

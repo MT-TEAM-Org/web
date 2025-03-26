@@ -20,7 +20,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="w-[160px] min-h-[260px] rounded-5px bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] sticky top-[0]">
           <CustomerLeftSidebar />
         </div>
-        <div className="min-h-[calc(100vh-476px)]">{children}</div>
+        <div className="min-h-[calc(100vh-188px)]">{children}</div>
         <div className="mb-[42px] sticky top-[0]">
           <RightSidebarWrapper />
         </div>
