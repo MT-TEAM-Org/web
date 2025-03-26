@@ -93,6 +93,8 @@ const FeedbackPage = () => {
                     key={noticeListData.id}
                     noticeData={noticeListData}
                     isFeedback={true}
+                    searchString={searchParams.get("search")}
+                    searchType={searchParams.get("search_type")}
                   />
                 )
               )}

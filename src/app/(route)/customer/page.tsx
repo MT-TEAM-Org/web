@@ -58,7 +58,12 @@ const NoticePageContent = () => {
           <EmptyItem title="공지사항이" />
         ) : (
           noticeListData?.content?.map((noticeListData: NoticeContentType) => (
-            <NoticeItem key={noticeListData?.id} noticeData={noticeListData} />
+            <NoticeItem
+              key={noticeListData?.id}
+              noticeData={noticeListData}
+              searchString={searchParams.get("search")}
+              searchType={searchParams.get("search_type")}
+            />
           ))
         )}
       </div>

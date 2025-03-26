@@ -1,3 +1,9 @@
+export interface CommentSearchList {
+  commendId: number;
+  comment: string;
+  imageUrl: string
+}
+
 export interface NoticeContentType {
   id: number;
   title: string;
@@ -8,6 +14,7 @@ export interface NoticeContentType {
   recommendCount: number;
   createdAt: string;
   updatedAt: string;
+  commentSearchList: CommentSearchList
 }
 
 export interface NoticePageInfoType {

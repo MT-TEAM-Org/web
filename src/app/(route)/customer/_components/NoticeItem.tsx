@@ -5,15 +5,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
+import { highlightText } from "@/utils/searchHighlightText";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
   isFeedback?: boolean;
+  searchType: string;
+  searchString: string;
 }
 
-const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
+const NoticeItem = ({
+  noticeData,
+  isFeedback = false,
+  searchString,
+  searchType,
+}: NoticeItemProps) => {
   const [isNew, setIsNew] = useState(false);
   const timeAgo = useTimeAgo(noticeData?.createdAt);
+
+  console.log(searchString);
+  console.log(searchType);
 
   useEffect(() => {
     if (noticeData?.createdAt) {
@@ -49,7 +60,9 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
         <div className="min-w-[584px] min-h-[42px] flex gap-1 flex-col">
           <div className="w-auto min-h-[20px] flex items-center gap-[2px]">
             <p className="text-[14px] leading-5 text-gray7">
-              {noticeData?.title}
+              {searchType === "TITLE" || searchType === "TITLE_CONTENT"
+                ? highlightText(noticeData?.title, searchType, searchString)
+                : noticeData?.title}
             </p>
             {noticeData?.commentCount >= 1 && (
               <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
