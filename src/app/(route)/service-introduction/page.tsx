@@ -96,7 +96,7 @@ const Page = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="w-full h-[480px] flex items-center justify-center bg-gradient-to-r from-[#00ADEE] to-[#006388]">
+      <div className="w-full h-[480px] flex items-center justify-center bg-gradient-to-r from-gra to-[#006388]">
         {/* 애니메이션 들어갈 부분 */}
         <div className="w-[520px] min-h-[296px] rounded-[20px] p-10 flex gap-6 shadow-sm bg-white z-10">
           <div className="w-full min-h-[216px] flex flex-col gap-6">
@@ -166,7 +166,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="w-full min-h-[600px] py-[60px] flex gap-[10px] bg-[#FFFFFF] items-center justify-center">
+      <div className="w-full min-h-[600px] py-[60px] flex gap-[10px] bg-white items-center justify-center">
         <div className="w-[1200px] min-h-[480px] flex justify-between items-center">
           <div className="relative w-[464.42px] h-[480px]">
             {benefitImages.map((image, index) => (
