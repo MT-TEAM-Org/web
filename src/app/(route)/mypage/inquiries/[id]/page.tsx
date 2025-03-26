@@ -3,7 +3,7 @@
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
-import { Suspense, use, useEffect, useRef } from "react";
+import { Suspense, use, useEffect, useRef, useState } from "react";
 import useGetInquiriesDetail from "@/_hooks/fetcher/mypage/useGetInquiriesDetail";
 import { useRouter } from "next/navigation";
 import MyPageInquiriesList from "../_components/MyPageInquiriesList";
@@ -25,6 +25,8 @@ interface InquirieDetailData {
   publicID: string;
 }
 
+interface parentsComment {}
+
 const InquirieDetail = ({
   params,
 }: {
@@ -37,6 +39,7 @@ const InquirieDetail = ({
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);
   const { addInquiryPostId, removeInquiryPostId } = useInquiryPostIdStore();
+  const [parentsComment, setParentsComment] = useState();
 
   useEffect(() => {
     if (!id) return;
