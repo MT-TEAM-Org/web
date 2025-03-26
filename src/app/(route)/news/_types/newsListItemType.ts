@@ -1,3 +1,9 @@
+export interface NewsCommentSearchList {
+  newsCommentId: number,
+  comment: string,
+  imageUrl: string,
+}
+
 export interface NewsListType {
   id: number;
   title: string;
@@ -9,6 +15,7 @@ export interface NewsListType {
   source?: string;
   viewCount?: number;
   recommendCount?: number;
+  newsCommentSearchList?: NewsCommentSearchList
 }
 
 export interface NewsListPageInfoType {
