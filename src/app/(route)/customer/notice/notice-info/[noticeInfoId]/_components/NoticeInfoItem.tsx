@@ -85,7 +85,7 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
               {noticeStats.map((stat, index) => (
                 <div
                   key={index}
-                  className="min-w-[45px] min-h-[20px] flex gap-1 text-[14px] leading-5 text-gray6"
+                  className="flex gap-1 text-[14px] leading-5 text-gray6"
                 >
                   <p className="font-bold">{stat.label}</p>
                   <p>{stat.value}</p>

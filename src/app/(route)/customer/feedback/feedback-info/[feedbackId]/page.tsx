@@ -159,7 +159,7 @@ const FeedbackInfoPage = () => {
                 <p>개선요청</p>
                 <p>{timeAgo}</p>
                 {infoItems.map((item, index) => (
-                  <div key={index} className="min-w-auto min-h-full flex gap-2">
+                  <div key={index} className="flex gap-2">
                     <p className="font-bold">{item.label}</p>
                     <p>{item.value}</p>
                   </div>
