@@ -6,6 +6,7 @@ import MyPagePostItem from "./MyPagePostItem";
 import MyPagePostEmpty from "./MypagePostEmpty";
 import { useSearchParams } from "next/navigation";
 import { PostListConfig, PostListData } from "../_types/postTypes";
+import MypagePostSkelton from "./MypagePostSkelton";
 
 const MyPagePostList = () => {
   const searchParams = useSearchParams();
@@ -34,6 +35,7 @@ const MyPagePostList = () => {
         ) : (
           <MyPagePostEmpty />
         )}
+        {isLoading && <MypagePostSkelton />}
       </div>
     </div>
   );

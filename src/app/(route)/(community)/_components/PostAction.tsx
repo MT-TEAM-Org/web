@@ -3,6 +3,7 @@
 import { useToast } from "@/_hooks/useToast";
 import Copy from "@/app/_components/icon/Copy";
 import Share from "@/app/_components/icon/Share";
+import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 import ShareModalPopUp from "@/app/_components/ShareModalPopUp";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -15,6 +16,7 @@ interface PostActionProps {
 
 const PostAction = ({ type, onReport, source }: PostActionProps) => {
   const [activeModal, setActiveModal] = useState(false);
+  const [activeReportModal, setActiveReportModal] = useState(false);
   const url = window.location.href;
   const toast = useToast();
 
@@ -35,6 +37,7 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
   };
 
   const handleReport = () => {
+    setActiveReportModal(true);
     if (onReport) {
       onReport();
     }
@@ -76,6 +79,9 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
       </div>
       {activeModal && (
         <ShareModalPopUp setActiveModal={setActiveModal} url={url} />
+      )}
+      {activeReportModal && (
+        <ReportModalPopUp setActiveModal={setActiveReportModal} />
       )}
     </div>
   );

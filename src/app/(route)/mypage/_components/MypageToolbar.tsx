@@ -15,6 +15,7 @@ import Pagination from "./Pagination";
 import changeURLParams from "../util/changeURLParams";
 import AnswerCheck from "./AnswerCheck";
 import { useQueryClient } from "@tanstack/react-query";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 interface MypageToolbarProps {
   mode: "posts" | "inquries";
@@ -34,10 +35,8 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
     search: searchParams.get("search") || "",
     page: searchParams.get("page") || 1,
   };
-  const userRole = queryClient.getQueryData<{
-    data: { data: { role: string } };
-  }>(["authCheck"])?.data?.data?.role;
-
+  const { data: authCheckData } = useAuthCheck();
+  const userRole = authCheckData?.data?.data?.role;
   const searchOptions =
     mode === "inquries" ? INQURIES_SEARCH_OPTIONS : POST_SEARCH_OPTIONS;
 

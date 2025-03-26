@@ -13,7 +13,6 @@ import NoticeInfoItemSkeleton from "./_components/NoticeInfoItemSkeleton";
 import { noticeListConfig } from "../../../_types/noticeListConfig";
 import EmptyItem from "../../../_components/EmptyItem";
 import { useAdminRole } from "../../../_utils/adminChecker";
-import { useQueryClient } from "@tanstack/react-query";
 
 const Page = () => {
   return (
