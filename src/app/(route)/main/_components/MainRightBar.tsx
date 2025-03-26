@@ -22,28 +22,18 @@ const MainRightBar = () => {
     data: gameEventData,
     isLoading: eventIsLoading,
     isError: eventIsError,
-<<<<<<< HEAD
-  } = useGetGameEvent({ pageNum });
-
-=======
   } = useGetGameEvent({
     pageNum,
   });
   const handleButtonStyle = (value: boolean) => {
     setButtonActive(value);
   };
->>>>>>> 40cf44297da965b2e8ce7a27c714ff440d356e54
+
   const {
     data: filteredNewsData,
     isLoading: newsIsLoading,
     isError: newsIsError,
-<<<<<<< HEAD
   } = useGetMainRightBarNewsData({ page: currentPage }) ?? {};
-=======
-  } = useGetMainRightBarNewsData({
-    page: currentPage.toString(),
-  });
->>>>>>> 40cf44297da965b2e8ce7a27c714ff440d356e54
 
   const handleToPage = (type: "prev" | "next") => {
     const current = Number(currentPage);
@@ -93,15 +83,13 @@ const MainRightBar = () => {
             ) : newsIsError || !filteredNewsData?.content?.length ? (
               <EmptyGameBox title="뉴스 정보" />
             ) : (
-              filteredNewsData.content
-                ?.slice(3)
-                .map((data: NewsItemType) => (
-                  <RightNewsItem
-                    key={data.id}
-                    newsItem={data}
-                    customClass="w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3"
-                  />
-                ))
+              filteredNewsData.content.map((data: NewsItemType) => (
+                <RightNewsItem
+                  key={data.id}
+                  newsItem={data}
+                  customClass="w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3"
+                />
+              ))
             )}
           </div>
         ) : eventIsLoading ? (
@@ -121,16 +109,20 @@ const MainRightBar = () => {
             onClick={() => handleToPage("prev")}
             className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center"
           >
-            <Arrow_left />
+            <div className="w-[18px] h-[18px] ">
+              <Arrow_left />
+            </div>
           </button>
           <div className="w-[64px] h-[32px] font-[500] text-[14px] text-gray6 flex justify-center items-center">
             {currentPage} / {filteredNewsData?.pageInfo?.totalPage}
           </div>
           <button
             onClick={() => handleToPage("next")}
-            className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center"
+            className="w-[32px] h-[32px]  rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center"
           >
-            <Arrow_right />
+            <div className="w-[18px] h-[18px] ">
+              <Arrow_right />
+            </div>
           </button>
         </div>
       )}

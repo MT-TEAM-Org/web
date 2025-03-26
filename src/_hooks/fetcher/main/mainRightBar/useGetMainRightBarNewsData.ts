@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import fetchNewsDataList from "@/services/news/fetchNewsDataList";
-import { NewsItemType } from "@/app/_constants/newsItemType";
+import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 
 interface NewsDataProps {
   page?: string;
@@ -27,7 +27,7 @@ const useGetMainRightBarNewsData = ({
     queryFn: () =>
       fetchNewsDataList({
         page: String(currentPage),
-        size: 8,
+        size: 5,
         withPageInfo: true,
         timePeriod: "WEEKLY",
       }),
