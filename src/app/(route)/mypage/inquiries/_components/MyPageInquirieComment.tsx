@@ -5,26 +5,13 @@ import useGetInquiriesCommentList from "@/_hooks/fetcher/mypage/useGetInquiriesC
 import MyPageInquirieCommentEmpty from "./MyPageInquirieCommentEmpty";
 import MyPageInquirieCommentItem from "./MyPageInquirieCommentItem";
 import { useState } from "react";
+import { ParentsComment } from "../_types/inquiries";
 
 interface MyPageInquirieCommentProps {
   ref: React.RefObject<HTMLDivElement>;
   id: string | undefined;
   publicId: string;
-}
-
-interface InquirieCommentReply {
-  inquiryReplyId: number;
-  inquiryCommentId: number;
-  createdIp: string;
-  publicId: string;
-  nickname: string;
-  imageUrl: string;
-  comment: string;
-  recommendCount: number;
-  mentionedPublicId: string;
-  mentionedNickname: string;
-  createDate: string;
-  lastModifiedDate: string;
+  setParentsComment: (comment: ParentsComment) => void;
 }
 
 interface InquirieCommentContent {
@@ -32,14 +19,16 @@ interface InquirieCommentContent {
   createdIp: string;
   publicId: string;
   nickname: string;
-  imageUrl: string;
+  commenterImg: string | null;
+  imageUrl: string | null;
   comment: string;
   recommendCount: number;
   mentionedPublicId: string;
   mentionedNickname: string;
   createDate: string;
   lastModifiedDate: string;
-  boardReplyList: InquirieCommentReply[];
+  replyList: [];
+  recommended: boolean;
 }
 
 interface InquirieCommentData {
@@ -51,6 +40,7 @@ const MyPageInquirieComment = ({
   ref,
   id,
   publicId,
+  setParentsComment,
 }: MyPageInquirieCommentProps) => {
   const { data: commentList, refetch } = useGetInquiriesCommentList(id, !!id);
   const { total, content } = (commentList?.data as InquirieCommentData) || {};
@@ -93,11 +83,12 @@ const MyPageInquirieComment = ({
       {!total ? (
         <MyPageInquirieCommentEmpty />
       ) : (
-        content.map((comment, i) => (
+        content.map((comment) => (
           <MyPageInquirieCommentItem
             key={comment.commentId}
             comment={comment}
             publicId={publicId}
+            setParentsComment={setParentsComment}
           />
         ))
       )}

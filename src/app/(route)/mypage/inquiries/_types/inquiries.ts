@@ -23,3 +23,20 @@ export interface InquiriesListData {
     totalElement: number;
   };
 }
+
+export interface ParentsComment {
+  commentId: number;
+  createdIp: string;
+  publicId: string;
+  nickname: string;
+  commenterImg: string | null;
+  imageUrl: string | null;
+  comment: string;
+  recommendCount: number;
+  mentionedPublicId: string;
+  mentionedNickname: string;
+  createDate: string;
+  lastModifiedDate: string;
+  replyList: ParentsComment[];
+  recommended: boolean;
+}

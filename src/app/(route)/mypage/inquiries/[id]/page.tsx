@@ -12,6 +12,7 @@ import MyPageInquirieSendCommentBox from "../_components/MyPageInquirieSendComme
 import MyPageInquirieComment from "../_components/MyPageInquirieComment";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { CalculateTime } from "@/app/_components/CalculateTime";
+import { ParentsComment } from "../_types/inquiries";
 
 interface InquirieDetailProps {
   id: string;
@@ -27,8 +28,6 @@ interface InquirieDetailData {
   publicID: string;
 }
 
-interface parentsComment {}
-
 const InquirieDetail = ({
   params,
 }: {
@@ -42,6 +41,9 @@ const InquirieDetail = ({
   const comments = useRef(null);
   const { addInquiryPostId, removeInquiryPostId } = useInquiryPostIdStore();
   const { data: authCheckData } = useAuthCheck();
+  const [parentsComment, setParentsComment] = useState<ParentsComment | null>(
+    null
+  );
   const userRole = authCheckData?.data?.data?.role;
 
   useEffect(() => {
@@ -95,73 +97,86 @@ const InquirieDetail = ({
   const buttonStyle =
     "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-gray3 pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px] text-7";
   return (
-    <div className="space-y-[12px]">
-      <div className="flex flex-col justify-center gap-[16px] w-[720px] min-h-[497px] rounded-b-[5px] p-[24px] bg-white">
-        <h1 className="text-[18px] font-[700] leading-[28px] text-gray8">
-          {userRole === "ADMIN" ? "문의내역 상세" : "나의 문의내역 상세"}
-        </h1>
-        <div className="flex justify-between items-center text-[14px] leading-[20px] text-gray6">
-          <div className="flex gap-[8px]">
-            <span className="font-[700]">마이페이지</span>
-            <span>{userRole === "ADMIN" ? "문의내역" : "나의 문의내역"}</span>
-            <span>{CalculateTime(inquirieDetail?.createdAt)}</span>
-            <span>
-              <span className="font-[700]">댓글</span>{" "}
-              {inquirieDetail?.commentCount}
-            </span>
+    <>
+      <div className="space-y-[12px]">
+        <div className="flex flex-col justify-center gap-[16px] w-[720px] min-h-[497px] rounded-b-[5px] p-[24px] bg-white">
+          <h1 className="text-[18px] font-[700] leading-[28px] text-gray8">
+            {userRole === "ADMIN" ? "문의내역 상세" : "나의 문의내역 상세"}
+          </h1>
+          <div className="flex justify-between items-center text-[14px] leading-[20px] text-gray6">
+            <div className="flex gap-[8px]">
+              <span className="font-[700]">마이페이지</span>
+              <span>{userRole === "ADMIN" ? "문의내역" : "나의 문의내역"}</span>
+              <span>{CalculateTime(inquirieDetail?.createdAt)}</span>
+              <span>
+                <span className="font-[700]">댓글</span>{" "}
+                {inquirieDetail?.commentCount}
+              </span>
+            </div>
+            <div className="flex gap-[4px]">
+              <span>{inquirieDetail?.nickname}</span>
+              <span>IP {inquirieDetail?.clientIp}</span>
+            </div>
           </div>
-          <div className="flex gap-[4px]">
-            <span>{inquirieDetail?.nickname}</span>
-            <span>IP {inquirieDetail?.clientIp}</span>
-          </div>
-        </div>
-        <div className="h-[1px] border"></div>
-        <p className="min-h-[48px] leading-[24px] text-gray7">
-          {inquirieDetail?.content}
-        </p>
-        <MyPageInquirieComment
-          ref={comments}
-          id={inquirieDetail?.inquiryId}
-          publicId={data?.data?.publicID}
-        />
-        <div className="flex justify-between min-h-[40px]">
-          <div className="flex gap-[8px]">
-            {buttons.slice(0, 2).map(({ text, icon: Icon, onClick }, index) => (
-              <button
-                key={index}
-                className={`${buttonStyle} ${
-                  buttons[index].disabled
-                    ? "cursor-not-allowed opacity-50"
-                    : "cursor-pointer"
-                }`}
-                onClick={onClick}
-                disabled={buttons[index].disabled}
-              >
-                <Icon />
-                {text}
-              </button>
-            ))}
-          </div>
+          <div className="h-[1px] border"></div>
+          <p className="min-h-[48px] leading-[24px] text-gray7">
+            {inquirieDetail?.content}
+          </p>
+          <MyPageInquirieComment
+            ref={comments}
+            id={inquirieDetail?.inquiryId}
+            publicId={data?.data?.publicID}
+            setParentsComment={setParentsComment}
+          />
+          <div className="flex justify-between min-h-[40px]">
+            <div className="flex gap-[8px]">
+              {buttons
+                .slice(0, 2)
+                .map(({ text, icon: Icon, onClick }, index) => (
+                  <button
+                    key={index}
+                    className={`${buttonStyle} ${
+                      buttons[index].disabled
+                        ? "cursor-not-allowed opacity-50"
+                        : "cursor-pointer"
+                    }`}
+                    onClick={onClick}
+                    disabled={buttons[index].disabled}
+                  >
+                    <Icon />
+                    {text}
+                  </button>
+                ))}
+            </div>
 
-          <div className="flex gap-[8px]">
-            {buttons.slice(2).map(({ text, icon: Icon, onClick }, index) => (
-              <button key={index + 2} className={buttonStyle} onClick={onClick}>
-                <Icon />
-                {text}
-              </button>
-            ))}
+            <div className="flex gap-[8px]">
+              {buttons.slice(2).map(({ text, icon: Icon, onClick }, index) => (
+                <button
+                  key={index + 2}
+                  className={buttonStyle}
+                  onClick={onClick}
+                >
+                  <Icon />
+                  {text}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
+        <Suspense fallback={""}>
+          <div className="max-w-[720px] h-auto bg-[#FAFAFA] rounded-[5px]">
+            <MyPageInquiriesList />
+          </div>
+        </Suspense>
       </div>
-      <Suspense fallback={""}>
-        <div className="max-w-[720px] min-h-[450px] bg-[#FAFAFA] rounded-[5px]">
-          <MyPageInquiriesList />
-        </div>
-      </Suspense>
       <div className="shadow-md sticky bottom-0">
-        <MyPageInquirieSendCommentBox id={id} />
+        <MyPageInquirieSendCommentBox
+          id={id}
+          parentsComment={parentsComment}
+          setParentsComment={setParentsComment}
+        />
       </div>
-    </div>
+    </>
   );
 };
 

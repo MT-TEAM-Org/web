@@ -1,6 +1,6 @@
 "use client";
 
-import usePostInquirieComment from "@/_hooks/fetcher/mypage/usePostInquirieComment";
+import usePostInquirieComment from "@/_hooks/fetcher/comment/usePostComment";
 import Send_icon from "@/app/_components/icon/Send_icon";
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
@@ -10,12 +10,19 @@ import Cancel_icon from "@/app/_components/icon/Cancel_icon";
 import { useToast } from "@/_hooks/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
+import { ParentsComment } from "../_types/inquiries";
 
 interface SendCommentBoxProps {
   id?: string;
+  parentsComment?: ParentsComment;
+  setParentsComment: (comment: ParentsComment) => void;
 }
 
-const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
+const MyPageInquirieSendCommentBox = ({
+  id,
+  parentsComment,
+  setParentsComment,
+}: SendCommentBoxProps) => {
   const queryClient = useQueryClient();
   const [inputValue, setInputValue] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -94,12 +101,15 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
 
     newsPostComment(
       {
+        type: "INQUIRY",
         comment: inputValue,
         imageUrl: selectedImage || null,
         mentionedPublicId,
+        parentId: parentsComment?.commentId || null,
       },
       {
         onSuccess: () => {
+          if (parentsComment) setParentsComment(null);
           queryClient.invalidateQueries({
             queryKey: ["inquiriesCommentList", Number(id)],
           });
@@ -116,6 +126,10 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Backspace" && inputValue.length === 0) {
+      setParentsComment(null);
+      return;
+    }
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleNewsComment(e);
@@ -162,7 +176,7 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
           />
           <div ref={containerRef} className="flex-grow max-w-[576px] relative">
             <div
-              className={`w-full rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-4 ${getEditorHeight()}`}
+              className={`w-full rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-[8px] ${getEditorHeight()}`}
               onClick={handleEditorClick}
             >
               {selectedImage && (
@@ -181,6 +195,11 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
                   </button>
                 </div>
               )}
+              {parentsComment && (
+                <p className="text-[14px] leading-[20px] text-gra">
+                  @{parentsComment?.nickname}
+                </p>
+              )}
               <div
                 ref={textRef}
                 contentEditable
@@ -190,7 +209,7 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
                 onBlur={handleBlur}
                 className="flex-grow outline-none min-w-0 overflow-y-hidden"
               />
-              {!inputValue.trim() && !selectedImage && (
+              {!inputValue.trim() && !selectedImage && !parentsComment && (
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
                   <span className="text-gray-400">
                     상대를 존중하는 클린한 댓글을 남겨주세요! 추천은 센스!
