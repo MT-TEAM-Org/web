@@ -4,6 +4,7 @@ import Image from "next/image";
 import ServiceBenefitItem from "./_components/ServiceBenefitItem";
 import DoubleLogo from "@/app/_components/icon/Service_DoubleLogo";
 import Service_PlayHive from "@/app/_components/icon/Service_PlayHive";
+import Link from "next/link";
 
 export const metadata = {
   title: "PlayHive 서비스소개 페이지",
@@ -100,13 +101,13 @@ const Page = () => {
         <div className="w-[520px] min-h-[296px] rounded-[20px] p-10 flex gap-6 shadow-sm bg-white z-10">
           <div className="w-full min-h-[216px] flex flex-col gap-6">
             <div className="w-full min-h-[60px] items-center text-center font-bold text-[28px] leading-10 tracking-[-0.04em]">
-              <h1>스포츠팬 여러분!</h1>
+              <h1 className="text-gray9">스포츠팬 여러분!</h1>
               <h1>
-                이제 <span className="text-[#00ADEE]">플레이하이브</span>에서
-                함께 응원하세요!
+                이제 <span className="text-gra">플레이하이브</span>에서 함께
+                응원하세요!
               </h1>
             </div>
-            <p className="text-center text-[18px] leading-7 text-[#424242] tracking-[-0.04em]">
+            <p className="text-center text-[18px] leading-7 text-gray7 tracking-[-0.04em]">
               우리는 스포츠 팬들이 서로 존중하며 소통할 수 있는 공간을 만듭니다.
               플하는 팬덤 문화를 선도하는 새로운 플랫폼입니다. 내가 응원하는 팀,
               선수에 대한 정보를 실시간으로 확인하고, 다른 팬들과 자유롭게
@@ -118,10 +119,10 @@ const Page = () => {
       <div className="w-full min-h-[902px] py-[80px] flex items-center justify-center gap-6">
         <div className="w-[1200px] min-h-[742px] flex flex-col items-center justify-center gap-6">
           <div className="min-w-[621px] min-h-[94px] flex flex-col gap-1">
-            <p className="font-extrabold text-[20px] leading-[26px] tracking-[-0.02em] text-center text-[#00ADEE]">
+            <p className="font-extrabold text-[20px] leading-[26px] tracking-[-0.02em] text-center text-gra">
               Features
             </p>
-            <p className="font-bold text-[42px] leading-[64px] tracking-[-0.02em] text-center">
+            <p className="font-bold text-[42px] leading-[64px] tracking-[-0.02em] text-center text-black">
               서로 존중하는 커뮤니티, 플레이하이브
             </p>
           </div>
@@ -139,18 +140,18 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="w-full min-h-[488px] py-[60px] flex gap-[10px] items-center justify-center bg-[#F8FDFF]">
+      <div className="w-full min-h-[488px] py-[60px] flex gap-[10px] items-center justify-center bg-bg0">
         <div className="w-[1200px] min-h-[368px] flex justify-between items-center">
           <div className="w-[560px] min-h-[294px] flex gap-6 flex-col">
             <div className="w-full h-[158px] flex flex-col gap-1">
-              <p className="font-black text-[20px] leading-[26px] tracking-[-0.02em] text-[#00ADEE]">
+              <p className="font-bold text-[20px] leading-[26px] tracking-[-0.02em] text-gra">
                 benefits 1
               </p>
-              <p className="font-bold text-[42px] leading-[64px] tracking-[-0.02em]">
+              <p className="font-bold text-[42px] leading-[64px] tracking-[-0.02em] text-black">
                 플레이하이브에서 소통한다면 다양한 즐거운 경험들을 얻어요.
               </p>
             </div>
-            <p className="text-[18px] leading-7 tracking-[-0.04em] text-[#424242]">
+            <p className="text-[18px] leading-7 tracking-[-0.04em] text-gray7">
               플레이 하이브는 유저분들의 자유롭고 즐거운 토론과 소통을 위해서
               직관적이고 커뮤니티에 집중할 수 있는 UIUX 디자인을 제공하고
               있습니다. 또한 실시간 경기중계를 보면서 함께 채팅을 나눌수 있는
@@ -182,14 +183,14 @@ const Page = () => {
           </div>
           <div className="w-[560px] min-h-[294px] flex gap-6 flex-col">
             <div className="w-full h-[158px] flex gap-1 flex-col">
-              <p className="font-bold text-[20px] leading-[26px] tracking-[-0.02em] text-[#00ADEE]">
+              <p className="font-bold text-[20px] leading-[26px] tracking-[-0.02em] text-gra">
                 benefits 2
               </p>
-              <p className="font-bold text-[36px] leading-[64px] tracking-[-0.02em]">
+              <p className="font-bold text-[42px] leading-[64px] tracking-[-0.02em] text-black">
                 좋아하는 스포츠 선수를 함께 응원한다면 더 즐거워요!
               </p>
             </div>
-            <p className="text-[18px] leading-7 tracking-[-0.04em] text-[#424242]">
+            <p className="font-medium text-[18px] leading-7 tracking-[-0.04em] text-gray7">
               페이커, 손흥민, 오타니, T1, 젠지, 토트넘 등.. 좋아하는 팀이나
               선수가 있으신가요? 추천시스템을 통해서 서로를 존중해주는 응원
               문화를 지향합니다. 따라서 팬인 선수나 팀에 대한 정보 공유, 응원
@@ -211,9 +212,11 @@ const Page = () => {
               &quot;여러분의 스포츠 이야기를 들려주세요!”
             </p>
           </div>
-          <button className="w-[160px] min-h-[52px] rounded-[5px] px-[22px] py-[18px] flex gap-[10px] bg-[#00ADEE] text-white items-center justify-center">
-            로그인/회원가입
-          </button>
+          <Link href={"/sign"}>
+            <button className="w-[160px] h-[52px] rounded-[5px] px-[22px] py-[18px] flex gap-[10px] bg-gra text-white items-center justify-center">
+              로그인/회원가입
+            </button>
+          </Link>
         </div>
       </div>
     </div>
