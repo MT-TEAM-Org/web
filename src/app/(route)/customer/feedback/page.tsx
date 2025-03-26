@@ -6,15 +6,14 @@ import FeedbackItem from "../_components/FeedbackItem";
 import { useSearchParams } from "next/navigation";
 import { noticeListConfig } from "../_types/noticeListConfig";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
-import { useQueryClient } from "@tanstack/react-query";
-import { getAdminRole } from "../_utils/adminChecker";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import EmptyItem from "../_components/EmptyItem";
-import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType";
+import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
 import NoticeItem from "../_components/NoticeItem";
-import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import FeedbackItemSkeleton from "../_components/FeedbackItemSkeleton";
 import { feedbackListConfig } from "../_types/feedbackListConfig";
+import { useAdminRole } from "../_utils/adminChecker";
 
 const Page = () => {
   return (
@@ -25,8 +24,7 @@ const Page = () => {
 };
 
 const FeedbackPage = () => {
-  const queryClient = useQueryClient();
-  const adminRole = getAdminRole(queryClient);
+  const adminRole = useAdminRole();
   const searchParams = useSearchParams();
 
   const noticeOption: noticeListConfig = {

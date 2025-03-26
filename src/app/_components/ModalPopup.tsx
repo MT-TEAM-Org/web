@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { ErrorMessage } from "@hookform/error-message";
 import { useToast } from "@/_hooks/useToast";
+import { createPortal } from "react-dom";
 
 interface ModalPopupProps {
   show: boolean;
@@ -46,9 +47,9 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
 
   const buttonStyle =
     "w-[160px] min-h-[48px] rounded-[5px] text-[16px] leading-[16px] font-[700]";
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 bg-[#000000B2] bg-opacity-70 flex items-center justify-center z-50 mt-0"
+      className="fixed top-0 left-0 w-screen h-screen bg-[#000000B2] bg-opacity-70 flex items-center justify-center z-50"
       onClick={() => setShow(false)}
     >
       <form
@@ -112,7 +113,8 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
           </button>
         </div>
       </form>
-    </div>
+    </div>,
+    document.body
   );
 };
 

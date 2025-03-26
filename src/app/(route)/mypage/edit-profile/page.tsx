@@ -10,6 +10,7 @@ import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
 import ProfileImage from "./_components/ProfileImage";
 import { useToast } from "@/_hooks/useToast";
 import useDeleteImage from "@/_hooks/fetcher/mypage/useDeleteImage";
+import ConfirmModal from "@/app/_components/ConfirmModal";
 
 interface FormData {
   email: string;
@@ -160,7 +161,7 @@ const EditProfile = () => {
       </div>
 
       <div className="min-h-[958px] px-[12px] py-[24px]">
-        {!userInfoIsLoading ? (
+        {!userInfoIsLoading && (
           <form
             className="max-w-[328px] min-h-[910px] mx-auto space-y-[24px]"
             onSubmit={handleSubmit(onSubmit)}
@@ -260,7 +261,7 @@ const EditProfile = () => {
               </button>
             </div>
           </form>
-        ) : null}
+        )}
       </div>
     </div>
   );

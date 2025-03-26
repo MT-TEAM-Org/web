@@ -5,9 +5,19 @@ import { Logo } from "../icon/Logo";
 import LoginButton from "./_components/LoginButton";
 import { MypageButton } from "./_components/MypageButton";
 import useAuthCheck from "@/_hooks/useAuthCheck";
+import { useAuthStore } from "@/utils/Store";
+import { useEffect } from "react";
 
 export default function Header() {
-  const { data: userData, isSuccess, isPending } = useAuthCheck();
+  const { data: userData, isSuccess, isError } = useAuthCheck();
+  const isLogout = isError || !isSuccess;
+  const { isLoggedIn, login } = useAuthStore();
+
+  useEffect(() => {
+    if (isSuccess && !isLogout) {
+      login();
+    }
+  }, [isSuccess]);
 
   const headerButtonClass =
     "w-[87px] min-h-[40px] p-[10px] font-medium text-[16px] leading-[24px] text-center";
@@ -39,7 +49,7 @@ export default function Header() {
             <button className={headerButtonClass}>{item.name}</button>
           </Link>
         ))}
-        {isSuccess ? (
+        {isLoggedIn ? (
           <MypageButton userNickname={userData?.data?.data?.nickname} />
         ) : (
           <LoginButton />

@@ -10,6 +10,8 @@ import MyPageInquiriesList from "../_components/MyPageInquiriesList";
 import { useInquiryPostIdStore } from "@/utils/Store";
 import MyPageInquirieSendCommentBox from "../_components/MyPageInquirieSendCommentBox";
 import MyPageInquirieComment from "../_components/MyPageInquirieComment";
+import useAuthCheck from "@/_hooks/useAuthCheck";
+import { CalculateTime } from "@/app/_components/CalculateTime";
 
 interface InquirieDetailProps {
   id: string;
@@ -39,7 +41,8 @@ const InquirieDetail = ({
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);
   const { addInquiryPostId, removeInquiryPostId } = useInquiryPostIdStore();
-  const [parentsComment, setParentsComment] = useState();
+  const { data: authCheckData } = useAuthCheck();
+  const userRole = authCheckData?.data?.data?.role;
 
   useEffect(() => {
     if (!id) return;
@@ -66,9 +69,9 @@ const InquirieDetail = ({
 
   const handleNextPrevRoute = (state: "next" | "prev") => {
     if (state === "next") {
-      router.push(`/mypage/inquiries/${Number(id) + 1}`);
+      router.push(`/mypage/inquiries/${data?.data?.nextId}`);
     } else {
-      router.push(`/mypage/inquiries/${Number(id) - 1}`);
+      router.push(`/mypage/inquiries/${data?.data?.previousId}`);
     }
   };
 
@@ -77,11 +80,13 @@ const InquirieDetail = ({
       text: "이전글",
       icon: Arrow_up,
       onClick: () => handleNextPrevRoute("prev"),
+      disabled: !data?.data?.previousId,
     },
     {
       text: "다음글",
       icon: Arrow_down,
       onClick: () => handleNextPrevRoute("next"),
+      disabled: !data?.data?.nextId,
     },
     { text: "댓글 맨위로", icon: Arrow_up, onClick: onHandleToTop },
     { text: "게시글 맨위로", icon: Double_arrow_up, onClick: scrollToTop },
@@ -93,13 +98,13 @@ const InquirieDetail = ({
     <div className="space-y-[12px]">
       <div className="flex flex-col justify-center gap-[16px] w-[720px] min-h-[497px] rounded-b-[5px] p-[24px] bg-white">
         <h1 className="text-[18px] font-[700] leading-[28px] text-gray8">
-          나의 문의내역 상세
+          {userRole === "ADMIN" ? "문의내역 상세" : "나의 문의내역 상세"}
         </h1>
         <div className="flex justify-between items-center text-[14px] leading-[20px] text-gray6">
           <div className="flex gap-[8px]">
             <span className="font-[700]">마이페이지</span>
-            <span>나의 문의내역</span>
-            <span>1분 전</span>
+            <span>{userRole === "ADMIN" ? "문의내역" : "나의 문의내역"}</span>
+            <span>{CalculateTime(inquirieDetail?.createdAt)}</span>
             <span>
               <span className="font-[700]">댓글</span>{" "}
               {inquirieDetail?.commentCount}
@@ -122,7 +127,16 @@ const InquirieDetail = ({
         <div className="flex justify-between min-h-[40px]">
           <div className="flex gap-[8px]">
             {buttons.slice(0, 2).map(({ text, icon: Icon, onClick }, index) => (
-              <button key={index} className={buttonStyle} onClick={onClick}>
+              <button
+                key={index}
+                className={`${buttonStyle} ${
+                  buttons[index].disabled
+                    ? "cursor-not-allowed opacity-50"
+                    : "cursor-pointer"
+                }`}
+                onClick={onClick}
+                disabled={buttons[index].disabled}
+              >
                 <Icon />
                 {text}
               </button>

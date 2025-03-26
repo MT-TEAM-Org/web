@@ -22,10 +22,8 @@ export interface PageInfo {
 }
 
 export interface NewsCommentResponse {
-  list?: {
-    content: CommentContent[];
-  };
-  content?: CommentContent[];
+  list: NewsCommentList;
+  pageInfo: PageInfo;
 }
 
 export type NewsCommentList = CommentContent[];

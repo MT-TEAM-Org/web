@@ -1,10 +1,12 @@
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProfileLogo } from "../../icon/ProfileLogo";
-import { api } from "@/_hooks/api";
+import ConfirmModal from "../../ConfirmModal";
+import useLogout from "@/_hooks/fetcher/mypage/useLogout";
+import useAuthCheck from "@/_hooks/useAuthCheck";
+import { useAuthStore } from "@/utils/Store";
 
 interface DropDownMenuItem {
   name: string;
@@ -12,30 +14,22 @@ interface DropDownMenuItem {
 }
 
 export const MypageButton = ({ userNickname }: { userNickname: string }) => {
-  const queryClient = useQueryClient();
   const router = useRouter();
   const [isDropDown, setIsDropDown] = useState(false);
+  const { data: authCheckData } = useAuthCheck();
+  const userRole = authCheckData?.data?.data?.role;
+  const [show, setShow] = useState(false);
+  const { mutate: logout, isPending: logoutIsPending } = useLogout();
+  const { logout: changeLogout } = useAuthStore();
 
-  const fetchLogout = async () => {
-    const response = await api.post(
-      "/logout",
-      {},
-      {
-        withCredentials: true,
-      }
-    );
-    return response;
-  };
-
-  const { mutate: logout, isPending: logoutIsPending } = useMutation({
-    mutationFn: fetchLogout,
-
-    onSuccess: () => {
-      localStorage.removeItem("accessToken");
-      queryClient.resetQueries({ queryKey: ["authCheck"] });
-      router.push("/");
-    },
-  });
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "auto";
+      };
+    }
+  }, [show]);
 
   const dropDownMenu = [
     {
@@ -55,7 +49,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
       link: "/mypage/edit-profile",
     },
     {
-      name: "나의 문의내역",
+      name: userRole === "USER" ? "나의 문의내역" : "문의내역",
       link: "/mypage/inquiries",
     },
     {
@@ -66,13 +60,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
   const handleClickMenu = (item: DropDownMenuItem) => {
     const { name, link } = item;
     if (name === "로그아웃") {
-      logout(undefined, {
-        onSuccess: () => {
-          localStorage.removeItem("accessToken");
-          queryClient.invalidateQueries({ queryKey: ["authCheck"] });
-          router.push("/");
-        },
-      });
+      setShow(true);
     } else {
       if (link) {
         router.push(link);
@@ -80,9 +68,19 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
     }
   };
 
+  const onClose = () => setShow(false);
+
+  const onConfirm = () => {
+    setShow(false);
+    changeLogout();
+    logout();
+  };
+
   return (
     <div
-      className="relative flex items-center gap-[16px] max-w-[165px] min-h-[42px] rounded-full py-[8px] px-[16px] cursor-pointer"
+      className={`relative flex items-center gap-[16px] max-w-[165px] min-h-[42px] rounded-full py-[8px] px-[16px] ${
+        !show && "cursor-pointer"
+      }`}
       onMouseEnter={() => setIsDropDown(true)}
     >
       <ProfileLogo />
@@ -112,6 +110,16 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
           ))}
         </ul>
       )}
+      <ConfirmModal
+        show={show}
+        onClose={onClose}
+        title="로그아웃 하시겠습니까?"
+        message="다시 로그인 하셔야합니다."
+        onConfirm={onConfirm}
+        closeText="취소"
+        confirmText="로그아웃"
+        isPending={logoutIsPending}
+      />
     </div>
   );
 };
