@@ -6,14 +6,13 @@ import CustomerTalkToolbar from "../../../_components/CustomerTalkToolbar";
 import NoticeItem from "../../../_components/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import NoticeItemSkeleton from "../../../_components/NoticeItemSkeleton";
-import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import useGetNoticeInfoData from "@/_hooks/fetcher/customer/useGetNoticeInfoData";
 import { useParams, useSearchParams } from "next/navigation";
 import NoticeInfoItemSkeleton from "./_components/NoticeInfoItemSkeleton";
 import { noticeListConfig } from "../../../_types/noticeListConfig";
 import EmptyItem from "../../../_components/EmptyItem";
-import { getAdminRole } from "../../../_utils/adminChecker";
-import { useQueryClient } from "@tanstack/react-query";
+import { useAdminRole } from "../../../_utils/adminChecker";
 
 const Page = () => {
   return (
@@ -27,9 +26,8 @@ const NoticeInfoContent = () => {
   const params = useParams();
   const searchParams = useSearchParams();
   const id = params.noticeInfoId;
-  const numericId = Number(id);
-  const queryClient = useQueryClient();
-  const adminChecker = getAdminRole(queryClient);
+  const numberId = Number(id);
+  const adminChecker = useAdminRole();
 
   const noticeOption: noticeListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
@@ -43,7 +41,7 @@ const NoticeInfoContent = () => {
     data: noticeInfoData,
     isLoading: infoIsLoading,
     isError: infoIsError,
-  } = useGetNoticeInfoData({ id: numericId });
+  } = useGetNoticeInfoData({ id: numberId });
 
   const {
     data: noticeListData,
@@ -56,7 +54,7 @@ const NoticeInfoContent = () => {
       {infoIsLoading || infoIsError ? (
         <NoticeInfoItemSkeleton />
       ) : (
-        <NoticeInfoItem data={noticeInfoData} />
+        <NoticeInfoItem data={noticeInfoData} id={numberId} />
       )}
       <div className="w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden">
         <CustomerTalkToolbar

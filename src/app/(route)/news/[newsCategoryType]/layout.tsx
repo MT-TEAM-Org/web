@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col justify-between items-center bg-gray1">
       <div className="w-[1200px] min-h-[120px] flex items-center">
-        <h5 className="font-bold text-[28px] leading-10 tracking-[0.04em]">
+        <h5 className="font-bold text-[28px] leading-10 tracking-[-0.04em]">
           뉴스톡톡
         </h5>
       </div>
@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="flex-1 max-w-[720px] mb-[47px] rounded-b-[5px]">
           {children}
         </div>
-        <div className="flex-1">
+        <div className="flex-1 mb-12">
           <div className="sticky top-0">
             <RightSideBar />
           </div>

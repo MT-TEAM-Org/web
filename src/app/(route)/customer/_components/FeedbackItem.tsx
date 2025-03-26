@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType";
+import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import FeedbackItemStatus from "./FeedbackItemStatus";
 
@@ -46,9 +46,9 @@ const FeedbackItem = ({ feedbackData }: FeedbackItemProps) => {
             <p className="text-[14px] leading-5 text-gray7">
               {feedbackData?.title}
             </p>
-            {feedbackData?.recommendCount >= 1 && (
+            {feedbackData?.commentCount >= 1 && (
               <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
-                {feedbackData?.recommendCount}
+                [<span>{feedbackData?.commentCount}</span>]
               </p>
             )}
             <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
