@@ -1,12 +1,12 @@
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
-import { ParentsComment } from "../_types/inquiries";
+import { CommentItem } from "@/_types/comment";
 import { CalculateTime } from "@/app/_components/CalculateTime";
 import Image from "next/image";
 
 interface ReplyCommentItemProps {
-  reply: ParentsComment;
+  reply: CommentItem;
   publicId: string;
-  setParentsComment: (comment: ParentsComment) => void;
+  setParentsComment: (comment: CommentItem) => void;
   parentNickname: string;
   depth?: number;
 }

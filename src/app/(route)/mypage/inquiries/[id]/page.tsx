@@ -8,11 +8,11 @@ import useGetInquiriesDetail from "@/_hooks/fetcher/mypage/useGetInquiriesDetail
 import { useRouter } from "next/navigation";
 import MyPageInquiriesList from "../_components/MyPageInquiriesList";
 import { useInquiryPostIdStore } from "@/utils/Store";
-import MyPageInquirieSendCommentBox from "../_components/MyPageInquirieSendCommentBox";
+import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import MyPageInquirieComment from "../_components/MyPageInquirieComment";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { CalculateTime } from "@/app/_components/CalculateTime";
-import { ParentsComment } from "../_types/inquiries";
+import { CommentItem } from "@/_types/comment";
 
 interface InquirieDetailProps {
   id: string;
@@ -41,7 +41,7 @@ const InquirieDetail = ({
   const comments = useRef(null);
   const { addInquiryPostId, removeInquiryPostId } = useInquiryPostIdStore();
   const { data: authCheckData } = useAuthCheck();
-  const [parentsComment, setParentsComment] = useState<ParentsComment | null>(
+  const [parentsComment, setParentsComment] = useState<CommentItem | null>(
     null
   );
   const userRole = authCheckData?.data?.data?.role;
@@ -170,8 +170,9 @@ const InquirieDetail = ({
         </Suspense>
       </div>
       <div className="shadow-md sticky bottom-0">
-        <MyPageInquirieSendCommentBox
+        <SendCommentBox
           id={id}
+          type="INQUIRY"
           parentsComment={parentsComment}
           setParentsComment={setParentsComment}
         />

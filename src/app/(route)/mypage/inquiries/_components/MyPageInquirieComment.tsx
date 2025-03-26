@@ -1,39 +1,22 @@
 "use client";
 
 import Refresh from "@/app/_components/icon/Refresh";
-import useGetInquiriesCommentList from "@/_hooks/fetcher/mypage/useGetInquiriesCommentList";
-import MyPageInquirieCommentEmpty from "./MyPageInquirieCommentEmpty";
+import useGetInquiriesCommentList from "@/_hooks/fetcher/comment/useGetCommentList";
+import CommentEmpty from "../../../../_components/_comment/CommentEmpty";
 import MyPageInquirieCommentItem from "./MyPageInquirieCommentItem";
 import { useState } from "react";
-import { ParentsComment } from "../_types/inquiries";
+import { CommentItem } from "@/_types/comment";
+
+interface InquirieCommentData {
+  total: number;
+  content: CommentItem[];
+}
 
 interface MyPageInquirieCommentProps {
   ref: React.RefObject<HTMLDivElement>;
   id: string | undefined;
   publicId: string;
-  setParentsComment: (comment: ParentsComment) => void;
-}
-
-interface InquirieCommentContent {
-  commentId: number;
-  createdIp: string;
-  publicId: string;
-  nickname: string;
-  commenterImg: string | null;
-  imageUrl: string | null;
-  comment: string;
-  recommendCount: number;
-  mentionedPublicId: string;
-  mentionedNickname: string;
-  createDate: string;
-  lastModifiedDate: string;
-  replyList: [];
-  recommended: boolean;
-}
-
-interface InquirieCommentData {
-  total: number;
-  content: InquirieCommentContent[];
+  setParentsComment: (comment: CommentItem) => void;
 }
 
 const MyPageInquirieComment = ({
@@ -42,7 +25,11 @@ const MyPageInquirieComment = ({
   publicId,
   setParentsComment,
 }: MyPageInquirieCommentProps) => {
-  const { data: commentList, refetch } = useGetInquiriesCommentList(id, !!id);
+  const { data: commentList, refetch } = useGetInquiriesCommentList(
+    id,
+    "INQUIRY",
+    !!id
+  );
   const { total, content } = (commentList?.data as InquirieCommentData) || {};
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -81,7 +68,7 @@ const MyPageInquirieComment = ({
         </div>
       </div>
       {!total ? (
-        <MyPageInquirieCommentEmpty />
+        <CommentEmpty />
       ) : (
         content.map((comment) => (
           <MyPageInquirieCommentItem

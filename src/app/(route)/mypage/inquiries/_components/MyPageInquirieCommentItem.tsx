@@ -1,13 +1,12 @@
-// MyPageInquirieCommentItem.tsx
 import Image from "next/image";
 import { CalculateTime } from "@/app/_components/CalculateTime";
-import { ParentsComment } from "../_types/inquiries";
+import { CommentItem } from "@/_types/comment";
 import ReplyCommentItem from "./ReplyCommentItem";
 
 interface MyPageInquirieCommentItemProps {
-  comment: ParentsComment;
+  comment: CommentItem;
   publicId: string;
-  setParentsComment: (comment: ParentsComment) => void;
+  setParentsComment: (comment: CommentItem) => void;
 }
 
 const MyPageInquirieCommentItem = ({

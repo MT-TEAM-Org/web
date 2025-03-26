@@ -1,15 +1,7 @@
 import axios from "axios";
+import { PostCommentData } from "@/_types/comment";
 
-interface PostInquirieComment {
-  type: "BOARD" | "IMPROVEMENT" | "INQUIRY" | "NEWS" | "NOTICE";
-  id: string;
-  comment: string;
-  imageUrl: string;
-  mentionedPublicId: string;
-  parentId: number;
-}
-
-const postComment = async (data: PostInquirieComment) => {
+const postComment = async (data: PostCommentData) => {
   const response = await axios.post(
     `${process.env.NEXT_PUBLIC_API_URL}api/comments/${data.id}/comment`,
     {

@@ -1,6 +1,5 @@
 "use client";
 
-import usePostInquirieComment from "@/_hooks/fetcher/comment/usePostComment";
 import Send_icon from "@/app/_components/icon/Send_icon";
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
@@ -10,18 +9,21 @@ import Cancel_icon from "@/app/_components/icon/Cancel_icon";
 import { useToast } from "@/_hooks/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
-import { ParentsComment } from "../_types/inquiries";
+import { CommentItem } from "@/_types/comment";
+import usePostComment from "@/_hooks/fetcher/comment/usePostComment";
 
 interface SendCommentBoxProps {
   id?: string;
-  parentsComment?: ParentsComment;
-  setParentsComment: (comment: ParentsComment) => void;
+  parentsComment?: CommentItem;
+  setParentsComment: (comment: CommentItem) => void;
+  type: "BOARD" | "IMPROVEMENT" | "INQUIRY" | "NEWS" | "NOTICE";
 }
 
-const MyPageInquirieSendCommentBox = ({
+const SendCommentBox = ({
   id,
   parentsComment,
   setParentsComment,
+  type,
 }: SendCommentBoxProps) => {
   const queryClient = useQueryClient();
   const [inputValue, setInputValue] = useState<string>("");
@@ -32,7 +34,7 @@ const MyPageInquirieSendCommentBox = ({
   const textRef = useRef<HTMLDivElement>(null);
   const isSubmittingRef = useRef(false);
   const toast = useToast();
-  const { mutate: newsPostComment } = usePostInquirieComment(id);
+  const { mutate: postComment } = usePostComment(id);
   const { data: authCheckData } = useAuthCheck();
   const mentionedPublicId = authCheckData?.data?.data?.publicId;
 
@@ -91,7 +93,7 @@ const MyPageInquirieSendCommentBox = ({
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const handleNewsComment = async (
+  const handlePostComment = async (
     e: React.FormEvent | React.KeyboardEvent
   ) => {
     e.preventDefault();
@@ -99,9 +101,9 @@ const MyPageInquirieSendCommentBox = ({
     if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
 
-    newsPostComment(
+    postComment(
       {
-        type: "INQUIRY",
+        type,
         comment: inputValue,
         imageUrl: selectedImage || null,
         mentionedPublicId,
@@ -111,7 +113,7 @@ const MyPageInquirieSendCommentBox = ({
         onSuccess: () => {
           if (parentsComment) setParentsComment(null);
           queryClient.invalidateQueries({
-            queryKey: ["inquiriesCommentList", Number(id)],
+            queryKey: ["commentList", type, Number(id)],
           });
           setInputValue("");
           setSelectedImage(null);
@@ -132,7 +134,7 @@ const MyPageInquirieSendCommentBox = ({
     }
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      handleNewsComment(e);
+      handlePostComment(e);
     }
   };
 
@@ -158,7 +160,7 @@ const MyPageInquirieSendCommentBox = ({
 
   return (
     <div className="w-full min-h-[72px] p-4 bg-white">
-      <form onSubmit={handleNewsComment} className="w-full flex flex-col gap-2">
+      <form onSubmit={handlePostComment} className="w-full flex flex-col gap-2">
         <div className="w-full flex items-end gap-4">
           <button
             type="button"
@@ -233,4 +235,4 @@ const MyPageInquirieSendCommentBox = ({
   );
 };
 
-export default MyPageInquirieSendCommentBox;
+export default SendCommentBox;
