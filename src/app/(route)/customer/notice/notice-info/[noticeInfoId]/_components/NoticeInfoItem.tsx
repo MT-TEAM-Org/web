@@ -14,7 +14,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import usePostNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/usePostNoticeRecommend";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import useDeleteNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteNoticeRecommend";
-import axios from "axios";
 import { useToast } from "@/_hooks/useToast";
 
 interface NoticeInfoItemProps {
@@ -40,11 +39,6 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
       noticeAddRecommend(id, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["noticeInfo", id] });
-        },
-        onError: (error) => {
-          if (axios.isAxiosError(error) && error.response?.status === 409) {
-            toast.error("이미 추천이 되어있습니다.", "");
-          }
         },
       });
     } else if (data?.isRecommended) {
