@@ -1,7 +1,7 @@
 export interface CommentSearchList {
   commendId: number;
   comment: string;
-  imageUrl: string
+  imageUrl: string;
 }
 
 export interface NoticeContentType {
@@ -14,7 +14,7 @@ export interface NoticeContentType {
   recommendCount: number;
   createdAt: string;
   updatedAt: string;
-  commentSearchList: CommentSearchList
+  commentSearchList: CommentSearchList;
 }
 
 export interface NoticePageInfoType {

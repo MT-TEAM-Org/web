@@ -57,7 +57,7 @@ const NewsPostItem = ({
 
   const getMinHeightClass = () => {
     if (newsItem?.newsCommentSearchList?.imageUrl) {
-      return "h-[316px]";
+      return "h-[416px]";
     } else if (newsItem?.newsCommentSearchList?.comment) {
       return "h-[136px]";
     } else {

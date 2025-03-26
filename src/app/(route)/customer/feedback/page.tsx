@@ -27,14 +27,6 @@ const FeedbackPage = () => {
   const adminRole = useAdminRole();
   const searchParams = useSearchParams();
 
-  const noticeOption: noticeListConfig = {
-    page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-    size: 20,
-    searchType:
-      (searchParams.get("search_type") as noticeListConfig["searchType"]) || "",
-    search: searchParams.get("search") || "",
-  };
-
   const feedbackOption: feedbackListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
     size: 20,
@@ -57,7 +49,7 @@ const FeedbackPage = () => {
     data: noticeListData,
     isError: noticeIsError,
     isLoading: noticeIsLoading,
-  } = useGetNoticeDataList(noticeOption);
+  } = useGetNoticeDataList();
 
   const slicedNoticeDataList = (noticeListData?.content as NoticeContentType[])
     ?.sort((a, b) => b.id - a.id)
@@ -103,6 +95,8 @@ const FeedbackPage = () => {
                   <FeedbackItem
                     feedbackData={feedbackListData}
                     key={feedbackListData?.id}
+                    searchString={searchParams.get("search")}
+                    searchType={searchParams.get("search_type")}
                   />
                 )
               )}
