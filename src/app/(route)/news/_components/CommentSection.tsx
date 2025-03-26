@@ -58,12 +58,12 @@ const CommentSection = ({
 
   const bestComments: NewsCommentList = Array.isArray(newsBestCommentData)
     ? newsBestCommentData
-    : newsBestCommentData?.list?.content || newsBestCommentData?.content || [];
+    : newsBestCommentData?.list || [];
   const bestCommentIds = bestComments.map((item) => item.newsCommentId);
 
   const commentsList: NewsCommentList = Array.isArray(newsCommentData)
     ? newsCommentData
-    : newsCommentData?.list?.content || newsCommentData?.content || [];
+    : newsCommentData?.list || [];
   const filteredComments = commentsList.filter(
     (commentItem) => !bestCommentIds.includes(commentItem.newsCommentId)
   );

@@ -2,7 +2,6 @@
 
 import React, { Suspense } from "react";
 import Image from "next/image";
-import Single_logo from "@/app/_components/icon/Single_logo";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import CustomerTalkToolbar from "../../../_components/CustomerTalkToolbar";
 import EmptyItem from "../../../_components/EmptyItem";
@@ -13,21 +12,25 @@ import useTimeAgo from "@/utils/useTimeAgo";
 import FeedbackInfoSkeleton from "./_components/FeedbackInfoSkeleton";
 import { useQueryClient } from "@tanstack/react-query";
 import { feedbackListConfig } from "../../../_types/feedbackListConfig";
-import { getAdminRole } from "../../../_utils/adminChecker";
+import { useAdminRole } from "../../../_utils/adminChecker";
 import StatusSaver from "./_components/StatusSaver";
 import EmptyComment from "@/app/(route)/(community)/gameboard/_components/EmptyComment";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import FeedbackItem from "../../../_components/FeedbackItem";
 import FeedbackItemSkeleton from "../../../_components/FeedbackItemSkeleton";
-import { FeedbackContentType } from "@/app/_constants/customer/FeedbackItemType";
+import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
-import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import NoticeItem from "../../../_components/NoticeItem";
+import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
+import usePostFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/usePostFeedbackRecommend";
+import useDeleteFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteFeedbackRecommend";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 
 const Page = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={""}>
       <FeedbackInfoPage />
     </Suspense>
   );
@@ -38,9 +41,8 @@ const FeedbackInfoPage = () => {
   const id = params.feedbackId;
   const infoId = Number(id);
   const queryClient = useQueryClient();
-  const adminRole = getAdminRole(queryClient);
   const searchParams = useSearchParams();
-  const adminChecker = getAdminRole(queryClient);
+  const adminRole = useAdminRole();
   const pathname = usePathname();
 
   const feedbackOption: feedbackListConfig = {
@@ -60,6 +62,28 @@ const FeedbackInfoPage = () => {
     isLoading: feedbackIsLoading,
     isError: feedbackIsError,
   } = useGetFeedbackInfoData({ id: infoId });
+  const {
+    mutate: feedbackAddRecommend,
+    isSignInModalOpen,
+    setIsSignInModalOpen,
+  } = usePostFeedbackRecommend();
+  const { mutate: feedbackDeleteRecommend } = useDeleteFeedbackRecommend();
+
+  const handleFeedbackCommend = () => {
+    if (!feedbackInfoData?.recommend) {
+      feedbackAddRecommend(infoId, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", id] });
+        },
+      });
+    } else if (feedbackInfoData?.recommend) {
+      feedbackDeleteRecommend(infoId, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", id] });
+        },
+      });
+    }
+  };
 
   const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
 
@@ -114,12 +138,16 @@ const FeedbackInfoPage = () => {
         <FeedbackInfoSkeleton />
       ) : (
         <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
-          {adminChecker === "ADMIN" && (
+          {adminRole === "ADMIN" && (
             <StatusSaver id={infoId} status={feedbackInfoData?.status} />
           )}
-          <div className="w-full h-[96px] flex gap-2 flex-col">
+          <div
+            className={`w-full ${
+              adminRole !== "ADMIN" || (adminRole === undefined && "h-[56px]")
+            } flex gap-2 flex-col`}
+          >
             <div>
-              {(adminChecker !== "ADMIN" || adminChecker === undefined) &&
+              {(adminRole !== "ADMIN" || adminRole === undefined) &&
                 statusContent[feedbackInfoData?.status]}
             </div>
             <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
@@ -131,7 +159,7 @@ const FeedbackInfoPage = () => {
                 <p>개선요청</p>
                 <p>{timeAgo}</p>
                 {infoItems.map((item, index) => (
-                  <div key={index} className="min-w-auto min-h-full flex gap-2">
+                  <div key={index} className="flex gap-2">
                     <p className="font-bold">{item.label}</p>
                     <p>{item.value}</p>
                   </div>
@@ -144,41 +172,44 @@ const FeedbackInfoPage = () => {
             </div>
           </div>
           <hr />
-          <div className="w-full min-h-auto flex flex-col gap-3">
-            {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
-              <Image
-                src={feedbackInfoData?.imgUrl}
-                alt="Feedback img"
-                width={672}
-                height={128}
-              />
-            )}
-            {youtubeEmbedUrl && (
-              <iframe
-                width="100%"
-                height="408"
-                src={youtubeEmbedUrl}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            )}
-            {!youtubeEmbedUrl && (
-              <div className="w-[679px] min-h-[42px]">
-                <div>{feedbackInfoData?.data?.link}</div>
-              </div>
-            )}
-            <div
-              className="text-[16px] leading-6 tracking-[-0.02em] text-gray7"
-              dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
-            />
-          </div>
+          {(feedbackInfoData?.imgUrl || youtubeEmbedUrl) && (
+            <div className="w-full min-h-auto flex flex-col gap-3">
+              {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
+                <Image
+                  src={feedbackInfoData?.imgUrl}
+                  alt="Feedback img"
+                  width={672}
+                  height={128}
+                />
+              )}
+              {youtubeEmbedUrl && (
+                <iframe
+                  width="100%"
+                  height="408"
+                  src={youtubeEmbedUrl}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
+              {!youtubeEmbedUrl && feedbackInfoData?.data?.link && (
+                <div className="w-[679px] min-h-[42px]">
+                  <div>{feedbackInfoData?.data?.link}</div>
+                </div>
+              )}
+            </div>
+          )}
+          <div
+            className="text-[16px] leading-6 tracking-[-0.02em] text-gray7"
+            dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
+          />
           <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
-            <button className="flex items-center text-[14px] justify-center gap-2 min-w-[120px] w-auto h-[40px] px-4 py-[13px] mt-4 bg-[#00ADEE] text-white rounded-[5px]">
-              <Single_logo />
-              추천 {feedbackInfoData?.recommendCount || 0}
-            </button>
+            <RecommendButton
+              handleCommend={handleFeedbackCommend}
+              recommendCount={feedbackInfoData?.recommendCount}
+              isRecommend={feedbackInfoData?.isRecommend}
+            />
           </div>
           <PostAction type="community" />
           <div className="w-full max-w-[800px] flex flex-col">
@@ -227,6 +258,10 @@ const FeedbackInfoPage = () => {
             )
           )}
         </div>
+        <SignInModalPopUp
+          isOpen={isSignInModalOpen}
+          onClose={() => setIsSignInModalOpen(false)}
+        />
       </div>
     </>
   );

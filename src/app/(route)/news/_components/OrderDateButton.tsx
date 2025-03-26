@@ -34,21 +34,23 @@ const OrderDateButton = () => {
     });
   };
 
+  const baseButtonStyle =
+    "min-w-[57px] h-[40px] flex items-center justify-center rounded-[5px] px-[16px] py-[13px] text-[14px]";
   const activeButtonStyle =
-    "bg-gra text-white min-w-[57px] h-[40px] flex gap-[10px] items-center justify-center rounded-[5px] px-[16px] py-[13px] font-[700] text-[14px] leading-[21px] tracking-[-0.02em]";
+    "bg-gra text-white font-bold leading-5 tracking-[-0.02em]";
   const disableButtonStyle =
-    "bg-white text-gray-700 min-w-[57px] h-[40px] flex gap-[10px] items-center justify-center border border-gray3 rounded-[5px] px-[16px] py-[13px] font-[500] text-[14px] leading-[22px] tracking-[-0.02em]";
+    "bg-white text-[#424242] leading-5 border border-gray3 font-medium";
 
   return (
     <div className="flex gap-2">
       {timeButtons.map((button) => (
         <button
           key={button.value}
-          className={
+          className={`${baseButtonStyle} ${
             currentTimePeriod === button.value
               ? activeButtonStyle
               : disableButtonStyle
-          }
+          }`}
           onClick={() =>
             handleTimePeriodChange(
               button.value as "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY"

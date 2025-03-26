@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { NoticeContentType } from "@/app/_constants/customer/NoticeItemType";
+import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 
 interface NoticeItemProps {
@@ -53,7 +53,7 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
             </p>
             {noticeData?.commentCount >= 1 && (
               <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
-                {noticeData?.commentCount}
+                [<span>{noticeData?.commentCount}</span>]
               </p>
             )}
             {isNew && (
