@@ -19,7 +19,8 @@ const FeedbackItemStatus = ({ status }: FeedbackItemProps) => {
   }
 
   const bgStyle =
-    status === "RECEIVED" || (status === "COMPLETED" && "bg-gray1");
+    (status === "RECEIVED" && "bg-gray1") ||
+    (status === "COMPLETED" && "bg-bg0");
 
   const baseStyle = `${bgStyle} w-[69px] h-[32px] rounded-[2px] px-2 py-[6px] font-bold text-[14px] leading-5`;
 
