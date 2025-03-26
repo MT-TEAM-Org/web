@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useInquiryPostIdStore } from "@/utils/Store";
+import { CalculateTime } from "@/app/_components/CalculateTime";
 
 interface MyPageInquiriesItemProps {
   data: {
@@ -60,7 +61,7 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
         </div>
         <div className="flex gap-[4px] text-gray5 text-[12px] leading-[18px]">
           <span className="font-[700]">문의</span>
-          <span>1분 전</span>
+          <span>{CalculateTime(data?.createdAt)}</span>
           <span>{data?.nickname}</span>
           <span className="text-gray4">IP {data?.clientIp}</span>
         </div>
