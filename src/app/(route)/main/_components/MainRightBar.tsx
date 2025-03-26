@@ -72,19 +72,21 @@ const MainRightBar = () => {
         {buttonActive ? (
           <div className="w-full h-auto max-h-[736px] flex flex-col gap-2">
             {newsIsLoading ? (
-              Array.from({ length: 5 }).map((_, i) => (
+              Array.from({ length: 5 })?.map((_, i) => (
                 <RightNewsItemSkeleton key={i} />
               ))
             ) : newsIsError || !filteredNewsData?.content?.length ? (
               <EmptyGameBox title="뉴스 정보" />
             ) : (
-              filteredNewsData.content.map((data: NewsItemType) => (
-                <RightNewsItem
-                  key={data.id}
-                  newsItem={data}
-                  customClass="w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3"
-                />
-              ))
+              filteredNewsData.content
+                ?.slice(3)
+                .map((data: NewsItemType) => (
+                  <RightNewsItem
+                    key={data.id}
+                    newsItem={data}
+                    customClass="w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3"
+                  />
+                ))
             )}
           </div>
         ) : eventIsLoading ? (

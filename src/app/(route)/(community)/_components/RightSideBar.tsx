@@ -17,15 +17,13 @@ export const RightSideBar = () => {
     withPageInfo: true,
   });
 
-  if (isLoading || !newsData) return <div>Loading...</div>;
-
   let content: NewsItemType[] = [];
   let totalPage = 1;
 
-  if (!Array.isArray(newsData)) {
+  if (newsData && !Array.isArray(newsData)) {
     content = newsData.content;
     totalPage = newsData.pageInfo.totalPage;
-  } else {
+  } else if (Array.isArray(newsData)) {
     content = newsData;
   }
 
@@ -44,19 +42,23 @@ export const RightSideBar = () => {
 
   return (
     <div className="w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-6">
-      <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px]">
-        <div className="w-full h-auto max-h-[736px] rounded-[10px]">
-          {isLoading
+      <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px] bg-white">
+        <div className="w-full h-auto max-h-[736px] rounded-[10px] ">
+          {isLoading || !newsData
             ? Array(4)
                 .fill(0)
-                .map((_, index) => <RightNewsItemSkeleton key={index} />)
-            : content.map((data: NewsItemType) => (
-                <RightNewsItem key={data.id} newsItem={data} />
+                ?.map((_, index) => <RightNewsItemSkeleton key={index} />)
+            : content?.map((data: NewsItemType) => (
+                <RightNewsItem
+                  key={data.id}
+                  newsItem={data}
+                  customClass="w-full h-[92px]  rounded-[5px] bg-white p-3 box-border"
+                />
               ))}
         </div>
 
-        {totalPage > 1 && (
-          <div className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto">
+        {totalPage > 1 && !isLoading && (
+          <div className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto ">
             <button
               onClick={() => handleToPage("prev")}
               className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex gap-[10px] justify-center items-center"

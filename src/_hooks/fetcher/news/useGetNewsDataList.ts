@@ -1,4 +1,8 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useQuery,
+  UseQueryResult,
+} from "@tanstack/react-query";
 import fetchNewsDataList from "@/services/news/fetchNewsDataList";
 import { NewsItemType } from "@/app/_constants/newsItemType";
 
@@ -29,6 +33,10 @@ const useGetNewsDataList = (
   return useQuery({
     queryKey: ["newsDataList", params],
     queryFn: () => fetchNewsDataList(params),
+    placeholderData: keepPreviousData,
+    staleTime: 30 * 60 * 1000,
+    gcTime: 60 * 60 * 1000,
+
     retry: 1,
   });
 };
