@@ -18,7 +18,7 @@ import {
 import { LinkIcon } from "lucide-react";
 import LinkPreview from "@/app/_components/LinkPreview";
 import Toolbar from "@/app/_components/_tiptap/Toolbar";
-import { NOTICE_RULES } from "@/constants/noticeRules";
+import { NOTICE_RULES } from "../_utils/noticeRules";
 
 interface FormData {
   boardType: string;

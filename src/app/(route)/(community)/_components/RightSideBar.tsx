@@ -7,7 +7,7 @@ import RightNewsItem from "./RightNewsItem";
 import { useState } from "react";
 import RightNewsItemSkeleton from "./RightNewsItemSkeleton";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
-import { NewsItemType } from "@/app/_constants/newsItemType";
+import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 
 export const RightSideBar = () => {
   const [currentPage, setCurrentPage] = useState("1");

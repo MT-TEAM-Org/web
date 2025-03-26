@@ -13,7 +13,7 @@ export const NAVBARS = [
   },
   {
     name: "뉴스톡톡",
-    link: "/news",
+    link: "/news/ALL",
   },
   {
     name: "경기중계",

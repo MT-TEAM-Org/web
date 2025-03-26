@@ -1,6 +1,6 @@
 import React from "react";
 import Refresh from "../../icon/Refresh";
-import { NewsInfoDataType } from "@/app/_constants/newsInfoType";
+import { NewsInfoDataType } from "@/app/(route)/news/_types/newsInfoType";
 
 interface CommentBarProps {
   data?: NewsInfoDataType;

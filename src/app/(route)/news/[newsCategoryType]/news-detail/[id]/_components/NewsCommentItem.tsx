@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { CommentContent } from "@/app/_constants/newsCommentType";
+import { CommentContent } from "@/app/(route)/news/_types/newsCommentType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import usePatchNewsComment from "@/_hooks/fetcher/news/comment/usePatchNewsComment";
 import useDeleteNewsComment from "@/_hooks/fetcher/news/comment/useDeleteNewsComment";

@@ -8,7 +8,7 @@ import MainRightBarPagination from "./MainRightBarPagination";
 import EventItemSkeleton from "./EventItemSkeleton";
 import RightNewsItemSkeleton from "../../(community)/_components/RightNewsItemSkeleton";
 import RightNewsItem from "../../(community)/_components/RightNewsItem";
-import { NewsItemType } from "@/app/_constants/newsItemType";
+import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import useGetMainRightBarNewsData from "@/_hooks/fetcher/main/mainRightBar/useGetMainRightBarNewsData";
@@ -22,13 +22,28 @@ const MainRightBar = () => {
     data: gameEventData,
     isLoading: eventIsLoading,
     isError: eventIsError,
+<<<<<<< HEAD
   } = useGetGameEvent({ pageNum });
 
+=======
+  } = useGetGameEvent({
+    pageNum,
+  });
+  const handleButtonStyle = (value: boolean) => {
+    setButtonActive(value);
+  };
+>>>>>>> 40cf44297da965b2e8ce7a27c714ff440d356e54
   const {
     data: filteredNewsData,
     isLoading: newsIsLoading,
     isError: newsIsError,
+<<<<<<< HEAD
   } = useGetMainRightBarNewsData({ page: currentPage }) ?? {};
+=======
+  } = useGetMainRightBarNewsData({
+    page: currentPage.toString(),
+  });
+>>>>>>> 40cf44297da965b2e8ce7a27c714ff440d356e54
 
   const handleToPage = (type: "prev" | "next") => {
     const current = Number(currentPage);
