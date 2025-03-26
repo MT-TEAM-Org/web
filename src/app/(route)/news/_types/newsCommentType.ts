@@ -21,4 +21,9 @@ export interface PageInfo {
   totalElement: number;
 }
 
+export interface NewsCommentResponse {
+  list: NewsCommentList;
+  pageInfo: PageInfo;
+}
+
 export type NewsCommentList = CommentContent[];
