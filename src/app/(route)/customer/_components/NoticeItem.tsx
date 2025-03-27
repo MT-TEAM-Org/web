@@ -6,6 +6,7 @@ import Link from "next/link";
 import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import { highlightText } from "@/utils/searchHighlightText";
+import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
@@ -36,12 +37,23 @@ const NoticeItem = ({
     }
   }, [noticeData?.createdAt]);
 
+  const getMinHeightClass = () => {
+    if (
+      !noticeData?.commentSearchList?.imageUrl ||
+      !noticeData?.commentSearchList?.comment
+    ) {
+      return "h-[66px]";
+    } else {
+      return "h-[88px]";
+    }
+  };
+
   return (
     <Link href={`/customer/notice/notice-info/${noticeData?.id}`}>
       <div
         className={`${
           isFeedback ? "bg-bg0" : "hover:bg-bg0"
-        } w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer`}
+        } w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-start justify-start cursor-pointer`}
       >
         <div className="w-[32px] h-[32px] rounded-[2px] p-1 bg-gray1 items-center justify-center text-center text-gray7">
           <p className="w-[25px] font-bold text-[14px] leading-5">
@@ -80,6 +92,28 @@ const NoticeItem = ({
             <p>{timeAgo}</p>
             <p>{noticeData?.nickname}</p>
           </div>
+
+          {noticeData?.commentSearchList?.comment && (
+            <div className="w-[584px] flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
+              <div className="w-4 h-4">
+                <Arrow_reply size={16} />
+              </div>
+              <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em]">
+                {noticeData?.commentSearchList?.imageUrl && (
+                  <span>(이미지)</span>
+                )}
+                <p>
+                  {searchType === "COMMENT"
+                    ? highlightText(
+                        noticeData?.commentSearchList?.comment,
+                        searchType,
+                        searchString
+                      )
+                    : noticeData?.commentSearchList?.comment}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </Link>

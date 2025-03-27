@@ -107,6 +107,7 @@ const NewsPostItem = ({
               </p>
             )}
           </div>
+
           <div>
             <p className={styles.content}>
               {searchType === "CONTENT" || searchType === "TITLE_CONTENT"
@@ -133,7 +134,15 @@ const NewsPostItem = ({
                   <span>(이미지)</span>
                 )}
                 {newsItem?.newsCommentSearchList?.comment && (
-                  <p>{newsItem?.newsCommentSearchList?.comment}</p>
+                  <p>
+                    {searchType === "COMMENT"
+                      ? highlightText(
+                          newsItem?.newsCommentSearchList?.comment,
+                          searchType,
+                          searchString
+                        )
+                      : newsItem?.newsCommentSearchList?.comment}
+                  </p>
                 )}
               </div>
             </div>
