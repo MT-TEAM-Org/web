@@ -57,8 +57,8 @@ const NewsPostItem = ({
 
   const getMinHeightClass = () => {
     if (
-      newsItem?.newsCommentSearchList?.imageUrl ||
-      newsItem?.newsCommentSearchList?.comment
+      newsItem?.newsCommentSearchDto?.imageUrl ||
+      newsItem?.newsCommentSearchDto?.comment
     ) {
       return "h-[136px]";
     } else {
@@ -122,7 +122,7 @@ const NewsPostItem = ({
             <p className={styles.info}>{useTimeAgo(newsItem?.postDate)}</p>
             <p className={styles.info}>네이버 스포츠</p>
           </div>
-          {newsItem?.newsCommentSearchList?.comment && (
+          {newsItem?.newsCommentSearchDto?.comment && (
             <div className="w-full flex items-start justify-start gap-1">
               <div className="w-[16px] h-[16px] flex-shrink-0">
                 <Arrow_reply size={16} />
@@ -130,18 +130,18 @@ const NewsPostItem = ({
               <div
                 className={`${styles.text} min-w-0 flex gap-[2px] items-center justify-start`}
               >
-                {newsItem?.newsCommentSearchList?.imageUrl && (
+                {newsItem?.newsCommentSearchDto?.imageUrl && (
                   <span>(이미지)</span>
                 )}
-                {newsItem?.newsCommentSearchList?.comment && (
+                {newsItem?.newsCommentSearchDto?.comment && (
                   <p>
                     {searchType === "COMMENT"
                       ? highlightText(
-                          newsItem?.newsCommentSearchList?.comment,
+                          newsItem?.newsCommentSearchDto?.comment,
                           searchType,
                           searchString
                         )
-                      : newsItem?.newsCommentSearchList?.comment}
+                      : newsItem?.newsCommentSearchDto?.comment}
                   </p>
                 )}
               </div>

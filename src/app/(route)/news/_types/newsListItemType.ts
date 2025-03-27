@@ -15,7 +15,7 @@ export interface NewsListType {
   source?: string;
   viewCount?: number;
   recommendCount?: number;
-  newsCommentSearchList?: NewsCommentSearchList
+  newsCommentSearchDto?: NewsCommentSearchList
 }
 
 export interface NewsListPageInfoType {

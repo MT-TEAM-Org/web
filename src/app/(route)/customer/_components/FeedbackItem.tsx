@@ -34,9 +34,9 @@ const FeedbackItem = ({
   }, [feedbackData?.createdAt]);
 
   const getMinHeightClass = () => {
-    if (feedbackData?.commentSearchList?.imageUrl) {
+    if (feedbackData?.improvementCommentSearchList?.imageUrl) {
       return "h-[366px]";
-    } else if (feedbackData?.commentSearchList?.comment) {
+    } else if (feedbackData?.improvementCommentSearchList?.comment) {
       return "h-[88px]";
     } else {
       return "h-[66px]";
@@ -90,25 +90,23 @@ const FeedbackItem = ({
               <p>{feedbackData?.createdIp}</p>
             </div>
 
-            {feedbackData?.commentSearchList?.comment && (
-              <div className="w-full flex items-start justify-start gap-2">
-                <div className="w-[16px] h-[16px] flex-shrink-0">
+            {feedbackData?.improvementCommentSearchList?.comment && (
+              <div className="w-[584px] flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
+                <div className="w-4 h-4 flex-shrink-0">
                   <Arrow_reply size={16} />
                 </div>
-                <div className="flex-1 min-w-0">
-                  {feedbackData?.commentSearchList?.imageUrl && (
-                    <Image
-                      src={feedbackData?.commentSearchList?.imageUrl}
-                      alt="search img"
-                      width={200}
-                      height={200}
-                      className="object-cover"
-                    />
+                <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em]">
+                  {feedbackData?.improvementCommentSearchList?.imageUrl && (
+                    <span>(이미지)</span>
                   )}
-                  <p
-                    className={`font-medium text-[12px] text-gray5 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap`}
-                  >
-                    {feedbackData?.commentSearchList?.comment}
+                  <p>
+                    {searchType === "COMMENT"
+                      ? highlightText(
+                          feedbackData?.improvementCommentSearchList?.comment,
+                          searchType,
+                          searchString
+                        )
+                      : feedbackData?.improvementCommentSearchList?.comment}
                   </p>
                 </div>
               </div>
