@@ -4,7 +4,6 @@ import React, { Suspense } from "react";
 import CustomerTalkToolbar from "../_components/CustomerTalkToolbar";
 import FeedbackItem from "../_components/FeedbackItem";
 import { useSearchParams } from "next/navigation";
-import { noticeListConfig } from "../_types/noticeListConfig";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import EmptyItem from "../_components/EmptyItem";

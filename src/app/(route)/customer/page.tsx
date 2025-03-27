@@ -37,8 +37,6 @@ const NoticePageContent = () => {
     isError,
   } = useGetNoticeDataList(noticeOption);
 
-  console.log(noticeListData);
-
   return (
     <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10">
       <div className="sticky top-0 z-10">

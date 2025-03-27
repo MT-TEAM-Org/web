@@ -8,7 +8,7 @@ const TermsOfService = () => {
   };
 
   return (
-    <div className="w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm mb-10">
+    <div className="w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm">
       <div className="w-full min-h-[64px] border-b p-4 flex justify-between items-center border-gray2 bg-white sticky top-0 z-10">
         <h1 className="font-bold text-[18px] leading-7 text-gray8">이용약관</h1>
       </div>
