@@ -51,10 +51,7 @@ const BoardComment = ({
 
   return (
     <>
-      <div
-        className="min-h-[232px] bg-gray1 rounded-t-[5px] rounded-b-[10px]"
-        ref={ref}
-      >
+      <div className="bg-gray1 rounded-t-[5px] rounded-b-[10px]" ref={ref}>
         <div className="flex justify-between items-center min-h-[48px] py-[4px] pl-[16px]">
           <div className="flex items-center gap-[8px]">
             <span className="font-[700] text-[18px] leading-[28px] text-gray8">

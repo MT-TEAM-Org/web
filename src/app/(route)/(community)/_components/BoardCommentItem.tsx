@@ -10,6 +10,8 @@ import useDeleteComment from "@/_hooks/fetcher/comment/useDeleteComment";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/_hooks/useToast";
 import useAuthCheck from "@/_hooks/useAuthCheck";
+import ConfirmModal from "@/app/_components/ConfirmModal";
+import { useEffect, useState } from "react";
 
 interface BoardCommentItemProps {
   comment: CommentItem;
@@ -31,10 +33,20 @@ const BoardCommentItem = ({
   const { mutate: deleteComment, isPending: deleteCommentIsPending } =
     useDeleteComment(boardId);
   const { data: authCheck } = useAuthCheck();
+  const [show, setShow] = useState(false);
   const isCommentAuthor = authCheck?.data?.data?.publicId === comment?.publicId; // 댓글 작성자와 로그인한 사용자가 같은지 확인
   const isBoardAuthor = authCheck?.data?.data?.publicId === publicId; // 게시글 작성자와 로그인한 사용자가 같은지 확인
 
-  const handleDeleteComment = (comment: CommentItem) => {
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "auto";
+      };
+    }
+  }, [show]);
+
+  const handleDeleteComment = () => {
     deleteComment(
       { commentId: comment.commentId.toString(), type: "BOARD" },
       {
@@ -42,11 +54,9 @@ const BoardCommentItem = ({
           queryClient.invalidateQueries({
             queryKey: ["commentList", "BOARD", boardId],
           });
-          if (best) {
-            queryClient.invalidateQueries({
-              queryKey: ["bestComment", { id: boardId, type: "BOARD" }],
-            });
-          }
+          queryClient.invalidateQueries({
+            queryKey: ["bestComment", { id: boardId, type: "BOARD" }],
+          });
           success("댓글이 삭제되었습니다.", "");
         },
       }
@@ -98,9 +108,7 @@ const BoardCommentItem = ({
             <button
               className="text-[14px] text-gray5"
               onClick={() => {
-                isCommentAuthor
-                  ? handleDeleteComment(comment)
-                  : handleReportComment();
+                isCommentAuthor ? setShow(true) : handleReportComment();
               }}
               disabled={deleteCommentIsPending}
             >
@@ -144,6 +152,16 @@ const BoardCommentItem = ({
             답글 달기
           </button>
         </div>
+        <ConfirmModal
+          closeText="취소"
+          confirmText="네, 삭제할게요."
+          isPending={deleteCommentIsPending}
+          show={show}
+          onClose={() => setShow(false)}
+          title="댓글을 삭제하시겠습니까?"
+          message="삭제된 댓글은 복구할 수 없습니다."
+          onConfirm={handleDeleteComment}
+        />
       </div>
       {comment.replyList &&
         comment.replyList.map((reply) => (
