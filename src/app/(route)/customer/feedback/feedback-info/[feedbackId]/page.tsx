@@ -255,6 +255,8 @@ const FeedbackInfoPage = () => {
                 <FeedbackItem
                   feedbackData={feedbackDataList}
                   key={feedbackDataList?.id}
+                  searchString={searchParams.get("search")}
+                  searchType={searchParams.get("search_type")}
                 />
               )
             )
