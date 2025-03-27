@@ -49,16 +49,17 @@ const NewsPostItem = ({
       ? "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray5 overflow-hidden line-clamp-2"
       : "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray7 overflow-hidden line-clamp-2",
     text: isRead
-      ? "font-medium text-[12px] text-gray5 leading-[18px] tracking-[-0.02em]"
-      : "font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em]",
+      ? "font-medium text-[12px] text-gray5 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap"
+      : "font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap",
     info: "font-medium text-[12px] leading-[18px] letter-[-2%] text-gray5",
     category: "font-bold text-[12px] leading-[18px] letter-[-2%] text-gray5",
   };
 
   const getMinHeightClass = () => {
-    if (newsItem?.newsCommentSearchList?.imageUrl) {
-      return "h-[416px]";
-    } else if (newsItem?.newsCommentSearchList?.comment) {
+    if (
+      newsItem?.newsCommentSearchList?.imageUrl ||
+      newsItem?.newsCommentSearchList?.comment
+    ) {
       return "h-[136px]";
     } else {
       return "h-[116px]";
@@ -121,25 +122,19 @@ const NewsPostItem = ({
             <p className={styles.info}>네이버 스포츠</p>
           </div>
           {newsItem?.newsCommentSearchList?.comment && (
-            <div className="w-full flex items-start justify-start gap-2">
+            <div className="w-full flex items-start justify-start gap-1">
               <div className="w-[16px] h-[16px] flex-shrink-0">
                 <Arrow_reply size={16} />
               </div>
-              <div className="flex-1 min-w-0">
+              <div
+                className={`${styles.text} min-w-0 flex gap-[2px] items-center justify-start`}
+              >
                 {newsItem?.newsCommentSearchList?.imageUrl && (
-                  <Image
-                    src={newsItem?.newsCommentSearchList?.imageUrl}
-                    alt="search img"
-                    width={200}
-                    height={200}
-                    className="object-cover"
-                  />
+                  <span>(이미지)</span>
                 )}
-                <p
-                  className={`${styles.text} text-ellipsis overflow-hidden whitespace-nowrap`}
-                >
-                  {newsItem?.newsCommentSearchList?.comment}
-                </p>
+                {newsItem?.newsCommentSearchList?.comment && (
+                  <p>{newsItem?.newsCommentSearchList?.comment}</p>
+                )}
               </div>
             </div>
           )}
