@@ -11,7 +11,7 @@ export const highlightText = (
     searchType === "TITLE_CONTENT" ||
     searchType === "TITLE"
   ) {
-    const parts = text.split(new RegExp(`(${searchString})`, "gi")); // 'gi'로 수정
+    const parts = text.split(new RegExp(`(${searchString})`, "gi"));
     return (
       <>
         {parts.map((part, index) =>

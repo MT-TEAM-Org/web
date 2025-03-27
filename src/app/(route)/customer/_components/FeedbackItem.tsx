@@ -34,12 +34,13 @@ const FeedbackItem = ({
   }, [feedbackData?.createdAt]);
 
   const getMinHeightClass = () => {
-    if (feedbackData?.improvementCommentSearchList?.imageUrl) {
-      return "h-[366px]";
-    } else if (feedbackData?.improvementCommentSearchList?.comment) {
-      return "h-[88px]";
-    } else {
+    if (
+      !feedbackData?.improvementCommentSearchList?.imageUrl ||
+      !feedbackData?.improvementCommentSearchList?.comment
+    ) {
       return "h-[66px]";
+    } else {
+      return "h-[88px]";
     }
   };
 
