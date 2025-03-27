@@ -104,9 +104,9 @@ const BoardReplyCommentItem = ({
               </div>
               <button
                 className="text-[14px] text-gray5"
-                onClick={() => {
-                  isCommentAuthor ? setShow(true) : handleReportComment();
-                }}
+                onClick={() =>
+                  isCommentAuthor ? setShow(true) : handleReportComment()
+                }
                 disabled={deleteCommentIsPending}
               >
                 {isCommentAuthor ? "삭제" : "신고"}
