@@ -1,11 +1,7 @@
 "use client";
 
-import Arrow_down from "@/app/_components/icon/Arrow_down";
-import Arrow_up from "@/app/_components/icon/Arrow_up";
-import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
 import { Suspense, use, useEffect, useRef, useState } from "react";
 import useGetInquiriesDetail from "@/_hooks/fetcher/mypage/useGetInquiriesDetail";
-import { useRouter } from "next/navigation";
 import MyPageInquiriesList from "../_components/MyPageInquiriesList";
 import { useInquiryPostIdStore } from "@/utils/Store";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
@@ -13,6 +9,8 @@ import MyPageInquirieComment from "../_components/MyPageInquirieComment";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { CalculateTime } from "@/app/_components/CalculateTime";
 import { CommentItem } from "@/_types/comment";
+import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
+import { usePathname } from "next/navigation";
 
 interface InquirieDetailProps {
   id: string;
@@ -35,11 +33,11 @@ const InquirieDetail = ({
 }) => {
   const unwrappedParams = use(params);
   const { id } = unwrappedParams;
-  const router = useRouter();
+  const pathname = usePathname();
   const { data, isLoading } = useGetInquiriesDetail(id);
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);
-  const { addInquiryPostId, removeInquiryPostId } = useInquiryPostIdStore();
+  const { addInquiryPostId } = useInquiryPostIdStore();
   const { data: authCheckData } = useAuthCheck();
   const [parentsComment, setParentsComment] = useState<CommentItem | null>(
     null
@@ -50,13 +48,6 @@ const InquirieDetail = ({
     if (!id) return;
     addInquiryPostId(Number(id));
   }, [id]);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   const onHandleToTop = () => {
     if (comments.current) {
@@ -69,33 +60,6 @@ const InquirieDetail = ({
     }
   };
 
-  const handleNextPrevRoute = (state: "next" | "prev") => {
-    if (state === "next") {
-      router.push(`/mypage/inquiries/${data?.data?.nextId}`);
-    } else {
-      router.push(`/mypage/inquiries/${data?.data?.previousId}`);
-    }
-  };
-
-  const buttons = [
-    {
-      text: "이전글",
-      icon: Arrow_up,
-      onClick: () => handleNextPrevRoute("prev"),
-      disabled: !data?.data?.previousId,
-    },
-    {
-      text: "다음글",
-      icon: Arrow_down,
-      onClick: () => handleNextPrevRoute("next"),
-      disabled: !data?.data?.nextId,
-    },
-    { text: "댓글 맨위로", icon: Arrow_up, onClick: onHandleToTop },
-    { text: "게시글 맨위로", icon: Double_arrow_up, onClick: scrollToTop },
-  ];
-
-  const buttonStyle =
-    "min-w-[120px] h-[40px] flex items-center justify-center rounded-md border border-gray3 pt-[10px] pr-[16px] pb-[10px] pl-[14px] gap-2 font-[700] text-[14px] leading-[14px] text-7";
   return (
     <>
       <div className="space-y-[12px]">
@@ -128,40 +92,12 @@ const InquirieDetail = ({
             publicId={data?.data?.publicID}
             setParentsComment={setParentsComment}
           />
-          <div className="flex justify-between min-h-[40px]">
-            <div className="flex gap-[8px]">
-              {buttons
-                .slice(0, 2)
-                .map(({ text, icon: Icon, onClick }, index) => (
-                  <button
-                    key={index}
-                    className={`${buttonStyle} ${
-                      buttons[index].disabled
-                        ? "cursor-not-allowed opacity-50"
-                        : "cursor-pointer"
-                    }`}
-                    onClick={onClick}
-                    disabled={buttons[index].disabled}
-                  >
-                    <Icon />
-                    {text}
-                  </button>
-                ))}
-            </div>
-
-            <div className="flex gap-[8px]">
-              {buttons.slice(2).map(({ text, icon: Icon, onClick }, index) => (
-                <button
-                  key={index + 2}
-                  className={buttonStyle}
-                  onClick={onClick}
-                >
-                  <Icon />
-                  {text}
-                </button>
-              ))}
-            </div>
-          </div>
+          <PostNavigation
+            nextId={data?.data?.nextId}
+            previousId={data?.data?.previousId}
+            scrollToCommentBar={onHandleToTop}
+            currentPath={pathname}
+          />
         </div>
         <Suspense fallback={""}>
           <div className="max-w-[720px] h-auto bg-[#FAFAFA] rounded-[5px]">
