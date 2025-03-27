@@ -3,6 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CalculateTime } from "@/app/_components/CalculateTime";
+import {
+  getKoreanBoardType,
+  getKoreanCategoryType,
+} from "@/utils/boardType/boardTypeKorean";
+import { numberOverThousand } from "@/utils/boardType/numberOfThousand";
 
 interface BoardListItem {
   id: number;
@@ -37,28 +42,6 @@ interface PostItemProps {
 const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
   const postsData = boardData?.content;
 
-  const boardTypeMap: { [key: string]: string } = {
-    FOOTBALL: "축구",
-    BASEBALL: "야구",
-    ESPORTS: "E스포츠",
-  };
-
-  const categoryTypeMap: { [key: string]: string } = {
-    FREE: "자유",
-    QUESTION: "질문",
-    ISSUE: "이슈",
-    VERIFICATION: "리뷰",
-    TIP: "플레이 팁",
-  };
-
-  const getKoreanBoardType = (type: string) => {
-    return boardTypeMap[type] || type;
-  };
-
-  const getKoreanCategoryType = (type: string) => {
-    return categoryTypeMap[type] || type;
-  };
-
   const maskIP = (ip: string) => {
     if (!ip) return "";
 
@@ -67,6 +50,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
 
     return `${parts[0]}.${parts[1]}.**.**`;
   };
+
   return (
     <div className="flex flex-col items-center w-full">
       {postsData?.map((data: BoardListItem, index: number) => (
@@ -76,7 +60,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
           className="flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]"
         >
           <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1">
-            <span>{data.id}</span>
+            <span>{numberOverThousand(data?.id)}</span>
           </div>
           <Image
             src={data?.thumbnail || "/Preview_loading_image.png"}
