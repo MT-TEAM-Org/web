@@ -1,11 +1,19 @@
 import axios from "axios";
 
-const getNewsItemInfo = async ({ id }: { id: string }) => {
+const getNewsItemInfo = async ({ 
+  id, 
+  token 
+}: { 
+  id: string; 
+  token?: string;
+}) => {
+  const accessToken = token || (typeof window !== 'undefined' ? localStorage.getItem('accessToken') : '');
+
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}api/news/${id}`,
     {
       headers: {
-        Authorization: `${localStorage.getItem("accessToken")}`,
+        Authorization: accessToken ? `${accessToken}` : '',
       },
     }
   );
