@@ -11,11 +11,7 @@ const getCommentList = async (data: CommentData) => {
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}api/comments/${data.id}`,
     {
-      params: { page: data.page, size: 10, type: data.type },
-      headers: {
-        Authorization: localStorage.getItem("accessToken"),
-      },
-      withCredentials: true,
+      params: { page: data.page, size: 20, type: data.type },
     }
   );
   return response.data;

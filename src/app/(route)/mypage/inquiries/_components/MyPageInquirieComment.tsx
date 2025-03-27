@@ -1,21 +1,16 @@
 "use client";
 
 import Refresh from "@/app/_components/icon/Refresh";
-import useGetInquiriesCommentList from "@/_hooks/fetcher/comment/useGetCommentList";
+import useGetCommentList from "@/_hooks/fetcher/comment/useGetCommentList";
 import CommentEmpty from "../../../../_components/_comment/CommentEmpty";
 import MyPageInquirieCommentItem from "./MyPageInquirieCommentItem";
 import { useState } from "react";
-import { CommentItem } from "@/_types/comment";
+import { CommentItem, CommentResponse } from "@/_types/comment";
 import CommentMoreButton from "@/app/_components/_comment/CommentMoreButton";
-
-interface InquirieCommentData {
-  total: number;
-  content: CommentItem[];
-}
 
 interface MyPageInquirieCommentProps {
   ref: React.RefObject<HTMLDivElement>;
-  id: string | undefined;
+  id: string;
   publicId: string;
   setParentsComment: (comment: CommentItem) => void;
 }
@@ -28,13 +23,12 @@ const MyPageInquirieComment = ({
 }: MyPageInquirieCommentProps) => {
   const [page, setPage] = useState<number>(1);
   const [commentTotalList, setCommentTotalList] = useState<CommentItem[]>();
-  const { data: commentList, refetch } = useGetInquiriesCommentList(
-    id,
-    "INQUIRY",
-    page,
-    !!id
-  );
-  const { total, content } = (commentList?.data as InquirieCommentData) || {};
+  const {
+    data: commentList,
+    refetch,
+    isLoading,
+  } = useGetCommentList(id?.toString(), "INQUIRY", page);
+  const { total, content } = (commentList?.data as CommentResponse) || {};
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const refetchComment = () => {
@@ -61,12 +55,13 @@ const MyPageInquirieComment = ({
             </span>
           </div>
           <div className="max-w-[101px] min-h-[40px] flex items-center px-[12px] py-[10px] gap-[8px] bg-[#FAFAFA] rounded-md">
-            <div
+            <button
               className={`cursor-pointer ${isFocused && "animate-spin"}`}
               onClick={refetchComment}
+              disabled={isLoading}
             >
               <Refresh />
-            </div>
+            </button>
             <p className="font-bold text-[14px] leading-[14px] text-gray6">
               새로고침
             </p>

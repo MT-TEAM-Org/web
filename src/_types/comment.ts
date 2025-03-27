@@ -15,6 +15,11 @@ export interface CommentItem {
   recommended: boolean;
 }
 
+export interface CommentResponse {
+  total: number;
+  content: CommentItem[];
+}
+
 export type CommentType =
   | "BOARD"
   | "IMPROVEMENT"

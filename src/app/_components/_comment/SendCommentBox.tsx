@@ -40,6 +40,16 @@ const SendCommentBox = ({
 
   const maxChars = selectedImage ? 70 : 78;
 
+  useEffect(() => {
+    textRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (parentsComment) {
+      textRef.current?.focus();
+    }
+  }, [parentsComment]);
+
   const handleContentChange = () => {
     if (textRef.current) {
       let text = textRef.current.innerText;
@@ -113,7 +123,10 @@ const SendCommentBox = ({
         onSuccess: () => {
           if (parentsComment) setParentsComment(null);
           queryClient.invalidateQueries({
-            queryKey: ["commentList", type, Number(id)],
+            queryKey: ["commentList", type, id],
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["bestComment", { id, type }],
           });
           setInputValue("");
           setSelectedImage(null);

@@ -107,7 +107,7 @@ const InquirieDetail = ({
       </div>
       <div className="shadow-md sticky bottom-0">
         <SendCommentBox
-          id={id}
+          id={id.toString()}
           type="INQUIRY"
           parentsComment={parentsComment}
           setParentsComment={setParentsComment}
