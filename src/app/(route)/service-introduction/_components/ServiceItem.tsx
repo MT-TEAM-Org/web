@@ -11,7 +11,7 @@ const ServiceItem = ({ title, content, imgUrl }: itemType) => {
   return (
     <div className="min-w-[320px] min-h-[300px] rounded-[20px] shadow-md flex flex-col overflow-hidden">
       <div className="w-full h-full flex items-center justify-center">
-        <div className="min-w-[140px] min-h-[140px] rounded-[99px] bg-bg0x p-5 flex gap-[10px]">
+        <div className="min-w-[140px] min-h-[140px] rounded-[99px] bg-bg0 p-5 flex gap-[10px]">
           <Image
             src={`/${imgUrl}.png`}
             alt="service features"
