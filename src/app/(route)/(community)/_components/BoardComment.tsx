@@ -35,9 +35,10 @@ const BoardComment = ({
     refetch: bestRefetch,
     isLoading: bestIsLoading,
   } = useGetBestComment({ id, type: "BOARD" });
-  const { total: bestTotal, content: bestContent } =
-    (bestComment?.data as CommentResponse) || {};
-  const { total, content } = (commentList?.data as CommentResponse) || {};
+  const { pageInfo: bestPageInfo, content: bestContent } =
+    (bestComment?.data?.content as CommentResponse) || {};
+  const { pageInfo, content } =
+    (commentList?.data?.content as CommentResponse) || {};
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const refetchComment = () => {
@@ -58,7 +59,7 @@ const BoardComment = ({
               댓글
             </span>
             <span className="text-[14px] leading-[20px] text-gray5">
-              총 {total}개
+              총 {pageInfo?.totalElement}개
             </span>
           </div>
           <div className="flex">
@@ -84,7 +85,7 @@ const BoardComment = ({
             </div>
           </div>
         </div>
-        {bestTotal
+        {bestPageInfo?.totalElement
           ? bestContent.map((comment) => (
               <BoardCommentItem
                 key={comment.commentId}
@@ -95,7 +96,7 @@ const BoardComment = ({
               />
             ))
           : null}
-        {!total ? (
+        {!pageInfo?.totalElement ? (
           <CommentEmpty />
         ) : (
           content.map((comment) => (

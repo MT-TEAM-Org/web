@@ -15,8 +15,14 @@ export interface CommentItem {
   recommended: boolean;
 }
 
+interface PageInfo {
+  currentPage: number;
+  totalPage: number;
+  totalElement: number;
+}
+
 export interface CommentResponse {
-  total: number;
+  pageInfo: PageInfo;
   content: CommentItem[];
 }
 

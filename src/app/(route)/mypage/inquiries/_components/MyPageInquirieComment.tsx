@@ -28,7 +28,8 @@ const MyPageInquirieComment = ({
     refetch,
     isLoading,
   } = useGetCommentList(id?.toString(), "INQUIRY", page);
-  const { total, content } = (commentList?.data as CommentResponse) || {};
+  const { pageInfo, content } =
+    (commentList?.data?.content as CommentResponse) || {};
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const refetchComment = () => {
@@ -48,7 +49,7 @@ const MyPageInquirieComment = ({
               댓글
             </span>
             <span className="text-[14px] leading-[20px] text-gray5">
-              총 {total}개
+              총 {pageInfo?.totalElement}개
             </span>
           </div>
           <div className="max-w-[101px] min-h-[40px] flex items-center px-[12px] py-[10px] gap-[8px] bg-[#FAFAFA] rounded-md">
@@ -64,7 +65,7 @@ const MyPageInquirieComment = ({
             </p>
           </div>
         </div>
-        {!total ? (
+        {!pageInfo?.totalElement ? (
           <CommentEmpty />
         ) : (
           content.map((comment) => (
