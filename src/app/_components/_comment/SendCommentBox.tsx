@@ -1,6 +1,5 @@
 "use client";
 
-import usePostInquirieComment from "@/_hooks/fetcher/mypage/usePostInquirieComment";
 import Send_icon from "@/app/_components/icon/Send_icon";
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
@@ -10,12 +9,22 @@ import Cancel_icon from "@/app/_components/icon/Cancel_icon";
 import { useToast } from "@/_hooks/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
+import { CommentItem } from "@/_types/comment";
+import usePostComment from "@/_hooks/fetcher/comment/usePostComment";
 
 interface SendCommentBoxProps {
   id?: string;
+  parentsComment?: CommentItem;
+  setParentsComment: (comment: CommentItem) => void;
+  type: "BOARD" | "IMPROVEMENT" | "INQUIRY" | "NEWS" | "NOTICE";
 }
 
-const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
+const SendCommentBox = ({
+  id,
+  parentsComment,
+  setParentsComment,
+  type,
+}: SendCommentBoxProps) => {
   const queryClient = useQueryClient();
   const [inputValue, setInputValue] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -25,11 +34,21 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const textRef = useRef<HTMLDivElement>(null);
   const isSubmittingRef = useRef(false);
   const toast = useToast();
-  const { mutate: newsPostComment } = usePostInquirieComment(id);
+  const { mutate: postComment } = usePostComment(id);
   const { data: authCheckData } = useAuthCheck();
   const mentionedPublicId = authCheckData?.data?.data?.publicId;
 
   const maxChars = selectedImage ? 70 : 78;
+
+  useEffect(() => {
+    textRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (parentsComment) {
+      textRef.current?.focus();
+    }
+  }, [parentsComment]);
 
   const handleContentChange = () => {
     if (textRef.current) {
@@ -84,7 +103,7 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const handleNewsComment = async (
+  const handlePostComment = async (
     e: React.FormEvent | React.KeyboardEvent
   ) => {
     e.preventDefault();
@@ -92,16 +111,23 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
     if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
 
-    newsPostComment(
+    postComment(
       {
+        type,
         comment: inputValue,
         imageUrl: selectedImage || null,
         mentionedPublicId,
+        parentId: parentsComment?.commentId || null,
       },
       {
         onSuccess: () => {
+          if (parentsComment) setParentsComment(null);
+          console.log(["commentList", type, id]);
           queryClient.invalidateQueries({
-            queryKey: ["inquiriesCommentList", Number(id)],
+            queryKey: ["commentList", type, id],
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["bestComment", { id, type }],
           });
           setInputValue("");
           setSelectedImage(null);
@@ -116,9 +142,13 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Backspace" && inputValue.length === 0) {
+      setParentsComment(null);
+      return;
+    }
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      handleNewsComment(e);
+      handlePostComment(e);
     }
   };
 
@@ -144,7 +174,7 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
 
   return (
     <div className="w-full min-h-[72px] p-4 bg-white">
-      <form onSubmit={handleNewsComment} className="w-full flex flex-col gap-2">
+      <form onSubmit={handlePostComment} className="w-full flex flex-col gap-2">
         <div className="w-full flex items-end gap-4">
           <button
             type="button"
@@ -162,7 +192,7 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
           />
           <div ref={containerRef} className="flex-grow max-w-[576px] relative">
             <div
-              className={`w-full rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-4 ${getEditorHeight()}`}
+              className={`w-full rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-[8px] ${getEditorHeight()}`}
               onClick={handleEditorClick}
             >
               {selectedImage && (
@@ -181,6 +211,11 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
                   </button>
                 </div>
               )}
+              {parentsComment && (
+                <p className="text-[14px] leading-[20px] text-gra">
+                  @{parentsComment?.nickname}
+                </p>
+              )}
               <div
                 ref={textRef}
                 contentEditable
@@ -190,7 +225,7 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
                 onBlur={handleBlur}
                 className="flex-grow outline-none min-w-0 overflow-y-hidden"
               />
-              {!inputValue.trim() && !selectedImage && (
+              {!inputValue.trim() && !selectedImage && !parentsComment && (
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
                   <span className="text-gray-400">
                     상대를 존중하는 클린한 댓글을 남겨주세요! 추천은 센스!
@@ -214,4 +249,4 @@ const MyPageInquirieSendCommentBox = ({ id }: SendCommentBoxProps) => {
   );
 };
 
-export default MyPageInquirieSendCommentBox;
+export default SendCommentBox;
