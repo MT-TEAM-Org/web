@@ -2,6 +2,11 @@ import React from "react";
 import SearchLeftSideBar from "../_components/SearchLeftSideBar";
 import { RightSideBar } from "../../(community)/_components/RightSideBar";
 
+export const metadata = {
+  title: "PlayHive 전체검색페이지",
+  description: "PlayHive에서 뉴스와 콘텐츠를 검색해보세요.",
+};
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col justify-between items-center bg-gray1">
@@ -11,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </h5>
       </div>
       <div className="max-w-[1200px] mx-auto flex gap-4">
-        <div className="w-[160px] min-h-[260px] rounded-[5px]">
+        <div className="w-[160px] h-[104px] rounded-[5px]">
           <div className="sticky top-0">
             <SearchLeftSideBar />
           </div>
