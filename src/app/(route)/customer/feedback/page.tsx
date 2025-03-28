@@ -55,7 +55,7 @@ const FeedbackPage = () => {
     .slice(0, 2);
 
   return (
-    <div className="flex justify-center bg-gray1 min-h-[calc(100vh-476px)]">
+    <div className="flex justify-center bg-gray1">
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
         <div className="sticky top-0 z-10">
           <CustomerTalkToolbar
@@ -84,8 +84,6 @@ const FeedbackPage = () => {
                     key={noticeListData.id}
                     noticeData={noticeListData}
                     isFeedback={true}
-                    searchString={searchParams.get("search")}
-                    searchType={searchParams.get("search_type")}
                   />
                 )
               )}

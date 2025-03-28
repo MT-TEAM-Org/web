@@ -233,37 +233,35 @@ const FeedbackInfo = () => {
       />
       <div className="w-full h-auto rounded-[5px] shadow-md bg-white">
         <div className="w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
-          {isLoading
-            ? Array.from({ length: 2 }).map((_, index) => (
-                <FeedbackItemSkeleton key={index} />
-              ))
-            : slicedNoticeDataList?.map((noticeData) => (
-                <NoticeItem
-                  isFeedback={true}
-                  noticeData={noticeData}
-                  key={noticeData.id}
-                  searchString={searchParams.get("search")}
-                  searchType={searchParams.get("search_type")}
-                />
-              ))}
           {isLoading ? (
-            Array.from({ length: 10 }).map((_, index) => (
+            Array.from({ length: 2 }).map((_, index) => (
               <FeedbackItemSkeleton key={index} />
             ))
           ) : feedbackDataList?.content?.length === 0 || isError ? (
-            <EmptyItem title="공지사항이" />
+            <EmptyItem title="개선요청이" />
           ) : (
-            feedbackDataList?.content?.map(
-              (feedbackDataList: FeedbackContentType) => (
-                <FeedbackItem
-                  feedbackData={feedbackDataList}
-                  key={feedbackDataList?.id}
-                  searchString={searchParams.get("search")}
-                  searchType={searchParams.get("search_type")}
-                />
-              )
-            )
+            slicedNoticeDataList?.map((noticeData) => (
+              <NoticeItem
+                isFeedback={true}
+                noticeData={noticeData}
+                key={noticeData.id}
+              />
+            ))
           )}
+          {isLoading
+            ? Array.from({ length: 10 }).map((_, index) => (
+                <FeedbackItemSkeleton key={index} />
+              ))
+            : feedbackDataList?.content?.map(
+                (feedbackDataList: FeedbackContentType) => (
+                  <FeedbackItem
+                    feedbackData={feedbackDataList}
+                    key={feedbackDataList?.id}
+                    searchString={searchParams.get("search")}
+                    searchType={searchParams.get("search_type")}
+                  />
+                )
+              )}
         </div>
         <SignInModalPopUp
           isOpen={isSignInModalOpen}
