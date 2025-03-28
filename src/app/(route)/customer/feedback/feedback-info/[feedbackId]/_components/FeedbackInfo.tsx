@@ -14,7 +14,7 @@ import { useParams, usePathname, useSearchParams } from "next/navigation";
 import React, { Suspense } from "react";
 import FeedbackInfoSkeleton from "./FeedbackInfoSkeleton";
 import StatusSaver from "./StatusSaver";
-import Image from "next/Image";
+import Image from "next/image";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
@@ -44,7 +44,8 @@ const FeedbackInfo = () => {
   const searchParams = useSearchParams();
   const adminRole = useAdminRole();
   const pathname = usePathname();
-  const token = localStorage.getItem("accessToken");
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
 
   const feedbackOption: feedbackListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
@@ -71,16 +72,17 @@ const FeedbackInfo = () => {
   const { mutate: feedbackDeleteRecommend } = useDeleteFeedbackRecommend();
 
   const handleFeedbackCommend = () => {
-    if (!feedbackInfoData?.recommend) {
+    if (!feedbackInfoData?.isRecommended) {
       feedbackAddRecommend(infoId, {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", id] });
+          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
         },
       });
-    } else if (feedbackInfoData?.recommend) {
+    } else if (feedbackInfoData?.isRecommended) {
+      console.log("추천 삭제 요청");
       feedbackDeleteRecommend(infoId, {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", id] });
+          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
         },
       });
     }
@@ -209,7 +211,7 @@ const FeedbackInfo = () => {
             <RecommendButton
               handleCommend={handleFeedbackCommend}
               recommendCount={feedbackInfoData?.recommendCount}
-              isRecommend={feedbackInfoData?.isRecommend}
+              isRecommend={feedbackInfoData?.isRecommended}
             />
           </div>
           <PostAction type="community" />

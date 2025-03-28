@@ -14,7 +14,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import usePostNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/usePostNoticeRecommend";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import useDeleteNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteNoticeRecommend";
-import { useToast } from "@/_hooks/useToast";
 
 interface NoticeInfoItemProps {
   data: NoticeInfoItemType;
@@ -25,7 +24,6 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
   const timeAgo = useTimeAgo(data?.createdAt);
   const pathname = usePathname();
   const queryClient = useQueryClient();
-  const toast = useToast();
 
   const {
     mutate: noticeAddRecommend,

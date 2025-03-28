@@ -15,7 +15,7 @@ import React, { use, useEffect } from "react";
 import NewsInfoSkeleton from "./NewsInfoSkeleton";
 import ChangedCategory from "@/app/(route)/news/_utils/changedCategory";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
-import Image from "next/Image";
+import Image from "next/image";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import CommentSection from "@/app/(route)/news/_components/CommentSection";
 import NewsTalkToolbar from "@/app/(route)/news/_components/NewsTalkToolbar";
@@ -39,7 +39,8 @@ const NewsInfo = ({
   const router = useRouter();
   const pathname = usePathname();
   const newsDetailType = pathname.split("/")[2];
-  const token = localStorage.getItem("accessToken");
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
 
   useEffect(() => {
     const validTypes = ["esports", "football", "baseball"];

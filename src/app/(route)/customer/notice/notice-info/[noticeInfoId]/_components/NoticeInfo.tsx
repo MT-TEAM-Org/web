@@ -28,7 +28,8 @@ const NoticeInfo = () => {
   const id = params.noticeInfoId;
   const numberId = Number(id);
   const adminChecker = useAdminRole();
-  const token = localStorage.getItem("accessToken");
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
 
   const noticeOption: noticeListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,

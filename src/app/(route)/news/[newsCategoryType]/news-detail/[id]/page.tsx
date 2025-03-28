@@ -11,7 +11,6 @@ export async function generateMetadata({
   try {
     const resolvedParams = await params;
     const newsDetail = await getNewsItemInfo({ id: resolvedParams.id });
-    console.log(newsDetail?.thumbImg);
     return {
       title: newsDetail.title || "뉴스 상세 페이지",
       description: newsDetail.content || "뉴스 상세 내용",
