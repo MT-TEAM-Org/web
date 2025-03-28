@@ -1,6 +1,6 @@
 import { LogoWhite } from "@/app/_components/icon/LogoWhite";
 
-const MyPageInquirieCommentEmpty = () => {
+const CommentEmpty = () => {
   return (
     <div className="flex flex-col items-center gap-[16px] min-h-[184px] py-[40px]">
       <div className="opacity-30">
@@ -16,4 +16,4 @@ const MyPageInquirieCommentEmpty = () => {
   );
 };
 
-export default MyPageInquirieCommentEmpty;
+export default CommentEmpty;
