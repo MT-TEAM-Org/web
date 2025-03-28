@@ -34,7 +34,7 @@ const NewsPostItem = ({
   const categoryPath = categoryToPath[newsItem?.category?.toLowerCase()] || "";
 
   useEffect(() => {
-    if (date.includes("일 전") && parseInt(date) < 1) {
+    if (date.includes("시간 전") && parseInt(date) <= 24) {
       setIsNew(true);
     } else {
       setIsNew(false);
@@ -96,16 +96,18 @@ const NewsPostItem = ({
                 ? highlightText(newsItem?.title, searchType, searchString)
                 : newsItem?.title}
             </h1>
-            {newsItem?.commentCount ? (
-              <p className="font-medium text-[14px] leading-5 text-gra">
-                [<span>{newsItem?.commentCount}</span>]
-              </p>
-            ) : null}
-            {isNew && (
-              <p className="font-black text-[10px] leading-[18px] align-center text-gra">
-                N
+            {newsItem?.commentCount > 0 && (
+              <p className="font-medium text-[14px] leading-5 text-gra flex">
+                [{newsItem?.commentCount}]
               </p>
             )}
+            <div>
+              {isNew && (
+                <p className="font-black text-[10px] leading-[18px] align-center text-gra">
+                  N
+                </p>
+              )}
+            </div>
           </div>
 
           <div>
