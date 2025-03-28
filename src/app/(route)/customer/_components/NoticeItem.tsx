@@ -24,9 +24,6 @@ const NoticeItem = ({
   const [isNew, setIsNew] = useState(false);
   const timeAgo = useTimeAgo(noticeData?.createdAt);
 
-  console.log(searchString);
-  console.log(searchType);
-
   useEffect(() => {
     if (noticeData?.createdAt) {
       const createdDate = new Date(noticeData.createdAt);
