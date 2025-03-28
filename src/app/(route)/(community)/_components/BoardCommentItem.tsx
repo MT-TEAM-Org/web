@@ -12,6 +12,7 @@ import { useToast } from "@/_hooks/useToast";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import ConfirmModal from "@/app/_components/ConfirmModal";
 import { useEffect, useState } from "react";
+import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 
 interface BoardCommentItemProps {
   comment: CommentItem;
@@ -34,6 +35,7 @@ const BoardCommentItem = ({
     useDeleteComment(boardId);
   const { data: authCheck } = useAuthCheck();
   const [show, setShow] = useState(false);
+  const [activeModal, setActiveModal] = useState(false);
   // publicId: 게시글 작성자의 publicId
   // authCheck?.data?.data?.publicId: 로그인한 사용자의 publicId
   // comment.publicId: 댓글 작성자의 publicId
@@ -66,9 +68,7 @@ const BoardCommentItem = ({
     );
   };
 
-  const handleReportComment = () => {
-    alert("신고하기");
-  };
+  const handleReportComment = () => setActiveModal(true);
 
   const recommendDivStyle =
     comment?.recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
@@ -170,6 +170,7 @@ const BoardCommentItem = ({
           message="삭제된 댓글은 복구할 수 없습니다."
           onConfirm={handleDeleteComment}
         />
+        {activeModal && <ReportModalPopUp setActiveModal={setActiveModal} />}
       </div>
       {comment.replyList &&
         comment.replyList.map((reply) => (
