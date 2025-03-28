@@ -21,16 +21,20 @@ const MyPageInquirieComment = ({
   publicId,
   setParentsComment,
 }: MyPageInquirieCommentProps) => {
-  const [page, setPage] = useState<number>(1);
-  const [commentTotalList, setCommentTotalList] = useState<CommentItem[]>();
   const {
     data: commentList,
-    refetch,
+    fetchNextPage,
+    hasNextPage,
     isLoading,
-  } = useGetCommentList(id?.toString(), "INQUIRY", page);
-  const { pageInfo, content } =
-    (commentList?.data?.content as CommentResponse) || {};
+    refetch,
+  } = useGetCommentList(id?.toString(), "INQUIRY");
   const [isFocused, setIsFocused] = useState<boolean>(false);
+  // 모든 댓글
+  const allComments =
+    commentList?.pages.flatMap((page) => page.data.content.content) || [];
+
+  const totalComments =
+    commentList?.pages[0]?.data?.content?.pageInfo?.totalElement || 0;
 
   const refetchComment = () => {
     setIsFocused(true);
@@ -49,7 +53,7 @@ const MyPageInquirieComment = ({
               댓글
             </span>
             <span className="text-[14px] leading-[20px] text-gray5">
-              총 {pageInfo?.totalElement}개
+              총 {totalComments}개
             </span>
           </div>
           <div className="max-w-[101px] min-h-[40px] flex items-center px-[12px] py-[10px] gap-[8px] bg-[#FAFAFA] rounded-md">
@@ -65,10 +69,10 @@ const MyPageInquirieComment = ({
             </p>
           </div>
         </div>
-        {!pageInfo?.totalElement ? (
+        {!totalComments ? (
           <CommentEmpty />
         ) : (
-          content.map((comment) => (
+          allComments.map((comment) => (
             <MyPageInquirieCommentItem
               key={comment.commentId}
               comment={comment}
@@ -78,7 +82,12 @@ const MyPageInquirieComment = ({
           ))
         )}
       </div>
-      <CommentMoreButton />
+      {hasNextPage && (
+        <CommentMoreButton
+          onClick={() => fetchNextPage()}
+          disabled={isLoading}
+        />
+      )}
     </>
   );
 };

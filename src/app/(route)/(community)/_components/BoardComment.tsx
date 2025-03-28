@@ -42,11 +42,10 @@ const BoardComment = ({
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
-  // 모든 코멘트 평탄화 (data.content.content 사용)
+  // 모든 댓글
   const allComments =
     commentList?.pages.flatMap((page) => page.data.content.content) || [];
 
-  // 전체 totalElement는 첫 페이지의 pageInfo에서 가져옴
   const totalComments =
     commentList?.pages[0]?.data?.content?.pageInfo?.totalElement || 0;
 

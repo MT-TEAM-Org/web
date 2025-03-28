@@ -122,6 +122,7 @@ const SendCommentBox = ({
       {
         onSuccess: () => {
           if (parentsComment) setParentsComment(null);
+          console.log(["commentList", type, id]);
           queryClient.invalidateQueries({
             queryKey: ["commentList", type, id],
           });
