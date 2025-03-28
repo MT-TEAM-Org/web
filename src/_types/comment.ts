@@ -13,6 +13,7 @@ export interface CommentItem {
   lastModifiedDate: string;
   replyList: CommentItem[];
   recommended: boolean;
+  admin: boolean;
 }
 
 interface PageInfo {

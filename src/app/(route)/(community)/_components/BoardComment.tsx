@@ -23,23 +23,32 @@ const BoardComment = ({
   publicId,
   setParentsComment,
 }: BoardCommentProps) => {
-  const [page, setPage] = useState<number>(1);
-  const [commentTotalList, setCommentTotalList] = useState<CommentItem[]>();
   const {
     data: commentList,
-    refetch,
+    fetchNextPage,
+    hasNextPage,
     isLoading,
-  } = useGetCommentList(id, "BOARD", page);
+    refetch,
+  } = useGetCommentList(id, "BOARD");
+
   const {
     data: bestComment,
     refetch: bestRefetch,
     isLoading: bestIsLoading,
   } = useGetBestComment({ id, type: "BOARD" });
+
   const { pageInfo: bestPageInfo, content: bestContent } =
     (bestComment?.data?.content as CommentResponse) || {};
-  const { pageInfo, content } =
-    (commentList?.data?.content as CommentResponse) || {};
+
   const [isFocused, setIsFocused] = useState<boolean>(false);
+
+  // 모든 코멘트 평탄화 (data.content.content 사용)
+  const allComments =
+    commentList?.pages.flatMap((page) => page.data.content.content) || [];
+
+  // 전체 totalElement는 첫 페이지의 pageInfo에서 가져옴
+  const totalComments =
+    commentList?.pages[0]?.data?.content?.pageInfo?.totalElement || 0;
 
   const refetchComment = () => {
     setIsFocused(true);
@@ -59,7 +68,7 @@ const BoardComment = ({
               댓글
             </span>
             <span className="text-[14px] leading-[20px] text-gray5">
-              총 {pageInfo?.totalElement}개
+              총 {totalComments}개
             </span>
           </div>
           <div className="flex">
@@ -96,10 +105,10 @@ const BoardComment = ({
               />
             ))
           : null}
-        {!pageInfo?.totalElement ? (
+        {!totalComments ? (
           <CommentEmpty />
         ) : (
-          content.map((comment) => (
+          allComments.map((comment) => (
             <BoardCommentItem
               key={comment.commentId}
               comment={comment}
@@ -109,7 +118,12 @@ const BoardComment = ({
           ))
         )}
       </div>
-      <CommentMoreButton />
+      {hasNextPage && (
+        <CommentMoreButton
+          onClick={() => fetchNextPage()}
+          disabled={isLoading}
+        />
+      )}
     </>
   );
 };

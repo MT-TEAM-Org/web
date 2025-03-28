@@ -35,8 +35,11 @@ const BoardReplyCommentItem = ({
     useDeleteComment(boardId);
   const { data: authCheck } = useAuthCheck();
   const [show, setShow] = useState(false);
+  // publicId: 게시글 작성자의 publicId
+  // authCheck?.data?.data?.publicId: 로그인한 사용자의 publicId
+  // comment.publicId: 댓글 작성자의 publicId
   const isCommentAuthor = authCheck?.data?.data?.publicId === reply?.publicId; // 댓글 작성자와 로그인한 사용자가 같은지 확인
-  const isBoardAuthor = authCheck?.data?.data?.publicId === publicId; // 게시글 작성자와 로그인한 사용자가 같은지 확인
+  const isBoardAuthor = reply?.publicId === publicId; // 게시글 작성자와 댓글 작성자가 같은지 확인
 
   useEffect(() => {
     if (show) {
@@ -78,6 +81,11 @@ const BoardReplyCommentItem = ({
           <div className="flex flex-col gap-[12px] min-h-[52px]">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-[8px] min-h-[20px]">
+                {reply?.admin && (
+                  <div className="flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white bg-gra">
+                    관리자
+                  </div>
+                )}
                 {isBoardAuthor && (
                   <div
                     className={`flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white bg-gray7`}
