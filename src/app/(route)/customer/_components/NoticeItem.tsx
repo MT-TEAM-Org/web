@@ -11,8 +11,8 @@ import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 interface NoticeItemProps {
   noticeData: NoticeContentType;
   isFeedback?: boolean;
-  searchType: string;
-  searchString: string;
+  searchType?: string;
+  searchString?: string;
 }
 
 const NoticeItem = ({

@@ -1,6 +1,11 @@
 import TermsServiceText from "@/app/_components/termsModal/TermsServiceText";
 import React from "react";
 
+export const metadata = {
+  title: "PlayHive 이용약관",
+  description: "PlayHive 이용약관 페이지입니다.",
+};
+
 const TermsOfService = () => {
   return (
     <div className="w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm">

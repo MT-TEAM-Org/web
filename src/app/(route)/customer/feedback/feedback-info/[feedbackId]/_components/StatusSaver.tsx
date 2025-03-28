@@ -1,5 +1,4 @@
 import usePostFeedbackStatus from "@/_hooks/fetcher/customer/usePostFeedbackStatus";
-import { useQueryClient } from "@tanstack/react-query";
 import React, { useState, useEffect } from "react";
 
 const radioClassNames = `
@@ -8,7 +7,6 @@ const radioClassNames = `
   border
   border-gray3
   rounded-full
-  cursor-pointer
   relative
   flex
   items-center
@@ -37,7 +35,6 @@ const statusOptions = [
 
 const StatusSaver = ({ id, status }) => {
   const [selectedStatus, setSelectedStatus] = useState("");
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (status) {
@@ -65,7 +62,6 @@ const StatusSaver = ({ id, status }) => {
               className={`${radioClassNames} ${
                 selectedStatus === value ? selectedRadioClassNames : ""
               }`}
-              onClick={() => setSelectedStatus(value)}
             />
             <p>{label}</p>
           </div>

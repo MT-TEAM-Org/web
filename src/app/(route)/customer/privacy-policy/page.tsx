@@ -1,6 +1,11 @@
 import TermsPersonalText from "@/app/_components/termsModal/TermsPersonalText";
 import React from "react";
 
+export const metadata = {
+  title: "PlayHive 개인정보 취급방침",
+  description: "PlayHive 개인정보 취급방침 페이지입니다.",
+};
+
 const Page = () => {
   return (
     <div className="w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm">
