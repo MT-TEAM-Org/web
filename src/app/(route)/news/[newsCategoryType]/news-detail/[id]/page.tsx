@@ -86,7 +86,7 @@ const Page = ({
     orderType: orderType() as newsListConfig["orderType"],
     searchType:
       (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
-    content: searchParams.get("search") || "",
+    search: searchParams.get("search") || "",
     timePeriod:
       (searchParams.get("time") as newsListConfig["timePeriod"]) || "DAILY",
   };
@@ -185,8 +185,13 @@ const Page = ({
         ) : sliceNewsListData?.length === 0 ? (
           <EmptyNews />
         ) : (
-          sliceNewsListData.map((newsInfoData: NewsListType) => (
-            <NewsPostItem newsItem={newsInfoData} key={newsInfoData?.id} />
+          sliceNewsListData.map((newsItem: NewsListType) => (
+            <NewsPostItem
+              key={newsItem?.id}
+              newsItem={newsItem}
+              searchType={searchParams.get("search_type")}
+              searchString={searchParams.get("search")}
+            />
           ))
         )}
       </div>

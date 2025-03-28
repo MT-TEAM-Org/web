@@ -63,7 +63,7 @@ const NoticeInfoContent = () => {
           adminChecker={adminChecker}
         />
       </div>
-      <div className="w-[720px] h-auto rounded-[5px] bg-white shadow-md mb-10">
+      <div className="w-[720px] h-auto rounded-[5px] bg-white shadow-md">
         {isLoading ? (
           Array.from({ length: 10 }).map((_, index) => (
             <NoticeItemSkeleton key={index} />
@@ -72,7 +72,12 @@ const NoticeInfoContent = () => {
           <EmptyItem title="공지사항이" />
         ) : (
           noticeListData?.content?.map((noticeListData: NoticeContentType) => (
-            <NoticeItem noticeData={noticeListData} key={noticeListData?.id} />
+            <NoticeItem
+              key={noticeListData.id}
+              noticeData={noticeListData}
+              searchString={searchParams.get("search")}
+              searchType={searchParams.get("search_type")}
+            />
           ))
         )}
       </div>

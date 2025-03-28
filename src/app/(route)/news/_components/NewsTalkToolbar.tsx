@@ -22,7 +22,7 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
   const searchParams = useSearchParams();
 
   const [searchType, setSearchType] = useState(
-    searchParams.get("search_type") || "both"
+    searchParams.get("search_type") || "TITLE_CONTENT"
   );
 
   const paramsConfig = {
@@ -48,7 +48,6 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
     }
   };
 
-  // 검색 기능 추가 요청 상태 (현재 제목만 가능)
   const handleSearchTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchType(e.target.value);
   };
@@ -57,12 +56,15 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
     e.preventDefault();
     const inputValue = (e.target as HTMLFormElement)[0] as HTMLInputElement;
     if (inputValue.value.trim() === "") return;
-    router.push(
-      changeURLParams(searchParams, "search", inputValue.value, searchType),
-      {
-        scroll: false,
-      }
+
+    const newSearchParams = changeURLParams(
+      searchParams,
+      "search",
+      inputValue.value,
+      searchType
     );
+
+    router.push(newSearchParams, { scroll: false });
   };
 
   const handleOrderButtonClick = (orderType: newsListConfig["orderType"]) => {

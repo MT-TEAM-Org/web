@@ -239,6 +239,8 @@ const FeedbackInfoPage = () => {
                   isFeedback={true}
                   noticeData={noticeData}
                   key={noticeData.id}
+                  searchString={searchParams.get("search")}
+                  searchType={searchParams.get("search_type")}
                 />
               ))}
           {isLoading ? (
@@ -253,6 +255,8 @@ const FeedbackInfoPage = () => {
                 <FeedbackItem
                   feedbackData={feedbackDataList}
                   key={feedbackDataList?.id}
+                  searchString={searchParams.get("search")}
+                  searchType={searchParams.get("search_type")}
                 />
               )
             )
