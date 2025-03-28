@@ -44,6 +44,7 @@ const FeedbackInfo = () => {
   const searchParams = useSearchParams();
   const adminRole = useAdminRole();
   const pathname = usePathname();
+  const token = localStorage.getItem("accessToken");
 
   const feedbackOption: feedbackListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
@@ -61,7 +62,7 @@ const FeedbackInfo = () => {
     data: feedbackInfoData,
     isLoading: feedbackIsLoading,
     isError: feedbackIsError,
-  } = useGetFeedbackInfoData({ id: infoId });
+  } = useGetFeedbackInfoData({ id: infoId, token });
   const {
     mutate: feedbackAddRecommend,
     isSignInModalOpen,
