@@ -6,11 +6,14 @@ import getFeedbackInfoData from "@/services/customer/getFeedbackInfoData";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: number }>;
+  params: Promise<{ feedbackId: string }>;
 }): Promise<Metadata> {
   try {
     const resolvedParams = await params;
-    const feedbackDetail = await getFeedbackInfoData({ id: resolvedParams.id });
+    const feedbackId = Number(resolvedParams.feedbackId);
+    const feedbackDetail = await getFeedbackInfoData({
+      id: feedbackId,
+    });
 
     return {
       title: feedbackDetail.title || "개선요청 상세 페이지",
