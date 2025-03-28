@@ -1,4 +1,3 @@
-import Gallery_icon from "@/app/_components/icon/Gallery_icon";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
 import { GetNewContentItem } from "@/services/main/getNewContent";
 import { getKoreanBoardType } from "@/utils/boardType/boardTypeKorean";
