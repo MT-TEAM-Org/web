@@ -86,7 +86,7 @@ const BoardReplyCommentItem = ({
                     관리자
                   </div>
                 )}
-                {isBoardAuthor && (
+                {isBoardAuthor && !reply?.admin && (
                   <div
                     className={`flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white bg-gray7`}
                   >
