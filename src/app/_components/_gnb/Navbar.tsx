@@ -1,16 +1,29 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Search } from "../icon/Search";
 import Link from "next/link";
 import { NAVBARS } from "@/app/_constants/navigation";
+import { useState } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const [isValue, setIsValue] = useState("");
 
   const isCurrentPath = (path: string) => {
     const fullPath = path.startsWith("/") ? path : `/${path}`;
     return pathname === fullPath;
+  };
+
+  const handleToSearch = () => {
+    if (isValue.trim() !== "") {
+      router.push(
+        `/total-search/board?search=${encodeURIComponent(
+          isValue
+        )}&search_type=TITLE_CONTENT`
+      );
+    }
   };
 
   const navbarClass =
@@ -36,10 +49,20 @@ export default function Navbar() {
       <div className="flex items-center mb-2">
         <div className="relative w-[414px]">
           <input
-            className="w-full min-h-[48px] py-[12px] px-[16px] border-[0.5px] rounded-full pl-10"
+            className="w-full min-h-[48px] py-[12px] px-[16px] border-[0.5px] rounded-full pl-12"
             placeholder="검색어를 입력해주세요"
+            value={isValue}
+            onChange={(e) => setIsValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleToSearch();
+              }
+            }}
           />
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+          <div
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            onClick={handleToSearch}
+          >
             <Search />
           </div>
         </div>

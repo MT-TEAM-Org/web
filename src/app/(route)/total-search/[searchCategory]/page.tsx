@@ -14,6 +14,9 @@ import useGetSearchDataList from "@/_hooks/fetcher/total-search/useGetSearchData
 import NewsPostItem from "../../news/_components/NewsPostItem";
 import { NewsItemType } from "../../news/_types/newsItemType";
 import NewsPostItemSkeleton from "../../news/_components/NewsPostItemSkeleton";
+import NoticeItem from "../../customer/_components/NoticeItem";
+import { NoticeContentType } from "../../customer/_types/NoticeItemType";
+import NoticeItemSkeleton from "../../customer/_components/NoticeItemSkeleton";
 
 const Page = () => {
   const params = useParams<{ totalSearchType: string }>();
@@ -62,23 +65,44 @@ const Page = () => {
         pageInfo={searchData?.data?.pageInfo}
       />
       <div className="w-full h-auto rounded-b-[5px] shadow-sm bg-white">
-        {searchType === "news" ? (
-          isLoading &&
+        {isLoading &&
           Array(10)
             .fill(0)
-            .map((_, index) => <NewsPostItemSkeleton key={index} />)
-        ) : searchData?.data?.length === 0 || isError ? (
-          <SearchEmptyBox />
-        ) : (
-          searchData?.content?.map((newsItem: NewsItemType) => (
-            <NewsPostItem
-              key={newsItem?.id}
-              newsItem={newsItem}
-              searchType={searchParams.get("search_type")}
-              searchString={searchParams.get("search")}
-            />
-          ))
-        )}
+            .map((_, index) =>
+              searchType === "news" ? (
+                <NewsPostItemSkeleton key={index} />
+              ) : searchType === "board" ? (
+                <NoticeItemSkeleton key={index} />
+              ) : null
+            )}
+
+        {searchType === "news" ? (
+          searchData?.data?.length === 0 || isError ? (
+            <SearchEmptyBox />
+          ) : (
+            searchData?.content?.map((newsItem: NewsItemType) => (
+              <NewsPostItem
+                key={newsItem?.id}
+                newsItem={newsItem}
+                searchType={searchParams.get("search_type")}
+                searchString={searchParams.get("search")}
+              />
+            ))
+          )
+        ) : searchType === "board" ? (
+          searchData?.data?.length === 0 || isError ? (
+            <SearchEmptyBox />
+          ) : (
+            searchData?.content?.map((noticeItem: NoticeContentType) => (
+              <NoticeItem
+                key={noticeItem?.id}
+                noticeData={noticeItem}
+                searchType={searchParams.get("search_type")}
+                searchString={searchParams.get("search")}
+              />
+            ))
+          )
+        ) : null}
       </div>
     </div>
   );
