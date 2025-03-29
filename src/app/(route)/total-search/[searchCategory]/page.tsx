@@ -25,8 +25,6 @@ const Page = () => {
   const searchParams = useSearchParams();
   const searchType = pathname.split("/")[2];
 
-  console.log(searchType);
-
   const category =
     params.totalSearchType === "board" ? "news" : params.totalSearchType;
 
@@ -41,8 +39,10 @@ const Page = () => {
     page: Number(searchParams.get("page")) || 1,
     size: 20,
     domainType:
-      (searchParams.get("domain_type") as searchListConfig["domainType"]) || "",
-    orderType: searchParams.get("orderType") as searchListConfig["orderType"],
+      (searchParams.get("domain_type") as searchListConfig["domainType"]) ||
+      "NEWS",
+    orderType:
+      (searchParams.get("orderType") as searchListConfig["orderType"]) || "",
     searchType:
       (searchParams.get("search_type") as searchListConfig["searchType"]) || "",
     search: searchParams.get("search") || "",
