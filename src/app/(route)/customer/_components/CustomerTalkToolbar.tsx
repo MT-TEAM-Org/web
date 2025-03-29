@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { NoticePageInfoType } from "@/app/_constants/customer/NoticeItemType";
+import { NoticePageInfoType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Pagination from "../../mypage/_components/Pagination";
 import changeURLParams from "../../mypage/util/changeURLParams";
@@ -92,9 +92,9 @@ const CustomerTalkToolbarContent = ({
 
   return (
     <div className="rounded-[5px] bg-white">
-      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-[#FFFFFF] ">
+      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white ">
         {toolbarContent}
-        <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
+        <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px] z-10">
           <SearchFilter
             searchType={searchType}
             searchOptions={searchOptions}

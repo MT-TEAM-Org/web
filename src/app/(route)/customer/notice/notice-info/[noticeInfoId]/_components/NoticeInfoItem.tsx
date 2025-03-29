@@ -1,20 +1,52 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
-import { NoticeInfoItemType } from "@/app/_constants/customer/NoticeInfoItemType";
+import { NoticeInfoItemType } from "@/app/(route)/customer/_types/NoticeInfoItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import EmptyComment from "@/app/(route)/(community)/gameboard/_components/EmptyComment";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import { usePathname } from "next/navigation";
+import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
+import { useQueryClient } from "@tanstack/react-query";
+import usePostNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/usePostNoticeRecommend";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
+import useDeleteNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteNoticeRecommend";
 
 interface NoticeInfoItemProps {
   data: NoticeInfoItemType;
+  id: number;
 }
 
-const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
+const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
   const timeAgo = useTimeAgo(data?.createdAt);
   const pathname = usePathname();
+  const queryClient = useQueryClient();
+
+  const {
+    mutate: noticeAddRecommend,
+    isSignInModalOpen,
+    setIsSignInModalOpen,
+  } = usePostNoticeRecommend();
+  const { mutate: noticeDeleteRecommend } = useDeleteNoticeRecommend();
+
+  const handleFeedbackCommend = () => {
+    if (!data?.isRecommended) {
+      noticeAddRecommend(id, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["noticeInfo", id] });
+        },
+      });
+    } else if (data?.isRecommended) {
+      noticeDeleteRecommend(id, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["noticeInfo", id] });
+        },
+      });
+    }
+  };
 
   const noticeStats = [
     { label: "조회수", value: data?.viewCount },
@@ -51,7 +83,7 @@ const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
               {noticeStats.map((stat, index) => (
                 <div
                   key={index}
-                  className="min-w-[45px] min-h-[20px] flex gap-1 text-[14px] leading-5 text-gray6"
+                  className="flex gap-1 text-[14px] leading-5 text-gray6"
                 >
                   <p className="font-bold">{stat.label}</p>
                   <p>{stat.value}</p>
@@ -68,34 +100,44 @@ const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
 
       <hr />
 
-      <div className="w-full max-w-[672px] min-h-[188px] flex flex-col gap-3">
-        {data?.imgUrl && !youtubeEmbedUrl && (
-          <Image
-            src={data?.imgUrl}
-            alt="Feedback img"
-            width={672}
-            height={128}
-          />
-        )}
-        {youtubeEmbedUrl && (
-          <iframe
-            width="100%"
-            height="408"
-            src={youtubeEmbedUrl}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        )}
-        {!youtubeEmbedUrl && (
-          <div className="w-[679px] min-h-[42px]">
-            <div>{data?.link}</div>
-          </div>
-        )}
-        <div
-          className="w-full max-w-[672px] min-h-[48px] font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray7"
-          dangerouslySetInnerHTML={{ __html: data?.content }}
+      {(data?.imgUrl || youtubeEmbedUrl) && (
+        <div className="w-full max-w-[672px] min-h-[188px] flex flex-col gap-3">
+          {data?.imgUrl && !youtubeEmbedUrl && (
+            <Image
+              src={data?.imgUrl}
+              alt="Feedback img"
+              width={672}
+              height={128}
+            />
+          )}
+          {youtubeEmbedUrl && (
+            <iframe
+              width="100%"
+              height="408"
+              src={youtubeEmbedUrl}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          )}
+          {!youtubeEmbedUrl && data?.link && (
+            <div className="w-[679px] min-h-[42px]">
+              <div>{data?.link}</div>
+            </div>
+          )}
+        </div>
+      )}
+
+      <div
+        className="w-full max-w-[672px] min-h-[48px] font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray7"
+        dangerouslySetInnerHTML={{ __html: data?.content }}
+      />
+      <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
+        <RecommendButton
+          handleCommend={handleFeedbackCommend}
+          recommendCount={data?.recommendCount}
+          isRecommend={data?.isRecommended}
         />
       </div>
       <PostAction type="community" />
@@ -107,6 +149,10 @@ const NoticeInfoItem = ({ data }: NoticeInfoItemProps) => {
         nextId={data?.nextId}
         previousId={data?.previousId}
         currentPath={pathname}
+      />
+      <SignInModalPopUp
+        isOpen={isSignInModalOpen}
+        onClose={() => setIsSignInModalOpen(false)}
       />
     </div>
   );

@@ -17,7 +17,7 @@ export interface PostListData {
     publicId: string;
     nickname: string;
     commentCount: number;
-    createDate: string;
+    createdAt: string;
     lastModifiedDate: string;
   }[];
   pageInfo: {

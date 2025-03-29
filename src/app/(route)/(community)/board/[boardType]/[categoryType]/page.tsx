@@ -7,11 +7,11 @@ import useGetBoardData from "@/_hooks/getBoardData";
 import PostItemSkeleton from "../../../_components/PostItemSkelton";
 import { useSearchParams } from "next/navigation";
 
-interface categorype {
+interface category {
   boardType: string;
   categoryType: string;
 }
-export default function Category({ params }: { params: Promise<categorype> }) {
+export default function Category({ params }: { params: Promise<category> }) {
   const unwrappedParams = use(params);
   const { boardType, categoryType } = unwrappedParams;
 

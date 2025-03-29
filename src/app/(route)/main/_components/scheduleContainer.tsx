@@ -1,40 +1,45 @@
 "use client";
 
-import React, { useState } from "react";
-import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import ScheduleItem from "./scheduleItem";
 import EmptyScheduleItem from "./EmptyScheduleItem";
-import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
 import { motion, AnimatePresence } from "framer-motion";
+import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ScheduleContainerProps {
   showCategoryButtons?: boolean;
+  showAll?: boolean;
+  matchType?: string;
 }
 
 const ScheduleContainer = ({
   showCategoryButtons = false,
+  showAll = false,
+  matchType,
 }: ScheduleContainerProps) => {
+  const router = useRouter();
   const pathname = usePathname();
-  const isGameboard = pathname === "/gameboard";
+  const isGameboard = pathname === "/matchBroadcast";
 
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(
     isGameboard ? 0 : null
   );
-  const [selectedCategory, setSelectedCategory] = useState("ALL");
+  const { data: scheduleResponse, isLoading } = useGetMatchSchedule(
+    matchType || "ALL"
+  );
+  const scheduleData = scheduleResponse?.data?.list || [];
 
   const itemsPerPage = 4;
-  const category = selectedCategory;
-  const { data: scheduleResponse, isLoading } = useGetMatchSchedule(category);
-  const scheduleData = scheduleResponse?.data?.list || [];
+  const totalPages = Math.ceil(scheduleData.length / itemsPerPage);
 
   const displayedItems = scheduleData.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
-
-  const totalPages = Math.ceil(scheduleData.length / itemsPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -46,43 +51,24 @@ const ScheduleContainer = ({
   };
 
   const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
     setCurrentPage(0);
     setSelectedIndex(isGameboard ? 0 : null);
+    router.push(`/matchBroadcast/${category}`);
   };
-  const buttonStyyle =
-    "w-[78px] h-[40px] rounded-[5px] border py-[13px] pb-[16px] flex items-center justify-center font-[700] text-[14px] leading-[20px] text-center";
-  const categoryButtons = [
-    {
-      name: "E스포츠",
-      value: "ESPORTS",
-      style: buttonStyyle,
-    },
-    {
-      name: "축구",
-      value: "FOOTBALL",
-      style: buttonStyyle,
-    },
-    {
-      name: "야구",
-      value: "BASEBALL",
-      style: buttonStyyle,
-    },
-  ];
 
   return (
     <div className="w-full h-full min-h-[126px] flex flex-col bg-gray1 justify-center items-center">
       {showCategoryButtons && (
         <div className="w-[1200px] h-[40px] flex mb-[12px] gap-x-[8px]">
-          {categoryButtons.map((item, index) => (
+          {CATEGORUIES.map(({ value, name }) => (
             <button
-              key={index}
-              onClick={() => handleCategoryChange(item.value)}
-              className={`${buttonStyyle} ${
-                selectedCategory === item.value ? "border-gray7" : ""
+              key={value}
+              onClick={() => handleCategoryChange(value)}
+              className={`${BUTTON_STYLE} ${
+                matchType === value ? "border-gray7" : ""
               }`}
             >
-              {item.name}
+              {name}
             </button>
           ))}
         </div>
@@ -148,3 +134,24 @@ const ScheduleContainer = ({
 };
 
 export default ScheduleContainer;
+
+const BUTTON_STYLE =
+  "w-[78px] h-[40px] rounded-[5px] border py-[13px] pb-[16px] flex items-center justify-center font-[700] text-[14px] leading-[20px] text-center";
+
+const CATEGORUIES = [
+  {
+    name: "E스포츠",
+    value: "ESPORTS",
+    style: BUTTON_STYLE,
+  },
+  {
+    name: "축구",
+    value: "FOOTBALL",
+    style: BUTTON_STYLE,
+  },
+  {
+    name: "야구",
+    value: "BASEBALL",
+    style: BUTTON_STYLE,
+  },
+];

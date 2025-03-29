@@ -28,11 +28,11 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
             <span className="overflow-hidden text-ellipsis whitespace-nowrap text-gray7">
               {hotPosts?.title}
             </span>
-            <div className="w-[14px] h-[14px] object-cover">
-              {hotPosts?.isImage && (
+            {hotPosts?.isImage ? (
+              <div className="w-[14px] h-[14px] object-cover">
                 <CustomIcon icon="ISPHOTO_ICON" className="text-white" />
-              )}
-            </div>
+              </div>
+            ) : null}
           </div>
 
           <div className="flex justify-center text-center items-center gap-x-[2px]">

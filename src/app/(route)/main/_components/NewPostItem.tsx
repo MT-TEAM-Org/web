@@ -27,11 +27,11 @@ const NewPostItem = ({ newPosts }: NewPostItemProps) => {
           <span className="overflow-hidden text-ellipsis whitespace-nowrap">
             {newPosts?.title}
           </span>
-          <div className="w-[14px] h-[14px] object-cover">
-            {newPosts?.isImage && (
+          {newPosts?.isImage ? (
+            <div className="w-[14px] h-[14px] object-cover">
               <CustomIcon icon="ISPHOTO_ICON" className="text-white" />
-            )}
-          </div>
+            </div>
+          ) : null}
         </div>
         <div className="flex justify-center text-center items-center gap-x-[2px]">
           <p className="w-[22px] h-[18px] [font-[500] text-[12px] leading-[18px] text-primary">

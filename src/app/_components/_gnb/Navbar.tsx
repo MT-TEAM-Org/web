@@ -6,13 +6,7 @@ import Link from "next/link";
 import { NAVBARS } from "@/app/_constants/navigation";
 
 export default function Navbar() {
-  const pathname = usePathname();
-
-  const isCurrentPath = (path: string) => {
-    const fullPath = path.startsWith("/") ? path : `/${path}`;
-    return pathname === fullPath;
-  };
-
+  const pathName = usePathname();
   const navbarClass =
     "min-h-[60px] p-[16px] whitespace-nowrap font-medium text-[18px] leading-7 tracking-[-0.04em] text-center cursor-pointer";
 
@@ -23,7 +17,7 @@ export default function Navbar() {
           <Link key={index} href={item.link}>
             <div
               className={`${navbarClass} flex justify-around items-center ${
-                isCurrentPath(item.link)
+                item.id && pathName.includes(item.id)
                   ? "font-normal text-[#00ADEE]"
                   : "font-normal text-[#424242]"
               } ${index === 0 ? "pl-0" : ""}`}
