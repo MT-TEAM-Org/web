@@ -1,37 +1,100 @@
-import React from "react";
+"use client";
 
-const SearchToolbar = () => {
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import Pagination from "../../mypage/_components/Pagination";
+import OrderButtons from "../../mypage/_components/OrderButtons";
+import SearchFilter from "../../mypage/_components/SearchFilter";
+import OrderDateButton from "./OrderDateButton";
+import { POST_SEARCH_OPTIONS } from "../../mypage/_constants/toolbarObject";
+import changeURLParams from "../../mypage/util/changeURLParams";
+import { searchListConfig } from "../_types/searchListConfig";
+import { SearchListPageInfoType } from "../_types/searchType";
+
+interface SearchToolbarProps {
+  totalSearchType: string;
+  pageInfo: SearchListPageInfoType;
+}
+
+const SearchToolbar = ({ totalSearchType, pageInfo }: SearchToolbarProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const paramsConfig = {
+    category: totalSearchType,
+    orderType: searchParams.get("order_type") || "DATE",
+    timePeriod: searchParams.get("time") || "DAILY",
+    content: searchParams.get("content") || "",
+    page: searchParams.get("page") || "1",
+  };
+
+  const [searchType, setSearchType] = useState(
+    searchParams.get("search_type") || "TITLE_CONTENT"
+  );
+
+  const handleSearchTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchType(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const inputValue = (e.target as HTMLFormElement)[0] as HTMLInputElement;
+    if (inputValue.value.trim() === "") return;
+
+    const newSearchParams = changeURLParams(
+      searchParams,
+      "search",
+      inputValue.value,
+      searchType
+    );
+
+    router.push(newSearchParams, { scroll: false });
+  };
+
+  const handleOrderButtonClick = (orderType: searchListConfig["orderType"]) => {
+    router.push(changeURLParams(searchParams, "order_type", orderType), {
+      scroll: false,
+    });
+  };
+
+  const handlePageChange = (page: number) => {
+    if (pageInfo && pageInfo.totalPage) {
+      if (page < 1 || page > pageInfo.totalPage) return;
+
+      const scrollPosition = window.scrollY;
+
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", page.toString());
+
+      router.push(`${pathname}?${params.toString()}`, {
+        scroll: false,
+      });
+    }
+  };
+
   return (
     <div className="w-full h-[120px] rounded-t-[5px] bg-white">
       <div className="w-full h-[64px] border-b flex justify-between p-3 border-gray2">
-        <div className="min-w-[317px] min-h-[40px] flex gap-2 items-center justify-center">
-          <button className="min-w-[57px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-gra text-white justify-center items-center">
-            전체
-          </button>
-          <button className="min-w-[57px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-white text-black border border-gray3 justify-center items-center">
-            일간
-          </button>
-          <button className="min-w-[57px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-white text-black border border-gray3 justify-center items-center">
-            주간
-          </button>
-          <button className="min-w-[57px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-white text-black border border-gray3 justify-center items-center">
-            월간
-          </button>
-          <button className="min-w-[57px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-white text-black border border-gray3 justify-center items-center">
-            연간
-          </button>
-        </div>
+        <OrderDateButton />
         <div className="w-[356px] h-[40px] flex gap-2 items-center justify-center">
-          <div>검색옵션 들어갈 부분</div>
+          <SearchFilter
+            searchType={searchType}
+            searchOptions={POST_SEARCH_OPTIONS}
+            onSearchTypeChange={handleSearchTypeChange}
+            onSubmit={handleSubmit}
+          />
         </div>
       </div>
       <div className="w-full min-h-[56px] flex justify-between p-3">
         <div className="w-[279px] min-h-[32px] flex gap-2">
-          최신순인기순댓글
+          <OrderButtons
+            orderType={paramsConfig.orderType as searchListConfig["orderType"]}
+            onOrderType={handleOrderButtonClick}
+          />
         </div>
-        <div className="min-w-[112px] min-h-[32px] flex gap-2">
-          페이지네이션
-        </div>
+        <Pagination pageInfo={pageInfo} onPageChangeAction={handlePageChange} />
       </div>
     </div>
   );
