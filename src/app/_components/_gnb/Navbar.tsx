@@ -17,13 +17,14 @@ export default function Navbar() {
   };
 
   const handleToSearch = () => {
-    if (isValue.trim() !== "") {
-      router.push(
-        `/total-search/board?search=${encodeURIComponent(
-          isValue
-        )}&search_type=TITLE_CONTENT`
-      );
-    }
+    const trimmedValue = isValue.trim();
+    if (!trimmedValue) return;
+
+    const searchPath = `/total-search/board?search=${encodeURIComponent(
+      trimmedValue
+    )}&search_type=TITLE_CONTENT`;
+
+    router.push(searchPath);
   };
 
   const navbarClass =

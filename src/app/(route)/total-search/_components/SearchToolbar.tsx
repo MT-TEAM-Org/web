@@ -25,7 +25,7 @@ const SearchToolbar = ({ totalSearchType, pageInfo }: SearchToolbarProps) => {
   const paramsConfig = {
     category: totalSearchType,
     orderType: searchParams.get("order_type") || "DATE",
-    timePeriod: searchParams.get("time") || "DAILY",
+    timePeriod: searchParams.get("time") || "ALL",
     content: searchParams.get("content") || "",
     page: searchParams.get("page") || "1",
   };
@@ -62,8 +62,6 @@ const SearchToolbar = ({ totalSearchType, pageInfo }: SearchToolbarProps) => {
   const handlePageChange = (page: number) => {
     if (pageInfo && pageInfo.totalPage) {
       if (page < 1 || page > pageInfo.totalPage) return;
-
-      const scrollPosition = window.scrollY;
 
       const params = new URLSearchParams(searchParams.toString());
       params.set("page", page.toString());

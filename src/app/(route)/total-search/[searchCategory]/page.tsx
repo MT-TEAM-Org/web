@@ -42,12 +42,14 @@ const Page = () => {
       (searchParams.get("domain_type") as searchListConfig["domainType"]) ||
       "NEWS",
     orderType:
-      (searchParams.get("orderType") as searchListConfig["orderType"]) || "",
+      (searchParams.get("orderType") as searchListConfig["orderType"]) ||
+      "CREATE",
     searchType:
-      (searchParams.get("search_type") as searchListConfig["searchType"]) || "",
+      (searchParams.get("search_type") as searchListConfig["searchType"]) ||
+      "TITLE_CONTENT",
     search: searchParams.get("search") || "",
     timePeriod:
-      (searchParams.get("time") as searchListConfig["timePeriod"]) || "DAILY",
+      (searchParams.get("time") as searchListConfig["timePeriod"]) || "ALL",
   };
 
   const {

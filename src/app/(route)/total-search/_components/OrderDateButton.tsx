@@ -9,8 +9,12 @@ const OrderDateButton = () => {
   const searchParams = useSearchParams();
 
   const currentTimePeriod =
-    (searchParams.get("time") as "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY") ||
-    "DAILY";
+    (searchParams.get("time") as
+      | "DAILY"
+      | "WEEKLY"
+      | "MONTHLY"
+      | "YEARLY"
+      | "ALL") || "ALL";
 
   const timeButtons = [
     { label: "전체", value: "ALL" },
