@@ -1,6 +1,6 @@
 "use client";
 
-import { CommentItem } from "@/_types/comment";
+import { CommentItem, CommentType } from "@/_types/comment";
 import { CalculateTime } from "@/app/_components/CalculateTime";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import Single_logo from "@/app/_components/icon/Single_logo";
@@ -20,6 +20,7 @@ interface BoardReplyCommentItemProps {
   parentNickname: string;
   boardId: string;
   depth?: number;
+  type: CommentType;
 }
 
 const BoardReplyCommentItem = ({
@@ -29,6 +30,7 @@ const BoardReplyCommentItem = ({
   parentNickname,
   boardId,
   depth = 1,
+  type,
 }: BoardReplyCommentItemProps) => {
   const queryClient = useQueryClient();
   const { success } = useToast();
@@ -54,14 +56,14 @@ const BoardReplyCommentItem = ({
 
   const handleDeleteComment = () => {
     deleteComment(
-      { commentId: reply.commentId.toString(), type: "BOARD" },
+      { commentId: reply.commentId.toString(), type },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: ["commentList", "BOARD", boardId],
+            queryKey: ["commentList", type, boardId],
           });
           queryClient.invalidateQueries({
-            queryKey: ["bestComment", { id: boardId, type: "BOARD" }],
+            queryKey: ["bestComment", { id: boardId, type }],
           });
           success("댓글이 삭제되었습니다.", "");
         },
@@ -188,6 +190,7 @@ const BoardReplyCommentItem = ({
               parentNickname={reply.nickname}
               boardId={boardId}
               depth={depth + 1}
+              type={type}
             />
           ))}
         </>

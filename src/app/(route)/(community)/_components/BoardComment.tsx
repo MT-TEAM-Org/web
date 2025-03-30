@@ -31,7 +31,7 @@ const BoardComment = ({
     hasNextPage,
     isLoading,
     refetch,
-  } = useGetCommentList(id, "BOARD");
+  } = useGetCommentList(id, type);
 
   const {
     data: bestComment,
@@ -103,6 +103,7 @@ const BoardComment = ({
                 publicId={publicId}
                 setParentsComment={setParentsComment}
                 best
+                type={type}
               />
             ))
           : null}
@@ -115,6 +116,7 @@ const BoardComment = ({
               comment={comment}
               publicId={publicId}
               setParentsComment={setParentsComment}
+              type={type}
             />
           ))
         )}

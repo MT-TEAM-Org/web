@@ -1,6 +1,6 @@
 "use client";
 
-import { CommentItem } from "@/_types/comment";
+import { CommentItem, CommentType } from "@/_types/comment";
 import { CalculateTime } from "@/app/_components/CalculateTime";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Image from "next/image";
@@ -19,6 +19,7 @@ interface BoardCommentItemProps {
   publicId: string;
   setParentsComment: (comment: CommentItem) => void;
   best?: boolean;
+  type: CommentType;
 }
 
 const BoardCommentItem = ({
@@ -26,6 +27,7 @@ const BoardCommentItem = ({
   publicId,
   setParentsComment,
   best = false,
+  type,
 }: BoardCommentItemProps) => {
   const queryClient = useQueryClient();
   const pathname = usePathname();
@@ -53,14 +55,14 @@ const BoardCommentItem = ({
 
   const handleDeleteComment = () => {
     deleteComment(
-      { commentId: comment.commentId.toString(), type: "BOARD" },
+      { commentId: comment.commentId.toString(), type },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: ["commentList", "BOARD", boardId],
+            queryKey: ["commentList", type, boardId],
           });
           queryClient.invalidateQueries({
-            queryKey: ["bestComment", { id: boardId, type: "BOARD" }],
+            queryKey: ["bestComment", { id: boardId, type }],
           });
           success("댓글이 삭제되었습니다.", "");
         },
@@ -190,6 +192,7 @@ const BoardCommentItem = ({
               boardId={boardId}
               setParentsComment={setParentsComment}
               parentNickname={comment.nickname}
+              type={type}
             />
           </div>
         ))}
