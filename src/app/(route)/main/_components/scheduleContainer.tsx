@@ -56,6 +56,12 @@ const ScheduleContainer = ({
     router.push(`/matchBroadcast/${category}`);
   };
 
+  const handleMatchClick = (index: number) => {
+    setSelectedIndex(index);
+    const matchId = displayedItems[index].id;
+    router.push(`/matchBroadcast/${matchType}/${matchId}`);
+  };
+
   return (
     <div className="w-full h-full min-h-[126px] flex flex-col bg-gray1 justify-center items-center">
       {showCategoryButtons && (
@@ -97,7 +103,7 @@ const ScheduleContainer = ({
                     <div key={index} className="w-[275px]">
                       <ScheduleItem
                         isSelected={selectedIndex === index}
-                        onClick={() => setSelectedIndex(index)}
+                        onClick={() => handleMatchClick(index)}
                         data={item}
                       />
                     </div>

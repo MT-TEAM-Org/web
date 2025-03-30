@@ -3,7 +3,6 @@
 import { use, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
-
 export default function MatchTypePage({
   params,
 }: {
@@ -22,6 +21,10 @@ export default function MatchTypePage({
       router.replace(`/matchBroadcast/${matchType}/${firstMatchId}`);
     }
   }, [isLoading, scheduleData, matchType, router]);
+
+  if (isLoading) {
+    return <div className="flex justify-center items-center">Loading...</div>;
+  }
 
   return <div className="flex justify-center items-center"></div>;
 }
