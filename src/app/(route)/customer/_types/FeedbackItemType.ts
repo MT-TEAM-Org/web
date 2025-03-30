@@ -16,6 +16,7 @@ export interface FeedbackContentType {
   recommendCount: number;
   createdAt: string;
   updatedAt: string;
+  isHot?: string;
   improvementCommentSearchList: CommentSearchList;
 }
 
