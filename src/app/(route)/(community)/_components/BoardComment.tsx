@@ -1,7 +1,7 @@
 "use client";
 
 import useGetCommentList from "@/_hooks/fetcher/comment/useGetCommentList";
-import { CommentItem, CommentResponse } from "@/_types/comment";
+import { CommentItem, CommentResponse, CommentType } from "@/_types/comment";
 import CommentEmpty from "@/app/_components/_comment/CommentEmpty";
 import CommentMoreButton from "@/app/_components/_comment/CommentMoreButton";
 import Refresh from "@/app/_components/icon/Refresh";
@@ -15,6 +15,7 @@ interface BoardCommentProps {
   id: string | undefined;
   publicId: string;
   setParentsComment: (comment: CommentItem) => void;
+  type: CommentType;
 }
 
 const BoardComment = ({
@@ -22,6 +23,7 @@ const BoardComment = ({
   id,
   publicId,
   setParentsComment,
+  type,
 }: BoardCommentProps) => {
   const {
     data: commentList,
@@ -35,7 +37,7 @@ const BoardComment = ({
     data: bestComment,
     refetch: bestRefetch,
     isLoading: bestIsLoading,
-  } = useGetBestComment({ id, type: "BOARD" });
+  } = useGetBestComment({ id, type });
 
   const { pageInfo: bestPageInfo, content: bestContent } =
     (bestComment?.data?.content as CommentResponse) || {};
