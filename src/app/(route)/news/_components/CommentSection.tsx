@@ -17,15 +17,9 @@ type NewsCommentDataType = NewsCommentResponse | NewsCommentList;
 
 interface CommentSectionProps {
   newsInfoData?: NewsInfoDataType;
-  newsCommentData?: NewsCommentDataType;
-  newsBestCommentData?: NewsCommentDataType;
 }
 
-const CommentSection = ({
-  newsInfoData,
-  newsCommentData,
-  newsBestCommentData,
-}: CommentSectionProps) => {
+const CommentSection = ({ newsInfoData }: CommentSectionProps) => {
   const commentBarRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
   const pathname = usePathname();
@@ -56,47 +50,10 @@ const CommentSection = ({
     });
   };
 
-  const bestComments: NewsCommentList = Array.isArray(newsBestCommentData)
-    ? newsBestCommentData
-    : newsBestCommentData?.list || [];
-  const bestCommentIds = bestComments.map((item) => item.newsCommentId);
-
-  const commentsList: NewsCommentList = Array.isArray(newsCommentData)
-    ? newsCommentData
-    : newsCommentData?.list || [];
-  const filteredComments = commentsList.filter(
-    (commentItem) => !bestCommentIds.includes(commentItem.newsCommentId)
-  );
-
   return (
     <>
       <div className="w-full h-auto" ref={commentBarRef}>
         <CommentBar data={newsInfoData} onRefresh={RefreshButton} />
-
-        <div className="w-full h-auto">
-          {bestComments.length > 0 &&
-            bestComments.map((bestCommentItem) => (
-              <NewsCommentItem
-                data={bestCommentItem}
-                bestComment={true}
-                key={`best-${bestCommentItem.newsCommentId}`}
-              />
-            ))}
-        </div>
-
-        <div className="max-w-full h-auto">
-          {filteredComments.length === 0 && bestComments.length === 0 ? (
-            <EmptyNewsComment />
-          ) : (
-            filteredComments.map((commentItem) => (
-              <NewsCommentItem
-                data={commentItem}
-                bestComment={false}
-                key={`${commentItem.newsCommentId}`}
-              />
-            ))
-          )}
-        </div>
       </div>
       <PostNavigation
         currentPath={pathname}
