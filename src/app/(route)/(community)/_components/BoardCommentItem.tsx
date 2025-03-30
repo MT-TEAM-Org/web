@@ -73,6 +73,9 @@ const BoardCommentItem = ({
   const recommendDivStyle =
     comment?.recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
 
+  if (best) {
+    console.log(comment);
+  }
   return (
     <>
       <div className="flex flex-col gap-[8px] min-h-[112px] p-[12px] bg-white border-b border-gray1">
@@ -133,6 +136,11 @@ const BoardCommentItem = ({
             />
           )}
           <p className="text-[14px] leading-[20px] text-gray7">
+            {best && comment?.parentCommenterName && (
+              <span className="text-[#00ADEE] mr-[4px]">
+                @{comment?.parentCommenterName}
+              </span>
+            )}
             {comment?.comment}
           </p>
         </div>

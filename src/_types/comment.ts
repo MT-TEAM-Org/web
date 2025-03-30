@@ -14,6 +14,7 @@ export interface CommentItem {
   replyList: CommentItem[];
   recommended: boolean;
   admin: boolean;
+  parentCommenterName?: string;
 }
 
 interface PageInfo {
