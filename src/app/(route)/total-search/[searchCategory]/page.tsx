@@ -14,9 +14,9 @@ import useGetSearchDataList from "@/_hooks/fetcher/total-search/useGetSearchData
 import NewsPostItem from "../../news/_components/NewsPostItem";
 import { NewsItemType } from "../../news/_types/newsItemType";
 import NewsPostItemSkeleton from "../../news/_components/NewsPostItemSkeleton";
-import NoticeItem from "../../customer/_components/NoticeItem";
-import { NoticeContentType } from "../../customer/_types/NoticeItemType";
 import NoticeItemSkeleton from "../../customer/_components/NoticeItemSkeleton";
+import { SearchListType } from "../_types/searchType";
+import TotalSearchItem from "../_components/TotalSearchItem";
 
 const Page = () => {
   const params = useParams<{ totalSearchType: string }>();
@@ -40,7 +40,7 @@ const Page = () => {
     size: 20,
     domainType:
       (searchParams.get("domain_type") as searchListConfig["domainType"]) ||
-      "NEWS",
+      "BOARD",
     orderType:
       (searchParams.get("orderType") as searchListConfig["orderType"]) ||
       "CREATE",
@@ -51,6 +51,12 @@ const Page = () => {
     timePeriod:
       (searchParams.get("time") as searchListConfig["timePeriod"]) || "ALL",
   };
+
+  if (searchType === "news") {
+    searchOptions.domainType = "NEWS";
+  } else if (searchType === "board") {
+    searchOptions.domainType = "BOARD";
+  }
 
   const {
     data: searchData,
@@ -64,7 +70,7 @@ const Page = () => {
     <div className="w-[720px] h-auto">
       <SearchToolbar
         totalSearchType={category}
-        pageInfo={searchData?.data?.pageInfo}
+        pageInfo={searchData?.content?.pageInfo}
       />
       <div className="w-full h-auto rounded-b-[5px] shadow-sm bg-white">
         {isLoading &&
@@ -78,33 +84,31 @@ const Page = () => {
               ) : null
             )}
 
-        {searchType === "news" ? (
-          searchData?.data?.length === 0 || isError ? (
+        {["news", "board"].includes(searchType) &&
+          (searchData?.content?.length === 0 || isError ? (
             <SearchEmptyBox />
           ) : (
-            searchData?.content?.map((newsItem: NewsItemType) => (
-              <NewsPostItem
-                key={newsItem?.id}
-                newsItem={newsItem}
-                searchType={searchParams.get("search_type")}
-                searchString={searchParams.get("search")}
-              />
-            ))
-          )
-        ) : searchType === "board" ? (
-          searchData?.data?.length === 0 || isError ? (
-            <SearchEmptyBox />
-          ) : (
-            searchData?.content?.map((noticeItem: NoticeContentType) => (
-              <NoticeItem
-                key={noticeItem?.id}
-                noticeData={noticeItem}
-                searchType={searchParams.get("search_type")}
-                searchString={searchParams.get("search")}
-              />
-            ))
-          )
-        ) : null}
+            searchData?.content?.map((item: NewsItemType | SearchListType) =>
+              searchType === "news" ? (
+                <NewsPostItem
+                  key={item?.id}
+                  newsItem={item as NewsItemType}
+                  searchType={searchParams.get("search_type")}
+                  searchString={searchParams.get("search")}
+                />
+              ) : (
+                <TotalSearchItem
+                  key={item?.id}
+                  searchType={searchParams.get("search_type")}
+                  searchString={searchParams.get("search")}
+                  data={item as SearchListType}
+                  href={`/board/${(item as SearchListType)?.boardType}/${
+                    (item as SearchListType)?.categoryType
+                  }/${item?.id}`}
+                />
+              )
+            )
+          ))}
       </div>
     </div>
   );

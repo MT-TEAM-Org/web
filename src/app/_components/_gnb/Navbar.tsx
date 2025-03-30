@@ -22,7 +22,7 @@ export default function Navbar() {
 
     const searchPath = `/total-search/board?search=${encodeURIComponent(
       trimmedValue
-    )}&search_type=TITLE_CONTENT`;
+    )}`;
 
     router.push(searchPath);
   };
