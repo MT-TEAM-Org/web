@@ -252,6 +252,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
           id={boardId}
           publicId={boardDetailData?.data?.publicId}
           setParentsComment={setParentsComment}
+          type="BOARD"
         />
         <PostNavigation
           nextId={boardDetailData?.data?.nextId}

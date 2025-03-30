@@ -1,6 +1,6 @@
 "use client";
 
-import { CommentItem } from "@/_types/comment";
+import { CommentItem, CommentType } from "@/_types/comment";
 import { CalculateTime } from "@/app/_components/CalculateTime";
 import Single_logo from "@/app/_components/icon/Single_logo";
 import Image from "next/image";
@@ -16,9 +16,10 @@ import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 
 interface BoardCommentItemProps {
   comment: CommentItem;
-  publicId: string;
+  publicId?: string;
   setParentsComment: (comment: CommentItem) => void;
   best?: boolean;
+  type: CommentType;
 }
 
 const BoardCommentItem = ({
@@ -26,6 +27,7 @@ const BoardCommentItem = ({
   publicId,
   setParentsComment,
   best = false,
+  type,
 }: BoardCommentItemProps) => {
   const queryClient = useQueryClient();
   const pathname = usePathname();
@@ -40,7 +42,8 @@ const BoardCommentItem = ({
   // authCheck?.data?.data?.publicId: 로그인한 사용자의 publicId
   // comment.publicId: 댓글 작성자의 publicId
   const isCommentAuthor = authCheck?.data?.data?.publicId === comment?.publicId; // 댓글 작성자와 로그인한 사용자가 같은지 확인
-  const isBoardAuthor = comment?.publicId === publicId; // 게시글 작성자와 댓글 작성자가 같은지 확인
+  const isBoardAuthor =
+    type !== "NEWS" ? comment?.publicId === publicId : undefined; // 게시글 작성자와 댓글 작성자가 같은지 확인
 
   useEffect(() => {
     if (show) {
@@ -53,14 +56,14 @@ const BoardCommentItem = ({
 
   const handleDeleteComment = () => {
     deleteComment(
-      { commentId: comment.commentId.toString(), type: "BOARD" },
+      { commentId: comment.commentId.toString(), type },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: ["commentList", "BOARD", boardId],
+            queryKey: ["commentList", type, boardId],
           });
           queryClient.invalidateQueries({
-            queryKey: ["bestComment", { id: boardId, type: "BOARD" }],
+            queryKey: ["bestComment", { id: boardId, type }],
           });
           success("댓글이 삭제되었습니다.", "");
         },
@@ -89,7 +92,7 @@ const BoardCommentItem = ({
                   관리자
                 </div>
               )}
-              {isBoardAuthor && !comment?.admin && (
+              {isBoardAuthor && !comment?.admin && type !== "NEWS" && (
                 <div
                   className={`flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white bg-gray7`}
                 >
@@ -133,6 +136,11 @@ const BoardCommentItem = ({
             />
           )}
           <p className="text-[14px] leading-[20px] text-gray7">
+            {best && comment?.parentCommenterName && (
+              <span className="text-[#00ADEE] mr-[4px]">
+                @{comment?.parentCommenterName}
+              </span>
+            )}
             {comment?.comment}
           </p>
         </div>
@@ -178,10 +186,11 @@ const BoardCommentItem = ({
             <BoardReplyCommentItem
               key={reply.commentId}
               reply={reply}
-              publicId={publicId}
+              publicId={type !== "NEWS" ? publicId : undefined}
               boardId={boardId}
               setParentsComment={setParentsComment}
               parentNickname={comment.nickname}
+              type={type}
             />
           </div>
         ))}

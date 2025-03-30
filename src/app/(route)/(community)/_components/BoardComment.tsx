@@ -1,7 +1,7 @@
 "use client";
 
 import useGetCommentList from "@/_hooks/fetcher/comment/useGetCommentList";
-import { CommentItem, CommentResponse } from "@/_types/comment";
+import { CommentItem, CommentResponse, CommentType } from "@/_types/comment";
 import CommentEmpty from "@/app/_components/_comment/CommentEmpty";
 import CommentMoreButton from "@/app/_components/_comment/CommentMoreButton";
 import Refresh from "@/app/_components/icon/Refresh";
@@ -13,8 +13,9 @@ import useGetBestComment from "@/_hooks/fetcher/comment/useGetBestComment";
 interface BoardCommentProps {
   ref: React.RefObject<HTMLDivElement>;
   id: string | undefined;
-  publicId: string;
+  publicId?: string;
   setParentsComment: (comment: CommentItem) => void;
+  type: CommentType;
 }
 
 const BoardComment = ({
@@ -22,6 +23,7 @@ const BoardComment = ({
   id,
   publicId,
   setParentsComment,
+  type,
 }: BoardCommentProps) => {
   const {
     data: commentList,
@@ -29,13 +31,13 @@ const BoardComment = ({
     hasNextPage,
     isLoading,
     refetch,
-  } = useGetCommentList(id, "BOARD");
+  } = useGetCommentList(id, type);
 
   const {
     data: bestComment,
     refetch: bestRefetch,
     isLoading: bestIsLoading,
-  } = useGetBestComment({ id, type: "BOARD" });
+  } = useGetBestComment({ id, type });
 
   const { pageInfo: bestPageInfo, content: bestContent } =
     (bestComment?.data?.content as CommentResponse) || {};
@@ -98,9 +100,10 @@ const BoardComment = ({
               <BoardCommentItem
                 key={comment.commentId}
                 comment={comment}
-                publicId={publicId}
+                publicId={type !== "NEWS" ? publicId : undefined}
                 setParentsComment={setParentsComment}
                 best
+                type={type}
               />
             ))
           : null}
@@ -111,8 +114,9 @@ const BoardComment = ({
             <BoardCommentItem
               key={comment.commentId}
               comment={comment}
-              publicId={publicId}
+              publicId={type !== "NEWS" ? publicId : undefined}
               setParentsComment={setParentsComment}
+              type={type}
             />
           ))
         )}

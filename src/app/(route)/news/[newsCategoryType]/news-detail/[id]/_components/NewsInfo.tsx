@@ -189,9 +189,6 @@ const NewsInfo = ({
           ))
         )}
       </div>
-      <div className="shadow-md sticky bottom-0">
-        <NewsSendCommentBox id={id} />
-      </div>
       <SignInModalPopUp
         isOpen={isSignInModalOpen}
         onClose={() => setIsSignInModalOpen(false)}
