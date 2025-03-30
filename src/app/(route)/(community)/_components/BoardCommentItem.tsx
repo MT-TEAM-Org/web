@@ -16,7 +16,7 @@ import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 
 interface BoardCommentItemProps {
   comment: CommentItem;
-  publicId: string;
+  publicId?: string;
   setParentsComment: (comment: CommentItem) => void;
   best?: boolean;
   type: CommentType;
@@ -42,7 +42,8 @@ const BoardCommentItem = ({
   // authCheck?.data?.data?.publicId: 로그인한 사용자의 publicId
   // comment.publicId: 댓글 작성자의 publicId
   const isCommentAuthor = authCheck?.data?.data?.publicId === comment?.publicId; // 댓글 작성자와 로그인한 사용자가 같은지 확인
-  const isBoardAuthor = comment?.publicId === publicId; // 게시글 작성자와 댓글 작성자가 같은지 확인
+  const isBoardAuthor =
+    type !== "NEWS" ? comment?.publicId === publicId : undefined; // 게시글 작성자와 댓글 작성자가 같은지 확인
 
   useEffect(() => {
     if (show) {
@@ -75,9 +76,6 @@ const BoardCommentItem = ({
   const recommendDivStyle =
     comment?.recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
 
-  if (best) {
-    console.log(comment);
-  }
   return (
     <>
       <div className="flex flex-col gap-[8px] min-h-[112px] p-[12px] bg-white border-b border-gray1">
@@ -94,7 +92,7 @@ const BoardCommentItem = ({
                   관리자
                 </div>
               )}
-              {isBoardAuthor && !comment?.admin && (
+              {isBoardAuthor && !comment?.admin && type !== "NEWS" && (
                 <div
                   className={`flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white bg-gray7`}
                 >
@@ -188,7 +186,7 @@ const BoardCommentItem = ({
             <BoardReplyCommentItem
               key={reply.commentId}
               reply={reply}
-              publicId={publicId}
+              publicId={type !== "NEWS" ? publicId : undefined}
               boardId={boardId}
               setParentsComment={setParentsComment}
               parentNickname={comment.nickname}

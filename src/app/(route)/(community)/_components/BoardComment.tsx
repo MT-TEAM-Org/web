@@ -13,7 +13,7 @@ import useGetBestComment from "@/_hooks/fetcher/comment/useGetBestComment";
 interface BoardCommentProps {
   ref: React.RefObject<HTMLDivElement>;
   id: string | undefined;
-  publicId: string;
+  publicId?: string;
   setParentsComment: (comment: CommentItem) => void;
   type: CommentType;
 }
@@ -100,7 +100,7 @@ const BoardComment = ({
               <BoardCommentItem
                 key={comment.commentId}
                 comment={comment}
-                publicId={publicId}
+                publicId={type !== "NEWS" ? publicId : undefined}
                 setParentsComment={setParentsComment}
                 best
                 type={type}
@@ -114,7 +114,7 @@ const BoardComment = ({
             <BoardCommentItem
               key={comment.commentId}
               comment={comment}
-              publicId={publicId}
+              publicId={type !== "NEWS" ? publicId : undefined}
               setParentsComment={setParentsComment}
               type={type}
             />

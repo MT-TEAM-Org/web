@@ -15,7 +15,7 @@ import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 
 interface BoardReplyCommentItemProps {
   reply: CommentItem;
-  publicId: string;
+  publicId?: string;
   setParentsComment: (comment: CommentItem) => void;
   parentNickname: string;
   boardId: string;
@@ -43,7 +43,8 @@ const BoardReplyCommentItem = ({
   // authCheck?.data?.data?.publicId: 로그인한 사용자의 publicId
   // comment.publicId: 댓글 작성자의 publicId
   const isCommentAuthor = authCheck?.data?.data?.publicId === reply?.publicId; // 댓글 작성자와 로그인한 사용자가 같은지 확인
-  const isBoardAuthor = reply?.publicId === publicId; // 게시글 작성자와 댓글 작성자가 같은지 확인
+  const isBoardAuthor =
+    type !== "NEWS" ? reply?.publicId === publicId : undefined; // 게시글 작성자와 댓글 작성자가 같은지 확인
 
   useEffect(() => {
     if (show) {
@@ -88,7 +89,7 @@ const BoardReplyCommentItem = ({
                     관리자
                   </div>
                 )}
-                {isBoardAuthor && !reply?.admin && (
+                {isBoardAuthor && !reply?.admin && type !== "NEWS" && (
                   <div
                     className={`flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white bg-gray7`}
                   >
