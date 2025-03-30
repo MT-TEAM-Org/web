@@ -79,21 +79,21 @@ const BoardCommentItem = ({
         <div className="flex flex-col gap-[12px] min-h-[52px]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-[8px] min-h-[20px]">
+              {best && (
+                <div className="flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white bg-gra">
+                  Best
+                </div>
+              )}
               {comment?.admin && (
                 <div className="flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white bg-gra">
                   관리자
                 </div>
               )}
-              {isBoardAuthor && (
+              {isBoardAuthor && !comment?.admin && (
                 <div
                   className={`flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white bg-gray7`}
                 >
                   작성자
-                </div>
-              )}
-              {best && (
-                <div className="flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white bg-gra">
-                  Best
                 </div>
               )}
               <Image
