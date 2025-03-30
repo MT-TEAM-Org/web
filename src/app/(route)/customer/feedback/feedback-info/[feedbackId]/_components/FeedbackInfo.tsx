@@ -139,7 +139,7 @@ const FeedbackInfo = () => {
   };
 
   const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
-  console.log(feedbackInfoData);
+
   return (
     <>
       {feedbackIsLoading || feedbackIsError ? (
