@@ -99,7 +99,9 @@ const Page = () => {
               ) : (
                 <TotalSearchItem
                   key={item?.id}
-                  searchType={searchParams.get("search_type")}
+                  searchType={
+                    searchParams.get("search_type") || "TITLE_CONTENT"
+                  }
                   searchString={searchParams.get("search")}
                   data={item as SearchListType}
                   href={`/board/${(item as SearchListType)?.boardType}/${

@@ -4,17 +4,20 @@ import { usePathname, useRouter } from "next/navigation";
 import { Search } from "../icon/Search";
 import Link from "next/link";
 import { NAVBARS } from "@/app/_constants/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const [isValue, setIsValue] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
 
-  const isCurrentPath = (path: string) => {
-    const fullPath = path.startsWith("/") ? path : `/${path}`;
-    return pathname === fullPath;
-  };
+  useEffect(() => {
+    if (isSearching) {
+      setIsValue("");
+      setIsSearching(false);
+    }
+  }, [pathname, isSearching]);
 
   const handleToSearch = () => {
     const trimmedValue = isValue.trim();
@@ -24,7 +27,13 @@ export default function Navbar() {
       trimmedValue
     )}`;
 
+    setIsSearching(true);
     router.push(searchPath);
+  };
+
+  const isCurrentPath = (path) => {
+    const fullPath = path.startsWith("/") ? path : `/${path}`;
+    return pathname === fullPath;
   };
 
   const navbarClass =
@@ -38,8 +47,8 @@ export default function Navbar() {
             <div
               className={`${navbarClass} flex justify-around items-center ${
                 isCurrentPath(item.link)
-                  ? "font-normal text-[#00ADEE]"
-                  : "font-normal text-[#424242]"
+                  ? "font-normal text-gra"
+                  : "font-normal text-gray7"
               } ${index === 0 ? "pl-0" : ""}`}
             >
               {item.name}
@@ -55,7 +64,7 @@ export default function Navbar() {
             value={isValue}
             onChange={(e) => setIsValue(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === "Enter" && !e.nativeEvent.isComposing) {
                 handleToSearch();
               }
             }}
