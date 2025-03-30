@@ -23,7 +23,6 @@ const fetchSortedNewsDataList = async ({
     size: 10,
   };
 
-  // searchType이 있을 경우에만 content 추가
   const params = searchType
     ? { ...baseParams, content: searchType }
     : baseParams;
