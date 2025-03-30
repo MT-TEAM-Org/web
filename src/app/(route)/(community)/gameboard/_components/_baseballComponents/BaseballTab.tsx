@@ -2,7 +2,6 @@
 
 import React from "react";
 import LiveMatchPanel from "../LiveMatchPanel";
-import CommentBox from "../CommentBox";
 import BaseballGameTime from "./BaseballGameTime";
 
 const BaseballTab = () => {
@@ -11,7 +10,6 @@ const BaseballTab = () => {
       <BaseballGameTime />
       <div className="flex flex-col gap-3">
         <LiveMatchPanel />
-        <CommentBox />
       </div>
     </div>
   );
