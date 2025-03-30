@@ -15,6 +15,7 @@ export interface NewsListType {
   source?: string;
   viewCount?: number;
   recommendCount?: number;
+  isHot?: string;
   newsCommentSearchDto?: NewsCommentSearchList
 }
 

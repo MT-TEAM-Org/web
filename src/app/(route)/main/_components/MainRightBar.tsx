@@ -9,7 +9,7 @@ import RightNewsItem from "../../(community)/_components/RightNewsItem";
 import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
-import useGetMainRightBarNewsData from "@/_hooks/fetcher/news/comment/useGetMainRightBarNewsData";
+import useGetMainRightBarNewsData from "@/_hooks/fetcher/news/useGetMainRightBarNewsData";
 
 const MainRightBar = () => {
   const [pageNum, setPageNum] = useState(1);

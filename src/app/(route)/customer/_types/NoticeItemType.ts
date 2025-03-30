@@ -14,6 +14,7 @@ export interface NoticeContentType {
   recommendCount: number;
   createdAt: string;
   updatedAt: string;
+  isHot?: string;
   commentSearchList: CommentSearchList;
 }
 

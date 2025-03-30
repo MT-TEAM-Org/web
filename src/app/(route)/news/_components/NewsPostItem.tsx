@@ -101,13 +101,12 @@ const NewsPostItem = ({
                 [{newsItem?.commentCount}]
               </p>
             )}
-            <div>
-              {isNew && (
-                <p className="font-black text-[10px] leading-[18px] align-center text-gra">
-                  N
-                </p>
-              )}
-            </div>
+            {(isNew || newsItem?.isHot) && (
+              <div className="font-black text-[10px] leading-[18px] align-center">
+                {isNew && <p className="text-gra">N</p>}
+                {newsItem?.isHot && <p className="text-warning">H</p>}
+              </div>
+            )}
           </div>
 
           <div>

@@ -1,4 +1,3 @@
-import usePostComment from "@/_hooks/fetcher/news/comment/usePostComment";
 import Send_icon from "@/app/_components/icon/Send_icon";
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
@@ -20,7 +19,6 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
   const textRef = useRef<HTMLDivElement>(null);
   const isSubmittingRef = useRef(false);
   const toast = useToast();
-  const { mutate: newsPostComment } = usePostComment(id);
   const maxChars = selectedImage ? 70 : 78;
 
   const handleContentChange = () => {
@@ -83,25 +81,6 @@ const NewsSendCommentBox = ({ id }: SendCommentBoxProps) => {
     if (!inputValue.trim() && !selectedImage) return;
     if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
-
-    newsPostComment(
-      {
-        newsId: id ? Number(id) : 0,
-        comment: inputValue,
-        imgUrl: selectedImage || "",
-      },
-      {
-        onSuccess: () => {
-          setInputValue("");
-          setSelectedImage(null);
-          if (textRef.current) textRef.current.innerText = "";
-          isSubmittingRef.current = false;
-        },
-        onError: () => {
-          isSubmittingRef.current = false;
-        },
-      }
-    );
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
