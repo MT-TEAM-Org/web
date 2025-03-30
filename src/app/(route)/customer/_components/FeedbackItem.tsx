@@ -75,12 +75,12 @@ const FeedbackItem = ({
               </p>
             )}
             <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
-              {isNew && (
+              {(isNew || feedbackData?.isHot) && (
                 <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
-                  <p className="text-gra">N</p>
+                  {isNew && <p className="text-gra">N</p>}
+                  {feedbackData?.isHot && <p className="text-warning">H</p>}
                 </div>
               )}
-              {/* <p className="text-[#DC2800]">H</p> */}
             </div>
           </div>
           <div className="flex flex-col">

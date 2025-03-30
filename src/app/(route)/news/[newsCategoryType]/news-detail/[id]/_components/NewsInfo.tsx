@@ -1,7 +1,5 @@
 "use client";
 
-import useGetBestComment from "@/_hooks/fetcher/news/comment/useGetBestComment";
-import useGetNewsComment from "@/_hooks/fetcher/news/comment/useGetNewsComment";
 import useDeleteRecommend from "@/_hooks/fetcher/news/useDeleteRecommend";
 import useGetNewsInfoData from "@/_hooks/fetcher/news/useGetNewInfo";
 import usePatchRecommend from "@/_hooks/fetcher/news/usePatchRecommend";
@@ -50,8 +48,6 @@ const NewsInfo = ({
   }, [newsDetailType, router]);
 
   const { data: newsInfoData, isLoading } = useGetNewsInfoData(id, token);
-  const { data: newsBestCommentData } = useGetBestComment(newsInfoData?.id);
-  const { data: newsCommentData } = useGetNewsComment(id);
   const formattedTime = useTimeAgo(newsInfoData?.postDate);
   const {
     mutate: newsAddCommend,
@@ -169,11 +165,7 @@ const NewsInfo = ({
           />
 
           <PostAction type="news" source={newsInfoData?.source} />
-          <CommentSection
-            newsInfoData={newsInfoData}
-            newsCommentData={newsCommentData}
-            newsBestCommentData={newsBestCommentData}
-          />
+          <CommentSection newsInfoData={newsInfoData} />
         </div>
       )}
 

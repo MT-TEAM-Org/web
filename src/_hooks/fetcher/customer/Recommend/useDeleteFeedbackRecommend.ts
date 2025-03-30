@@ -10,7 +10,7 @@ const useDeleteFeedbackRecommend = () => {
     mutationFn: (feedbackId: number) => deleteFeedbackRecommend(feedbackId),
     retry: 1,
     onSuccess: () => {
-      toast.error("추천이 취소되었습니다.", "")
+      toast.success("추천이 취소되었습니다.", "")
     },
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {
