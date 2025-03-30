@@ -275,14 +275,14 @@ const FeedbackInfo = () => {
           isOpen={isSignInModalOpen}
           onClose={() => setIsSignInModalOpen(false)}
         />
-        <div className="shadow-md sticky bottom-0">
-          <SendCommentBox
-            id={id as string}
-            type="IMPROVEMENT"
-            parentsComment={parentsComment}
-            setParentsComment={setParentsComment}
-          />
-        </div>
+      </div>
+      <div className="shadow-md sticky bottom-0 z-50">
+        <SendCommentBox
+          id={id as string}
+          type="IMPROVEMENT"
+          parentsComment={parentsComment}
+          setParentsComment={setParentsComment}
+        />
       </div>
     </>
   );
