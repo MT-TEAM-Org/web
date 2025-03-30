@@ -124,7 +124,7 @@ const EditProfile = () => {
     if (
       data.tel === userInfo.data.tel &&
       data.nickname === userInfo.data.nickname &&
-      data.birthDate === userInfo.data.birthDate &&
+      (data.birthDate === "" || data.birthDate === userInfo.data.birthDate) &&
       genderType === userInfo.data.genderType &&
       imageUrl === userInfo.data.imageUrl &&
       data.password === ""
@@ -133,7 +133,15 @@ const EditProfile = () => {
       return;
     }
 
-    const requestData = { ...data, genderType, imageUrl };
+    // 빈 문자열을 null로 변환
+    const requestData = {
+      ...data,
+      genderType,
+      imageUrl,
+      password: data.password === "" ? null : data.password,
+      birthDate: data.birthDate === "" ? null : data.birthDate,
+    };
+
     modifyUserInfo(requestData, {
       onSuccess: () => {
         if (
