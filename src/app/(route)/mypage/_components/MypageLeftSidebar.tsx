@@ -73,7 +73,7 @@ const MypageLeftSidebar = () => {
             key={board.id}
             className={`flex items-center w-full h-[52px] px-[16px] py-[12px] cursor-pointer ${
               isCurrentPath(board.path)
-                ? "font-[700] text-[#00ADEE]"
+                ? "font-[700] text-[#00ADEE] bg-bg0"
                 : "font-[400] text-[#424242]"
             }`}
           >
