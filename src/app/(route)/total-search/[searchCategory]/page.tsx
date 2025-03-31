@@ -64,8 +64,6 @@ const Page = () => {
     isError,
   } = useGetSearchDataList(searchOptions);
 
-  console.log(searchData);
-
   return (
     <div className="w-[720px] h-auto">
       <SearchToolbar

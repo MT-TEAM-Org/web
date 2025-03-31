@@ -49,14 +49,17 @@ const SearchToolbar = ({ totalSearchType, pageInfo }: SearchToolbarProps) => {
       inputValue.value,
       searchType
     );
-
-    router.push(newSearchParams, { scroll: false });
+    const params = new URLSearchParams(newSearchParams.split("?")[1]);
+    params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   const handleOrderButtonClick = (orderType: searchListConfig["orderType"]) => {
-    router.push(changeURLParams(searchParams, "orderType", orderType), {
-      scroll: false,
-    });
+    const newURL = changeURLParams(searchParams, "orderType", orderType);
+
+    const params = new URLSearchParams(newURL.split("?")[1]);
+    params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   const handlePageChange = (page: number) => {
