@@ -36,8 +36,6 @@ export const RightSideBar = () => {
   if (newsData && !Array.isArray(newsData)) {
     content = newsData.content;
     totalPage = newsData.pageInfo.totalPage;
-  } else if (Array.isArray(newsData)) {
-    content = newsData;
   }
 
   const scrollToTop = () => {
@@ -46,6 +44,7 @@ export const RightSideBar = () => {
 
   const handleToPage = (type: "prev" | "next") => {
     const currentPageNum = Number(currentPage);
+
     if (type === "prev" && currentPageNum > 1) {
       setCurrentPage((currentPageNum - 1).toString());
     } else if (type === "next" && currentPageNum < totalPage) {
@@ -58,9 +57,9 @@ export const RightSideBar = () => {
       <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px] bg-white">
         <div className="w-full h-auto max-h-[736px] rounded-[10px] ">
           {isLoading
-            ? Array(4)
-                .fill(0)
-                ?.map((_, index) => <RightNewsItemSkeleton key={index} />)
+            ? Array.from({ length: 5 }).map((_, index) => (
+                <RightNewsItemSkeleton key={index} />
+              ))
             : content?.map((data: NewsItemType) => (
                 <RightNewsItem
                   key={data.id}
@@ -70,7 +69,7 @@ export const RightSideBar = () => {
               ))}
         </div>
 
-        {totalPage > 1 && (
+        {(isLoading || totalPage > 1) && (
           <div className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto ">
             <button
               onClick={() => handleToPage("prev")}
