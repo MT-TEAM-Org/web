@@ -24,5 +24,5 @@ export interface SearchListType {
   thumbnail: string,
   title: string,
   updatedAt: string,
-  searchCommentSearchDto?: boardCommentSearchList
+  boardCommentSearchList?: boardCommentSearchList
 }

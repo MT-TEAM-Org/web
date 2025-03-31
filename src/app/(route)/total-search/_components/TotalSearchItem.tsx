@@ -59,11 +59,11 @@ const TotalSearchItem = ({
     "font-medium text-[12px] text-gray5 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap";
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full cursor-pointer">
       <Link
         href={href}
         key={`${data.id}`}
-        className="flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]"
+        className="flex items-start w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]"
       >
         <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1">
           <span>{data.id}</span>
@@ -116,7 +116,7 @@ const TotalSearchItem = ({
               {data?.createdIp}
             </span>
           </div>
-          {data?.searchCommentSearchDto?.comment && (
+          {data?.boardCommentSearchList?.comment && (
             <div className="w-full flex items-start justify-start gap-1">
               <div className="w-[16px] h-[16px] flex-shrink-0">
                 <Arrow_reply size={16} />
@@ -124,18 +124,18 @@ const TotalSearchItem = ({
               <div
                 className={`${commentBaseStyle} min-w-0 flex gap-[2px] items-center justify-start`}
               >
-                {data?.searchCommentSearchDto?.imageUrl && (
+                {data?.boardCommentSearchList?.imageUrl && (
                   <span>(이미지)</span>
                 )}
-                {data?.searchCommentSearchDto?.comment && (
+                {data?.boardCommentSearchList?.comment && (
                   <p>
                     {searchType === "COMMENT"
                       ? highlightText(
-                          data?.searchCommentSearchDto?.comment,
+                          data?.boardCommentSearchList?.comment,
                           searchType,
                           searchString
                         )
-                      : data?.searchCommentSearchDto?.comment}
+                      : data?.boardCommentSearchList?.comment}
                   </p>
                 )}
               </div>
