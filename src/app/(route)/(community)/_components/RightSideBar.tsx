@@ -12,12 +12,12 @@ import { usePathname } from "next/navigation";
 
 export const RightSideBar = () => {
   const [currentPage, setCurrentPage] = useState("1");
-  const pathname = usePathname(); //현재경로를 가져오는 훅
-  const categoryFromPath = pathname?.split("/")[2]?.toUpperCase(); // 경로 중 세 번째 부분(카테고리)만 추출합니다."현재카테로리 대문자로 바꿈"
+  const pathname = usePathname();
+  const categoryFromPath = pathname?.split("/")[2]?.toUpperCase(); 
 
   const isValidCategory = ["BASEBALL", "FOOTBALL", "ESPORTS"].includes(
     categoryFromPath
-  ); //API에서 허용하는 카테고리인지 검사합니다.
+  );
 
   const category: "" | "BASEBALL" | "FOOTBALL" | "ESPORTS" = isValidCategory
     ? (categoryFromPath as "BASEBALL" | "FOOTBALL" | "ESPORTS")
