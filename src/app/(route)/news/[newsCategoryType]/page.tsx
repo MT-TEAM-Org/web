@@ -63,6 +63,8 @@ export default function NewsPage() {
 
   const { data: newsData, isLoading } = useSortedNewsDataList(newsOption);
 
+  console.log(newsData);
+
   return (
     <div className="flex justify-center bg-gray1 min-h-[calc(100vh-576px)]">
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">

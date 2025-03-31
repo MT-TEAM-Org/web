@@ -9,6 +9,7 @@ import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
+import { LogoWhite } from "@/app/_components/icon/LogoWhite";
 
 interface NewsPostItemProps {
   newsItem: NewsListType;
@@ -77,17 +78,17 @@ const NewsPostItem = ({
         className={`min-w-[720px] ${getMinHeightClass()} flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`}
       >
         <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
-          <Image
-            src={updatedImgUrl || "/Preview_loading_image.png"}
-            alt="thumbImg"
-            width={newsItem?.thumbImg ? 160 : 94.39}
-            height={newsItem?.thumbImg ? 92 : 26}
-            className={
-              newsItem?.thumbImg
-                ? "w-full h-full object-cover rounded-[5px] gap-[10px]"
-                : "absolute top-[33.5px] left-[33.05px] gap-[3.24px] rounded-[3.83px]"
-            }
-          />
+          {newsItem?.thumbImg ? (
+            <Image
+              src={updatedImgUrl}
+              alt="Thumbnail"
+              width={60}
+              height={92}
+              className="w-full h-full object-cover rounded-[5px] gap-[10px]"
+            />
+          ) : (
+            <LogoWhite />
+          )}
         </div>
         <div className="w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1">
           <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start">
