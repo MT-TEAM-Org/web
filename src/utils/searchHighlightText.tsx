@@ -3,13 +3,15 @@ export const highlightText = (
   searchType: string,
   searchString: string
 ) => {
+  const type = searchType || "TITLE_CONTENT";
+
   if (!searchString || searchString.trim() === "") return text;
 
   if (
-    searchType === "CONTENT" ||
-    searchType === "COMMENT" ||
-    searchType === "TITLE_CONTENT" ||
-    searchType === "TITLE"
+    type === "CONTENT" ||
+    type === "COMMENT" ||
+    type === "TITLE_CONTENT" ||
+    type === "TITLE"
   ) {
     const parts = text.split(new RegExp(`(${searchString})`, "gi"));
     return (
