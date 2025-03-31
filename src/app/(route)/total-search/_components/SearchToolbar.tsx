@@ -76,7 +76,7 @@ const SearchToolbar = ({ totalSearchType, pageInfo }: SearchToolbarProps) => {
   };
 
   return (
-    <div className="w-full h-[120px] rounded-t-[5px] bg-white">
+    <div className="w-full h-[120px] rounded-t-[5px] bg-white sticky top-0 z-10">
       <div className="w-full h-[64px] border-b flex justify-between p-3 border-gray2">
         <OrderDateButton />
         <div className="w-[356px] h-[40px] flex gap-2 items-center justify-center">

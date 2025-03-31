@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </h5>
       </div>
       <div className="max-w-[1200px] mx-auto flex gap-4">
-        <div className="w-[160px] h-[104px] rounded-[5px]">
+        <div className="w-[160px] h-auto rounded-[5px]">
           <div className="sticky top-0">
             <SearchLeftSideBar />
           </div>
