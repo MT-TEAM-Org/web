@@ -13,7 +13,8 @@ import { usePathname } from "next/navigation";
 export const RightSideBar = () => {
   const [currentPage, setCurrentPage] = useState("1");
   const pathname = usePathname();
-  const categoryFromPath = pathname?.split("/")[2]?.toUpperCase(); 
+
+  const categoryFromPath = pathname?.split("/")[2]?.toUpperCase();
 
   const isValidCategory = ["BASEBALL", "FOOTBALL", "ESPORTS"].includes(
     categoryFromPath
@@ -56,7 +57,7 @@ export const RightSideBar = () => {
     <div className="w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-6">
       <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px] bg-white">
         <div className="w-full h-auto max-h-[736px] rounded-[10px] ">
-          {isLoading || !newsData
+          {isLoading
             ? Array(4)
                 .fill(0)
                 ?.map((_, index) => <RightNewsItemSkeleton key={index} />)
@@ -69,7 +70,7 @@ export const RightSideBar = () => {
               ))}
         </div>
 
-        {totalPage > 1 && !isLoading && (
+        {totalPage > 1 && (
           <div className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto ">
             <button
               onClick={() => handleToPage("prev")}

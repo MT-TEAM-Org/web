@@ -118,7 +118,7 @@ const MainRightBar = () => {
           </div>
           <button
             onClick={() => handleToPage("next")}
-            className="w-[32px] h-[32px]  rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center"
+            className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center"
           >
             <div className="w-[18px] h-[18px] ">
               <Arrow_right />

@@ -11,7 +11,7 @@ interface NewsItemProps {
   customClass?: string;
 }
 
-const RightNewsItem = ({ newsItem, customClass = "" }: NewsItemProps) => {
+const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
   const { handleRead } = useReadNews(newsItem?.id, false);
   const [read, setRead] = useState(false);
   const pathname = usePathname();
@@ -47,9 +47,7 @@ const RightNewsItem = ({ newsItem, customClass = "" }: NewsItemProps) => {
       >
         <div className="w-[68px] h-[68px]">
           <Image
-            src={
-              newsItem.thumbImg ? updatedImgUrl : "/Preview_loading_image.png"
-            }
+            src={updatedImgUrl || "/Preview_loading_image.png"}
             alt="news img"
             width={68}
             height={68}

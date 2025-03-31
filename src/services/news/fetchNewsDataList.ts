@@ -34,7 +34,7 @@ const fetchNewsDataList = async ({
   );
 
   const list = response.data?.data?.list;
-  console.log(list, "전체데이터");
+
   if (withPageInfo) {
     return {
       content: list?.content ?? [],
