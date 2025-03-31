@@ -14,21 +14,22 @@ import SearchFilter from "./SearchFilter";
 import Pagination from "./Pagination";
 import changeURLParams from "../util/changeURLParams";
 import AnswerCheck from "./AnswerCheck";
-import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 
 interface MypageToolbarProps {
-  mode: "posts" | "inquries";
+  mode: "posts" | "inquries" | "comments";
   pageInfo: PageInfo;
 }
 
 export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const queryClient = useQueryClient();
   const [searchType, setSearchType] = useState(
     searchParams.get("search_type") ||
       (mode === "inquries" ? "CONTENT" : "TITLE_CONTENT")
+  );
+  const [commentType, setCommentType] = useState(
+    searchParams.get("comment_type") || "BOARD"
   );
   const paramsConfig = {
     orderType: searchParams.get("order_type") || "CREATE",
@@ -43,6 +44,11 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
   const handleSearchTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setSearchType(e.target.value);
 
+  const handleCommentTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (mode !== "comments") return;
+    setCommentType(e.target.value);
+  };
+
   const handleOrderButtonClick = (orderType: ListConfig["orderType"]) => {
     if (mode === "inquries") return;
     router.push(changeURLParams(searchParams, "order_type", orderType), {
@@ -54,6 +60,21 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
     e.preventDefault();
     const inputValue = (e.target as HTMLFormElement)[0] as HTMLInputElement;
     if (inputValue.value.trim() === "") return;
+    if (mode === "comments") {
+      router.push(
+        changeURLParams(
+          searchParams,
+          "search",
+          inputValue.value,
+          searchType,
+          commentType
+        ),
+        {
+          scroll: false,
+        }
+      );
+      return;
+    }
     router.push(
       changeURLParams(searchParams, "search", inputValue.value, searchType),
       {
@@ -82,10 +103,13 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
           searchOptions={searchOptions}
           onSearchTypeChange={handleSearchTypeChange}
           onSubmit={handleSubmit}
+          commentType={commentType}
+          onCommentTypeChange={handleCommentTypeChange}
+          mode={mode}
         />
       </div>
       <div className="flex justify-between items-center p-[12px]">
-        {mode === "posts" ? (
+        {mode !== "inquries" ? (
           <OrderButtons
             orderType={paramsConfig.orderType as ListConfig["orderType"]}
             onOrderType={handleOrderButtonClick}
