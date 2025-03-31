@@ -12,11 +12,11 @@ import SearchEmptyBox from "../_components/SearchEmptyBox";
 import { searchListConfig } from "../_types/searchListConfig";
 import useGetSearchDataList from "@/_hooks/fetcher/total-search/useGetSearchDataList";
 import NewsPostItem from "../../news/_components/NewsPostItem";
-import { NewsItemType } from "../../news/_types/newsItemType";
 import NewsPostItemSkeleton from "../../news/_components/NewsPostItemSkeleton";
 import NoticeItemSkeleton from "../../customer/_components/NoticeItemSkeleton";
 import { SearchListType } from "../_types/searchType";
 import TotalSearchItem from "../_components/TotalSearchItem";
+import { NewsListType } from "../../news/_types/newsListItemType";
 
 const Page = () => {
   const params = useParams<{ totalSearchType: string }>();
@@ -70,7 +70,7 @@ const Page = () => {
     <div className="w-[720px] h-auto">
       <SearchToolbar
         totalSearchType={category}
-        pageInfo={searchData?.content?.pageInfo}
+        pageInfo={searchData?.pageInfo}
       />
       <div className="w-full h-auto rounded-b-[5px] shadow-sm bg-white">
         {isLoading &&
@@ -88,12 +88,14 @@ const Page = () => {
           (searchData?.content?.length === 0 || isError ? (
             <SearchEmptyBox />
           ) : (
-            searchData?.content?.map((item: NewsItemType | SearchListType) =>
+            searchData?.content?.map((item: SearchListType | NewsListType) =>
               searchType === "news" ? (
                 <NewsPostItem
                   key={item?.id}
-                  newsItem={item as NewsItemType}
-                  searchType={searchParams.get("search_type")}
+                  newsItem={item as NewsListType}
+                  searchType={
+                    searchParams.get("search_type") || "TITLE_CONTENT"
+                  }
                   searchString={searchParams.get("search")}
                 />
               ) : (

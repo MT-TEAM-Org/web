@@ -43,28 +43,38 @@ const NewsPostItem = ({
 
   const styles = {
     title: isRead
-      ? "font-bold text-[16px] leading-6 tracking-[-2%] text-gray5 text-ellipsis overflow-hidden whitespace-nowrap"
-      : "font-bold text-[16px] leading-6 tracking-[-2%] text-gray9 text-ellipsis overflow-hidden whitespace-nowrap",
+      ? "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray5 text-ellipsis overflow-hidden whitespace-nowrap"
+      : "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray9 text-ellipsis overflow-hidden whitespace-nowrap",
     content: isRead
       ? "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray5 overflow-hidden line-clamp-2"
       : "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray7 overflow-hidden line-clamp-2",
     text: isRead
       ? "font-medium text-[12px] text-gray5 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap"
       : "font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap",
-    info: "font-medium text-[12px] leading-[18px] letter-[-2%] text-gray5",
-    category: "font-bold text-[12px] leading-[18px] letter-[-2%] text-gray5",
+    info: "font-medium text-[12px] leading-[18px] letter-[-0.02em] text-gray5",
+    category:
+      "font-bold text-[12px] leading-[18px] letter-[-0.02em] text-gray5",
   };
 
   const getMinHeightClass = () => {
     if (
       newsItem?.newsCommentSearchDto?.imageUrl ||
-      newsItem?.newsCommentSearchDto?.comment
+      newsItem?.newsCommentSearchDto?.comment ||
+      newsItem?.commentSearchList?.imageUrl ||
+      newsItem?.commentSearchList?.comment
     ) {
       return "h-[136px]";
     } else {
       return "h-[116px]";
     }
   };
+
+  const newsComment =
+    newsItem?.newsCommentSearchDto?.comment ||
+    newsItem?.commentSearchList?.comment;
+  const newsCommentImage =
+    newsItem?.newsCommentSearchDto?.imageUrl ||
+    newsItem?.commentSearchList?.imageUrl;
 
   return (
     <Link
@@ -123,7 +133,7 @@ const NewsPostItem = ({
             <p className={styles.info}>{useTimeAgo(newsItem?.postDate)}</p>
             <p className={styles.info}>네이버 스포츠</p>
           </div>
-          {newsItem?.newsCommentSearchDto?.comment && (
+          {newsComment && (
             <div className="w-full flex items-start justify-start gap-1">
               <div className="w-[16px] h-[16px] flex-shrink-0">
                 <Arrow_reply size={16} />
@@ -131,20 +141,12 @@ const NewsPostItem = ({
               <div
                 className={`${styles.text} min-w-0 flex gap-[2px] items-center justify-start`}
               >
-                {newsItem?.newsCommentSearchDto?.imageUrl && (
-                  <span>(이미지)</span>
-                )}
-                {newsItem?.newsCommentSearchDto?.comment && (
-                  <p>
-                    {searchType === "COMMENT"
-                      ? highlightText(
-                          newsItem?.newsCommentSearchDto?.comment,
-                          searchType,
-                          searchString
-                        )
-                      : newsItem?.newsCommentSearchDto?.comment}
-                  </p>
-                )}
+                {newsCommentImage && <span>(이미지)</span>}
+                <p>
+                  {searchType === "COMMENT"
+                    ? highlightText(newsComment, searchType, searchString)
+                    : newsComment}
+                </p>
               </div>
             </div>
           )}
