@@ -39,13 +39,13 @@ const Page = () => {
     page: Number(searchParams.get("page")) || 1,
     size: 20,
     domainType:
-      (searchParams.get("domain_type") as searchListConfig["domainType"]) ||
+      (searchParams.get("domainType") as searchListConfig["domainType"]) ||
       "BOARD",
     orderType:
       (searchParams.get("orderType") as searchListConfig["orderType"]) ||
       "CREATE",
     searchType:
-      (searchParams.get("search_type") as searchListConfig["searchType"]) ||
+      (searchParams.get("searchType") as searchListConfig["searchType"]) ||
       "TITLE_CONTENT",
     search: searchParams.get("search") || "",
     timePeriod:
@@ -93,17 +93,13 @@ const Page = () => {
                 <NewsPostItem
                   key={item?.id}
                   newsItem={item as NewsListType}
-                  searchType={
-                    searchParams.get("search_type") || "TITLE_CONTENT"
-                  }
+                  searchType={searchParams.get("searchType") || "TITLE_CONTENT"}
                   searchString={searchParams.get("search")}
                 />
               ) : (
                 <TotalSearchItem
                   key={item?.id}
-                  searchType={
-                    searchParams.get("search_type") || "TITLE_CONTENT"
-                  }
+                  searchType={searchParams.get("searchType") || "TITLE_CONTENT"}
                   searchString={searchParams.get("search")}
                   data={item as SearchListType}
                   href={`/board/${(item as SearchListType)?.boardType}/${

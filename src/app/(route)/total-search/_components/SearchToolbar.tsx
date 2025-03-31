@@ -24,7 +24,7 @@ const SearchToolbar = ({ totalSearchType, pageInfo }: SearchToolbarProps) => {
 
   const paramsConfig = {
     category: totalSearchType,
-    orderType: searchParams.get("order_type") || "DATE",
+    orderType: searchParams.get("orderType") || "DATE",
     timePeriod: searchParams.get("time") || "ALL",
     content: searchParams.get("content") || "",
     page: searchParams.get("page") || "1",
@@ -54,7 +54,7 @@ const SearchToolbar = ({ totalSearchType, pageInfo }: SearchToolbarProps) => {
   };
 
   const handleOrderButtonClick = (orderType: searchListConfig["orderType"]) => {
-    router.push(changeURLParams(searchParams, "order_type", orderType), {
+    router.push(changeURLParams(searchParams, "orderType", orderType), {
       scroll: false,
     });
   };
