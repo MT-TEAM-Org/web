@@ -2,7 +2,6 @@ import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
 import React from "react";
 import { Plus } from "lucide-react";
 import CommentItem from "../../_components/CommentItem";
-import SendCommentBox from "../../_components/SendCommentBox";
 
 const CommentBox = () => {
   return (
@@ -30,7 +29,6 @@ const CommentBox = () => {
           댓글 더보기
         </button>
       </div>
-      <SendCommentBox />
     </div>
   );
 };

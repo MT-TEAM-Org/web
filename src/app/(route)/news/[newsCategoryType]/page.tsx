@@ -7,9 +7,9 @@ import NewsTalkToolbar from "../_components/NewsTalkToolbar";
 import NewsPostItemSkeleton from "../_components/NewsPostItemSkeleton";
 import NewsPostItem from "../_components/NewsPostItem";
 import { newsListConfig } from "../_types/newsListConfig";
-import EmptyNews from "../_components/EmptyNews";
 import { NewsItemType } from "../_types/newsItemType";
 import { useRouter } from "next/navigation";
+import EmptyItem from "../../customer/_components/EmptyItem";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -75,7 +75,7 @@ export default function NewsPage() {
               .fill(0)
               .map((_, index) => <NewsPostItemSkeleton key={index} />)
           ) : newsData?.content?.length === 0 || !newsData ? (
-            <EmptyNews />
+            <EmptyItem title="뉴스가" />
           ) : (
             newsData?.content?.map((newsItem: NewsItemType) => (
               <NewsPostItem
