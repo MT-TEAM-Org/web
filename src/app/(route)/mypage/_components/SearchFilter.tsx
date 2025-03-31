@@ -91,17 +91,17 @@ const SearchFilter = ({
       <form className="relative" onSubmit={onSubmit}>
         <input
           type="text"
-          className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[32px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
+          className="w-[228px] h-[40px] rounded-[5px] border pl-[44px] pr-[40px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
           placeholder="검색어를 입력해주세요."
           ref={inputRef}
           onInput={handleInput}
         />
-        <button className="absolute top-2 left-[12px]">
+        <button className="absolute inset-y-0 flex justify-center items-center left-[12px]">
           <Small_Search />
         </button>
         {hasValue && (
           <button
-            className="absolute top-[10px] right-[12px]"
+            className="absolute inset-y-0 flex justify-center items-center right-[12px]"
             type="button"
             onClick={clearInput}
           >
