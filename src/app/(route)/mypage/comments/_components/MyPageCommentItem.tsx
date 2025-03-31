@@ -119,15 +119,7 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
             <Arrow_reply size={12} />
           </div>
           <div className="text-[12px] leading-[18px] text-gray7">
-            {data?.commentResponse?.imageUrl && (
-              <Image
-                src={data?.commentResponse?.imageUrl}
-                alt="comment-review-image"
-                width={56}
-                height={42}
-                className="w-[56px] h-[42px] rounded-[5px] object-cover"
-              />
-            )}
+            {data?.commentResponse?.imageUrl && "(이미지)"}{" "}
             {data?.commentResponse?.comment}
           </div>
         </div>
