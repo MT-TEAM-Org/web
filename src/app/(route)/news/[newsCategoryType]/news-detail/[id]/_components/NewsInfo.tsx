@@ -18,11 +18,10 @@ import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import CommentSection from "@/app/(route)/news/_components/CommentSection";
 import NewsTalkToolbar from "@/app/(route)/news/_components/NewsTalkToolbar";
 import NewsPostItemSkeleton from "@/app/(route)/news/_components/NewsPostItemSkeleton";
-import EmptyNews from "@/app/(route)/news/_components/EmptyNews";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import NewsPostItem from "@/app/(route)/news/_components/NewsPostItem";
-import NewsSendCommentBox from "./NewsSendCommentBox";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
+import EmptyItem from "@/app/(route)/customer/_components/EmptyItem";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -177,7 +176,7 @@ const NewsInfo = ({
             .fill(0)
             .map((_, index) => <NewsPostItemSkeleton key={index} />)
         ) : sliceNewsListData?.length === 0 ? (
-          <EmptyNews />
+          <EmptyItem title="뉴스가" />
         ) : (
           sliceNewsListData.map((newsItem: NewsListType) => (
             <NewsPostItem
