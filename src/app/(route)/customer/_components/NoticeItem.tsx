@@ -5,13 +5,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
+import { highlightText } from "@/utils/searchHighlightText";
+import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
   isFeedback?: boolean;
+  searchType?: string;
+  searchString?: string;
 }
 
-const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
+const NoticeItem = ({
+  noticeData,
+  isFeedback = false,
+  searchString,
+  searchType,
+}: NoticeItemProps) => {
   const [isNew, setIsNew] = useState(false);
   const timeAgo = useTimeAgo(noticeData?.createdAt);
 
@@ -25,12 +34,23 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
     }
   }, [noticeData?.createdAt]);
 
+  const getMinHeightClass = () => {
+    if (
+      !noticeData?.commentSearchList?.imageUrl ||
+      !noticeData?.commentSearchList?.comment
+    ) {
+      return "h-[66px]";
+    } else {
+      return "h-[88px]";
+    }
+  };
+
   return (
     <Link href={`/customer/notice/notice-info/${noticeData?.id}`}>
       <div
         className={`${
           isFeedback ? "bg-bg0" : "hover:bg-bg0"
-        } w-full min-h-[66px] border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer`}
+        } w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-start justify-start cursor-pointer`}
       >
         <div className="w-[32px] h-[32px] rounded-[2px] p-1 bg-gray1 items-center justify-center text-center text-gray7">
           <p className="w-[25px] font-bold text-[14px] leading-5">
@@ -49,16 +69,19 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
         <div className="min-w-[584px] min-h-[42px] flex gap-1 flex-col">
           <div className="w-auto min-h-[20px] flex items-center gap-[2px]">
             <p className="text-[14px] leading-5 text-gray7">
-              {noticeData?.title}
+              {searchType === "TITLE" || searchType === "TITLE_CONTENT"
+                ? highlightText(noticeData?.title, searchType, searchString)
+                : noticeData?.title}
             </p>
             {noticeData?.commentCount >= 1 && (
               <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
                 [<span>{noticeData?.commentCount}</span>]
               </p>
             )}
-            {isNew && (
+            {(isNew || noticeData?.isHot) && (
               <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
-                <p className="text-gra">N</p>
+                {isNew && <p className="text-gra">N</p>}
+                {noticeData?.isHot && <p className="text-warning">H</p>}
               </div>
             )}
           </div>
@@ -67,6 +90,28 @@ const NoticeItem = ({ noticeData, isFeedback = false }: NoticeItemProps) => {
             <p>{timeAgo}</p>
             <p>{noticeData?.nickname}</p>
           </div>
+
+          {noticeData?.commentSearchList?.comment && (
+            <div className="w-[584px] flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
+              <div className="w-4 h-4">
+                <Arrow_reply size={16} />
+              </div>
+              <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em]">
+                {noticeData?.commentSearchList?.imageUrl && (
+                  <span>(이미지)</span>
+                )}
+                <p>
+                  {searchType === "COMMENT"
+                    ? highlightText(
+                        noticeData?.commentSearchList?.comment,
+                        searchType,
+                        searchString
+                      )
+                    : noticeData?.commentSearchList?.comment}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </Link>

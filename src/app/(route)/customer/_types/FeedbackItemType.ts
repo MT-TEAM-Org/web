@@ -1,3 +1,9 @@
+export interface CommentSearchList {
+  commendId: number;
+  comment: string;
+  imageUrl: string;
+}
+
 export interface FeedbackContentType {
   id: number;
   title: string;
@@ -9,7 +15,9 @@ export interface FeedbackContentType {
   commentCount: number;
   recommendCount: number;
   createdAt: string;
-  updatedAt: string
+  updatedAt: string;
+  isHot?: string;
+  improvementCommentSearchList: CommentSearchList;
 }
 
 export interface FeedbackPageInfoType {
@@ -20,5 +28,5 @@ export interface FeedbackPageInfoType {
 
 export interface FeedbackItemType {
   content: FeedbackContentType;
-  pageInfo: FeedbackPageInfoType
+  pageInfo: FeedbackPageInfoType;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSearchParams, useParams, usePathname } from "next/navigation";
 import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 import NewsTalkToolbar from "../_components/NewsTalkToolbar";
@@ -45,7 +45,7 @@ export default function NewsPage() {
       case "COMMENT":
         return "COMMENT";
       default:
-        return "COMMENT";
+        return "DATE";
     }
   };
 
@@ -56,7 +56,7 @@ export default function NewsPage() {
     orderType: orderType() as newsListConfig["orderType"],
     searchType:
       (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
-    content: searchParams.get("search") || "",
+    search: searchParams.get("search") || "",
     timePeriod:
       (searchParams.get("time") as newsListConfig["timePeriod"]) || "DAILY",
   };
@@ -64,7 +64,7 @@ export default function NewsPage() {
   const { data: newsData, isLoading } = useSortedNewsDataList(newsOption);
 
   return (
-    <div className="flex justify-center bg-gray1 min-h-[calc(100vh-476px)]">
+    <div className="flex justify-center bg-gray1 min-h-[calc(100vh-576px)]">
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
         <div className="sticky top-0 z-10">
           <NewsTalkToolbar newsType={category} pageInfo={newsData?.pageInfo} />
@@ -78,7 +78,12 @@ export default function NewsPage() {
             <EmptyNews />
           ) : (
             newsData?.content?.map((newsItem: NewsItemType) => (
-              <NewsPostItem key={newsItem?.id} newsItem={newsItem} />
+              <NewsPostItem
+                key={newsItem?.id}
+                newsItem={newsItem}
+                searchType={searchParams.get("search_type")}
+                searchString={searchParams.get("search")}
+              />
             ))
           )}
         </div>

@@ -1,0 +1,291 @@
+"use client";
+
+import useDeleteFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteFeedbackRecommend";
+import usePostFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/usePostFeedbackRecommend";
+import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
+import useGetFeedbackInfoData from "@/_hooks/fetcher/customer/useGetFeedbackInfoData";
+import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
+import { feedbackListConfig } from "@/app/(route)/customer/_types/feedbackListConfig";
+import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
+import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
+import useTimeAgo from "@/utils/useTimeAgo";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
+import React, { Suspense, useRef, useState } from "react";
+import FeedbackInfoSkeleton from "./FeedbackInfoSkeleton";
+import StatusSaver from "./StatusSaver";
+import Image from "next/image";
+import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
+import PostAction from "@/app/(route)/(community)/_components/PostAction";
+import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
+import CustomerTalkToolbar from "@/app/(route)/customer/_components/CustomerTalkToolbar";
+import FeedbackItemSkeleton from "@/app/(route)/customer/_components/FeedbackItemSkeleton";
+import NoticeItem from "@/app/(route)/customer/_components/NoticeItem";
+import EmptyItem from "@/app/(route)/customer/_components/EmptyItem";
+import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
+import FeedbackItem from "@/app/(route)/customer/_components/FeedbackItem";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
+import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
+import { CommentItem } from "@/_types/comment";
+import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
+
+const Page = () => {
+  return (
+    <Suspense fallback={""}>
+      <FeedbackInfo />
+    </Suspense>
+  );
+};
+
+const FeedbackInfo = () => {
+  const params = useParams();
+  const id = params.feedbackId;
+  const infoId = Number(id);
+  const queryClient = useQueryClient();
+  const searchParams = useSearchParams();
+  const adminRole = useAdminRole();
+  const pathname = usePathname();
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+  const comments = useRef(null);
+  const [parentsComment, setParentsComment] = useState<CommentItem | null>(
+    null
+  );
+
+  const feedbackOption: feedbackListConfig = {
+    page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
+    size: 20,
+    orderType:
+      (searchParams.get("order_type") as feedbackListConfig["orderType"]) ||
+      "CREATE",
+    searchType:
+      (searchParams.get("search_type") as feedbackListConfig["searchType"]) ||
+      "",
+    search: searchParams.get("search") || "",
+  };
+
+  const {
+    data: feedbackInfoData,
+    isLoading: feedbackIsLoading,
+    isError: feedbackIsError,
+  } = useGetFeedbackInfoData({ id: infoId, token });
+  const {
+    mutate: feedbackAddRecommend,
+    isSignInModalOpen,
+    setIsSignInModalOpen,
+  } = usePostFeedbackRecommend();
+  const { mutate: feedbackDeleteRecommend } = useDeleteFeedbackRecommend();
+
+  const handleFeedbackCommend = () => {
+    if (!feedbackInfoData?.isRecommended) {
+      feedbackAddRecommend(infoId, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
+        },
+      });
+    } else if (feedbackInfoData?.isRecommended) {
+      console.log("추천 삭제 요청");
+      feedbackDeleteRecommend(infoId, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
+        },
+      });
+    }
+  };
+
+  const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
+
+  const {
+    data: feedbackDataList,
+    isLoading,
+    isError,
+  } = useGetFeedbackDataList(feedbackOption);
+
+  const { data: noticeListData } = useGetNoticeDataList();
+
+  const slicedNoticeDataList = (noticeListData?.content as NoticeContentType[])
+    ?.sort((a, b) => b.id - a.id)
+    .slice(0, 2);
+
+  const infoItems = [
+    { label: "조회수", value: feedbackInfoData?.viewCount },
+    { label: "댓글", value: feedbackInfoData?.commentCount },
+    { label: "추천", value: feedbackInfoData?.recommendCount },
+  ];
+
+  const statusBoxClass = "w-[69px] h-[32px] rounded-[2px] px-2 py-[6px] flex";
+
+  const statusContent = {
+    RECEIVED: (
+      <div className={`${statusBoxClass} bg-gray1`}>
+        <p className="font-bold text-[14px] leading-5 text-gray7">접수 완료</p>
+      </div>
+    ),
+    COMPLETED: (
+      <div className={`${statusBoxClass} bg-bg0`}>
+        <p className="font-bold text-[14px] leading-5 text-gra">개선 완료</p>
+      </div>
+    ),
+  };
+
+  const link = feedbackInfoData?.link || "";
+
+  const getYouTubeEmbedUrl = (url: string) => {
+    if (!url) return null;
+    const youtubeRegex =
+      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(youtubeRegex);
+    return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+  };
+
+  const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
+
+  return (
+    <>
+      {feedbackIsLoading || feedbackIsError ? (
+        <FeedbackInfoSkeleton />
+      ) : (
+        <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
+          {adminRole === "ADMIN" && (
+            <StatusSaver id={infoId} status={feedbackInfoData?.status} />
+          )}
+          <div
+            className={`w-full ${
+              adminRole !== "ADMIN" || (adminRole === undefined && "h-[56px]")
+            } flex gap-2 flex-col`}
+          >
+            <div>
+              {(adminRole !== "ADMIN" || adminRole === undefined) &&
+                statusContent[feedbackInfoData?.status]}
+            </div>
+            <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
+              {feedbackInfoData?.title}
+            </h1>
+            <div className="w-full max-h-[20px] flex gap-4">
+              <div className="min-w-[421px] min-h-[20px] flex gap-2 text-[14px] leading-5 text-gray6">
+                <p className="font-bold">고객센터</p>
+                <p>개선요청</p>
+                <p>{timeAgo}</p>
+                {infoItems.map((item, index) => (
+                  <div key={index} className="flex gap-2">
+                    <p className="font-bold">{item.label}</p>
+                    <p>{item.value}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6">
+                <p>{feedbackInfoData?.nickname}</p>
+                <p>IP {feedbackInfoData?.clientIp}</p>
+              </div>
+            </div>
+          </div>
+          <hr />
+          {(feedbackInfoData?.imgUrl || youtubeEmbedUrl) && (
+            <div className="w-full min-h-auto flex flex-col gap-3">
+              {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
+                <Image
+                  src={feedbackInfoData?.imgUrl}
+                  alt="Feedback img"
+                  width={672}
+                  height={128}
+                />
+              )}
+              {youtubeEmbedUrl && (
+                <iframe
+                  width="100%"
+                  height="408"
+                  src={youtubeEmbedUrl}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
+              {!youtubeEmbedUrl && feedbackInfoData?.data?.link && (
+                <div className="w-[679px] min-h-[42px]">
+                  <div>{feedbackInfoData?.data?.link}</div>
+                </div>
+              )}
+            </div>
+          )}
+          <div
+            className="text-[16px] leading-6 tracking-[-0.02em] text-gray7"
+            dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
+          />
+          <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
+            <RecommendButton
+              handleCommend={handleFeedbackCommend}
+              recommendCount={feedbackInfoData?.recommendCount}
+              isRecommend={feedbackInfoData?.isRecommended}
+            />
+          </div>
+          <PostAction type="community" />
+          <BoardComment
+            id={id as string}
+            publicId={feedbackInfoData?.publicId}
+            ref={comments}
+            setParentsComment={setParentsComment}
+            type="IMPROVEMENT"
+          />
+          <PostNavigation
+            nextId={feedbackInfoData?.nextId}
+            previousId={feedbackInfoData?.previousId}
+            currentPath={pathname}
+          />
+        </div>
+      )}
+      <CustomerTalkToolbar
+        showOptions={true}
+        adminChecker={adminRole}
+        paginationData={feedbackDataList?.pageInfo}
+      />
+      <div className="w-full h-auto rounded-[5px] shadow-md bg-white">
+        <div className="w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+          {isLoading ? (
+            Array.from({ length: 2 }).map((_, index) => (
+              <FeedbackItemSkeleton key={index} />
+            ))
+          ) : feedbackDataList?.content?.length === 0 || isError ? (
+            <EmptyItem title="개선요청이" />
+          ) : (
+            slicedNoticeDataList?.map((noticeData) => (
+              <NoticeItem
+                isFeedback={true}
+                noticeData={noticeData}
+                key={noticeData.id}
+              />
+            ))
+          )}
+          {isLoading
+            ? Array.from({ length: 10 }).map((_, index) => (
+                <FeedbackItemSkeleton key={index} />
+              ))
+            : feedbackDataList?.content?.map(
+                (feedbackDataList: FeedbackContentType) => (
+                  <FeedbackItem
+                    feedbackData={feedbackDataList}
+                    key={feedbackDataList?.id}
+                    searchString={searchParams.get("search")}
+                    searchType={searchParams.get("search_type")}
+                  />
+                )
+              )}
+        </div>
+        <SignInModalPopUp
+          isOpen={isSignInModalOpen}
+          onClose={() => setIsSignInModalOpen(false)}
+        />
+      </div>
+      <div className="shadow-md sticky bottom-0 z-50">
+        <SendCommentBox
+          id={id as string}
+          type="IMPROVEMENT"
+          parentsComment={parentsComment}
+          setParentsComment={setParentsComment}
+        />
+      </div>
+    </>
+  );
+};
+
+export default Page;

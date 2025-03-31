@@ -1,31 +1,25 @@
+"use client";
+
+import { useState } from "react";
 import { LogoWhite } from "./icon/LogoWhite";
+import ModalPopup from "./ModalPopup";
+import GuestModalPopup from "./GuestModalPopup";
+import { useAdminRole } from "../(route)/customer/_utils/adminChecker";
 
 export default function Footer() {
+  const [showModal, setShowModal] = useState(false);
+  const userRole = useAdminRole();
+
   const footerObject = [
-    {
-      name: "서비스 소개",
-      link: "/service-introduction",
-    },
-    {
-      name: "개선요청",
-      link: "/customer/feedback",
-    },
-    {
-      name: "공지사항",
-      link: "/customer",
-    },
-    {
-      name: "이용약관",
-      link: "/customer/terms",
-    },
-    {
-      name: "개인정보처리방침",
-      link: "/customer/privacy-policy",
-    },
+    { name: "서비스 소개", link: "/service-introduction" },
+    { name: "개선요청", link: "/customer/feedback" },
+    { name: "공지사항", link: "/customer" },
+    { name: "이용약관", link: "/customer/terms" },
+    { name: "개인정보처리방침", link: "/customer/privacy-policy" },
   ];
 
   const footerGrayText =
-    "font font-medium text-[16px] leading-[24px] text-[#A6A6A6]";
+    "font font-medium text-[16px] leading-[24px] text-gray5";
 
   return (
     <div className="w-full min-h-[356px] bg-black flex flex-col justify-center text-white pt-[40px]">
@@ -54,19 +48,22 @@ export default function Footer() {
           </div>
           <div className="flex flex-col">
             <p
-              className={`${footerGrayText} font-bold text-[24px] leading-[44px] text-[#FFFFFF]`}
+              className={`${footerGrayText} font-bold text-[24px] leading-[44px] text-white`}
             >
               TeamPlayHive@gmail.com
             </p>
             <p>AM 10:00 - PM 7:00 (주말 및 공휴일 휴무)</p>
-            <button className="w-[120px] min-h-[40px] mt-2.5 rounded-[5px] py-[13px] px-[16px] text-[#424242] bg-[#DBDBDB] font-bold text-[14px] leading-[14px]">
+            <button
+              onClick={() => setShowModal(true)}
+              className="w-[120px] min-h-[40px] mt-2.5 rounded-[5px] py-[13px] px-[16px] text-gray7 bg-gray3 font-bold text-[14px] leading-[14px]"
+            >
               문의하기
             </button>
           </div>
         </div>
       </div>
       <div className="flex flex-col items-center">
-        <div className="w-[1200px] min-h-[80px] flex justify-between items-center mx-auto border-[#424242] border-t-[2px]">
+        <div className="w-[1200px] min-h-[80px] flex justify-between items-center mx-auto border-gray7 border-t-[2px]">
           <p className={footerGrayText}>
             Copyright ⓒPlayhive Co., Ltd All rights reserved.
           </p>
@@ -74,9 +71,7 @@ export default function Footer() {
             {footerObject.map((item, index) => (
               <span
                 key={index}
-                className={
-                  "font-medium text-[16px] leading-[26px] text-[#A6A6A6]"
-                }
+                className="font-medium text-[16px] leading-[26px] text-gray5"
               >
                 <a href={item.link}>{item.name}</a>
                 {index < footerObject.length - 1 && (
@@ -87,6 +82,12 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {userRole ? (
+        <ModalPopup show={showModal} setShow={setShowModal} />
+      ) : (
+        <GuestModalPopup show={showModal} setShow={setShowModal} />
+      )}
     </div>
   );
 }

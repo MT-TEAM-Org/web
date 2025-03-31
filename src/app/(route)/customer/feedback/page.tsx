@@ -4,7 +4,6 @@ import React, { Suspense } from "react";
 import CustomerTalkToolbar from "../_components/CustomerTalkToolbar";
 import FeedbackItem from "../_components/FeedbackItem";
 import { useSearchParams } from "next/navigation";
-import { noticeListConfig } from "../_types/noticeListConfig";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import EmptyItem from "../_components/EmptyItem";
@@ -26,14 +25,6 @@ const Page = () => {
 const FeedbackPage = () => {
   const adminRole = useAdminRole();
   const searchParams = useSearchParams();
-
-  const noticeOption: noticeListConfig = {
-    page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-    size: 20,
-    searchType:
-      (searchParams.get("search_type") as noticeListConfig["searchType"]) || "",
-    search: searchParams.get("search") || "",
-  };
 
   const feedbackOption: feedbackListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
@@ -57,14 +48,14 @@ const FeedbackPage = () => {
     data: noticeListData,
     isError: noticeIsError,
     isLoading: noticeIsLoading,
-  } = useGetNoticeDataList(noticeOption);
+  } = useGetNoticeDataList();
 
   const slicedNoticeDataList = (noticeListData?.content as NoticeContentType[])
     ?.sort((a, b) => b.id - a.id)
     .slice(0, 2);
 
   return (
-    <div className="flex justify-center bg-gray1 min-h-[calc(100vh-476px)]">
+    <div className="flex justify-center bg-gray1">
       <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
         <div className="sticky top-0 z-10">
           <CustomerTalkToolbar
@@ -74,7 +65,7 @@ const FeedbackPage = () => {
           />
         </div>
 
-        <div className="w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+        <div className="w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
           {noticeIsLoading || isLoading ? (
             <>
               {Array.from({ length: 10 }).map((_, index) => (
@@ -101,6 +92,8 @@ const FeedbackPage = () => {
                   <FeedbackItem
                     feedbackData={feedbackListData}
                     key={feedbackListData?.id}
+                    searchString={searchParams.get("search")}
+                    searchType={searchParams.get("search_type")}
                   />
                 )
               )}

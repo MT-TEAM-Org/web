@@ -53,7 +53,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
       onClick={() => setShow(false)}
     >
       <form
-        className="flex flex-col bg-[#FFFFFF] w-[548px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg text-[#000000]"
+        className="flex flex-col bg-white w-[548px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg text-black"
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -62,7 +62,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
         </h1>
         <div className="flex flex-col items-start gap-[4px]">
           <label htmlFor="modalTextarea" className="text-[14px] leading-[22px]">
-            문의 내용<span className="text-[#D1504B]">*</span>
+            문의 내용<span className="text-warning">*</span>
           </label>
           <textarea
             id="modalTextarea"
@@ -80,15 +80,15 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
             errors={errors}
             name={"content"}
             render={({ message }) => (
-              <p className="text-[14px] text-[#D1504B] ml-[16px] leading-[22px]">
+              <p className="text-[14px] text-warning ml-[16px] leading-[22px]">
                 {message}
               </p>
             )}
           />
         </div>
-        <div className="p-[12px] bg-[#FAFAFA] mt-[12px] rounded-[5px]">
+        <div className="p-[12px] bg-gray1 mt-[12px] rounded-[5px]">
           <p
-            className="text-start text-[14px] leading-[22px] text-[#656565]"
+            className="text-start text-[14px] leading-[22px] text-gray6"
             style={{ letterSpacing: "-0.2px" }}
           >
             고객님의 문의글은 순차적으로 응답해드리고 있습니다. 최선을 다하는
@@ -99,7 +99,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
         <div className="flex justify-center gap-[8px] mt-[24px]">
           <button
             type="button"
-            className={`${buttonStyle} border-[#DBDBDB] border-[1px] text-gray7`}
+            className={`${buttonStyle} border-gray3 border-[1px] text-gray7`}
             onClick={() => setShow(false)}
           >
             취소
@@ -107,7 +107,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
           <button
             type="submit"
             disabled={isPending}
-            className={`${buttonStyle} bg-[#00ADEE] text-white`}
+            className={`${buttonStyle} bg-gra text-white`}
           >
             문의하기
           </button>
