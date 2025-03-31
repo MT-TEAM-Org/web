@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import FootballGameTime from "./FootballGameTime";
 import LiveMatchPanel from "../LiveMatchPanel";
-import CommentBox from "../CommentBox";
 
 const FootballTab = () => {
   return (
@@ -13,7 +12,6 @@ const FootballTab = () => {
       </div>
       <div className="flex flex-col gap-3">
         <LiveMatchPanel />
-        <CommentBox />
       </div>
     </div>
   );

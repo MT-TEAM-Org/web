@@ -5,7 +5,6 @@ import ScheduleContainer from "../../main/_components/scheduleContainer";
 import ScheduleNavbar from "./_components/ScheduleNavbar";
 import LiveMatchBox from "./_components/LiveMatchBox";
 import LiveMatchPanel from "./_components/LiveMatchPanel";
-import CommentBox from "./_components/CommentBox";
 import BaseballTab from "./_components/_baseballComponents/BaseballTab";
 import FootballTab from "./_components/_footballComponents/FootballTab";
 import UpcomingChat from "./_components/_LiveChatComponents/UpcomingChat";
@@ -26,7 +25,6 @@ const Page = () => {
             <LiveMatchBox />
             <div className="w-full max-w-[800px] flex flex-col gap-3">
               <LiveMatchPanel />
-              <CommentBox />
             </div>
           </div>
           <UpcomingChat />
