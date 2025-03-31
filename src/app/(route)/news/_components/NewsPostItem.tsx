@@ -78,7 +78,7 @@ const NewsPostItem = ({
       >
         <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
           <Image
-            src={updatedImgUrl || "/Empty_news.png"}
+            src={updatedImgUrl || "/Preview_loading_image.png"}
             alt="thumbImg"
             width={newsItem?.thumbImg ? 160 : 94.39}
             height={newsItem?.thumbImg ? 92 : 26}

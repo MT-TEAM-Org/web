@@ -35,19 +35,19 @@ const FeedbackItem = ({
 
   const getMinHeightClass = () => {
     if (
-      !feedbackData?.improvementCommentSearchList?.imageUrl ||
-      !feedbackData?.improvementCommentSearchList?.comment
+      feedbackData?.improvementCommentSearchList?.imageUrl ||
+      feedbackData?.improvementCommentSearchList?.comment
     ) {
-      return "h-[66px]";
-    } else {
       return "h-[88px]";
+    } else {
+      return "h-[66px]";
     }
   };
 
   return (
     <Link href={`/customer/feedback/feedback-info/${feedbackData?.id}`}>
       <div
-        className={`w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-center justify-between cursor-pointer hover:bg-[#F8FDFF]`}
+        className={`w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-start justify-between cursor-pointer hover:bg-[#F8FDFF]`}
       >
         <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">
           <p className="font-bold text-[14px] leading-5">{feedbackData?.id}</p>

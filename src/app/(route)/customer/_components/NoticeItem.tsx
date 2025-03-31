@@ -36,12 +36,12 @@ const NoticeItem = ({
 
   const getMinHeightClass = () => {
     if (
-      !noticeData?.commentSearchList?.imageUrl ||
-      !noticeData?.commentSearchList?.comment
+      noticeData?.commentSearchList?.imageUrl ||
+      noticeData?.commentSearchList?.comment
     ) {
-      return "h-[66px]";
-    } else {
       return "h-[88px]";
+    } else {
+      return "h-[66px]";
     }
   };
 
