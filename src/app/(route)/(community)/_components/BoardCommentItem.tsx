@@ -78,7 +78,10 @@ const BoardCommentItem = ({
 
   return (
     <>
-      <div className="flex flex-col gap-[8px] min-h-[112px] p-[12px] bg-white border-b border-gray1">
+      <div
+        id={comment?.commentId.toString()}
+        className="flex flex-col gap-[8px] min-h-[112px] p-[12px] bg-white border-b border-gray1"
+      >
         <div className="flex flex-col gap-[12px] min-h-[52px]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-[8px] min-h-[20px]">
