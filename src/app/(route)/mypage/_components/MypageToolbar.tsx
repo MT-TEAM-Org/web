@@ -105,6 +105,7 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
           onSubmit={handleSubmit}
           commentType={commentType}
           onCommentTypeChange={handleCommentTypeChange}
+          mode={mode}
         />
       </div>
       <div className="flex justify-between items-center p-[12px]">
