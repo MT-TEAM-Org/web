@@ -6,6 +6,7 @@ import TermsServiceText from "./TermsServiceText";
 interface Show {
   service: boolean;
   personal: boolean;
+  sequence: number;
 }
 
 interface TearmsModalProps {
@@ -14,8 +15,22 @@ interface TearmsModalProps {
 }
 
 const TearmsModal = ({ show, setShow }: TearmsModalProps) => {
-  const disabledModal = () => setShow({ service: false, personal: false });
+  const disabledModal = () => {
+    if (show.sequence === 0) {
+      setShow({ service: false, personal: false, sequence: 0 });
+    } else {
+      sequenceModal();
+    }
+  };
 
+  const sequenceModal = () => {
+    if (show.sequence === 1) {
+      setShow({ service: true, personal: false, sequence: 2 });
+    } else if (show.sequence === 2) {
+      setShow({ service: false, personal: false, sequence: 0 });
+    }
+  };
+  console.log(show);
   return (
     <div
       className="fixed inset-0 bg-[#000000B2] bg-opacity-70 flex items-center justify-center z-50"
