@@ -10,6 +10,8 @@ import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { LogoWhite } from "@/app/_components/icon/LogoWhite";
+import { Router } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface NewsPostItemProps {
   newsItem: NewsListType;
@@ -26,6 +28,9 @@ const NewsPostItem = ({
   const { isRead, handleRead } = useReadNews(newsItem?.id);
   const [isNew, setIsNew] = useState(false);
   const date = useTimeAgo(newsItem?.postDate);
+  const router = useRouter();
+
+  console.log(newsItem);
 
   const categoryToPath = {
     esports: "esports",
@@ -67,64 +72,71 @@ const NewsPostItem = ({
     }
   };
 
-  return (
-    <Link
-      href={`/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
+  const handleToInfo = () => {
+    handleRead();
+    router.push(
+      `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
         newsItem?.id
-      }`}
+      }`
+    );
+  };
+
+  return (
+    <div
+      onClick={handleToInfo}
+      className={`min-w-[720px] ${getMinHeightClass()} flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`}
     >
-      <div
-        onClick={handleRead}
-        className={`min-w-[720px] ${getMinHeightClass()} flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`}
-      >
-        <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
-          {newsItem?.thumbImg ? (
-            <Image
-              src={updatedImgUrl}
-              alt="Thumbnail"
-              width={60}
-              height={92}
-              className="w-full h-full object-cover rounded-[5px] gap-[10px]"
-            />
-          ) : (
-            <LogoWhite />
+      <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
+        {newsItem?.thumbImg ? (
+          <Image
+            src={updatedImgUrl}
+            alt="Thumbnail"
+            width={60}
+            height={92}
+            className="w-full h-full object-cover rounded-[5px] gap-[10px]"
+          />
+        ) : (
+          <LogoWhite />
+        )}
+      </div>
+      <div className="w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1">
+        <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start">
+          <h1 className={styles.title}>
+            {searchType === "TITLE" || searchType === "TITLE_CONTENT"
+              ? highlightText(newsItem?.title, searchType, searchString)
+              : newsItem?.title}
+          </h1>
+          {newsItem?.commentCount > 0 && (
+            <p className="font-medium text-[14px] leading-5 text-gra flex">
+              [{newsItem?.commentCount}]
+            </p>
+          )}
+          {(isNew || newsItem?.hot) && (
+            <div className="font-black text-[10px] leading-[18px] align-center">
+              {isNew && <p className="text-gra">N</p>}
+              {newsItem?.hot && <p className="text-warning">H</p>}
+            </div>
           )}
         </div>
-        <div className="w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1">
-          <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start">
-            <h1 className={styles.title}>
-              {searchType === "TITLE" || searchType === "TITLE_CONTENT"
-                ? highlightText(newsItem?.title, searchType, searchString)
-                : newsItem?.title}
-            </h1>
-            {newsItem?.commentCount > 0 && (
-              <p className="font-medium text-[14px] leading-5 text-gra flex">
-                [{newsItem?.commentCount}]
-              </p>
-            )}
-            {(isNew || newsItem?.hot) && (
-              <div className="font-black text-[10px] leading-[18px] align-center">
-                {isNew && <p className="text-gra">N</p>}
-                {newsItem?.hot && <p className="text-warning">H</p>}
-              </div>
-            )}
-          </div>
 
-          <div>
-            <p className={styles.content}>
-              {searchType === "CONTENT" || searchType === "TITLE_CONTENT"
-                ? highlightText(newsItem?.content, searchType, searchString)
-                : newsItem?.content}
-            </p>
-          </div>
-          <div className="flex gap-1">
-            <p className={styles.category}>
-              <ChangedCategory category={newsItem?.category} />
-            </p>
-            <p className={styles.info}>{useTimeAgo(newsItem?.postDate)}</p>
-            <p className={styles.info}>네이버 스포츠</p>
-          </div>
-          {newsItem?.newsCommentSearchDto?.comment && (
+        <div>
+          <p className={styles.content}>
+            {searchType === "CONTENT" || searchType === "TITLE_CONTENT"
+              ? highlightText(newsItem?.content, searchType, searchString)
+              : newsItem?.content}
+          </p>
+        </div>
+        <div className="flex gap-1">
+          <p className={styles.category}>
+            <ChangedCategory category={newsItem?.category} />
+          </p>
+          <p className={styles.info}>{useTimeAgo(newsItem?.postDate)}</p>
+          <p className={styles.info}>네이버 스포츠</p>
+        </div>
+        {newsItem?.newsCommentSearchDto?.comment && (
+          <Link
+            href={`/news/${newsItem?.category}/news-detail/${newsItem?.id}?commentId=${newsItem?.newsCommentSearchDto?.newsCommentId}`}
+          >
             <div className="w-full flex items-start justify-start gap-1">
               <div className="w-[16px] h-[16px] flex-shrink-0">
                 <Arrow_reply size={16} />
@@ -148,10 +160,10 @@ const NewsPostItem = ({
                 )}
               </div>
             </div>
-          )}
-        </div>
+          </Link>
+        )}
       </div>
-    </Link>
+    </div>
   );
 };
 
