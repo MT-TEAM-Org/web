@@ -46,15 +46,28 @@ const BoardComment = ({
     (bestComment?.data?.content as CommentResponse) || {};
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isCommentLoaded, setIsCommentLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    if (commentId) {
-      const commentElement = document.getElementById(commentId);
-      if (commentElement) {
-        commentElement.scrollIntoView({ behavior: "smooth" });
+    if (commentId && !isCommentLoaded) {
+      const checkAndScrollToComment = () => {
+        const commentElement = document.getElementById(commentId);
+        if (commentElement) {
+          commentElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          setIsCommentLoaded(true);
+          return true;
+        }
+        return false;
+      };
+
+      if (!checkAndScrollToComment() && hasNextPage !== false) {
+        fetchNextPage(); // 다음 페이지 댓글 로드
       }
     }
-  }, [commentId]);
+  }, [commentId, hasNextPage]);
 
   // 모든 댓글
   const allComments =
