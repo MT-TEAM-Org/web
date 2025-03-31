@@ -14,7 +14,6 @@ const MainBigSizeNews = () => {
     timePeriod: "WEEKLY",
     withPageInfo: false,
   });
-
   const mainPageData = data?.[0];
   const updatedImgUrl = updateImageUrl(mainPageData?.thumbImg, "w410");
   const { handleRead } = useReadNews(mainPageData?.id, false);
