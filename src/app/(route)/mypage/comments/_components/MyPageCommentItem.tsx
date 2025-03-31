@@ -114,22 +114,22 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
           <span>{data?.postResponse?.nickname}</span>
           <span className="text-gray4">IP {data?.postResponse?.createdIp}</span>
         </div>
-        {data?.commentResponse?.imageUrl && (
-          <Image
-            src={data?.commentResponse?.imageUrl}
-            alt="comment-review-image"
-            width={56}
-            height={42}
-            className="w-[56px] h-[42px] rounded-[5px] object-cover"
-          />
-        )}
         <div className="flex items-center min-h-[18px]">
-          <div className="flex items-center justify-center w-[16px] h-[16px]">
+          <div className="flex justify-center items-center w-[16px] h-[16px]">
             <Arrow_reply size={12} />
           </div>
-          <p className="text-[12px] leading-[18px] text-gray7">
+          <div className="text-[12px] leading-[18px] text-gray7">
+            {data?.commentResponse?.imageUrl && (
+              <Image
+                src={data?.commentResponse?.imageUrl}
+                alt="comment-review-image"
+                width={56}
+                height={42}
+                className="w-[56px] h-[42px] rounded-[5px] object-cover"
+              />
+            )}
             {data?.commentResponse?.comment}
-          </p>
+          </div>
         </div>
       </div>
     </Link>
