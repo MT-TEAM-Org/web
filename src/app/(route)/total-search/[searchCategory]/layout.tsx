@@ -3,7 +3,7 @@ import SearchLeftSideBar from "../_components/SearchLeftSideBar";
 import { RightSideBar } from "../../(community)/_components/RightSideBar";
 
 export const metadata = {
-  title: "PlayHive 전체검색페이지",
+  title: "PlayHive 전체검색",
   description: "PlayHive에서 뉴스와 콘텐츠를 검색해보세요.",
 };
 
