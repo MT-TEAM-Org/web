@@ -10,7 +10,6 @@ import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { LogoWhite } from "@/app/_components/icon/LogoWhite";
-import { Router } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface NewsPostItemProps {
@@ -77,11 +76,19 @@ const NewsPostItem = ({
 
   const handleToInfo = () => {
     handleRead();
-    router.push(
-      `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
-        newsItem?.id
-      }`
-    );
+    if (newsItem?.newsCommentSearchDto?.newsCommentId) {
+      router.push(
+        `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
+          newsItem?.id
+        }?commentId=${newsItem?.newsCommentSearchDto?.newsCommentId}`
+      );
+    } else {
+      router.push(
+        `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
+          newsItem?.id
+        }`
+      );
+    }
   };
 
   const newsComment =
@@ -144,25 +151,21 @@ const NewsPostItem = ({
           <p className={styles.info}>네이버 스포츠</p>
         </div>
         {newsComment && (
-          <Link
-            href={`/news/${newsItem?.category}/news-detail/${newsItem?.id}?commentId=${newsItem?.newsCommentSearchDto?.newsCommentId}`}
-          >
-            <div className="w-full flex items-start justify-start gap-1">
-              <div className="w-[16px] h-[16px] flex-shrink-0">
-                <Arrow_reply size={16} />
-              </div>
-              <div
-                className={`${styles.text} min-w-0 flex gap-[2px] items-center justify-start`}
-              >
-                {newsCommentImage && <span>(이미지)</span>}
-                <p>
-                  {searchType === "COMMENT"
-                    ? highlightText(newsComment, searchType, searchString)
-                    : newsComment}
-                </p>
-              </div>
+          <div className="w-full flex items-start justify-start gap-1">
+            <div className="w-[16px] h-[16px] flex-shrink-0">
+              <Arrow_reply size={16} />
             </div>
-          </Link>
+            <div
+              className={`${styles.text} min-w-0 flex gap-[2px] items-center justify-start`}
+            >
+              {newsCommentImage && <span>(이미지)</span>}
+              <p>
+                {searchType === "COMMENT"
+                  ? highlightText(newsComment, searchType, searchString)
+                  : newsComment}
+              </p>
+            </div>
+          </div>
         )}
       </div>
     </div>
