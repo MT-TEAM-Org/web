@@ -14,6 +14,7 @@ type MatchItem = {
   place: string;
   category: string;
   startTime: string;
+  leagueName: string;
 };
 
 type MatchScheduleResponse = {
