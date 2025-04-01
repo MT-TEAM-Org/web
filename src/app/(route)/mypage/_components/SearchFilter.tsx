@@ -2,8 +2,9 @@
 
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Small_Search from "@/app/_components/icon/Small_Search";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { COMMENT_COMMENT_TYPE_OPTIONS } from "../_constants/toolbarObject";
+import { Clear } from "@/app/_components/icon/Clear";
 
 interface SearchFilterProps {
   searchType: string;
@@ -25,6 +26,18 @@ const SearchFilter = ({
   mode,
 }: SearchFilterProps) => {
   const selectRef = useRef<HTMLSelectElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [hasValue, setHasValue] = useState(false);
+
+  const handleInput = () => setHasValue(!!inputRef.current?.value);
+
+  const clearInput = () => {
+    if (inputRef.current) {
+      inputRef.current.value = "";
+      setHasValue(false);
+      inputRef.current.focus(); // 포커스 유지
+    }
+  };
 
   return (
     <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
@@ -78,12 +91,23 @@ const SearchFilter = ({
       <form className="relative" onSubmit={onSubmit}>
         <input
           type="text"
-          className="w-[228px] h-[40px] rounded-[5px] border pl-[36px] pr-[12px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
+          className="w-[228px] h-[40px] rounded-[5px] border pl-[44px] pr-[40px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
           placeholder="검색어를 입력해주세요."
+          ref={inputRef}
+          onInput={handleInput}
         />
-        <button className="absolute top-2 left-[12px]">
+        <button className="absolute inset-y-0 flex justify-center items-center left-[12px]">
           <Small_Search />
         </button>
+        {hasValue && (
+          <button
+            className="absolute inset-y-0 flex justify-center items-center right-[12px]"
+            type="button"
+            onClick={clearInput}
+          >
+            <Clear />
+          </button>
+        )}
       </form>
     </div>
   );

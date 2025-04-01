@@ -77,7 +77,7 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
   return (
     <Link
       href={`/board/${data?.postResponse?.boardType}/${data?.postResponse?.categoryType}/${data?.postResponse?.id}?commentId=${data?.commentResponse?.commentId}`}
-      className="flex gap-[12px] w-full min-h-[88px] p-[12px] border-b border-gray1"
+      className="flex gap-[12px] w-full min-h-[88px] p-[12px] border-b border-gray1 hover:bg-bg0"
     >
       <div className="flex justify-center items-center w-[32px] h-[32px] rounded-[2px] p-[4px] bg-gray1 font-[700] text-[14px] leading-[20px] text-gray7">
         {data?.postResponse?.id}

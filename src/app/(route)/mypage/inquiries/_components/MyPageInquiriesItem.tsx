@@ -30,9 +30,9 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
   return (
     <Link
       href={`/mypage/inquiries/${data?.id}?page=${page}`}
-      className="flex items-center gap-[12px] w-full min-h-[66px] border-b-1 border-[#FAFAFA] p-[12px]"
+      className="flex items-center gap-[12px] w-full min-h-[66px] border-b-[1px] border-[#FAFAFA] p-[12px] hover:bg-bg0"
     >
-      <div className="min-w-[65px] h-[32px] rounded-[2px] px-[8px] py-[4px] bg-[#FAFAFA]">
+      <div className="flex items-center justify-center min-w-[65px] h-[32px] rounded-[2px] px-[8px] py-[4px] bg-[#FAFAFA]">
         <p
           className={`font-[700] text-[14px] leading-[20px] ${
             data?.isAdminAnswered === "답변완료"
