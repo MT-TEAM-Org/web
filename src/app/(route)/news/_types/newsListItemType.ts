@@ -26,6 +26,7 @@ export interface NewsListType {
   publicId?: string,
   thumbnail?: string,
   updatedAt?: string,
+  commentSearchList?: NewsCommentSearchList;
 }
 
 export interface NewsListPageInfoType {

@@ -62,7 +62,9 @@ const NewsPostItem = ({
   const getMinHeightClass = () => {
     if (
       newsItem?.newsCommentSearchDto?.imageUrl ||
-      newsItem?.newsCommentSearchDto?.comment
+      newsItem?.newsCommentSearchDto?.comment ||
+      newsItem?.commentSearchList?.imageUrl ||
+      newsItem?.commentSearchList?.comment
     ) {
       return "h-[136px]";
     } else {
@@ -87,8 +89,12 @@ const NewsPostItem = ({
     }
   };
 
-  const newsComment = newsItem?.newsCommentSearchDto?.comment;
-  const newsCommentImage = newsItem?.newsCommentSearchDto?.imageUrl;
+  const newsComment =
+    newsItem?.newsCommentSearchDto?.comment ||
+    newsItem?.commentSearchList?.comment;
+  const newsCommentImage =
+    newsItem?.newsCommentSearchDto?.imageUrl ||
+    newsItem?.commentSearchList?.imageUrl;
 
   return (
     <div
