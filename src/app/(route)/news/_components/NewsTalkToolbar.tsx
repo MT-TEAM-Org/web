@@ -10,7 +10,6 @@ import { NewsListPageInfoType } from "@/app/(route)/news/_types/newsListItemType
 import { POST_SEARCH_OPTIONS } from "@/app/(route)/mypage/_constants/toolbarObject";
 import { newsListConfig } from "../_types/newsListConfig";
 import OrderDateButton from "./OrderDateButton";
-import { cn } from "@/utils";
 
 interface NewsTalkToolbarProps {
   newsType?: string;
@@ -76,12 +75,7 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
 
   return (
     <div className="rounded-[5px] bg-white">
-      <div
-        className={cn(
-          "w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white",
-          "tablet:w-[688px]"
-        )}
-      >
+      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white">
         <OrderDateButton />
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
           <SearchFilter
