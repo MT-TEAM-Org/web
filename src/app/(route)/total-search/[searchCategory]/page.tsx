@@ -64,8 +64,6 @@ const Page = () => {
     isError,
   } = useGetSearchDataList(searchOptions);
 
-  console.log(searchData);
-
   return (
     <div className="w-[720px] h-auto">
       <SearchToolbar
@@ -94,13 +92,13 @@ const Page = () => {
                   key={item?.id}
                   newsItem={item as NewsListType}
                   searchType={searchParams.get("searchType") || "TITLE_CONTENT"}
-                  searchString={searchParams.get("search")}
+                  searchString={searchParams.get("search") || ""}
                 />
               ) : (
                 <TotalSearchItem
                   key={item?.id}
                   searchType={searchParams.get("searchType") || "TITLE_CONTENT"}
-                  searchString={searchParams.get("search")}
+                  searchString={searchParams.get("search") || ""}
                   data={item as SearchListType}
                   href={`/board/${(item as SearchListType)?.boardType}/${
                     (item as SearchListType)?.categoryType

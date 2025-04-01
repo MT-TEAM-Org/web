@@ -29,8 +29,6 @@ const NewsPostItem = ({
   const date = useTimeAgo(newsItem?.postDate);
   const router = useRouter();
 
-  console.log(newsItem);
-
   const categoryToPath = {
     esports: "esports",
     football: "football",
@@ -64,9 +62,7 @@ const NewsPostItem = ({
   const getMinHeightClass = () => {
     if (
       newsItem?.newsCommentSearchDto?.imageUrl ||
-      newsItem?.newsCommentSearchDto?.comment ||
-      newsItem?.commentSearchList?.imageUrl ||
-      newsItem?.commentSearchList?.comment
+      newsItem?.newsCommentSearchDto?.comment
     ) {
       return "h-[136px]";
     } else {
@@ -91,12 +87,8 @@ const NewsPostItem = ({
     }
   };
 
-  const newsComment =
-    newsItem?.newsCommentSearchDto?.comment ||
-    newsItem?.commentSearchList?.comment;
-  const newsCommentImage =
-    newsItem?.newsCommentSearchDto?.imageUrl ||
-    newsItem?.commentSearchList?.imageUrl;
+  const newsComment = newsItem?.newsCommentSearchDto?.comment;
+  const newsCommentImage = newsItem?.newsCommentSearchDto?.imageUrl;
 
   return (
     <div

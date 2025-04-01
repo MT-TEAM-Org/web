@@ -1,8 +1,6 @@
-"use client";
-
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Pagination from "../../mypage/_components/Pagination";
 import OrderButtons from "../../mypage/_components/OrderButtons";
 import SearchFilter from "../../mypage/_components/SearchFilter";
@@ -24,15 +22,20 @@ const SearchToolbar = ({ totalSearchType, pageInfo }: SearchToolbarProps) => {
 
   const paramsConfig = {
     category: totalSearchType,
+    searchType: searchParams.get("searchType") || "TITLE_CONTENT",
     orderType: searchParams.get("orderType") || "DATE",
     timePeriod: searchParams.get("time") || "ALL",
-    content: searchParams.get("content") || "",
+    content: searchParams.get("search") || "",
     page: searchParams.get("page") || "1",
   };
 
   const [searchType, setSearchType] = useState(
-    searchParams.get("search_type") || "TITLE_CONTENT"
+    searchParams.get("searchType") || "TITLE_CONTENT"
   );
+
+  useEffect(() => {
+    setSearchType(searchParams.get("searchType") || "TITLE_CONTENT");
+  }, [searchParams]);
 
   const handleSearchTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchType(e.target.value);
@@ -43,12 +46,18 @@ const SearchToolbar = ({ totalSearchType, pageInfo }: SearchToolbarProps) => {
     const inputValue = (e.target as HTMLFormElement)[0] as HTMLInputElement;
     if (inputValue.value.trim() === "") return;
 
-    const newSearchParams = changeURLParams(
+    let newSearchParams = changeURLParams(
       searchParams,
-      "search",
-      inputValue.value,
+      "searchType",
       searchType
     );
+
+    newSearchParams = changeURLParams(
+      new URLSearchParams(newSearchParams.split("?")[1]),
+      "search",
+      inputValue.value
+    );
+
     const params = new URLSearchParams(newSearchParams.split("?")[1]);
     params.set("page", "1");
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
