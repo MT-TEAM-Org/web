@@ -45,7 +45,7 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
       if (commentElement) {
         commentElement.scrollIntoView({
           behavior: "smooth",
-          block: "center", // 화면의 중앙으로 스크롤
+          block: "center",
         });
       }
     }

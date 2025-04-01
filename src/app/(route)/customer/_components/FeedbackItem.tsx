@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import FeedbackItemStatus from "./FeedbackItemStatus";
@@ -46,11 +45,19 @@ const FeedbackItem = ({
     }
   };
 
+  const handleNoticeClick = () => {
+    if (feedbackData?.improvementCommentSearchList?.commentId) {
+      router.push(
+        `/customer/feedback/feedback-info/${feedbackData?.id}?commentId=${feedbackData?.improvementCommentSearchList?.commentId}`
+      );
+    } else {
+      router.push(`/customer/feedback/feedback-info/${feedbackData?.id}`);
+    }
+  };
+
   return (
     <div
-      onClick={() =>
-        router.push(`/customer/feedback/feedback-info/${feedbackData?.id}`)
-      }
+      onClick={handleNoticeClick}
       className={`w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-start justify-between cursor-pointer hover:bg-[#F8FDFF]`}
     >
       <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">
@@ -96,29 +103,25 @@ const FeedbackItem = ({
           </div>
 
           {feedbackData?.improvementCommentSearchList?.comment && (
-            <Link
-              href={`/customer/feedback/feedback-info/${feedbackData?.id}?commentId=${feedbackData?.improvementCommentSearchList?.commendId}`}
-            >
-              <div className="w-[584px] flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
-                <div className="w-4 h-4 flex-shrink-0">
-                  <Arrow_reply size={16} />
-                </div>
-                <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em]">
-                  {feedbackData?.improvementCommentSearchList?.imageUrl && (
-                    <span>(이미지)</span>
-                  )}
-                  <p>
-                    {searchType === "COMMENT"
-                      ? highlightText(
-                          feedbackData?.improvementCommentSearchList?.comment,
-                          searchType,
-                          searchString
-                        )
-                      : feedbackData?.improvementCommentSearchList?.comment}
-                  </p>
-                </div>
+            <div className="w-[584px] flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
+              <div className="w-4 h-4 flex-shrink-0">
+                <Arrow_reply size={16} />
               </div>
-            </Link>
+              <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em]">
+                {feedbackData?.improvementCommentSearchList?.imageUrl && (
+                  <span>(이미지)</span>
+                )}
+                <p>
+                  {searchType === "COMMENT"
+                    ? highlightText(
+                        feedbackData?.improvementCommentSearchList?.comment,
+                        searchType,
+                        searchString
+                      )
+                    : feedbackData?.improvementCommentSearchList?.comment}
+                </p>
+              </div>
+            </div>
           )}
         </div>
       </div>
