@@ -8,6 +8,7 @@ import { highlightText } from "@/utils/searchHighlightText";
 import { useEffect, useState } from "react";
 import useTimeAgo from "@/utils/useTimeAgo";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
+import { useRouter } from "next/navigation";
 
 interface totalSearchProps {
   searchType: string;
@@ -24,6 +25,7 @@ const TotalSearchItem = ({
 }: totalSearchProps) => {
   const [isNew, setIsNew] = useState(false);
   const date = useTimeAgo(data?.createdAt);
+  const router = useRouter();
 
   useEffect(() => {
     if (date.includes("시간 전") && parseInt(date) <= 24) {
@@ -55,16 +57,27 @@ const TotalSearchItem = ({
     return categoryTypeMap[type] || type;
   };
 
+  const handleNoticeClick = () => {
+    if (data?.boardCommentSearchList?.commentId) {
+      router.push(
+        `/board/${data?.boardType}/${data?.categoryType}/${data?.id}?commentId=${data?.boardCommentSearchList?.commentId}`
+      );
+    } else {
+      router.push(
+        `/board/${data?.boardType}/${data?.categoryType}/${data?.id}`
+      );
+    }
+  };
+
   const commentBaseStyle =
     "font-medium text-[12px] text-gray5 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap";
 
   return (
-    <div className="flex flex-col items-center w-full cursor-pointer">
-      <Link
-        href={href}
-        key={`${data.id}`}
-        className="flex items-start w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]"
-      >
+    <div
+      onClick={handleNoticeClick}
+      className="flex flex-col items-center w-full cursor-pointer"
+    >
+      <div className="flex items-start w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]">
         <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1">
           <span>{data.id}</span>
         </div>
@@ -142,7 +155,7 @@ const TotalSearchItem = ({
             </div>
           )}
         </div>
-      </Link>
+      </div>
     </div>
   );
 };
