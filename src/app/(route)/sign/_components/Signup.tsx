@@ -555,9 +555,7 @@ const Signup = ({
         <AccountHelp signState="signup" />
       </div>
       {(show.service || show.personal || show.sequence) && (
-        <Suspense fallback="">
-          <TearmsModal show={show} setShow={setShow} />
-        </Suspense>
+        <TearmsModal show={show} setShow={setShow} />
       )}
     </>
   );

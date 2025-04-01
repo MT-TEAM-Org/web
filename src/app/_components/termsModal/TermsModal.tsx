@@ -30,7 +30,7 @@ const TearmsModal = ({ show, setShow }: TearmsModalProps) => {
       setShow({ service: false, personal: false, sequence: 0 });
     }
   };
-  console.log(show);
+
   return (
     <div
       className="fixed inset-0 bg-[#000000B2] bg-opacity-70 flex items-center justify-center z-50"
