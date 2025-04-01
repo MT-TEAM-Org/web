@@ -1,3 +1,5 @@
+"use client";
+
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { CommunityData } from "@/app/_constants/categories";
