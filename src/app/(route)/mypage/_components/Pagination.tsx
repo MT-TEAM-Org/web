@@ -45,7 +45,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
 
   return (
     <div className="flex">
-      <div className="flex items-center gap-[10px]">
+      <div className="flex items-center gap-[8px]">
         {totalPage > 1 && (
           <button
             className={getNavButtonClass(currentPage === 1)}
@@ -87,7 +87,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
         )}
       </div>
 
-      <div className="flex items-center gap-[10px]">
+      <div className="flex items-center gap-[8px]">
         <button
           className={getNavButtonClass(currentPage === totalPage)}
           onClick={() => onPageChangeAction(currentPage + 1)}
