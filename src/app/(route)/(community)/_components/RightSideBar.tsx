@@ -4,68 +4,90 @@ import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import RightNewsItem from "./RightNewsItem";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import RightNewsItemSkeleton from "./RightNewsItemSkeleton";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
+import { usePathname } from "next/navigation";
 
 export const RightSideBar = () => {
   const [currentPage, setCurrentPage] = useState("1");
+  const pathname = usePathname();
+
+  const categoryFromPath = pathname?.split("/")[2]?.toUpperCase();
+
+  const isValidCategory = ["BASEBALL", "FOOTBALL", "ESPORTS"].includes(
+    categoryFromPath
+  );
+
+  const category: "" | "BASEBALL" | "FOOTBALL" | "ESPORTS" = isValidCategory
+    ? (categoryFromPath as "BASEBALL" | "FOOTBALL" | "ESPORTS")
+    : "";
+
   const { data: newsData, isLoading } = useGetNewsDataList({
     page: currentPage,
+    withPageInfo: true,
+    category,
   });
-  const slicedNewsData = useMemo(() => {
-    return newsData?.slice(0, 5);
-  }, [newsData]); //뉴스 데이터 임시로 5개만 불러오기
+
+  let content: NewsItemType[] = [];
+  let totalPage = 1;
+
+  if (newsData && !Array.isArray(newsData)) {
+    content = newsData.content;
+    totalPage = newsData.pageInfo.totalPage;
+  }
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleToPage = (type: "prev" | "next") => {
     const currentPageNum = Number(currentPage);
+
     if (type === "prev" && currentPageNum > 1) {
-      const prevPage = (currentPageNum - 1).toString();
-      setCurrentPage(prevPage);
-    } else if (type === "next" && currentPageNum < 3) {
-      const prevPage = (currentPageNum + 1).toString();
-      setCurrentPage(prevPage);
+      setCurrentPage((currentPageNum - 1).toString());
+    } else if (type === "next" && currentPageNum < totalPage) {
+      setCurrentPage((currentPageNum + 1).toString());
     }
   };
 
   return (
     <div className="w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-6">
-      <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px]">
-        <div className="w-full h-auto max-h-[736px] rounded-[10px]">
+      <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px] bg-white">
+        <div className="w-full h-auto max-h-[736px] rounded-[10px] ">
           {isLoading
-            ? Array(5)
-                .fill(0)
-                .map((_, index) => <RightNewsItemSkeleton key={index} />)
-            : slicedNewsData.map((data: NewsItemType) => (
-                <RightNewsItem key={data.id} newsItem={data} />
+            ? Array.from({ length: 5 }).map((_, index) => (
+                <RightNewsItemSkeleton key={index} />
+              ))
+            : content?.map((data: NewsItemType) => (
+                <RightNewsItem
+                  key={data.id}
+                  newsItem={data}
+                  customClass="w-full h-[92px]  rounded-[5px] bg-white p-3 box-border"
+                />
               ))}
         </div>
 
-        <div className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto">
-          <button
-            onClick={() => handleToPage("prev")}
-            className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex gap-[10px] justify-center items-center"
-          >
-            <Arrow_left />
-          </button>
-          <div className="w-[64px] h-[32px] font-[500] text-[14px] leading-[20px] tracking-[0%] text-gray6 flex items-center justify-center align-center">
-            {currentPage} / 3
+        {(isLoading || totalPage > 1) && (
+          <div className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto ">
+            <button
+              onClick={() => handleToPage("prev")}
+              className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex gap-[10px] justify-center items-center"
+            >
+              <Arrow_left />
+            </button>
+            <div className="w-[64px] h-[32px] font-[500] text-[14px] leading-[20px] tracking-[0%] text-gray6 flex items-center justify-center align-center">
+              {currentPage} / {totalPage}
+            </div>
+            <button
+              onClick={() => handleToPage("next")}
+              className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex gap-[10px] justify-center items-center"
+            >
+              <Arrow_right />
+            </button>
           </div>
-          <button
-            onClick={() => handleToPage("next")}
-            className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex gap-[10px] justify-center items-center"
-          >
-            <Arrow_right />
-          </button>
-        </div>
+        )}
       </div>
 
       <div

@@ -5,11 +5,20 @@ import NewsItemSkeleton from "./NewsItemSkeleton";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import NewsItem from "./newsItem";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
+import { NewsItemType } from "../../news/_types/newsItemType";
 
 const NewsComponent = () => {
   const { data, isLoading } = useGetNewsDataList();
 
-  const slicedNewsData = data?.slice(1, 4);
+  let slicedNewsData: NewsItemType[] | undefined;
+
+  if (data) {
+    if (Array.isArray(data)) {
+      slicedNewsData = data.slice(0, 3);
+    } else {
+      slicedNewsData = data.content.slice(0, 3);
+    }
+  }
 
   return (
     <div className="w-[436px] min-h-[236px] flex flex-col gap-4">
