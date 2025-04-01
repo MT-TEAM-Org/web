@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 interface GetBoardData {
@@ -51,6 +51,7 @@ const useGetBoardData = (data: GetBoardData) =>
     queryKey: ["board", "list", data],
     retry: 1,
     enabled: !!data.boardType,
+    placeholderData: keepPreviousData,
     select: (data) => ({
       content: data.data.list.content,
       pageInfo: data.data.list.pageInfo,

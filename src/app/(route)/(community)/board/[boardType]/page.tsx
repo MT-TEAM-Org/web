@@ -1,5 +1,4 @@
-"use client";
-import { Suspense, use, useEffect } from "react";
+import { use } from "react";
 
 interface BoardParams {
   boardType: string;

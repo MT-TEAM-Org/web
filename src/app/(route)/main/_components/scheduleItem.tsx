@@ -79,7 +79,7 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
           {formattedData}
         </div>
         <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] align-center text-gray5">
-          <p>2025 LCK CUP 그룹 배틀</p>
+          <p>{data?.leagueName}</p>
         </div>
       </div>
       <div className="w-full min-h-[68px] flex flex-col gap-y-[4px]">
