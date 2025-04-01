@@ -10,7 +10,6 @@ import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
 import ProfileImage from "./_components/ProfileImage";
 import { useToast } from "@/_hooks/useToast";
 import useDeleteImage from "@/_hooks/fetcher/mypage/useDeleteImage";
-import ConfirmModal from "@/app/_components/ConfirmModal";
 
 interface FormData {
   email: string;
