@@ -11,6 +11,7 @@ import ProfileImage from "./_components/ProfileImage";
 import { useToast } from "@/_hooks/useToast";
 import useDeleteImage from "@/_hooks/fetcher/mypage/useDeleteImage";
 import DeleteAccountModal from "./_components/DeleteAccountModal";
+import useDeleteAccount from "@/_hooks/fetcher/mypage/useDeleteAccount";
 
 interface FormData {
   email: string;
@@ -72,6 +73,8 @@ const EditProfile = () => {
   const { data: mypageData, isLoading } = useGetMyPageData();
   const { mutate: modifyUserInfo, isPending: modifyUserInfoIsPending } =
     useModifyUserInfo();
+  const { mutate: deleteAccount, isPending: deleteAccountIsPending } =
+    useDeleteAccount();
   const { mutate: deleteImage } = useDeleteImage();
   const [genderType, setGenderType] = useState<"M" | "W" | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -162,6 +165,7 @@ const EditProfile = () => {
 
   const handleDeleteAccount = () => {
     setShow(false);
+    deleteAccount();
   };
 
   const buttonStyle = "w-1/2 h-[40px] border-[1px] rounded-[5px]";
@@ -280,7 +284,7 @@ const EditProfile = () => {
       {show && (
         <DeleteAccountModal
           isOpen={() => setShow(true)}
-          isPending={false}
+          isPending={deleteAccountIsPending}
           onClose={() => setShow(false)}
           onConfirm={handleDeleteAccount}
         />
