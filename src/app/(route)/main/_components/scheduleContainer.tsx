@@ -59,7 +59,13 @@ const ScheduleContainer = ({
   const handleMatchClick = (index: number) => {
     setSelectedIndex(index);
     const matchId = displayedItems[index].id;
-    router.push(`/matchBroadcast/${matchType}/${matchId}`);
+
+    if (!matchType || matchType === "undefined" || matchType === "ALL") {
+      const matchCategory = displayedItems[index].category || "ESPORTS";
+      router.push(`/matchBroadcast/${matchCategory}/${matchId}`);
+    } else {
+      router.push(`/matchBroadcast/${matchType}/${matchId}`);
+    }
   };
 
   return (

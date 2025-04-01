@@ -11,14 +11,12 @@ import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import useTimeAgo from "@/utils/useTimeAgo";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
-import React, { Suspense } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import FeedbackInfoSkeleton from "./FeedbackInfoSkeleton";
 import StatusSaver from "./StatusSaver";
 import Image from "next/image";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
-import CommentBar from "@/app/_components/_gnb/_components/CommentBar";
-import EmptyComment from "@/app/(route)/(community)/gameboard/_components/EmptyComment";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import CustomerTalkToolbar from "@/app/(route)/customer/_components/CustomerTalkToolbar";
 import FeedbackItemSkeleton from "@/app/(route)/customer/_components/FeedbackItemSkeleton";
@@ -27,6 +25,9 @@ import EmptyItem from "@/app/(route)/customer/_components/EmptyItem";
 import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
 import FeedbackItem from "@/app/(route)/customer/_components/FeedbackItem";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
+import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
+import { CommentItem } from "@/_types/comment";
+import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 
 const Page = () => {
   return (
@@ -46,6 +47,10 @@ const FeedbackInfo = () => {
   const pathname = usePathname();
   const token =
     typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+  const comments = useRef(null);
+  const [parentsComment, setParentsComment] = useState<CommentItem | null>(
+    null
+  );
 
   const feedbackOption: feedbackListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
@@ -215,10 +220,13 @@ const FeedbackInfo = () => {
             />
           </div>
           <PostAction type="community" />
-          <div className="w-full max-w-[800px] flex flex-col">
-            <CommentBar />
-            <EmptyComment />
-          </div>
+          <BoardComment
+            id={id as string}
+            publicId={feedbackInfoData?.publicId}
+            ref={comments}
+            setParentsComment={setParentsComment}
+            type="IMPROVEMENT"
+          />
           <PostNavigation
             nextId={feedbackInfoData?.nextId}
             previousId={feedbackInfoData?.previousId}
@@ -266,6 +274,14 @@ const FeedbackInfo = () => {
         <SignInModalPopUp
           isOpen={isSignInModalOpen}
           onClose={() => setIsSignInModalOpen(false)}
+        />
+      </div>
+      <div className="shadow-md sticky bottom-0 z-50">
+        <SendCommentBox
+          id={id as string}
+          type="IMPROVEMENT"
+          parentsComment={parentsComment}
+          setParentsComment={setParentsComment}
         />
       </div>
     </>

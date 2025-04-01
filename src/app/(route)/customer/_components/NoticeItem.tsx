@@ -78,9 +78,10 @@ const NoticeItem = ({
                 [<span>{noticeData?.commentCount}</span>]
               </p>
             )}
-            {isNew && (
+            {(isNew || noticeData?.isHot) && (
               <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
-                <p className="text-gra">N</p>
+                {isNew && <p className="text-gra">N</p>}
+                {noticeData?.isHot && <p className="text-warning">H</p>}
               </div>
             )}
           </div>

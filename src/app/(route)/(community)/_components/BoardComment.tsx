@@ -1,20 +1,22 @@
 "use client";
 
 import useGetCommentList from "@/_hooks/fetcher/comment/useGetCommentList";
-import { CommentItem, CommentResponse } from "@/_types/comment";
+import { CommentItem, CommentResponse, CommentType } from "@/_types/comment";
 import CommentEmpty from "@/app/_components/_comment/CommentEmpty";
 import CommentMoreButton from "@/app/_components/_comment/CommentMoreButton";
 import Refresh from "@/app/_components/icon/Refresh";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BoardCommentItem from "./BoardCommentItem";
 import ToggleButton from "@/app/_components/_gnb/_components/ToggleButton";
 import useGetBestComment from "@/_hooks/fetcher/comment/useGetBestComment";
+import { useSearchParams } from "next/navigation";
 
 interface BoardCommentProps {
   ref: React.RefObject<HTMLDivElement>;
   id: string | undefined;
-  publicId: string;
+  publicId?: string;
   setParentsComment: (comment: CommentItem) => void;
+  type: CommentType;
 }
 
 const BoardComment = ({
@@ -22,25 +24,50 @@ const BoardComment = ({
   id,
   publicId,
   setParentsComment,
+  type,
 }: BoardCommentProps) => {
+  const searchParams = useSearchParams();
+  const commentId = searchParams.get("commentId") || null;
   const {
     data: commentList,
     fetchNextPage,
     hasNextPage,
     isLoading,
     refetch,
-  } = useGetCommentList(id, "BOARD");
+  } = useGetCommentList(id, type);
 
   const {
     data: bestComment,
     refetch: bestRefetch,
     isLoading: bestIsLoading,
-  } = useGetBestComment({ id, type: "BOARD" });
+  } = useGetBestComment({ id, type });
 
   const { pageInfo: bestPageInfo, content: bestContent } =
     (bestComment?.data?.content as CommentResponse) || {};
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isCommentLoaded, setIsCommentLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (commentId && !isCommentLoaded) {
+      const checkAndScrollToComment = () => {
+        const commentElement = document.getElementById(commentId);
+        if (commentElement) {
+          commentElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          setIsCommentLoaded(true);
+          return true;
+        }
+        return false;
+      };
+
+      if (!checkAndScrollToComment() && hasNextPage !== false) {
+        fetchNextPage(); // 다음 페이지 댓글 로드
+      }
+    }
+  }, [commentId, hasNextPage]);
 
   // 모든 댓글
   const allComments =
@@ -98,9 +125,10 @@ const BoardComment = ({
               <BoardCommentItem
                 key={comment.commentId}
                 comment={comment}
-                publicId={publicId}
+                publicId={type !== "NEWS" ? publicId : undefined}
                 setParentsComment={setParentsComment}
                 best
+                type={type}
               />
             ))
           : null}
@@ -111,8 +139,9 @@ const BoardComment = ({
             <BoardCommentItem
               key={comment.commentId}
               comment={comment}
-              publicId={publicId}
+              publicId={type !== "NEWS" ? publicId : undefined}
               setParentsComment={setParentsComment}
+              type={type}
             />
           ))
         )}
