@@ -50,7 +50,7 @@ const CustomerLeftSidebar = () => {
         {boardList.map((board) => (
           <Link key={board.id} href={board.path}>
             <div
-              className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
+              className={`w-full h-[52px] px-4 py-3 cursor-pointer ${
                 isCurrentPath(board.path) && !show
                   ? currentPathStyle
                   : defaultStyle
