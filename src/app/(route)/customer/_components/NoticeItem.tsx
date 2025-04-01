@@ -2,18 +2,17 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
-import { useRouter } from "next/navigation";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
   isFeedback?: boolean;
-  searchType?: string;
   searchString?: string;
+  searchType?: string;
 }
 
 const NoticeItem = ({
@@ -47,11 +46,19 @@ const NoticeItem = ({
     }
   };
 
+  const handleNoticeClick = () => {
+    if (noticeData?.commentSearchList?.commentId) {
+      router.push(
+        `/customer/notice/notice-info/${noticeData?.id}?commentId=${noticeData?.commentSearchList?.commentId}`
+      );
+    } else {
+      router.push(`/customer/notice/notice-info/${noticeData?.id}`);
+    }
+  };
+
   return (
     <div
-      onClick={() =>
-        router.push(`/customer/notice/notice-info/${noticeData?.id}`)
-      }
+      onClick={handleNoticeClick}
       className={`${
         isFeedback ? "bg-bg0" : "hover:bg-bg0"
       } w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-start justify-start cursor-pointer`}
@@ -96,29 +103,23 @@ const NoticeItem = ({
         </div>
 
         {noticeData?.commentSearchList?.comment && (
-          <Link
-            href={`/customer/notice/notice-info/${noticeData?.id}?commentId=${noticeData?.commentSearchList?.commendId}`}
-          >
-            <div className="w-[584px] flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
-              <div className="w-4 h-4">
-                <Arrow_reply size={16} />
-              </div>
-              <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em]">
-                {noticeData?.commentSearchList?.imageUrl && (
-                  <span>(이미지)</span>
-                )}
-                <p>
-                  {searchType === "COMMENT"
-                    ? highlightText(
-                        noticeData?.commentSearchList?.comment,
-                        searchType,
-                        searchString
-                      )
-                    : noticeData?.commentSearchList?.comment}
-                </p>
-              </div>
+          <div className="w-[584px] flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
+            <div className="w-4 h-4">
+              <Arrow_reply size={16} />
             </div>
-          </Link>
+            <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em]">
+              {noticeData?.commentSearchList?.imageUrl && <span>(이미지)</span>}
+              <p>
+                {searchType === "COMMENT"
+                  ? highlightText(
+                      noticeData?.commentSearchList?.comment,
+                      searchType,
+                      searchString
+                    )
+                  : noticeData?.commentSearchList?.comment}
+              </p>
+            </div>
+          </div>
         )}
       </div>
     </div>

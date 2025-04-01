@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { NoticeInfoItemType } from "@/app/(route)/customer/_types/NoticeInfoItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 import { useQueryClient } from "@tanstack/react-query";
 import usePostNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/usePostNoticeRecommend";
@@ -29,6 +29,7 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
   const [parentsComment, setParentsComment] = useState<CommentItem | null>(
     null
   );
+  const searchParams = useSearchParams();
 
   const {
     mutate: noticeAddRecommend,
@@ -36,6 +37,16 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
     setIsSignInModalOpen,
   } = usePostNoticeRecommend();
   const { mutate: noticeDeleteRecommend } = useDeleteNoticeRecommend();
+
+  useEffect(() => {
+    const commentId = searchParams.get("commentId");
+    if (commentId) {
+      const commentElement = document.getElementById(commentId);
+      if (commentElement) {
+        commentElement.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [searchParams]);
 
   const handleFeedbackCommend = () => {
     if (!data?.isRecommended) {
