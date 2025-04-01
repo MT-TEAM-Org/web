@@ -9,7 +9,7 @@ interface SingleArrowIconRightProps {
 
 const SingleArrowIconRight = ({
   width = "14",
-  height = "14px",
+  height = "14",
   viewBox = "0 0 14 14",
   d = "M4.375 13L10.375 7L4.375 1",
 }: SingleArrowIconRightProps) => {

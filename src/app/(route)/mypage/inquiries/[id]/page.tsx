@@ -82,7 +82,7 @@ const InquirieDetail = ({
               <span>IP {inquirieDetail?.clientIp}</span>
             </div>
           </div>
-          <div className="h-[1px] border"></div>
+          <div className="h-[1px] bg-gray2"></div>
           <p className="min-h-[48px] leading-[24px] text-gray7">
             {inquirieDetail?.content}
           </p>

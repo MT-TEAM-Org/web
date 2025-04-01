@@ -75,11 +75,12 @@ const Signup = ({
   const [show, setShow] = useState({
     service: false,
     personal: false,
+    sequence: 0,
   });
   const { social } = useSocialStore();
 
   useEffect(() => {
-    if (show.service || show.personal) {
+    if (show.service || show.personal || show.sequence) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -279,6 +280,13 @@ const Signup = ({
 
   const handleAllAgree = () => {
     const newValue = !selected.allAgree;
+    if (newValue && !selected.serviceAgree && !selected.personalAgree) {
+      setShow({
+        service: false,
+        personal: false,
+        sequence: 1,
+      });
+    }
     setSelected({
       allAgree: newValue,
       serviceAgree: newValue,
@@ -546,10 +554,8 @@ const Signup = ({
         </button>
         <AccountHelp signState="signup" />
       </div>
-      {(show.service || show.personal) && (
-        <Suspense fallback="">
-          <TearmsModal show={show} setShow={setShow} />
-        </Suspense>
+      {(show.service || show.personal || show.sequence) && (
+        <TearmsModal show={show} setShow={setShow} />
       )}
     </>
   );
