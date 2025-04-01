@@ -45,7 +45,7 @@ const FeedbackItem = ({
     }
   };
 
-  const handleNoticeClick = () => {
+  const handleFeedbackClick = () => {
     if (feedbackData?.improvementCommentSearchList?.commentId) {
       router.push(
         `/customer/feedback/feedback-info/${feedbackData?.id}?commentId=${feedbackData?.improvementCommentSearchList?.commentId}`
@@ -57,7 +57,7 @@ const FeedbackItem = ({
 
   return (
     <div
-      onClick={handleNoticeClick}
+      onClick={handleFeedbackClick}
       className={`w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-start justify-between cursor-pointer hover:bg-[#F8FDFF]`}
     >
       <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">

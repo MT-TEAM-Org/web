@@ -57,7 +57,7 @@ const TotalSearchItem = ({
     return categoryTypeMap[type] || type;
   };
 
-  const handleNoticeClick = () => {
+  const handleTotalSearchClick = () => {
     if (data?.boardCommentSearchList?.commentId) {
       router.push(
         `/board/${data?.boardType}/${data?.categoryType}/${data?.id}?commentId=${data?.boardCommentSearchList?.commentId}`
@@ -74,7 +74,7 @@ const TotalSearchItem = ({
 
   return (
     <div
-      onClick={handleNoticeClick}
+      onClick={handleTotalSearchClick}
       className="flex flex-col items-center w-full cursor-pointer"
     >
       <div className="flex items-start w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]">
