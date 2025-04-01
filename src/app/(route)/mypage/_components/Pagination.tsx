@@ -36,7 +36,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
   const pageNumbers = getPageNumbers();
 
   const pageButtonStyle =
-    "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
+    "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[7px]";
   const disabledStyle = "opacity-50 cursor-not-allowed";
 
   const getNavButtonClass = (isDisabled: boolean) => {
