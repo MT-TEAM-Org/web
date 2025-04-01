@@ -52,7 +52,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="w-full flex flex-col items-center">
       {postsData?.map((data: BoardListItem, index: number) => (
         <Link
           href={`/board/${boardType}/${data.categoryType}/${data.id}`}

@@ -22,21 +22,38 @@ export default function Footer() {
     "font font-medium text-[16px] leading-[24px] text-gray5";
 
   return (
-    <div className="w-full min-h-[356px] bg-black flex flex-col justify-center text-white pt-[40px]">
+    <div className="w-full h-[356px] bg-black flex flex-col justify-center text-white pt-[40px]">
       <div className="w-[1200px] min-h-[212px] gap-[24px] flex flex-col mx-auto">
         <div>
           <LogoWhite />
         </div>
         <div className="flex justify-between gap-[24px]">
-          <div className="flex flex-col justify-around gap-[24px]">
-            <p className="font-medium text-[24px] leading-[38px]">
-              열정적으로 응원하고 서로를 존중하며
-              <br />
-              <span className="font-bold text-[24px] leading-[38px]">
-                모두 함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!
-              </span>
-            </p>
-            <div className="flex gap-[24px] mb-4">
+          <div className="flex flex-col justify-around">
+            <div className="w-[1200px] flex justify-between">
+              <p className="font-medium text-[24px] leading-[38px]">
+                열정적으로 응원하고 서로를 존중하며
+                <br />
+                <span className="font-bold text-[24px] leading-[38px]">
+                  <span className="tablet:hidden">모두</span> 함께 즐기는 클린
+                  스포츠 커뮤니티, 플레이 하이브!
+                </span>
+              </p>
+              <div className="flex flex-col">
+                <p
+                  className={`${footerGrayText} font-bold text-[24px] leading-[44px] text-white`}
+                >
+                  TeamPlayHive@gmail.com
+                </p>
+                <p>AM 10:00 - PM 7:00 (주말 및 공휴일 휴무)</p>
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="w-[120px] min-h-[40px] mt-2.5 rounded-[5px] py-[13px] px-[16px] text-gray7 bg-gray3 font-bold text-[14px] leading-[14px]"
+                >
+                  문의하기
+                </button>
+              </div>
+            </div>
+            <div className="flex mb-[24px]">
               <p className={footerGrayText}>
                 서비스명 : PlayHive · 대표 : 홍길표 · 개인정보 보호책임자 :
                 홍길표
@@ -45,20 +62,6 @@ export default function Footer() {
                 글쓴이에 있으며 PlayHive의 입장과 다를 수 있습니다.
               </p>
             </div>
-          </div>
-          <div className="flex flex-col">
-            <p
-              className={`${footerGrayText} font-bold text-[24px] leading-[44px] text-white`}
-            >
-              TeamPlayHive@gmail.com
-            </p>
-            <p>AM 10:00 - PM 7:00 (주말 및 공휴일 휴무)</p>
-            <button
-              onClick={() => setShowModal(true)}
-              className="w-[120px] min-h-[40px] mt-2.5 rounded-[5px] py-[13px] px-[16px] text-gray7 bg-gray3 font-bold text-[14px] leading-[14px]"
-            >
-              문의하기
-            </button>
           </div>
         </div>
       </div>

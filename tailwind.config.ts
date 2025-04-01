@@ -24,6 +24,11 @@ export default {
         fadeOut: "fadeOut 0.5s ease-in-out 2.5s forwards",
         spin: "spin 0.5s cubic-bezier(0.42, 0, 0.58, 1)",
       },
+      screens: {
+        mobile: { max: "768px" },
+        tablet: { min: "769px", max: "1279px" },
+        pc: { min: "1280px" },
+      },
 
       colors: {
         Primary: "#1228EF",
