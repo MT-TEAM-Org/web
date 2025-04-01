@@ -1,33 +1,45 @@
 "use client";
 
-import React, { useState } from "react";
-import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import ScheduleItem from "./scheduleItem";
 import EmptyScheduleItem from "./EmptyScheduleItem";
-import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
 import { motion, AnimatePresence } from "framer-motion";
+import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
+import { useQueryClient } from "@tanstack/react-query";
 
-const ScheduleContainer = () => {
+interface ScheduleContainerProps {
+  showCategoryButtons?: boolean;
+  showAll?: boolean;
+  matchType?: string;
+}
+
+const ScheduleContainer = ({
+  showCategoryButtons = false,
+  showAll = false,
+  matchType,
+}: ScheduleContainerProps) => {
+  const router = useRouter();
   const pathname = usePathname();
-  const isGameboard = pathname === "/gameboard";
+  const isGameboard = pathname === "/matchBroadcast";
 
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(
     isGameboard ? 0 : null
   );
+  const { data: scheduleResponse, isLoading } = useGetMatchSchedule(
+    matchType || "ALL"
+  );
+  const scheduleData = scheduleResponse?.data?.list || [];
 
   const itemsPerPage = 4;
-  const category = "ALL";
-  const { data: scheduleResponse, isLoading } = useGetMatchSchedule(category);
-  const scheduleData = scheduleResponse?.data?.list || [];
+  const totalPages = Math.ceil(scheduleData.length / itemsPerPage);
 
   const displayedItems = scheduleData.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
-
-  const totalPages = Math.ceil(scheduleData.length / itemsPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -38,9 +50,42 @@ const ScheduleContainer = () => {
     setSelectedIndex(isGameboard ? 0 : null);
   };
 
+  const handleCategoryChange = (category: string) => {
+    setCurrentPage(0);
+    setSelectedIndex(isGameboard ? 0 : null);
+    router.push(`/matchBroadcast/${category}`);
+  };
+
+  const handleMatchClick = (index: number) => {
+    setSelectedIndex(index);
+    const matchId = displayedItems[index].id;
+
+    if (!matchType || matchType === "undefined" || matchType === "ALL") {
+      const matchCategory = displayedItems[index].category || "ESPORTS";
+      router.push(`/matchBroadcast/${matchCategory}/${matchId}`);
+    } else {
+      router.push(`/matchBroadcast/${matchType}/${matchId}`);
+    }
+  };
+
   return (
-    <div className="w-full h-full min-h-[126px] flex gap-3 bg-gray1 justify-center">
-      <div className="w-[1200px] h-full min-h-[126px] flex gap-6 justify-center items-center">
+    <div className="w-full h-full min-h-[126px] flex flex-col bg-gray1 justify-center items-center">
+      {showCategoryButtons && (
+        <div className="w-[1200px] h-[40px] flex mb-[12px] gap-x-[8px]">
+          {CATEGORUIES.map(({ value, name }) => (
+            <button
+              key={value}
+              onClick={() => handleCategoryChange(value)}
+              className={`${BUTTON_STYLE} ${
+                matchType === value ? "border-gray7" : ""
+              }`}
+            >
+              {name}
+            </button>
+          ))}
+        </div>
+      )}
+      <div className="w-[1200px] h-full min-h-[126px] flex gap-x-[24px] justify-center items-center">
         <div className="w-[1136px] h-auto min-h-[126px] flex justify-between items-center gap-3">
           <AnimatePresence initial={false} mode="wait">
             <motion.div
@@ -64,7 +109,7 @@ const ScheduleContainer = () => {
                     <div key={index} className="w-[275px]">
                       <ScheduleItem
                         isSelected={selectedIndex === index}
-                        onClick={() => setSelectedIndex(index)}
+                        onClick={() => handleMatchClick(index)}
                         data={item}
                       />
                     </div>
@@ -101,3 +146,24 @@ const ScheduleContainer = () => {
 };
 
 export default ScheduleContainer;
+
+const BUTTON_STYLE =
+  "w-[78px] h-[40px] rounded-[5px] border py-[13px] pb-[16px] flex items-center justify-center font-[700] text-[14px] leading-[20px] text-center";
+
+const CATEGORUIES = [
+  {
+    name: "E스포츠",
+    value: "ESPORTS",
+    style: BUTTON_STYLE,
+  },
+  {
+    name: "축구",
+    value: "FOOTBALL",
+    style: BUTTON_STYLE,
+  },
+  {
+    name: "야구",
+    value: "BASEBALL",
+    style: BUTTON_STYLE,
+  },
+];

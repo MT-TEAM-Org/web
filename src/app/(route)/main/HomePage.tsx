@@ -14,7 +14,7 @@ function HomePageContent() {
   return (
     <div className="flex flex-col gap-6">
       <div className="p-6 bg-gray1">
-        <ScheduleContainer />
+        <ScheduleContainer showAll={true} />
       </div>
 
       <div className="min-h-[704px] flex justify-center">

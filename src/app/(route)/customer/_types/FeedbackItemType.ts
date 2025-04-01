@@ -1,5 +1,5 @@
 export interface CommentSearchList {
-  commendId: number;
+  commentId: number;
   comment: string;
   imageUrl: string;
 }

@@ -110,6 +110,19 @@ const NewsInfo = ({
     }
   };
 
+  useEffect(() => {
+    const commentId = searchParams.get("commentId");
+    if (commentId) {
+      const commentElement = document.getElementById(commentId);
+      if (commentElement) {
+        commentElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+    }
+  }, [searchParams]);
+
   return (
     <>
       {isLoading ? (

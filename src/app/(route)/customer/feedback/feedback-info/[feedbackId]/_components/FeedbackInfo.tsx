@@ -11,7 +11,7 @@ import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import useTimeAgo from "@/utils/useTimeAgo";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import FeedbackInfoSkeleton from "./FeedbackInfoSkeleton";
 import StatusSaver from "./StatusSaver";
 import Image from "next/image";
@@ -84,7 +84,6 @@ const FeedbackInfo = () => {
         },
       });
     } else if (feedbackInfoData?.isRecommended) {
-      console.log("추천 삭제 요청");
       feedbackDeleteRecommend(infoId, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
@@ -92,6 +91,19 @@ const FeedbackInfo = () => {
       });
     }
   };
+
+  useEffect(() => {
+    const commentId = searchParams.get("commentId");
+    if (commentId) {
+      const commentElement = document.getElementById(commentId);
+      if (commentElement) {
+        commentElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+    }
+  }, [searchParams]);
 
   const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
 

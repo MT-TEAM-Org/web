@@ -5,7 +5,7 @@ export interface SearchListPageInfoType {
 }
 
 export interface boardCommentSearchList {
-  newsCommentId: number,
+  commentId: number,
   comment: string,
   imageUrl: string,
 }
