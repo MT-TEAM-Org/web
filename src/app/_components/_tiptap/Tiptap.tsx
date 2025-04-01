@@ -27,7 +27,7 @@ interface TiptapProps {
   initialContent?: string;
   onImageUpload: (blob: Blob) => Promise<string>;
   setValue: UseFormSetValue<FormData>;
-  onSubmit?: () => void;
+  isPending?: boolean;
 }
 
 interface FormData {
@@ -86,13 +86,13 @@ const CustomImage = Image.extend({
 });
 
 const Tiptap = ({
+  isPending,
   onChange,
   register,
   watch,
   setValue,
   initialContent,
   onImageUpload,
-  onSubmit,
 }: TiptapProps) => {
   const router = useRouter();
   const [processingImage, setProcessingImage] = useState(false);
@@ -430,10 +430,11 @@ const Tiptap = ({
           목록
         </button>
         <button
-          onClick={() => {
-            if (onSubmit) onSubmit();
-          }}
-          className="w-[120px] h-[40px] bg-[#00ADEE] text-[white] rounded-[5px]"
+          type="submit"
+          disabled={isPending}
+          className={`w-[120px] h-[40px] rounded-[5px] ${
+            isPending ? "bg-gray-500" : "bg-[#00ADEE]"
+          } text-[white]`}
         >
           {isEditMode ? "수정완료" : "작성완료"}
         </button>
