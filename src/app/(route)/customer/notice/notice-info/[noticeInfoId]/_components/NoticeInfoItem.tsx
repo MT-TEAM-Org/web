@@ -43,7 +43,10 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
     if (commentId) {
       const commentElement = document.getElementById(commentId);
       if (commentElement) {
-        commentElement.scrollIntoView({ behavior: "smooth" });
+        commentElement.scrollIntoView({
+          behavior: "smooth",
+          block: "center", // 화면의 중앙으로 스크롤
+        });
       }
     }
   }, [searchParams]);
