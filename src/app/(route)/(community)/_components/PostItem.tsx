@@ -8,6 +8,7 @@ import {
   getKoreanCategoryType,
 } from "@/utils/boardType/boardTypeKorean";
 import { numberOverThousand } from "@/utils/boardType/numberOfThousand";
+import { useEffect, useState } from "react";
 
 interface BoardListItem {
   id: number;
@@ -40,15 +41,41 @@ interface PostItemProps {
 }
 
 const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
+  const [readPosts, setReadPosts] = useState<number[]>([]);
+
   const postsData = boardData?.content;
 
-  const maskIP = (ip: string) => {
-    if (!ip) return "";
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const storedReadPosts = localStorage.getItem("readPosts");
+        if (storedReadPosts) {
+          setReadPosts(JSON.parse(storedReadPosts));
+        }
+      } catch (error) {
+        console.error("LocalStorage parsing error:", error);
+      }
+    }
+  }, []);
 
-    const parts = ip.split(".");
-    if (parts.length !== 4) return ip;
+  const isPostRead = (postId: number) => {
+    return readPosts.includes(postId);
+  };
 
-    return `${parts[0]}.${parts[1]}.**.**`;
+  const handlePostClick = (postId: number) => {
+    if (!isPostRead(postId)) {
+      const updatedReadPosts = [...readPosts, postId];
+      setReadPosts(updatedReadPosts);
+
+      try {
+        localStorage.setItem("readPosts", JSON.stringify(updatedReadPosts));
+      } catch (error) {
+        console.error(
+          "로컬 스토리지에 읽은 게시물을 저장하는 중 오류 발생:",
+          error
+        );
+      }
+    }
   };
 
   return (
@@ -57,7 +84,8 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
         <Link
           href={`/board/${boardType}/${data.categoryType}/${data.id}`}
           key={`${data.id}-${index}`}
-          className="flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]"
+          onClick={() => handlePostClick(data.id)}
+          className={`flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]`}
         >
           <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1">
             <span>{numberOverThousand(data?.id)}</span>
@@ -72,7 +100,11 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
           />
           <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
             <div className="flex items-center gap-[2px]">
-              <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap overflow-ellipsis">
+              <h2
+                className={`text-[14px] leading-[20px] overflow-hidden whitespace-nowrap overflow-ellipsis ${
+                  isPostRead(data?.id) ? "text-gray5" : "text-gray7"
+                }`}
+              >
                 {data?.title}
               </h2>
               <p className="text-Primary font-medium text-[12px] leading-[18px]">
@@ -99,7 +131,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
                 {data?.nickname}
               </span>
               <span className="font-medium text-[12px] leading-[18px] text-gray5">
-                IP {maskIP(data?.createdIp)}
+                IP {data?.createdIp}
               </span>
             </div>
           </div>
