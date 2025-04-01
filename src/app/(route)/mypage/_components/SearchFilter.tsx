@@ -28,6 +28,7 @@ const SearchFilter = ({
   const selectRef = useRef<HTMLSelectElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [hasValue, setHasValue] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleInput = () => setHasValue(!!inputRef.current?.value);
 
@@ -88,20 +89,27 @@ const SearchFilter = ({
           <Arrow_down />
         </div>
       </div>
-      <form className="relative" onSubmit={onSubmit}>
+      <form
+        onSubmit={onSubmit}
+        className={`flex items-center gap-[8px] w-[228px] h-[40px] rounded-[5px] border-[1px] px-[12px] border-gray3 ${
+          isFocused && "border-gray7"
+        }`}
+      >
+        <button className="flex justify-center items-center">
+          <Small_Search />
+        </button>
         <input
           type="text"
-          className="w-[228px] h-[40px] rounded-[5px] border pl-[44px] pr-[40px] py-[6px] text-[14px] leading-[22px] placeholder-[#CBCBCB]"
+          className="w-[144px] text-[14px] leading-[22px] placeholder-[#CBCBCB] focus:outline-none focus:border-none"
           placeholder="검색어를 입력해주세요."
           ref={inputRef}
           onInput={handleInput}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
-        <button className="absolute inset-y-0 flex justify-center items-center left-[12px]">
-          <Small_Search />
-        </button>
         {hasValue && (
           <button
-            className="absolute inset-y-0 flex justify-center items-center right-[12px]"
+            className="flex justify-center items-center"
             type="button"
             onClick={clearInput}
           >
