@@ -122,10 +122,15 @@ const SendCommentBox = ({
       {
         onSuccess: () => {
           if (parentsComment) setParentsComment(null);
-          console.log(["commentList", type, id]);
+          if (type === "INQUIRY") {
+            queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
+          } else if (type === "BOARD") {
+            queryClient.invalidateQueries({ queryKey: ["board", "list"] });
+          }
           queryClient.invalidateQueries({
             queryKey: ["commentList", type, id],
           });
+          queryClient.invalidateQueries({ queryKey: ["myCommentList"] });
           queryClient.invalidateQueries({
             queryKey: ["bestComment", { id, type }],
           });
