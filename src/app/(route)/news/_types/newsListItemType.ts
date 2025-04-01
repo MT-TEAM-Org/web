@@ -17,6 +17,16 @@ export interface NewsListType {
   recommendCount?: number;
   hot?: string;
   newsCommentSearchDto?: NewsCommentSearchList
+
+  boardType?: string,
+  categoryType?: string,
+  createdAt?: string,
+  createdIp?: string,
+  nickname?: string,
+  publicId?: string,
+  thumbnail?: string,
+  updatedAt?: string,
+  commentSearchList?: NewsCommentSearchList,
 }
 
 export interface NewsListPageInfoType {
