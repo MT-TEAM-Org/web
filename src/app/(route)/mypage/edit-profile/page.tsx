@@ -10,6 +10,7 @@ import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
 import ProfileImage from "./_components/ProfileImage";
 import { useToast } from "@/_hooks/useToast";
 import useDeleteImage from "@/_hooks/fetcher/mypage/useDeleteImage";
+import DeleteAccountModal from "./_components/DeleteAccountModal";
 
 interface FormData {
   email: string;
@@ -74,6 +75,7 @@ const EditProfile = () => {
   const { mutate: deleteImage } = useDeleteImage();
   const [genderType, setGenderType] = useState<"M" | "W" | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [show, setShow] = useState(false);
   const {
     register,
     handleSubmit,
@@ -156,6 +158,10 @@ const EditProfile = () => {
         queryClient.invalidateQueries({ queryKey: ["authCheck"] });
       },
     });
+  };
+
+  const handleDeleteAccount = () => {
+    setShow(false);
   };
 
   const buttonStyle = "w-1/2 h-[40px] border-[1px] rounded-[5px]";
@@ -253,6 +259,7 @@ const EditProfile = () => {
               <button
                 type="button"
                 className="text-[14px] leading-[18px] underline text-[#000000]"
+                onClick={() => setShow(true)}
               >
                 회원탈퇴
               </button>
@@ -270,6 +277,14 @@ const EditProfile = () => {
           </form>
         )}
       </div>
+      {show && (
+        <DeleteAccountModal
+          isOpen={() => setShow(true)}
+          isPending={false}
+          onClose={() => setShow(false)}
+          onConfirm={handleDeleteAccount}
+        />
+      )}
     </div>
   );
 };
