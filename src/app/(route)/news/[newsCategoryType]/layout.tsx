@@ -2,6 +2,7 @@ import React from "react";
 
 import NewsLeftSidebar from "../_components/NewsLeftSidebar";
 import { RightSideBar } from "../../(community)/_components/RightSideBar";
+import { cn } from "@/utils";
 
 export const metadata = {
   title: "뉴스 페이지",
@@ -17,7 +18,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </h5>
       </div>
 
-      <div className="max-w-[1200px] mx-auto flex gap-4">
+      <div
+        className={cn(
+          "max-w-[1200px] mx-auto flex gap-4",
+          "tablet:flex tablet:flex-col"
+        )}
+      >
         <div className="w-[160px] min-h-[260px] rounded-[5px]">
           <div className="sticky top-0">
             <NewsLeftSidebar />

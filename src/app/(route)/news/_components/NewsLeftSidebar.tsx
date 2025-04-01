@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -51,11 +52,14 @@ const LeftSidebar = () => {
       {boardList.map((board) => (
         <Link href={board.path} key={board.id}>
           <div
-            className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
-              isCurrentPath(board.category)
-                ? "font-[700] text-gra bg-bg0"
-                : "font-[400] text-gray7 bg-white"
-            }`}
+            className={cn(
+              `w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
+                isCurrentPath(board.category)
+                  ? "font-[700] text-gra bg-bg0"
+                  : "font-[400] text-gray7 bg-white"
+              }`,
+              "tablet:flex tablet:w-full"
+            )}
           >
             <p>{board.name}</p>
           </div>
