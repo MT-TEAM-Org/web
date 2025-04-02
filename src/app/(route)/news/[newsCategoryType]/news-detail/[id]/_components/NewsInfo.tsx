@@ -22,6 +22,7 @@ import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import NewsPostItem from "@/app/(route)/news/_components/NewsPostItem";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import EmptyItem from "@/app/(route)/customer/_components/EmptyItem";
+import { cn } from "@/utils";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -128,7 +129,12 @@ const NewsInfo = ({
       {isLoading ? (
         <NewsInfoSkeleton />
       ) : (
-        <div className="flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-white shadow-sm mb-2">
+        <div
+          className={cn(
+            "flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-white shadow-sm mb-2",
+            "mobile:w-[360px]"
+          )}
+        >
           <div className="w-full h-auto flex flex-col gap-2">
             <h1 className="w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-gray8">
               {newsInfoData?.title}
@@ -176,7 +182,9 @@ const NewsInfo = ({
             isRecommend={newsInfoData?.recommend}
           />
 
-          <PostAction type="news" source={newsInfoData?.source} />
+          <div className={cn("mobile:hidden")}>
+            <PostAction type="news" source={newsInfoData?.source} />
+          </div>
           <CommentSection newsInfoData={newsInfoData} />
         </div>
       )}

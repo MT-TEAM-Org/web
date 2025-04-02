@@ -11,6 +11,7 @@ import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { LogoWhite } from "@/app/_components/icon/LogoWhite";
 import { useRouter } from "next/navigation";
+import { cn } from "@/utils";
 
 interface NewsPostItemProps {
   newsItem: NewsListType;
@@ -99,23 +100,44 @@ const NewsPostItem = ({
   return (
     <div
       onClick={handleToInfo}
-      className={`min-w-[720px] ${getMinHeightClass()} flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`}
+      className={cn(
+        `min-w-[720px] mobile:min-w-0 ${getMinHeightClass()} flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`,
+        "mobile:w-[360px]"
+      )}
     >
-      <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
+      <div
+        className={cn(
+          "w-[160px] h-[92px] rounded-[3.83px] relative",
+          "mobile:w-[80px] mobile:h-[80px]"
+        )}
+      >
         {newsItem?.thumbImg ? (
           <Image
             src={updatedImgUrl}
             alt="Thumbnail"
             width={60}
             height={92}
-            className="w-full h-full object-cover rounded-[5px] gap-[10px]"
+            className={cn(
+              "w-full h-full object-cover rounded-[5px] gap-[10px]",
+              "mobile:w-[80px] mobile:h-[80px]"
+            )}
           />
         ) : (
           <LogoWhite />
         )}
       </div>
-      <div className="w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1">
-        <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start">
+      <div
+        className={cn(
+          "w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1",
+          "mobile:w-[236px] mobile:h-[82px]"
+        )}
+      >
+        <div
+          className={cn(
+            "w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start",
+            "mobile:w-full"
+          )}
+        >
           <h1 className={styles.title}>
             {searchType === "TITLE" || searchType === "TITLE_CONTENT"
               ? highlightText(newsItem?.title, searchType, searchString)
@@ -135,7 +157,7 @@ const NewsPostItem = ({
         </div>
 
         <div>
-          <p className={styles.content}>
+          <p className={cn(styles.content, "mobile:w-full")}>
             {searchType === "CONTENT" || searchType === "TITLE_CONTENT"
               ? highlightText(newsItem?.content, searchType, searchString)
               : newsItem?.content}

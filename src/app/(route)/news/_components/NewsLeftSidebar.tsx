@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -47,15 +48,25 @@ const LeftSidebar = () => {
   };
 
   return (
-    <div className="w-full bg-white">
+    <div
+      className={cn(
+        "w-full bg-white",
+        "tablet:flex",
+        "mobile:flex mobile:w-[360px]"
+      )}
+    >
       {boardList.map((board) => (
         <Link href={board.path} key={board.id}>
           <div
-            className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
-              isCurrentPath(board.category)
-                ? "font-[700] text-gra bg-bg0"
-                : "font-[400] text-gray7 bg-white"
-            }`}
+            className={cn(
+              `w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
+                isCurrentPath(board.category)
+                  ? "font-[700] text-gra bg-bg0 mobile:border-gray7 mobile:text-gray7 mobile:bg-transparent"
+                  : "font-[400] text-gray7 bg-white mobile:text-gray5"
+              }`,
+              "tablet:flex tablet:w-[144px] tablet:justify-center tablet:items-center tablet:text-center",
+              "mobile:flex mobile:w-[72px] mobile:min-w-full mobile:h-[48px] mobile:justify-center mobile:items-center mobile:text-center mobile:font-medium mobile:text-[14px] mobile:leading-5 mobile:border-b-2"
+            )}
           >
             <p>{board.name}</p>
           </div>

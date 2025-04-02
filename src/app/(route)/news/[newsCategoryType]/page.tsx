@@ -10,6 +10,7 @@ import { newsListConfig } from "../_types/newsListConfig";
 import { NewsItemType } from "../_types/newsItemType";
 import { useRouter } from "next/navigation";
 import EmptyItem from "../../customer/_components/EmptyItem";
+import { cn } from "@/utils";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -69,7 +70,7 @@ export default function NewsPage() {
         <div className="sticky top-0 z-10">
           <NewsTalkToolbar newsType={category} pageInfo={newsData?.pageInfo} />
         </div>
-        <div className="w-[720px]">
+        <div className={cn("w-[720px]", "mobile: w-full")}>
           {isLoading ? (
             Array(10)
               .fill(0)
