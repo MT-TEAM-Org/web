@@ -20,7 +20,7 @@ const OrderButtons = ({ orderType, onOrderType }: OrderButtonsProps) => {
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
   return (
-    <div className="flex w-full items-center gap-[4px]">
+    <div className="flex w-full items-center gap-[8px]">
       {ORDER_OPTION.map((option) => (
         <button
           key={option.value}
