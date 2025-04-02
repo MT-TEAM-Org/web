@@ -58,6 +58,7 @@ const GuestModalPopup = ({ show, setShow }: GuestModalPopupProps) => {
             <input
               type="email"
               placeholder="이메일을 입력해주세요."
+              autoFocus
               className="w-full rounded-[5px] min-h-[46px] border px-4 py-3 border-gray3 bg-white"
               {...register("email", {
                 required: "이메일을 입력해주세요",

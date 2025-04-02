@@ -71,6 +71,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
             id="modalTextarea"
             placeholder="문의 내용을 입력해주세요."
             className="resize-none w-full rounded-[5px] min-h-[200px] border px-[12px] py-[16px]"
+            autoFocus
             style={{ overflow: "hidden", overflowY: "auto" }}
             {...register("content", {
               required: "`5자 이상 입력해주세요`",
