@@ -14,13 +14,13 @@ const RecommendButton = ({
   isRecommend,
 }: RecommendButtonProps) => {
   const recommendButtonBaseStyle =
-    "h-[40px] rounded-[5px] border px-[13px] py-4 flex gap-1 bg-white items-center justify-center text-[14px] font-bold";
+    "h-[40px] rounded-[5px] border px-[13px] py-4 flex gap-1 bg-white items-center justify-center text-[14px] font-bold mobile:w-full";
 
   return (
     <div
       className={cn(
         "w-full h-auto flex justify-center gap-2",
-        "mobile:w-[328px]"
+        "mobile:max-w-[328px]"
       )}
     >
       <button
