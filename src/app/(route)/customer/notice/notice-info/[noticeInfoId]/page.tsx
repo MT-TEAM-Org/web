@@ -33,7 +33,7 @@ export async function generateMetadata({
       openGraph: {
         title: "공지사항 상세 페이지",
         description: "공지사항 정보를 불러오는 중 오류가 발생했습니다.",
-        images: [{ url: "/Empty_news.png" }],
+        images: [{ url: "/Metadata.png" }],
       },
       keywords: ["플레이하이브", "공지사항"],
     };

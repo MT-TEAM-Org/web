@@ -40,11 +40,11 @@ const OrderDateButton = () => {
   };
 
   const baseButtonStyle =
-    "min-w-[57px] h-[40px] flex items-center justify-center rounded-[5px] px-[16px] py-[13px] text-[14px]";
+    "min-w-[57px] h-[40px] flex items-center justify-center rounded-[5px] px-4 py-[13px] text-[14px]";
   const activeButtonStyle =
-    "bg-gra text-white font-bold leading-5 tracking-[-0.02em]";
+    "bg-gra text-white font-[700] leading-5 tracking-[-0.02em]";
   const disableButtonStyle =
-    "bg-white text-gray7 leading-5 border border-gray3 font-medium";
+    "bg-white text-gray7 font-medium leading-5 border border-gray3";
 
   return (
     <div className="min-w-[317px] min-h-[40px] flex gap-2 items-center justify-center">

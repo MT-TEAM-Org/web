@@ -5,6 +5,18 @@ import { RightSideBar } from "../../(community)/_components/RightSideBar";
 export const metadata = {
   title: "PlayHive 전체검색",
   description: "PlayHive에서 뉴스와 콘텐츠를 검색해보세요.",
+  openGraph: {
+    title: "PlayHive 전체검색",
+    description: "PlayHive에서 뉴스와 콘텐츠를 검색해보세요.",
+    images: [
+      {
+        url: "/Metadata.png",
+        width: 1200,
+        height: 630,
+        alt: "PlayHive 이미지",
+      },
+    ],
+  },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
