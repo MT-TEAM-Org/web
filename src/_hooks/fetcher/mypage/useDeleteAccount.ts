@@ -1,25 +1,25 @@
 "use client";
 
-import logout from "@/services/mypage/logout";
+import deleteAccount from "@/services/mypage/deleteAccount";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/_hooks/useToast";
 import { useRouter } from "next/navigation";
 
-const useLogout = () => {
+const useDeleteAccount = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const { success } = useToast();
 
   return useMutation({
-    mutationFn: logout,
+    mutationFn: () => deleteAccount(),
     onSuccess: () => {
+      success("회원탈퇴가 완료되었습니다.", "이용해주셔서 감사합니다.");
       localStorage.removeItem("accessToken");
       queryClient.invalidateQueries({ queryKey: ["authCheck"] });
-      queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
-      queryClient.invalidateQueries({ queryKey: ["myPostList"] });
-      queryClient.invalidateQueries({ queryKey: ["myCommentList"] });
       router.push("/");
     },
   });
 };
 
-export default useLogout;
+export default useDeleteAccount;

@@ -3,7 +3,8 @@ import { useMutation } from "@tanstack/react-query";
 
 interface PostInquiryData {
   content: string;
-  memberPublicId: string;
+  memberPublicId?: string;
+  email?: string;
 }
 
 const fetchPostInquiry = async (data: PostInquiryData) => {

@@ -5,8 +5,20 @@ import { RightSideBar } from "../../(community)/_components/RightSideBar";
 import { cn } from "@/utils";
 
 export const metadata = {
-  title: "뉴스 페이지",
-  description: "뉴스 페이지입니다.",
+  title: "PlayHive 뉴스 페이지",
+  description: "PlayHive 뉴스 페이지입니다.",
+  openGraph: {
+    title: "PlayHive 뉴스 페이지",
+    description: "PlayHive 뉴스 페이지입니다.",
+    images: [
+      {
+        url: "/Metadata.png",
+        width: 1200,
+        height: 630,
+        alt: "PlayHive 이미지",
+      },
+    ],
+  },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

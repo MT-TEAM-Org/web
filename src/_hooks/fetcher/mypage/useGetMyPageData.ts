@@ -6,8 +6,6 @@ const useGetMyPageData = () => {
     queryKey: ["mypage"],
     queryFn: getMyPageData,
     retry: false,
-    staleTime: 1000 * 60 * 60,
-    gcTime: 1000 * 60 * 60 * 2,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   });

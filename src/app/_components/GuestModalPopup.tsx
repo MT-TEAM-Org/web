@@ -2,6 +2,8 @@ import { ErrorMessage } from "@hookform/error-message";
 import React from "react";
 import { createPortal } from "react-dom";
 import { useForm } from "react-hook-form";
+import usePostInquiry from "@/_hooks/usePostInquiry";
+import { useToast } from "@/_hooks/useToast";
 
 interface GuestModalPopupProps {
   show: boolean;
@@ -14,14 +16,25 @@ interface InquiryData {
 }
 
 const GuestModalPopup = ({ show, setShow }: GuestModalPopupProps) => {
+  const { success } = useToast();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<InquiryData>();
+  const { mutate: postInquiry } = usePostInquiry();
 
   const onSubmit = (data: InquiryData) => {
-    console.log("문의 내용:", data);
+    postInquiry(data, {
+      onSuccess: () => {
+        success(
+          "문의가 접수되었습니다.",
+          "답변은 적어주신 이메일로 드리겠습니다."
+        );
+        reset();
+      },
+    });
     setShow(false);
   };
 
@@ -56,8 +69,9 @@ const GuestModalPopup = ({ show, setShow }: GuestModalPopupProps) => {
               </span>
             </div>
             <input
-              type="email"
+              type="text"
               placeholder="이메일을 입력해주세요."
+              autoFocus
               className="w-full rounded-[5px] min-h-[46px] border px-4 py-3 border-gray3 bg-white"
               {...register("email", {
                 required: "이메일을 입력해주세요",
