@@ -53,7 +53,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           className={cn(
             "w-[160px] min-h-[260px] rounded-[5px]",
             "tablet:min-h-0",
-            "mobile:min-h-0"
+            "mobile:min-h-0 mobile:w-full mobile:flex-grow mobile:min-w-0"
           )}
         >
           <div className="sticky top-0">

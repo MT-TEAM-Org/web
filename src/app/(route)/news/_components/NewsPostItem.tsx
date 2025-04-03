@@ -102,7 +102,7 @@ const NewsPostItem = ({
       onClick={handleToInfo}
       className={cn(
         `min-w-[720px] mobile:min-w-0 ${getMinHeightClass()} flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`,
-        "mobile:w-[360px]"
+        "mobile:max-w-[768px] mobile:w-auto"
       )}
     >
       <div
@@ -129,7 +129,7 @@ const NewsPostItem = ({
       <div
         className={cn(
           "w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1",
-          "mobile:w-[236px] mobile:h-[82px]"
+          "mobile:flex-[1_1_360px]"
         )}
       >
         <div

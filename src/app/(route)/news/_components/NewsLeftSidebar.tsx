@@ -52,7 +52,7 @@ const LeftSidebar = () => {
       className={cn(
         "w-full bg-white",
         "tablet:flex",
-        "mobile:flex mobile:w-[360px]"
+        "mobile:flex mobile:w-full"
       )}
     >
       {boardList.map((board) => (
@@ -65,10 +65,10 @@ const LeftSidebar = () => {
                   : "font-[400] text-gray7 bg-white mobile:text-gray5"
               }`,
               "tablet:flex tablet:w-[144px] tablet:justify-center tablet:items-center tablet:text-center",
-              "mobile:flex mobile:w-[72px] mobile:min-w-full mobile:h-[48px] mobile:justify-center mobile:items-center mobile:text-center mobile:font-medium mobile:text-[14px] mobile:leading-5 mobile:border-b-2"
+              "mobile:flex mobile:flex-grow mobile:min-w-[128px] mobile:h-[48px] mobile:justify-center mobile:items-center mobile:text-center mobile:font-medium mobile:text-[14px] mobile:leading-5 mobile:border-b-2"
             )}
           >
-            <p>{board.name}</p>
+            <p className="whitespace-nowrap">{board.name}</p>
           </div>
         </Link>
       ))}

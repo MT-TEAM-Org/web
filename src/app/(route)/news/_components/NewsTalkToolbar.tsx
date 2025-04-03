@@ -75,7 +75,7 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
   };
 
   return (
-    <div className="rounded-[5px] bg-white">
+    <div className={cn("rounded-[5px] bg-white", "mobile:w-full")}>
       <div
         className={cn(
           "w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white",
@@ -92,8 +92,18 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
           />
         </div>
       </div>
-      <div className="flex justify-between items-center p-[12px]">
-        <div className="flex w-full items-center gap-[4px]">
+      <div
+        className={cn(
+          "flex justify-between items-center p-[12px]",
+          "mobile:w-auto"
+        )}
+      >
+        <div
+          className={cn(
+            "flex w-full items-center gap-[4px]",
+            "mobile:items-center mobile:justify-center"
+          )}
+        >
           <OrderButtons
             orderType={paramsConfig.orderType as newsListConfig["orderType"]}
             onOrderType={handleOrderButtonClick}
