@@ -9,6 +9,8 @@ import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
+import { LogoWhite } from "@/app/_components/icon/LogoWhite";
+import { useRouter } from "next/navigation";
 
 interface NewsPostItemProps {
   newsItem: NewsListType;
@@ -25,6 +27,7 @@ const NewsPostItem = ({
   const { isRead, handleRead } = useReadNews(newsItem?.id);
   const [isNew, setIsNew] = useState(false);
   const date = useTimeAgo(newsItem?.postDate);
+  const router = useRouter();
 
   const categoryToPath = {
     esports: "esports",
@@ -43,22 +46,25 @@ const NewsPostItem = ({
 
   const styles = {
     title: isRead
-      ? "font-bold text-[16px] leading-6 tracking-[-2%] text-gray5 text-ellipsis overflow-hidden whitespace-nowrap"
-      : "font-bold text-[16px] leading-6 tracking-[-2%] text-gray9 text-ellipsis overflow-hidden whitespace-nowrap",
+      ? "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray5 text-ellipsis overflow-hidden whitespace-nowrap"
+      : "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray9 text-ellipsis overflow-hidden whitespace-nowrap",
     content: isRead
       ? "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray5 overflow-hidden line-clamp-2"
       : "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray7 overflow-hidden line-clamp-2",
     text: isRead
       ? "font-medium text-[12px] text-gray5 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap"
       : "font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap",
-    info: "font-medium text-[12px] leading-[18px] letter-[-2%] text-gray5",
-    category: "font-bold text-[12px] leading-[18px] letter-[-2%] text-gray5",
+    info: "font-medium text-[12px] leading-[18px] letter-[-0.02em] text-gray5",
+    category:
+      "font-bold text-[12px] leading-[18px] letter-[-0.02em] text-gray5",
   };
 
   const getMinHeightClass = () => {
     if (
       newsItem?.newsCommentSearchDto?.imageUrl ||
-      newsItem?.newsCommentSearchDto?.comment
+      newsItem?.newsCommentSearchDto?.comment ||
+      newsItem?.commentSearchList?.imageUrl ||
+      newsItem?.commentSearchList?.comment
     ) {
       return "h-[136px]";
     } else {
@@ -66,91 +72,101 @@ const NewsPostItem = ({
     }
   };
 
-  return (
-    <Link
-      href={`/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
-        newsItem?.id
-      }`}
-    >
-      <div
-        onClick={handleRead}
-        className={`min-w-[720px] ${getMinHeightClass()} flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`}
-      >
-        <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
-          <Image
-            src={updatedImgUrl || "/Empty_news.png"}
-            alt="thumbImg"
-            width={newsItem?.thumbImg ? 160 : 94.39}
-            height={newsItem?.thumbImg ? 92 : 26}
-            className={
-              newsItem?.thumbImg
-                ? "w-full h-full object-cover rounded-[5px] gap-[10px]"
-                : "absolute top-[33.5px] left-[33.05px] gap-[3.24px] rounded-[3.83px]"
-            }
-          />
-        </div>
-        <div className="w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1">
-          <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start">
-            <h1 className={styles.title}>
-              {searchType === "TITLE" || searchType === "TITLE_CONTENT"
-                ? highlightText(newsItem?.title, searchType, searchString)
-                : newsItem?.title}
-            </h1>
-            {newsItem?.commentCount > 0 && (
-              <p className="font-medium text-[14px] leading-5 text-gra flex">
-                [{newsItem?.commentCount}]
-              </p>
-            )}
-            {(isNew || newsItem?.isHot) && (
-              <div className="font-black text-[10px] leading-[18px] align-center">
-                {isNew && <p className="text-gra">N</p>}
-                {newsItem?.isHot && <p className="text-warning">H</p>}
-              </div>
-            )}
-          </div>
+  const handleToInfo = () => {
+    handleRead();
+    if (newsItem?.newsCommentSearchDto?.newsCommentId) {
+      router.push(
+        `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
+          newsItem?.id
+        }?commentId=${newsItem?.newsCommentSearchDto?.newsCommentId}`
+      );
+    } else {
+      router.push(
+        `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
+          newsItem?.id
+        }`
+      );
+    }
+  };
 
-          <div>
-            <p className={styles.content}>
-              {searchType === "CONTENT" || searchType === "TITLE_CONTENT"
-                ? highlightText(newsItem?.content, searchType, searchString)
-                : newsItem?.content}
+  const newsComment =
+    newsItem?.newsCommentSearchDto?.comment ||
+    newsItem?.commentSearchList?.comment;
+  const newsCommentImage =
+    newsItem?.newsCommentSearchDto?.imageUrl ||
+    newsItem?.commentSearchList?.imageUrl;
+
+  return (
+    <div
+      onClick={handleToInfo}
+      className={`min-w-[720px] ${getMinHeightClass()} flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`}
+    >
+      <div className="w-[160px] h-[92px] rounded-[3.83px] relative">
+        {newsItem?.thumbImg ? (
+          <Image
+            src={updatedImgUrl}
+            alt="Thumbnail"
+            width={60}
+            height={92}
+            className="w-full h-full object-cover rounded-[5px] gap-[10px]"
+          />
+        ) : (
+          <LogoWhite />
+        )}
+      </div>
+      <div className="w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1">
+        <div className="w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start">
+          <h1 className={styles.title}>
+            {searchType === "TITLE" || searchType === "TITLE_CONTENT"
+              ? highlightText(newsItem?.title, searchType, searchString)
+              : newsItem?.title}
+          </h1>
+          {newsItem?.commentCount > 0 && (
+            <p className="font-medium text-[14px] leading-5 text-gra flex">
+              [{newsItem?.commentCount}]
             </p>
-          </div>
-          <div className="flex gap-1">
-            <p className={styles.category}>
-              <ChangedCategory category={newsItem?.category} />
-            </p>
-            <p className={styles.info}>{useTimeAgo(newsItem?.postDate)}</p>
-            <p className={styles.info}>네이버 스포츠</p>
-          </div>
-          {newsItem?.newsCommentSearchDto?.comment && (
-            <div className="w-full flex items-start justify-start gap-1">
-              <div className="w-[16px] h-[16px] flex-shrink-0">
-                <Arrow_reply size={16} />
-              </div>
-              <div
-                className={`${styles.text} min-w-0 flex gap-[2px] items-center justify-start`}
-              >
-                {newsItem?.newsCommentSearchDto?.imageUrl && (
-                  <span>(이미지)</span>
-                )}
-                {newsItem?.newsCommentSearchDto?.comment && (
-                  <p>
-                    {searchType === "COMMENT"
-                      ? highlightText(
-                          newsItem?.newsCommentSearchDto?.comment,
-                          searchType,
-                          searchString
-                        )
-                      : newsItem?.newsCommentSearchDto?.comment}
-                  </p>
-                )}
-              </div>
+          )}
+          {(isNew || newsItem?.hot) && (
+            <div className="font-black text-[10px] leading-[18px] align-center">
+              {isNew && <p className="text-gra">N</p>}
+              {newsItem?.hot && <p className="text-warning">H</p>}
             </div>
           )}
         </div>
+
+        <div>
+          <p className={styles.content}>
+            {searchType === "CONTENT" || searchType === "TITLE_CONTENT"
+              ? highlightText(newsItem?.content, searchType, searchString)
+              : newsItem?.content}
+          </p>
+        </div>
+        <div className="flex gap-1">
+          <p className={styles.category}>
+            <ChangedCategory category={newsItem?.category} />
+          </p>
+          <p className={styles.info}>{useTimeAgo(newsItem?.postDate)}</p>
+          <p className={styles.info}>네이버 스포츠</p>
+        </div>
+        {newsComment && (
+          <div className="w-full flex items-start justify-start gap-1">
+            <div className="w-[16px] h-[16px] flex-shrink-0">
+              <Arrow_reply size={16} />
+            </div>
+            <div
+              className={`${styles.text} min-w-0 flex gap-[2px] items-center justify-start`}
+            >
+              {newsCommentImage && <span>(이미지)</span>}
+              <p>
+                {searchType === "COMMENT"
+                  ? highlightText(newsComment, searchType, searchString)
+                  : newsComment}
+              </p>
+            </div>
+          </div>
+        )}
       </div>
-    </Link>
+    </div>
   );
 };
 

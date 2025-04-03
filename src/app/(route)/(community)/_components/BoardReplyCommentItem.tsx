@@ -78,7 +78,10 @@ const BoardReplyCommentItem = ({
     reply?.recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
   return (
     <>
-      <div className="flex gap-[12px] min-h-[112px] p-[12px] bg-gray1">
+      <div
+        id={reply?.commentId.toString()}
+        className="flex gap-[12px] min-h-[112px] p-[12px] bg-gray1"
+      >
         <Arrow_reply size={18} />
         <div className="flex flex-col gap-[8px] flex-grow">
           <div className="flex flex-col gap-[12px] min-h-[52px]">

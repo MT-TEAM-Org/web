@@ -4,7 +4,19 @@ import RightSidebarWrapper from "./_components/RightSidebarWrapper";
 
 export const metadata = {
   title: "PlayHive 고객센터 페이지",
-  description: "고객센터 페이지입니다.",
+  description: "PlayHive 고객센터 페이지입니다.",
+  openGraph: {
+    title: "PlayHive 고객센터 페이지",
+    description: "PlayHive 고객센터 페이지입니다.",
+    images: [
+      {
+        url: "/Metadata.png",
+        width: 1200,
+        height: 630,
+        alt: "PlayHive 이미지",
+      },
+    ],
+  },
 };
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

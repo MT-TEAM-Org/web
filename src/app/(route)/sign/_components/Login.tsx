@@ -107,6 +107,7 @@ const Login = ({
           <input
             {...register(input.id, { required: input.validation })}
             type={input.type}
+            autoFocus={input.id === "username"}
             className={
               isPending
                 ? isDisabledInputStyle

@@ -1,8 +1,11 @@
+"use client";
+
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { CommunityData } from "@/app/_constants/categories";
 import { useToast } from "./useToast";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 const postCommunitycontent = async (data: CommunityData) => {
   const response = await axios.post(
@@ -21,9 +24,11 @@ const postCommunitycontent = async (data: CommunityData) => {
 const usePostCommunityContent = () => {
   const router = useRouter();
   const toast = useToast();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: CommunityData) => postCommunitycontent(data),
     onSuccess: (response) => {
+      queryClient.invalidateQueries({ queryKey: ["myPostList"] });
       toast.success("게시글 등록 성공", " 게시글 등록이 완료되었습니다.");
       const boardType = response?.data?.boardType.toLowerCase();
       const categoryType = response?.data?.categoryType;

@@ -1,14 +1,37 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Search } from "../icon/Search";
 import Link from "next/link";
 import { NAVBARS } from "@/app/_constants/navigation";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const [isValue, setIsValue] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
 
-  const isCurrentPath = (path: string) => {
+  useEffect(() => {
+    if (isSearching) {
+      setIsValue("");
+      setIsSearching(false);
+    }
+  }, [pathname, isSearching]);
+
+  const handleToSearch = () => {
+    const trimmedValue = isValue.trim();
+    if (!trimmedValue) return;
+
+    const searchPath = `/total-search/board?search=${encodeURIComponent(
+      trimmedValue
+    )}`;
+
+    setIsSearching(true);
+    router.push(searchPath);
+  };
+
+  const isCurrentPath = (path) => {
     const fullPath = path.startsWith("/") ? path : `/${path}`;
     return pathname === fullPath;
   };
@@ -24,8 +47,8 @@ export default function Navbar() {
             <div
               className={`${navbarClass} flex justify-around items-center ${
                 isCurrentPath(item.link)
-                  ? "font-normal text-[#00ADEE]"
-                  : "font-normal text-[#424242]"
+                  ? "font-normal text-gra"
+                  : "font-normal text-gray7"
               } ${index === 0 ? "pl-0" : ""}`}
             >
               {item.name}
@@ -36,10 +59,20 @@ export default function Navbar() {
       <div className="flex items-center mb-2">
         <div className="relative w-[414px]">
           <input
-            className="w-full min-h-[48px] py-[12px] px-[16px] border-[0.5px] rounded-full pl-10"
+            className="w-full min-h-[48px] py-[12px] px-[16px] border-[0.5px] rounded-full pl-12"
             placeholder="검색어를 입력해주세요"
+            value={isValue}
+            onChange={(e) => setIsValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.nativeEvent.isComposing) {
+                handleToSearch();
+              }
+            }}
           />
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+          <div
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+            onClick={handleToSearch}
+          >
             <Search />
           </div>
         </div>

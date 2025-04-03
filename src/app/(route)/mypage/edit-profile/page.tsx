@@ -10,7 +10,8 @@ import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
 import ProfileImage from "./_components/ProfileImage";
 import { useToast } from "@/_hooks/useToast";
 import useDeleteImage from "@/_hooks/fetcher/mypage/useDeleteImage";
-import ConfirmModal from "@/app/_components/ConfirmModal";
+import DeleteAccountModal from "./_components/DeleteAccountModal";
+import useDeleteAccount from "@/_hooks/fetcher/mypage/useDeleteAccount";
 
 interface FormData {
   email: string;
@@ -72,9 +73,12 @@ const EditProfile = () => {
   const { data: mypageData, isLoading } = useGetMyPageData();
   const { mutate: modifyUserInfo, isPending: modifyUserInfoIsPending } =
     useModifyUserInfo();
+  const { mutate: deleteAccount, isPending: deleteAccountIsPending } =
+    useDeleteAccount();
   const { mutate: deleteImage } = useDeleteImage();
   const [genderType, setGenderType] = useState<"M" | "W" | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [show, setShow] = useState(false);
   const {
     register,
     handleSubmit,
@@ -124,7 +128,7 @@ const EditProfile = () => {
     if (
       data.tel === userInfo.data.tel &&
       data.nickname === userInfo.data.nickname &&
-      data.birthDate === userInfo.data.birthDate &&
+      (data.birthDate === "" || data.birthDate === userInfo.data.birthDate) &&
       genderType === userInfo.data.genderType &&
       imageUrl === userInfo.data.imageUrl &&
       data.password === ""
@@ -133,7 +137,15 @@ const EditProfile = () => {
       return;
     }
 
-    const requestData = { ...data, genderType, imageUrl };
+    // 빈 문자열을 null로 변환
+    const requestData = {
+      ...data,
+      genderType,
+      imageUrl,
+      password: data.password === "" ? null : data.password,
+      birthDate: data.birthDate === "" ? null : data.birthDate,
+    };
+
     modifyUserInfo(requestData, {
       onSuccess: () => {
         if (
@@ -149,6 +161,11 @@ const EditProfile = () => {
         queryClient.invalidateQueries({ queryKey: ["authCheck"] });
       },
     });
+  };
+
+  const handleDeleteAccount = () => {
+    setShow(false);
+    deleteAccount();
   };
 
   const buttonStyle = "w-1/2 h-[40px] border-[1px] rounded-[5px]";
@@ -246,6 +263,7 @@ const EditProfile = () => {
               <button
                 type="button"
                 className="text-[14px] leading-[18px] underline text-[#000000]"
+                onClick={() => setShow(true)}
               >
                 회원탈퇴
               </button>
@@ -263,6 +281,14 @@ const EditProfile = () => {
           </form>
         )}
       </div>
+      {show && (
+        <DeleteAccountModal
+          isOpen={() => setShow(true)}
+          isPending={deleteAccountIsPending}
+          onClose={() => setShow(false)}
+          onConfirm={handleDeleteAccount}
+        />
+      )}
     </div>
   );
 };

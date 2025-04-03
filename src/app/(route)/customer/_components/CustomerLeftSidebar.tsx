@@ -46,11 +46,11 @@ const CustomerLeftSidebar = () => {
   const defaultStyle = "font-[400] text-gray7 bg-white";
   return (
     <div className="w-[160px]">
-      <div className="w-full bg-white">
+      <div className="w-full bg-white flex flex-col justify-center">
         {boardList.map((board) => (
           <Link key={board.id} href={board.path}>
             <div
-              className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
+              className={`w-full h-[52px] px-4 py-3 cursor-pointer ${
                 isCurrentPath(board.path) && !show
                   ? currentPathStyle
                   : defaultStyle

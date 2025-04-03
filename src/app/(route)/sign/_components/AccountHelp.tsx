@@ -1,6 +1,6 @@
 "use client";
 
-import ModalPopup from "@/app/_components/ModalPopup";
+import GuestModalPopup from "@/app/_components/GuestModalPopup";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -44,7 +44,7 @@ const AccountHelp = ({ signState }: AccountHelpProps) => {
           </button>
         </Link>
       )}
-      <ModalPopup show={show} setShow={setShow} />
+      <GuestModalPopup setShow={setShow} show={show} />
     </div>
   );
 };

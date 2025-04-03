@@ -4,6 +4,18 @@ import React from "react";
 export const metadata = {
   title: "PlayHive 개인정보 취급방침",
   description: "PlayHive 개인정보 취급방침 페이지입니다.",
+  openGraph: {
+    title: "PlayHive 개인정보 취급방침",
+    description: "PlayHive 개인정보 취급방침 페이지입니다.",
+    images: [
+      {
+        url: "/Metadata.png",
+        width: 1200,
+        height: 630,
+        alt: "PlayHive 이미지",
+      },
+    ],
+  },
 };
 
 const Page = () => {

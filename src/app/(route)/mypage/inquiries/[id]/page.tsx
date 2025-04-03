@@ -1,9 +1,8 @@
 "use client";
 
-import { Suspense, use, useEffect, useRef, useState } from "react";
+import { Suspense, use, useRef, useState } from "react";
 import useGetInquiriesDetail from "@/_hooks/fetcher/mypage/useGetInquiriesDetail";
 import MyPageInquiriesList from "../_components/MyPageInquiriesList";
-import { useInquiryPostIdStore } from "@/utils/Store";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import MyPageInquirieComment from "../_components/MyPageInquirieComment";
 import useAuthCheck from "@/_hooks/useAuthCheck";
@@ -37,17 +36,11 @@ const InquirieDetail = ({
   const { data, isLoading } = useGetInquiriesDetail(id);
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);
-  const { addInquiryPostId } = useInquiryPostIdStore();
   const { data: authCheckData } = useAuthCheck();
   const [parentsComment, setParentsComment] = useState<CommentItem | null>(
     null
   );
   const userRole = authCheckData?.data?.data?.role;
-
-  useEffect(() => {
-    if (!id) return;
-    addInquiryPostId(Number(id));
-  }, [id]);
 
   const onHandleToTop = () => {
     if (comments.current) {
@@ -82,7 +75,7 @@ const InquirieDetail = ({
               <span>IP {inquirieDetail?.clientIp}</span>
             </div>
           </div>
-          <div className="h-[1px] border"></div>
+          <div className="h-[1px] bg-gray2"></div>
           <p className="min-h-[48px] leading-[24px] text-gray7">
             {inquirieDetail?.content}
           </p>

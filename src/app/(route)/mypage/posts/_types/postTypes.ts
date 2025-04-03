@@ -3,6 +3,7 @@ export interface PostListConfig {
   size: number;
   orderType: "CREATE" | "RECOMMEND" | "COMMENT";
   searchType: "TITLE" | "CONTENT" | "TITLE_CONTENT" | "COMMENT";
+  commentType?: "BOARD" | "IMPROEMENT" | "INQUIRY" | "NEWS" | "NOTICE";
   search: string;
 }
 
@@ -19,6 +20,11 @@ export interface PostListData {
     commentCount: number;
     createdAt: string;
     lastModifiedDate: string;
+    boardCommentSearchList: {
+      comment: string;
+      commentId: number;
+      imageUrl: string;
+    };
   }[];
   pageInfo: {
     currentPage: number;

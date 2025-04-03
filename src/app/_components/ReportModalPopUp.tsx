@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 
 const report = [
   { label: "회원을 향한 상습비방", value: "1" },
@@ -20,7 +21,7 @@ const ReportModalPopUp = ({ setActiveModal }) => {
     };
   }, []);
 
-  return (
+  return createPortal(
     <div
       onClick={closeModal}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
@@ -60,7 +61,8 @@ const ReportModalPopUp = ({ setActiveModal }) => {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
