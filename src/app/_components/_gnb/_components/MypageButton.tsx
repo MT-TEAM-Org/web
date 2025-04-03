@@ -84,7 +84,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
       onMouseEnter={() => setIsDropDown(true)}
     >
       <ProfileLogo />
-      <p className="max-w-[83px] min-h-[26px] leading-[26px] text-[#424242]">
+      <p className="max-w-[83px] min-h-[26px] leading-[26px] text-gray7">
         {userNickname || ""}님
       </p>
 
@@ -92,17 +92,17 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
         <ul
           onMouseLeave={() => setIsDropDown(false)}
           onMouseEnter={() => setIsDropDown(true)}
-          className="flex flex-col items-center gap-y-[16px] max-w-[252px] min-h-[336px] rounded-[10px] absolute top-12 right-0 z-10 bg-white shadow-[0px_8px_24px_-4px_rgba(0,0,0,0.1)] py-[16px] border-[#dbdbdb]"
+          className="flex flex-col items-center  max-w-[252px] min-h-[298px] absolute top-12 right-0 z-10 py-[16px] border rounded-[10px] border-gray3 bg-white shadow-[0px_8px_24px_-4px_rgba(0,0,0,0.1)]"
         >
           {dropDownMenu.map((item, index) => (
             <li
               key={index}
-              className="w-[252px] min-h-[48px] border-b border-[#EEEEEE] py-[4px] px-[16px] last:py-[16px] last:border-b-0"
+              className="w-[252px] h-[48px] border-b border-gray2 py-[4px] px-[16px]  flex items-center"
             >
               <button
                 onClick={() => handleClickMenu(item)}
                 disabled={logoutIsPending}
-                className="text-[#424242] text-[16px] leading-[16px] font-medium w-full text-left"
+                className="text-gray7 text-[16px] font-medium w-full text-left leading-[26px] tracking-[-0.02em]"
               >
                 {item.name}
               </button>
