@@ -6,6 +6,7 @@ import useAuthCheck from "@/_hooks/useAuthCheck";
 import { ErrorMessage } from "@hookform/error-message";
 import { useToast } from "@/_hooks/useToast";
 import { createPortal } from "react-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ModalPopupProps {
   show: boolean;
@@ -18,6 +19,7 @@ interface InquiryData {
 
 const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
   const { success } = useToast();
+  const queryClient = useQueryClient();
   const { data, isLoading } = useAuthCheck();
   const memberPublicId = show ? data?.data?.data?.publicId : null;
   const {
@@ -33,6 +35,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
       { content: data.content, memberPublicId },
       {
         onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
           setShow(false);
           success(
             "문의가 접수되었습니다.",
@@ -68,6 +71,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
             id="modalTextarea"
             placeholder="문의 내용을 입력해주세요."
             className="resize-none w-full rounded-[5px] min-h-[200px] border px-[12px] py-[16px]"
+            autoFocus
             style={{ overflow: "hidden", overflowY: "auto" }}
             {...register("content", {
               required: "`5자 이상 입력해주세요`",

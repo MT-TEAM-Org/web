@@ -346,6 +346,7 @@ const Signup = ({
                 <input
                   {...register("email", { required: true })}
                   type="text"
+                  autoFocus
                   className={`${
                     isPending ? isDisabledInputStyle : inputStyle
                   } w-[240px]`}

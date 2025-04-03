@@ -100,7 +100,9 @@ const SearchFilter = ({
         </button>
         <input
           type="text"
-          className="w-[144px] text-[14px] leading-[22px] placeholder-[#CBCBCB] focus:outline-none focus:border-none"
+          className={`${
+            hasValue ? "w-[144px]" : "w-[172px]"
+          } text-[14px] leading-[22px] placeholder-[#CBCBCB] focus:outline-none focus:border-none`}
           placeholder="검색어를 입력해주세요."
           ref={inputRef}
           onInput={handleInput}

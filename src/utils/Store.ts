@@ -144,37 +144,6 @@ export const useToastStore = create<ToastStore>((set) => {
   };
 });
 
-interface InquiryPostIdState {
-  inquiryPostIds: number[];
-  addInquiryPostId: (id: number) => void;
-  removeInquiryPostId: (id: number) => void;
-  clearInquiryPostIds: () => void;
-}
-
-export const useInquiryPostIdStore = create<InquiryPostIdState>()(
-  persist(
-    (set) => ({
-      inquiryPostIds: [],
-      addInquiryPostId: (id) =>
-        set((state) => ({
-          inquiryPostIds: state.inquiryPostIds.includes(id)
-            ? state.inquiryPostIds
-            : [...state.inquiryPostIds, id],
-        })),
-      removeInquiryPostId: (id) =>
-        set((state) => ({
-          inquiryPostIds: state.inquiryPostIds.filter(
-            (postId) => postId !== id
-          ),
-        })),
-      clearInquiryPostIds: () => set({ inquiryPostIds: [] }),
-    }),
-    {
-      name: "inquiry-post-id-storage",
-    }
-  )
-);
-
 interface AuthState {
   isLoggedIn: boolean;
   login: () => void;

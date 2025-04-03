@@ -16,6 +16,7 @@ const useLogout = () => {
       queryClient.invalidateQueries({ queryKey: ["authCheck"] });
       queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
       queryClient.invalidateQueries({ queryKey: ["myPostList"] });
+      queryClient.invalidateQueries({ queryKey: ["myCommentList"] });
       router.push("/");
     },
   });

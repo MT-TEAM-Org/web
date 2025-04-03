@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { CalculateTime } from "@/app/_components/CalculateTime";
+import Arrow_reply from "@/app/_components/icon/Arrow_reply";
+import { useSearchParams } from "next/navigation";
+import { highlightText } from "@/utils/searchHighlightText";
 
 interface MyPagePostItemProps {
   data: {
@@ -15,10 +20,19 @@ interface MyPagePostItemProps {
     commentCount: number;
     createdAt: string;
     lastModifiedDate: string;
+    boardCommentSearchList: {
+      comment: string;
+      commentId: number;
+      imageUrl: string;
+    };
   };
 }
 
 const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search") || null;
+  const searchType = searchParams.get("search_type") || null;
+
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
     BASEBALL: "야구",
@@ -59,7 +73,7 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
       <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
         <div className="w-[584px] flex items-center gap-[2px]">
           <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap text-ellipsis">
-            {data?.title}
+            {highlightText(data?.title, searchType, search)}
           </h2>
           <p className="text-Primary font-medium text-[12px] leading-[18px]">
             [{data?.commentCount}]
@@ -88,6 +102,17 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
             IP {data?.createdIp}
           </span>
         </div>
+        {data?.boardCommentSearchList && (
+          <div className="flex items-center min-h-[18px]">
+            <div className="flex justify-center items-center w-[16px] h-[16px]">
+              <Arrow_reply size={12} />
+            </div>
+            <div className="text-[12px] leading-[18px] text-gray7">
+              {data?.boardCommentSearchList.imageUrl && "(이미지)"}{" "}
+              {data?.boardCommentSearchList.comment}
+            </div>
+          </div>
+        )}
       </div>
     </Link>
   );

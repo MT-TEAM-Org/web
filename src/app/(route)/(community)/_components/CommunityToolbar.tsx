@@ -66,7 +66,7 @@ export const CommunityToolbar = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const inputValue = (e.target as HTMLFormElement)[0] as HTMLInputElement;
+    const inputValue = (e.target as HTMLFormElement)[1] as HTMLInputElement;
     router.push(
       changeURLParams(searchParams, "search", inputValue.value, searchType),
       {
