@@ -1,9 +1,9 @@
 import React from "react";
 
-const Fake_scheduleItem = () => (
+const Fake_scheduleItem = ({ width = 32, height = 32 }) => (
   <svg
-    width="32"
-    height="32"
+    width={width}
+    height={height}
     viewBox="0 0 50 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

@@ -18,7 +18,7 @@ const LiveMatchPanel = () => {
       <div className="w-full max-w-[800px] min-h-[102px] flex flex-col gap-2">
         <div className="w-full min-h-[40px] flex gap-6 items-center">
           <div className="w-[388px] max-h-[40px] flex gap-2">
-            <Fake_scheduleItem />
+            <Fake_scheduleItem width={40} height={40} />
             <div className="flex gap-2">
               <p className="font-bold text-[18px] leading-7 tracking-[-0.04em]">
                 T1
@@ -32,7 +32,7 @@ const LiveMatchPanel = () => {
                 젠지
               </p>
             </div>
-            <Fake_scheduleItem2 />
+            <Fake_scheduleItem2 width={40} height={40} />
           </div>
         </div>
         <div className="w-full min-h-[54px] rounded-[5px] overflow-hidden flex">

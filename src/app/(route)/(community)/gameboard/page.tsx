@@ -13,7 +13,7 @@ const Page = () => {
   const [selectedCategory, setSelectedCategory] = useState("E스포츠");
 
   return (
-    <div className="flex flex-col gap-3 justify-center items-center mb-10">
+    <div className="flex flex-col gap-6 justify-center items-center mb-10">
       <div className="w-[1920px] h-auto min-h-[226px] flex flex-col gap-3 items-center justify-center bg-gray1">
         <ScheduleNavbar setSelectedCategory={setSelectedCategory} />
         <ScheduleContainer />
