@@ -12,7 +12,8 @@ import { useToast } from "@/_hooks/useToast";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import ConfirmModal from "@/app/_components/ConfirmModal";
 import { useEffect, useState } from "react";
-import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
+import CommentReportModal from "./CommentReportModal";
+import { ReportType } from "@/services/board/types/report";
 
 interface BoardCommentItemProps {
   comment: CommentItem;
@@ -44,6 +45,11 @@ const BoardCommentItem = ({
   const isCommentAuthor = authCheck?.data?.data?.publicId === comment?.publicId; // 댓글 작성자와 로그인한 사용자가 같은지 확인
   const isBoardAuthor =
     type !== "NEWS" ? comment?.publicId === publicId : undefined; // 게시글 작성자와 댓글 작성자가 같은지 확인
+  const reportData = {
+    reportedPublicId: comment?.publicId,
+    reportType: "COMMENT" as ReportType,
+    reportedContentId: comment?.commentId,
+  };
 
   useEffect(() => {
     if (show) {
@@ -181,7 +187,12 @@ const BoardCommentItem = ({
           message="삭제된 댓글은 복구할 수 없습니다."
           onConfirm={handleDeleteComment}
         />
-        {activeModal && <ReportModalPopUp setActiveModal={setActiveModal} />}
+        {activeModal && (
+          <CommentReportModal
+            setActiveModal={setActiveModal}
+            reportData={reportData}
+          />
+        )}
       </div>
       {comment.replyList &&
         comment.replyList.map((reply) => (
