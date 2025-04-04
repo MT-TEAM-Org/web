@@ -99,20 +99,16 @@ const BoardCommentItem = ({
       };
     });
     if (isRecommend.recommend) {
-      success("추천이 취소되었습니다.", "");
       deleteRecommendComment(commentId, {
-        onError: () => {
-          setIsRecommend((prev) => {
-            return {
-              recommend: true,
-              recommendCount: prev.recommendCount + 1,
-            };
-          });
+        onSuccess: () => {
+          success("추천이 취소되었습니다.", "");
         },
       });
     } else {
-      success("추천이 완료되었습니다.", "");
       recommendComment(commentId, {
+        onSuccess: () => {
+          success("추천되었습니다.", "");
+        },
         onError: () => {
           setIsRecommend((prev) => {
             return {
