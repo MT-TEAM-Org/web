@@ -1,3 +1,4 @@
+import axios from "axios";
 import { apiRequest } from "../instant";
 
 type Team = {
@@ -5,6 +6,12 @@ type Team = {
   name: string;
   logo: string;
   category: string;
+};
+
+type MatchGroup = {
+  date?: string;
+  startTime: string;
+  list: MatchItem[];
 };
 
 type MatchItem = {
@@ -30,10 +37,10 @@ const getMatchSchedule = async (
     ? `${process.env.NEXT_PUBLIC_API_URL}api/match/schedule/${category}`
     : `${process.env.NEXT_PUBLIC_API_URL}api/match/schedule`;
 
-  const response = await apiRequest.get(endpoint);
-  return response as MatchScheduleResponse;
+  const response = await axios.get(endpoint);
+  return response.data as MatchScheduleResponse;
 };
 
 export default getMatchSchedule;
 
-export type { Team, MatchItem, MatchScheduleResponse };
+export type { Team, MatchItem, MatchScheduleResponse, MatchGroup };

@@ -1,5 +1,6 @@
 import React, { use } from "react";
 import ScheduleContainer from "../../main/_components/scheduleContainer";
+import EsportsSchedule from "@/app/_components/EsportsSchedule";
 
 export const metadata = {
   title: "경기 중계",

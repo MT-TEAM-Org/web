@@ -7,7 +7,7 @@ import ScheduleItem from "./scheduleItem";
 import EmptyScheduleItem from "./EmptyScheduleItem";
 import { motion, AnimatePresence } from "framer-motion";
 import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
-import { useQueryClient } from "@tanstack/react-query";
+import EsportsSchedule from "@/app/_components/EsportsSchedule";
 
 interface ScheduleContainerProps {
   showCategoryButtons?: boolean;
@@ -32,6 +32,8 @@ const ScheduleContainer = ({
     matchType || "ALL"
   );
   const scheduleData = scheduleResponse?.data?.list || [];
+
+  const isEsportsCategory = matchType === "ESPORTS";
 
   const itemsPerPage = 4;
   const totalPages = Math.ceil(scheduleData.length / itemsPerPage);
@@ -69,7 +71,7 @@ const ScheduleContainer = ({
   };
 
   return (
-    <div className="w-full h-full min-h-[126px] flex flex-col bg-gray1 justify-center items-center">
+    <div className="w-full h-[126px] flex flex-col bg-gray1 justify-center items-center">
       {showCategoryButtons && (
         <div className="w-[1200px] h-[40px] flex mb-[12px] gap-x-[8px]">
           {CATEGORUIES.map(({ value, name }) => (
@@ -85,62 +87,66 @@ const ScheduleContainer = ({
           ))}
         </div>
       )}
-      <div className="w-[1200px] h-full min-h-[126px] flex gap-x-[24px] justify-center items-center">
-        <div className="w-[1136px] h-auto min-h-[126px] flex justify-between items-center gap-3">
-          <AnimatePresence initial={false} mode="wait">
-            <motion.div
-              key={currentPage}
-              initial={{ x: "3%" }}
-              animate={{ x: 0 }}
-              exit={{ opacity: 0.5, x: "0%" }}
-              transition={{
-                type: "tween",
-                ease: "easeInOut",
-                duration: 0.1,
-              }}
-              className="w-full flex justify-between items-center gap-3"
-            >
-              {isLoading
-                ? Array.from({ length: 4 }).map((_, index) => (
-                    <EmptyScheduleItem key={index} />
-                  ))
-                : displayedItems.length > 0
-                ? displayedItems.map((item, index) => (
-                    <div key={index} className="w-[275px]">
-                      <ScheduleItem
-                        isSelected={selectedIndex === index}
-                        onClick={() => handleMatchClick(index)}
-                        data={item}
-                      />
-                    </div>
-                  ))
-                : Array.from({ length: 4 }).map((_, index) => (
-                    <EmptyScheduleItem key={index} />
-                  ))}
+      {isEsportsCategory ? (
+        <EsportsSchedule />
+      ) : (
+        <div className="w-[1200px]  h-[126px] flex gap-x-[24px] justify-center items-center">
+          <div className="w-[1136px]  h-[126px] flex justify-between items-center gap-3">
+            <AnimatePresence initial={false} mode="wait">
+              <motion.div
+                key={currentPage}
+                initial={{ x: "3%" }}
+                animate={{ x: 0 }}
+                exit={{ opacity: 0.5, x: "0%" }}
+                transition={{
+                  type: "tween",
+                  ease: "easeInOut",
+                  duration: 0.1,
+                }}
+                className="w-full flex justify-between items-center gap-3"
+              >
+                {isLoading
+                  ? Array.from({ length: 4 }).map((_, index) => (
+                      <EmptyScheduleItem key={index} />
+                    ))
+                  : displayedItems.length > 0
+                  ? displayedItems.map((item, index) => (
+                      <div key={index} className="w-[275px]">
+                        <ScheduleItem
+                          isSelected={selectedIndex === index}
+                          onClick={() => handleMatchClick(index)}
+                          data={item}
+                        />
+                      </div>
+                    ))
+                  : Array.from({ length: 4 }).map((_, index) => (
+                      <EmptyScheduleItem key={index} />
+                    ))}
 
-              {!isLoading &&
-                displayedItems.length > 0 &&
-                displayedItems.length < 4 &&
-                Array.from({ length: 4 - displayedItems.length }).map(
-                  (_, index) => <EmptyScheduleItem key={`empty-${index}`} />
-                )}
-            </motion.div>
-          </AnimatePresence>
+                {!isLoading &&
+                  displayedItems.length > 0 &&
+                  displayedItems.length < 4 &&
+                  Array.from({ length: 4 - displayedItems.length }).map(
+                    (_, index) => <EmptyScheduleItem key={`empty-${index}`} />
+                  )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <button
+            onClick={handleNextPage}
+            disabled={scheduleData.length <= itemsPerPage}
+            className="w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2"
+          >
+            <Arrow_right
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              d="M7 21 L17 12 L7 3"
+            />
+          </button>
         </div>
-
-        <button
-          onClick={handleNextPage}
-          disabled={scheduleData.length <= itemsPerPage}
-          className="w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2"
-        >
-          <Arrow_right
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            d="M7 21 L17 12 L7 3"
-          />
-        </button>
-      </div>
+      )}
     </div>
   );
 };
