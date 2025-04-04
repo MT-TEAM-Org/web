@@ -12,6 +12,10 @@ import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useEffect, useState } from "react";
 import ConfirmModal from "@/app/_components/ConfirmModal";
 import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
+import useRecommendComment from "@/_hooks/fetcher/comment/useRecommendComment";
+import useDeleteRecommendComment from "@/_hooks/fetcher/comment/useDeleteRecommendComment";
+import CommentReportModal from "./CommentReportModal";
+import { ReportType } from "@/services/board/types/report";
 
 interface BoardReplyCommentItemProps {
   reply: CommentItem;
@@ -37,8 +41,24 @@ const BoardReplyCommentItem = ({
   const { mutate: deleteComment, isPending: deleteCommentIsPending } =
     useDeleteComment(boardId);
   const { data: authCheck } = useAuthCheck();
+  const { mutate: recommendComment, isPending: recommendIsPending } =
+    useRecommendComment();
+  const {
+    mutate: deleteRecommendComment,
+    isPending: deleteRecommendIsPending,
+  } = useDeleteRecommendComment();
   const [show, setShow] = useState(false);
   const [activeModal, setActiveModal] = useState(false);
+  const [isRecommend, setIsRecommend] = useState({
+    recommend: reply?.recommended || false,
+    recommendCount: reply?.recommendCount || 0,
+  });
+  const reportData = {
+    reportedPublicId: reply?.publicId,
+    reportType: "COMMENT" as ReportType,
+    reportedContentId: reply?.commentId,
+  };
+
   // publicId: 게시글 작성자의 publicId
   // authCheck?.data?.data?.publicId: 로그인한 사용자의 publicId
   // comment.publicId: 댓글 작성자의 publicId
@@ -70,6 +90,38 @@ const BoardReplyCommentItem = ({
         },
       }
     );
+  };
+
+  const handleRecommendComment = (commentId: number) => {
+    setIsRecommend((prev) => {
+      return {
+        recommend: !prev.recommend,
+        recommendCount: prev.recommend
+          ? prev.recommendCount - 1
+          : prev.recommendCount + 1,
+      };
+    });
+    if (isRecommend.recommend) {
+      deleteRecommendComment(commentId, {
+        onSuccess: () => {
+          success("추천이 취소되었습니다.", "");
+        },
+      });
+    } else {
+      recommendComment(commentId, {
+        onSuccess: () => {
+          success("추천되었습니다.", "");
+        },
+        onError: () => {
+          setIsRecommend((prev) => {
+            return {
+              recommend: false,
+              recommendCount: prev.recommendCount - 1,
+            };
+          });
+        },
+      });
+    }
   };
 
   const handleReportComment = () => setActiveModal(true);
@@ -147,17 +199,19 @@ const BoardReplyCommentItem = ({
           <div className="flex gap-[8px]">
             <button
               className={`${recommendDivStyle} h-[24px] rounded-[5px] border border-gray3 p-1 flex gap-1 justify-center items-center text-[12px] leading-[18px] font-medium tracking-[-0.02em]`}
+              onClick={() => handleRecommendComment(reply?.commentId)}
+              disabled={recommendIsPending || deleteRecommendIsPending}
             >
               <Single_logo width="12" height="12" fill="#00ADEE" />
               <div
                 className={`flex gap-[2px] ${
-                  reply?.recommended &&
+                  isRecommend.recommend &&
                   "text-[#00ADEE] bg-white border-[#00ADEE]"
                 }`}
               >
                 추천
-                {reply?.recommendCount >= 1 && (
-                  <span>{reply?.recommendCount}</span>
+                {isRecommend.recommendCount >= 1 && (
+                  <span>{isRecommend.recommendCount}</span>
                 )}
               </div>
             </button>
@@ -181,7 +235,12 @@ const BoardReplyCommentItem = ({
           message="삭제된 댓글은 복구할 수 없습니다."
           onConfirm={handleDeleteComment}
         />
-        {activeModal && <ReportModalPopUp setActiveModal={setActiveModal} />}
+        {activeModal && (
+          <CommentReportModal
+            setActiveModal={setActiveModal}
+            reportData={reportData}
+          />
+        )}
       </div>
       {reply.replyList && reply.replyList.length > 0 && (
         <>
