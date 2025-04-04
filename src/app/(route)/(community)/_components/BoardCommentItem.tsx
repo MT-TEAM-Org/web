@@ -35,7 +35,7 @@ const BoardCommentItem = ({
   const queryClient = useQueryClient();
   const pathname = usePathname();
   const boardId = pathname.split("/").pop();
-  const { success } = useToast();
+  const { success, error } = useToast();
   const { mutate: deleteComment, isPending: deleteCommentIsPending } =
     useDeleteComment(boardId);
   const { data: authCheck } = useAuthCheck();
@@ -101,7 +101,7 @@ const BoardCommentItem = ({
           onSuccess: () => success("추천되었습니다.", ""),
           onError: () => {
             setIsRecommend(prev);
-            success("추천에 실패했습니다.", "");
+            error("추천에 실패했습니다.", "");
           },
         });
       } else {
@@ -109,7 +109,7 @@ const BoardCommentItem = ({
           onSuccess: () => success("추천이 취소되었습니다.", ""),
           onError: () => {
             setIsRecommend(prev);
-            success("추천 취소에 실패했습니다.", "");
+            error("추천 취소에 실패했습니다.", "");
           },
         });
       }
