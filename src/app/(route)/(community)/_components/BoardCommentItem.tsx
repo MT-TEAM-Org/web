@@ -147,7 +147,7 @@ const BoardCommentItem = ({
   const handleReportComment = () => setActiveModal(true);
 
   const recommendDivStyle =
-    comment?.recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
+    isRecommend.recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
 
   return (
     <>
