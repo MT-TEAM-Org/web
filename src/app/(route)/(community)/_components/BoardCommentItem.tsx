@@ -48,9 +48,17 @@ const BoardCommentItem = ({
   const [show, setShow] = useState(false);
   const [activeModal, setActiveModal] = useState(false);
   const [isRecommend, setIsRecommend] = useState({
-    recommend: comment?.recommended || false,
-    recommendCount: comment?.recommendCount || 0,
+    recommend: comment?.recommended,
+    recommendCount: comment?.recommendCount,
   });
+
+  useEffect(() => {
+    setIsRecommend({
+      recommend: comment?.recommended,
+      recommendCount: comment?.recommendCount,
+    });
+  }, [comment]);
+
   // publicId: 게시글 작성자의 publicId
   // authCheck?.data?.data?.publicId: 로그인한 사용자의 publicId
   // comment.publicId: 댓글 작성자의 publicId
@@ -89,6 +97,18 @@ const BoardCommentItem = ({
     );
   };
 
+  const recommendInvalidate = () => {
+    if (best) {
+      queryClient.invalidateQueries({
+        queryKey: ["commentList", type, boardId],
+      });
+    } else {
+      queryClient.invalidateQueries({
+        queryKey: ["bestComment", { id: boardId, type }],
+      });
+    }
+  };
+
   const handleRecommendComment = (commentId: number) => {
     setIsRecommend((prev) => {
       const nextRecommend = !prev.recommend;
@@ -98,7 +118,10 @@ const BoardCommentItem = ({
 
       if (nextRecommend) {
         recommendComment(commentId, {
-          onSuccess: () => success("추천되었습니다.", ""),
+          onSuccess: () => {
+            success("추천되었습니다.", "");
+            recommendInvalidate();
+          },
           onError: () => {
             setIsRecommend(prev);
             error("추천에 실패했습니다.", "");
@@ -106,7 +129,10 @@ const BoardCommentItem = ({
         });
       } else {
         deleteRecommendComment(commentId, {
-          onSuccess: () => success("추천이 취소되었습니다.", ""),
+          onSuccess: () => {
+            success("추천이 취소되었습니다.", "");
+            recommendInvalidate();
+          },
           onError: () => {
             setIsRecommend(prev);
             error("추천 취소에 실패했습니다.", "");

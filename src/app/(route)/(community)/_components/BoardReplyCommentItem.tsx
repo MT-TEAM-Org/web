@@ -11,7 +11,6 @@ import { useToast } from "@/_hooks/useToast";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useEffect, useState } from "react";
 import ConfirmModal from "@/app/_components/ConfirmModal";
-import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 import useRecommendComment from "@/_hooks/fetcher/comment/useRecommendComment";
 import useDeleteRecommendComment from "@/_hooks/fetcher/comment/useDeleteRecommendComment";
 import CommentReportModal from "./CommentReportModal";
@@ -50,14 +49,21 @@ const BoardReplyCommentItem = ({
   const [show, setShow] = useState(false);
   const [activeModal, setActiveModal] = useState(false);
   const [isRecommend, setIsRecommend] = useState({
-    recommend: reply?.recommended || false,
-    recommendCount: reply?.recommendCount || 0,
+    recommend: reply?.recommended,
+    recommendCount: reply?.recommendCount,
   });
   const reportData = {
     reportedPublicId: reply?.publicId,
     reportType: "COMMENT" as ReportType,
     reportedContentId: reply?.commentId,
   };
+
+  useEffect(() => {
+    setIsRecommend({
+      recommend: reply?.recommended,
+      recommendCount: reply?.recommendCount,
+    });
+  }, [reply]);
 
   // publicId: 게시글 작성자의 publicId
   // authCheck?.data?.data?.publicId: 로그인한 사용자의 publicId
@@ -101,7 +107,12 @@ const BoardReplyCommentItem = ({
 
       if (nextRecommend) {
         recommendComment(commentId, {
-          onSuccess: () => success("추천되었습니다.", ""),
+          onSuccess: () => {
+            success("추천되었습니다.", "");
+            queryClient.invalidateQueries({
+              queryKey: ["bestComment", { id: boardId, type }],
+            });
+          },
           onError: () => {
             setIsRecommend(prev);
             error("추천에 실패했습니다.", "");
@@ -109,7 +120,12 @@ const BoardReplyCommentItem = ({
         });
       } else {
         deleteRecommendComment(commentId, {
-          onSuccess: () => success("추천이 취소되었습니다.", ""),
+          onSuccess: () => {
+            success("추천이 취소되었습니다.", "");
+            queryClient.invalidateQueries({
+              queryKey: ["bestComment", { id: boardId, type }],
+            });
+          },
           onError: () => {
             setIsRecommend(prev);
             error("추천 취소에 실패했습니다.", "");
