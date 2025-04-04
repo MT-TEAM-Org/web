@@ -12,7 +12,10 @@ import { useToast } from "@/_hooks/useToast";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import ConfirmModal from "@/app/_components/ConfirmModal";
 import { useEffect, useState } from "react";
-import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
+import CommentReportModal from "./CommentReportModal";
+import { ReportType } from "@/services/board/types/report";
+import useRecommendComment from "@/_hooks/fetcher/comment/useRecommendComment";
+import useDeleteRecommendComment from "@/_hooks/fetcher/comment/useDeleteRecommendComment";
 
 interface BoardCommentItemProps {
   comment: CommentItem;
@@ -32,18 +35,41 @@ const BoardCommentItem = ({
   const queryClient = useQueryClient();
   const pathname = usePathname();
   const boardId = pathname.split("/").pop();
-  const { success } = useToast();
+  const { success, error } = useToast();
   const { mutate: deleteComment, isPending: deleteCommentIsPending } =
     useDeleteComment(boardId);
   const { data: authCheck } = useAuthCheck();
+  const { mutate: recommendComment, isPending: recommendIsPending } =
+    useRecommendComment();
+  const {
+    mutate: deleteRecommendComment,
+    isPending: deleteRecommendIsPending,
+  } = useDeleteRecommendComment();
   const [show, setShow] = useState(false);
   const [activeModal, setActiveModal] = useState(false);
+  const [isRecommend, setIsRecommend] = useState({
+    recommend: comment?.recommended,
+    recommendCount: comment?.recommendCount,
+  });
+
+  useEffect(() => {
+    setIsRecommend({
+      recommend: comment?.recommended,
+      recommendCount: comment?.recommendCount,
+    });
+  }, [comment]);
+
   // publicId: 게시글 작성자의 publicId
   // authCheck?.data?.data?.publicId: 로그인한 사용자의 publicId
   // comment.publicId: 댓글 작성자의 publicId
   const isCommentAuthor = authCheck?.data?.data?.publicId === comment?.publicId; // 댓글 작성자와 로그인한 사용자가 같은지 확인
   const isBoardAuthor =
     type !== "NEWS" ? comment?.publicId === publicId : undefined; // 게시글 작성자와 댓글 작성자가 같은지 확인
+  const reportData = {
+    reportedPublicId: comment?.publicId,
+    reportType: "COMMENT" as ReportType,
+    reportedContentId: comment?.commentId,
+  };
 
   useEffect(() => {
     if (show) {
@@ -71,10 +97,57 @@ const BoardCommentItem = ({
     );
   };
 
+  const recommendInvalidate = () => {
+    if (best) {
+      queryClient.invalidateQueries({
+        queryKey: ["commentList", type, boardId],
+      });
+    } else {
+      queryClient.invalidateQueries({
+        queryKey: ["bestComment", { id: boardId, type }],
+      });
+    }
+  };
+
+  const handleRecommendComment = (commentId: number) => {
+    setIsRecommend((prev) => {
+      const nextRecommend = !prev.recommend;
+      const nextRecommendCount = nextRecommend
+        ? prev.recommendCount + 1
+        : prev.recommendCount - 1;
+
+      if (nextRecommend) {
+        recommendComment(commentId, {
+          onSuccess: () => {
+            success("추천되었습니다.", "");
+            recommendInvalidate();
+          },
+          onError: () => {
+            setIsRecommend(prev);
+            error("추천에 실패했습니다.", "");
+          },
+        });
+      } else {
+        deleteRecommendComment(commentId, {
+          onSuccess: () => {
+            error("추천이 취소되었습니다.", "");
+            recommendInvalidate();
+          },
+          onError: () => {
+            setIsRecommend(prev);
+            error("추천 취소에 실패했습니다.", "");
+          },
+        });
+      }
+
+      return { recommend: nextRecommend, recommendCount: nextRecommendCount };
+    });
+  };
+
   const handleReportComment = () => setActiveModal(true);
 
   const recommendDivStyle =
-    comment?.recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
+    isRecommend.recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
 
   return (
     <>
@@ -149,18 +222,20 @@ const BoardCommentItem = ({
         </div>
         <div className="flex gap-[8px]">
           <button
+            onClick={() => handleRecommendComment(comment?.commentId)}
             className={`${recommendDivStyle} h-[24px] rounded-[5px] border border-gray3 p-1 flex gap-1 justify-center items-center text-[12px] leading-[18px] font-medium tracking-[-0.02em]`}
+            disabled={recommendIsPending || deleteRecommendIsPending}
           >
             <Single_logo width="12" height="12" fill="#00ADEE" />
             <div
               className={`flex gap-[2px] ${
-                comment?.recommended &&
+                isRecommend.recommend &&
                 "text-[#00ADEE] bg-white border-[#00ADEE]"
               }`}
             >
               추천
-              {comment?.recommendCount >= 1 && (
-                <span>{comment?.recommendCount}</span>
+              {isRecommend.recommendCount >= 1 && (
+                <span>{isRecommend.recommendCount}</span>
               )}
             </div>
           </button>
@@ -181,7 +256,12 @@ const BoardCommentItem = ({
           message="삭제된 댓글은 복구할 수 없습니다."
           onConfirm={handleDeleteComment}
         />
-        {activeModal && <ReportModalPopUp setActiveModal={setActiveModal} />}
+        {activeModal && (
+          <CommentReportModal
+            setActiveModal={setActiveModal}
+            reportData={reportData}
+          />
+        )}
       </div>
       {comment.replyList &&
         comment.replyList.map((reply) => (
