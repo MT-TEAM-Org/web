@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { CalculateTime } from "@/app/_components/CalculateTime";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import Link from "next/link";
+import { highlightText } from "@/utils/searchHighlightText";
+import { useSearchParams } from "next/navigation";
 
 interface PostResponse {
   commentType: "BOARD" | "IMPROEMENT" | "INQUIRY" | "NEWS" | "NOTICE";
@@ -51,6 +55,10 @@ interface MyPageCommentItemProps {
 }
 
 const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search") || null;
+  const searchType = searchParams.get("search_type") || null;
+
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
     BASEBALL: "야구",
@@ -94,7 +102,7 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
       <div className="flex flex-col gap-[4px] min-h-[64px] flex-1">
         <div className="flex items-center gap-[2px]">
           <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap text-ellipsis">
-            {data?.postResponse?.title}
+            {highlightText(data?.postResponse?.title, searchType, search)}
           </h2>
           <span className="text-[12px] leading-[18px] text-gra">
             [{data?.postResponse?.commentCount}]

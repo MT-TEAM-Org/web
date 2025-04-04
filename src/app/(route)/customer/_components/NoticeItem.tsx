@@ -63,12 +63,12 @@ const NoticeItem = ({
         isFeedback ? "bg-bg0" : "hover:bg-bg0"
       } w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-start justify-start cursor-pointer`}
     >
-      <div className="w-[32px] h-[32px] rounded-[2px] p-1 bg-gray1 items-center justify-center text-center text-gray7">
+      <div className="w-[32px] h-[32px] rounded-[2px] bg-gray1 flex items-center justify-center text-center text-gray7">
         <p className="w-[25px] font-bold text-[14px] leading-5">
           {!isFeedback ? noticeData?.id : "공지"}
         </p>
       </div>
-      <div className="w-[56px] h-[42px] rounded-[5px] overflow-hidden bg-gray1">
+      <div className="w-[56px] h-[42px] p-1 rounded-[5px] overflow-hidden bg-gray1">
         <Image
           src={noticeData?.thumbnail || "/Preview_loading_image.png"}
           alt="img"

@@ -58,7 +58,7 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const inputValue = (e.target as HTMLFormElement)[0] as HTMLInputElement;
+    const inputValue = (e.target as HTMLFormElement)[1] as HTMLInputElement;
     if (inputValue.value.trim() === "") return;
     if (mode === "comments") {
       router.push(

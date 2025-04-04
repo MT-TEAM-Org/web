@@ -20,6 +20,11 @@ export interface PostListData {
     commentCount: number;
     createdAt: string;
     lastModifiedDate: string;
+    boardCommentSearchList: {
+      comment: string;
+      commentId: number;
+      imageUrl: string;
+    };
   }[];
   pageInfo: {
     currentPage: number;

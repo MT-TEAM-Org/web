@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
-
 interface ConfirmModalProps {
   show: boolean;
   onClose: () => void;
@@ -31,25 +29,25 @@ const ConfirmModal = ({
       onClick={onClose}
     >
       <div
-        className="flex flex-col gap-[24px] w-[408px] h-[208px] bg-[#FFFFFF] rounded-[10px] p-[40px]"
+        className="flex flex-col gap-[24px] w-[408px] min-h-[208px] bg-[#FFFFFF] rounded-[10px] p-[40px]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col items-center gap-[4px]">
           <h1 className="font-[700] text-[18px] leading-[28px] text-black">
             {title}
           </h1>
-          <p className="leading-[24px] text-gray6">{message}</p>
+          <p className="leading-[24px] text-gray6 text-center">{message}</p>
         </div>
 
-        <div className="flex gap-[8px]">
+        <div className="flex gap-[8px] font-[700] text-[16px]">
           <button
-            className="flex justify-center items-center w-[160px] h-[48px] rounded-[5px] border-1 border-[#DBDBDB] px-[16px] py-[20px] bg-[#FFFFFF] font-[700] text-gray7"
+            className="flex justify-center items-center w-[160px] h-[48px] rounded-[5px] border-1 border-[#DBDBDB] px-[20px] py-[16px] bg-[#FFFFFF] text-gray7"
             onClick={onClose}
           >
             {closeText}
           </button>
           <button
-            className="flex justify-center items-center w-[160px] h-[48px] rounded-[5px] px-[16px] py-[20px] bg-[#00ADEE] font-[700] text-[#FFFFFF]"
+            className="flex justify-center items-center w-[160px] h-[48px] rounded-[5px] px-[20px] py-[16px] bg-[#00ADEE] text-[#FFFFFF]"
             onClick={onConfirm}
             disabled={isPending}
           >

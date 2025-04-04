@@ -5,7 +5,7 @@ import { PostListConfig } from "@/app/(route)/mypage/posts/_types/postTypes";
 const useGetMyCommentList = (postListConfig: PostListConfig) => {
   return useQuery({
     queryFn: () => getMyCommentList(postListConfig),
-    queryKey: ["myPostList", postListConfig],
+    queryKey: ["myCommentList", postListConfig],
     retry: 1,
     placeholderData: keepPreviousData,
     staleTime: 30 * 60 * 1000, // 30 minutes
