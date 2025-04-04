@@ -94,34 +94,31 @@ const BoardReplyCommentItem = ({
 
   const handleRecommendComment = (commentId: number) => {
     setIsRecommend((prev) => {
-      return {
-        recommend: !prev.recommend,
-        recommendCount: prev.recommend
-          ? prev.recommendCount - 1
-          : prev.recommendCount + 1,
-      };
+      const nextRecommend = !prev.recommend;
+      const nextRecommendCount = nextRecommend
+        ? prev.recommendCount + 1
+        : prev.recommendCount - 1;
+
+      if (nextRecommend) {
+        recommendComment(commentId, {
+          onSuccess: () => success("추천되었습니다.", ""),
+          onError: () => {
+            setIsRecommend(prev);
+            success("추천에 실패했습니다.", "");
+          },
+        });
+      } else {
+        deleteRecommendComment(commentId, {
+          onSuccess: () => success("추천이 취소되었습니다.", ""),
+          onError: () => {
+            setIsRecommend(prev);
+            success("추천 취소에 실패했습니다.", "");
+          },
+        });
+      }
+
+      return { recommend: nextRecommend, recommendCount: nextRecommendCount };
     });
-    if (isRecommend.recommend) {
-      deleteRecommendComment(commentId, {
-        onSuccess: () => {
-          success("추천이 취소되었습니다.", "");
-        },
-      });
-    } else {
-      recommendComment(commentId, {
-        onSuccess: () => {
-          success("추천되었습니다.", "");
-        },
-        onError: () => {
-          setIsRecommend((prev) => {
-            return {
-              recommend: false,
-              recommendCount: prev.recommendCount - 1,
-            };
-          });
-        },
-      });
-    }
   };
 
   const handleReportComment = () => setActiveModal(true);
