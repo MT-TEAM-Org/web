@@ -1,19 +1,11 @@
 "use client";
 
-import { useApiMutation } from "@/_hooks/query";
 import { useEffect, useState } from "react";
 import { useToast } from "@/_hooks/useToast";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import { SignupFormData } from "../types/signup";
-
-interface EmailVerificationRequest {
-  email: string;
-}
-
-interface VerificationCodeRequest {
-  email: string;
-  code: string;
-}
+import useSendVerification from "@/_hooks/fetcher/sign/useSendVerification";
+import useCheckVerification from "@/_hooks/fetcher/sign/useCheckVerification";
 
 interface EmailVerificationProps {
   register: UseFormRegister<SignupFormData>;
@@ -30,7 +22,14 @@ const EmailVerification = ({
   errors,
   setSuccessVerification,
 }: EmailVerificationProps) => {
-  const { success, error } = useToast();
+  const { error } = useToast();
+  const { mutate: sendVerification, isSuccess: sendVerificationIsSuccess } =
+    useSendVerification();
+  const {
+    mutate: checkVerification,
+    isSuccess: checkVerificationIsSuccess,
+    isError: checkVerificationIsError,
+  } = useCheckVerification();
   const [verificationCode, setVerificationCode] = useState("");
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isExpired, setIsExpired] = useState(false);
@@ -56,46 +55,6 @@ const EmailVerification = ({
     setIsExpired(false);
   };
 
-  const { mutate: sendVerification, isSuccess: sendVerificationIsSuccess } =
-    useApiMutation<EmailVerificationRequest>(
-      "post",
-      "/api/certification/send",
-      null,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-      {
-        onError: () => {
-          error("인증코드 전송에 실패했습니다.", "");
-        },
-      }
-    );
-
-  const {
-    mutate: checkVerification,
-    isSuccess: checkVerificationIsSuccess,
-    isError: checkVerificationIsError,
-  } = useApiMutation<VerificationCodeRequest>(
-    "post",
-    "/api/certification/certify-code",
-    null,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
-    {
-      onSuccess: (data: VerificationCodeRequest) => {
-        success("인증이 완료되었습니다.", "");
-      },
-      onError: () => {
-        error("인증코드가 일치하지 않습니다.", "");
-      },
-    }
-  );
-
   const handleSendVerification = () => {
     setIsExpired(false);
     const email = getValues("email");
@@ -103,14 +62,11 @@ const EmailVerification = ({
       error("이메일을 입력해주세요.", "");
       return;
     }
-    sendVerification(
-      { email },
-      {
-        onSuccess: () => {
-          handleTimerOn();
-        },
-      }
-    );
+    sendVerification(email, {
+      onSuccess: () => {
+        handleTimerOn();
+      },
+    });
   };
 
   const handleCheckVerification = () => {
