@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 const fetchAuthCheck = async () => {
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/me`, {
@@ -16,7 +15,6 @@ const fetchAuthCheck = async () => {
 };
 
 const useAuthCheck = () => {
-  const router = useRouter();
   const getToken = () => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("accessToken");
@@ -36,7 +34,6 @@ const useAuthCheck = () => {
   useEffect(() => {
     if (query.isError && typeof window !== "undefined") {
       localStorage.removeItem("accessToken");
-      router.push("/");
     }
   }, [query.isError]);
 
