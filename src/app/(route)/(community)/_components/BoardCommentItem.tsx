@@ -130,7 +130,7 @@ const BoardCommentItem = ({
       } else {
         deleteRecommendComment(commentId, {
           onSuccess: () => {
-            success("추천이 취소되었습니다.", "");
+            error("추천이 취소되었습니다.", "");
             recommendInvalidate();
           },
           onError: () => {
