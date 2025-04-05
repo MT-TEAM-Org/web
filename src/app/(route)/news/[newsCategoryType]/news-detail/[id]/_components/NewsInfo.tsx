@@ -91,8 +91,9 @@ const NewsInfo = ({
 
   const { data: newsListData } = useSortedNewsDataList(newsOption);
   const updatedImgUrl = updateImageUrl(newsInfoData?.thumbImg, "w360");
+
   const sliceNewsListData = newsListData
-    ? newsListData?.content?.slice(0, 3)
+    ? newsListData?.content?.slice(0, 10)
     : [];
 
   const handleNewsCommend = () => {
@@ -132,13 +133,14 @@ const NewsInfo = ({
         <div
           className={cn(
             "flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-white shadow-sm mb-2",
-            "mobile:w-[360px] mobile:gap-1"
+            "mobile:w-[360px] mobile:gap-1 mobile:px-4 mobile:py-3"
           )}
         >
           <div className="w-full h-auto flex flex-col gap-2">
             <h1
               className={cn(
                 "w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-gray8",
+                "tablet:text-[18px] tablet:leading-7 tablet:tracking-[-0.72px] tablet:font-bold",
                 "mobile:text-[16px] mobile:tracking-[-0.02em] mobile:leading-4"
               )}
             >
@@ -168,16 +170,10 @@ const NewsInfo = ({
                   )}
                 >
                   <p className="font-bold">조회수 {newsInfoData?.viewCount}</p>
-                  <p>댓글 {newsInfoData?.commentCount}</p>
-                </div>
-                <div
-                  className={cn(
-                    "flex gap-1 font-medium text-[14px] leading-5",
-                    "mobile:text-[12px] leading-[18px] tracking-[-0.02em]"
-                  )}
-                >
-                  <p className="font-bold">추천</p>
-                  <p>{newsInfoData?.recommendCount}</p>
+                  <p className="font-bold">댓글 {newsInfoData?.commentCount}</p>
+                  <p className="font-bold">
+                    추천 {newsInfoData?.recommendCount}
+                  </p>
                 </div>
               </div>
               <div
@@ -244,7 +240,7 @@ const NewsInfo = ({
         ) : sliceNewsListData?.length === 0 ? (
           <EmptyItem title="뉴스가" />
         ) : (
-          sliceNewsListData.map((newsItem: NewsListType) => (
+          sliceNewsListData?.map((newsItem: NewsListType) => (
             <NewsPostItem
               key={newsItem?.id}
               newsItem={newsItem}

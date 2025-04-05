@@ -58,8 +58,7 @@ const LeftSidebar = () => {
                   ? "font-[700] text-gra bg-bg0 mobile:border-gray7 mobile:text-gray7 mobile:bg-transparent"
                   : "font-[400] text-gray7 bg-white mobile:text-gray5"
               }`,
-              "tablet:flex tablet:w-[144px] tablet:flex-shrink tablet:justify-center tablet:items-center tablet:text-center",
-              "mobile:flex mobile:flex-grow mobile:min-w-[128px] mobile:h-[48px] mobile:justify-center mobile:items-center mobile:text-center mobile:font-medium mobile:text-[14px] mobile:leading-5 mobile:border-b-2"
+              "tablet:flex tablet:w-[144px] tablet:flex-shrink tablet:justify-center tablet:items-center tablet:text-center"
             )}
           >
             <p className="whitespace-nowrap">{board.name}</p>

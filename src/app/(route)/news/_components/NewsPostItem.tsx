@@ -47,11 +47,11 @@ const NewsPostItem = ({
 
   const styles = {
     title: isRead
-      ? "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray5 text-ellipsis overflow-hidden whitespace-nowrap"
-      : "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray9 text-ellipsis overflow-hidden whitespace-nowrap",
+      ? "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray5 text-ellipsis overflow-hidden whitespace-nowrap mobile:text-[14px] leading-5"
+      : "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray9 text-ellipsis overflow-hidden whitespace-nowrap mobile:text-[14px] leading-5",
     content: isRead
-      ? "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray5 overflow-hidden line-clamp-2"
-      : "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray7 overflow-hidden line-clamp-2",
+      ? "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray5 overflow-hidden line-clamp-2 mobile:text-[12px] mobile:leading-[18px] tracking-[-0.02em]"
+      : "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray7 overflow-hidden line-clamp-2 mobile:text-[12px] mobile:leading-[18px] tracking-[-0.02em]",
     text: isRead
       ? "font-medium text-[12px] text-gray5 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap"
       : "font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap",
@@ -101,8 +101,8 @@ const NewsPostItem = ({
     <div
       onClick={handleToInfo}
       className={cn(
-        `min-w-[720px] mobile:min-w-0 ${getMinHeightClass()} flex justify-start gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`,
-        "mobile:max-w-[768px] mobile:w-auto"
+        `min-w-[720px] mobile:min-w-0 ${getMinHeightClass()} flex justify-start items-center gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`,
+        "mobile:min-w-auto mobile:w-[360px] mobile:h-[114px] min-h-auto"
       )}
     >
       <div
@@ -129,7 +129,7 @@ const NewsPostItem = ({
       <div
         className={cn(
           "w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1",
-          "mobile:flex-[1_1_360px]"
+          "mobile:w-[236px] mobile:max-w-full"
         )}
       >
         <div
