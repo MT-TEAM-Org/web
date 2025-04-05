@@ -5,6 +5,7 @@ import { RightSideBar } from "../../(community)/_components/RightSideBar";
 import { cn } from "@/utils";
 
 export const metadata = {
+  metadataBase: new URL("https://playhive.co.kr/"),
   title: "PlayHive 뉴스 페이지",
   description: "PlayHive 뉴스 페이지입니다.",
   openGraph: {
@@ -26,14 +27,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div
       className={cn(
         "flex flex-col justify-between items-center bg-gray1",
-        "tablet:flex tablet:flex-col",
-        "mobile:w-[360px] mobile:flex mobile:flex-col"
+        "tablet:flex tablet:flex-col tablet:w-full tablet:max-w-[1279px] tablet:mx-auto",
+        "mobile:max-w-[768px] mobile:flex mobile:flex-col"
       )}
     >
       <div
         className={cn(
           "w-[1200px] min-h-[120px] flex items-center",
-          "tablet:w-full tablet:text-start tablet:ml-10",
+          "tablet:w-full tablet:text-start tablet:ml-20",
           "mobile:hidden"
         )}
       >
@@ -52,7 +53,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div
           className={cn(
             "w-[160px] min-h-[260px] rounded-[5px]",
-            "tablet:min-h-0",
+            "tablet:min-h-0 tablet:max-w-[688px] tablet:flex-grow tablet:min-w-0",
             "mobile:min-h-0 mobile:w-full mobile:flex-grow mobile:min-w-0"
           )}
         >
