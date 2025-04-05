@@ -22,6 +22,7 @@ import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import NewsPostItem from "@/app/(route)/news/_components/NewsPostItem";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import EmptyItem from "@/app/(route)/customer/_components/EmptyItem";
+import { cn } from "@/utils";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -90,8 +91,9 @@ const NewsInfo = ({
 
   const { data: newsListData } = useSortedNewsDataList(newsOption);
   const updatedImgUrl = updateImageUrl(newsInfoData?.thumbImg, "w360");
+
   const sliceNewsListData = newsListData
-    ? newsListData?.content?.slice(0, 3)
+    ? newsListData?.content?.slice(0, 10)
     : [];
 
   const handleNewsCommend = () => {
@@ -128,33 +130,63 @@ const NewsInfo = ({
       {isLoading ? (
         <NewsInfoSkeleton />
       ) : (
-        <div className="flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-white shadow-sm mb-2">
+        <div
+          className={cn(
+            "flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-white shadow-sm mb-2",
+            "mobile:w-[360px] mobile:gap-1 mobile:px-4 mobile:py-3"
+          )}
+        >
           <div className="w-full h-auto flex flex-col gap-2">
-            <h1 className="w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-gray8">
+            <h1
+              className={cn(
+                "w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-gray8",
+                "tablet:text-[18px] tablet:leading-7 tablet:tracking-[-0.72px] tablet:font-bold",
+                "mobile:text-[16px] mobile:tracking-[-0.02em] mobile:leading-4"
+              )}
+            >
               {newsInfoData?.title}
             </h1>
 
-            <div className="w-full h-auto min-h-[20px] gap-4 flex justify-between text-gray2">
-              <div className="flex gap-2 text-gray6 font-[700] leading-5 text-[14px]">
-                <div className="flex gap-1 font-medium text-[14px] leading-5">
+            <div
+              className={cn(
+                "w-full h-auto min-h-[20px] gap-4 flex justify-between text-gray2",
+                "mobile:flex-col gap-1"
+              )}
+            >
+              <div className="flex gap-2 text-gray6 font-[700] leading-5 text-[14px] items-center">
+                <div
+                  className={cn(
+                    "flex gap-1 font-medium text-[14px] leading-5",
+                    "mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em] mobile:font-bold"
+                  )}
+                >
                   <ChangedCategory category={newsInfoData?.category} />
                   <p>{formattedTime}</p>
                 </div>
-                <div className="flex gap-1 font-medium text-[14px] leading-5">
+                <div
+                  className={cn(
+                    "flex gap-1 font-medium text-[14px] leading-5",
+                    "mobile:text-[12px] leading-[18px] tracking-[-0.02em]"
+                  )}
+                >
                   <p className="font-bold">조회수 {newsInfoData?.viewCount}</p>
-                  <p>댓글 {newsInfoData?.commentCount}</p>
-                </div>
-                <div className="flex gap-1 font-medium text-[14px] leading-5">
-                  <p className="font-bold">추천</p>
-                  <p>{newsInfoData?.recommendCount}</p>
+                  <p className="font-bold">댓글 {newsInfoData?.commentCount}</p>
+                  <p className="font-bold">
+                    추천 {newsInfoData?.recommendCount}
+                  </p>
                 </div>
               </div>
-              <div className="text-[14px] flex font-[500] leading-5 gap-1 text-gray6">
+              <div
+                className={cn(
+                  "text-[14px] flex font-[500] leading-5 gap-1 text-gray6",
+                  "mobile:text-[12px] leading-[18px] tracking-[-0.02em]"
+                )}
+              >
                 <p>네이버 스포츠</p>
               </div>
             </div>
           </div>
-          <hr />
+          <hr className={cn("mobile:mb-2")} />
           <div className="w-full h-auto flex flex-col gap-3">
             {newsInfoData?.thumbImg && (
               <Image
@@ -165,7 +197,12 @@ const NewsInfo = ({
                 className="object-cover"
               />
             )}
-            <p className="font-[500] text-[16px] leading-6 tracking-[-0.02em] text-gray7 overflow-hidden line-clamp-2">
+            <p
+              className={cn(
+                "font-[500] text-[16px] leading-6 tracking-[-0.02em] text-gray7 overflow-hidden line-clamp-2",
+                "mobile:text-[14px] mobile:leading-5"
+              )}
+            >
               {newsInfoData?.content}
             </p>
           </div>
@@ -176,14 +213,26 @@ const NewsInfo = ({
             isRecommend={newsInfoData?.recommend}
           />
 
-          <PostAction type="news" source={newsInfoData?.source} />
+          <div className={cn("mobile:hidden")}>
+            <PostAction type="news" source={newsInfoData?.source} />
+          </div>
           <CommentSection newsInfoData={newsInfoData} />
         </div>
       )}
 
-      <NewsTalkToolbar newsType={category} pageInfo={newsListData?.pageInfo} />
+      <div className={cn("mobile:hidden")}>
+        <NewsTalkToolbar
+          newsType={category}
+          pageInfo={newsListData?.pageInfo}
+        />
+      </div>
 
-      <div className="w-[720px] h-auto rounded-b-[5px] overflow-hidden shadow-md">
+      <div
+        className={cn(
+          "w-[720px] h-auto rounded-b-[5px] overflow-hidden shadow-md",
+          "mobile:w-auto"
+        )}
+      >
         {isLoading ? (
           Array(3)
             .fill(0)
@@ -191,7 +240,7 @@ const NewsInfo = ({
         ) : sliceNewsListData?.length === 0 ? (
           <EmptyItem title="뉴스가" />
         ) : (
-          sliceNewsListData.map((newsItem: NewsListType) => (
+          sliceNewsListData?.map((newsItem: NewsListType) => (
             <NewsPostItem
               key={newsItem?.id}
               newsItem={newsItem}

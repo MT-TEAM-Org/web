@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -47,17 +48,20 @@ const LeftSidebar = () => {
   };
 
   return (
-    <div className="w-full bg-white">
+    <div className={cn("w-full bg-white", "tablet:flex", "mobile:flex")}>
       {boardList.map((board) => (
         <Link href={board.path} key={board.id}>
           <div
-            className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
-              isCurrentPath(board.category)
-                ? "font-[700] text-gra bg-bg0"
-                : "font-[400] text-gray7 bg-white"
-            }`}
+            className={cn(
+              `w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
+                isCurrentPath(board.category)
+                  ? "font-[700] text-gra bg-bg0 mobile:border-gray7 mobile:text-gray7 mobile:bg-transparent"
+                  : "font-[400] text-gray7 bg-white mobile:text-gray5"
+              }`,
+              "tablet:flex tablet:w-[144px] tablet:flex-shrink tablet:justify-center tablet:items-center tablet:text-center"
+            )}
           >
-            <p>{board.name}</p>
+            <p className="whitespace-nowrap">{board.name}</p>
           </div>
         </Link>
       ))}

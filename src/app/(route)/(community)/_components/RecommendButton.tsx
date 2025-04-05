@@ -1,4 +1,5 @@
 import Single_logo from "@/app/_components/icon/Single_logo";
+import { cn } from "@/utils";
 import React from "react";
 
 interface RecommendButtonProps {
@@ -13,10 +14,15 @@ const RecommendButton = ({
   isRecommend,
 }: RecommendButtonProps) => {
   const recommendButtonBaseStyle =
-    "h-[40px] rounded-[5px] border px-[13px] py-4 flex gap-1 bg-white items-center justify-center text-[14px] font-bold";
+    "h-[40px] rounded-[5px] border px-[13px] py-4 flex gap-1 bg-white items-center justify-center text-[14px] font-bold mobile:w-full";
 
   return (
-    <div className="w-full h-auto flex justify-center gap-2">
+    <div
+      className={cn(
+        "w-full h-auto flex justify-center gap-2",
+        "mobile:max-w-[328px]"
+      )}
+    >
       <button
         onClick={handleCommend}
         className={
