@@ -15,6 +15,9 @@ const getBestComment = async (data: BestCommentData) => {
         size: 3,
         type: data.type,
       },
+      headers: {
+        Authorization: localStorage.getItem("accessToken"),
+      },
     }
   );
   return response.data;

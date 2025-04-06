@@ -9,14 +9,14 @@ import Cancel_icon from "@/app/_components/icon/Cancel_icon";
 import { useToast } from "@/_hooks/useToast";
 import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
-import { CommentItem } from "@/_types/comment";
+import { CommentItem, CommentType } from "@/_types/comment";
 import usePostComment from "@/_hooks/fetcher/comment/usePostComment";
 
 interface SendCommentBoxProps {
   id?: string;
   parentsComment?: CommentItem;
   setParentsComment: (comment: CommentItem) => void;
-  type: "BOARD" | "IMPROVEMENT" | "INQUIRY" | "NEWS" | "NOTICE";
+  type: CommentType;
 }
 
 const SendCommentBox = ({

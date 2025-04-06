@@ -4,7 +4,6 @@ import { Discord } from "@/app/_components/icon/Discord";
 import { Google } from "@/app/_components/icon/Google";
 import { Kakao } from "@/app/_components/icon/Kakao";
 import { Naver } from "@/app/_components/icon/Naver";
-import { useSocialStore } from "@/utils/Store";
 import { useRouter } from "next/navigation";
 
 interface SnsButtonsProps {
@@ -12,7 +11,6 @@ interface SnsButtonsProps {
 }
 
 const SnsButtons = ({ signState }: SnsButtonsProps) => {
-  const { setSocial } = useSocialStore();
   const router = useRouter();
 
   const snsButtonObject = [
@@ -39,7 +37,6 @@ const SnsButtons = ({ signState }: SnsButtonsProps) => {
   ];
 
   const handleSnsRoute = (sns: "google" | "naver" | "kakao" | "discord") => {
-    setSocial(sns);
     router.push(
       `${process.env.NEXT_PUBLIC_API_URL}oauth2/authorization/${sns}`
     );

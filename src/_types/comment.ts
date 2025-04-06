@@ -33,7 +33,8 @@ export type CommentType =
   | "IMPROVEMENT"
   | "INQUIRY"
   | "NEWS"
-  | "NOTICE";
+  | "NOTICE"
+  | "MATCH";
 
 export interface PostCommentData {
   type: CommentType;

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { CalculateTime } from "@/app/_components/CalculateTime";
 import { highlightText } from "@/utils/searchHighlightText";
+import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 
 interface MyPageInquiriesItemProps {
   data: {
@@ -15,6 +16,10 @@ interface MyPageInquiriesItemProps {
     nickname: string;
     isAdminAnswered: string;
     commentCount: number;
+    commentSearchList?: {
+      comment: string;
+      imageUrl: string;
+    };
   };
 }
 
@@ -58,6 +63,21 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
           <span>{data?.nickname}</span>
           <span className="text-gray4">IP {data?.clientIp}</span>
         </div>
+        {data?.commentSearchList && (
+          <div className="flex items-center min-h-[18px]">
+            <div className="flex justify-center items-center w-[16px] h-[16px]">
+              <Arrow_reply size={12} />
+            </div>
+            <div className="text-[12px] leading-[18px] text-gray7">
+              {data?.commentSearchList?.imageUrl && "(이미지)"}{" "}
+              {highlightText(
+                data?.commentSearchList.comment,
+                searchType,
+                search
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </Link>
   );

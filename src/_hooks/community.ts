@@ -24,7 +24,6 @@ const postCommunitycontent = async (data: CommunityData) => {
 const usePostCommunityContent = () => {
   const router = useRouter();
   const toast = useToast();
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: CommunityData) => postCommunitycontent(data),
     onSuccess: (response) => {

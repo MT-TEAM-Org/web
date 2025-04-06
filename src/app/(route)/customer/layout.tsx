@@ -3,6 +3,7 @@ import CustomerLeftSidebar from "./_components/CustomerLeftSidebar";
 import RightSidebarWrapper from "./_components/RightSidebarWrapper";
 
 export const metadata = {
+  metadataBase: new URL("https://playhive.co.kr/"),
   title: "PlayHive 고객센터 페이지",
   description: "PlayHive 고객센터 페이지입니다.",
   openGraph: {
