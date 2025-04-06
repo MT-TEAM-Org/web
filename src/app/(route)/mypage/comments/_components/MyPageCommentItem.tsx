@@ -128,7 +128,7 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
           </div>
           <div className="text-[12px] leading-[18px] text-gray7">
             {data?.commentResponse?.imageUrl && "(이미지)"}{" "}
-            {data?.commentResponse?.comment}
+            {highlightText(data?.commentResponse?.comment, searchType, search)}
           </div>
         </div>
       </div>

@@ -27,10 +27,6 @@ const FindId = () => {
   const { mutate, isPending } = useFindId();
 
   const onSubmit = (data: FormData) => {
-    if (data.tel === "") {
-      alert("핸드폰 번호를 입력해주세요.");
-      return;
-    }
     mutate(data, {
       onSuccess: (data) => {
         reset();

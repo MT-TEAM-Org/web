@@ -109,7 +109,11 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
             </div>
             <div className="text-[12px] leading-[18px] text-gray7">
               {data?.boardCommentSearchList.imageUrl && "(이미지)"}{" "}
-              {data?.boardCommentSearchList.comment}
+              {highlightText(
+                data?.boardCommentSearchList.comment,
+                searchType,
+                search
+              )}
             </div>
           </div>
         )}

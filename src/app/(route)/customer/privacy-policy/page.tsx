@@ -2,6 +2,7 @@ import TermsPersonalText from "@/app/_components/termsModal/TermsPersonalText";
 import React from "react";
 
 export const metadata = {
+  metadataBase: new URL("https://playhive.co.kr/"),
   title: "PlayHive 개인정보 취급방침",
   description: "PlayHive 개인정보 취급방침 페이지입니다.",
   openGraph: {

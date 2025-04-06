@@ -12,6 +12,9 @@ const getCommentList = async (data: CommentData) => {
     `${process.env.NEXT_PUBLIC_API_URL}api/comments/${data.id}`,
     {
       params: { page: data.page, size: 20, type: data.type },
+      headers: {
+        Authorization: localStorage.getItem("accessToken"),
+      },
     }
   );
   return response.data;
