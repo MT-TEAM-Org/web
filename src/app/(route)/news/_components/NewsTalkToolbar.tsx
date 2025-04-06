@@ -10,6 +10,7 @@ import { NewsListPageInfoType } from "@/app/(route)/news/_types/newsListItemType
 import { POST_SEARCH_OPTIONS } from "@/app/(route)/mypage/_constants/toolbarObject";
 import { newsListConfig } from "../_types/newsListConfig";
 import OrderDateButton from "./OrderDateButton";
+import { cn } from "@/utils";
 
 interface NewsTalkToolbarProps {
   newsType?: string;
@@ -74,8 +75,13 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
   };
 
   return (
-    <div className="rounded-[5px] bg-white">
-      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white">
+    <div className={cn("rounded-[5px] bg-white", "mobile:w-full")}>
+      <div
+        className={cn(
+          "w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white",
+          "mobile:hidden"
+        )}
+      >
         <OrderDateButton />
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
           <SearchFilter
@@ -86,14 +92,29 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
           />
         </div>
       </div>
-      <div className="flex justify-between items-center p-[12px]">
-        <div className="flex w-full items-center gap-[4px]">
+      <div
+        className={cn(
+          "flex justify-between items-center p-[12px]",
+          "mobile:w-auto"
+        )}
+      >
+        <div
+          className={cn(
+            "flex w-full items-center gap-[4px]",
+            "mobile:items-center mobile:justify-center"
+          )}
+        >
           <OrderButtons
             orderType={paramsConfig.orderType as newsListConfig["orderType"]}
             onOrderType={handleOrderButtonClick}
           />
         </div>
-        <Pagination pageInfo={pageInfo} onPageChangeAction={handlePageChange} />
+        <div className={cn("mobile:hidden")}>
+          <Pagination
+            pageInfo={pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );
