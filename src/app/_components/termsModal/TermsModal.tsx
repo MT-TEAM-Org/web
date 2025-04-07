@@ -4,6 +4,7 @@ import { cn } from "@/utils";
 import TermsPersonalText from "./TermsPersonalText";
 import TermsServiceText from "./TermsServiceText";
 import CustomIcon from "../IconComponents/Icon";
+import { useRef } from "react";
 
 interface Show {
   service: boolean;
@@ -17,6 +18,9 @@ interface TearmsModalProps {
 }
 
 const TearmsModal = ({ show, setShow }: TearmsModalProps) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const pcScrollRef = useRef<HTMLDivElement>(null);
+
   const disabledModal = () => {
     if (show.sequence === 0) {
       setShow({ service: false, personal: false, sequence: 0 });
@@ -31,6 +35,11 @@ const TearmsModal = ({ show, setShow }: TearmsModalProps) => {
     } else if (show.sequence === 2) {
       setShow({ service: false, personal: false, sequence: 0 });
     }
+    if (window.innerWidth <= 768) {
+      scrollRef.current?.scrollTo({ top: 0, behavior: "instant" });
+    } else {
+      pcScrollRef.current?.scrollTo({ top: 0, behavior: "instant" });
+    }
   };
 
   return (
@@ -39,6 +48,7 @@ const TearmsModal = ({ show, setShow }: TearmsModalProps) => {
       onClick={disabledModal}
     >
       <div
+        ref={scrollRef}
         className={cn(
           "flex flex-col gap-[24px] p-[40px] w-[640px] h-[600px] rounded-[10px] bg-[#FFFFFF] shadow-lg text-[#000000]",
           "mobile:w-full mobile:h-screen mobile:rounded-none mobile:p-0 mobile:justify-start mobile:gap-0 mobile:overflow-y-scroll"
@@ -81,6 +91,7 @@ const TearmsModal = ({ show, setShow }: TearmsModalProps) => {
             </button>
           </div>
           <div
+            ref={pcScrollRef}
             className={cn(
               "overflow-y-auto min-w-[560px] h-[390px] bg-[#FAFAFA] rounded-[10px]",
               "mobile:min-w-full mobile:h-auto mobile:overflow-auto mobile:bg-white"
