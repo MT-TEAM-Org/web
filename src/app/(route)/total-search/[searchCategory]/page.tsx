@@ -17,6 +17,7 @@ import NoticeItemSkeleton from "../../customer/_components/NoticeItemSkeleton";
 import { SearchListType } from "../_types/searchType";
 import TotalSearchItem from "../_components/TotalSearchItem";
 import { NewsListType } from "../../news/_types/newsListItemType";
+import { cn } from "@/utils";
 
 const Page = () => {
   const params = useParams<{ totalSearchType: string }>();
@@ -65,7 +66,9 @@ const Page = () => {
   } = useGetSearchDataList(searchOptions);
 
   return (
-    <div className="w-[720px] h-auto">
+    <div
+      className={cn("w-[720px] h-auto", "tablet:w-[688px]", "mobile:w-[360px]")}
+    >
       <SearchToolbar
         totalSearchType={category}
         pageInfo={searchData?.pageInfo}

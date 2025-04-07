@@ -47,7 +47,7 @@ const OrderDateButton = () => {
     "bg-white text-gray7 font-medium leading-5 border border-gray3";
 
   return (
-    <div className="min-w-[317px] min-h-[40px] flex gap-2 items-center justify-center">
+    <div className="min-w-[317px] min-h-[40px] flex gap-2 items-center justify-center whitespace-nowrap">
       {timeButtons.map((button) => (
         <button
           key={button.value}
