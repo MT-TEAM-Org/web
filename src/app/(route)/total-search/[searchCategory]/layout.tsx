@@ -23,11 +23,17 @@ export const metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-[calc(100vh-188px)] pb-[40px] mx-10">
+    <div
+      className={cn(
+        "min-h-[calc(100vh-188px)] pb-[40px] mx-10",
+        "tablet:max-w-[688px]",
+        "mobile:max-w-[360px] mobile:mx-0"
+      )}
+    >
       <div
         className={cn(
           "max-w-[1200px] mx-auto pt-[40px] pb-[20px]",
-          "tablet:max-w-full",
+          "tablet:w-[688px]",
           "mobile:hidden"
         )}
       >
@@ -39,7 +45,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div
         className={cn(
           "mt-[20px] max-w-[1200px] flex mx-auto gap-5",
-          "tablet:max-w-full tablet:flex-col tablet:gap-0"
+          "tablet:max-w-[688px] tablet:flex-col tablet:gap-0"
         )}
       >
         <div
