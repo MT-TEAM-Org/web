@@ -22,6 +22,7 @@ type MatchItem = {
   category: string;
   startTime: string;
   leagueName: string;
+  groupId?: number;
 };
 
 type MatchScheduleResponse = {
