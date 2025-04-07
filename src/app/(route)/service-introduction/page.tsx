@@ -241,7 +241,8 @@ const Page = () => {
               <p
                 className={cn(
                   "tablet:text-[42px] tablet:leading-[64px] text-black",
-                  "mobile:text-[16px] mobile:leading-6"
+                  "mobile:text-[16px] mobile:leading-6",
+                  "pc:hidden"
                 )}
               >
                 플레이하이브에서 소통한다면 <br /> 다양한 즐거운 경험들을
@@ -275,8 +276,20 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="w-full min-h-[600px] py-[60px] flex gap-[10px] bg-white items-center justify-center">
-        <div className="w-[1200px] min-h-[480px] flex justify-between items-center">
+      <div
+        className={cn(
+          "w-full min-h-[600px] py-[60px] flex gap-[10px] bg-white items-center justify-center",
+          "tablet:min-h-[974px] tablet:flex-col tablet:px-[40px]",
+          "mobile:min-h-[619px] mobile:flex-col mobile:px-4 mobile:py-6"
+        )}
+      >
+        <div
+          className={cn(
+            "w-[1200px] min-h-[480px] flex justify-between items-center",
+            "tablet:w-full tablet:min-h-[854px] tablet:flex-col tablet:gap-[80px]",
+            "mobile:w-full mobile:min-h-[571px] mobile:flex-col mobile:gap-10"
+          )}
+        >
           <div className="relative w-[464.42px] h-[480px]">
             {benefitImages.map((image, index) => (
               <div key={index} className={image.shadowClass}>
@@ -290,16 +303,53 @@ const Page = () => {
               </div>
             ))}
           </div>
-          <div className="w-[560px] min-h-[294px] flex gap-6 flex-col">
-            <div className="w-full h-[158px] flex gap-1 flex-col">
-              <p className="font-bold text-[20px] leading-[26px] tracking-[-0.02em] text-gra">
+
+          <div
+            className={cn(
+              "w-[560px] min-h-[294px] flex gap-6 flex-col",
+              "tablet:w-full",
+              "mobile:w-full mobile:min-h-[166px] mobile:h-auto mobile:gap-2"
+            )}
+          >
+            <div
+              className={cn(
+                "w-full h-[158px] flex gap-1 flex-col",
+                "mobile:h-0 mobile:min-h-[70px]"
+              )}
+            >
+              <p
+                className={cn(
+                  "font-bold text-[20px] leading-[26px] tracking-[-0.02em] text-gra",
+                  "mobile:text-[12px] mobile:leading-[18px]"
+                )}
+              >
                 benefits 2
               </p>
-              <p className="font-bold text-[42px] leading-[64px] tracking-[-0.02em] text-black">
+              <p
+                className={cn(
+                  "font-bold text-[42px] leading-[64px] tracking-[-0.02em] text-black",
+                  "tablet:hidden",
+                  "mobile:hidden"
+                )}
+              >
                 좋아하는 스포츠 선수를 함께 응원한다면 더 즐거워요!
               </p>
+              <p
+                className={cn(
+                  "font-bold text-[42px] leading-[64px] tracking-[-0.02em] text-black",
+                  "mobile:text-[16px] mobile:leading-6",
+                  "pc:hidden"
+                )}
+              >
+                좋아하는 스포츠 선수를 함께 <br /> 응원한다면 더 즐거워요!
+              </p>
             </div>
-            <p className="font-medium text-[18px] leading-7 tracking-[-0.04em] text-gray7">
+            <p
+              className={cn(
+                "font-medium text-[18px] leading-7 tracking-[-0.04em] text-gray7",
+                "mobile:text-[12px] mobile:leading-[18px]"
+              )}
+            >
               페이커, 손흥민, 오타니, T1, 젠지, 토트넘 등.. 좋아하는 팀이나
               선수가 있으신가요? 추천시스템을 통해서 서로를 존중해주는 응원
               문화를 지향합니다. 따라서 팬인 선수나 팀에 대한 정보 공유, 응원
@@ -309,20 +359,52 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-[360px] flex items-center justify-center bg-[url('/Service_footer.png')] bg-center bg-cover relative">
+
+      <div
+        className={cn(
+          "w-full h-[360px] flex items-center justify-center bg-[url('/Service_footer.png')] bg-center bg-cover relative",
+          "mobile:h-[200px]"
+        )}
+      >
         <div className="absolute inset-0 bg-black opacity-50" />
-        <div className="min-w-[558px] min-h-[232px] flex gap-6 flex-col items-center justify-center relative z-10">
-          <div className="min-w-[558px] min-h-[156px] flex flex-col items-center justify-center gap-6">
-            <div className="min-h-[80px] flex items-center gap-[10px]">
-              <DoubleLogo />
-              <Service_PlayHive />
+        <div
+          className={cn(
+            "min-w-[558px] min-h-[232px] flex gap-6 flex-col items-center justify-center relative z-10",
+            "tablet:min-w-[561px]",
+            "mobile:min-w-[250px] mobile:min-h-[64px] mobile:gap-4"
+          )}
+        >
+          <div
+            className={cn(
+              "min-w-[558px] min-h-[156px] flex flex-col items-center justify-center gap-6",
+              "mobile:min-w-[250px] mobile:min-h-[64px] mobile:gap-2"
+            )}
+          >
+            <div
+              className={cn(
+                "min-h-[80px] flex items-center gap-[10px]",
+                "mobile:h-[32px] mobile:min-h-0 mobile:gap-1"
+              )}
+            >
+              <DoubleLogo width={20} height={27} />
+              <Service_PlayHive width={93} height={32} />
             </div>
-            <p className="font-bold text-[36px] leading-[52px] tracking-[-0.02em] text-white">
+            <p
+              className={cn(
+                "font-bold text-[36px] leading-[52px] tracking-[-0.02em] text-white",
+                "mobile:text-[16px] mobile:leading-6"
+              )}
+            >
               &quot;여러분의 스포츠 이야기를 들려주세요!”
             </p>
           </div>
           <Link href={"/sign"}>
-            <button className="w-[160px] h-[52px] rounded-[5px] px-[22px] py-[18px] flex gap-[10px] bg-gra text-white items-center justify-center">
+            <button
+              className={cn(
+                "w-[160px] h-[52px] rounded-[5px] px-[22px] py-[18px] flex gap-[10px] bg-gra text-white items-center justify-center",
+                "mobile:w-[120px] mobile:h-[40px] mobile:text-[14px] mobile:whitespace-nowrap"
+              )}
+            >
               로그인/회원가입
             </button>
           </Link>
