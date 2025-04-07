@@ -54,7 +54,7 @@ const GuestModalPopup = ({ show, setShow }: GuestModalPopupProps) => {
         onSubmit={handleSubmit(onSubmit)}
         className={cn(
           "w-[640px] min-h-[604px] h-auto rounded-[10px] p-10 flex gap-6 flex-col bg-white overflow-hidden items-center justify-center",
-          "mobile:h-screen mobile:rounded-none mobile:p-0 mobile:justify-start mobile:gap-0"
+          "mobile:w-full mobile:h-screen mobile:rounded-none mobile:p-0 mobile:justify-start mobile:gap-0"
         )}
         onClick={(e) => e.stopPropagation()}
       >
