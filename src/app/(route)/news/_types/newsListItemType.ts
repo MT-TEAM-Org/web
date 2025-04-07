@@ -4,6 +4,12 @@ export interface NewsCommentSearchList {
   imageUrl: string,
 }
 
+export interface TotalSearchNewsList {
+  comment: string,
+  imageUrl: string,
+  commentId: number,
+}
+
 export interface NewsListType {
   id: number;
   title: string;
@@ -26,7 +32,7 @@ export interface NewsListType {
   publicId?: string,
   thumbnail?: string,
   updatedAt?: string,
-  commentSearchList?: NewsCommentSearchList;
+  commentSearchList?: TotalSearchNewsList;
 }
 
 export interface NewsListPageInfoType {

@@ -80,7 +80,7 @@ const TotalSearchItem = ({
     >
       <div
         className={cn(
-          "flex items-center justify-start w-[720px] min-h-[66px] gap-[12px] border-b p-[12px] hover:bg-bg0",
+          "flex items-center justify-start w-[720px] min-h-[66px] max-h-[88px] gap-[12px] border-b p-[12px] hover:bg-bg0",
           "mobile:min-w-[360px] mobile:w-0"
         )}
       >
@@ -120,7 +120,7 @@ const TotalSearchItem = ({
               </span>
             )}
           </div>
-          <div className="flex gap-1 items-center font-medium text-[12px] leading-[18px] text-gray5 tracking-[-0.02em]">
+          <div className="flex gap-1 items-center font-medium text-[12px] leading-[18px] text-gray5 tracking-[-0.02em] whitespace-nowrap">
             <p className="font-semibold text-[12px] leading-[18px] text-gray5">
               {getKoreanBoardType(data?.boardType)}
             </p>
@@ -130,9 +130,9 @@ const TotalSearchItem = ({
             <span>{data?.createdIp}</span>
           </div>
           {data?.boardCommentSearchList?.comment && (
-            <div className="w-full flex items-start justify-start gap-1">
-              <div className="w-[16px] h-[16px] flex-shrink-0">
-                <Arrow_reply size={16} />
+            <div className="w-full flex items-center justify-start gap-1">
+              <div className="w-[16px] h-[16px] flex-shrink-0 flex items-center justify-center">
+                <Arrow_reply size={12} />
               </div>
               <div
                 className={`${commentBaseStyle} min-w-0 flex gap-[2px] items-center justify-start`}
