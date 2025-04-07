@@ -47,7 +47,7 @@ const LeftSidebar = () => {
           <div
             onClick={() => board.path && handleRoute(board.path)}
             key={board.id}
-            className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
+            className={`w-full h-[52px] px-[16px] py-[12px] flex justify-start items-center  cursor-pointer hover:text-[#00ADEE] ${
               board.id && pathname.includes(board.id)
                 ? "font-[700] text-[#00ADEE]"
                 : "font-[400] text-[#424242]"

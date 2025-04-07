@@ -20,7 +20,7 @@ export default function Header() {
   }, [isSuccess]);
 
   const headerButtonClass =
-    "w-[87px] min-h-[40px] p-[10px] font-medium text-[16px] leading-[24px] text-center";
+    "w-[87px] min-h-[40px] p-[16px] font-medium text-[16px] leading-[24px] text-center";
 
   const headerButton = [
     {
