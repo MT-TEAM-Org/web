@@ -27,7 +27,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div
         className={cn(
           "col-span-11 min-h-[120px] grid grid-cols-12 items-center",
-          "tablet:col-span-12"
+          "tablet:col-span-12",
+          "mobile:hidden"
         )}
       >
         <h1

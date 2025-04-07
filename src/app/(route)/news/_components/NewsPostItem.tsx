@@ -102,6 +102,7 @@ const NewsPostItem = ({
       onClick={handleToInfo}
       className={cn(
         `min-w-[720px] mobile:min-w-0 ${getMinHeightClass()} flex justify-start items-center gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`,
+        "tablet:w-[688px] tablet:min-w-0",
         "mobile:min-w-auto mobile:w-[360px] mobile:h-[114px] min-h-auto"
       )}
     >
@@ -115,12 +116,9 @@ const NewsPostItem = ({
           <Image
             src={updatedImgUrl}
             alt="Thumbnail"
-            width={60}
+            width={160}
             height={92}
-            className={cn(
-              "w-full h-full object-cover rounded-[5px] gap-[10px]",
-              "mobile:w-[80px] mobile:h-[80px]"
-            )}
+            className="w-full h-full object-cover rounded-[5px] gap-[10px]"
           />
         ) : (
           <LogoWhite />
@@ -129,12 +127,14 @@ const NewsPostItem = ({
       <div
         className={cn(
           "w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1",
+          "tablet:w-[492px]",
           "mobile:w-[236px] mobile:max-w-full"
         )}
       >
         <div
           className={cn(
             "w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start",
+            "w-[492px]",
             "mobile:w-full"
           )}
         >
@@ -157,7 +157,7 @@ const NewsPostItem = ({
         </div>
 
         <div>
-          <p className={cn(styles.content, "mobile:w-full")}>
+          <p className={cn(styles.content, "tablet:w-full", "mobile:w-full")}>
             {searchType === "CONTENT" || searchType === "TITLE_CONTENT"
               ? highlightText(newsItem?.content, searchType, searchString)
               : newsItem?.content}
