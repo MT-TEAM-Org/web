@@ -17,33 +17,35 @@ const Page = () => {
     {
       imgUrl: "Service_feature_1",
       title: "경기중계와 실시간 채팅",
-      content: "팬들과 함께 경기 라인업, 기록 등을 보며 즐겁게 소통하는 채팅",
+      content: "팬들과 함께 경기 라인업, 기록 등을 보며\n 즐겁게 소통하는 채팅",
     },
     {
       imgUrl: "Service_feature_2",
       title: "안전한 커뮤니티 운영",
-      content: "신고 시스템, 비속어 필터링으로 지속관리 관리자의 모니터링까지",
+      content:
+        "신고 시스템, 비속어 필터링으로 지속관리\n 관리자의 모니터링까지",
     },
     {
       imgUrl: "Service_feature_3",
       title: "건강한 응원 문화",
       content:
-        "비방,악성 댓글 없는 클린지향주의 서로를 존중할 자세가 있다면 컴온!",
+        "비방,악성 댓글 없는 클린지향주의\n 서로를 존중할 자세가 있다면 컴온!",
     },
     {
       imgUrl: "Service_feature_4",
       title: "다양한 카테고리 게시판",
-      content: "E스포츠, 축구, 야구 등의 다양한 허브 니즈에 따라 추가제공 가능",
+      content:
+        "E스포츠, 축구, 야구 등의 다양한 허브\n 니즈에 따라 추가제공 가능",
     },
     {
       imgUrl: "Service_feature_5",
       title: "승부예측",
-      content: "과연 누가 이길까? 나의 팀을 응원하고 예측하는 재미!",
+      content: "과연 누가 이길까?\n 나의 팀을 응원하고 예측하는 재미!",
     },
     {
       imgUrl: "Service_feature_6",
       title: "실시간 뉴스기사",
-      content: "최신 뉴스 기사와 함께 토론해볼수 있는 이야기 소통 공간 제공",
+      content: "최신 뉴스 기사와 함께 토론해볼수 있는\n 이야기 소통 공간 제공",
     },
   ];
 
@@ -73,7 +75,11 @@ const Page = () => {
       src: "/Service_benefit2_3.png",
       width: 193,
       height: 193,
-      className: "absolute top-[315px] left-[76px] rounded-[25px] opacity-50",
+      className: cn(
+        "absolute top-[315px] left-[76px] rounded-[25px] opacity-50",
+        "tablet:w-[243px] tablet:h-[223px] tablet:top-[300px] tablet:left-[60px]",
+        "mobile:w-[150px] mobile:h-[150px] mobile:top-[200px] mobile:left-[20px]"
+      ),
       shadowClass: "shadow-sm",
       zIndex: "z-0",
     },
@@ -81,7 +87,11 @@ const Page = () => {
       src: "/Service_benefit2_1.png",
       width: 316,
       height: 316,
-      className: "absolute top-[80px] left-[5px] rounded-[25px]",
+      className: cn(
+        "absolute top-[80px] left-[5px] rounded-[25px]",
+        "tablet:w-[436px] tablet:h-[436px] tablet:top-[0px] tablet:left-[-100px]",
+        "mobile:w-[280px] mobile:h-[280px] mobile:top-[10px] mobile:left-[-60px]"
+      ),
       shadowClass: "shadow-lg",
       zIndex: "z-10",
     },
@@ -89,7 +99,11 @@ const Page = () => {
       src: "/Service_benefit2_2.png",
       width: 293,
       height: 274,
-      className: "absolute top-[175px] left-[180px] rounded-[25px] opacity-95",
+      className: cn(
+        "absolute top-[175px] left-[180px] rounded-[25px] opacity-95",
+        "tablet:w-[400px] tablet:h-[400px] tablet:top-[120px] tablet:left-[170px]",
+        "mobile:w-[240px] mobile:h-[240px] mobile:top-[90px] mobile:left-[90px]"
+      ),
       shadowClass: "shadow-md",
       zIndex: "z-20",
     },
@@ -145,13 +159,14 @@ const Page = () => {
       <div
         className={cn(
           "w-full min-h-[902px] py-[80px] flex items-center justify-center gap-6",
+          "tablet:min-h-[1226px] tablet:px-10",
           "mobile:h-[790px] mobile:min-h-0 mobile:px-4 mobile:py-6"
         )}
       >
         <div
           className={cn(
             "w-full min-h-[742px] flex flex-col items-center justify-center gap-6",
-            "tablet:min-h-[1066px]",
+            "tablet:h-[1066px] tablet:min-h-0",
             "mobile:h-[742px] mobile:min-h-0"
           )}
         >
@@ -178,18 +193,16 @@ const Page = () => {
               서로 존중하는 커뮤니티, 플레이하이브
             </p>
           </div>
-          <div className="w-full flex items-center justify-center">
-            <div
-              className={cn(
-                "grid grid-cols-3 gap-6",
-                "tablet:grid-cols-2",
-                "mobile:grid-cols-1"
-              )}
-            >
-              {serviceItems.map((item) => (
-                <ServiceItem key={item.imgUrl} {...item} />
-              ))}
-            </div>
+          <div
+            className={cn(
+              "grid grid-cols-3 gap-6",
+              "tablet:grid-cols-2",
+              "mobile:grid-cols-1"
+            )}
+          >
+            {serviceItems.map((item) => (
+              <ServiceItem key={item.imgUrl} {...item} />
+            ))}
           </div>
         </div>
       </div>
@@ -290,7 +303,12 @@ const Page = () => {
             "mobile:w-full mobile:min-h-[571px] mobile:flex-col mobile:gap-10"
           )}
         >
-          <div className="relative w-[464.42px] h-[480px]">
+          <div
+            className={cn(
+              "relative w-[464.42px] h-[480px] flex items-center justify-center",
+              "mobile:w-[296px] h-[305px]"
+            )}
+          >
             {benefitImages.map((image, index) => (
               <div key={index} className={image.shadowClass}>
                 <Image
@@ -351,10 +369,11 @@ const Page = () => {
               )}
             >
               페이커, 손흥민, 오타니, T1, 젠지, 토트넘 등.. 좋아하는 팀이나
-              선수가 있으신가요? 추천시스템을 통해서 서로를 존중해주는 응원
-              문화를 지향합니다. 따라서 팬인 선수나 팀에 대한 정보 공유, 응원
-              게시글 등을 통하여 다양한 지식을 넓히고 쌓아갈 수 있습니다. 이른
-              바 덕업일치 실현을 해볼 때 입니다.
+              선수가 있으신가요?
+              <br /> 추천시스템을 통해서 서로를 존중해주는 응원 문화를
+              지향합니다. 따라서 팬인 선수나 팀에 대한 정보 공유, 응원 게시글
+              등을 통하여 다양한 지식을 넓히고 쌓아갈 수 있습니다. 이른 바
+              덕업일치 실현을 해볼 때 입니다.
             </p>
           </div>
         </div>
@@ -383,10 +402,20 @@ const Page = () => {
             <div
               className={cn(
                 "min-h-[80px] flex items-center gap-[10px]",
-                "mobile:h-[32px] mobile:min-h-0 mobile:gap-1"
+                "mobile:hidden"
               )}
             >
-              <DoubleLogo width={20} height={27} />
+              <DoubleLogo strokeWidth={0.1} />
+              <Service_PlayHive />
+            </div>
+            <div
+              className={cn(
+                "min-h-[32px] flex items-center gap-1",
+                "pc:hidden",
+                "tablet:hidden"
+              )}
+            >
+              <DoubleLogo width={20} height={27} strokeWidth={0.1} />
               <Service_PlayHive width={93} height={32} />
             </div>
             <p
