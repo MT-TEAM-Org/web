@@ -23,66 +23,53 @@ export const metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={cn("w-full grid grid-cols-12")}>
+    <div className="min-h-[calc(100vh-188px)] pb-[40px] mx-10">
       <div
         className={cn(
-          "col-span-11 min-h-[120px] grid grid-cols-12 items-center",
-          "tablet:col-span-12",
+          "max-w-[1200px] mx-auto pt-[40px] pb-[20px]",
+          "tablet:max-w-full",
           "mobile:hidden"
         )}
       >
-        <h1
-          className={cn(
-            "col-start-3 col-span-10 font-bold text-[28px] leading-10 tracking-[-0.04em]",
-            "tablet:col-start-3"
-          )}
-        >
+        <h1 className="text-[28px] font-bold leading-10 tracking-[-0.04em]">
           통합검색
         </h1>
       </div>
 
       <div
         className={cn(
-          "col-span-12 col-start-2 col-end-12",
-          "tablet:max-w-[688px] tablet:mx-auto"
+          "mt-[20px] max-w-[1200px] flex mx-auto gap-5",
+          "tablet:max-w-full tablet:flex-col tablet:gap-0"
         )}
       >
         <div
           className={cn(
-            "w-full flex gap-4 items-start justify-center",
-            "tablet:w-[688px] tablet:flex tablet:flex-col tablet:gap-0",
-            "mobile:w-[688px] mobile:flex mobile:flex-col mobile:gap-0"
+            "w-[160px] sticky top-0",
+            "tablet:w-full tablet:static tablet:shadow-none",
+            "mobile:hidden"
           )}
         >
-          <div
-            className={cn(
-              "w-[160px] bg-white shadow-md sticky top-0",
-              "tablet:w-auto tablet:min-h-0 tablet:flex-1 tablet:flex tablet:items-center tablet:justify-center tablet:shadow-none tablet:static",
-              "mobile:w-auto mobile:min-h-0 mobile:flex-1 mobile:flex mobile:items-center mobile:justify-center mobile:shadow-none mobile:static"
-            )}
-          >
-            <SearchLeftSideBar />
-          </div>
+          <SearchLeftSideBar />
+        </div>
 
-          <div
-            className={cn(
-              "min-h-[calc(100vh-188px)] mb-10 w-[720px]",
-              "tablet:w-[688px]",
-              "mobile:w-[360px]"
-            )}
-          >
-            {children}
-          </div>
+        <div
+          className={cn(
+            "flex-1 max-w-[720px] min-h-[calc(100vh-188px)] mb-10",
+            "tablet:max-w-[688px]",
+            "mobile:max-w-[360px]"
+          )}
+        >
+          {children}
+        </div>
 
-          <div
-            className={cn(
-              "mb-[42px] sticky top-0",
-              "tablet:hidden",
-              "mobile:hidden"
-            )}
-          >
-            <RightSideBar />
-          </div>
+        <div
+          className={cn(
+            "sticky top-0 mb-[42px]",
+            "tablet:hidden",
+            "mobile:hidden"
+          )}
+        >
+          <RightSideBar />
         </div>
       </div>
     </div>
