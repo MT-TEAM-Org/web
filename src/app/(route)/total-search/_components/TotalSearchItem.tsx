@@ -80,7 +80,7 @@ const TotalSearchItem = ({
     >
       <div
         className={cn(
-          "flex items-center justify-start w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]",
+          "flex items-center justify-start w-[720px] min-h-[66px] gap-[12px] border-b p-[12px] hover:bg-bg0",
           "mobile:min-w-[360px] mobile:w-0"
         )}
       >
