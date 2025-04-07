@@ -60,13 +60,15 @@ const NewsPostItem = ({
       "font-bold text-[12px] leading-[18px] letter-[-0.02em] text-gray5",
   };
 
+  const newsComment =
+    newsItem?.newsCommentSearchDto?.comment ||
+    newsItem?.commentSearchList?.comment;
+  const newsCommentImage =
+    newsItem?.newsCommentSearchDto?.imageUrl ||
+    newsItem?.commentSearchList?.imageUrl;
+
   const getMinHeightClass = () => {
-    if (
-      newsItem?.newsCommentSearchDto?.imageUrl ||
-      newsItem?.newsCommentSearchDto?.comment ||
-      newsItem?.commentSearchList?.imageUrl ||
-      newsItem?.commentSearchList?.commentId
-    ) {
+    if (newsComment || newsCommentImage) {
       return "h-[136px] mobile:h-[136px]";
     } else {
       return "h-[116px] mobile:h-[116px]";
@@ -90,13 +92,6 @@ const NewsPostItem = ({
       router.push(basePath);
     }
   };
-
-  const newsComment =
-    newsItem?.newsCommentSearchDto?.comment ||
-    newsItem?.commentSearchList?.comment;
-  const newsCommentImage =
-    newsItem?.newsCommentSearchDto?.imageUrl ||
-    newsItem?.commentSearchList?.imageUrl;
 
   return (
     <div
@@ -122,7 +117,9 @@ const NewsPostItem = ({
             className="w-full h-full object-cover rounded-[5px] gap-[10px]"
           />
         ) : (
-          <LogoWhite />
+          <div className="w-full h-full items-center justify-center flex bg-bg0 rounded-[5px]">
+            <LogoWhite />
+          </div>
         )}
       </div>
       <div
