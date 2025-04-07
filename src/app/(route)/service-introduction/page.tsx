@@ -196,7 +196,7 @@ const Page = () => {
           <div
             className={cn(
               "grid grid-cols-3 gap-6",
-              "tablet:grid-cols-2",
+              "tablet:min-w-[688px] tablet:min-h-[948px] tablet:grid-cols-2",
               "mobile:grid-cols-1"
             )}
           >
