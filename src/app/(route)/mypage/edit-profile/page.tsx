@@ -12,6 +12,9 @@ import { useToast } from "@/_hooks/useToast";
 import useDeleteImage from "@/_hooks/fetcher/mypage/useDeleteImage";
 import DeleteAccountModal from "./_components/DeleteAccountModal";
 import useDeleteAccount from "@/_hooks/fetcher/mypage/useDeleteAccount";
+import { cn } from "@/utils";
+import useLogout from "@/_hooks/fetcher/mypage/useLogout";
+import ConfirmModal from "@/app/_components/ConfirmModal";
 
 interface FormData {
   email: string;
@@ -75,10 +78,12 @@ const EditProfile = () => {
     useModifyUserInfo();
   const { mutate: deleteAccount, isPending: deleteAccountIsPending } =
     useDeleteAccount();
+  const { mutate: logout, isPending: logoutIsPending } = useLogout();
   const { mutate: deleteImage } = useDeleteImage();
   const [genderType, setGenderType] = useState<"M" | "W" | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [show, setShow] = useState(false);
+  const [logoutShow, setLogoutShow] = useState(false);
   const {
     register,
     handleSubmit,
@@ -168,16 +173,28 @@ const EditProfile = () => {
     deleteAccount();
   };
 
+  const handleLogout = () => {
+    setLogoutShow(false);
+    logout();
+  };
+
   const buttonStyle = "w-1/2 h-[40px] border-[1px] rounded-[5px]";
   return (
     <div className="max-w-[720px] rounded-[5px] bg-[#FFFFFF]">
-      <div className="flex items-center w-full min-h-[52px] p-[12px] border-b-[1px] border-[#EEEEEE]">
+      <div
+        className={cn(
+          "flex items-center w-full min-h-[52px] p-[12px] border-b-[1px] border-[#EEEEEE]",
+          "mobile:hidden"
+        )}
+      >
         <h2 className="text-[18px] font-[700] leading-[28px] text-[#303030]">
           내 정보 수정
         </h2>
       </div>
 
-      <div className="min-h-[958px] px-[12px] py-[24px]">
+      <div
+        className={cn("min-h-[958px] px-[12px] py-[24px]", "mobile:p-[16px]")}
+      >
         {!userInfoIsLoading && (
           <form
             className="max-w-[328px] min-h-[910px] mx-auto space-y-[24px]"
@@ -262,20 +279,52 @@ const EditProfile = () => {
             <div className="w-full min-h-[48px] flex justify-between">
               <button
                 type="button"
-                className="text-[14px] leading-[18px] underline text-[#000000]"
+                className={cn(
+                  "text-[14px] leading-[18px] underline text-[#000000]",
+                  "mobile:hidden"
+                )}
                 onClick={() => setShow(true)}
               >
                 회원탈퇴
               </button>
               <button
-                className={`defaultButtonColor w-[120px] min-h-[48px] rounded-[5px] px-[20px] py-[16px] text-white font-[700] text-[16px] leading-[16px] ${
-                  modifyUserInfoIsPending
-                    ? "bg-[#EEEEEE] text-[#CBCBCB]"
-                    : "defaultButtonColor"
-                }`}
+                className={cn(
+                  `defaultButtonColor w-[120px] min-h-[48px] rounded-[5px] px-[20px] py-[16px] text-white font-[700] text-[16px] leading-[16px] ${
+                    modifyUserInfoIsPending
+                      ? "bg-[#EEEEEE] text-[#CBCBCB]"
+                      : "defaultButtonColor"
+                  }`,
+                  "mobile:w-full"
+                )}
                 disabled={modifyUserInfoIsPending}
               >
                 수정완료
+              </button>
+            </div>
+            <div
+              className={cn(
+                "hidden",
+                "mobile:flex mobile:justify-between mobile:w-full mobile:min-h-[34px]"
+              )}
+            >
+              <button
+                type="button"
+                className={cn(
+                  "w-[50%] text-[14px] leading-[18px] underline text-[#000000]"
+                )}
+                onClick={() => setShow(true)}
+              >
+                회원탈퇴
+              </button>
+              <button
+                type="button"
+                onClick={() => setLogoutShow(true)}
+                disabled={logoutIsPending}
+                className={cn(
+                  "w-[50%] text-[14px] leading-[18px] underline text-[#000000]"
+                )}
+              >
+                로그아웃
               </button>
             </div>
           </form>
@@ -289,6 +338,16 @@ const EditProfile = () => {
           onConfirm={handleDeleteAccount}
         />
       )}
+      <ConfirmModal
+        show={logoutShow}
+        onClose={() => setLogoutShow(false)}
+        title="로그아웃 하시겠습니까?"
+        message="다시 로그인 하셔야합니다."
+        onConfirm={handleLogout}
+        closeText="취소"
+        confirmText="로그아웃"
+        isPending={logoutIsPending}
+      />
     </div>
   );
 };
