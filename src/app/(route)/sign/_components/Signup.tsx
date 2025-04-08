@@ -12,6 +12,7 @@ import Agree from "./Agree";
 import { SignupFormData } from "../types/signup";
 import { signupInputObject } from "../constants/signup";
 import { useToast } from "@/_hooks/useToast";
+import TearmsModal from "@/app/_components/termsModal/TermsModal";
 
 interface Selected {
   allAgree: boolean;
@@ -20,10 +21,6 @@ interface Selected {
   marketingAgree: boolean;
   [key: string]: boolean;
 }
-
-const TearmsModal = lazy(
-  () => import("@/app/_components/termsModal/TermsModal")
-);
 
 const Signup = () => {
   const { error } = useToast();

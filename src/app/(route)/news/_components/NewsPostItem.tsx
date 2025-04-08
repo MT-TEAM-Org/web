@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
@@ -60,36 +60,6 @@ const NewsPostItem = ({
       "font-bold text-[12px] leading-[18px] letter-[-0.02em] text-gray5",
   };
 
-  const getMinHeightClass = () => {
-    if (
-      newsItem?.newsCommentSearchDto?.imageUrl ||
-      newsItem?.newsCommentSearchDto?.comment ||
-      newsItem?.commentSearchList?.imageUrl ||
-      newsItem?.commentSearchList?.comment
-    ) {
-      return "h-[136px]";
-    } else {
-      return "h-[116px]";
-    }
-  };
-
-  const handleToInfo = () => {
-    handleRead();
-    if (newsItem?.newsCommentSearchDto?.newsCommentId) {
-      router.push(
-        `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
-          newsItem?.id
-        }?commentId=${newsItem?.newsCommentSearchDto?.newsCommentId}`
-      );
-    } else {
-      router.push(
-        `/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
-          newsItem?.id
-        }`
-      );
-    }
-  };
-
   const newsComment =
     newsItem?.newsCommentSearchDto?.comment ||
     newsItem?.commentSearchList?.comment;
@@ -97,12 +67,39 @@ const NewsPostItem = ({
     newsItem?.newsCommentSearchDto?.imageUrl ||
     newsItem?.commentSearchList?.imageUrl;
 
+  const getMinHeightClass = () => {
+    if (newsComment || newsCommentImage) {
+      return "h-[136px] mobile:h-[136px]";
+    } else {
+      return "h-[116px] mobile:h-[116px]";
+    }
+  };
+
+  const handleToInfo = () => {
+    handleRead();
+
+    const commentId =
+      newsItem?.newsCommentSearchDto?.newsCommentId ||
+      newsItem?.commentSearchList?.commentId;
+
+    const basePath = `/news${
+      categoryPath ? `/${categoryPath}` : ""
+    }/news-detail/${newsItem?.id}`;
+
+    if (commentId) {
+      router.push(`${basePath}?commentId=${commentId}`);
+    } else {
+      router.push(basePath);
+    }
+  };
+
   return (
     <div
       onClick={handleToInfo}
       className={cn(
-        `min-w-[720px] mobile:min-w-0 ${getMinHeightClass()} flex justify-start items-center gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`,
-        "mobile:min-w-auto mobile:w-[360px] mobile:h-[114px] min-h-auto"
+        `min-w-[720px] ${getMinHeightClass()} flex justify-start items-center gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`,
+        "tablet:w-[688px] tablet:min-w-0",
+        "mobile:min-w-0 mobile:w-[360px]"
       )}
     >
       <div
@@ -115,26 +112,27 @@ const NewsPostItem = ({
           <Image
             src={updatedImgUrl}
             alt="Thumbnail"
-            width={60}
+            width={160}
             height={92}
-            className={cn(
-              "w-full h-full object-cover rounded-[5px] gap-[10px]",
-              "mobile:w-[80px] mobile:h-[80px]"
-            )}
+            className="w-full h-full object-cover rounded-[5px] gap-[10px]"
           />
         ) : (
-          <LogoWhite />
+          <div className="w-full h-full items-center justify-center flex bg-bg0 rounded-[5px]">
+            <LogoWhite />
+          </div>
         )}
       </div>
       <div
         className={cn(
           "w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1",
+          "tablet:w-[492px]",
           "mobile:w-[236px] mobile:max-w-full"
         )}
       >
         <div
           className={cn(
             "w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start",
+            "w-[492px]",
             "mobile:w-full"
           )}
         >
@@ -157,7 +155,7 @@ const NewsPostItem = ({
         </div>
 
         <div>
-          <p className={cn(styles.content, "mobile:w-full")}>
+          <p className={cn(styles.content, "tablet:w-full", "mobile:w-full")}>
             {searchType === "CONTENT" || searchType === "TITLE_CONTENT"
               ? highlightText(newsItem?.content, searchType, searchString)
               : newsItem?.content}
@@ -171,9 +169,9 @@ const NewsPostItem = ({
           <p className={styles.info}>네이버 스포츠</p>
         </div>
         {newsComment && (
-          <div className="w-full flex items-start justify-start gap-1">
+          <div className="w-full flex items-center justify-start gap-1">
             <div className="w-[16px] h-[16px] flex-shrink-0">
-              <Arrow_reply size={16} />
+              <Arrow_reply size={12} />
             </div>
             <div
               className={`${styles.text} min-w-0 flex gap-[2px] items-center justify-start`}

@@ -166,6 +166,7 @@ const FindPassword = () => {
             <input
               {...register("email", { required: true })}
               type="text"
+              autoFocus
               className={`${inputStyle} w-[240px]`}
               id="email"
               disabled={isPending || checkVerificationIsSuccess}
@@ -201,6 +202,7 @@ const FindPassword = () => {
             <div className="flex justify-between gap-[8px]">
               <input
                 type="text"
+                autoFocus
                 className={`${
                   isPending ? isDisabledInputStyle : inputStyle
                 } w-[240px]`}

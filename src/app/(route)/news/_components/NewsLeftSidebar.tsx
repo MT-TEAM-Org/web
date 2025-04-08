@@ -48,20 +48,34 @@ const LeftSidebar = () => {
   };
 
   return (
-    <div className={cn("w-full bg-white", "tablet:flex", "mobile:flex")}>
+    <div
+      className={cn(
+        "w-full h-[260px] bg-white",
+        "tablet:flex tablet:w-[688px] tablet:h-[52px]",
+        "mobile:flex mobile:w-[360px] mobile:h-[48px]"
+      )}
+    >
       {boardList.map((board) => (
         <Link href={board.path} key={board.id}>
           <div
             className={cn(
-              `w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
+              `w-full h-[52px] px-4 py-3 cursor-pointer ${
                 isCurrentPath(board.category)
-                  ? "font-[700] text-gra bg-bg0 mobile:border-gray7 mobile:text-gray7 mobile:bg-transparent"
-                  : "font-[400] text-gray7 bg-white mobile:text-gray5"
+                  ? "font-[700] text-gra bg-bg0 mobile:text-gray7 mobile:border-b-2 mobile:border-b-gray7 mobile:bg-none"
+                  : "font-[400] text-gray7 bg-white mobile:text-gray5 mobile:border-b-2 mobile:border-b-gray3"
               }`,
-              "tablet:flex tablet:w-[144px] tablet:flex-shrink tablet:justify-center tablet:items-center tablet:text-center"
+              "tablet:w-[137.6px] tablet:items-center tablet:justify-center tablet:text-center tablet:text-[16px] tablet:leading-7 tablet:tracking-[-0.02em]",
+              "mobile:w-[180px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-center mobile:text-[14px] mobile:leading-5"
             )}
           >
-            <p className="whitespace-nowrap">{board.name}</p>
+            <p
+              className={cn(
+                "text-[16px] leading-7 tracking-[-0.02em] whitespace-nowrap",
+                "mobile:text-[14px] mobile:leading-5"
+              )}
+            >
+              {board.name}
+            </p>
           </div>
         </Link>
       ))}
