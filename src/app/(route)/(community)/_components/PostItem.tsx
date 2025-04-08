@@ -68,11 +68,11 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
           <div className="flex items-center gap-[10px]">
             <div className="w-[56px] h-[42px] relative box-content">
               <Image
-                src={data?.thumbnail || "/Preview_loading_image.png"}
+                src={data?.thumbnail || "/test.svg"}
                 alt="post-preview-image"
                 fill
                 className="object-contain rounded-[5px]"
-                blurDataURL="/Preview_loading_image.png"
+                blurDataURL="/test.svg"
               />
             </div>
           </div>
