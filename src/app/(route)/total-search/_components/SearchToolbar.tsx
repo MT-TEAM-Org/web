@@ -9,6 +9,7 @@ import { POST_SEARCH_OPTIONS } from "../../mypage/_constants/toolbarObject";
 import changeURLParams from "../../mypage/util/changeURLParams";
 import { searchListConfig } from "../_types/searchListConfig";
 import { SearchListPageInfoType } from "../_types/searchType";
+import { cn } from "@/utils";
 
 interface SearchToolbarProps {
   totalSearchType: string;
@@ -85,8 +86,18 @@ const SearchToolbar = ({ totalSearchType, pageInfo }: SearchToolbarProps) => {
   };
 
   return (
-    <div className="w-full h-[120px] rounded-t-[5px] bg-white sticky top-0 z-10">
-      <div className="w-full h-[64px] border-b flex justify-between p-3 border-gray2">
+    <div
+      className={cn(
+        "w-full h-[120px] rounded-t-[5px] bg-white sticky top-0 z-10",
+        "mobile:h-[56px]"
+      )}
+    >
+      <div
+        className={cn(
+          "w-full h-[64px] border-b flex justify-between p-3 border-gray2",
+          "mobile:hidden"
+        )}
+      >
         <OrderDateButton />
         <div className="w-[356px] h-[40px] flex gap-2 items-center justify-center">
           <SearchFilter
@@ -104,7 +115,12 @@ const SearchToolbar = ({ totalSearchType, pageInfo }: SearchToolbarProps) => {
             onOrderType={handleOrderButtonClick}
           />
         </div>
-        <Pagination pageInfo={pageInfo} onPageChangeAction={handlePageChange} />
+        <div className="mobile:hidden">
+          <Pagination
+            pageInfo={pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );
