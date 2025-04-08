@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useToast } from "@/_hooks/useToast";
 import CustomIcon from "./IconComponents/Icon";
+import { cn } from "@/utils";
+import { createPortal } from "react-dom";
 
 const ShareModalPopUp = ({ setActiveModal, url }) => {
   const toast = useToast();
@@ -39,7 +41,7 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
   const message = encodeURIComponent("PlayHive");
 
   const buttonBaseStyle =
-    "w-[160px] min-h-[48px] rounded-[5px] py-4 px-5 flex gap-[10px] font-bold text-[16px] items-center justify-center";
+    "w-[160px] min-h-[48px] rounded-[5px] py-4 px-5 flex gap-[10px] font-bold text-[16px] items-center justify-center mobile:text-[14px] mobile:leading-5 mobile:min-h-[40px]";
 
   const shareOptions = [
     {
@@ -76,21 +78,39 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
     );
   };
 
-  return (
+  return createPortal(
     <div
       onClick={handleOverlayClick}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
     >
-      <div className="w-[408px] min-h-[274px] rounded-[10px] p-10 flex flex-col gap-6 bg-white shadow-md relative">
-        <p className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-center">
+      <div
+        className={cn(
+          "w-[408px] min-h-[274px] rounded-[10px] p-10 flex flex-col gap-6 bg-white shadow-md relative",
+          "mobile:w-[328px] mobile:min-h-[204px] mobile:h-[204px] mobile:p-6"
+        )}
+      >
+        <p
+          className={cn(
+            "font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-center text-black",
+            "mobile:text-[18px] mobile:leading-7"
+          )}
+        >
           공유하기
         </p>
-        <div className="w-full h-auto flex gap-6 items-center justify-center">
+        <div
+          className={cn(
+            "w-full h-auto flex gap-6 items-center justify-center",
+            "mobile:h-[40px]"
+          )}
+        >
           {shareOptions.map(
             ({ platform, url, icon, popupWidth, popupHeight }) => (
               <div
                 key={platform}
-                className="cursor-pointer w-[60px] h-[60px]"
+                className={cn(
+                  "cursor-pointer w-[60px] h-[60px]",
+                  "mobile:w-[40px] mobile:h-[40px]"
+                )}
                 onClick={() => openPopup(url, popupWidth, popupHeight)}
               >
                 <CustomIcon icon={icon} />
@@ -99,7 +119,7 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
           )}
         </div>
 
-        <div className="w-full h-[40px] flex gap-2">
+        <div className={cn("w-full h-[40px] flex gap-2", "mobile:h-[40px]")}>
           <button
             onClick={closeModal}
             className={`${buttonBaseStyle} bg-white border border-gray3`}
@@ -114,7 +134,8 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

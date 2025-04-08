@@ -69,13 +69,20 @@ export default function NewsPage() {
       <div
         className={cn(
           "max-w-[720px] w-full min-h-[120px] rounded-[5px] border-b bg-white mx-auto",
+          "tablet:w-[688px]",
           "mobile:flex mobile:flex-grow mobile:flex-col"
         )}
       >
         <div className="sticky top-0 z-10">
           <NewsTalkToolbar newsType={category} pageInfo={newsData?.pageInfo} />
         </div>
-        <div className={cn("w-full max-w-[720px]", "mobile:w-full")}>
+        <div
+          className={cn(
+            "w-full max-w-[720px]",
+            "tablet:w-[688px] tablet:max-w-0",
+            "mobile:w-full"
+          )}
+        >
           {isLoading ? (
             Array(10)
               .fill(0)

@@ -52,6 +52,7 @@ const FindId = () => {
             <input
               {...register("tel" as keyof FormData, { required: true })}
               type="text"
+              autoFocus
               className={isPending ? isDisabledInputStyle : inputStyle}
               id="tel"
               disabled={isPending}
