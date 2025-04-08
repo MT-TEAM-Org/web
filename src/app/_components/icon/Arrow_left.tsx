@@ -1,10 +1,15 @@
 import React from "react";
 
-const Arrow_left = () => {
+interface ArrowLeftProps {
+  width?: string | number;
+  height?: string | number;
+}
+
+const Arrow_left = ({ width = 14, height = 14 }: ArrowLeftProps) => {
   return (
     <svg
-      width="14"
-      height="14"
+      width={width}
+      height={height}
       viewBox="0 0 14 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

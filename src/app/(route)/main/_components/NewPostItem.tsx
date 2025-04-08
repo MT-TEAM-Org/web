@@ -34,9 +34,11 @@ const NewPostItem = ({ newPosts }: NewPostItemProps) => {
           ) : null}
         </div>
         <div className="flex justify-center text-center items-center gap-x-[2px]">
-          <p className="w-[22px] h-[18px] [font-[500] text-[12px] leading-[18px] text-primary">
-            [{newPosts?.commentCount}]
-          </p>
+          {(newPosts?.commentCount ?? 0) > 0 && (
+            <p className="w-[22px] h-[18px] font-[500] text-[12px] leading-[18px] text-primary">
+              [{newPosts.commentCount}]
+            </p>
+          )}
           <p className="font-[900] w-[10px] h-[18px] text-[10px] leading-[18px] text-[#00ADEE]">
             N
           </p>
