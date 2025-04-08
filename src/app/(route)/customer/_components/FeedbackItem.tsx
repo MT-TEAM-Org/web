@@ -8,6 +8,7 @@ import FeedbackItemStatus from "./FeedbackItemStatus";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { useRouter } from "next/navigation";
+import { cn } from "@/utils";
 
 interface FeedbackItemProps {
   feedbackData: FeedbackContentType;
@@ -58,7 +59,7 @@ const FeedbackItem = ({
   return (
     <div
       onClick={handleFeedbackClick}
-      className={`w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-start justify-between cursor-pointer hover:bg-[#F8FDFF]`}
+      className={`w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-center justify-between cursor-pointer hover:bg-[#F8FDFF]`}
     >
       <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">
         <p className="font-bold text-[14px] leading-5">{feedbackData?.id}</p>
@@ -73,25 +74,46 @@ const FeedbackItem = ({
         />
       </div>
 
-      <div className="min-w-[503px] min-h-[42px] flex gap-1 flex-col">
-        <div className="w-full min-h-[20px] flex gap-[2px] items-center">
-          <p className="text-[14px] leading-5 text-gray7">
-            {searchType === "TITLE" || searchType === "TITLE_CONTENT"
-              ? highlightText(feedbackData?.title, searchType, searchString)
-              : feedbackData?.title}
-          </p>
-          {feedbackData?.commentCount >= 1 && (
-            <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
-              [<span>{feedbackData?.commentCount}</span>]
-            </p>
+      <div
+        className={cn(
+          "min-w-[503px] min-h-[42px] flex gap-1 flex-col",
+          "mobile:min-w-[224px]"
+        )}
+      >
+        <div
+          className={cn(
+            "w-full min-h-[20px] flex gap-[2px] justify-between items-center",
+            "mobile:min-w-[162px]"
           )}
-          <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
-            {(isNew || feedbackData?.isHot) && (
-              <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
-                {isNew && <p className="text-gra">N</p>}
-                {feedbackData?.isHot && <p className="text-warning">H</p>}
-              </div>
+        >
+          <div className="flex">
+            <p
+              className={cn(
+                "text-[14px] leading-5 text-gray7",
+                "mobile:whitespace-nowrap mobile:overflow-hidden mobile:text-ellipsis"
+              )}
+            >
+              {searchType === "TITLE" || searchType === "TITLE_CONTENT"
+                ? highlightText(feedbackData?.title, searchType, searchString)
+                : feedbackData?.title}
+            </p>
+            {feedbackData?.commentCount >= 1 && (
+              <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
+                [<span>{feedbackData?.commentCount}</span>]
+              </p>
             )}
+            <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
+              {(isNew || feedbackData?.isHot) && (
+                <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
+                  {isNew && <p className="text-gra">N</p>}
+                  {feedbackData?.isHot && <p className="text-warning">H</p>}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <FeedbackItemStatus status={feedbackData?.status} />
           </div>
         </div>
         <div className="flex flex-col">
@@ -125,7 +147,9 @@ const FeedbackItem = ({
           )}
         </div>
       </div>
-      <FeedbackItemStatus status={feedbackData?.status} />
+      <div className="mobile:hidden">
+        <FeedbackItemStatus status={feedbackData?.status} />
+      </div>
     </div>
   );
 };

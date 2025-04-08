@@ -13,6 +13,7 @@ import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType"
 import FeedbackItemSkeleton from "../_components/FeedbackItemSkeleton";
 import { feedbackListConfig } from "../_types/feedbackListConfig";
 import { useAdminRole } from "../_utils/adminChecker";
+import { cn } from "@/utils";
 
 const Page = () => {
   return (
@@ -56,7 +57,12 @@ const FeedbackPage = () => {
 
   return (
     <div className="flex justify-center bg-gray1">
-      <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
+      <div
+        className={cn(
+          "max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto",
+          "mobile:w-[360px]"
+        )}
+      >
         <div className="sticky top-0 z-10">
           <CustomerTalkToolbar
             showOptions={true}
@@ -65,7 +71,12 @@ const FeedbackPage = () => {
           />
         </div>
 
-        <div className="w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+        <div
+          className={cn(
+            "w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+            "mobile:w-[360px]"
+          )}
+        >
           {noticeIsLoading || isLoading ? (
             <>
               {Array.from({ length: 10 }).map((_, index) => (

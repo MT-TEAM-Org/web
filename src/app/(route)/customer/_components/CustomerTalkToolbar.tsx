@@ -11,6 +11,7 @@ import SearchFilter from "../../mypage/_components/SearchFilter";
 import OrderButtons from "../../mypage/_components/OrderButtons";
 import { feedbackListConfig } from "../_types/feedbackListConfig";
 import { POST_SEARCH_OPTIONS } from "../../mypage/_constants/toolbarObject";
+import { cn } from "@/utils";
 
 interface ToolbarProps {
   showOptions?: boolean;
@@ -92,7 +93,12 @@ const CustomerTalkToolbarContent = ({
 
   return (
     <div className="rounded-[5px] bg-white">
-      <div className="w-full h-[64px] flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white">
+      <div
+        className={cn(
+          "w-full h-[64px] flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white",
+          "mobile:hidden"
+        )}
+      >
         {toolbarContent}
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px] z-10">
           <SearchFilter
@@ -114,10 +120,12 @@ const CustomerTalkToolbarContent = ({
             />
           )}
         </div>
-        <Pagination
-          pageInfo={paginationData}
-          onPageChangeAction={handlePageChange}
-        />
+        <div className={cn("mobile:hidden")}>
+          <Pagination
+            pageInfo={paginationData}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );
