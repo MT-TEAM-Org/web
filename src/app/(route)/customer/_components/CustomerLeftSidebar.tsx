@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ModalPopup from "@/app/_components/ModalPopup";
+import { cn } from "@/utils";
 
 const CustomerLeftSidebar = () => {
   const pathname = usePathname();
@@ -42,31 +43,54 @@ const CustomerLeftSidebar = () => {
     }
   };
 
-  const currentPathStyle = "font-bold text-gra bg-bg0";
-  const defaultStyle = "font-[400] text-gray7 bg-white";
+  const currentPathStyle =
+    "font-bold text-gra bg-bg0 mobile:bg-transparent mobile:text-gray7 mobile:border-b-2 mobile:border-gray7";
+  const defaultStyle =
+    "font-[400] text-gray7 bg-white mobile:text-gray5 mobile:border-b-2 mobile:border-gray3";
+
   return (
-    <div className="w-[160px]">
-      <div className="w-full bg-white flex flex-col justify-center">
+    <div
+      className={cn(
+        "w-[160px] bg-white",
+        "tablet:flex tablet:w-[688px] tablet:h-[52px]",
+        "mobile:w-full mobile:min-h-[50px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide"
+      )}
+    >
+      <div
+        className={cn(
+          "w-full flex flex-col justify-center",
+          "tablet:flex-row",
+          "mobile:flex-row mobile:min-w-[360px] mobile:justify-start"
+        )}
+      >
         {boardList.map((board) => (
           <Link key={board.id} href={board.path}>
             <div
-              className={`w-full h-[52px] px-4 py-3 cursor-pointer ${
-                isCurrentPath(board.path) && !show
-                  ? currentPathStyle
-                  : defaultStyle
-              }`}
+              className={cn(
+                `w-full h-[52px] px-4 py-3 cursor-pointer ${
+                  isCurrentPath(board.path) && !show
+                    ? currentPathStyle
+                    : defaultStyle
+                }`,
+                "tablet:w-[137.6px] tablet:items-center tablet:justify-center tablet:text-center tablet:px-4 tablet:py-3",
+                "mobile:min-w-[81px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-center"
+              )}
             >
-              <p>{board.name}</p>
+              <p className="whitespace-nowrap">{board.name}</p>
             </div>
           </Link>
         ))}
         <div
-          className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer font-[400] ${
-            show ? currentPathStyle : defaultStyle
-          }`}
+          className={cn(
+            `w-full h-[52px] px-[20px] py-[12px] text-center cursor-pointer ${
+              show ? currentPathStyle : defaultStyle
+            }`,
+            "tablet:min-w-[137.6px] tablet:items-center tablet:justify-center tablet:px-4 tablet:py-3",
+            "mobile:min-w-[98px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:px-4 mobile:py-[13px]"
+          )}
           onClick={() => setShow(true)}
         >
-          <p>1:1 문의하기</p>
+          <p className="whitespace-nowrap">1:1 문의하기</p>
         </div>
       </div>
       {show && <ModalPopup show={show} setShow={setShow} />}

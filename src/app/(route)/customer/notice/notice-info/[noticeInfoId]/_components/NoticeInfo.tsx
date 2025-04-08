@@ -13,6 +13,7 @@ import NoticeItemSkeleton from "@/app/(route)/customer/_components/NoticeItemSke
 import EmptyItem from "@/app/(route)/customer/_components/EmptyItem";
 import NoticeItem from "@/app/(route)/customer/_components/NoticeItem";
 import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
+import { cn } from "@/utils";
 
 const Page = () => {
   return (
@@ -58,14 +59,26 @@ const NoticeInfo = () => {
       ) : (
         <NoticeInfoItem data={noticeInfoData} id={numberId} />
       )}
-      <div className="w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden">
+      <div
+        className={cn(
+          "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden",
+          "tablet:w-[687px]",
+          "mobile:hidden"
+        )}
+      >
         <CustomerTalkToolbar
           showOptions={false}
           paginationData={noticeListData?.pageInfo}
           adminChecker={adminChecker}
         />
       </div>
-      <div className="w-[720px] h-auto rounded-[5px] bg-white shadow-md">
+      <div
+        className={cn(
+          "w-[720px] h-auto rounded-[5px] bg-white shadow-md",
+          "tablet:w-[687px]",
+          "mobile:w-[360px]"
+        )}
+      >
         {isLoading ? (
           Array.from({ length: 10 }).map((_, index) => (
             <NoticeItemSkeleton key={index} />

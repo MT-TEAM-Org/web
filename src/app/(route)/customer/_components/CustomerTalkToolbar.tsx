@@ -92,7 +92,7 @@ const CustomerTalkToolbarContent = ({
 
   return (
     <div className="rounded-[5px] bg-white">
-      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white ">
+      <div className="w-full h-[64px] flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white">
         {toolbarContent}
         <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px] z-10">
           <SearchFilter

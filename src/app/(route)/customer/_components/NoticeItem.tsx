@@ -7,6 +7,7 @@ import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType"
 import useTimeAgo from "@/utils/useTimeAgo";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
+import { cn } from "@/utils";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
@@ -61,7 +62,7 @@ const NoticeItem = ({
       onClick={handleNoticeClick}
       className={`${
         isFeedback ? "bg-bg0" : "hover:bg-bg0"
-      } w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-start justify-start cursor-pointer`}
+      } w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer`}
     >
       <div className="w-[32px] h-[32px] rounded-[2px] bg-gray1 flex items-center justify-center text-center text-gray7">
         <p className="w-[25px] font-bold text-[14px] leading-5">
@@ -77,7 +78,13 @@ const NoticeItem = ({
           className="object-cover"
         />
       </div>
-      <div className="min-w-[584px] min-h-[42px] flex gap-1 flex-col">
+      <div
+        className={cn(
+          "min-w-[584px] min-h-[42px] flex gap-1 flex-col",
+          "tablet:min-w-[552px]",
+          "mobile:min-w-[224px] mobile:gap-0"
+        )}
+      >
         <div className="w-auto min-h-[20px] flex items-center gap-[2px]">
           <p className="text-[14px] leading-5 text-gray7">
             {searchType === "TITLE" || searchType === "TITLE_CONTENT"
