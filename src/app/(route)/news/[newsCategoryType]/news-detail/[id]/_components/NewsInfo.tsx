@@ -133,6 +133,7 @@ const NewsInfo = ({
         <div
           className={cn(
             "flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-white shadow-sm mb-2",
+            "tablet:w-[688px]",
             "mobile:w-[360px] mobile:gap-1 mobile:px-4 mobile:py-3"
           )}
         >
@@ -230,6 +231,7 @@ const NewsInfo = ({
       <div
         className={cn(
           "w-[720px] h-auto rounded-b-[5px] overflow-hidden shadow-md",
+          "tablet:w-[688px]",
           "mobile:w-auto"
         )}
       >
