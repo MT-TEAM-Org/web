@@ -1,6 +1,6 @@
 import { cn } from "@/utils";
 import MypageLeftSidebar from "./_components/MypageLeftSidebar";
-import MobileBackButton from "./_components/mobileBackButton";
+import MobileBackButton from "./_components/MobileBackButton";
 
 export const metadata = {
   title: "마이페이지",

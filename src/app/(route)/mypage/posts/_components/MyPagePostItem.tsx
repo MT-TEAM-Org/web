@@ -57,10 +57,10 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
   return (
     <Link
       href={`/board/${data.boardType}/${data.categoryType}/${data.id}`}
-      className="flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px] hover:bg-bg0"
+      className="flex items-center min-h-[66px] gap-[12px] border-b p-[12px] hover:bg-bg0"
     >
       <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1 font-[700]">
-        <span>{data.id}</span>
+        <span className="text-[14px]">{data.id}</span>
       </div>
       <Image
         src={data?.thumbnail || "/Preview_loading_image.png"}
