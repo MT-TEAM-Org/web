@@ -10,6 +10,7 @@ import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType"
 import { noticeListConfig } from "./_types/noticeListConfig";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import { useSearchParams } from "next/navigation";
+import { cn } from "@/utils";
 
 const Page = () => {
   return (
@@ -38,8 +39,8 @@ const NoticePageContent = () => {
   } = useGetNoticeDataList(noticeOption);
 
   return (
-    <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10">
-      <div className="sticky top-0 z-10">
+    <div className="w-full max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10">
+      <div className={cn("sticky top-0 z-10", "mobile:hidden")}>
         <CustomerTalkToolbar
           showOptions={false}
           paginationData={noticeListData?.pageInfo}
@@ -47,7 +48,13 @@ const NoticePageContent = () => {
         />
       </div>
 
-      <div className="w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+      <div
+        className={cn(
+          "w-full max-w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+          "tablet:max-w-[688px]",
+          "mobile:w-full"
+        )}
+      >
         {isLoading ? (
           Array.from({ length: 10 }).map((_, index) => (
             <NoticeItemSkeleton key={index} />
