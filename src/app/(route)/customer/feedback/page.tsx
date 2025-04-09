@@ -13,6 +13,7 @@ import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType"
 import FeedbackItemSkeleton from "../_components/FeedbackItemSkeleton";
 import { feedbackListConfig } from "../_types/feedbackListConfig";
 import { useAdminRole } from "../_utils/adminChecker";
+import { cn } from "@/utils";
 
 const Page = () => {
   return (
@@ -55,51 +56,53 @@ const FeedbackPage = () => {
     .slice(0, 2);
 
   return (
-    <div className="flex justify-center bg-gray1">
-      <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto">
-        <div className="sticky top-0 z-10">
-          <CustomerTalkToolbar
-            showOptions={true}
-            adminChecker={adminRole}
-            paginationData={feedbackDataList?.pageInfo}
-          />
-        </div>
+    <div className="w-full max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10">
+      <div className="sticky top-0 z-10">
+        <CustomerTalkToolbar
+          showOptions={true}
+          adminChecker={adminRole}
+          paginationData={feedbackDataList?.pageInfo}
+        />
+      </div>
 
-        <div className="w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
-          {noticeIsLoading || isLoading ? (
-            <>
-              {Array.from({ length: 10 }).map((_, index) => (
-                <FeedbackItemSkeleton key={`feedback-${index}`} />
-              ))}
-            </>
-          ) : isError ||
-            noticeIsError ||
-            feedbackDataList?.content?.length === 0 ? (
-            <EmptyItem title="개선요청 사항이" />
-          ) : (
-            <>
-              {slicedNoticeDataList?.map(
-                (noticeListData: NoticeContentType) => (
-                  <NoticeItem
-                    key={noticeListData.id}
-                    noticeData={noticeListData}
-                    isFeedback={true}
-                  />
-                )
-              )}
-              {feedbackDataList?.content?.map(
-                (feedbackListData: FeedbackContentType) => (
-                  <FeedbackItem
-                    feedbackData={feedbackListData}
-                    key={feedbackListData?.id}
-                    searchString={searchParams.get("search")}
-                    searchType={searchParams.get("search_type")}
-                  />
-                )
-              )}
-            </>
-          )}
-        </div>
+      <div
+        className={cn(
+          "w-full max-w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+          "tablet:max-w-[688px]",
+          "mobile:w-full"
+        )}
+      >
+        {noticeIsLoading || isLoading ? (
+          <>
+            {Array.from({ length: 10 }).map((_, index) => (
+              <FeedbackItemSkeleton key={`feedback-${index}`} />
+            ))}
+          </>
+        ) : isError ||
+          noticeIsError ||
+          feedbackDataList?.content?.length === 0 ? (
+          <EmptyItem title="개선요청 사항이" />
+        ) : (
+          <>
+            {slicedNoticeDataList?.map((noticeListData: NoticeContentType) => (
+              <NoticeItem
+                key={noticeListData.id}
+                noticeData={noticeListData}
+                isFeedback={true}
+              />
+            ))}
+            {feedbackDataList?.content?.map(
+              (feedbackListData: FeedbackContentType) => (
+                <FeedbackItem
+                  feedbackData={feedbackListData}
+                  key={feedbackListData?.id}
+                  searchString={searchParams.get("search")}
+                  searchType={searchParams.get("search_type")}
+                />
+              )
+            )}
+          </>
+        )}
       </div>
     </div>
   );

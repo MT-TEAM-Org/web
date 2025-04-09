@@ -60,7 +60,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
       <form
         className={cn(
           "flex flex-col bg-white w-[548px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg text-black",
-          "mobile:w-full mobile:h-full mobile:p-0"
+          "mobile:w-full mobile:h-full mobile:p-0 mobile:rounded-none"
         )}
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit(onSubmit)}
@@ -98,12 +98,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
           className={cn("flex flex-col p-4 h-full", "mobile:justify-between")}
         >
           <div className="flex flex-col">
-            <div
-              className={cn(
-                "flex flex-col items-start gap-[4px]",
-                "mobile:p-4"
-              )}
-            >
+            <div className="flex flex-col items-start gap-[4px]">
               <label
                 htmlFor="modalTextarea"
                 className="text-[14px] leading-[22px] tracking-[-0.02em]"
@@ -112,10 +107,10 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
               </label>
               <textarea
                 id="modalTextarea"
-                placeholder="문의 내용을 입력해주세요."
+                placeholder="문의 내용을 입력해주세요.(최대 400자 이내)"
                 className={cn(
                   "resize-none w-full rounded-[5px] min-h-[200px] border px-[12px] py-[16px]",
-                  "mobile:min-h-[324px] mobile:h-auto"
+                  "mobile:min-h-[324px] mobile:h-auto mobile:px-4 mobile:py-3 mobile:text-[14px] mobile:leading-[22px] mobile:tracking-[-0.02em]"
                 )}
                 autoFocus
                 style={{ overflow: "hidden", overflowY: "auto" }}

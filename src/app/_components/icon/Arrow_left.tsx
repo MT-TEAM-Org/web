@@ -1,11 +1,15 @@
 import React from "react";
 
+<<<<<<< HEAD
 interface ArrowLeftProps {
   width?: string | number;
   height?: string | number;
 }
 
 const Arrow_left = ({ width = 14, height = 14 }: ArrowLeftProps) => {
+=======
+const Arrow_left = ({ width = 14, height = 14 }) => {
+>>>>>>> 2c8dcfbdc6209cd130997b7dfc027a8033adb33e
   return (
     <svg
       width={width}

@@ -7,6 +7,7 @@ import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType"
 import useTimeAgo from "@/utils/useTimeAgo";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
+import { cn } from "@/utils";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
@@ -59,16 +60,19 @@ const NoticeItem = ({
   return (
     <div
       onClick={handleNoticeClick}
-      className={`${
-        isFeedback ? "bg-bg0" : "hover:bg-bg0"
-      } w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-start justify-start cursor-pointer`}
+      className={cn(
+        `${
+          isFeedback ? "bg-bg0" : "hover:bg-bg0"
+        } w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer`,
+        "mobile:p-2"
+      )}
     >
-      <div className="w-[32px] h-[32px] rounded-[2px] bg-gray1 flex items-center justify-center text-center text-gray7">
+      <div className="w-[32px] h-[32px] rounded-[2px] bg-gray1 flex items-center justify-center text-center text-gray7 flex-shrink-0">
         <p className="w-[25px] font-bold text-[14px] leading-5">
           {!isFeedback ? noticeData?.id : "공지"}
         </p>
       </div>
-      <div className="w-[56px] h-[42px] p-1 rounded-[5px] overflow-hidden bg-gray1">
+      <div className="w-[56px] h-[42px] p-1 rounded-[5px] overflow-hidden bg-gray1 flex-shrink-0">
         <Image
           src={noticeData?.thumbnail || "/Preview_loading_image.png"}
           alt="img"
@@ -77,20 +81,26 @@ const NoticeItem = ({
           className="object-cover"
         />
       </div>
-      <div className="min-w-[584px] min-h-[42px] flex gap-1 flex-col">
-        <div className="w-auto min-h-[20px] flex items-center gap-[2px]">
-          <p className="text-[14px] leading-5 text-gray7">
+      <div
+        className={cn(
+          "w-full min-h-[42px] flex gap-1 flex-col",
+          "tablet:max-w-[552px]",
+          "mobile:max-w-[224px] mobile:gap-0"
+        )}
+      >
+        <div className="w-full min-h-[20px] flex items-center gap-[2px]">
+          <p className="text-[14px] leading-5 text-gray7 truncate">
             {searchType === "TITLE" || searchType === "TITLE_CONTENT"
               ? highlightText(noticeData?.title, searchType, searchString)
               : noticeData?.title}
           </p>
           {noticeData?.commentCount >= 1 && (
-            <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
+            <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra flex-shrink-0">
               [<span>{noticeData?.commentCount}</span>]
             </p>
           )}
           {(isNew || noticeData?.isHot) && (
-            <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
+            <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center flex-shrink-0">
               {isNew && <p className="text-gra">N</p>}
               {noticeData?.isHot && <p className="text-warning">H</p>}
             </div>
@@ -103,11 +113,11 @@ const NoticeItem = ({
         </div>
 
         {noticeData?.commentSearchList?.comment && (
-          <div className="w-[584px] flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
-            <div className="w-4 h-4">
+          <div className="w-full flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
+            <div className="w-4 h-4 flex-shrink-0">
               <Arrow_reply size={16} />
             </div>
-            <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em]">
+            <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em] truncate">
               {noticeData?.commentSearchList?.imageUrl && <span>(이미지)</span>}
               <p>
                 {searchType === "COMMENT"
