@@ -15,7 +15,7 @@ const FeedbackItemStatus = ({ status }: FeedbackItemProps) => {
     text = "개선 완료";
     textClass = "text-gra";
   } else {
-    return null;
+    text = "";
   }
 
   const bgStyle =
