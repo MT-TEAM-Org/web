@@ -3,7 +3,7 @@
 import SnsButtons from "./SnsButtons";
 import Input from "@/app/_components/Input";
 import AccountHelp from "./AccountHelp";
-import { lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useSignup from "@/_hooks/fetcher/sign/useSignup";
 import { useForm } from "react-hook-form";
 import SignupMainLogo from "./SignupMainLogo";
@@ -13,6 +13,9 @@ import { SignupFormData } from "../types/signup";
 import { signupInputObject } from "../constants/signup";
 import { useToast } from "@/_hooks/useToast";
 import TearmsModal from "@/app/_components/termsModal/TermsModal";
+import { useSearchParams } from "next/navigation";
+import SnsSignup from "./SnsSignup";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 interface Selected {
   allAgree: boolean;
@@ -24,12 +27,16 @@ interface Selected {
 
 const Signup = () => {
   const { error } = useToast();
+  const searchParams = useSearchParams();
+  const refreshToken = searchParams.get("refreshToken") || null;
+
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors },
   } = useForm<SignupFormData>();
+  const { data: authCheck } = useAuthCheck();
   const { mutate: signup, isPending, isError } = useSignup();
   const [selected, setSelected] = useState<Selected>({
     allAgree: false,
@@ -43,6 +50,13 @@ const Signup = () => {
     sequence: 0,
   });
   const [successVerification, setSuccessVerification] = useState(false);
+
+  // useEffect(() => {
+  //   if (refreshToken) {
+  //     document.cookie = `refreshToken=${refreshToken}; path=/; secure; HttpOnly;`;
+  //     // 엑세스 토큰 발급 후 authCheck API invalidate
+  //   }
+  // }, [refreshToken]);
 
   useEffect(() => {
     if (show.service || show.personal || show.sequence) {
@@ -71,39 +85,47 @@ const Signup = () => {
     <>
       <form className="w-full mt-[24px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-[24px] mb-[40px]">
-          <SignupMainLogo logo="기본" />
+          <SignupMainLogo logo="LOCAL" />
           <SnsButtons signState="signup" />
-          <div className="space-y-[4px]">
-            <EmailVerification
-              register={register}
-              getValues={getValues}
-              errors={errors}
-              isPending={isPending}
-              setSuccessVerification={setSuccessVerification}
-            />
-          </div>
-          {signupInputObject.map((input) => (
-            <div className="space-y-[4px] relative" key={input.id}>
-              <Input
-                {...register(input.id, input.validation || {})}
-                type={input.type}
-                id={input.id}
-                isDisabled={isPending}
-                placeholder={input.placeholder}
-                height={48}
-                register={register}
-                label={input.label}
-                required
-              />
-              <p
-                className={`text-[14px] mx-[16px] ${
-                  errors[input.id] || isError ? "text-[#D1504B]" : "text-gray5"
-                }`}
-              >
-                {errors[input.id]?.message || input.defultMessage}
-              </p>
-            </div>
-          ))}
+          {!refreshToken ? (
+            <>
+              <div className="space-y-[4px]">
+                <EmailVerification
+                  register={register}
+                  getValues={getValues}
+                  errors={errors}
+                  isPending={isPending}
+                  setSuccessVerification={setSuccessVerification}
+                />
+              </div>
+              {signupInputObject.map((input) => (
+                <div className="space-y-[4px] relative" key={input.id}>
+                  <Input
+                    {...register(input.id, input.validation || {})}
+                    type={input.type}
+                    id={input.id}
+                    isDisabled={isPending}
+                    placeholder={input.placeholder}
+                    height={48}
+                    register={register}
+                    label={input.label}
+                    required
+                  />
+                  <p
+                    className={`text-[14px] mx-[16px] ${
+                      errors[input.id] || isError
+                        ? "text-[#D1504B]"
+                        : "text-gray5"
+                    }`}
+                  >
+                    {errors[input.id]?.message || input.defultMessage}
+                  </p>
+                </div>
+              ))}
+            </>
+          ) : (
+            <SnsSignup register={register} isError={isError} errors={errors} />
+          )}
           <Agree
             setShow={setShow}
             selected={selected}

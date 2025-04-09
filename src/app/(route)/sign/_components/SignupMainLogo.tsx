@@ -5,27 +5,27 @@ import { Kakao } from "@/app/_components/icon/Kakao";
 import { Discord } from "@/app/_components/icon/Discord";
 
 interface SignupMainLogoProps {
-  logo: "구글" | "네이버" | "카카오" | "디스코드" | "기본";
+  logo: "GOOGLE" | "NAVER" | "KAKAO" | "DISCORD" | "LOCAL";
 }
 
 const SignupMainLogo = ({ logo }: SignupMainLogoProps) => {
   const logoObject = {
-    구글: <Google />,
-    네이버: <Naver />,
-    카카오: <Kakao />,
-    디스코드: <Discord />,
-    기본: <SymbolLogo />,
+    GOOGLE: <Google />,
+    NAVER: <Naver />,
+    KAKAO: <Kakao />,
+    DISCORD: <Discord />,
+    LOCAL: <SymbolLogo />,
   };
   const currentLogo = logoObject[logo] || logoObject["기본"];
   const headTextSign = () => {
     switch (logo) {
-      case "구글":
+      case "GOOGLE":
         return "구글 SNS 간편 회원가입";
-      case "네이버":
+      case "NAVER":
         return "네이버 SNS 간편 회원가입";
-      case "카카오":
+      case "KAKAO":
         return "카카오 SNS 간편 회원가입";
-      case "디스코드":
+      case "DISCORD":
         return "디스코드 SNS 회원가입";
       default:
         return "플레이하이브 일반 회원가입";
