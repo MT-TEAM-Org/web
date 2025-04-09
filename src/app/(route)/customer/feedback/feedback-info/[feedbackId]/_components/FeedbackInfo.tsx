@@ -84,7 +84,7 @@ const FeedbackInfo = () => {
           queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
         },
       });
-    } else if (feedbackInfoData?.isRecommended) {
+    } else {
       feedbackDeleteRecommend(infoId, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
@@ -107,13 +107,11 @@ const FeedbackInfo = () => {
   }, [searchParams]);
 
   const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
-
   const {
     data: feedbackDataList,
     isLoading,
     isError,
   } = useGetFeedbackDataList(feedbackOption);
-
   const { data: noticeListData } = useGetNoticeDataList();
 
   const slicedNoticeDataList = (noticeListData?.content as NoticeContentType[])
@@ -130,19 +128,18 @@ const FeedbackInfo = () => {
 
   const statusContent = {
     RECEIVED: (
-      <div className={`${statusBoxClass} bg-gray1`}>
+      <div className={cn(statusBoxClass, "bg-gray1")}>
         <p className="font-bold text-[14px] leading-5 text-gray7">접수 완료</p>
       </div>
     ),
     COMPLETED: (
-      <div className={`${statusBoxClass} bg-bg0`}>
+      <div className={cn(statusBoxClass, "bg-bg0")}>
         <p className="font-bold text-[14px] leading-5 text-gra">개선 완료</p>
       </div>
     ),
   };
 
   const link = feedbackInfoData?.link || "";
-
   const getYouTubeEmbedUrl = (url: string) => {
     if (!url) return null;
     const youtubeRegex =
@@ -150,7 +147,6 @@ const FeedbackInfo = () => {
     const match = url.match(youtubeRegex);
     return match ? `https://www.youtube.com/embed/${match[1]}` : null;
   };
-
   const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
 
   return (
@@ -169,19 +165,35 @@ const FeedbackInfo = () => {
             <StatusSaver id={infoId} status={feedbackInfoData?.status} />
           )}
           <div
-            className={`w-full ${
-              adminRole !== "ADMIN" || (adminRole === undefined && "h-[56px]")
-            } flex gap-2 flex-col`}
+            className={cn(
+              "w-full flex gap-2 flex-col",
+              adminRole !== "ADMIN" || adminRole === undefined ? "h-[56px]" : ""
+            )}
           >
             <div>
               {(adminRole !== "ADMIN" || adminRole === undefined) &&
                 statusContent[feedbackInfoData?.status]}
             </div>
-            <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px] mobile:text-[16px] mobile:leading-6">
+            <h1
+              className={cn(
+                "font-bold text-[18px] leading-7 tracking-[-0.72px]",
+                "mobile:text-[16px] mobile:leading-6"
+              )}
+            >
               {feedbackInfoData?.title}
             </h1>
-            <div className="w-full max-h-[20px] flex gap-4 mobile:flex-wrap mobile:max-h-none">
-              <div className="min-w-[421px] min-h-[20px] flex gap-2 text-[14px] leading-5 text-gray6 mobile:min-w-0 mobile:flex-wrap mobile:text-[12px]">
+            <div
+              className={cn(
+                "w-full max-h-[20px] flex gap-4",
+                "mobile:flex-wrap mobile:max-h-none"
+              )}
+            >
+              <div
+                className={cn(
+                  "min-w-[421px] min-h-[20px] flex gap-2 text-[14px] leading-5 text-gray6",
+                  "mobile:min-w-0 mobile:flex-wrap mobile:text-[12px]"
+                )}
+              >
                 <p className="font-bold">고객센터</p>
                 <p>개선요청</p>
                 <p>{timeAgo}</p>
@@ -192,7 +204,12 @@ const FeedbackInfo = () => {
                   </div>
                 ))}
               </div>
-              <div className="min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6 mobile:min-w-0 mobile:w-full mobile:justify-start mobile:text-[12px] mobile:mt-2">
+              <div
+                className={cn(
+                  "min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6",
+                  "mobile:min-w-0 mobile:w-full mobile:justify-start mobile:text-[12px] mobile:mt-2"
+                )}
+              >
                 <p>{feedbackInfoData?.nickname}</p>
                 <p>IP {feedbackInfoData?.clientIp}</p>
               </div>

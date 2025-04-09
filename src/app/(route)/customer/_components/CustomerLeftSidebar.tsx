@@ -52,19 +52,27 @@ const CustomerLeftSidebar = () => {
     <div
       className={cn(
         "w-[160px] bg-white",
-        "tablet:flex tablet:min-w-[688px] tablet:h-[52px]",
+        "tablet:w-full tablet:flex tablet:h-[52px]",
         "mobile:w-full mobile:min-h-[50px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide"
       )}
     >
       <div
         className={cn(
           "w-full flex flex-col justify-center",
-          "tablet:flex-row",
-          "mobile:flex-row mobile:min-w-[360px] mobile:justify-start"
+          "tablet:flex-row tablet:w-full",
+          "mobile:flex-row mobile:min-w-fit mobile:justify-start"
         )}
       >
         {boardList.map((board) => (
-          <Link key={board.id} href={board.path}>
+          <Link
+            key={board.id}
+            href={board.path}
+            className={cn(
+              "block w-full",
+              "tablet:flex tablet:flex-1",
+              "mobile:inline-block"
+            )}
+          >
             <div
               className={cn(
                 `w-full h-[52px] px-4 py-3 cursor-pointer ${
@@ -72,8 +80,8 @@ const CustomerLeftSidebar = () => {
                     ? currentPathStyle
                     : defaultStyle
                 }`,
-                "tablet:min-w-[137.6px] tablet:items-center tablet:justify-center tablet:text-center tablet:px-4 tablet:py-3",
-                "mobile:min-w-[122px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-center"
+                "tablet:flex tablet:items-center tablet:justify-center tablet:h-full tablet:w-full",
+                "mobile:inline-flex mobile:min-w-[122px] mobile:h-[48px] mobile:items-center mobile:justify-center"
               )}
             >
               <p className="whitespace-nowrap">{board.name}</p>
@@ -82,23 +90,15 @@ const CustomerLeftSidebar = () => {
         ))}
         <div
           className={cn(
-            `w-full h-[52px] px-[20px] py-[12px] text-center cursor-pointer ${
+            `w-full h-[52px] px-4 py-3 cursor-pointer ${
               show ? currentPathStyle : defaultStyle
             }`,
-            "tablet:min-w-[137.6px] tablet:items-center tablet:justify-center tablet:px-4 tablet:py-3",
-            "mobile:min-w-[98px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:px-4 mobile:py-[13px]"
+            "tablet:flex-1 tablet:flex tablet:items-center tablet:justify-center tablet:h-full tablet:w-full",
+            "mobile:inline-flex mobile:min-w-[98px] mobile:h-[48px] mobile:items-center mobile:justify-center"
           )}
           onClick={() => setShow(true)}
         >
-          <p
-            className={cn(
-              "whitespace-nowrap text-start",
-              "tablet:text-center",
-              "mobile:text-center"
-            )}
-          >
-            1:1 문의하기
-          </p>
+          <p className="whitespace-nowrap">1:1 문의하기</p>
         </div>
       </div>
       {show && <ModalPopup show={show} setShow={setShow} />}
