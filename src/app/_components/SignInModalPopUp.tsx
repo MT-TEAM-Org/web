@@ -38,7 +38,7 @@ const SignInModalPopUp = ({ isOpen, onClose }) => {
       <div
         className={cn(
           "w-[408px] h-[280px] rounded-[10px] p-10 flex gap-6 flex-col items-center justify-center text-center bg-white shadow-sm",
-          "mobile:w-[328px] mobile:h-[238px] mobile:p-6"
+          "mobile:w-[328px] mobile:h-[238px] mobile:p-2"
         )}
         onClick={(e) => e.stopPropagation()}
       >
@@ -63,19 +63,18 @@ const SignInModalPopUp = ({ isOpen, onClose }) => {
             >
               로그인이 필요한 서비스입니다.
             </p>
-            <p
-              className={cn(
-                "font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray6 whitespace-nowrap",
-                "mobile:text-[16px] mobile:leading-6"
-              )}
-            >
-              회원가입을 아직 안했다면, 3초만에 회원가입으로
-              <br />
+            <p className="font-medium text-[16px] leading-6 tracking-[-0.02em] text-center text-gray6">
+              회원가입을 아직 안했다면, 3초만에 회원가입으로 <br />{" "}
               플레이하이브를 즐겨보세요!
             </p>
           </div>
         </div>
-        <div className={cn("w-full h-[48px] flex gap-2", "h-[40px]")}>
+        <div
+          className={cn(
+            "w-full h-[48px] flex gap-2 items-center justify-center",
+            "mobile:h-[40px]"
+          )}
+        >
           <button
             onClick={onClose}
             className={`${buttonBaseStyle} bg-white border border-gray3 text-gray7`}

@@ -8,7 +8,7 @@ const NewsPostItemSkeleton = () => {
     <div
       className={cn(
         "min-w-[720px] min-h-[116px] flex items-center justify-start gap-3 border-b border-gray1 p-3 bg-white",
-        "mobile:w-[360px] mobile:min-w-0 mobile:h-[114px]"
+        "mobile:max-w-[768px] mobile:min-w-0 mobile:h-[114px]"
       )}
     >
       {/* 썸네일 이미지 영역 */}
@@ -23,33 +23,33 @@ const NewsPostItemSkeleton = () => {
       <div
         className={cn(
           "w-[524px] h-auto min-h-[90px] flex flex-col gap-1",
-          "mobile:w-[236px] mobile:min-h-[82px]"
+          "mobile:w-[510px] mobile:min-h-[82px]"
         )}
       >
         {/* 제목 영역 */}
         <div
           className={cn(
             "w-[524px] h-auto min-h-[24px] flex gap-[2px] items-center justify-start",
-            "mobile:w-[236px]"
+            "mobile:w-[80%]"
           )}
         >
           <Skeleton
-            className={cn("h-[20px] w-[60%] rounded-md", "mobile:w-full")}
+            className={cn("h-[20px] w-[60%] rounded-md", "mobile:w-[95%]")}
           />
         </div>
 
         {/* 콘텐츠 영역 */}
         <div>
           <Skeleton
-            className={cn("w-[524px] h-[40px] rounded-md", "mobile:w-full")}
+            className={cn("w-[524px] h-[40px] rounded-md", "mobile:w-[90%]")}
           />
         </div>
 
         {/* 메타데이터 영역 */}
         <div className="flex gap-1">
-          <Skeleton className="h-[18px] w-[40px] rounded-md" /> {/* 카테고리 */}
-          <Skeleton className="h-[18px] w-[60px] rounded-md" /> {/* 시간 */}
-          <Skeleton className="h-[18px] w-[80px] rounded-md" /> {/* 출처 */}
+          <Skeleton className="h-[18px] w-[10%] rounded-md" /> {/* 카테고리 */}
+          <Skeleton className="h-[18px] w-[20%] rounded-md" /> {/* 시간 */}
+          <Skeleton className="h-[18px] w-[30%] rounded-md" /> {/* 출처 */}
         </div>
       </div>
     </div>
