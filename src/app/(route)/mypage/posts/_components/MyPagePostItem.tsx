@@ -6,6 +6,7 @@ import { CalculateTime } from "@/app/_components/CalculateTime";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { useSearchParams } from "next/navigation";
 import { highlightText } from "@/utils/searchHighlightText";
+import { cn } from "@/utils";
 
 interface MyPagePostItemProps {
   data: {
@@ -57,7 +58,10 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
   return (
     <Link
       href={`/board/${data.boardType}/${data.categoryType}/${data.id}`}
-      className="flex items-center min-h-[66px] gap-[12px] border-b p-[12px] hover:bg-bg0"
+      className={cn(
+        "flex min-h-[66px] gap-[12px] border-b border-gray1 p-[12px] hover:bg-bg0",
+        "mobile:w-full"
+      )}
     >
       <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1 font-[700]">
         <span className="text-[14px]">{data.id}</span>
@@ -71,7 +75,12 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
         blurDataURL="/Preview_loading_image.png"
       />
       <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
-        <div className="w-[584px] flex items-center gap-[2px]">
+        <div
+          className={cn(
+            "w-[584px] flex items-center gap-[2px]",
+            "mobile:w-full"
+          )}
+        >
           <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap text-ellipsis">
             {highlightText(data?.title, searchType, search)}
           </h2>
@@ -85,20 +94,24 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
             H
           </span>
         </div>
-        <div className="flex font-semibold gap-1 items-center">
-          <p className="text-[12px] leading-[18px] text-gray5">
+        <div className="flex gap-1 items-center whitespace-nowrap text-gray5 text-[12px] leading-[18px]">
+          <p className="text-[12px] leading-[18px] font-[700]">
             {getKoreanBoardType(data?.boardType)}
           </p>
-          <span className="font-medium text-[12px] leading-[18px] text-gray5">
-            {getKoreanCategoryType(data?.categoryType)}
-          </span>
-          <span className="font-medium text-[12px] leading-[18px] text-gray5">
-            {CalculateTime(data?.createdAt)}
-          </span>
-          <span className="font-medium text-[12px] leading-[18px] text-gray5">
+          <span>{getKoreanCategoryType(data?.categoryType)}</span>
+          <span>{CalculateTime(data?.createdAt)}</span>
+          <span
+            className={cn("", "mobile:overflow-hidden mobile:text-ellipsis")}
+            title={data?.nickname}
+          >
             {data?.nickname}
           </span>
-          <span className="font-medium text-[12px] leading-[18px] text-gray5">
+          <span
+            className={cn(
+              "text-gray4",
+              "mobile:overflow-hidden mobile:text-ellipsis mobile:max-w-[65px]"
+            )}
+          >
             IP {data?.createdIp}
           </span>
         </div>

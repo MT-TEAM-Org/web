@@ -78,27 +78,31 @@ const MypageLeftSidebar = () => {
           "mobile:flex mobile:h-[48px] mobile:border-b-2 mobile:border-gray3 mobile:w-[768px]"
         )}
       >
-        {boardList.map((board) => (
-          <div
-            onClick={() => board.path && handleRoute(board.path)}
-            key={board.id}
-            className={cn(
-              `flex items-center w-full h-[52px] px-[16px] py-[12px] cursor-pointer ${
-                isCurrentPath(board.path)
+        {boardList.map((board) => {
+          const isActive = isCurrentPath(board.path);
+          return (
+            <div
+              onClick={() => board.path && handleRoute(board.path)}
+              key={board.id}
+              className={cn(
+                "flex items-center w-full h-[52px] px-[16px] py-[12px] cursor-pointer",
+                isActive
                   ? "font-[700] text-[#00ADEE] bg-bg0"
-                  : "font-[400] text-[#424242]"
-              }`,
-              "tablet:justify-center tablet:p-0",
-              `mobile:justify-center mobile:h-[48px] mobile:py-[13px] mobile:text-[14px] mobile:leading-[28px] mobile:max-w-[112px] mobile:${
-                isCurrentPath(board.path) ? "text-gray7" : "text-gray5"
-              } mobile:${isCurrentPath(board.path) && "border-b-2"} mobile:${
-                isCurrentPath(board.path) && "border-gray7"
-              } mobile:${board.name === "로그아웃" && "hidden"}`
-            )}
-          >
-            <p className="text-nowrap">{board.name}</p>
-          </div>
-        ))}
+                  : "font-[400] text-[#424242]",
+                "tablet:justify-center tablet:p-0",
+                "mobile:justify-center mobile:h-[48px] mobile:py-[13px] mobile:text-[14px] mobile:leading-[28px] mobile:max-w-[112px]",
+                board.name === "로그아웃" && "mobile:hidden",
+                {
+                  "mobile:text-gray7 mobile:border-b-2 mobile:border-gray7":
+                    isActive && board.name !== "로그아웃",
+                  "mobile:text-gray5": !isActive && board.name !== "로그아웃",
+                }
+              )}
+            >
+              <p className="text-nowrap">{board.name}</p>
+            </div>
+          );
+        })}
       </div>
       <ConfirmModal
         show={show}

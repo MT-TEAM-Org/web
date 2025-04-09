@@ -15,6 +15,7 @@ import Pagination from "./Pagination";
 import changeURLParams from "../util/changeURLParams";
 import AnswerCheck from "./AnswerCheck";
 import useAuthCheck from "@/_hooks/useAuthCheck";
+import { cn } from "@/utils";
 
 interface MypageToolbarProps {
   mode: "posts" | "inquries" | "comments";
@@ -92,7 +93,12 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
 
   return (
     <div className="bg-[#FFFFFF] rounded-t-[5px]">
-      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
+      <div
+        className={cn(
+          "w-full flex justify-between items-center min-h-[64px] p-[12px] border-b",
+          "mobile:hidden"
+        )}
+      >
         <h2 className="font-[700] text-[18px] leading-[28px] text-[#303030]">
           {mode === "inquries" && userRole === "ADMIN"
             ? "문의내역"

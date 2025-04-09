@@ -8,7 +8,7 @@ const Posts = () => {
       <div
         className={cn(
           "max-w-[720px] min-h-[450px] bg-gray1 rounded-[5px]",
-          "mobile:bg-white"
+          "mobile:bg-white mobile:w-full mobile:mx-auto"
         )}
       >
         <MyPagePostList />
