@@ -86,7 +86,7 @@ const FeedbackItem = ({
             "mobile:min-w-[162px]"
           )}
         >
-          <div className="flex">
+          <div className="flex items-center min-w-0 gap-[2px]">
             <p
               className={cn(
                 "text-[14px] leading-5 text-gray7",
@@ -112,7 +112,7 @@ const FeedbackItem = ({
             </div>
           </div>
 
-          <div>
+          <div className={cn("pc:hidden", "tablet:hidden")}>
             <FeedbackItemStatus status={feedbackData?.status} />
           </div>
         </div>

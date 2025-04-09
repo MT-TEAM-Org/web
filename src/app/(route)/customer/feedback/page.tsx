@@ -56,10 +56,13 @@ const FeedbackPage = () => {
     .slice(0, 2);
 
   return (
-    <div className="flex justify-center bg-gray1">
+    <div
+      className={cn("flex justify-center bg-gray1", "tablet:max-w-[1279px]")}
+    >
       <div
         className={cn(
           "max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto",
+          "tablet:max-w-[1279px]",
           "mobile:w-[360px]"
         )}
       >
@@ -74,6 +77,7 @@ const FeedbackPage = () => {
         <div
           className={cn(
             "w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+            "tablet:max-w-[1279px]",
             "mobile:w-[360px]"
           )}
         >

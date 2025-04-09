@@ -39,7 +39,7 @@ const NoticePageContent = () => {
   } = useGetNoticeDataList(noticeOption);
 
   return (
-    <div className="max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10">
+    <div className="w-full max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10">
       <div className={cn("sticky top-0 z-10", "mobile:hidden")}>
         <CustomerTalkToolbar
           showOptions={false}
@@ -50,9 +50,9 @@ const NoticePageContent = () => {
 
       <div
         className={cn(
-          "w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
-          "tablet:w-0 tablet:min-w-[688px]",
-          "mobile:w-0 mobile:min-w-[360px]"
+          "w-full max-w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+          "tablet:max-w-[688px]",
+          "mobile:w-full"
         )}
       >
         {isLoading ? (

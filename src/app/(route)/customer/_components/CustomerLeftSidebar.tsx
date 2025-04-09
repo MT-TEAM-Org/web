@@ -52,7 +52,7 @@ const CustomerLeftSidebar = () => {
     <div
       className={cn(
         "w-[160px] bg-white",
-        "tablet:flex tablet:w-[688px] tablet:h-[52px]",
+        "tablet:flex tablet:min-w-[688px] tablet:h-[52px]",
         "mobile:w-full mobile:min-h-[50px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide"
       )}
     >
@@ -72,7 +72,7 @@ const CustomerLeftSidebar = () => {
                     ? currentPathStyle
                     : defaultStyle
                 }`,
-                "tablet:w-[137.6px] tablet:items-center tablet:justify-center tablet:text-center tablet:px-4 tablet:py-3",
+                "tablet:min-w-[137.6px] tablet:items-center tablet:justify-center tablet:text-center tablet:px-4 tablet:py-3",
                 "mobile:min-w-[81px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-center"
               )}
             >
@@ -90,7 +90,15 @@ const CustomerLeftSidebar = () => {
           )}
           onClick={() => setShow(true)}
         >
-          <p className="whitespace-nowrap">1:1 문의하기</p>
+          <p
+            className={cn(
+              "whitespace-nowrap text-start",
+              "tablet:text-center",
+              "mobile:text-center"
+            )}
+          >
+            1:1 문의하기
+          </p>
         </div>
       </div>
       {show && <ModalPopup show={show} setShow={setShow} />}
