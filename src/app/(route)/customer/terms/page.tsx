@@ -1,4 +1,5 @@
 import TermsServiceText from "@/app/_components/termsModal/TermsServiceText";
+import { cn } from "@/utils";
 import React from "react";
 
 export const metadata = {
@@ -21,7 +22,12 @@ export const metadata = {
 
 const TermsOfService = () => {
   return (
-    <div className="w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm">
+    <div
+      className={cn(
+        "w-full max-w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm",
+        "mobile:w-full mobile:p-4"
+      )}
+    >
       <div className="w-full min-h-[64px] border-b p-4 flex justify-between items-center border-gray2 bg-white sticky top-0 z-10">
         <h1 className="font-bold text-[18px] leading-7 text-gray8">이용약관</h1>
       </div>

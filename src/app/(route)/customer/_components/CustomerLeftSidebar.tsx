@@ -73,7 +73,7 @@ const CustomerLeftSidebar = () => {
                     : defaultStyle
                 }`,
                 "tablet:min-w-[137.6px] tablet:items-center tablet:justify-center tablet:text-center tablet:px-4 tablet:py-3",
-                "mobile:min-w-[81px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-center"
+                "mobile:min-w-[122px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-center"
               )}
             >
               <p className="whitespace-nowrap">{board.name}</p>

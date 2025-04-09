@@ -59,12 +59,15 @@ const FeedbackItem = ({
   return (
     <div
       onClick={handleFeedbackClick}
-      className={`w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-center justify-between cursor-pointer hover:bg-[#F8FDFF]`}
+      className={cn(
+        `w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer hover:bg-bg0`,
+        "mobile:p-2"
+      )}
     >
-      <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center">
+      <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center flex-shrink-0">
         <p className="font-bold text-[14px] leading-5">{feedbackData?.id}</p>
       </div>
-      <div className="w-[56px] h-[42px] rounded-[5px] bg-gray1 overflow-hidden">
+      <div className="w-[56px] h-[42px] rounded-[5px] bg-gray1 overflow-hidden flex-shrink-0">
         <Image
           src={feedbackData?.thumbnail || "/Preview_loading_image.png"}
           alt="img"
@@ -76,43 +79,28 @@ const FeedbackItem = ({
 
       <div
         className={cn(
-          "min-w-[503px] min-h-[42px] flex gap-1 flex-col",
-          "mobile:min-w-[224px]"
+          "w-full min-h-[42px] flex gap-1 flex-col",
+          "tablet:max-w-[552px]",
+          "mobile:max-w-[720px] mobile:gap-0"
         )}
       >
-        <div
-          className={cn(
-            "w-full min-h-[20px] flex gap-[2px] justify-between items-center",
-            "mobile:min-w-[162px]"
-          )}
-        >
-          <div className="flex items-center min-w-0 gap-[2px]">
-            <p
-              className={cn(
-                "text-[14px] leading-5 text-gray7",
-                "mobile:whitespace-nowrap mobile:overflow-hidden mobile:text-ellipsis"
-              )}
-            >
-              {searchType === "TITLE" || searchType === "TITLE_CONTENT"
-                ? highlightText(feedbackData?.title, searchType, searchString)
-                : feedbackData?.title}
+        <div className="w-full min-h-[20px] flex items-center gap-[2px]">
+          <p className="text-[14px] leading-5 text-gray7 truncate">
+            {searchType === "TITLE" || searchType === "TITLE_CONTENT"
+              ? highlightText(feedbackData?.title, searchType, searchString)
+              : feedbackData?.title}
+          </p>
+          {feedbackData?.commentCount >= 1 && (
+            <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra flex-shrink-0">
+              [<span>{feedbackData?.commentCount}</span>]
             </p>
-            {feedbackData?.commentCount >= 1 && (
-              <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra">
-                [<span>{feedbackData?.commentCount}</span>]
-              </p>
-            )}
-            <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
-              {(isNew || feedbackData?.isHot) && (
-                <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center">
-                  {isNew && <p className="text-gra">N</p>}
-                  {feedbackData?.isHot && <p className="text-warning">H</p>}
-                </div>
-              )}
-            </div>
+          )}
+          <div className="min-w-[22px] min-h-[18px] flex gap-[2px] font-black text-[10px] leading-[18px] tracking-[-0.02em] text-center flex-shrink-0">
+            {isNew && <p className="text-gra">N</p>}
+            {feedbackData?.isHot && <p className="text-warning">H</p>}
           </div>
 
-          <div className={cn("pc:hidden", "tablet:hidden")}>
+          <div className={cn("pc:hidden", "tablet:hidden", "ml-auto")}>
             <FeedbackItemStatus status={feedbackData?.status} />
           </div>
         </div>
@@ -125,11 +113,11 @@ const FeedbackItem = ({
           </div>
 
           {feedbackData?.improvementCommentSearchList?.comment && (
-            <div className="w-[584px] flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
+            <div className="w-full flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
               <div className="w-4 h-4 flex-shrink-0">
                 <Arrow_reply size={16} />
               </div>
-              <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em]">
+              <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em] truncate">
                 {feedbackData?.improvementCommentSearchList?.imageUrl && (
                   <span>(이미지)</span>
                 )}
@@ -147,7 +135,7 @@ const FeedbackItem = ({
           )}
         </div>
       </div>
-      <div className="mobile:hidden">
+      <div className="mobile:hidden ml-auto">
         <FeedbackItemStatus status={feedbackData?.status} />
       </div>
     </div>
