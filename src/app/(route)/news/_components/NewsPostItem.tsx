@@ -46,18 +46,23 @@ const NewsPostItem = ({
   }, [date]);
 
   const styles = {
-    title: isRead
-      ? "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray5 text-ellipsis overflow-hidden whitespace-nowrap mobile:text-[14px] leading-5"
-      : "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray9 text-ellipsis overflow-hidden whitespace-nowrap mobile:text-[14px] leading-5",
-    content: isRead
-      ? "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray5 overflow-hidden line-clamp-2 mobile:text-[12px] mobile:leading-[18px] tracking-[-0.02em]"
-      : "w-[524px] h-[40px] font-medium text-[14px] leading-5 text-gray7 overflow-hidden line-clamp-2 mobile:text-[12px] mobile:leading-[18px] tracking-[-0.02em]",
-    text: isRead
-      ? "font-medium text-[12px] text-gray5 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap"
-      : "font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap",
-    info: "font-medium text-[12px] leading-[18px] letter-[-0.02em] text-gray5",
+    title: cn(
+      "font-bold leading-6 tracking-[-0.02em] text-ellipsis overflow-hidden line-clamp-1",
+      isRead ? "text-gray5" : "text-gray9",
+      "text-[16px] mobile:text-[14px] mobile:leading-5"
+    ),
+    content: cn(
+      "font-medium leading-5 tracking-[-0.02em] overflow-hidden line-clamp-2",
+      isRead ? "text-gray5" : "text-gray7",
+      "text-[14px] mobile:text-[12px] mobile:leading-[18px]"
+    ),
+    text: cn(
+      "font-medium text-[12px] leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap",
+      isRead ? "text-gray5" : "text-gray7"
+    ),
+    info: "font-medium text-[12px] leading-[18px] tracking-[-0.02em] text-gray5",
     category:
-      "font-bold text-[12px] leading-[18px] letter-[-0.02em] text-gray5",
+      "font-bold text-[12px] leading-[18px] tracking-[-0.02em] text-gray5",
   };
 
   const newsComment =
@@ -68,16 +73,13 @@ const NewsPostItem = ({
     newsItem?.commentSearchList?.imageUrl;
 
   const getMinHeightClass = () => {
-    if (newsComment || newsCommentImage) {
-      return "h-[136px] mobile:h-[136px]";
-    } else {
-      return "h-[116px] mobile:h-[116px]";
-    }
+    return newsComment || newsCommentImage
+      ? "h-[136px] mobile:h-[136px]"
+      : "h-[116px] mobile:h-[116px]";
   };
 
   const handleToInfo = () => {
     handleRead();
-
     const commentId =
       newsItem?.newsCommentSearchDto?.newsCommentId ||
       newsItem?.commentSearchList?.commentId;
@@ -86,25 +88,20 @@ const NewsPostItem = ({
       categoryPath ? `/${categoryPath}` : ""
     }/news-detail/${newsItem?.id}`;
 
-    if (commentId) {
-      router.push(`${basePath}?commentId=${commentId}`);
-    } else {
-      router.push(basePath);
-    }
+    router.push(commentId ? `${basePath}?commentId=${commentId}` : basePath);
   };
 
   return (
     <div
       onClick={handleToInfo}
       className={cn(
-        `min-w-[720px] ${getMinHeightClass()} flex justify-start items-center gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`,
-        "tablet:w-[688px] tablet:min-w-0",
-        "mobile:min-w-0 mobile:w-[360px]"
+        `w-full ${getMinHeightClass()} flex items-center gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`,
+        "mobile:p-2"
       )}
     >
       <div
         className={cn(
-          "w-[160px] h-[92px] rounded-[3.83px] relative",
+          "w-[160px] h-[92px] relative flex-shrink-0",
           "mobile:w-[80px] mobile:h-[80px]"
         )}
       >
@@ -114,68 +111,55 @@ const NewsPostItem = ({
             alt="Thumbnail"
             width={160}
             height={92}
-            className="w-full h-full object-cover rounded-[5px] gap-[10px]"
+            className="w-full h-full object-cover rounded-[5px]"
           />
         ) : (
-          <div className="w-full h-full items-center justify-center flex bg-bg0 rounded-[5px]">
+          <div className="w-full h-full flex items-center justify-center bg-bg0 rounded-[5px]">
             <LogoWhite />
           </div>
         )}
       </div>
-      <div
-        className={cn(
-          "w-[524px] h-auto min-h-[90px] flex flex-col justify-start gap-1",
-          "tablet:w-[492px]",
-          "mobile:w-[236px] mobile:max-w-full"
-        )}
-      >
-        <div
-          className={cn(
-            "w-[524px] h-auto min-h-[24px] flex gap-[2px] text-start items-center justify-start",
-            "w-[492px]",
-            "mobile:w-full"
-          )}
-        >
+
+      <div className={cn("flex flex-col gap-1 w-full min-h-[90px]")}>
+        <div className="flex items-center gap-[2px] w-full min-h-[24px]">
           <h1 className={styles.title}>
             {searchType === "TITLE" || searchType === "TITLE_CONTENT"
               ? highlightText(newsItem?.title, searchType, searchString)
               : newsItem?.title}
           </h1>
           {newsItem?.commentCount > 0 && (
-            <p className="font-medium text-[14px] leading-5 text-gra flex">
+            <p className="font-medium text-[14px] leading-5 text-gra">
               [{newsItem?.commentCount}]
             </p>
           )}
           {(isNew || newsItem?.hot) && (
-            <div className="font-black text-[10px] leading-[18px] align-center">
-              {isNew && <p className="text-gra">N</p>}
-              {newsItem?.hot && <p className="text-warning">H</p>}
+            <div className="font-black text-[10px] leading-[18px] ml-1">
+              {isNew && <span className="text-gra">N</span>}
+              {newsItem?.hot && <span className="text-warning">H</span>}
             </div>
           )}
         </div>
 
-        <div>
-          <p className={cn(styles.content, "tablet:w-full", "mobile:w-full")}>
-            {searchType === "CONTENT" || searchType === "TITLE_CONTENT"
-              ? highlightText(newsItem?.content, searchType, searchString)
-              : newsItem?.content}
-          </p>
-        </div>
+        <p className={styles.content}>
+          {searchType === "CONTENT" || searchType === "TITLE_CONTENT"
+            ? highlightText(newsItem?.content, searchType, searchString)
+            : newsItem?.content}
+        </p>
+
         <div className="flex gap-1">
           <p className={styles.category}>
             <ChangedCategory category={newsItem?.category} />
           </p>
-          <p className={styles.info}>{useTimeAgo(newsItem?.postDate)}</p>
+          <p className={styles.info}>{date}</p>
           <p className={styles.info}>네이버 스포츠</p>
         </div>
+
         {newsComment && (
-          <div className="w-full flex items-center justify-start gap-1">
-            <div className="w-[16px] h-[16px] flex-shrink-0">
+          <div className="w-full flex items-center gap-1">
+            <div className="w-4 h-4 flex-shrink-0">
               <Arrow_reply size={12} />
             </div>
-            <div
-              className={`${styles.text} min-w-0 flex gap-[2px] items-center justify-start`}
-            >
+            <div className={cn(styles.text, "flex gap-[2px] items-center")}>
               {newsCommentImage && <span>(이미지)</span>}
               <p>
                 {searchType === "COMMENT"

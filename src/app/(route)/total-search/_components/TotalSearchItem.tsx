@@ -76,12 +76,13 @@ const TotalSearchItem = ({
   return (
     <div
       onClick={handleTotalSearchClick}
-      className="flex flex-col items-center w-full cursor-pointer"
+      className="flex flex-col items-start w-full cursor-pointer"
     >
       <div
         className={cn(
-          "flex items-center justify-start w-[720px] min-h-[66px] max-h-[88px] gap-[12px] border-b p-[12px] hover:bg-bg0",
-          "mobile:min-w-[360px] mobile:w-0"
+          "flex items-center justify-start min-w-[720px] min-h-[66px] max-h-[88px] gap-[12px] border-b p-[12px] hover:bg-bg0",
+          "tablet:max-w-[1279px] tablet:min-w-[687px]",
+          "mobile:w-full mobile:min-w-full"
         )}
       >
         <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1">
@@ -99,7 +100,7 @@ const TotalSearchItem = ({
         />
         <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
           <div className="flex items-center gap-[2px]">
-            <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap overflow-ellipsis">
+            <h2 className="max-w-[535px] text-[14px] leading-[20px] text-gray7 text-ellipsis overflow-hidden line-clamp-1">
               {searchType === "TITLE" || searchType === "TITLE_CONTENT"
                 ? highlightText(data?.title, searchType, searchString)
                 : data?.title}
