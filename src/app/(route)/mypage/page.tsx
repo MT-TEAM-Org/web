@@ -4,6 +4,8 @@ import Link from "next/link";
 import { REGISTRATION } from "@/constants/userRegistration";
 import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
 import Image from "next/image";
+import { cn } from "@/utils";
+import { Fragment } from "react";
 
 const Mypage = () => {
   const { data, isLoading } = useGetMyPageData();
@@ -37,9 +39,25 @@ const Mypage = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-[24px] max-w-[720px] min-h-[238px] bg-[#FFFFFF] rounded-[10px] p-[24px]">
-      <div className="flex justify-between items-center min-h-[48px]">
-        <div className="flex gap-[12px]">
+    <div
+      className={cn(
+        "flex flex-col gap-[24px] w-[720px] min-h-[238px] bg-[#FFFFFF] rounded-[10px] p-[24px]",
+        "tablet:rounded-t-none tablet:w-[688px]",
+        "mobile:w-full mobile:h-[500px] mobile:p-[16px] mobile:gap-[16px]"
+      )}
+    >
+      <div
+        className={cn(
+          "flex justify-between items-center min-h-[48px]",
+          "mobile:justify-center"
+        )}
+      >
+        <div
+          className={cn(
+            "flex gap-[12px]",
+            "mobile:flex-col mobile:items-center"
+          )}
+        >
           <Image
             alt="profile-image"
             src={"/userProfileIsNull.png"}
@@ -48,7 +66,12 @@ const Mypage = () => {
             className="w-[48px] h-[48px] rounded-full object-cover"
           />
           <div>
-            <div className="flex items-center gap-[4px] text-[#181818] leading-[24px]">
+            <div
+              className={cn(
+                "flex items-center gap-[4px] text-[#181818] leading-[24px]",
+                "mobile:justify-center"
+              )}
+            >
               <h2 className="font-[700]">{mypage?.nickname}</h2>
               <span className="text-[14px] leading-[20px] text-[#424242] font-[500]">
                 {role}
@@ -59,7 +82,7 @@ const Mypage = () => {
             </p>
           </div>
         </div>
-        <Link href="/mypage/edit-profile">
+        <Link href="/mypage/edit-profile" className="mobile:hidden">
           <button className="w-[120px] min-h-[40px] bg-[#FFFFFF] text-[#424242] rounded-[5px] px-[16px] py-[13px] border border-[#DBDBDB] text-[14px] font-[700] leading-[14px]">
             내 정보 수정
           </button>
@@ -67,27 +90,67 @@ const Mypage = () => {
       </div>
 
       <div className="space-y-[12px]">
-        <div className="flex gap-[12px] min-h-[86px] rounded-[10px] bg-[#FAFAFA] py-[12px]">
+        <div
+          className={cn(
+            "flex gap-[12px] min-h-[86px] rounded-[10px] bg-[#FAFAFA] py-[12px]",
+            "mobile:gap-0 mobile:items-center"
+          )}
+        >
           {mypageInfo.map((info, index: number) => (
-            <div key={info.id} className="mx-auto flex items-center">
-              <div className="w-[149.25px] min-h-[62px] space-y-[4px]">
-                <p className="text-[14px] leading-[20px] text-center text-gray7">
-                  {info.name}
-                </p>
-                <Link href={info.path || ""}>
-                  <p className="text-[24px] text-[#303030] font-[900] leading-[38px] text-center underline">
-                    {info.value}
+            <Fragment key={info.id}>
+              <div className="mx-auto flex items-center">
+                <div
+                  className={cn(
+                    "w-[149.25px] min-h-[62px] space-y-[4px]",
+                    "mobile:w-[63.25px] mobile:min-h-[60px]"
+                  )}
+                >
+                  <p
+                    className={cn(
+                      "text-[14px] leading-[20px] text-center text-gray7 text-nowrap",
+                      "mobile:text-[12px]"
+                    )}
+                  >
+                    {info.name}
                   </p>
-                </Link>
+                  <Link href={info.path || ""}>
+                    <p
+                      className={cn(
+                        "text-[24px] text-[#303030] font-[900] leading-[38px] text-center underline",
+                        "mobile:text-[20px]"
+                      )}
+                    >
+                      {info.value}
+                    </p>
+                  </Link>
+                </div>
+                {index !== 3 && (
+                  <div
+                    className={cn(
+                      "w-[1px] h-[40px] bg-[#EEEEEE]",
+                      "mobile:hidden"
+                    )}
+                  ></div>
+                )}
               </div>
               {index !== 3 && (
-                <div className="w-[1px] h-[40px] bg-[#EEEEEE]"></div>
+                <div
+                  className={cn(
+                    "hidden",
+                    "mobile:w-[1px] mobile:h-[40px] mobile:bg-[#EEEEEE] mobile:block mobile:mx-[12px]"
+                  )}
+                ></div>
               )}
-            </div>
+            </Fragment>
           ))}
         </div>
 
-        <div className="flex justify-between items-center">
+        <div
+          className={cn(
+            "flex justify-between items-center",
+            "mobile:flex-col mobile:gap-[4px]"
+          )}
+        >
           <p className="text-[14px] leading-[20px] font-[400] text-[#656565]">
             회원가입일: {mypage?.registeredAt}
           </p>
@@ -99,6 +162,14 @@ const Mypage = () => {
           </p>
         </div>
       </div>
+      <Link
+        href="/mypage/edit-profile"
+        className={cn("hidden", "tablet:hidden", "mobile:block")}
+      >
+        <button className="w-full min-h-[40px] bg-[#FFFFFF] text-[#424242] rounded-[5px] px-[16px] py-[13px] border border-[#DBDBDB] text-[14px] font-[700] leading-[14px]">
+          내 정보 수정
+        </button>
+      </Link>
     </div>
   );
 };

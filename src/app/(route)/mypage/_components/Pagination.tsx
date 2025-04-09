@@ -5,6 +5,7 @@ import { PageInfo } from "../_types/toolbarType";
 import Pg_left from "@/app/_components/icon/Pg_left";
 import Pg_right from "@/app/_components/icon/Pg_right";
 import Pg_double_right from "@/app/_components/icon/Pg_double_right";
+import { cn } from "@/utils";
 
 interface PaginationProps {
   pageInfo: PageInfo;
@@ -44,7 +45,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
   };
 
   return (
-    <div className="flex">
+    <div className={cn("flex", "mobile:hidden")}>
       <div className="flex items-center gap-[8px]">
         {totalPage > 1 && (
           <button
