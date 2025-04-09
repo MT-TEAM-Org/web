@@ -1,4 +1,5 @@
 import TermsPersonalText from "@/app/_components/termsModal/TermsPersonalText";
+import { cn } from "@/utils";
 import React from "react";
 
 export const metadata = {
@@ -21,7 +22,12 @@ export const metadata = {
 
 const Page = () => {
   return (
-    <div className="w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm">
+    <div
+      className={cn(
+        "w-full max-w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm",
+        "mobile:w-full"
+      )}
+    >
       <div className="w-full min-h-[64px] border-b p-4 flex justify-between items-center sticky top-0 z-10 border-gray2 bg-white">
         <h1 className="font-bold text-[18px] leading-7 text-gray8">
           개인정보 취급방침

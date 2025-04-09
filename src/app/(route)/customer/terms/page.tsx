@@ -25,7 +25,7 @@ const TermsOfService = () => {
     <div
       className={cn(
         "w-full max-w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm",
-        "mobile:w-full mobile:p-4"
+        "mobile:w-full"
       )}
     >
       <div className="w-full min-h-[64px] border-b p-4 flex justify-between items-center border-gray2 bg-white sticky top-0 z-10">
