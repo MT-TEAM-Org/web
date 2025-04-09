@@ -151,13 +151,14 @@ const FeedbackInfo = () => {
 
   return (
     <>
-      {feedbackIsLoading || feedbackIsError ? (
+      <FeedbackInfoSkeleton />
+      {/* {feedbackIsLoading || feedbackIsError ? (
         <FeedbackInfoSkeleton />
       ) : (
         <div
           className={cn(
             "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md",
-            "tablet:max-w-[1279px]",
+            "tablet:max-w-[687px]",
             "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
           )}
         >
@@ -167,7 +168,9 @@ const FeedbackInfo = () => {
           <div
             className={cn(
               "w-full flex gap-2 flex-col",
-              adminRole !== "ADMIN" || adminRole === undefined ? "h-[56px]" : ""
+              adminRole !== "ADMIN" || adminRole === undefined
+                ? "min-h-[56px]"
+                : ""
             )}
           >
             <div>
@@ -207,6 +210,7 @@ const FeedbackInfo = () => {
               <div
                 className={cn(
                   "min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6",
+                  "tablet:min-w-[210px]",
                   "mobile:min-w-0 mobile:w-full mobile:justify-start mobile:text-[12px] mobile:mt-2"
                 )}
               >
@@ -273,11 +277,11 @@ const FeedbackInfo = () => {
             currentPath={pathname}
           />
         </div>
-      )}
+      )} */}
       <div
         className={cn(
           "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden",
-          "tablet:max-w-[1279px]",
+          "tablet:max-w-[687px]",
           "mobile:w-full mobile:max-w-full mobile:min-h-[56px]"
         )}
       >
@@ -296,7 +300,7 @@ const FeedbackInfo = () => {
         <div
           className={cn(
             "w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
-            "tablet:max-w-[1279px]",
+            "tablet:max-w-[687px]",
             "mobile:w-full mobile:max-w-full"
           )}
         >
