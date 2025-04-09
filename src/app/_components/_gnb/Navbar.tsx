@@ -31,10 +31,9 @@ export default function Navbar() {
     setIsSearching(true);
     router.push(searchPath);
   };
-
-  const isCurrentPath = (path) => {
-    const fullPath = path.startsWith("/") ? path : `/${path}`;
-    return pathname === fullPath;
+  const isCurrentPath = (Id: string) => {
+    if (!pathname) return false;
+    return pathname.includes(Id);
   };
 
   const navbarClass =
@@ -44,10 +43,10 @@ export default function Navbar() {
     <div className="w-full max-w-[1200px] min-h-[60px] flex justify-between items-center mx-auto">
       <div className="max-w-[447px] min-h-[60px] flex justify-around gap-2.5">
         {NAVBARS.map((item, index) => (
-          <Link key={index} href={item.link}>
+          <Link key={item.id} href={item.link}>
             <div
               className={`${navbarClass} flex justify-around items-center hover:text-gra ${
-                isCurrentPath(item.link)
+                isCurrentPath(item.id)
                   ? "font-normal text-gra"
                   : "font-normal text-gray7"
               } ${index === 0 ? "pl-0" : ""}`}

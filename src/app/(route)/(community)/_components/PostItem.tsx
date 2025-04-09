@@ -8,6 +8,7 @@ import {
   getKoreanCategoryType,
 } from "@/utils/boardType/boardTypeKorean";
 import { numberOverThousand } from "@/utils/boardType/numberOfThousand";
+import DefaultThumbnail from "@/app/_components/icon/DefaultThumbnail";
 
 interface BoardListItem {
   id: number;
@@ -67,19 +68,24 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
 
           <div className="flex items-center gap-[10px]">
             <div className="w-[56px] h-[42px] relative box-content">
-              <Image
-                src={data?.thumbnail || "/test.svg"}
-                alt="post-preview-image"
-                fill
-                className="object-contain rounded-[5px]"
-                blurDataURL="/test.svg"
-              />
+              {data?.thumbnail ? (
+                <Image
+                  src={data.thumbnail}
+                  alt="post-preview-image"
+                  fill
+                  className="object-contain rounded-[5px]"
+                />
+              ) : (
+                <div className="w-full h-full rounded-[5px] bg-[#FAFAFA] flex items-center justify-center">
+                  <DefaultThumbnail />
+                </div>
+              )}
             </div>
           </div>
 
           <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
             <div className="flex items-center gap-[2px]">
-              <h2 className="text-[14px] leading-[20px] text-gray7 font-medium tracking-[-0.02em] overflow-hidden whitespace-nowrap overflow-ellipsis">
+              <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap overflow-ellipsis ">
                 {data?.title}
               </h2>
               {data?.commentCount > 0 && (
