@@ -54,7 +54,11 @@ const Signup = () => {
     sequence: 0,
   });
   const [successVerification, setSuccessVerification] = useState(false);
-
+  console.log(
+    `refreshToken: ${refreshToken}`,
+    `userType: ${userType}`,
+    `isSnsSignup: ${isSnsSignup}`
+  );
   useEffect(() => {
     if (show.service || show.personal || show.sequence) {
       document.body.style.overflow = "hidden";

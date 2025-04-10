@@ -8,11 +8,13 @@ const useHandleRefreshToken = () => {
   const searchParams = useSearchParams();
   const refreshToken = searchParams.get("refreshToken") || null;
   const { mutate: reissue } = useReissue();
-
+  console.log(refreshToken);
   useEffect(() => {
     if (refreshToken) {
       localStorage.setItem("refreshToken", refreshToken);
-      reissue();
+      setTimeout(() => {
+        reissue();
+      }, 100);
     }
   }, [refreshToken]);
 

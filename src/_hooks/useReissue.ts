@@ -11,8 +11,8 @@ const handleReissue = async () => {
     {
       headers: {
         Authorization: `Bearer ${
-          localStorage.getItem("refreshToken") ||
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ||
+          localStorage.getItem("refreshToken")
         }`,
       },
     }
@@ -26,7 +26,7 @@ const useReissue = () => {
     mutationFn: handleReissue,
     onSuccess: (data) => {
       localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
+      // localStorage.removeItem("refreshToken");
       localStorage.setItem("accessToken", data.headers.authorization);
       queryClient.invalidateQueries({ queryKey: ["authCheck"] });
     },
