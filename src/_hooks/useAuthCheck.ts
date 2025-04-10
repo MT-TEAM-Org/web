@@ -3,18 +3,19 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect } from "react";
+import useReissue from "./useReissue";
 
 const fetchAuthCheck = async () => {
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/me`, {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      Authorization: localStorage.getItem("accessToken"),
     },
   });
-
   return response;
 };
 
 const useAuthCheck = () => {
+  const { mutate: reissue } = useReissue();
   const getToken = () => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("accessToken");
@@ -27,11 +28,21 @@ const useAuthCheck = () => {
     queryFn: fetchAuthCheck,
     enabled: !!getToken(),
     retry: false,
-    staleTime: 3600000, // 1 hour in milliseconds
-    gcTime: 3600000, // 1 hour in milliseconds
+    staleTime: 1000 * 60 * 10, // 10분 fresh 유지
+    gcTime: 1000 * 60 * 30, // 30분간 캐시데이터 유지
+    refetchOnMount: false,
+    refetchOnWindowFocus: true,
   });
 
   useEffect(() => {
+    if (
+      axios.isAxiosError(query.error) &&
+      query.error.response?.status === 401
+    ) {
+      reissue();
+      return;
+    }
+
     if (query.isError && typeof window !== "undefined") {
       localStorage.removeItem("accessToken");
     }

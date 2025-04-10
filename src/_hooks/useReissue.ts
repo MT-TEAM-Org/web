@@ -24,11 +24,17 @@ const useReissue = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: handleReissue,
+    retry: false,
     onSuccess: (data) => {
       localStorage.removeItem("accessToken");
-      // localStorage.removeItem("refreshToken");
+      localStorage.removeItem("refreshToken");
       localStorage.setItem("accessToken", data.headers.authorization);
       queryClient.invalidateQueries({ queryKey: ["authCheck"] });
+    },
+    onError: (error) => {
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        localStorage.removeItem("accessToken");
+      }
     },
   });
 };
