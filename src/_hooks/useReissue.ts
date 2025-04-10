@@ -9,7 +9,12 @@ const handleReissue = async () => {
     `${process.env.NEXT_PUBLIC_API_URL}api/token/regenerate`,
     {},
     {
-      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${
+          localStorage.getItem("refreshToken") ||
+          localStorage.getItem("accessToken")
+        }`,
+      },
     }
   );
   return response;
@@ -21,6 +26,7 @@ const useReissue = () => {
     mutationFn: handleReissue,
     onSuccess: (data) => {
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
       localStorage.setItem("accessToken", data.headers.authorization);
       queryClient.invalidateQueries({ queryKey: ["authCheck"] });
     },
