@@ -42,15 +42,15 @@ const LeftSidebar = () => {
 
   return (
     <div className="w-[160px] h-[364px]">
-      <div className="w-full bg-[#FFFFFF] rounded-[5px]">
+      <div className="w-full bg-white rounded-[5px]">
         {boardList.map((board) => (
           <div
             onClick={() => board.path && handleRoute(board.path)}
             key={board.id}
-            className={`w-full h-[52px] px-[16px] py-[12px] flex justify-start items-center  cursor-pointer hover:text-[#00ADEE] ${
+            className={`w-full h-[52px] px-[16px] py-[12px] flex justify-start items-center  cursor-pointer hover:text-gra ${
               board.id && pathname.includes(board.id)
-                ? "font-[700] text-[#00ADEE]"
-                : "font-[400] text-[#424242]"
+                ? "font-[700] text-gra"
+                : "font-[400] text-gray7"
             }`}
           >
             <p>{board.name}</p>

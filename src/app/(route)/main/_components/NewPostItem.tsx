@@ -35,14 +35,14 @@ const NewPostItem = ({ newPosts }: NewPostItemProps) => {
         </div>
         <div className="flex justify-center text-center items-center gap-x-[2px]">
           {(newPosts?.commentCount ?? 0) > 0 && (
-            <p className="w-[22px] h-[18px] font-[500] text-[12px] leading-[18px] text-primary">
+            <p className="w-[22px] h-[18px] font-[500] text-[12px] leading-[18px] text-gra">
               [{newPosts.commentCount}]
             </p>
           )}
-          <p className="font-[900] w-[10px] h-[18px] text-[10px] leading-[18px] text-[#00ADEE]">
+          <p className="font-[900] w-[10px] h-[18px] text-[10px] leading-[18px] text-gra">
             N
           </p>
-          <p className="font-[900] w-[10px] h-[18px] text-[10px] leading-[18px] text-[#DC2800]">
+          <p className="font-[900] w-[10px] h-[18px] text-[10px] leading-[18px] text-new">
             {newPosts?.isHot ? "H" : ""}
           </p>
         </div>

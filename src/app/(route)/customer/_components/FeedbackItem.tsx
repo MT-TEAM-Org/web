@@ -9,7 +9,7 @@ import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { useRouter } from "next/navigation";
 import { cn } from "@/utils";
-import DefaultThumbnail from "@/app/_components/icon/DefaultThumbnail";
+import CustomIcon from "@/app/_components/IconComponents/Icon";
 
 interface FeedbackItemProps {
   feedbackData: FeedbackContentType;
@@ -77,9 +77,10 @@ const FeedbackItem = ({
             className="object-contain rounded-[5px]"
           />
         ) : (
-          <div className="w-full h-full rounded-[5px] bg-[#FAFAFA] flex items-center justify-center">
-            <DefaultThumbnail />
-          </div>
+          <CustomIcon
+            icon="DEFAULT_THUMBNAIL_ICON"
+            className="w-[56px] h-[42px]"
+          />
         )}
       </div>
 

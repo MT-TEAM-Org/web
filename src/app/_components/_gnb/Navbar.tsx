@@ -5,7 +5,7 @@ import { Search } from "../icon/Search";
 import Link from "next/link";
 import { NAVBARS } from "@/app/_constants/navigation";
 import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import CustomIcon from "../IconComponents/Icon";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -77,10 +77,7 @@ export default function Navbar() {
               className="absolute right-4 text-gray-400 hover:text-gray-600"
               onClick={() => setIsValue("")}
             >
-              <X
-                size={16}
-                className="bg-gray border rounded-xl bg-gray5 text-white"
-              />
+              <CustomIcon icon="SEARCH_X_ICON" className="w-[20px] h-[20px]" />
             </button>
           )}
         </div>

@@ -59,12 +59,11 @@ export const RightSideBar = () => {
     <div className="w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-6">
       <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px] bg-white">
         <div className="w-full h-auto max-h-[736px] rounded-[10px]">
-          {/* 깜빡임 방지를 위한 조건 */}
           {content.length === 0 && isLoading && !isPaginating
             ? Array.from({ length: 5 }).map((_, index) => (
                 <RightNewsItemSkeleton key={index} />
               ))
-            : content.map((data: NewsItemType) => (
+            : content?.map((data: NewsItemType) => (
                 <RightNewsItem
                   key={data.id}
                   newsItem={data}

@@ -37,7 +37,7 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
 
           <div className="flex justify-center text-center items-center gap-x-[2px]">
             {(hotPosts?.commentCount ?? 0) > 0 && (
-              <p className="w-[22px] h-[18px] font-[500] text-[12px] leading-[18px] text-primary">
+              <p className="w-[22px] h-[18px] font-[500] text-[12px] leading-[18px] text-gra">
                 [{hotPosts.commentCount}]
               </p>
             )}

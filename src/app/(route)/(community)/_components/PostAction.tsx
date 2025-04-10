@@ -66,7 +66,8 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
           onClick={copyBtn}
           className="min-w-[138px] w-auto h-[32px] flex justify-center items-center bg-white px-3 py-2 rounded-[5px] border border-gray3 text-[14px] leading-[14px] font-medium"
         >
-          <span className="w-[96px] h-[14px] font-medium text-[14px] text-gray-700">
+          <span className="w-[96px] h-[14px] font-medium text-[14px] ">
+            <Copy />
             게시글 URL 복사
           </span>
         </button>
@@ -75,7 +76,7 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
           className="min-w-[91px] w-auto h-[32px] flex justify-center items-center bg-white pr-[12px] pl-[10px] py-2 rounded-[5px] border border-gray3 text-[14px] leading-[14px] text-nowrap font-medium"
         >
           <Share />
-          <span className="w-[49px] h-[14px] font-medium text-[14px] text-gray-700">
+          <span className="w-[49px] h-[14px] font-medium text-[14px]">
             공유하기
           </span>
         </button>
