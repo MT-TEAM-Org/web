@@ -13,7 +13,7 @@ interface EsportsScheduleProps {
   onMatchClick?: (matchId: number) => void;
 }
 
-const EsportsSchedule: React.FC<EsportsScheduleProps> = ({ onMatchClick }) => {
+const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const isGameboard =
@@ -21,7 +21,7 @@ const EsportsSchedule: React.FC<EsportsScheduleProps> = ({ onMatchClick }) => {
     pathname.startsWith("/matchBroadcast/ESPORTS");
 
   const { data: esportsSchedule, isLoading } = useGetEsportsSchedule();
-  console.log("esportsSchedule", esportsSchedule);
+  console.log(esportsSchedule, "esportsSchedule");
   const [currentPage, setCurrentPage] = useState(0);
   const [isSelected, setIsSelected] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
@@ -78,6 +78,12 @@ const EsportsSchedule: React.FC<EsportsScheduleProps> = ({ onMatchClick }) => {
     }
   };
 
+  const handleDetailMatchClick = () => {
+    if (selectedItemId) {
+      router.push(`/matchBroadcast/ESPORTS/${selectedItemId}`);
+    }
+  };
+
   if (isLoading || !esportsSchedule?.data || totalGroups === 0) {
     return (
       <div className="w-full max-w-[1136px] h-auto min-h-[126px] flex justify-start items-center mx-auto">
@@ -117,6 +123,10 @@ const EsportsSchedule: React.FC<EsportsScheduleProps> = ({ onMatchClick }) => {
 
                 return (
                   <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleMatchClick(item.id);
+                    }}
                     key={item?.id}
                     className="w-full max-w-[272px] h-[126px] flex flex-col justify-center gap-y-[4px] mr-[8px] cursor-pointer"
                   >

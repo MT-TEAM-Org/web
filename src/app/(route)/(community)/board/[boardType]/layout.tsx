@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col justify-center items-center bg-gray1">
+    <div className="flex flex-col w-full justify-center items-center bg-gray1">
       <Banner />
       <div className="mt-[24px] w-[1200px] flex justify-center mx-auto gap-[16px]">
         <div className="w-[160px] min-h-[364px]">
