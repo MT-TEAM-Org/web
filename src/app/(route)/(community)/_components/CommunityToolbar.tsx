@@ -80,7 +80,6 @@ export const CommunityToolbar = ({
       label: "최신순",
       type: "CREATE",
       icon: <Blue_outline_logo />,
-      isBold: true,
     },
     {
       label: "인기순",
