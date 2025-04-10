@@ -1,8 +1,9 @@
 import { apiRequest } from "../instant";
 
-interface EditBoardData {
+export interface EditBoardData {
   boardType: string;
   categoryType: string;
+  boardId?: string;
   content?: string;
   title: string;
   link?: string;
@@ -24,5 +25,3 @@ const putPost = async (data: EditBoardData, boardId: string) => {
 };
 
 export default putPost;
-
-export type { EditBoardData };
