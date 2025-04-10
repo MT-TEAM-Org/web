@@ -20,9 +20,9 @@ export async function generateMetadata({
       openGraph: {
         title: noticeDetail.title || "공지사항 상세 페이지",
         description: noticeDetail.content || "공지사항 상세 내용",
-        images: noticeDetail.imgUrl && [
-          { url: noticeDetail.imgUrl, width: 1200, height: 630 },
-        ],
+        images: noticeDetail.imgUrl
+          ? [{ url: noticeDetail.imgUrl, width: 600, height: 315 }]
+          : [{ url: "/Metadata.png", width: 1200, height: 630 }],
       },
       keywords: noticeDetail.keywords || ["플레이하이브", "공지사항"],
     };

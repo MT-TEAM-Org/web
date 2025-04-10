@@ -21,9 +21,9 @@ export async function generateMetadata({
       openGraph: {
         title: feedbackDetail.title || "개선요청 상세 페이지",
         description: feedbackDetail.content || "개선요청 상세 내용",
-        images: feedbackDetail.imgUrl && [
-          { url: feedbackDetail.imgUrl, width: 1200, height: 630 },
-        ],
+        images: feedbackDetail.imgUrl
+          ? [{ url: feedbackDetail.imgUrl, width: 640, height: 315 }]
+          : [{ url: "/Metadata.png", width: 1200, height: 630 }],
       },
       keywords: feedbackDetail.keywords || ["플레이하이브", "개선요청"],
     };
