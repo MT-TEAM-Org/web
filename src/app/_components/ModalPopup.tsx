@@ -7,6 +7,8 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useToast } from "@/_hooks/useToast";
 import { createPortal } from "react-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { cn } from "@/utils";
+import CustomIcon from "./IconComponents/Icon";
 
 interface ModalPopupProps {
   show: boolean;
@@ -56,65 +58,113 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
       onClick={() => setShow(false)}
     >
       <form
-        className="flex flex-col bg-white w-[548px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg text-black"
+        className={cn(
+          "flex flex-col bg-white w-[548px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg text-black",
+          "mobile:w-full mobile:h-full mobile:p-0 mobile:rounded-none"
+        )}
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h1 className="text-center text-[24px] font-[700] leading-[38px] mb-[24px]">
+        <h1
+          className={cn(
+            "text-center text-[24px] font-[700] leading-[38px] mb-[24px]",
+            "mobile:hidden"
+          )}
+        >
           1:1 문의하기
         </h1>
-        <div className="flex flex-col items-start gap-[4px]">
-          <label htmlFor="modalTextarea" className="text-[14px] leading-[22px]">
-            문의 내용<span className="text-warning">*</span>
-          </label>
-          <textarea
-            id="modalTextarea"
-            placeholder="문의 내용을 입력해주세요."
-            className="resize-none w-full rounded-[5px] min-h-[200px] border px-[12px] py-[16px]"
-            autoFocus
-            style={{ overflow: "hidden", overflowY: "auto" }}
-            {...register("content", {
-              required: "`5자 이상 입력해주세요`",
-              minLength: { value: 5, message: "`5자 이상 입력해주세요`" },
-              validate: (value) =>
-                value.trim().length >= 5 || "`5자 이상 입력해주세요`",
-            })}
-          />
-          <ErrorMessage
-            errors={errors}
-            name={"content"}
-            render={({ message }) => (
-              <p className="text-[14px] text-warning ml-[16px] leading-[22px]">
-                {message}
-              </p>
-            )}
-          />
-        </div>
-        <div className="p-[12px] bg-gray1 mt-[12px] rounded-[5px]">
-          <p
-            className="text-start text-[14px] leading-[22px] text-gray6"
-            style={{ letterSpacing: "-0.2px" }}
-          >
-            고객님의 문의글은 순차적으로 응답해드리고 있습니다. 최선을 다하는
-            플레이 하이브가 되겠습니다. AM 10:00 - PM 7:00 (주말 및 공휴일 휴무)
-          </p>
-        </div>
-
-        <div className="flex justify-center gap-[8px] mt-[24px]">
+        <div
+          className={cn(
+            "pc:hidden",
+            "tablet:hidden",
+            "w-full h-[48px] border-b flex items-center border-gray2"
+          )}
+        >
+          <h1 className="min-w-[312px] w-full py-[10px] px-4 font-bold text-[16px] leading-[26px] tracking-[-0.02em] text-black">
+            1:1 문의하기
+          </h1>
           <button
-            type="button"
-            className={`${buttonStyle} border-gray3 border-[1px] text-gray7`}
+            className={cn(
+              "pc:hidden",
+              "tablet:hidden",
+              "w-[48px] h-[48px] p-[14px] flex items-center justify-center"
+            )}
             onClick={() => setShow(false)}
           >
-            취소
+            <CustomIcon icon="CLOSE_X" className="w-[24px] h-[24px]" />
           </button>
-          <button
-            type="submit"
-            disabled={isPending}
-            className={`${buttonStyle} bg-gra text-white`}
-          >
-            문의하기
-          </button>
+        </div>
+        <div
+          className={cn("flex flex-col p-4 h-full", "mobile:justify-between")}
+        >
+          <div className="flex flex-col">
+            <div className="flex flex-col items-start gap-[4px]">
+              <label
+                htmlFor="modalTextarea"
+                className="text-[14px] leading-[22px] tracking-[-0.02em]"
+              >
+                문의 내용<span className="text-warning">*</span>
+              </label>
+              <textarea
+                id="modalTextarea"
+                placeholder="문의 내용을 입력해주세요.(최대 400자 이내)"
+                className={cn(
+                  "resize-none w-full rounded-[5px] min-h-[200px] border px-[12px] py-[16px]",
+                  "mobile:min-h-[324px] mobile:h-auto mobile:px-4 mobile:py-3 mobile:text-[14px] mobile:leading-[22px] mobile:tracking-[-0.02em]"
+                )}
+                autoFocus
+                style={{ overflow: "hidden", overflowY: "auto" }}
+                {...register("content", {
+                  required: "`5자 이상 입력해주세요`",
+                  minLength: { value: 5, message: "`5자 이상 입력해주세요`" },
+                  maxLength: {
+                    value: 400,
+                    message: "`400자 이내로 입력해주세요`",
+                  },
+                  validate: (value) =>
+                    value.trim().length >= 5 || "`5자 이상 입력해주세요`",
+                })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name={"content"}
+                render={({ message }) => (
+                  <p className="text-[14px] text-warning ml-[16px] leading-[22px]">
+                    {message}
+                  </p>
+                )}
+              />
+            </div>
+            <div
+              className={cn(
+                "p-[12px] bg-gray1 mt-[12px] rounded-[5px]",
+                "mobile:p-4 mobile:mt-0"
+              )}
+            >
+              <p className="text-start text-[14px] leading-[22px] text-gray6 tracking-[0.02em]">
+                고객님의 문의글은 순차적으로 응답해드리고 있습니다. 최선을
+                다하는 플레이 하이브가 되겠습니다. AM 10:00 - PM 7:00 (주말 및
+                공휴일 휴무)
+              </p>
+            </div>
+          </div>
+
+          <div className="flex justify-center gap-[8px] mt-[24px]">
+            <button
+              type="button"
+              className={`${buttonStyle} border-gray3 border-[1px] text-gray7 mobile:hidden`}
+              onClick={() => setShow(false)}
+            >
+              취소
+            </button>
+            <button
+              type="submit"
+              disabled={isPending}
+              className={`${buttonStyle} bg-gra text-white mobile:w-full`}
+            >
+              문의하기
+            </button>
+          </div>
         </div>
       </form>
     </div>,

@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import useTimeAgo from "@/utils/useTimeAgo";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { useRouter } from "next/navigation";
+import { cn } from "@/utils";
 
 interface totalSearchProps {
   searchType: string;
@@ -77,9 +78,16 @@ const TotalSearchItem = ({
       onClick={handleTotalSearchClick}
       className="flex flex-col items-center w-full cursor-pointer"
     >
-      <div className="flex items-start w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]">
+      <div
+        className={cn(
+          "flex items-center justify-start w-[720px] min-h-[66px] max-h-[88px] gap-[12px] border-b p-[12px] hover:bg-bg0",
+          "mobile:min-w-[360px] mobile:w-0"
+        )}
+      >
         <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1">
-          <span>{data.id}</span>
+          <span className="mobile:font-bold mobile:text-[14px] mobile:leading-5">
+            {data.id}
+          </span>
         </div>
         <Image
           src={data?.thumbnail || "/Preview_loading_image.png"}
@@ -112,27 +120,19 @@ const TotalSearchItem = ({
               </span>
             )}
           </div>
-          <div className="flex font-semibold gap-1 items-center">
-            <p className="text-[12px] leading-[18px] text-gray5">
+          <div className="flex gap-1 items-center font-medium text-[12px] leading-[18px] text-gray5 tracking-[-0.02em] whitespace-nowrap">
+            <p className="font-semibold text-[12px] leading-[18px] text-gray5">
               {getKoreanBoardType(data?.boardType)}
             </p>
-            <span className="font-medium text-[12px] leading-[18px] text-gray5">
-              {getKoreanCategoryType(data?.categoryType)}
-            </span>
-            <span className="font-medium text-[12px] leading-[18px] text-gray5">
-              {CalculateTime(data?.createdAt)}
-            </span>
-            <span className="font-medium text-[12px] leading-[18px] text-gray5">
-              {data?.nickname}
-            </span>
-            <span className="font-medium text-[12px] leading-[18px] text-gray5">
-              {data?.createdIp}
-            </span>
+            <span>{getKoreanCategoryType(data?.categoryType)}</span>
+            <span>{CalculateTime(data?.createdAt)}</span>
+            <span>{data?.nickname}</span>
+            <span>{data?.createdIp}</span>
           </div>
           {data?.boardCommentSearchList?.comment && (
-            <div className="w-full flex items-start justify-start gap-1">
-              <div className="w-[16px] h-[16px] flex-shrink-0">
-                <Arrow_reply size={16} />
+            <div className="w-full flex items-center justify-start gap-1">
+              <div className="w-[16px] h-[16px] flex-shrink-0 flex items-center justify-center">
+                <Arrow_reply size={12} />
               </div>
               <div
                 className={`${commentBaseStyle} min-w-0 flex gap-[2px] items-center justify-start`}

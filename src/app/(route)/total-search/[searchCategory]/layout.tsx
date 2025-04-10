@@ -1,6 +1,7 @@
 import React from "react";
 import SearchLeftSideBar from "../_components/SearchLeftSideBar";
 import { RightSideBar } from "../../(community)/_components/RightSideBar";
+import { cn } from "@/utils";
 
 export const metadata = {
   metadataBase: new URL("https://playhive.co.kr/"),
@@ -22,25 +23,59 @@ export const metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col justify-between items-center bg-gray1">
-      <div className="w-[1200px] min-h-[120px] flex items-center">
-        <h5 className="font-bold text-[28px] leading-10 tracking-[-0.04em]">
+    <div
+      className={cn(
+        "min-h-[calc(100vh-188px)] pb-[40px] mx-10",
+        "tablet:max-w-[688px]",
+        "mobile:max-w-[360px] mobile:mx-0"
+      )}
+    >
+      <div
+        className={cn(
+          "max-w-[1200px] mx-auto pt-[40px] pb-[20px]",
+          "tablet:w-[688px]",
+          "mobile:hidden"
+        )}
+      >
+        <h1 className="text-[28px] font-bold leading-10 tracking-[-0.04em]">
           통합검색
-        </h5>
+        </h1>
       </div>
-      <div className="max-w-[1200px] mx-auto flex gap-4">
-        <div className="w-[160px] h-auto rounded-[5px]">
-          <div className="sticky top-0">
-            <SearchLeftSideBar />
-          </div>
+
+      <div
+        className={cn(
+          "mt-[20px] max-w-[1200px] flex mx-auto gap-5",
+          "tablet:max-w-[688px] tablet:flex-col tablet:gap-0"
+        )}
+      >
+        <div
+          className={cn(
+            "w-[160px] sticky top-0",
+            "tablet:w-full tablet:static tablet:shadow-none",
+            "mobile:hidden"
+          )}
+        >
+          <SearchLeftSideBar />
         </div>
-        <div className="flex-1 max-w-[720px] mb-[47px] rounded-b-[5px]">
+
+        <div
+          className={cn(
+            "flex-1 max-w-[720px] min-h-[calc(100vh-188px)] mb-10",
+            "tablet:max-w-[688px]",
+            "mobile:max-w-[360px]"
+          )}
+        >
           {children}
         </div>
-        <div className="flex-1 mb-12">
-          <div className="sticky top-0">
-            <RightSideBar />
-          </div>
+
+        <div
+          className={cn(
+            "sticky top-0 mb-[42px]",
+            "tablet:hidden",
+            "mobile:hidden"
+          )}
+        >
+          <RightSideBar />
         </div>
       </div>
     </div>
