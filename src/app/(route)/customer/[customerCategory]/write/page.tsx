@@ -140,7 +140,7 @@ const CustomerWrite = () => {
   return (
     <div
       className={cn(
-        "max-w-[720px] min-h-[648px] h-auto flex flex-col justify-center items-center bg-white shadow-sm rounded-[5px] border px-3 pt-3 pb-6 gap-3 mb-10"
+        "max-w-[720px] min-h-[648px] h-auto flex flex-col justify-center items-center bg-white shadow-sm rounded-[5px] border px-3 pt-3 pb-6 gap-3"
       )}
     >
       <form

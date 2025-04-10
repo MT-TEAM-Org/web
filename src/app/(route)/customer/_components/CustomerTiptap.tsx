@@ -214,6 +214,7 @@ const CustomerTiptap = ({
           />
         </div>
       </div>
+      {/* TODO: 글쓰기 페이지 height 수정 및 이용약관 pb 확인 */}
       <LinkPreview videoUrl={videoUrl} />
       <div className="w-full overflow-hidden">
         <div className="relative w-full mt-3">
@@ -222,14 +223,14 @@ const CustomerTiptap = ({
             <EditorContent editor={editor} className="w-full" />
             {showPlaceholder && (
               <div
-                className="w-full absolute top-2.5 left-0pointer-events-none whitespace-pre-line text-[#424242] font-medium text-[14px] leading-[22px] text-left"
+                className="w-full absolute top-2.5 left-0 pointer-events-none whitespace-pre-line text-[#424242] font-medium text-[14px] leading-[22px] text-left"
                 style={{ zIndex: 0 }}
               >
                 {showPlaceholder && (
                   <div
                     className={cn(
                       "absolute top-0 left-0 pointer-events-none py-2",
-                      "mobile:min-h-[304px] mobile:rounded-[5px] mobile:px-4 mobile:py-3 mobile:font-medium mobile:leading-[22px] mobile:tracking-[-0.02em]"
+                      "mobile:min-h-[304px] mobile:overflow-y-auto mobile:rounded-[5px] mobile:px-4 mobile:py-3 mobile:font-medium mobile:leading-[22px] mobile:tracking-[-0.02em]"
                     )}
                     style={{ zIndex: 0 }}
                   >
@@ -325,12 +326,7 @@ const CustomerTiptap = ({
         </ol>
       </div>
       {/* 버튼 영역 */}
-      <div
-        className={cn(
-          "w-[696px] h-[40px] flex justify-between mt-3",
-          "mobile:w-full"
-        )}
-      >
+      <div className={cn("w-full h-[40px] flex justify-between mt-3")}>
         <button
           type="button"
           onClick={() => router.back()}
