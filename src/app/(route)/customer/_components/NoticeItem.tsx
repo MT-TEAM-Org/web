@@ -96,7 +96,7 @@ const NoticeItem = ({
         )}
       >
         <div className="w-full min-h-[20px] flex items-center gap-[2px]">
-          <p className="text-[14px] leading-5 text-gray7">
+          <p className="text-[14px] leading-5 text-gray7 text-ellipsis overflow-hidden line-clamp-1">
             {searchType === "TITLE" || searchType === "TITLE_CONTENT"
               ? highlightText(noticeData?.title, searchType, searchString)
               : noticeData?.title}
