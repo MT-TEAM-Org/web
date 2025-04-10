@@ -19,6 +19,7 @@ import { LinkIcon } from "lucide-react";
 import LinkPreview from "@/app/_components/LinkPreview";
 import Toolbar from "@/app/_components/_tiptap/Toolbar";
 import { NOTICE_RULES } from "../_utils/noticeRules";
+import { cn } from "@/utils";
 
 interface FormData {
   boardType: string;
@@ -189,7 +190,13 @@ const CustomerTiptap = ({
 
   return (
     <div className="flex flex-col items-center w-full h-full">
-      <div className="w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-[#DBDBDB]">
+      <div
+        className={cn(
+          "w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-[#DBDBDB]",
+          "tablet:w-full",
+          "mobile:w-full"
+        )}
+      >
         <div className="flex">
           <label
             htmlFor="videoUrl"
@@ -220,10 +227,18 @@ const CustomerTiptap = ({
               >
                 {showPlaceholder && (
                   <div
-                    className="absolute top-0 left-0 pointer-events-none py-2"
+                    className={cn(
+                      "absolute top-0 left-0 pointer-events-none py-2",
+                      "mobile:min-h-[304px] mobile:rounded-[5px] mobile:px-4 mobile:py-3 mobile:font-medium mobile:leading-[22px] mobile:tracking-[-0.02em]"
+                    )}
                     style={{ zIndex: 0 }}
                   >
-                    <p className="font-semibold px-4 text-[14px] leading-[20px] text-[#424242]">
+                    <p
+                      className={cn(
+                        "font-semibold px-4 text-[14px] leading-[20px] text-[#424242]",
+                        "mobile:font-medium"
+                      )}
+                    >
                       자유롭게 글을 작성해주시되, 국내/해외기사의 경우
                       유의해주세요!
                     </p>
@@ -283,8 +298,18 @@ const CustomerTiptap = ({
         </div>
       </div>
       {/* 사용자 안내 */}
-      <div className="flex flex-col gap-y-1 w-[696px] min-h-[40px] rounded-[5px] bg-gray1 text-gray6 mt-3">
-        <div className="w-[672px] h-[44px] font-medium text-[14px] leading-[22px]">
+      <div
+        className={cn(
+          "flex flex-col gap-y-1 w-full min-h-[160px] rounded-[5px] p-3 bg-gray1 text-gray6 mt-3",
+          "tablet:w-full tablet:min-h-[182px]",
+          "mobile:hidden"
+        )}
+      >
+        <div
+          className={cn(
+            "w-full h-[44px] font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6"
+          )}
+        >
           <p>
             불법촬영물등을 게재할 경우 전기통신사업법 제22조의5제1항에 따라
             삭제·접속차단 등의 조치가 취해질 수 있으며 관련 법률에 따라 처벌받을
@@ -300,11 +325,19 @@ const CustomerTiptap = ({
         </ol>
       </div>
       {/* 버튼 영역 */}
-      <div className="w-[696px] h-[40px] flex justify-between mt-3">
+      <div
+        className={cn(
+          "w-[696px] h-[40px] flex justify-between mt-3",
+          "mobile:w-full"
+        )}
+      >
         <button
           type="button"
           onClick={() => router.back()}
-          className="w-[120px] h-[40px] bg-white border border-gray3 rounded-[5px]"
+          className={cn(
+            "w-[120px] h-[40px] bg-white border border-gray3 rounded-[5px]",
+            "mobile:hidden"
+          )}
         >
           목록
         </button>
@@ -313,7 +346,10 @@ const CustomerTiptap = ({
           onClick={() => {
             if (onSubmit) onSubmit();
           }}
-          className="w-[120px] h-[40px] bg-gra text-white rounded-[5px]"
+          className={cn(
+            "w-[120px] h-[40px] bg-gra text-white rounded-[5px]",
+            "mobile:w-full mobile:h-[48px] mobile:text-center mobile:text-[16px] mobile:font-bold mobile:text-white"
+          )}
         >
           작성완료
         </button>

@@ -10,6 +10,7 @@ import axios from "axios";
 import getUpload from "@/_hooks/getUpload";
 import usePutPost from "@/_hooks/fetcher/board/usePutPost";
 import CustomerTiptap from "../../_components/CustomerTiptap";
+import { cn } from "@/utils";
 
 const Page = () => {
   return (
@@ -137,8 +138,15 @@ const CustomerWrite = () => {
   };
 
   return (
-    <div className="w-[720px] min-h-[648px] h-auto flex flex-col justify-center items-center bg-white shadow-sm rounded-[5px] border px-3 pt-3 pb-6 gap-3 mb-10">
-      <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
+    <div
+      className={cn(
+        "max-w-[720px] min-h-[648px] h-auto flex flex-col justify-center items-center bg-white shadow-sm rounded-[5px] border px-3 pt-3 pb-6 gap-3 mb-10"
+      )}
+    >
+      <form
+        className={cn("flex flex-col gap-3", "tablet:w-full", "mobile:w-full")}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h2 className="w-[95px] min-h-[28px] flex gap-3 font-bold text-[18px] leading-7 tracking-[-0.72px] items-center text-gray8">
           {writeType === "notice" ? "공지사항 작성" : "개선요청 작성"}
         </h2>
