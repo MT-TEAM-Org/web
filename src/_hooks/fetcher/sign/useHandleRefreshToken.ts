@@ -11,7 +11,7 @@ const useHandleRefreshToken = () => {
 
   useEffect(() => {
     if (refreshToken) {
-      document.cookie = `refreshToken=${refreshToken}; path=/; secure; samesite=strict;`;
+      localStorage.setItem("refreshToken", refreshToken);
       reissue();
     }
   }, [refreshToken]);
