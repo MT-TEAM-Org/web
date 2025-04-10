@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 interface Signup {
   email: string;
-  password: string;
+  password?: string;
   tel: string;
   nickname: string;
 }

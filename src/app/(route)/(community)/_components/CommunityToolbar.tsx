@@ -1,13 +1,11 @@
 "use client";
 
-import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Blue_outline_logo from "@/app/_components/icon/Blue_outline_logo";
 import Mini_logo from "@/app/_components/icon/Mini_logo";
 import Red_outline_logo from "@/app/_components/icon/Red_outline_logo";
-import Small_Search from "@/app/_components/icon/Small_Search";
 import { useEditStore } from "@/utils/Store";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Pagination from "../../mypage/_components/Pagination";
 import SearchFilter from "../../mypage/_components/SearchFilter";
 import changeURLParams from "../../mypage/util/changeURLParams";

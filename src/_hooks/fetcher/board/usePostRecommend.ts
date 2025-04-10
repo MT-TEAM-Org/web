@@ -11,7 +11,7 @@ const usePostRecommend = ({ boardId }) => {
     mutationFn: postRecommend,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["board", "detail", boardId] });
-      toast.success("추천 성공", "게시글이 추천되었습니다.");
+      toast.success("추천이 완료되었습니다.", "");
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {

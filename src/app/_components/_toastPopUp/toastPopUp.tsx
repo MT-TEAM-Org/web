@@ -9,7 +9,7 @@ interface ToastPopUpProps {
   state: "success" | "info" | "warning" | "error";
   size: "PC" | "MOBILE";
   title: string;
-  message: string;
+  message?: string;
   onClose?: () => void;
 }
 

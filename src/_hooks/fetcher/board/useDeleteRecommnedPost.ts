@@ -10,7 +10,7 @@ const useDeleteRecommendPost = ({ boardId }) => {
     mutationFn: deleteRecommendPost,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["board", "detail", boardId] });
-      toast.success("추천 취소 완료", "게시글 추천이 취소되었습니다.");
+      toast.success("추천이 취소되었습니다.", "");
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {

@@ -8,7 +8,6 @@ import useTimeAgo from "@/utils/useTimeAgo";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { cn } from "@/utils";
-import DefaultThumbnail from "@/app/_components/icon/DefaultThumbnail";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
@@ -73,35 +72,30 @@ const NoticeItem = ({
           {!isFeedback ? noticeData?.id : "공지"}
         </p>
       </div>
-      <div className="w-[56px] h-[42px]  rounded-[5px] overflow-hidden bg-gray1 flex-shrink-0">
-        {noticeData?.thumbnail ? (
-          <Image
-            src={noticeData.thumbnail}
-            alt="post-preview-image"
-            fill
-            className="object-contain rounded-[5px]"
-          />
-        ) : (
-          <div className="w-full h-full rounded-[5px] bg-[#FAFAFA] flex items-center justify-center">
-            <DefaultThumbnail />
-          </div>
-        )}
+      <div className="w-[56px] h-[42px] p-1 rounded-[5px] overflow-hidden bg-gray1 flex-shrink-0">
+        <Image
+          src={noticeData?.thumbnail || "/Preview_loading_image.png"}
+          alt="img"
+          width={56}
+          height={42}
+          className="object-cover"
+        />
       </div>
       <div
         className={cn(
-          "w-full min-h-[42px] flex gap-1 flex-col text-ellipsis overflow-hidden line-clamp-1 ",
+          "w-full min-h-[42px] flex gap-1 flex-col",
           "tablet:max-w-[552px]",
           "mobile:max-w-[224px] mobile:gap-0"
         )}
       >
         <div className="w-full min-h-[20px] flex items-center gap-[2px]">
-          <p className="max-w-[584px] text-[14px] leading-5 text-gray7 truncate">
+          <p className="text-[14px] leading-5 text-gray7 text-ellipsis overflow-hidden line-clamp-1">
             {searchType === "TITLE" || searchType === "TITLE_CONTENT"
               ? highlightText(noticeData?.title, searchType, searchString)
               : noticeData?.title}
           </p>
           {noticeData?.commentCount >= 1 && (
-            <p className="max-w-[584px] text-[12px] leading-[18px] tracking-[-0.02em] text-gra flex-shrink-0">
+            <p className="text-[12px] leading-[18px] tracking-[-0.02em] text-gra flex-shrink-0">
               [<span>{noticeData?.commentCount}</span>]
             </p>
           )}
