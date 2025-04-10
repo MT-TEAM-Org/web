@@ -10,11 +10,12 @@ import { useEffect } from "react";
 
 export default function Header() {
   const { data: userData, isSuccess, isError } = useAuthCheck();
+  const isUnActive = userData?.data?.data?.status !== "ACTIVE";
   const isLogout = isError || !isSuccess;
   const { isLoggedIn, login } = useAuthStore();
 
   useEffect(() => {
-    if (isSuccess && !isLogout) {
+    if (isSuccess && !isLogout && !isUnActive) {
       login();
     }
   }, [isSuccess]);

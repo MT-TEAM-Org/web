@@ -8,6 +8,8 @@ type InputField = {
   placeholder: string;
   defultMessage?: string;
   validation?: RegisterOptions<SignupFormData>;
+  disabled?: boolean;
+  autoFocus?: boolean;
 };
 
 export const signupInputObject: InputField[] = [
@@ -29,6 +31,38 @@ export const signupInputObject: InputField[] = [
     label: "핸드폰 번호",
     type: "number",
     id: "tel",
+    placeholder: "핸드폰 번호를 입력해주세요.",
+    defultMessage: "10자~11자 이내",
+    validation: {
+      required: "핸드폰 번호를 입력해주세요.",
+      pattern: {
+        value: /^\d{10,11}$/,
+        message: "10자~11자 이내",
+      },
+    },
+  },
+  {
+    label: "닉네임",
+    type: "text",
+    id: "nickname",
+    placeholder: "닉네임을 입력해주세요.",
+    defultMessage: "한글+영문 / 한글 + 숫자 등 모두 가능 (10자 이내로)",
+    validation: {
+      required: "닉네임을 입력해주세요.",
+      maxLength: {
+        value: 10,
+        message: "한글+영문 / 한글 + 숫자 등 모두 가능 (10자 이내로)",
+      },
+    },
+  },
+];
+
+export const snsSignupInputObject: InputField[] = [
+  {
+    label: "핸드폰 번호",
+    type: "number",
+    id: "tel",
+    autoFocus: true,
     placeholder: "핸드폰 번호를 입력해주세요.",
     defultMessage: "10자~11자 이내",
     validation: {
