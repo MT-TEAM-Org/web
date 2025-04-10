@@ -77,7 +77,6 @@ export const snsSignupInputObject: InputField[] = [
     label: "닉네임",
     type: "text",
     id: "nickname",
-    disabled: true,
     placeholder: "닉네임을 입력해주세요.",
     defultMessage: "한글+영문 / 한글 + 숫자 등 모두 가능 (10자 이내로)",
     validation: {

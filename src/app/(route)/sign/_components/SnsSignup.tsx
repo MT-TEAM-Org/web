@@ -28,7 +28,6 @@ const SnsSignup = ({ register, errors, isError }: SnsSignupProps) => {
             height={48}
             register={register}
             label={input.label}
-            isDisabled={input.disabled}
             required
             autoFocus={input.autoFocus}
           />
