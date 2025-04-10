@@ -67,13 +67,25 @@ const Page = () => {
 
   return (
     <div
-      className={cn("w-[720px] h-auto", "tablet:w-[688px]", "mobile:w-[360px]")}
+      className={cn(
+        "w-full max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10",
+        "mobile:max-w-[768px]"
+      )}
     >
-      <SearchToolbar
-        totalSearchType={category}
-        pageInfo={searchData?.pageInfo}
-      />
-      <div className="w-full h-auto rounded-b-[5px] shadow-sm bg-white">
+      <div className="sticky top-0 z-10">
+        <SearchToolbar
+          totalSearchType={category}
+          pageInfo={searchData?.pageInfo}
+        />
+      </div>
+
+      <div
+        className={cn(
+          "w-full max-w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+          "tablet:max-w-[688px]",
+          "mobile:w-full mobile:max-w-[768px]"
+        )}
+      >
         {isLoading &&
           Array(10)
             .fill(0)

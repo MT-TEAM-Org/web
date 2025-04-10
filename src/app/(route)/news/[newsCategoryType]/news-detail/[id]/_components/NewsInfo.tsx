@@ -132,9 +132,9 @@ const NewsInfo = ({
       ) : (
         <div
           className={cn(
-            "flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-white shadow-sm mb-2",
-            "tablet:w-[688px]",
-            "mobile:w-[360px] mobile:gap-1 mobile:px-4 mobile:py-3"
+            "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md",
+            "tablet:max-w-[687px]",
+            "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
           )}
         >
           <div className="w-full h-auto flex flex-col gap-2">
@@ -142,7 +142,7 @@ const NewsInfo = ({
               className={cn(
                 "w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-gray8",
                 "tablet:text-[18px] tablet:leading-7 tablet:tracking-[-0.72px] tablet:font-bold",
-                "mobile:text-[16px] mobile:tracking-[-0.02em] mobile:leading-4"
+                "mobile:text-[16px] mobile:leading-6 mobile:tracking-[-0.02em]"
               )}
             >
               {newsInfoData?.title}
@@ -151,14 +151,14 @@ const NewsInfo = ({
             <div
               className={cn(
                 "w-full h-auto min-h-[20px] gap-4 flex justify-between text-gray2",
-                "mobile:flex-col gap-1"
+                "mobile:flex-wrap mobile:h-[40px] mobile:gap-1"
               )}
             >
               <div className="flex gap-2 text-gray6 font-[700] leading-5 text-[14px] items-center">
                 <div
                   className={cn(
                     "flex gap-1 font-medium text-[14px] leading-5",
-                    "mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em] mobile:font-bold"
+                    "mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
                   )}
                 >
                   <ChangedCategory category={newsInfoData?.category} />
@@ -167,7 +167,7 @@ const NewsInfo = ({
                 <div
                   className={cn(
                     "flex gap-1 font-medium text-[14px] leading-5",
-                    "mobile:text-[12px] leading-[18px] tracking-[-0.02em]"
+                    "mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
                   )}
                 >
                   <p className="font-bold">조회수 {newsInfoData?.viewCount}</p>
@@ -179,23 +179,24 @@ const NewsInfo = ({
               </div>
               <div
                 className={cn(
-                  "text-[14px] flex font-[500] leading-5 gap-1 text-gray6",
-                  "mobile:text-[12px] leading-[18px] tracking-[-0.02em]"
+                  "text-[14px] flex justify-end font-[500] leading-5 gap-1 text-gray6",
+                  "tablet:min-w-[210px]",
+                  "mobile:text-[12px] mobile:h-[18px] mobile:tracking-[-0.02em] mobile:w-full mobile:justify-start"
                 )}
               >
                 <p>네이버 스포츠</p>
               </div>
             </div>
           </div>
-          <hr className={cn("mobile:mb-2")} />
-          <div className="w-full h-auto flex flex-col gap-3">
+          <hr />
+          <div className="w-full h-auto flex flex-col items-center justify-start gap-3">
             {newsInfoData?.thumbImg && (
               <Image
                 src={newsInfoData ? updatedImgUrl : "/Empty_news.png"}
                 alt="News detail img"
                 width={672}
                 height={338}
-                className="object-cover"
+                className="object-cover mobile:h-auto"
               />
             )}
             <p
@@ -207,12 +208,13 @@ const NewsInfo = ({
               {newsInfoData?.content}
             </p>
           </div>
-
-          <RecommendButton
-            handleCommend={handleNewsCommend}
-            recommendCount={newsInfoData?.recommendCount}
-            isRecommend={newsInfoData?.recommend}
-          />
+          <div className="flex items-center justify-center">
+            <RecommendButton
+              handleCommend={handleNewsCommend}
+              recommendCount={newsInfoData?.recommendCount}
+              isRecommend={newsInfoData?.recommend}
+            />
+          </div>
 
           <div className={cn("mobile:hidden")}>
             <PostAction type="news" source={newsInfoData?.source} />
@@ -221,7 +223,13 @@ const NewsInfo = ({
         </div>
       )}
 
-      <div className={cn("mobile:hidden")}>
+      <div
+        className={cn(
+          "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden",
+          "tablet:max-w-[687px]",
+          "mobile:w-full mobile:max-w-full mobile:min-h-[56px]"
+        )}
+      >
         <NewsTalkToolbar
           newsType={category}
           pageInfo={newsListData?.pageInfo}
@@ -230,27 +238,34 @@ const NewsInfo = ({
 
       <div
         className={cn(
-          "w-[720px] h-auto rounded-b-[5px] overflow-hidden shadow-md",
-          "tablet:w-[688px]",
-          "mobile:w-auto"
+          "w-full h-auto rounded-[5px] shadow-md bg-white",
+          "mobile:max-w-full"
         )}
       >
-        {isLoading ? (
-          Array(3)
-            .fill(0)
-            .map((_, index) => <NewsPostItemSkeleton key={index} />)
-        ) : sliceNewsListData?.length === 0 ? (
-          <EmptyItem title="뉴스가" />
-        ) : (
-          sliceNewsListData?.map((newsItem: NewsListType) => (
-            <NewsPostItem
-              key={newsItem?.id}
-              newsItem={newsItem}
-              searchType={searchParams.get("search_type")}
-              searchString={searchParams.get("search")}
-            />
-          ))
-        )}
+        <div
+          className={cn(
+            "w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+            "tablet:max-w-[687px]",
+            "mobile:w-full mobile:max-w-full"
+          )}
+        >
+          {isLoading ? (
+            Array(3)
+              .fill(0)
+              .map((_, index) => <NewsPostItemSkeleton key={index} />)
+          ) : sliceNewsListData?.length === 0 ? (
+            <EmptyItem title="뉴스가" />
+          ) : (
+            sliceNewsListData?.map((newsItem: NewsListType) => (
+              <NewsPostItem
+                key={newsItem?.id}
+                newsItem={newsItem}
+                searchType={searchParams.get("search_type")}
+                searchString={searchParams.get("search")}
+              />
+            ))
+          )}
+        </div>
       </div>
       <SignInModalPopUp
         isOpen={isSignInModalOpen}

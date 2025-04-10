@@ -68,9 +68,9 @@ export default function NewsPage() {
     <div className="flex justify-center bg-gray1">
       <div
         className={cn(
-          "max-w-[720px] w-full min-h-[120px] rounded-[5px] border-b bg-white mx-auto",
-          "tablet:w-[688px]",
-          "mobile:flex mobile:flex-grow mobile:flex-col"
+          "w-full max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10",
+          "tablet:max-w-[688px]",
+          "mobile:max-w-[768px]"
         )}
       >
         <div className="sticky top-0 z-10">
@@ -78,9 +78,9 @@ export default function NewsPage() {
         </div>
         <div
           className={cn(
-            "w-full max-w-[720px]",
-            "tablet:w-[688px] tablet:max-w-0",
-            "mobile:w-full"
+            "w-full max-w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+            "tablet:max-w-[688px]",
+            "mobile:w-full mobile:max-w-[768px]"
           )}
         >
           {isLoading ? (

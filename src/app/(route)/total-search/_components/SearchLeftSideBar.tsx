@@ -10,9 +10,11 @@ const SearchLeftSidebar = () => {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
 
+  const basePath = pathname.split("/")[1];
+
   const searchList = [
-    { name: "게시판", id: 0, path: "/total-search/board", category: "board" },
-    { name: "뉴스", id: 1, path: "/total-search/news", category: "news" },
+    { name: "게시판", id: 0, path: `/${basePath}/board`, category: "board" },
+    { name: "뉴스", id: 1, path: `/${basePath}/news`, category: "news" },
   ];
 
   const isCurrentPath = (searchCategory: string) => {
@@ -21,44 +23,58 @@ const SearchLeftSidebar = () => {
     return currentCategory === searchCategory;
   };
 
+  const currentPathStyle =
+    "font-bold text-gra bg-bg0 mobile:bg-transparent mobile:text-gray7 mobile:border-b-2 mobile:border-gray7";
+  const defaultStyle =
+    "font-[400] text-gray7 bg-white mobile:text-gray5 mobile:border-b-2 mobile:border-gray3";
+
   return (
     <div
       className={cn(
-        "w-full h-[104px] bg-white",
-        "tablet:flex tablet:w-[688px] tablet:h-[52px]",
-        "mobile:flex mobile:w-[360px] mobile:h-[48px]"
+        "w-[160px] bg-white",
+        "tablet:w-full tablet:flex tablet:h-[52px]",
+        "mobile:w-full mobile:min-h-[50px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide"
       )}
     >
-      {searchList.map((search) => {
-        const newPath = `${search.path}?search=${encodeURIComponent(
-          searchQuery
-        )}`;
+      <div
+        className={cn(
+          "w-full flex flex-col justify-center",
+          "tablet:flex-row tablet:w-full",
+          "mobile:flex-row mobile:min-w-fit mobile:justify-start"
+        )}
+      >
+        {searchList.map((search) => {
+          const newPath = `${search.path}?search=${encodeURIComponent(
+            searchQuery
+          )}`;
 
-        return (
-          <Link href={newPath} key={search.id}>
-            <div
+          return (
+            <Link
+              key={search.id}
+              href={newPath}
               className={cn(
-                `w-full h-[52px] px-4 py-3 cursor-pointer ${
-                  isCurrentPath(search.category)
-                    ? "font-[700] text-gra bg-bg0 mobile:text-gray7 mobile:border-b-2 mobile:border-b-gray7 mobile:bg-none"
-                    : "font-[400] text-gray7 bg-white mobile:text-gray5 mobile:border-b-2 mobile:border-b-gray3"
-                }`,
-                "tablet:w-[344px] tablet:items-center tablet:justify-center tablet:text-center tablet:text-[16px] tablet:leading-7 tablet:tracking-[-0.02em]",
-                "mobile:w-[180px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-center mobile:text-[14px] mobile:leading-5"
+                "block w-full",
+                "tablet:flex tablet:flex-1",
+                "mobile:inline-block"
               )}
             >
-              <p
+              <div
                 className={cn(
-                  "text-[16px] leading-7 tracking-[-0.02em]",
-                  "mobile:text-[14px] mobile:leading-5"
+                  `w-full h-[52px] px-4 py-3 cursor-pointer ${
+                    isCurrentPath(search.category)
+                      ? currentPathStyle
+                      : defaultStyle
+                  }`,
+                  "tablet:flex tablet:items-center tablet:justify-center tablet:h-full tablet:w-full",
+                  "mobile:inline-flex mobile:min-w-[180px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-[14px] mobile:leading-5"
                 )}
               >
-                {search.name}
-              </p>
-            </div>
-          </Link>
-        );
-      })}
+                <p className="whitespace-nowrap">{search.name}</p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 };

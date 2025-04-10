@@ -98,7 +98,7 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
         <div
           className={cn(
             "w-full max-w-[672px] min-h-[56px] flex gap-2 flex-col",
-            "mobile:max-w-full mobile:h-[68px] mobile:gap-1"
+            "mobile:max-w-full mobile:min-h-[68px] mobile:gap-1"
           )}
         >
           <h1

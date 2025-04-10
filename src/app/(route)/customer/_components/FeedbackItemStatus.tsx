@@ -26,7 +26,7 @@ const FeedbackItemStatus = ({ status }: FeedbackItemProps) => {
 
   return (
     <div className={`${baseStyle}`}>
-      {text ? <p className={`${textClass}`}>{text}</p> : null}
+      {text && <p className={`${textClass}`}>{text}</p>}
     </div>
   );
 };

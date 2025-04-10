@@ -21,7 +21,7 @@ const NoticeItemSkeleton = () => {
       <div
         className={cn(
           "w-full min-h-[42px] flex gap-1 flex-col",
-          "mobile:w-[224px]"
+          "mobile:w-[500px]"
         )}
       >
         {/* 제목 및 정보 영역 */}
