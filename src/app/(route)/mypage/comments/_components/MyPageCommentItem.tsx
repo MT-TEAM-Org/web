@@ -6,6 +6,7 @@ import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import Link from "next/link";
 import { highlightText } from "@/utils/searchHighlightText";
 import { useSearchParams } from "next/navigation";
+import { cn } from "@/utils";
 
 interface PostResponse {
   commentType: "BOARD" | "IMPROEMENT" | "INQUIRY" | "NEWS" | "NOTICE";
@@ -113,14 +114,25 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
           </div>
         </div>
 
-        <div className="flex items-center gap-[4px] text-[12px] leading-[18px] text-gray5">
+        <div className="flex items-center gap-[4px] text-[12px] leading-[18px] text-gray5 whitespace-nowrap">
           <span className="font-[700]">
             {getKoreanBoardType(data?.postResponse?.boardType)}
           </span>
           <span>{getKoreanCategoryType(data?.postResponse?.categoryType)}</span>
           <span>{CalculateTime(data?.postResponse?.createDate)}</span>
-          <span>{data?.postResponse?.nickname}</span>
-          <span className="text-gray4">IP {data?.postResponse?.createdIp}</span>
+          <span
+            className={cn("", "mobile:overflow-hidden mobile:text-ellipsis")}
+          >
+            {data?.postResponse?.nickname}
+          </span>
+          <span
+            className={cn(
+              "text-gray4",
+              "mobile:overflow-hidden mobile:text-ellipsis mobile:max-w-[65px]"
+            )}
+          >
+            IP {data?.postResponse?.createdIp}
+          </span>
         </div>
         <div className="flex items-center min-h-[18px]">
           <div className="flex justify-center items-center w-[16px] h-[16px]">

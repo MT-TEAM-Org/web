@@ -1,4 +1,5 @@
 import usePostFeedbackStatus from "@/_hooks/fetcher/customer/usePostFeedbackStatus";
+import { cn } from "@/utils";
 import React, { useState, useEffect } from "react";
 
 const radioClassNames = `
@@ -11,6 +12,8 @@ const radioClassNames = `
   flex
   items-center
   justify-center
+  mobile:w-[16px]
+  mobile:h-[16px]
 `;
 
 const selectedRadioClassNames = `
@@ -21,6 +24,8 @@ const selectedRadioClassNames = `
   after:left-1/2
   after:w-[12px]
   after:h-[12px]
+  after:mobile:w-[8px]
+  after:mobile:h-[8px]
   after:bg-white
   after:rounded-full
   after:-translate-x-1/2
@@ -51,12 +56,25 @@ const StatusSaver = ({ id, status }) => {
   };
 
   return (
-    <div className="min-w-[672px] h-[40px] flex justify-between items-center">
-      <div className="min-w-[272px] h-[24px] flex gap-4">
+    <div
+      className={cn(
+        "min-w-[672px] h-[40px] flex justify-between items-center",
+        "mobile:min-w-[328px] mobile:h-[24px]"
+      )}
+    >
+      <div
+        className={cn(
+          "min-w-[272px] h-[24px] flex gap-4",
+          "mobile:min-w-[206px] mobile:gap-3 mobile:h-[16px]"
+        )}
+      >
         {statusOptions.map(({ label, value }, index) => (
           <div
             key={index}
-            className="min-w-[84px] h-[24px] flex gap-2 text-[14px] leading-[22px] text-gray7 font-[500] tracking-[-0.02em]"
+            className={cn(
+              "min-w-[84px] h-[24px] flex items-center gap-2 text-[14px] leading-[22px] text-gray7 font-[500] tracking-[-0.02em]",
+              "mobile:min-w-[64px] mobile:text-[12px] mobile:[18px] mobile:tracking-[0.02em]"
+            )}
           >
             <div
               className={`${radioClassNames} ${
@@ -68,7 +86,10 @@ const StatusSaver = ({ id, status }) => {
         ))}
       </div>
       <button
-        className="w-[120px] h-[40px] rounded-[5px] px-4 py-[16px] flex gap-[10px] bg-gra font-bold text-[14px] text-white items-center justify-center"
+        className={cn(
+          "w-[120px] h-[40px] rounded-[5px] px-4 py-[16px] flex gap-[10px] bg-gra font-bold text-[14px] text-white items-center justify-center",
+          "mobile:w-[60px] mobile:h-[24px] mobile:text-[12px] mobile:tracking-[-0.02em]"
+        )}
         onClick={handleUpdatedStatus}
       >
         저장

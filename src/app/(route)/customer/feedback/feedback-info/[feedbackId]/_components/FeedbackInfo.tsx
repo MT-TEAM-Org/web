@@ -28,6 +28,7 @@ import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import { CommentItem } from "@/_types/comment";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
+import { cn } from "@/utils";
 
 const Page = () => {
   return (
@@ -83,7 +84,7 @@ const FeedbackInfo = () => {
           queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
         },
       });
-    } else if (feedbackInfoData?.isRecommended) {
+    } else {
       feedbackDeleteRecommend(infoId, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
@@ -106,13 +107,11 @@ const FeedbackInfo = () => {
   }, [searchParams]);
 
   const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
-
   const {
     data: feedbackDataList,
     isLoading,
     isError,
   } = useGetFeedbackDataList(feedbackOption);
-
   const { data: noticeListData } = useGetNoticeDataList();
 
   const slicedNoticeDataList = (noticeListData?.content as NoticeContentType[])
@@ -129,19 +128,18 @@ const FeedbackInfo = () => {
 
   const statusContent = {
     RECEIVED: (
-      <div className={`${statusBoxClass} bg-gray1`}>
+      <div className={cn(statusBoxClass, "bg-gray1")}>
         <p className="font-bold text-[14px] leading-5 text-gray7">접수 완료</p>
       </div>
     ),
     COMPLETED: (
-      <div className={`${statusBoxClass} bg-bg0`}>
+      <div className={cn(statusBoxClass, "bg-bg0")}>
         <p className="font-bold text-[14px] leading-5 text-gra">개선 완료</p>
       </div>
     ),
   };
 
   const link = feedbackInfoData?.link || "";
-
   const getYouTubeEmbedUrl = (url: string) => {
     if (!url) return null;
     const youtubeRegex =
@@ -149,7 +147,6 @@ const FeedbackInfo = () => {
     const match = url.match(youtubeRegex);
     return match ? `https://www.youtube.com/embed/${match[1]}` : null;
   };
-
   const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
 
   return (
@@ -157,24 +154,46 @@ const FeedbackInfo = () => {
       {feedbackIsLoading || feedbackIsError ? (
         <FeedbackInfoSkeleton />
       ) : (
-        <div className="w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md">
+        <div
+          className={cn(
+            "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md",
+            "tablet:max-w-[1279px]",
+            "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
+          )}
+        >
           {adminRole === "ADMIN" && (
             <StatusSaver id={infoId} status={feedbackInfoData?.status} />
           )}
           <div
-            className={`w-full ${
-              adminRole !== "ADMIN" || (adminRole === undefined && "h-[56px]")
-            } flex gap-2 flex-col`}
+            className={cn(
+              "w-full flex gap-2 flex-col",
+              adminRole !== "ADMIN" || adminRole === undefined ? "h-[56px]" : ""
+            )}
           >
             <div>
               {(adminRole !== "ADMIN" || adminRole === undefined) &&
                 statusContent[feedbackInfoData?.status]}
             </div>
-            <h1 className="font-bold text-[18px] leading-7 tracking-[-0.72px]">
+            <h1
+              className={cn(
+                "font-bold text-[18px] leading-7 tracking-[-0.72px]",
+                "mobile:text-[16px] mobile:leading-6"
+              )}
+            >
               {feedbackInfoData?.title}
             </h1>
-            <div className="w-full max-h-[20px] flex gap-4">
-              <div className="min-w-[421px] min-h-[20px] flex gap-2 text-[14px] leading-5 text-gray6">
+            <div
+              className={cn(
+                "w-full max-h-[20px] flex gap-4",
+                "mobile:flex-wrap mobile:max-h-none"
+              )}
+            >
+              <div
+                className={cn(
+                  "min-w-[421px] min-h-[20px] flex gap-2 text-[14px] leading-5 text-gray6",
+                  "mobile:min-w-0 mobile:flex-wrap mobile:text-[12px]"
+                )}
+              >
                 <p className="font-bold">고객센터</p>
                 <p>개선요청</p>
                 <p>{timeAgo}</p>
@@ -185,7 +204,12 @@ const FeedbackInfo = () => {
                   </div>
                 ))}
               </div>
-              <div className="min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6">
+              <div
+                className={cn(
+                  "min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6",
+                  "mobile:min-w-0 mobile:w-full mobile:justify-start mobile:text-[12px] mobile:mt-2"
+                )}
+              >
                 <p>{feedbackInfoData?.nickname}</p>
                 <p>IP {feedbackInfoData?.clientIp}</p>
               </div>
@@ -200,6 +224,7 @@ const FeedbackInfo = () => {
                   alt="Feedback img"
                   width={672}
                   height={128}
+                  className="mobile:w-full mobile:h-auto"
                 />
               )}
               {youtubeEmbedUrl && (
@@ -211,17 +236,18 @@ const FeedbackInfo = () => {
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
+                  className="mobile:h-[240px]"
                 />
               )}
               {!youtubeEmbedUrl && feedbackInfoData?.data?.link && (
-                <div className="w-[679px] min-h-[42px]">
+                <div className="w-[679px] min-h-[42px] mobile:w-full">
                   <div>{feedbackInfoData?.data?.link}</div>
                 </div>
               )}
             </div>
           )}
           <div
-            className="text-[16px] leading-6 tracking-[-0.02em] text-gray7"
+            className="text-[16px] leading-6 tracking-[-0.02em] text-gray7 mobile:text-[14px]"
             dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
           />
           <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
@@ -231,7 +257,9 @@ const FeedbackInfo = () => {
               isRecommend={feedbackInfoData?.isRecommended}
             />
           </div>
-          <PostAction type="community" />
+          <div className={cn("mobile:hidden")}>
+            <PostAction type="community" />
+          </div>
           <BoardComment
             id={id as string}
             publicId={feedbackInfoData?.publicId}
@@ -246,13 +274,32 @@ const FeedbackInfo = () => {
           />
         </div>
       )}
-      <CustomerTalkToolbar
-        showOptions={true}
-        adminChecker={adminRole}
-        paginationData={feedbackDataList?.pageInfo}
-      />
-      <div className="w-full h-auto rounded-[5px] shadow-md bg-white">
-        <div className="w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]">
+      <div
+        className={cn(
+          "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden",
+          "tablet:max-w-[1279px]",
+          "mobile:w-full mobile:max-w-full mobile:min-h-[56px]"
+        )}
+      >
+        <CustomerTalkToolbar
+          showOptions={true}
+          adminChecker={adminRole}
+          paginationData={feedbackDataList?.pageInfo}
+        />
+      </div>
+      <div
+        className={cn(
+          "w-full h-auto rounded-[5px] shadow-md bg-white",
+          "mobile:max-w-full"
+        )}
+      >
+        <div
+          className={cn(
+            "w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+            "tablet:max-w-[1279px]",
+            "mobile:w-full mobile:max-w-full"
+          )}
+        >
           {isLoading ? (
             Array.from({ length: 2 }).map((_, index) => (
               <FeedbackItemSkeleton key={index} />
