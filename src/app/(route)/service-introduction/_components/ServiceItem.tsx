@@ -12,7 +12,7 @@ const ServiceItem = ({ title, content, imgUrl }: itemType) => {
   return (
     <div
       className={cn(
-        "w-[320px] min-h-[300px] rounded-[20px] shadow-md flex flex-col overflow-hidden",
+        "w-[320px] min-h-[300px] rounded-[20px] shadow-md flex flex-col items-center justify-center overflow-hidden",
         "tablet:w-[320px]",
         "mobile:min-w-[328px] w-[328px] mobile:h-[92px] mobile:min-h-0 mobile:flex-row mobile:flex mobile:items-center mobile:justify-center"
       )}
@@ -43,7 +43,7 @@ const ServiceItem = ({ title, content, imgUrl }: itemType) => {
       </div>
       <div
         className={cn(
-          "pr-4 py-2 flex flex-col items-center justify-center text-center text-[18px] leading-7 tracking-[-0.04em] text-gray9",
+          "pb-4 px-2 flex flex-col items-center justify-center text-center text-[18px] leading-7 tracking-[-0.04em] text-gray9",
           "tablet:px-4 tablet:pb-4",
           "mobile:w-full mobile:h-full mobile:items-start"
         )}
