@@ -16,6 +16,7 @@ import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import { CommentItem } from "@/_types/comment";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { cn } from "@/utils";
+import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 
 interface NoticeInfoItemProps {
   data: NoticeInfoItemType;
@@ -27,16 +28,14 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
   const pathname = usePathname();
   const queryClient = useQueryClient();
   const comments = useRef(null);
+  const adminRole = useAdminRole();
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [parentsComment, setParentsComment] = useState<CommentItem | null>(
     null
   );
   const searchParams = useSearchParams();
 
-  const {
-    mutate: noticeAddRecommend,
-    isSignInModalOpen,
-    setIsSignInModalOpen,
-  } = usePostNoticeRecommend();
+  const { mutate: noticeAddRecommend } = usePostNoticeRecommend();
   const { mutate: noticeDeleteRecommend } = useDeleteNoticeRecommend();
 
   useEffect(() => {
@@ -53,19 +52,21 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
   }, [searchParams]);
 
   const handleFeedbackCommend = () => {
-    if (!data?.isRecommended) {
-      noticeAddRecommend(id, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["noticeInfo", id] });
-        },
-      });
-    } else if (data?.isRecommended) {
-      noticeDeleteRecommend(id, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["noticeInfo", id] });
-        },
-      });
+    if (!adminRole) {
+      setIsSignInModalOpen(true);
+      return;
     }
+
+    const isRecommended = data?.isRecommended;
+    const feedbackAction = isRecommended
+      ? noticeDeleteRecommend
+      : noticeAddRecommend;
+
+    feedbackAction(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["noticeInfo", id] });
+      },
+    });
   };
 
   const noticeStats = [
