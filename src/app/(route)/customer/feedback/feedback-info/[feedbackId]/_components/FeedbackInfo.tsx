@@ -46,6 +46,7 @@ const FeedbackInfo = () => {
   const searchParams = useSearchParams();
   const adminRole = useAdminRole();
   const pathname = usePathname();
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const token =
     typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
   const comments = useRef(null);
@@ -70,27 +71,25 @@ const FeedbackInfo = () => {
     isLoading: feedbackIsLoading,
     isError: feedbackIsError,
   } = useGetFeedbackInfoData({ id: infoId, token });
-  const {
-    mutate: feedbackAddRecommend,
-    isSignInModalOpen,
-    setIsSignInModalOpen,
-  } = usePostFeedbackRecommend();
+  const { mutate: feedbackAddRecommend } = usePostFeedbackRecommend();
   const { mutate: feedbackDeleteRecommend } = useDeleteFeedbackRecommend();
 
   const handleFeedbackCommend = () => {
-    if (!feedbackInfoData?.isRecommended) {
-      feedbackAddRecommend(infoId, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
-        },
-      });
-    } else {
-      feedbackDeleteRecommend(infoId, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
-        },
-      });
+    if (!adminRole) {
+      setIsSignInModalOpen(true);
+      return;
     }
+
+    const isRecommended = feedbackInfoData?.isRecommended;
+    const feedbackAction = isRecommended
+      ? feedbackDeleteRecommend
+      : feedbackAddRecommend;
+
+    feedbackAction(infoId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
+      },
+    });
   };
 
   useEffect(() => {

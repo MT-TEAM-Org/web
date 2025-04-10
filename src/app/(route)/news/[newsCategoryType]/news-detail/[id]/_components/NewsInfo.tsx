@@ -9,7 +9,7 @@ import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import useTimeAgo from "@/utils/useTimeAgo";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { use, useEffect } from "react";
+import React, { use, useEffect, useState } from "react";
 import NewsInfoSkeleton from "./NewsInfoSkeleton";
 import ChangedCategory from "@/app/(route)/news/_utils/changedCategory";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
@@ -23,6 +23,7 @@ import NewsPostItem from "@/app/(route)/news/_components/NewsPostItem";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import EmptyItem from "@/app/(route)/customer/_components/EmptyItem";
 import { cn } from "@/utils";
+import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -34,6 +35,8 @@ const NewsInfo = ({
   const { id, newsCategoryType } = use(params);
   const queryClient = useQueryClient();
   const searchParams = useSearchParams();
+  const adminRole = useAdminRole();
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const newsDetailType = pathname.split("/")[2];
@@ -49,12 +52,7 @@ const NewsInfo = ({
 
   const { data: newsInfoData, isLoading } = useGetNewsInfoData(id, token);
   const formattedTime = useTimeAgo(newsInfoData?.postDate);
-  const {
-    mutate: newsAddCommend,
-    isSignInModalOpen,
-    setIsSignInModalOpen,
-  } = usePatchRecommend();
-
+  const { mutate: newsAddRecommend } = usePatchRecommend();
   const { mutate: newsDeleteRecommend } = useDeleteRecommend();
 
   const changedCategory = (category: string): NewsCategoryType | undefined => {
@@ -97,19 +95,19 @@ const NewsInfo = ({
     : [];
 
   const handleNewsCommend = () => {
-    if (!newsInfoData?.recommend) {
-      newsAddCommend(id, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
-        },
-      });
-    } else if (newsInfoData?.recommend) {
-      newsDeleteRecommend(id, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
-        },
-      });
+    if (!adminRole) {
+      setIsSignInModalOpen(true);
+      return;
     }
+
+    const isRecommended = newsInfoData?.recommend;
+    const newsAction = isRecommended ? newsDeleteRecommend : newsAddRecommend;
+
+    newsAction(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
+      },
+    });
   };
 
   useEffect(() => {
