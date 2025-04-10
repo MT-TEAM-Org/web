@@ -7,8 +7,11 @@ import ScheduleContainer from "./_components/scheduleContainer";
 import HotPost from "./_components/hotPost";
 import NewsComponent from "./_components/newsComponent";
 import MainBigSizeNews from "./_components/MainBigSizeNews";
+import useHandleRefreshToken from "@/_hooks/fetcher/sign/useHandleRefreshToken";
 
 function HomePageContent() {
+  const refreshToken = useHandleRefreshToken();
+
   return (
     <div className="flex flex-col gap-6">
       <div className="p-6 bg-gray1">

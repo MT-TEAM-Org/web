@@ -2,7 +2,7 @@ import axios from "axios";
 
 interface Signup {
   email: string;
-  password: string;
+  password?: string;
   tel: string;
   nickname: string;
 }

@@ -15,6 +15,7 @@ interface InputProps {
   defaultValue?: string;
   validation?: RegisterOptions;
   required?: boolean;
+  autoFocus?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -28,6 +29,7 @@ const Input: React.FC<InputProps> = ({
   isDisabled = false,
   validation,
   required = true,
+  autoFocus = false,
 }) => {
   const inputStyle = `h-[${height}px] border-[1px] py-[16px] px-[12px] rounded-[5px] text-[#181818] leading-[22px] font-[500] text-[14px] placeholder-[#A6A6A6]`;
   const labelStyle = "text-[14px] leading-[22px] text-[#424242]";
@@ -43,6 +45,7 @@ const Input: React.FC<InputProps> = ({
         type={type}
         id={id}
         {...register(id, validation)}
+        autoFocus={autoFocus}
         placeholder={placeholder}
         className={isDisabled ? isDisabledInputStyle : inputStyle}
         disabled={isDisabled}
