@@ -81,7 +81,7 @@ const CustomerLeftSidebar = () => {
                     : defaultStyle
                 }`,
                 "tablet:flex tablet:items-center tablet:justify-center tablet:h-full tablet:w-full",
-                "mobile:inline-flex mobile:min-w-[122px] mobile:h-[48px] mobile:items-center mobile:justify-center"
+                "mobile:inline-flex mobile:min-w-[122px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-[14px]"
               )}
             >
               <p className="whitespace-nowrap">{board.name}</p>
@@ -94,7 +94,7 @@ const CustomerLeftSidebar = () => {
               show ? currentPathStyle : defaultStyle
             }`,
             "tablet:flex-1 tablet:flex tablet:items-center tablet:justify-center tablet:h-full tablet:w-full",
-            "mobile:inline-flex mobile:min-w-[98px] mobile:h-[48px] mobile:items-center mobile:justify-center"
+            "mobile:inline-flex mobile:min-w-[98px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-[14px] mobile:leading-5"
           )}
           onClick={() => setShow(true)}
         >

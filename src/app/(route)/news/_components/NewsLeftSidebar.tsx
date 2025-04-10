@@ -76,7 +76,7 @@ const LeftSidebar = () => {
               className={cn(
                 `w-full h-[52px] px-4 py-3 cursor-pointer ${
                   isCurrentPath(board.category)
-                    ? "font-[700] text-gra bg-bg0 mobile:text-gray7 mobile:border-b-2 mobile:border-b-gray7 mobile:bg-none"
+                    ? "font-[700] text-gra bg-bg0 mobile:text-gray7 mobile:border-b-2 mobile:border-b-gray7 mobile:bg-transparent"
                     : "font-[400] text-gray7 bg-white mobile:text-gray5 mobile:border-b-2 mobile:border-b-gray3"
                 }`,
                 "tablet:flex tablet:items-center tablet:justify-center tablet:text-center tablet:text-[16px] tablet:leading-7 tablet:tracking-[-0.02em]",

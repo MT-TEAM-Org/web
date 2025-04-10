@@ -66,7 +66,7 @@ const SearchLeftSidebar = () => {
                       : defaultStyle
                   }`,
                   "tablet:flex tablet:items-center tablet:justify-center tablet:h-full tablet:w-full",
-                  "mobile:inline-flex mobile:min-w-[180px] mobile:h-[48px] mobile:items-center mobile:justify-center"
+                  "mobile:inline-flex mobile:min-w-[180px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-[14px] mobile:leading-5"
                 )}
               >
                 <p className="whitespace-nowrap">{search.name}</p>
