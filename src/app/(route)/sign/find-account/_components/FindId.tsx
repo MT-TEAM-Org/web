@@ -27,10 +27,6 @@ const FindId = () => {
   const { mutate, isPending } = useFindId();
 
   const onSubmit = (data: FormData) => {
-    if (data.tel === "") {
-      alert("핸드폰 번호를 입력해주세요.");
-      return;
-    }
     mutate(data, {
       onSuccess: (data) => {
         reset();
@@ -56,6 +52,7 @@ const FindId = () => {
             <input
               {...register("tel" as keyof FormData, { required: true })}
               type="text"
+              autoFocus
               className={isPending ? isDisabledInputStyle : inputStyle}
               id="tel"
               disabled={isPending}

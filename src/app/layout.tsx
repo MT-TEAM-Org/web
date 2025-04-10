@@ -4,6 +4,7 @@ import QueryProvider from "./_components/QueryProvider";
 import Gnb from "./_components/_gnb/Gnb";
 import Footer from "./_components/Footer";
 import { ToastContainer } from "./_components/ToastContainer";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export const metadata: Metadata = {
   title: "Playhive",
@@ -26,6 +27,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <ToastContainer />
+          <ReactQueryDevtools />
         </QueryProvider>
       </body>
     </html>

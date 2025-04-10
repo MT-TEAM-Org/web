@@ -1,6 +1,7 @@
 "use client";
 
 import { MatchItem } from "@/services/match-controller/getMatchSchedule";
+import { formatDate } from "@/utils/formatData";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -12,18 +13,6 @@ interface ScheduleDataProps {
 
 const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
   const [gameStatus, setGameStatus] = useState<string>("예정");
-
-  const formatDate = (isoDateString: string) => {
-    const date = new Date(isoDateString);
-
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-
-    return `${month}.${day} ${hours}:${minutes}`;
-  };
 
   const formattedData = formatDate(data.startTime);
 
@@ -65,7 +54,7 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
   return (
     <div
       onClick={onClick}
-      className={`w-full min-h-[126px] p-[12px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] border
+      className={`w-full h-[126px] p-[12px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] border
       ${isSelected ? "border-gray7" : "border-gray3"}
     `}
     >
@@ -79,7 +68,7 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
           {formattedData}
         </div>
         <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] align-center text-gray5">
-          <p>2025 LCK CUP 그룹 배틀</p>
+          <p>{data?.leagueName}</p>
         </div>
       </div>
       <div className="w-full min-h-[68px] flex flex-col gap-y-[4px]">
@@ -111,9 +100,3 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
 };
 
 export default ScheduleItem;
-
-const gameDuration = {
-  FOOTBALL: 140,
-  BASEBALL: 210,
-  ESPORTS: 150,
-};

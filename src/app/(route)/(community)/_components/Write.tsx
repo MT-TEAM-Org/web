@@ -33,7 +33,6 @@ export function Write({ category, subCategory, modalId }: WriteProps) {
   const editParam = searchParams.get("edit");
 
   const pathName = usePathname();
-  const rootPath = pathName?.split("/")[1];
   const boardType = pathName?.split("/")[2];
 
   const { register, handleSubmit, setValue, watch } = useForm<FormData>({
@@ -66,7 +65,7 @@ export function Write({ category, subCategory, modalId }: WriteProps) {
     };
   }, [editParam, isEditMode, boardData, setValue, resetEditState]);
 
-  const { mutate: postContent } = usePostCommunityContent();
+  const { mutate: postContent, isPending } = usePostCommunityContent();
   const editPost = usePutPost();
 
   const handleImageUpload = async (blob: Blob) => {
@@ -180,7 +179,7 @@ export function Write({ category, subCategory, modalId }: WriteProps) {
           initialContent={isEditMode && boardData ? boardData.content : ""}
           onImageUpload={handleImageUpload}
           setValue={setValue}
-          onSubmit={handleSubmit(onSubmit)}
+          isPending={isPending}
         />
       </form>
     </div>

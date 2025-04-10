@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { NoticePageInfoType } from "@/app/_constants/customer/NoticeItemType";
+import { NoticePageInfoType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Pagination from "../../mypage/_components/Pagination";
 import changeURLParams from "../../mypage/util/changeURLParams";
@@ -11,6 +11,7 @@ import SearchFilter from "../../mypage/_components/SearchFilter";
 import OrderButtons from "../../mypage/_components/OrderButtons";
 import { feedbackListConfig } from "../_types/feedbackListConfig";
 import { POST_SEARCH_OPTIONS } from "../../mypage/_constants/toolbarObject";
+import { cn } from "@/utils";
 
 interface ToolbarProps {
   showOptions?: boolean;
@@ -53,7 +54,7 @@ const CustomerTalkToolbarContent = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const inputValue = (e.target as HTMLFormElement)[0] as HTMLInputElement;
+    const inputValue = (e.target as HTMLFormElement)[1] as HTMLInputElement;
     if (inputValue.value.trim() === "") return;
     router.push(
       changeURLParams(searchParams, "search", inputValue.value, searchType),
@@ -92,9 +93,14 @@ const CustomerTalkToolbarContent = ({
 
   return (
     <div className="rounded-[5px] bg-white">
-      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-[#FFFFFF] ">
+      <div
+        className={cn(
+          "w-full h-[64px] flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white",
+          "mobile:hidden"
+        )}
+      >
         {toolbarContent}
-        <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
+        <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px] z-10">
           <SearchFilter
             searchType={searchType}
             searchOptions={searchOptions}
@@ -114,10 +120,12 @@ const CustomerTalkToolbarContent = ({
             />
           )}
         </div>
-        <Pagination
-          pageInfo={paginationData}
-          onPageChangeAction={handlePageChange}
-        />
+        <div className={cn("mobile:hidden")}>
+          <Pagination
+            pageInfo={paginationData}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );

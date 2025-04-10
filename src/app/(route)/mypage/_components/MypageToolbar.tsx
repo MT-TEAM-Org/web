@@ -14,35 +14,41 @@ import SearchFilter from "./SearchFilter";
 import Pagination from "./Pagination";
 import changeURLParams from "../util/changeURLParams";
 import AnswerCheck from "./AnswerCheck";
-import { useQueryClient } from "@tanstack/react-query";
+import useAuthCheck from "@/_hooks/useAuthCheck";
+import { cn } from "@/utils";
 
 interface MypageToolbarProps {
-  mode: "posts" | "inquries";
+  mode: "posts" | "inquries" | "comments";
   pageInfo: PageInfo;
 }
 
 export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const queryClient = useQueryClient();
   const [searchType, setSearchType] = useState(
     searchParams.get("search_type") ||
       (mode === "inquries" ? "CONTENT" : "TITLE_CONTENT")
+  );
+  const [commentType, setCommentType] = useState(
+    searchParams.get("comment_type") || "BOARD"
   );
   const paramsConfig = {
     orderType: searchParams.get("order_type") || "CREATE",
     search: searchParams.get("search") || "",
     page: searchParams.get("page") || 1,
   };
-  const userRole = queryClient.getQueryData<{
-    data: { data: { role: string } };
-  }>(["authCheck"])?.data?.data?.role;
-
+  const { data: authCheckData } = useAuthCheck();
+  const userRole = authCheckData?.data?.data?.role;
   const searchOptions =
     mode === "inquries" ? INQURIES_SEARCH_OPTIONS : POST_SEARCH_OPTIONS;
 
   const handleSearchTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setSearchType(e.target.value);
+
+  const handleCommentTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (mode !== "comments") return;
+    setCommentType(e.target.value);
+  };
 
   const handleOrderButtonClick = (orderType: ListConfig["orderType"]) => {
     if (mode === "inquries") return;
@@ -53,8 +59,23 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const inputValue = (e.target as HTMLFormElement)[0] as HTMLInputElement;
+    const inputValue = (e.target as HTMLFormElement)[1] as HTMLInputElement;
     if (inputValue.value.trim() === "") return;
+    if (mode === "comments") {
+      router.push(
+        changeURLParams(
+          searchParams,
+          "search",
+          inputValue.value,
+          searchType,
+          commentType
+        ),
+        {
+          scroll: false,
+        }
+      );
+      return;
+    }
     router.push(
       changeURLParams(searchParams, "search", inputValue.value, searchType),
       {
@@ -72,7 +93,12 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
 
   return (
     <div className="bg-[#FFFFFF] rounded-t-[5px]">
-      <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
+      <div
+        className={cn(
+          "w-full flex justify-between items-center min-h-[64px] p-[12px] border-b",
+          "mobile:hidden"
+        )}
+      >
         <h2 className="font-[700] text-[18px] leading-[28px] text-[#303030]">
           {mode === "inquries" && userRole === "ADMIN"
             ? "문의내역"
@@ -83,10 +109,13 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
           searchOptions={searchOptions}
           onSearchTypeChange={handleSearchTypeChange}
           onSubmit={handleSubmit}
+          commentType={commentType}
+          onCommentTypeChange={handleCommentTypeChange}
+          mode={mode}
         />
       </div>
       <div className="flex justify-between items-center p-[12px]">
-        {mode === "posts" ? (
+        {mode !== "inquries" ? (
           <OrderButtons
             orderType={paramsConfig.orderType as ListConfig["orderType"]}
             onOrderType={handleOrderButtonClick}

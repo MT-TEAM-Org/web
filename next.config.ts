@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
       "shared.fastly.steamstatic.com",
       "naver.com",
       "sports-phinf.pstatic.net",
+      "nng-phinf.pstatic.net",
     ],
     remotePatterns: [
       {

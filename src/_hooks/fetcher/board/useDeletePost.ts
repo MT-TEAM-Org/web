@@ -12,7 +12,7 @@ const useDeletePost = (boardId: string) => {
   return useMutation({
     mutationFn: () => deletePost({ boardId }),
     onSuccess: () => {
-      toast.success("게시글 삭제 완료", "게시글이 삭제 되었습니다.");
+      toast.success("게시글이 삭제되었습니다.", "");
       router.back();
     },
     onError: (error) => {

@@ -19,13 +19,14 @@ const FeedbackItemStatus = ({ status }: FeedbackItemProps) => {
   }
 
   const bgStyle =
-    status === "RECEIVED" || (status === "COMPLETED" && "bg-gray1");
+    (status === "RECEIVED" && "bg-gray1") ||
+    (status === "COMPLETED" && "bg-bg0");
 
-  const baseStyle = `${bgStyle} w-[69px] h-[32px] rounded-[2px] px-2 py-[6px] font-bold text-[14px] leading-5`;
+  const baseStyle = `${bgStyle} w-[69px] h-[32px] rounded-[2px] px-2 py-[6px] font-bold text-[14px] leading-5 whitespace-nowrap mobile:w-[60px] mobile:h-[20px] mobile:text-[12px] mobile:leading-[18px] mobile:px-0 mobile:py-0 mobile:text-center`;
 
   return (
     <div className={`${baseStyle}`}>
-      {text ? <p className={`${textClass}`}>{text}</p> : null}
+      {text && <p className={`${textClass}`}>{text}</p>}
     </div>
   );
 };

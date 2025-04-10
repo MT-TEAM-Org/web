@@ -1,15 +1,20 @@
-import PostItem from "../../(community)/_components/PostItem";
-import { MypageToolbar } from "../_components/MypageToolbar";
+import { Suspense } from "react";
+import MyPageCommentList from "./_components/MyPageCommentList";
+import { cn } from "@/utils";
 
-const Comments = () => {
+const Comment = () => {
   return (
-    <div className="max-w-[720px] min-h-[450px] bg-[#FFFFFF] rounded-[5px]">
-      {/* <MypageToolbar mode="comments" />
-      {Array.from({ length: 5 }).map((_, index) => (
-        <PostItem key={index} />
-      ))} */}
-    </div>
+    <Suspense fallback={""}>
+      <div
+        className={cn(
+          "max-w-[720px] min-h-[450px] bg-gray1 rounded-[5px]",
+          "mobile:w-full mobile:mx-auto"
+        )}
+      >
+        <MyPageCommentList />
+      </div>
+    </Suspense>
   );
 };
 
-export default Comments;
+export default Comment;

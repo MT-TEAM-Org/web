@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import useFindPassword from "@/_hooks/useFindPassword";
 import { useApiMutation } from "@/_hooks/query";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/_hooks/useToast";
 
 interface FormData {
   email: string;
@@ -24,6 +25,7 @@ interface VerificationCodeRequest {
 
 const FindPassword = () => {
   const router = useRouter();
+  const { success, error } = useToast();
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isExpired, setIsExpired] = useState<boolean>(false);
   const [verificationCode, setVerificationCode] = useState<string>("");
@@ -52,34 +54,33 @@ const FindPassword = () => {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  const {
-    mutate: sendVerification,
-    isSuccess: sendVerificationIsSuccess,
-    isError: sendVerificationIsError,
-  } = useApiMutation<EmailVerificationRequest>(
-    "post",
-    "/api/certification/send",
-    null,
-    {
-      headers: {
-        "Content-Type": "application/json",
+  const { mutate: sendVerification, isSuccess: sendVerificationIsSuccess } =
+    useApiMutation<EmailVerificationRequest>(
+      "post",
+      "/api/certification/send",
+      null,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    },
-    {
-      onSuccess: (data: EmailVerificationRequest) => {
-        console.log("인증전송 성공", data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
+      {
+        onSuccess: () => {
+          success(
+            "이메일로 인증코드를 전송했습니다.",
+            "이메일을 확인해주세요."
+          );
+        },
+        onError: () => {
+          error("이메일 전송에 실패했습니다.", "다시 시도해주세요.");
+        },
+      }
+    );
 
   const {
     mutate: checkVerification,
     isSuccess: checkVerificationIsSuccess,
     isError: checkVerificationIsError,
-    isIdle: checkVerificationIsIdle,
   } = useApiMutation<VerificationCodeRequest>(
     "post",
     "/api/certification/certify-code",
@@ -90,11 +91,8 @@ const FindPassword = () => {
       },
     },
     {
-      onSuccess: (data: VerificationCodeRequest) => {
-        console.log("인증코드 확인 성공", data);
-      },
-      onError: (error) => {
-        console.log(error);
+      onError: () => {
+        error("인증코드 확인에 실패했습니다.", "다시 시도해주세요.");
       },
     }
   );
@@ -168,6 +166,7 @@ const FindPassword = () => {
             <input
               {...register("email", { required: true })}
               type="text"
+              autoFocus
               className={`${inputStyle} w-[240px]`}
               id="email"
               disabled={isPending || checkVerificationIsSuccess}
@@ -203,6 +202,7 @@ const FindPassword = () => {
             <div className="flex justify-between gap-[8px]">
               <input
                 type="text"
+                autoFocus
                 className={`${
                   isPending ? isDisabledInputStyle : inputStyle
                 } w-[240px]`}

@@ -5,6 +5,7 @@ import { PageInfo } from "../_types/toolbarType";
 import Pg_left from "@/app/_components/icon/Pg_left";
 import Pg_right from "@/app/_components/icon/Pg_right";
 import Pg_double_right from "@/app/_components/icon/Pg_double_right";
+import { cn } from "@/utils";
 
 interface PaginationProps {
   pageInfo: PageInfo;
@@ -36,7 +37,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
   const pageNumbers = getPageNumbers();
 
   const pageButtonStyle =
-    "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[9px]";
+    "flex justify-center items-center w-[32px] h-[32px] rounded-[5px] border p-[7px]";
   const disabledStyle = "opacity-50 cursor-not-allowed";
 
   const getNavButtonClass = (isDisabled: boolean) => {
@@ -44,8 +45,8 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
   };
 
   return (
-    <div className="flex">
-      <div className="flex items-center gap-[10px]">
+    <div className={cn("flex", "mobile:hidden")}>
+      <div className="flex items-center gap-[8px]">
         {totalPage > 1 && (
           <button
             className={getNavButtonClass(currentPage === 1)}
@@ -87,7 +88,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
         )}
       </div>
 
-      <div className="flex items-center gap-[10px]">
+      <div className="flex items-center gap-[8px]">
         <button
           className={getNavButtonClass(currentPage === totalPage)}
           onClick={() => onPageChangeAction(currentPage + 1)}

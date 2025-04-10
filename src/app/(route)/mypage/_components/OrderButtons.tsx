@@ -12,25 +12,30 @@ interface OrderButtonsProps {
 
 const OrderButtons = ({ orderType, onOrderType }: OrderButtonsProps) => {
   const ORDER_OPTION = [
-    { label: "최신순", value: "CREATE", logo: <Blue_outline_logo /> },
-    { label: "인기순", value: "RECOMMEND", logo: <Red_outline_logo /> },
-    { label: "댓글 많은 순", value: "COMMENT", logo: <Mini_logo /> },
+    { label: "최신순", value: "CREATE", logo: <Blue_outline_logo />, w: 77.27 },
+    {
+      label: "인기순",
+      value: "RECOMMEND",
+      logo: <Red_outline_logo />,
+      w: 77.27,
+    },
+    { label: "댓글 많은 순", value: "COMMENT", logo: <Mini_logo />, w: 107.89 },
   ];
 
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
   return (
-    <div className="flex w-full items-center gap-[4px]">
+    <div className="flex w-full items-center gap-[8px]">
       {ORDER_OPTION.map((option) => (
         <button
           key={option.value}
-          className={`${buttonStyle} ${
+          className={`${buttonStyle} w-[${option.w}px] ${
             option.value === orderType && "font-[700] border-[#424242]"
           }`}
           onClick={() => onOrderType(option.value as ListConfig["orderType"])}
         >
           {option.logo}
-          {option.label}
+          <span className="text-nowrap">{option.label}</span>
         </button>
       ))}
     </div>

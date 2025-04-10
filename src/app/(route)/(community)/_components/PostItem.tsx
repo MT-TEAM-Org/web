@@ -3,6 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CalculateTime } from "@/app/_components/CalculateTime";
+import {
+  getKoreanBoardType,
+  getKoreanCategoryType,
+} from "@/utils/boardType/boardTypeKorean";
+import { numberOverThousand } from "@/utils/boardType/numberOfThousand";
+import { useEffect, useState } from "react";
 
 interface BoardListItem {
   id: number;
@@ -35,48 +41,54 @@ interface PostItemProps {
 }
 
 const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
+  const [readPosts, setReadPosts] = useState<number[]>([]);
+
   const postsData = boardData?.content;
 
-  const boardTypeMap: { [key: string]: string } = {
-    FOOTBALL: "축구",
-    BASEBALL: "야구",
-    ESPORTS: "E스포츠",
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const storedReadPosts = localStorage.getItem("readPosts");
+        if (storedReadPosts) {
+          setReadPosts(JSON.parse(storedReadPosts));
+        }
+      } catch (error) {
+        console.error("LocalStorage parsing error:", error);
+      }
+    }
+  }, []);
+
+  const isPostRead = (postId: number) => {
+    return readPosts.includes(postId);
   };
 
-  const categoryTypeMap: { [key: string]: string } = {
-    FREE: "자유",
-    QUESTION: "질문",
-    ISSUE: "이슈",
-    VERIFICATION: "리뷰",
-    TIP: "플레이 팁",
+  const handlePostClick = (postId: number) => {
+    if (!isPostRead(postId)) {
+      const updatedReadPosts = [...readPosts, postId];
+      setReadPosts(updatedReadPosts);
+
+      try {
+        localStorage.setItem("readPosts", JSON.stringify(updatedReadPosts));
+      } catch (error) {
+        console.error(
+          "로컬 스토리지에 읽은 게시물을 저장하는 중 오류 발생:",
+          error
+        );
+      }
+    }
   };
 
-  const getKoreanBoardType = (type: string) => {
-    return boardTypeMap[type] || type;
-  };
-
-  const getKoreanCategoryType = (type: string) => {
-    return categoryTypeMap[type] || type;
-  };
-
-  const maskIP = (ip: string) => {
-    if (!ip) return "";
-
-    const parts = ip.split(".");
-    if (parts.length !== 4) return ip;
-
-    return `${parts[0]}.${parts[1]}.**.**`;
-  };
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="w-full flex flex-col items-center">
       {postsData?.map((data: BoardListItem, index: number) => (
         <Link
-          href={`${categoryType}/${data.id}`}
+          href={`/board/${boardType}/${data.categoryType}/${data.id}`}
           key={`${data.id}-${index}`}
-          className="flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]"
+          onClick={() => handlePostClick(data.id)}
+          className={`flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]`}
         >
           <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1">
-            <span>{data.id}</span>
+            <span>{numberOverThousand(data?.id)}</span>
           </div>
           <Image
             src={data?.thumbnail || "/Preview_loading_image.png"}
@@ -88,7 +100,11 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
           />
           <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
             <div className="flex items-center gap-[2px]">
-              <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap overflow-ellipsis">
+              <h2
+                className={`text-[14px] leading-[20px] overflow-hidden whitespace-nowrap overflow-ellipsis ${
+                  isPostRead(data?.id) ? "text-gray5" : "text-gray7"
+                }`}
+              >
                 {data?.title}
               </h2>
               <p className="text-Primary font-medium text-[12px] leading-[18px]">
@@ -115,7 +131,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
                 {data?.nickname}
               </span>
               <span className="font-medium text-[12px] leading-[18px] text-gray5">
-                IP {maskIP(data?.createdIp)}
+                IP {data?.createdIp}
               </span>
             </div>
           </div>

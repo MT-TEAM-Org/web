@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -47,20 +48,53 @@ const LeftSidebar = () => {
   };
 
   return (
-    <div className="w-full bg-white">
-      {boardList.map((board) => (
-        <Link href={board.path} key={board.id}>
-          <div
-            className={`w-full h-[52px] px-[20px] py-[12px] cursor-pointer ${
-              isCurrentPath(board.category)
-                ? "font-[700] text-gra bg-bg0"
-                : "font-[400] text-gray7 bg-white"
-            }`}
+    <div
+      className={cn(
+        "w-full h-[260px] bg-white",
+        "tablet:flex tablet:w-[688px] tablet:h-[52px]",
+        "mobile:flex mobile:w-full mobile:h-[48px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide"
+      )}
+    >
+      <div
+        className={cn(
+          "w-full flex flex-col",
+          "tablet:flex-row tablet:w-full",
+          "mobile:flex-row mobile:inline-flex mobile:min-w-fit"
+        )}
+      >
+        {boardList.map((board) => (
+          <Link
+            href={board.path}
+            key={board.id}
+            className={cn(
+              "block w-full",
+              "tablet:flex tablet:flex-1",
+              "mobile:inline-block"
+            )}
           >
-            <p>{board.name}</p>
-          </div>
-        </Link>
-      ))}
+            <div
+              className={cn(
+                `w-full h-[52px] px-4 py-3 cursor-pointer ${
+                  isCurrentPath(board.category)
+                    ? "font-[700] text-gra bg-bg0 mobile:text-gray7 mobile:border-b-2 mobile:border-b-gray7 mobile:bg-transparent"
+                    : "font-[400] text-gray7 bg-white mobile:text-gray5 mobile:border-b-2 mobile:border-b-gray3"
+                }`,
+                "tablet:flex tablet:items-center tablet:justify-center tablet:text-center tablet:text-[16px] tablet:leading-7 tablet:tracking-[-0.02em]",
+                "mobile:inline-flex mobile:min-w-[72px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-center mobile:text-[14px] mobile:leading-5"
+              )}
+            >
+              <p
+                className={cn(
+                  "text-[16px] leading-7 tracking-[-0.02em] whitespace-nowrap",
+                  "mobile:text-[14px] mobile:leading-5"
+                )}
+              >
+                {board.name}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };

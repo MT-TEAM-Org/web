@@ -15,9 +15,19 @@ export default {
           "0%": { opacity: "1", transform: "translateY(0)" },
           "100%": { opacity: "0", transform: "translateY(10px)" },
         },
+        spin: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(720deg)" },
+        },
       },
       animation: {
         fadeOut: "fadeOut 0.5s ease-in-out 2.5s forwards",
+        spin: "spin 0.5s cubic-bezier(0.42, 0, 0.58, 1)",
+      },
+      screens: {
+        mobile: { max: "768px" },
+        tablet: { min: "769px", max: "1279px" },
+        pc: { min: "1280px" },
       },
 
       colors: {

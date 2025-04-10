@@ -1,20 +1,21 @@
 "use client";
+
 import { Suspense } from "react";
 import MainRightBar from "./_components/MainRightBar";
 import NewPost from "./_components/NewPost";
 import ScheduleContainer from "./_components/scheduleContainer";
 import HotPost from "./_components/hotPost";
 import NewsComponent from "./_components/newsComponent";
-import useSocialReissue from "@/_hooks/useSocialReissue";
 import MainBigSizeNews from "./_components/MainBigSizeNews";
+import useHandleRefreshToken from "@/_hooks/fetcher/sign/useHandleRefreshToken";
 
 function HomePageContent() {
-  const {} = useSocialReissue();
+  const refreshToken = useHandleRefreshToken();
 
   return (
     <div className="flex flex-col gap-6">
       <div className="p-6 bg-gray1">
-        <ScheduleContainer />
+        <ScheduleContainer showAll={true} />
       </div>
 
       <div className="min-h-[704px] flex justify-center">
