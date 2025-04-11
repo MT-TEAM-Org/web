@@ -214,7 +214,7 @@ const CustomerTiptap = ({
           />
         </div>
       </div>
-      {/* TODO: 글쓰기 페이지 height 수정 및 공지사항 작성 height 수정 */}
+      {/* TODO: 글쓰기 페이지 height 수정 및 공지사항 작성 height 수정, 툴바 수정 */}
       <LinkPreview videoUrl={videoUrl} />
       <div className="w-full overflow-hidden">
         <div className="relative w-full mt-3">
