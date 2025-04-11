@@ -120,16 +120,12 @@ const InquirieDetail = ({
           />
         </div>
         <Suspense fallback={""}>
-<<<<<<< HEAD
           <div
             className={cn(
               "max-w-[720px] h-auto bg-[#FAFAFA] rounded-[5px]",
               "mobile:mx-auto"
             )}
           >
-=======
-          <div className="max-w-[720px] h-auto bg- gray1 rounded-[5px]">
->>>>>>> 0eef3ec414fdde5de7e5bcd085ce12b61281b0aa
             <MyPageInquiriesList />
           </div>
         </Suspense>
