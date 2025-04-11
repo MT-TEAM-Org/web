@@ -1,17 +1,19 @@
 import React from "react";
 
 interface SingleArrowIconRightProps {
-  width?: string;
-  height?: string;
+  width?: string | number;
+  height?: string | number;
   viewBox?: string;
   d?: string;
+  className?: string;
 }
 
 const SingleArrowIconRight = ({
-  width = "14",
-  height = "14",
+  width = 14,
+  height = 14,
   viewBox = "0 0 14 14",
   d = "M4.375 13L10.375 7L4.375 1",
+  className = "",
 }: SingleArrowIconRightProps) => {
   return (
     <svg
@@ -20,6 +22,7 @@ const SingleArrowIconRight = ({
       viewBox={viewBox}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         d={d}

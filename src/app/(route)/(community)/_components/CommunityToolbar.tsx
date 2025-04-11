@@ -30,6 +30,7 @@ export const CommunityToolbar = ({
   const searchParams = useSearchParams();
 
   const [searchType, setSearchType] = useState("TITLE");
+  const [selectedOrderType, setSelectedOrderType] = useState("CREATE");
 
   const handleWriteClick = () => {
     const pathParts = pathname.split("/");
@@ -46,6 +47,7 @@ export const CommunityToolbar = ({
     params.set("orderType", type);
 
     router.push(`${pathname}?${params.toString()}`);
+    setSelectedOrderType(type);
   };
 
   const handlePageChange = (page: number) => {
@@ -73,6 +75,24 @@ export const CommunityToolbar = ({
     );
   };
 
+  const orderOptions = [
+    {
+      label: "최신순",
+      type: "CREATE",
+      icon: <Blue_outline_logo />,
+    },
+    {
+      label: "인기순",
+      type: "RECOMMEND",
+      icon: <Red_outline_logo />,
+    },
+    {
+      label: "댓글 많은 순",
+      type: "COMMENT",
+      icon: <Mini_logo />,
+    },
+  ];
+
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
 
@@ -94,27 +114,27 @@ export const CommunityToolbar = ({
       </div>
       <div className="flex justify-between items-center p-[12px]">
         <div className="flex w-full items-center gap-[4px]">
-          <button
-            onClick={() => handleOrderClick("CREATE")}
-            className={`${buttonStyle} font-[700]`}
-          >
-            <Blue_outline_logo />
-            최신순
-          </button>
-          <button
-            onClick={() => handleOrderClick("RECOMMEND")}
-            className={buttonStyle}
-          >
-            <Red_outline_logo />
-            인기순
-          </button>
-          <button
-            onClick={() => handleOrderClick("COMMENT")}
-            className={buttonStyle}
-          >
-            <Mini_logo />
-            댓글 많은 순
-          </button>
+          {orderOptions.map((button) => {
+            const isActive = selectedOrderType === button.type;
+
+            return (
+              <button
+                key={button.type}
+                onClick={() => handleOrderClick(button.type)}
+                className={`
+          ${buttonStyle}
+          ${
+            isActive
+              ? "font-[700] text-gray7 border-gray7"
+              : "font-[400] text-[#424242] border-gray5"
+          }
+        `}
+              >
+                {button.icon}
+                <span className="whitespace-nowrap">{button.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         <div className="flex gap-[8px] mx-[8px]">

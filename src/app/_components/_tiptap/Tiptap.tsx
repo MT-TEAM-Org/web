@@ -305,9 +305,9 @@ const Tiptap = ({
   }
 
   return (
-    <div className="w-[720px] min-h-[835px] max-h-full h-auto flex flex-col items-center pt-[12px] pb-[24px] px-[12px]">
+    <div className="w-[720px] min-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px] gap-3 box-border">
       <div>
-        <div className="w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-[#DBDBDB]">
+        <div className="w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-gray3">
           <div className="flex">
             <label
               htmlFor="videoUrl"
@@ -326,13 +326,17 @@ const Tiptap = ({
           </div>
         </div>
         <LinkPreview videoUrl={videoUrl} />
-        <div className="relative w-full mt-2">
+        <div className="relative min-w-[696px] min-h-[419px] border border-t-0 rounded-[5px] mt-2 ">
           <Toolbar editor={editor} content={watch("content")} />
           <div className="relative">
-            <EditorContent editor={editor} className="w-full" />
+            <EditorContent
+              editor={editor}
+              className="w-full
+            "
+            />
             {showPlaceholder && (
               <div
-                className="w-full absolute top-2.5 left-0pointer-events-none whitespace-pre-line text-[#424242] font-medium text-[14px] leading-[22px] text-left"
+                className="w-full absolute top-2.5 left-0pointer-events-none whitespace-pre-line text-gray7 font-medium text-[14px] leading-[22px] text-left"
                 style={{ zIndex: 0 }}
               >
                 {showPlaceholder && (
@@ -400,7 +404,7 @@ const Tiptap = ({
         </div>
       </div>
       {/* 사용자 안내 */}
-      <div className="flex flex-col gap-y-1 w-[696px] min-h-[40px] rounded-[5px] p-[12px] bg-[#FAFAFA] mt-3 text-[#656565]">
+      <div className="flex flex-col gap-y-1 w-[696px] min-h-[40px] rounded-[5px] p-[12px] bg-[#FAFAFA] text-[#656565]">
         <div className="w-[672px] h-[44px] font-medium text-[14px] leading-[22px] ">
           <p>
             불법촬영물등을 게재할 경우 전기통신사업법 제22조의5제1항에 따라
@@ -421,7 +425,7 @@ const Tiptap = ({
           <p>• 음원 있는 움짤/동영상은 45초 이내 길이만 가능합니다.</p>
         </div>
       </div>
-      <div className="f w-[696px] h-[40px] flex justify-between mt-3">
+      <div className="w-[696px] h-[40px] flex justify-between">
         <button
           type="button"
           onClick={() => router.back()}

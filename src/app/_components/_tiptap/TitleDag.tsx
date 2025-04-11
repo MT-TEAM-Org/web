@@ -63,7 +63,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
         <button
           onClick={writeGuidClick}
           type="button"
-          className="max-w-[121px] min-h-[40px] rounded-[5px] border border-[#DBDBDB] py-[13px] px-[16px] font-[700] text-[14px] leading-[14px] whitespace-nowrap bg-[#FAFAFA]"
+          className="max-w-[121px] min-h-[40px] rounded-[5px] border border-gray3 py-[13px] px-[16px] font-[700] text-[14px] leading-[14px] whitespace-nowrap bg-gray1"
         >
           글쓰기 유의사항
         </button>

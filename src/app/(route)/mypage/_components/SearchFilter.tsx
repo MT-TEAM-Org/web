@@ -102,7 +102,7 @@ const SearchFilter = ({
           type="text"
           className={`${
             hasValue ? "w-[144px]" : "w-[172px]"
-          } text-[14px] leading-[22px] placeholder-[#CBCBCB] focus:outline-none focus:border-none`}
+          } text-[14px] leading-[22px] placeholder-gray4 focus:outline-none focus:border-none`}
           placeholder="검색어를 입력해주세요."
           ref={inputRef}
           onInput={handleInput}

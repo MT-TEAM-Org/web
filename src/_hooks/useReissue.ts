@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAuthStore } from "@/utils/Store";
 
 const handleReissue = async () => {
   const response = await axios.post(
@@ -11,8 +12,8 @@ const handleReissue = async () => {
     {
       headers: {
         Authorization: `Bearer ${
-          localStorage.getItem("refreshToken") ||
-          localStorage.getItem("accessToken")
+          localStorage.getItem("accessToken") ||
+          localStorage.getItem("refreshToken")
         }`,
       },
     }
@@ -22,13 +23,26 @@ const handleReissue = async () => {
 
 const useReissue = () => {
   const queryClient = useQueryClient();
+  const { logout, login } = useAuthStore();
   return useMutation({
     mutationFn: handleReissue,
+    retry: false,
     onSuccess: (data) => {
+      login();
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       localStorage.setItem("accessToken", data.headers.authorization);
       queryClient.invalidateQueries({ queryKey: ["authCheck"] });
+    },
+    onError: (error) => {
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        logout();
+        localStorage.removeItem("accessToken");
+        queryClient.invalidateQueries({ queryKey: ["authCheck"] });
+        queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
+        queryClient.invalidateQueries({ queryKey: ["myPostList"] });
+        queryClient.invalidateQueries({ queryKey: ["myCommentList"] });
+      }
     },
   });
 };

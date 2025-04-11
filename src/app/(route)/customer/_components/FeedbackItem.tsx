@@ -9,6 +9,7 @@ import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { useRouter } from "next/navigation";
 import { cn } from "@/utils";
+import CustomIcon from "@/app/_components/IconComponents/Icon";
 
 interface FeedbackItemProps {
   feedbackData: FeedbackContentType;
@@ -67,14 +68,20 @@ const FeedbackItem = ({
       <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center flex-shrink-0">
         <p className="font-bold text-[14px] leading-5">{feedbackData?.id}</p>
       </div>
-      <div className="w-[56px] h-[42px] rounded-[5px] bg-gray1 overflow-hidden flex-shrink-0">
-        <Image
-          src={feedbackData?.thumbnail || "/Preview_loading_image.png"}
-          alt="img"
-          width={56}
-          height={42}
-          className="w-full h-full object-cover"
-        />
+      <div className="w-[56px] h-[42px] rounded-[5px] bg-gray1 overflow-hidden  flex-shrink-0">
+        {feedbackData?.thumbnail ? (
+          <Image
+            src={feedbackData.thumbnail}
+            alt="post-preview-image"
+            fill
+            className="object-contain rounded-[5px]"
+          />
+        ) : (
+          <CustomIcon
+            icon="DEFAULT_THUMBNAIL_ICON"
+            className="w-[56px] h-[42px]"
+          />
+        )}
       </div>
 
       <div
