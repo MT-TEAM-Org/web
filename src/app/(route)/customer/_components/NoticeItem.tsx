@@ -8,6 +8,7 @@ import useTimeAgo from "@/utils/useTimeAgo";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { cn } from "@/utils";
+import CustomIcon from "@/app/_components/IconComponents/Icon";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
@@ -72,14 +73,20 @@ const NoticeItem = ({
           {!isFeedback ? noticeData?.id : "공지"}
         </p>
       </div>
-      <div className="w-[56px] h-[42px] p-1 rounded-[5px] overflow-hidden bg-gray1 flex-shrink-0">
-        <Image
-          src={noticeData?.thumbnail || "/Preview_loading_image.png"}
-          alt="img"
-          width={56}
-          height={42}
-          className="object-cover"
-        />
+      <div className="w-[56px] h-[42px]  rounded-[5px] overflow-hidden bg-gray1 flex-shrink-0">
+        {noticeData?.thumbnail ? (
+          <Image
+            src={noticeData.thumbnail}
+            alt="post-preview-image"
+            fill
+            className="object-contain rounded-[5px]"
+          />
+        ) : (
+          <CustomIcon
+            icon="DEFAULT_THUMBNAIL_ICON"
+            className="w-[56px] h-[42px]"
+          />
+        )}
       </div>
       <div
         className={cn(

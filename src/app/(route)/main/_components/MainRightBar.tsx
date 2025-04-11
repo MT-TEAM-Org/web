@@ -107,11 +107,9 @@ const MainRightBar = () => {
         <div className="w-[160px] min-h-[32px] flex mx-auto gap-4">
           <button
             onClick={() => handleToPage("prev")}
-            className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center"
+            className="w-[32px] h-[32px] rounded-[5px] border border-gray2 flex justify-center items-center p-[9px]"
           >
-            <div className="w-[18px] h-[18px] ">
-              <Arrow_left />
-            </div>
+            <Arrow_left width={18} height={18} />
           </button>
           <div className="w-[64px] h-[32px] font-[500] text-[14px] text-gray6 flex justify-center items-center">
             {currentPage} / {filteredNewsData?.pageInfo?.totalPage}
@@ -120,9 +118,7 @@ const MainRightBar = () => {
             onClick={() => handleToPage("next")}
             className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center"
           >
-            <div className="w-[18px] h-[18px] ">
-              <Arrow_right />
-            </div>
+            <Arrow_right width={18} height={18} />
           </button>
         </div>
       )}

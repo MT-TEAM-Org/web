@@ -20,7 +20,7 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
         <div className="w-[20px] h-[20px] rounded-sm gap-[10px] font-bold text-[12px] leading-[18px] text-gray7">
           {number}
         </div>
-        <div className="max-w-[40px] min-h-[18px] font-[700] text-[12px] leading-[18px] text-gray5">
+        <div className="max-w-[40px] min-h-[18px] font-[700] text-[12px] leading-[18px] text-gray5 whitespace-nowrap">
           {getKoreanBoardType(hotPosts?.boardType)}
         </div>
         <div className="flex justify-center align-center items-center text-center gap-[2px]">
@@ -36,9 +36,11 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
           </div>
 
           <div className="flex justify-center text-center items-center gap-x-[2px]">
-            <p className="w-[22px] h-[18px] [font-[500] text-[12px] leading-[18px] text-primary">
-              [{hotPosts?.commentCount}]
-            </p>
+            {(hotPosts?.commentCount ?? 0) > 0 && (
+              <p className="w-[22px] h-[18px] font-[500] text-[12px] leading-[18px] text-gra">
+                [{hotPosts.commentCount}]
+              </p>
+            )}
             <p className="font-[900] w-[10px] h-[18px] text-[10px] leading-[18px] text-[#00ADEE]">
               N
             </p>

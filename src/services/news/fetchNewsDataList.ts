@@ -8,6 +8,7 @@ interface NewsDataProps {
   orderType?: "DATE" | "COMMENT" | "VIEW";
   content?: string;
   withPageInfo?: boolean;
+  startIndex?: number;
 }
 
 const fetchNewsDataList = async ({
@@ -18,6 +19,7 @@ const fetchNewsDataList = async ({
   category = "",
   orderType = "DATE",
   content,
+  startIndex,
 }: NewsDataProps = {}) => {
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}api/news`,
@@ -29,6 +31,7 @@ const fetchNewsDataList = async ({
         size,
         timePeriod,
         content,
+        startIndex,
       },
     }
   );
