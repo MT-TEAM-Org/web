@@ -31,7 +31,7 @@ const TermsOfService = () => {
       <div className="w-full min-h-[64px] border-b p-4 flex justify-between items-center border-gray2 bg-white sticky top-0 z-10">
         <h1 className="font-bold text-[18px] leading-7 text-gray8">이용약관</h1>
       </div>
-      <div className="text-[14px] leading-[22px] tracking-[-0.02em] flex flex-col justify-between text-gray6 pt-3 px-6">
+      <div className="text-[14px] leading-[22px] tracking-[-0.02em] flex flex-col justify-between text-gray6 py-3 px-6">
         <TermsServiceText />
       </div>
     </div>

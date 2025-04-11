@@ -214,7 +214,7 @@ const CustomerTiptap = ({
           />
         </div>
       </div>
-      {/* TODO: 글쓰기 페이지 height 수정 및 이용약관 pb 확인 */}
+      {/* TODO: 글쓰기 페이지 height 수정 및 공지사항 작성 height 수정 */}
       <LinkPreview videoUrl={videoUrl} />
       <div className="w-full overflow-hidden">
         <div className="relative w-full mt-3">
@@ -223,24 +223,27 @@ const CustomerTiptap = ({
             <EditorContent editor={editor} className="w-full" />
             {showPlaceholder && (
               <div
-                className="w-full absolute top-2.5 left-0 pointer-events-none whitespace-pre-line text-[#424242] font-medium text-[14px] leading-[22px] text-left"
+                className="w-full absolute top-2.5 left-0 pointer-events-none whitespace-pre-line text-gray7 font-medium text-[14px] leading-[22px] text-left"
                 style={{ zIndex: 0 }}
               >
                 {showPlaceholder && (
                   <div
                     className={cn(
-                      "absolute top-0 left-0 pointer-events-none py-2",
+                      "absolute top-0 left-0 pointer-events-none py-2 flex flex-col gap-[2px]",
                       "mobile:min-h-[304px] mobile:overflow-y-auto mobile:rounded-[5px] mobile:px-4 mobile:py-3 mobile:font-medium mobile:leading-[22px] mobile:tracking-[-0.02em]"
                     )}
                     style={{ zIndex: 0 }}
                   >
                     <p
-                      className={cn("font-semibold px-4", "mobile:font-medium")}
+                      className={cn(
+                        "font-bold text-[14px] leading-5 px-4 text-gray7",
+                        "mobile:font-medium"
+                      )}
                     >
                       자유롭게 글을 작성해주시되, 국내/해외기사의 경우
                       유의해주세요!
                     </p>
-                    <ol className="text-[14px] leading-[20px] text-[#424242] list-decimal px-8">
+                    <ol className="flex flex-col gap-[2px] text-[14px] leading-[22px] tracking-[-0.02em] text-gray7 list-decimal px-8">
                       <li>
                         이미지는 이곳에 드래그 드랍으로도 업로드할 수 있습니다.
                       </li>
