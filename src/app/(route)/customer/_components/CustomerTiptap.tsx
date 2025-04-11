@@ -235,53 +235,50 @@ const CustomerTiptap = ({
                     style={{ zIndex: 0 }}
                   >
                     <p
-                      className={cn(
-                        "font-semibold px-4 text-[14px] leading-[20px] text-[#424242]",
-                        "mobile:font-medium"
-                      )}
+                      className={cn("font-semibold px-4", "mobile:font-medium")}
                     >
                       자유롭게 글을 작성해주시되, 국내/해외기사의 경우
                       유의해주세요!
                     </p>
-                    <ol className="list-decimal px-8 mt-1">
-                      <li className="mb-1">
+                    <ol className="text-[14px] leading-[20px] text-[#424242] list-decimal px-8">
+                      <li>
                         이미지는 이곳에 드래그 드랍으로도 업로드할 수 있습니다.
                       </li>
-                      <li className="mb-1">
+                      <li>
                         저작권의 영향을 받을 수 있는 국내기사의 경우 반드시
                         요약하여 작성하여야 하며, 기사원문에 있는 내용 복붙,
                         캡쳐 사용을 금지합니다. (원문과 유사 내용이 있으면
                         삭제처리될 수 있음)
                       </li>
-                      <li className="mb-1">
+                      <li>
                         국내기사의 경우 링크를 올리지 않거나, 기타 공지에 맞지
                         않는 글을 작성하신 경우 무통보 삭제됩니다.
                       </li>
-                      <li className="mb-1">
+                      <li>
                         개인 SNS 및 블로그 출처를 금지합니다. (페이스북, 인스타,
                         트위터 등)
                       </li>
-                      <li className="mb-1">
+                      <li>
                         오피셜 기사 작성 시, SNS 출처는 인증된 구단의 계정이라도
                         허용되지 않습니다. 선수 영입/방출 오피셜은 간략하게
                         번역하셔도 되며, 계약기간이나 이적료 같은 기본 사항은
                         기입해주세요.
                       </li>
-                      <li className="mb-1">
+                      <li>
                         다른 커뮤니티에서 작성된 글이라도 반드시 2차 출처를
                         기입해주세요.
                       </li>
-                      <li className="mb-1">
+                      <li>
                         다른 사이트에서 기사를 퍼올 시, 해당 기사를 번역한
                         역자에게 허락을 맡아야 합니다. (불펌 시 삭제 처리될 수
                         있음)
                       </li>
-                      <li className="mb-1">공식 사이트 글만 사용해주세요.</li>
-                      <li className="mb-1">
+                      <li>공식 사이트 글만 사용해주세요.</li>
+                      <li>
                         사회적 통념에 위배되거나 분탕 목적의 글은 차단될 수
                         있습니다.
                       </li>
-                      <li className="mb-1 ml-2">
+                      <li>
                         번역기사 작성 시, 반드시 글 말머리에 언론사를
                         기입해주세요. (예: [BBC], [골닷컴], [르퀴프] 등) 구단의
                         공식홈페이지 출처는 [공홈]이라 기입해 주세요. 번역은
