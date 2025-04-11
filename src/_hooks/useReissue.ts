@@ -23,11 +23,12 @@ const handleReissue = async () => {
 
 const useReissue = () => {
   const queryClient = useQueryClient();
-  const { logout } = useAuthStore();
+  const { logout, login } = useAuthStore();
   return useMutation({
     mutationFn: handleReissue,
     retry: false,
     onSuccess: (data) => {
+      login();
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       localStorage.setItem("accessToken", data.headers.authorization);
