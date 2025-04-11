@@ -13,7 +13,7 @@ export async function generateMetadata({
     const noticeDetail = await getNoticeInfoData({
       id: noticeId,
     });
-    console.log("noticeDetail.imgUrl: ", noticeDetail.imgUrl);
+
     return {
       title: noticeDetail.title || "공지사항 상세 페이지",
       description: noticeDetail.content || "공지사항 상세 내용",
