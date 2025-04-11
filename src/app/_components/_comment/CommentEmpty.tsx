@@ -2,7 +2,7 @@ import { LogoWhite } from "@/app/_components/icon/LogoWhite";
 
 const CommentEmpty = () => {
   return (
-    <div className="flex flex-col items-center gap-[16px] min-h-[184px] py-[40px]">
+    <div className="flex flex-col items-center gap-[16px] min-h-[184px] py-[40px] bg-gray1 rounded-b-[5px]">
       <div className="opacity-30">
         <LogoWhite />
       </div>

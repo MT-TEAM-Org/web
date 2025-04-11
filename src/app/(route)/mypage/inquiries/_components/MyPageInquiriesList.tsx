@@ -28,7 +28,7 @@ const MyPageInquiriesList = () => {
   return (
     <div>
       <MypageToolbar mode="inquries" pageInfo={pageInfo} />
-      <div className="flex flex-col items-center w-full bg-[#FFFFFF] rounded-b-[5px]">
+      <div className="flex flex-col w-full bg-[#FFFFFF] rounded-b-[5px]">
         {pageInfo?.totalElement !== 0 ? (
           content?.map((inquiries: InquiriesListData["content"][number]) => (
             <MyPageInquiriesItem key={inquiries.id} data={inquiries} />
