@@ -68,13 +68,13 @@ const FeedbackItem = ({
       <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center flex-shrink-0">
         <p className="font-bold text-[14px] leading-5">{feedbackData?.id}</p>
       </div>
-      <div className="w-[56px] h-[42px] rounded-[5px] bg-gray1 overflow-hidden  flex-shrink-0">
+      <div className="relative w-[56px] h-[42px] rounded-[5px] bg-gray1 overflow-hidden  flex-shrink-0">
         {feedbackData?.thumbnail ? (
           <Image
             src={feedbackData.thumbnail}
             alt="post-preview-image"
             fill
-            className="object-contain rounded-[5px]"
+            className="object-cover rounded-[5px]"
           />
         ) : (
           <CustomIcon

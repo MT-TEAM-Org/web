@@ -92,7 +92,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
             <span>{numberOverThousand(data?.id)}</span>
           </div>
           <div className="flex items-center gap-[10px]">
-            <div className="w-[56px] h-[42px] relative box-content">
+            <div className=" w-[56px] h-[42px] relative box-content">
               {data?.thumbnail ? (
                 <Image
                   src={data.thumbnail}
