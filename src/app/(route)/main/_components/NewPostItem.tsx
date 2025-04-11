@@ -20,7 +20,7 @@ const NewPostItem = ({ newPosts }: NewPostItemProps) => {
             {numberOverThousand(newPosts?.id ?? 0)}
           </p>
         </div>
-        <div className="max-w-[40px] min-h-[18px] font-[700] text-[12px] leading-[18px] text-gray5 tracking-[-0.02em] mr-[8px]">
+        <div className="max-w-[40px] min-h-[18px] font-[700] text-[12px] leading-[18px] text-gray5 tracking-[-0.02em] mr-[8px] whitespace-nowrap">
           {getKoreanBoardType(newPosts?.boardType)}
         </div>
         <div className="max-w-[300px] min-h-[20px] flex gap-[2px] items-center font-[500] text-[14px] leading-5 mr-[2px]">
