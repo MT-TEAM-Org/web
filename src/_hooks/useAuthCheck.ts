@@ -34,7 +34,7 @@ const useAuthCheck = () => {
     retry: false,
     staleTime: 1000 * 60 * 10, // 10분 fresh 유지
     gcTime: 1000 * 60 * 30, // 30분간 캐시데이터 유지
-    refetchOnMount: false,
+    refetchOnMount: true,
   });
 
   useEffect(() => {
