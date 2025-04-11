@@ -11,6 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { CommentItem, CommentType } from "@/_types/comment";
 import usePostComment from "@/_hooks/fetcher/comment/usePostComment";
+import { cn } from "@/utils";
 
 interface SendCommentBoxProps {
   id?: string;
@@ -179,7 +180,12 @@ const SendCommentBox = ({
   };
 
   return (
-    <div className="w-full min-h-[72px] p-4 bg-white">
+    <div
+      className={cn(
+        "w-full min-h-[72px] p-4 bg-white",
+        "mobile:px-[8px] mobile:pt-[8px] mobile:pb-[16px]"
+      )}
+    >
       <form onSubmit={handlePostComment} className="w-full flex flex-col gap-2">
         <div className="w-full flex items-end gap-4">
           <button
