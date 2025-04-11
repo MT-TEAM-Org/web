@@ -10,6 +10,7 @@ import useTimeAgo from "@/utils/useTimeAgo";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { useRouter } from "next/navigation";
 import { cn } from "@/utils";
+import CustomIcon from "@/app/_components/IconComponents/Icon";
 
 interface totalSearchProps {
   searchType: string;
@@ -90,14 +91,23 @@ const TotalSearchItem = ({
             {data.id}
           </span>
         </div>
-        <Image
-          src={data?.thumbnail || "/Preview_loading_image.png"}
-          alt="post-preview-image"
-          width={56}
-          height={42}
-          className="w-[56px] h-[42px] rounded-[5px] object-cover"
-          blurDataURL="/Preview_loading_image.png"
-        />
+        {data?.thumbnail ? (
+          <Image
+            src={data.thumbnail}
+            alt="post-preview-image"
+            width={56}
+            height={42}
+            className="w-[56px] h-[42px] rounded-[5px] object-cover"
+            blurDataURL="/Preview_loading_image.png"
+            placeholder="blur"
+          />
+        ) : (
+          <CustomIcon
+            icon="DEFAULT_THUMBNAIL_ICON"
+            className="w-[56px] h-[42px]"
+          />
+        )}
+
         <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
           <div className="flex items-center gap-[2px]">
             <h2 className="max-w-[535px] text-[14px] leading-[20px] text-gray7 text-ellipsis overflow-hidden line-clamp-1">

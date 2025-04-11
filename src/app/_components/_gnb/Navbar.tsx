@@ -5,6 +5,7 @@ import { Search } from "../icon/Search";
 import Link from "next/link";
 import { NAVBARS } from "@/app/_constants/navigation";
 import { useState, useEffect } from "react";
+import CustomIcon from "../IconComponents/Icon";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -30,10 +31,9 @@ export default function Navbar() {
     setIsSearching(true);
     router.push(searchPath);
   };
-
-  const isCurrentPath = (path) => {
-    const fullPath = path.startsWith("/") ? path : `/${path}`;
-    return pathname === fullPath;
+  const isCurrentPath = (Id: string) => {
+    if (!pathname) return false;
+    return pathname.includes(Id);
   };
 
   const navbarClass =
@@ -43,10 +43,10 @@ export default function Navbar() {
     <div className="w-full max-w-[1200px] min-h-[60px] flex justify-between items-center mx-auto">
       <div className="max-w-[447px] min-h-[60px] flex justify-around gap-2.5">
         {NAVBARS.map((item, index) => (
-          <Link key={index} href={item.link}>
+          <Link key={item.id} href={item.link}>
             <div
-              className={`${navbarClass} flex justify-around items-center ${
-                isCurrentPath(item.link)
+              className={`${navbarClass} flex justify-around items-center hover:text-gra ${
+                isCurrentPath(item.id)
                   ? "font-normal text-gra"
                   : "font-normal text-gray7"
               } ${index === 0 ? "pl-0" : ""}`}
@@ -57,9 +57,12 @@ export default function Navbar() {
         ))}
       </div>
       <div className="flex items-center mb-2">
-        <div className="relative w-[414px]">
+        <div className="w-[414px] h-[48px] rounded-full bg-gray1 border-[0.5px] px-4 flex items-center gap-[16px] relative transition-all focus-within:ring-1 focus-within:ring-gray9">
+          <div className="cursor-pointer" onClick={handleToSearch}>
+            <Search />
+          </div>
           <input
-            className="w-full min-h-[48px] py-[12px] px-[16px] border-[0.5px] rounded-full pl-12"
+            className="w-full h-full bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus:border-none placeholder:text-gray5"
             placeholder="검색어를 입력해주세요"
             value={isValue}
             onChange={(e) => setIsValue(e.target.value)}
@@ -69,12 +72,14 @@ export default function Navbar() {
               }
             }}
           />
-          <div
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
-            onClick={handleToSearch}
-          >
-            <Search />
-          </div>
+          {isValue && (
+            <button
+              className="absolute right-4 text-gray-400 hover:text-gray-600"
+              onClick={() => setIsValue("")}
+            >
+              <CustomIcon icon="SEARCH_X_ICON" className="w-[20px] h-[20px]" />
+            </button>
+          )}
         </div>
       </div>
     </div>
