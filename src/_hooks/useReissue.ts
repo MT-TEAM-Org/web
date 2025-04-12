@@ -28,20 +28,20 @@ const useReissue = () => {
     mutationFn: handleReissue,
     retry: false,
     onSuccess: (data) => {
-      login();
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       localStorage.setItem("accessToken", data.headers.authorization);
       queryClient.invalidateQueries({ queryKey: ["authCheck"] });
+      login();
     },
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
-        logout();
         localStorage.removeItem("accessToken");
         queryClient.invalidateQueries({ queryKey: ["authCheck"] });
         queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
         queryClient.invalidateQueries({ queryKey: ["myPostList"] });
         queryClient.invalidateQueries({ queryKey: ["myCommentList"] });
+        logout();
       }
     },
   });
