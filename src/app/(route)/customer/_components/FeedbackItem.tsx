@@ -68,7 +68,7 @@ const FeedbackItem = ({
       <div className="w-[32px] h-[32px] rounded-[2px] p-1 flex gap-[10px] bg-gray1 items-center justify-center flex-shrink-0">
         <p className="font-bold text-[14px] leading-5">{feedbackData?.id}</p>
       </div>
-      <div className="w-[56px] h-[42px] rounded-[5px] bg-gray1 overflow-hidden  flex-shrink-0">
+      <div className="relative w-[56px] h-[42px] rounded-[5px] bg-gray1 overflow-hidden  flex-shrink-0">
         {feedbackData?.thumbnail ? (
           <Image
             src={feedbackData.thumbnail}
@@ -92,7 +92,7 @@ const FeedbackItem = ({
         )}
       >
         <div className="w-full min-h-[20px] flex items-center gap-[2px]">
-          <p className="text-[14px] leading-5 text-gray7 text-ellipsis overflow-hidden line-clamp-1">
+          <p className="text-[14px] leading-5 text-gray7 text-ellipsis overflow-hidden line-clamp-1 whitespace-nowrap">
             {searchType === "TITLE" || searchType === "TITLE_CONTENT"
               ? highlightText(feedbackData?.title, searchType, searchString)
               : feedbackData?.title}

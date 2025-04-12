@@ -10,6 +10,7 @@ import { CalculateTime } from "@/app/_components/CalculateTime";
 import { CommentItem } from "@/_types/comment";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import { usePathname } from "next/navigation";
+import { cn } from "@/utils";
 
 interface InquirieDetailProps {
   id: string;
@@ -55,12 +56,28 @@ const InquirieDetail = ({
 
   return (
     <>
-      <div className="space-y-[12px]">
-        <div className="flex flex-col justify-center gap-[16px] w-[720px] min-h-[497px] rounded-b-[5px] p-[24px] bg-white">
-          <h1 className="text-[18px] font-[700] leading-[28px] text-gray8">
+      <div className={cn("space-y-[12px]", "mobile:space-y-[0px]")}>
+        <div
+          className={cn(
+            "flex flex-col justify-center gap-[16px] w-[720px] min-h-[497px] rounded-b-[5px] p-[24px] bg-white",
+            "tablet:w-[688px]",
+            "mobile:w-full mobile:gap-0 mobile:justify-start mobile:min-h-[0px] mobile:p-0"
+          )}
+        >
+          <h1
+            className={cn(
+              "text-[18px] font-[700] leading-[28px] text-gray8",
+              "mobile:px-[16px] mobile:pt-[12px] mobile:text-[16px] mobile:mb-[4px]"
+            )}
+          >
             {userRole === "ADMIN" ? "문의내역 상세" : "나의 문의내역 상세"}
           </h1>
-          <div className="flex justify-between items-center text-[14px] leading-[20px] text-gray6">
+          <div
+            className={cn(
+              "flex justify-between items-center text-[14px] leading-[20px] text-gray6",
+              "mobile:flex-col mobile:items-start mobile:gap-[4px] mobile:px-[16px] mobile:text-[12px]"
+            )}
+          >
             <div className="flex gap-[8px]">
               <span className="font-[700]">마이페이지</span>
               <span>{userRole === "ADMIN" ? "문의내역" : "나의 문의내역"}</span>
@@ -75,8 +92,18 @@ const InquirieDetail = ({
               <span>IP {inquirieDetail?.clientIp}</span>
             </div>
           </div>
-          <div className="h-[1px] bg-gray2"></div>
-          <p className="min-h-[48px] leading-[24px] text-gray7">
+          <div
+            className={cn(
+              "h-[1px] bg-gray2",
+              "mobile:mx-[16px] mobile:my-[12px]"
+            )}
+          ></div>
+          <p
+            className={cn(
+              "min-h-[48px] leading-[24px] text-gray7",
+              "mobile:px-[16px] mobile:mb-[12px]"
+            )}
+          >
             {inquirieDetail?.content}
           </p>
           <MyPageInquirieComment
@@ -93,12 +120,22 @@ const InquirieDetail = ({
           />
         </div>
         <Suspense fallback={""}>
-          <div className="max-w-[720px] h-auto bg- gray1 rounded-[5px]">
+          <div
+            className={cn(
+              "max-w-[720px] h-auto bg-[#FAFAFA] rounded-[5px]",
+              "mobile:mx-auto"
+            )}
+          >
             <MyPageInquiriesList />
           </div>
         </Suspense>
       </div>
-      <div className="shadow-md sticky bottom-0">
+      <div
+        className={cn(
+          "shadow-md sticky bottom-0 max-w-[720px]",
+          "mobile:w-full mobile:mx-auto"
+        )}
+      >
         <SendCommentBox
           id={id.toString()}
           type="INQUIRY"
