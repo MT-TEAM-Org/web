@@ -216,7 +216,14 @@ const EditProfile = () => {
             </div>
 
             {inputObject.map((input) => (
-              <div key={input.id} className="flex flex-col gap-[4px]">
+              <div
+                key={input.id}
+                className={`flex flex-col gap-[4px] ${
+                  mypageData?.data?.registrationMethod !== "LOCAL" &&
+                  input.id === "password" &&
+                  "hidden"
+                }`}
+              >
                 <Input
                   height={48}
                   register={register}
