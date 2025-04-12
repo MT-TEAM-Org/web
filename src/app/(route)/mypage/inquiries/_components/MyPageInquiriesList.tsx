@@ -7,6 +7,7 @@ import MyPageInquiriesEmpty from "./MyPageInquiriesEmpty";
 import { useSearchParams } from "next/navigation";
 import { InquiriesListConfig, InquiriesListData } from "../_types/inquiries";
 import MypageInquirieSkelton from "./MypageInquirieSkelton";
+import MobileBackButton from "../../_components/MobileBackButton";
 
 const MyPageInquiriesList = () => {
   const searchParams = useSearchParams();
@@ -27,8 +28,9 @@ const MyPageInquiriesList = () => {
 
   return (
     <div>
+      <MobileBackButton mode="inquries" />
       <MypageToolbar mode="inquries" pageInfo={pageInfo} />
-      <div className="flex flex-col items-center w-full bg-[#FFFFFF] rounded-b-[5px]">
+      <div className="flex flex-col w-full bg-[#FFFFFF] rounded-b-[5px]">
         {pageInfo?.totalElement !== 0 ? (
           content?.map((inquiries: InquiriesListData["content"][number]) => (
             <MyPageInquiriesItem key={inquiries.id} data={inquiries} />
