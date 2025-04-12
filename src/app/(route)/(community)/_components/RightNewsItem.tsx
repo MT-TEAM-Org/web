@@ -5,6 +5,7 @@ import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
 import { usePathname } from "next/navigation";
 import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
+import CustomIcon from "@/app/_components/IconComponents/Icon";
 
 interface NewsItemProps {
   newsItem: NewsItemType;
@@ -46,13 +47,19 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
         className={`min-w-[288px] min-h-[92px] flex justify-center items-center border-b border-gray2 p-3 cursor-pointer gap-3  ${customClass}`}
       >
         <div className="w-[68px] h-[68px]">
-          <Image
-            src={updatedImgUrl || "/Preview_loading_image.png"}
-            alt="news img"
-            width={68}
-            height={68}
-            className="max-w-[68px] h-[68px] rounded-[5px] object-cover"
-          />
+          {updatedImgUrl ? (
+            <Image
+              src={updatedImgUrl}
+              alt="news img"
+              width={68}
+              height={68}
+              className="max-w-[68px] h-[68px] rounded-[5px] object-cover"
+            />
+          ) : (
+            <div className="w-[68px] h-[68px] rounded-[5px] overflow-hidden flex items-center justify-center bg-gray-100">
+              <CustomIcon icon="DEFAULT_THUMBNAIL_ICON" />
+            </div>
+          )}
         </div>
         <div className="min-w-[194px] h-auto min-h-[68px] flex flex-col justify-center items-start gap-1 ">
           <div className={styles.title}>{newsItem.title}</div>

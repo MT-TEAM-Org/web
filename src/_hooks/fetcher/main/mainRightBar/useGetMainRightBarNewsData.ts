@@ -5,6 +5,7 @@ import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 interface NewsDataProps {
   page?: string;
   isMainPage?: boolean;
+  startIndex?: number;
 }
 
 interface NewsListWithPageInfo {
@@ -13,12 +14,14 @@ interface NewsListWithPageInfo {
     currentPage: number;
     totalPage: number;
     totalElements: number;
+    startIndex?: number;
   };
 }
 
 const useGetMainRightBarNewsData = ({
   page = "1",
   isMainPage = false,
+  startIndex = 3,
 }: NewsDataProps = {}) => {
   const currentPage = Number(page);
 
@@ -30,6 +33,7 @@ const useGetMainRightBarNewsData = ({
         size: 5,
         withPageInfo: true,
         timePeriod: "WEEKLY",
+        startIndex,
       }),
     placeholderData: keepPreviousData,
     staleTime: 30 * 60 * 1000,

@@ -93,7 +93,7 @@ const InquirieDetail = ({
           />
         </div>
         <Suspense fallback={""}>
-          <div className="max-w-[720px] h-auto bg-[#FAFAFA] rounded-[5px]">
+          <div className="max-w-[720px] h-auto bg- gray1 rounded-[5px]">
             <MyPageInquiriesList />
           </div>
         </Suspense>

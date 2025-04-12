@@ -9,6 +9,7 @@ import {
 } from "@/utils/boardType/boardTypeKorean";
 import { numberOverThousand } from "@/utils/boardType/numberOfThousand";
 import { useEffect, useState } from "react";
+import CustomIcon from "@/app/_components/IconComponents/Icon";
 
 interface BoardListItem {
   id: number;
@@ -90,18 +91,27 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
           <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1">
             <span>{numberOverThousand(data?.id)}</span>
           </div>
-          <Image
-            src={data?.thumbnail || "/Preview_loading_image.png"}
-            alt="post-preview-image"
-            width={56}
-            height={42}
-            className="w-[56px] h-[42px] rounded-[5px] object-cover"
-            blurDataURL="/Preview_loading_image.png"
-          />
+          <div className="flex items-center gap-[10px]">
+            <div className=" w-[56px] h-[42px] relative box-content">
+              {data?.thumbnail ? (
+                <Image
+                  src={data.thumbnail}
+                  alt="post-preview-image"
+                  fill
+                  className="object-contain rounded-[5px]"
+                />
+              ) : (
+                <CustomIcon
+                  icon="DEFAULT_THUMBNAIL_ICON"
+                  className="w-[56px] h-[42px]"
+                />
+              )}
+            </div>
+          </div>
           <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
-            <div className="flex items-center gap-[2px]">
+            <div className="flex items-center gap-[2px] max-w-[584px]">
               <h2
-                className={`text-[14px] leading-[20px] overflow-hidden whitespace-nowrap overflow-ellipsis ${
+                className={`text-[14px] leading-[20px] overflow-hidden whitespace-nowrap overflow-ellipsis  ${
                   isPostRead(data?.id) ? "text-gray5" : "text-gray7"
                 }`}
               >
@@ -118,7 +128,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
               </span>
             </div>
             <div className="flex font-semibold gap-1 items-center">
-              <p className="text-[12px] leading-[18px] text-gray5">
+              <p className="text-[12px] leading-[18px] text-gray5 ">
                 {getKoreanBoardType(data?.boardType)}
               </p>
               <span className="font-medium text-[12px] leading-[18px] text-gray5">
