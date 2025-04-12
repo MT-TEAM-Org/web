@@ -30,12 +30,16 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
   const currentGroup = esportsSchedule?.data?.[currentPage] || null;
 
   useEffect(() => {
-    if (isGameboard && !isLoading && currentGroup?.id && !selectedItemId) {
-      const groupId = Number(currentGroup.id);
-      setSelectedItemId(groupId);
-      handleMatchClick(groupId);
+    if (
+      isGameboard &&
+      pathname === "/matchBroadcast/ESPORTS" &&
+      !isLoading &&
+      currentGroup?.list?.length > 0
+    ) {
+      const firstMatchId = currentGroup.list[0].id;
+      router.push(`/matchBroadcast/ESPORTS/${firstMatchId}`);
     }
-  }, [isLoading, currentGroup, isGameboard]);
+  }, [isLoading, currentGroup, pathname, isGameboard]);
 
   const getMatchStatus = (match: MatchItem) => {
     const now = new Date();

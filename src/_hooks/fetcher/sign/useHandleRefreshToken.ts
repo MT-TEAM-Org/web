@@ -10,7 +10,11 @@ const useHandleRefreshToken = () => {
   const { mutate: reissue } = useReissue();
 
   useEffect(() => {
-    if (refreshToken) {
+    if (
+      refreshToken &&
+      !localStorage.getItem("refreshToken") &&
+      typeof window !== "undefined"
+    ) {
       localStorage.setItem("refreshToken", refreshToken);
       reissue();
     }

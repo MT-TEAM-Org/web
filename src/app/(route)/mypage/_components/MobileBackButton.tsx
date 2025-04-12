@@ -14,7 +14,7 @@ import Small_Search from "@/app/_components/icon/Small_Search";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
 
 interface MobileBackButtonProps {
-  mode: "posts" | "inquries" | "comments";
+  mode?: "posts" | "inquries" | "comments";
 }
 
 const MobileBackButton = ({ mode }: MobileBackButtonProps) => {
@@ -72,7 +72,7 @@ const MobileBackButton = ({ mode }: MobileBackButtonProps) => {
       className={cn(
         "hidden",
         "tablet:hidden",
-        "mobile:flex mobile:items-center mobile:justify-between mobile:w-full mobile:h-[48px] mobile:border-b mobile:border-gray2 mobile:absolute mobile:top-[124px]"
+        "mobile:flex mobile:items-center mobile:justify-between mobile:w-full mobile:h-[48px] mobile:border-b mobile:border-gray2 mobile:absolute mobile:top-[124px] mobile:left-0"
       )}
     >
       <div className="flex items-center">
@@ -109,7 +109,9 @@ const MobileBackButton = ({ mode }: MobileBackButtonProps) => {
         </div>
       ) : (
         <button
-          className="w-[48px] h-[48px] flex justify-center items-center p-[12px]"
+          className={`w-[48px] h-[48px] flex justify-center items-center p-[12px] ${
+            !mode && "hidden"
+          }`}
           onClick={() => setShowSearchType(true)}
         >
           <Small_Search />

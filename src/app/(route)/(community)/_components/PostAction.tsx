@@ -71,7 +71,7 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
         </button>
         <button
           onClick={modalPopUp}
-          className="min-w-[91px] w-auto h-[32px] flex justify-center items-center bg-white pr-[12px] pl-[10px] py-2 rounded-[5px] border border-gray3 text-[14px] leading-[14px] text-nowrap font-medium"
+          className="min-w-[91px] w-auto h-[32px] flex justify-center gap-1 items-center bg-white pr-[12px] pl-[10px] py-2 rounded-[5px] border border-gray3 text-[14px] leading-[14px] text-nowrap font-medium"
         >
           <Share />
           공유하기
