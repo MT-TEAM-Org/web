@@ -30,6 +30,15 @@ const MyPageInquirieCommentItem = ({
             >
               {isMyComment ? "작성자" : "관리자"}
             </div>
+            {isMyComment && (
+              <Image
+                alt="profile-image"
+                src={comment?.commenterImg || "/userProfileIsNull.png"}
+                width={20}
+                height={20}
+                className="w-[20px] h-[20px] rounded-full object-cover"
+              />
+            )}
             <h2 className="text-[14px] leading-[20px] text-gray6">
               {comment?.nickname}
             </h2>

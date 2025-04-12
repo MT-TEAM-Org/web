@@ -101,16 +101,12 @@ const ScheduleContainer = ({
     setSelectedIndex(index);
     const item = displayedItems[index];
 
-    if (item.groupId) {
-      router.push(`/matchBroadcast/ESPORTS/${item.groupId}`);
+    const matchId = item.id;
+    if (!matchType || matchType === "undefined" || matchType === "ALL") {
+      const matchCategory = item.category || "ESPORTS";
+      router.push(`/matchBroadcast/${matchCategory}/${matchId}`);
     } else {
-      const matchId = item.id;
-      if (!matchType || matchType === "undefined" || matchType === "ALL") {
-        const matchCategory = item.category || "ESPORTS";
-        router.push(`/matchBroadcast/${matchCategory}/${matchId}`);
-      } else {
-        router.push(`/matchBroadcast/${matchType}/${matchId}`);
-      }
+      router.push(`/matchBroadcast/${matchType}/${matchId}`);
     }
   };
 

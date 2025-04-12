@@ -15,6 +15,7 @@ import useDeleteAccount from "@/_hooks/fetcher/mypage/useDeleteAccount";
 import { cn } from "@/utils";
 import useLogout from "@/_hooks/fetcher/mypage/useLogout";
 import ConfirmModal from "@/app/_components/ConfirmModal";
+import MobileBackButton from "../_components/MobileBackButton";
 
 interface FormData {
   email: string;
@@ -181,6 +182,7 @@ const EditProfile = () => {
   const buttonStyle = "w-1/2 h-[40px] border-[1px] rounded-[5px]";
   return (
     <div className="max-w-[720px] rounded-[5px] bg-[#FFFFFF]">
+      <MobileBackButton />
       <div
         className={cn(
           "flex items-center w-full min-h-[52px] p-[12px] border-b-[1px] border-[#EEEEEE]",
@@ -203,25 +205,30 @@ const EditProfile = () => {
             <ProfileImage imageUrl={imageUrl} setImageUrl={setImageUrl} />
             <div className="flex justify-between min-h-[56px] rounded-[10px] p-[16px] bg-[#FAFAFA] text-gray8">
               <p className="leading-[24px]">가입 유형</p>
-              <p className="font-[700] leading-[24px] text-gray7">
-                {mypageData?.data?.registrationMethod === "LOCAL"
-                  ? "일반 회원가입"
-                  : `${
-                      REGISTRATION[mypageData?.data?.registrationMethod]
-                        ?.defaultText
-                    }(${
-                      REGISTRATION[mypageData?.data?.registrationMethod]?.value
-                    })`}
-              </p>
+              {mypageData?.data?.registrationMethod && (
+                <p className="font-[700] leading-[24px] text-gray7">
+                  {mypageData?.data?.registrationMethod === "LOCAL"
+                    ? "일반 회원가입"
+                    : `${
+                        REGISTRATION[mypageData?.data?.registrationMethod]
+                          ?.defaultText
+                      }(${
+                        REGISTRATION[mypageData?.data?.registrationMethod]
+                          ?.value
+                      })`}
+                </p>
+              )}
             </div>
 
             {inputObject.map((input) => (
               <div
                 key={input.id}
                 className={`flex flex-col gap-[4px] ${
+                  mypageData?.data?.registrationMethod &&
                   mypageData?.data?.registrationMethod !== "LOCAL" &&
-                  input.id === "password" &&
-                  "hidden"
+                  input.id === "password"
+                    ? "hidden"
+                    : ""
                 }`}
               >
                 <Input

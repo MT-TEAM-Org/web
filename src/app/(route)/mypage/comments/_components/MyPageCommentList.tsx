@@ -7,6 +7,7 @@ import { PostListConfig, PostListData } from "../../posts/_types/postTypes";
 import MyPagePostEmpty from "../../posts/_components/MypagePostEmpty";
 import { useSearchParams } from "next/navigation";
 import MyPageCommentItem from "./MyPageCommentItem";
+import MobileBackButton from "../../_components/MobileBackButton";
 
 interface PostResponse {
   commentType: "BOARD";
@@ -68,8 +69,9 @@ const MyPageCommentList = () => {
 
   return (
     <div>
+      <MobileBackButton mode="comments" />
       <MypageToolbar mode="comments" pageInfo={pageInfo} />
-      <div className="flex flex-col items-center w-full bg-[#FFFFFF] rounded-b-[5px]">
+      <div className="flex flex-col w-full bg-[#FFFFFF] rounded-b-[5px]">
         {pageInfo?.totalElement !== 0 ? (
           content?.map((post: Response) => (
             <MyPageCommentItem

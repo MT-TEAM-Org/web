@@ -6,6 +6,7 @@ import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
 import Image from "next/image";
 import { cn } from "@/utils";
 import { Fragment } from "react";
+import MobileBackButton from "./_components/MobileBackButton";
 
 const Mypage = () => {
   const { data, isLoading } = useGetMyPageData();
@@ -46,6 +47,7 @@ const Mypage = () => {
         "mobile:w-full mobile:h-[500px] mobile:p-[16px] mobile:gap-[16px]"
       )}
     >
+      <MobileBackButton />
       <div
         className={cn(
           "flex justify-between items-center min-h-[48px]",
@@ -154,12 +156,15 @@ const Mypage = () => {
           <p className="text-[14px] leading-[20px] font-[400] text-[#656565]">
             회원가입일: {mypage?.registeredAt}
           </p>
-          <p className="text-[14px] leading-[20px] font-[400] text-[#656565]">
-            가입 유형 : {REGISTRATION[mypage?.registrationMethod]?.defaultText}
-            {mypage?.registrationMethod !== "LOCAL"
-              ? `, ${REGISTRATION[mypage?.registrationMethod]?.value}`
-              : "일반 회원가입"}
-          </p>
+          {mypage?.registrationMethod && (
+            <p className="text-[14px] leading-[20px] font-[400] text-[#656565]">
+              가입 유형 :{" "}
+              {REGISTRATION[mypage?.registrationMethod]?.defaultText}
+              {mypage?.registrationMethod !== "LOCAL"
+                ? `, ${REGISTRATION[mypage?.registrationMethod]?.value}`
+                : "일반 회원가입"}
+            </p>
+          )}
         </div>
       </div>
       <Link
