@@ -7,6 +7,7 @@ import Link from "next/link";
 import { highlightText } from "@/utils/searchHighlightText";
 import { useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
+import isWithin24Hours from "@/utils/isWithIn24Hours";
 
 interface PostResponse {
   commentType: "BOARD" | "IMPROEMENT" | "INQUIRY" | "NEWS" | "NOTICE";
@@ -59,6 +60,7 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
   const searchParams = useSearchParams();
   const search = searchParams.get("search") || null;
   const searchType = searchParams.get("search_type") || null;
+  const isWithIn24Hours = isWithin24Hours(data?.postResponse?.createDate);
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
@@ -102,35 +104,32 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
 
       <div className="flex flex-col gap-[4px] min-h-[64px] flex-1">
         <div className="flex items-center gap-[2px]">
-          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap text-ellipsis">
+          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden text-ellipsis line-clamp-1">
             {highlightText(data?.postResponse?.title, searchType, search)}
           </h2>
           <span className="text-[12px] leading-[18px] text-gra">
             [{data?.postResponse?.commentCount}]
           </span>
           <div className="flex items-center gap-[2px] font-[900] text-[10px] leading-[18px]">
-            <span className="text-gra">N</span>
+            {isWithIn24Hours && <span className="text-gra">N</span>}
             {data?.postResponse?.isHot && <span className="text-new">H</span>}
           </div>
         </div>
 
-        <div className="flex items-center gap-[4px] text-[12px] leading-[18px] text-gray5 whitespace-nowrap">
-          <span className="font-[700]">
+        <div className="flex items-center gap-[4px] text-[12px] leading-[18px] text-gray5">
+          <span className="font-[700] whitespace-nowrap">
             {getKoreanBoardType(data?.postResponse?.boardType)}
           </span>
-          <span>{getKoreanCategoryType(data?.postResponse?.categoryType)}</span>
-          <span>{CalculateTime(data?.postResponse?.createDate)}</span>
-          <span
-            className={cn("", "mobile:overflow-hidden mobile:text-ellipsis")}
-          >
+          <span className="whitespace-nowrap">
+            {getKoreanCategoryType(data?.postResponse?.categoryType)}
+          </span>
+          <span className="whitespace-nowrap">
+            {CalculateTime(data?.postResponse?.createDate)}
+          </span>
+          <span className="overflow-hidden text-ellipsis line-clamp-1">
             {data?.postResponse?.nickname}
           </span>
-          <span
-            className={cn(
-              "text-gray4",
-              "mobile:overflow-hidden mobile:text-ellipsis mobile:max-w-[65px]"
-            )}
-          >
+          <span className={cn("text-gray4 whitespace-nowrap")}>
             IP {data?.postResponse?.createdIp}
           </span>
         </div>
@@ -138,7 +137,7 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
           <div className="flex justify-center items-center w-[16px] h-[16px]">
             <Arrow_reply size={12} />
           </div>
-          <div className="text-[12px] leading-[18px] text-gray7">
+          <div className="text-[12px] leading-[18px] text-gray7 overflow-hidden text-ellipsis line-clamp-1">
             {data?.commentResponse?.imageUrl && "(이미지)"}{" "}
             {highlightText(data?.commentResponse?.comment, searchType, search)}
           </div>
