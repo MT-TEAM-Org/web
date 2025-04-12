@@ -1,6 +1,5 @@
 import { cn } from "@/utils";
 import MypageLeftSidebar from "./_components/MypageLeftSidebar";
-import MobileBackButton from "./_components/MobileBackButton";
 
 export const metadata = {
   title: "마이페이지",
@@ -31,12 +30,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
       <div
         className={cn(
-          "mt-[20px] max-w-[1200px] flex mx-auto gap-[20px]",
+          "mt-[20px] max-w-[1200px] flex mx-auto gap-[16px]",
           "tablet:flex-col tablet:items-center tablet:gap-0",
           "mobile:mt-0 mobile:flex-col mobile:gap-0"
         )}
       >
-        {/* <MobileBackButton /> */}
         <div
           className={cn(
             "w-[160px] min-h-[364px]",
