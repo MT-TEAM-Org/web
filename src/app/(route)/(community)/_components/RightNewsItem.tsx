@@ -46,7 +46,7 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
         onClick={handleRead}
         className={`min-w-[288px] min-h-[92px] flex justify-center items-center border-b border-gray2 p-3 cursor-pointer gap-3  ${customClass}`}
       >
-        <div className=" w-[68px] h-[68px]">
+        <div className="w-[68px] h-[68px]">
           {updatedImgUrl ? (
             <Image
               src={updatedImgUrl}
