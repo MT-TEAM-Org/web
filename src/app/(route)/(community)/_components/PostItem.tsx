@@ -98,7 +98,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
                   src={data.thumbnail}
                   alt="post-preview-image"
                   fill
-                  className="object-contain rounded-[5px]"
+                  className="object-cover rounded-[5px]"
                 />
               ) : (
                 <CustomIcon
