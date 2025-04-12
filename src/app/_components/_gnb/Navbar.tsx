@@ -71,7 +71,7 @@ export default function Navbar() {
   };
 
   const navbarClass =
-    "flex min-h-[60px] p-[16px] whitespace-nowrap font-medium text-[18px] leading-7 tracking-[-0.04em] text-center cursor-pointer";
+    "min-h-[60px] p-[16px] whitespace-nowrap font-medium text-[18px] leading-7 tracking-[-0.04em] text-center cursor-pointer";
 
   return (
     <>
