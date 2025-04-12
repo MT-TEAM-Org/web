@@ -15,6 +15,7 @@ import useDeleteAccount from "@/_hooks/fetcher/mypage/useDeleteAccount";
 import { cn } from "@/utils";
 import useLogout from "@/_hooks/fetcher/mypage/useLogout";
 import ConfirmModal from "@/app/_components/ConfirmModal";
+import MobileBackButton from "../_components/MobileBackButton";
 
 interface FormData {
   email: string;
@@ -181,6 +182,7 @@ const EditProfile = () => {
   const buttonStyle = "w-1/2 h-[40px] border-[1px] rounded-[5px]";
   return (
     <div className="max-w-[720px] rounded-[5px] bg-[#FFFFFF]">
+      <MobileBackButton />
       <div
         className={cn(
           "flex items-center w-full min-h-[52px] p-[12px] border-b-[1px] border-[#EEEEEE]",
