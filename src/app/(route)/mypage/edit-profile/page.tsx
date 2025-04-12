@@ -203,25 +203,30 @@ const EditProfile = () => {
             <ProfileImage imageUrl={imageUrl} setImageUrl={setImageUrl} />
             <div className="flex justify-between min-h-[56px] rounded-[10px] p-[16px] bg-[#FAFAFA] text-gray8">
               <p className="leading-[24px]">가입 유형</p>
-              <p className="font-[700] leading-[24px] text-gray7">
-                {mypageData?.data?.registrationMethod === "LOCAL"
-                  ? "일반 회원가입"
-                  : `${
-                      REGISTRATION[mypageData?.data?.registrationMethod]
-                        ?.defaultText
-                    }(${
-                      REGISTRATION[mypageData?.data?.registrationMethod]?.value
-                    })`}
-              </p>
+              {mypageData?.data?.registrationMethod && (
+                <p className="font-[700] leading-[24px] text-gray7">
+                  {mypageData?.data?.registrationMethod === "LOCAL"
+                    ? "일반 회원가입"
+                    : `${
+                        REGISTRATION[mypageData?.data?.registrationMethod]
+                          ?.defaultText
+                      }(${
+                        REGISTRATION[mypageData?.data?.registrationMethod]
+                          ?.value
+                      })`}
+                </p>
+              )}
             </div>
 
             {inputObject.map((input) => (
               <div
                 key={input.id}
                 className={`flex flex-col gap-[4px] ${
+                  mypageData?.data?.registrationMethod &&
                   mypageData?.data?.registrationMethod !== "LOCAL" &&
-                  input.id === "password" &&
-                  "hidden"
+                  input.id === "password"
+                    ? "hidden"
+                    : ""
                 }`}
               >
                 <Input

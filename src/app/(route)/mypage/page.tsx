@@ -154,12 +154,15 @@ const Mypage = () => {
           <p className="text-[14px] leading-[20px] font-[400] text-[#656565]">
             회원가입일: {mypage?.registeredAt}
           </p>
-          <p className="text-[14px] leading-[20px] font-[400] text-[#656565]">
-            가입 유형 : {REGISTRATION[mypage?.registrationMethod]?.defaultText}
-            {mypage?.registrationMethod !== "LOCAL"
-              ? `, ${REGISTRATION[mypage?.registrationMethod]?.value}`
-              : "일반 회원가입"}
-          </p>
+          {mypage?.registrationMethod && (
+            <p className="text-[14px] leading-[20px] font-[400] text-[#656565]">
+              가입 유형 :{" "}
+              {REGISTRATION[mypage?.registrationMethod]?.defaultText}
+              {mypage?.registrationMethod !== "LOCAL"
+                ? `, ${REGISTRATION[mypage?.registrationMethod]?.value}`
+                : "일반 회원가입"}
+            </p>
+          )}
         </div>
       </div>
       <Link
