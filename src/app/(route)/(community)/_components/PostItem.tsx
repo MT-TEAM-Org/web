@@ -86,7 +86,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
           href={`/board/${boardType}/${data.categoryType}/${data.id}`}
           key={`${data.id}-${index}`}
           onClick={() => handlePostClick(data.id)}
-          className={`flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]`}
+          className={`flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px] `}
         >
           <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1">
             <span>{numberOverThousand(data?.id)}</span>
@@ -109,9 +109,9 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
             </div>
           </div>
           <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
-            <div className="flex items-center gap-[2px]">
+            <div className="flex items-center gap-[2px] max-w-[584px]">
               <h2
-                className={`text-[14px] leading-[20px] overflow-hidden whitespace-nowrap overflow-ellipsis ${
+                className={`text-[14px] leading-[20px] overflow-hidden whitespace-nowrap overflow-ellipsis  ${
                   isPostRead(data?.id) ? "text-gray5" : "text-gray7"
                 }`}
               >
@@ -128,7 +128,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
               </span>
             </div>
             <div className="flex font-semibold gap-1 items-center">
-              <p className="text-[12px] leading-[18px] text-gray5">
+              <p className="text-[12px] leading-[18px] text-gray5 ">
                 {getKoreanBoardType(data?.boardType)}
               </p>
               <span className="font-medium text-[12px] leading-[18px] text-gray5">

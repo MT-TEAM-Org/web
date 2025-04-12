@@ -1,14 +1,15 @@
 "use client";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
+
+import { usePathname, useRouter } from "next/navigation";
 
 const LeftSidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const pathParts = pathname.split("/");
 
+  const pathParts = pathname.split("/");
   const rootPath = pathParts[1];
-  const boardType = pathname.split("/")[2];
+  const boardType = pathParts[2];
+  const activeTab = pathParts[3]?.toUpperCase();
 
   const boardList = [
     { name: "전체", id: "ALL", path: `/${rootPath}/${boardType}/ALL` },
@@ -43,19 +44,21 @@ const LeftSidebar = () => {
   return (
     <div className="w-[160px] h-[364px]">
       <div className="w-full bg-white rounded-[5px]">
-        {boardList.map((board) => (
-          <div
-            onClick={() => board.path && handleRoute(board.path)}
-            key={board.id}
-            className={`w-full h-[52px] px-[16px] py-[12px] flex justify-start items-center  cursor-pointer hover:text-gra ${
-              board.id && pathname.includes(board.id)
-                ? "font-[700] text-gra"
-                : "font-[400] text-gray7"
-            }`}
-          >
-            <p>{board.name}</p>
-          </div>
-        ))}
+        {boardList.map((board) => {
+          const isActive = board.id === activeTab;
+
+          return (
+            <div
+              key={board.id}
+              onClick={() => handleRoute(board.path)}
+              className={`w-full h-[52px] px-[16px] py-[12px] flex justify-start items-center cursor-pointer hover:text-gra ${
+                isActive ? "font-[700] text-gra" : "font-[400] text-gray7"
+              }`}
+            >
+              <p>{board.name}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
