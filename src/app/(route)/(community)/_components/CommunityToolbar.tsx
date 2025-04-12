@@ -94,7 +94,7 @@ export const CommunityToolbar = ({
   ];
 
   const buttonStyle =
-    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[21px]";
+    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[20px]";
 
   return (
     <div className="w-full max-w-[720px] sticky top-0 bg-white z-10">
@@ -126,7 +126,7 @@ export const CommunityToolbar = ({
           ${
             isActive
               ? "font-[700] text-gray7 border-gray7"
-              : "font-[400] text-[#424242] border-gray5"
+              : "font-[500] text-gray7 border-gray3"
           }
         `}
               >
