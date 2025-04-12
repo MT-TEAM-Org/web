@@ -14,6 +14,8 @@ interface PredictionData {
   awayTeam: Team;
   id: number;
   matchId: number;
+  startTime: string;
+  vote: boolean;
 }
 
 interface PredictionResponse {
@@ -26,7 +28,12 @@ const getMatchPrediction = async (
   matchId: number
 ): Promise<PredictionResponse> => {
   const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}api/match/prediction/${matchId}`
+    `${process.env.NEXT_PUBLIC_API_URL}api/match/prediction/${matchId}`,
+    {
+      headers: {
+        Authorization: `${localStorage.getItem("accessToken")}`,
+      },
+    }
   );
   return response.data;
 };
