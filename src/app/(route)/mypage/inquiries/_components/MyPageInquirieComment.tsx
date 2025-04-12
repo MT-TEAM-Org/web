@@ -7,6 +7,7 @@ import MyPageInquirieCommentItem from "./MyPageInquirieCommentItem";
 import { useState } from "react";
 import { CommentItem, CommentResponse } from "@/_types/comment";
 import CommentMoreButton from "@/app/_components/_comment/CommentMoreButton";
+import { cn } from "@/utils";
 
 interface MyPageInquirieCommentProps {
   ref: React.RefObject<HTMLDivElement>;
@@ -46,13 +47,23 @@ const MyPageInquirieComment = ({
 
   return (
     <>
-      <div className="bg-gray1 rounded-t-[5px] rounded-b-[10px]" ref={ref}>
-        <div className="flex justify-between items-center min-h-[48px] py-[4px] pl-[16px]">
+      <div className={cn("min-h-[232px]", "mobile:min-h-0")} ref={ref}>
+        <div className="flex justify-between items-center min-h-[48px] py-[4px] pl-[16px] bg-gray1 rounded-t-[5px]">
           <div className="flex items-center gap-[8px]">
-            <span className="font-[700] text-[18px] leading-[28px] text-gray8">
+            <span
+              className={cn(
+                "font-[700] text-[18px] leading-[28px] text-gray8",
+                "mobile:text-[12px]"
+              )}
+            >
               댓글
             </span>
-            <span className="text-[14px] leading-[20px] text-gray5">
+            <span
+              className={cn(
+                "text-[14px] leading-[20px] text-gray5",
+                "mobile:text-[12px]"
+              )}
+            >
               총 {totalComments}개
             </span>
           </div>
@@ -64,7 +75,12 @@ const MyPageInquirieComment = ({
             >
               <Refresh />
             </button>
-            <p className="font-bold text-[14px] leading-[14px] text-gray6">
+            <p
+              className={cn(
+                "font-bold text-[14px] leading-[14px] text-gray6",
+                "mobile:text-[12px]"
+              )}
+            >
               새로고침
             </p>
           </div>

@@ -7,6 +7,7 @@ import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { useSearchParams } from "next/navigation";
 import { highlightText } from "@/utils/searchHighlightText";
 import { cn } from "@/utils";
+import isWithin24Hours from "@/utils/isWithIn24Hours";
 
 interface MyPagePostItemProps {
   data: {
@@ -21,6 +22,7 @@ interface MyPagePostItemProps {
     commentCount: number;
     createdAt: string;
     lastModifiedDate: string;
+    isHot: boolean;
     boardCommentSearchList: {
       comment: string;
       commentId: number;
@@ -33,6 +35,7 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
   const searchParams = useSearchParams();
   const search = searchParams.get("search") || null;
   const searchType = searchParams.get("search_type") || null;
+  const isWithIn24Hours = isWithin24Hours(data?.createdAt);
 
   const boardTypeMap: { [key: string]: string } = {
     FOOTBALL: "축구",
@@ -75,43 +78,43 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
         blurDataURL="/Preview_loading_image.png"
       />
       <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
-        <div
-          className={cn(
-            "w-[584px] flex items-center gap-[2px]",
-            "mobile:w-full"
-          )}
-        >
-          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden whitespace-nowrap text-ellipsis">
+        <div className={cn("w-full flex items-center gap-[2px]")}>
+          <h2 className="text-[14px] leading-[20px] text-gray7 overflow-hidden text-ellipsis line-clamp-1">
             {highlightText(data?.title, searchType, search)}
           </h2>
-          <p className="text-Primary font-medium text-[12px] leading-[18px]">
-            [{data?.commentCount}]
-          </p>
-          <span className="font-black text-[10px] leading-[18px] text-primary">
-            N
-          </span>
-          <span className="font-black text-[10px] leading-[18px] text-[#DC2800]">
-            H
-          </span>
+          {data?.commentCount ? (
+            <p className="text-gra font-medium text-[12px] leading-[18px] whitespace-nowrap">
+              [{data?.commentCount}]
+            </p>
+          ) : null}
+          {isWithIn24Hours && (
+            <span className="font-black text-[10px] leading-[18px] text-gra">
+              N
+            </span>
+          )}
+          {data?.isHot && (
+            <span className="font-black text-[10px] leading-[18px] text-new">
+              H
+            </span>
+          )}
         </div>
-        <div className="flex gap-1 items-center whitespace-nowrap text-gray5 text-[12px] leading-[18px]">
-          <p className="text-[12px] leading-[18px] font-[700]">
+        <div className="flex gap-1 items-center text-gray5 text-[12px] leading-[18px]">
+          <p className="text-[12px] leading-[18px] font-[700] whitespace-nowrap">
             {getKoreanBoardType(data?.boardType)}
           </p>
-          <span>{getKoreanCategoryType(data?.categoryType)}</span>
-          <span>{CalculateTime(data?.createdAt)}</span>
+          <span className="whitespace-nowrap">
+            {getKoreanCategoryType(data?.categoryType)}
+          </span>
+          <span className="whitespace-nowrap">
+            {CalculateTime(data?.createdAt)}
+          </span>
           <span
-            className={cn("", "mobile:overflow-hidden mobile:text-ellipsis")}
+            className="overflow-hidden text-ellipsis line-clamp-1"
             title={data?.nickname}
           >
             {data?.nickname}
           </span>
-          <span
-            className={cn(
-              "text-gray4",
-              "mobile:overflow-hidden mobile:text-ellipsis mobile:max-w-[65px]"
-            )}
-          >
+          <span className="text-gray4 whitespace-nowrap">
             IP {data?.createdIp}
           </span>
         </div>
@@ -120,7 +123,7 @@ const MyPagePostItem = ({ data }: MyPagePostItemProps) => {
             <div className="flex justify-center items-center w-[16px] h-[16px]">
               <Arrow_reply size={12} />
             </div>
-            <div className="text-[12px] leading-[18px] text-gray7">
+            <div className="text-[12px] leading-[18px] text-gray7 overflow-hidden text-ellipsis line-clamp-1">
               {data?.boardCommentSearchList.imageUrl && "(이미지)"}{" "}
               {highlightText(
                 data?.boardCommentSearchList.comment,

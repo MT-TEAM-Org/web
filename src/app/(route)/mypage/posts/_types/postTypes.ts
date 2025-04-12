@@ -20,6 +20,7 @@ export interface PostListData {
     commentCount: number;
     createdAt: string;
     lastModifiedDate: string;
+    isHot: boolean;
     boardCommentSearchList: {
       comment: string;
       commentId: number;

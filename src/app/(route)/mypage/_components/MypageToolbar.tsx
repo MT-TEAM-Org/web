@@ -114,7 +114,12 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
           mode={mode}
         />
       </div>
-      <div className="flex justify-between items-center p-[12px]">
+      <div
+        className={cn(
+          "flex justify-between items-center p-[12px]",
+          "mobile:min-h-[48px] mobile:p-[14px]"
+        )}
+      >
         {mode !== "inquries" ? (
           <OrderButtons
             orderType={paramsConfig.orderType as ListConfig["orderType"]}

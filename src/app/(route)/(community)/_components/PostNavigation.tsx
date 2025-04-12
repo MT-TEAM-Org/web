@@ -3,6 +3,7 @@
 import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Arrow_up from "@/app/_components/icon/Arrow_up";
 import Double_arrow_up from "@/app/_components/icon/Double_arrow_up";
+import { cn } from "@/utils";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -45,7 +46,12 @@ const PostNavigation = ({
   };
 
   return (
-    <div className="w-full max-w-[672px] min-h-[40px] flex justify-between">
+    <div
+      className={cn(
+        "w-full max-w-[672px] min-h-[40px] flex justify-between",
+        "mobile:hidden"
+      )}
+    >
       <div className="flex gap-2">
         <button
           onClick={() => onClick("prev")}
