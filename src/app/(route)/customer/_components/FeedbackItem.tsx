@@ -154,7 +154,7 @@ const FeedbackItem = ({
       </div>
 
       {hasStatus && (
-        <div className="flex-shrink-0 ml-2">
+        <div className="mobile:hidden ml-2">
           <FeedbackItemStatus status={feedbackData?.status} />
         </div>
       )}
