@@ -22,17 +22,24 @@ const MainRightBar = () => {
     data: gameEventData,
     isLoading: eventIsLoading,
     isError: eventIsError,
+    refetch: refetchGameEvent,
   } = useGetGameEvent({
     pageNum,
   });
-  const handleButtonStyle = (value: boolean) => {
-    setButtonActive(value);
+
+  const handleRefresh = () => {
+    if (buttonActive) {
+      refetchNewsData?.();
+    } else {
+      refetchGameEvent?.();
+    }
   };
 
   const {
     data: filteredNewsData,
     isLoading: newsIsLoading,
     isError: newsIsError,
+    refetch: refetchNewsData,
   } = useGetMainRightBarNewsData({ page: currentPage }) ?? {};
 
   const handleToPage = (type: "prev" | "next") => {
@@ -81,7 +88,7 @@ const MainRightBar = () => {
                 <RightNewsItemSkeleton key={i} />
               ))
             ) : newsIsError || !filteredNewsData?.content?.length ? (
-              <EmptyGameBox title="뉴스 정보" />
+              <EmptyGameBox title="뉴스 정보" onClick={handleRefresh} />
             ) : (
               filteredNewsData.content.map((data: NewsItemType) => (
                 <RightNewsItem
@@ -95,7 +102,7 @@ const MainRightBar = () => {
         ) : eventIsLoading ? (
           Array.from({ length: 5 }).map((_, i) => <EventItemSkeleton key={i} />)
         ) : eventIsError || !gameEventData?.content?.length ? (
-          <EmptyGameBox title="이벤트 정보" />
+          <EmptyGameBox title="이벤트 정보" onClick={handleRefresh} />
         ) : (
           gameEventData.content.map((event) => (
             <EventItem key={event.id} gameEventData={event} />
