@@ -92,7 +92,7 @@ const FeedbackItem = ({
         )}
       >
         <div className="w-full min-h-[20px] flex items-center gap-[2px]">
-          <p className="text-[14px] leading-5 text-gray7 text-ellipsis overflow-hidden line-clamp-1">
+          <p className="text-[14px] leading-5 text-gray7 text-ellipsis overflow-hidden line-clamp-1 whitespace-nowrap">
             {searchType === "TITLE" || searchType === "TITLE_CONTENT"
               ? highlightText(feedbackData?.title, searchType, searchString)
               : feedbackData?.title}
