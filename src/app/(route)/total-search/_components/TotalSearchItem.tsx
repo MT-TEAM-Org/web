@@ -114,6 +114,7 @@ const TotalSearchItem = ({
               {searchType === "TITLE" || searchType === "TITLE_CONTENT"
                 ? highlightText(data?.title, searchType, searchString)
                 : data?.title}
+              ㅁㄴㅇ
             </h2>
             {data?.commentCount > 0 && (
               <p className="text-gra font-medium text-[12px] leading-[18px]">
