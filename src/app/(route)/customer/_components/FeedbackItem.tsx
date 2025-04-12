@@ -74,7 +74,7 @@ const FeedbackItem = ({
             src={feedbackData.thumbnail}
             alt="post-preview-image"
             fill
-            className="object-cover rounded-[5px]"
+            className="object-contain rounded-[5px]"
           />
         ) : (
           <CustomIcon
