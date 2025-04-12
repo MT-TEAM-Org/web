@@ -98,7 +98,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
                   src={data.thumbnail}
                   alt="post-preview-image"
                   fill
-                  className="object-contain rounded-[5px]"
+                  className="object-cover rounded-[5px]"
                 />
               ) : (
                 <CustomIcon
@@ -117,10 +117,12 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
               >
                 {data?.title}
               </h2>
-              <p className="text-Primary font-medium text-[12px] leading-[18px]">
-                [{data?.commentCount}]
-              </p>
-              <span className="font-black text-[10px] leading-[18px] text-primary">
+              {data?.commentCount > 0 && (
+                <p className="text-gra font-medium text-[12px] leading-[18px]">
+                  [{data.commentCount}]
+                </p>
+              )}
+              <span className="font-black text-[10px] leading-[18px] text-gra">
                 N
               </span>
               <span className="font-black text-[10px] leading-[18px] text-[#DC2800]">
