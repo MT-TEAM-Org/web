@@ -7,7 +7,7 @@ import MyPagePostEmpty from "./MypagePostEmpty";
 import { useSearchParams } from "next/navigation";
 import { PostListConfig, PostListData } from "../_types/postTypes";
 import MypagePostSkelton from "./MypagePostSkelton";
-import MobileBackButton from "../../_components/MobileBackButton";
+import MobileBackButtonWrapper from "../../_components/MobileBackButton";
 
 const MyPagePostList = () => {
   const searchParams = useSearchParams();
@@ -27,7 +27,7 @@ const MyPagePostList = () => {
 
   return (
     <div>
-      <MobileBackButton mode="posts" />
+      <MobileBackButtonWrapper mode="posts" />
       <MypageToolbar mode="posts" pageInfo={pageInfo} />
       <div className="flex flex-col w-full bg-[#FFFFFF] rounded-b-[5px]">
         {pageInfo?.totalElement !== 0 ? (
