@@ -4,7 +4,7 @@ import Arrow_left from "@/app/_components/icon/Arrow_left";
 import { cn } from "@/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import SearchFilter from "./SearchFilter";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import {
   INQURIES_SEARCH_OPTIONS,
   POST_SEARCH_OPTIONS,
@@ -121,4 +121,12 @@ const MobileBackButton = ({ mode }: MobileBackButtonProps) => {
   );
 };
 
-export default MobileBackButton;
+const MobileBackButtonWrapper = ({ mode }: MobileBackButtonProps) => {
+  return (
+    <Suspense fallback={""}>
+      <MobileBackButton mode={mode} />
+    </Suspense>
+  );
+};
+
+export default MobileBackButtonWrapper;
