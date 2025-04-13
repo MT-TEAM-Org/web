@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import NoticeInfo from "./_components/NoticeInfo";
 import getNoticeInfoData from "@/services/customer/getNoticeInfoData";
 
+const stripHtml = (html: string) => html.replace(/<[^>]*>?/gm, "");
+
 export async function generateMetadata({
   params,
 }: {
@@ -14,12 +16,15 @@ export async function generateMetadata({
       id: noticeId,
     });
 
+    const rawContent = noticeDetail.content || "공지사항 상세 내용";
+    const plainTextContent = stripHtml(rawContent);
+
     return {
       title: noticeDetail.title || "공지사항 상세 페이지",
       description: noticeDetail.content || "공지사항 상세 내용",
       openGraph: {
         title: noticeDetail.title || "공지사항 상세 페이지",
-        description: noticeDetail.content || "공지사항 상세 내용",
+        description: plainTextContent,
         images:
           noticeDetail.imgUrl === ""
             ? [{ url: "/Metadata.png", width: 1200, height: 630 }]
