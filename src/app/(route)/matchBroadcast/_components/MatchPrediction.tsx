@@ -28,6 +28,9 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
   const isStart = startTime ? now >= startTime : false;
 
   const isVoted = matchData?.data?.vote === true;
+  const voteHome = matchData?.data?.side === "HOME";
+  const voteAway = matchData?.data?.side === "AWAY";
+  console.log(voteHome, "voteHome");
 
   const isLoggedIn = () => {
     const token = localStorage.getItem("accessToken");
@@ -100,14 +103,20 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
       >
         {isVoted && (
           <div className="absolute inset-0 flex w-full h-full">
-            <div className="h-full bg-gray8 w-1/2"></div>
-            <div className="h-full bg-gray6 w-1/2"></div>
+            <div
+              className={`h-full ${voteHome ? "bg-gray8" : "bg-gray6"}`}
+              style={{ width: `${matchData?.data?.home}%` }}
+            ></div>
+            <div
+              className={`h-full ${voteAway ? "bg-gray8" : "bg-gray6"}`}
+              style={{ width: `${matchData?.data?.away}%` }}
+            ></div>
           </div>
         )}
         <div
           className={`flex justify-between items-center text-white w-full min-h-[54px] relative z-10 font-[700] text-[24px] leading-[38px] ${
-            !isVoted ? "bg-gray3" : ""
-          }`}
+            isVoted ? "pointer-events-none" : ""
+          } ${!isVoted ? "bg-gray3" : ""}`}
         >
           <div
             onClick={() => handleVote("HOME")}
