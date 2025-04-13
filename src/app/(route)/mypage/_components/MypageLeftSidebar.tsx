@@ -90,7 +90,7 @@ const MypageLeftSidebar = () => {
                   ? "font-[700] text-[#00ADEE] bg-bg0"
                   : "font-[400] text-[#424242]",
                 "tablet:justify-center tablet:p-0",
-                "mobile:justify-center mobile:h-[48px] mobile:py-[13px] mobile:text-[14px] mobile:leading-[28px] mobile:max-w-[112px] mobile:bg-white",
+                "mobile:justify-center mobile:h-[48px] mobile:py-[13px] mobile:text-[14px] mobile:leading-[28px] mobile:max-w-[112px] mobile:bg-transparent",
                 board.name === "로그아웃" && "mobile:hidden",
                 {
                   "mobile:text-gray7 mobile:border-b-2 mobile:border-gray7":
