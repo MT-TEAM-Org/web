@@ -128,7 +128,12 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
         ) : (
           <AnswerCheck />
         )}
-        <Pagination pageInfo={pageInfo} onPageChangeAction={handlePageChange} />
+        <div className="mobile:hidden">
+          <Pagination
+            pageInfo={pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );

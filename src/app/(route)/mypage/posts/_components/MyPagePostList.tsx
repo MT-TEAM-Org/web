@@ -8,9 +8,14 @@ import { useSearchParams } from "next/navigation";
 import { PostListConfig, PostListData } from "../_types/postTypes";
 import MypagePostSkelton from "./MypagePostSkelton";
 import MobileBackButtonWrapper from "../../_components/MobileBackButton";
+import Pagination from "../../_components/Pagination";
+import { useRouter } from "next/navigation";
+import changeURLParams from "../../util/changeURLParams";
+import { cn } from "@/utils";
 
 const MyPagePostList = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const postOptions: PostListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
     size: 5,
@@ -25,6 +30,13 @@ const MyPagePostList = () => {
   const { data, isLoading } = useMyPostList(postOptions);
   const { content, pageInfo } = data?.data?.list || {};
 
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > pageInfo.totalPage) return;
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
+  };
+
   return (
     <div>
       <MobileBackButtonWrapper mode="posts" />
@@ -38,6 +50,17 @@ const MyPagePostList = () => {
           <MyPagePostEmpty />
         )}
         {isLoading && <MypagePostSkelton />}
+        <div
+          className={cn(
+            "hidden",
+            "mobile:block mobile:mt-[12px] mobile:mx-auto mobile:mb-[24px]"
+          )}
+        >
+          <Pagination
+            pageInfo={pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );
