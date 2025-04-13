@@ -42,12 +42,12 @@ const ToastPopUp = ({
       textColor: "text-white",
     },
     info: {
-      style: "bg-toastInfo",
-      textColor: "text-gray8",
+      style: "bg-[#000000]",
+      textColor: "text-white",
     },
     warning: {
       style: "bg-toastWarning",
-      textColor: "text-white",
+      textColor: "text-warning",
     },
     error: {
       style: "bg-toastError",

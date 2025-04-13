@@ -1,13 +1,13 @@
 "use client";
 import useGetMatchPrediction from "@/_hooks/fetcher/match-controller/useGetMatchPrediction";
 import usePatchMatchPrediction from "@/_hooks/fetcher/match-controller/usePatchMatchPrediction";
+import { useToast } from "@/_hooks/useToast";
 import {
   MatchItem,
   MatchScheduleResponse,
 } from "@/services/match-controller/getMatchSchedule";
 import { Skeleton } from "@heroui/react";
 import Image from "next/image";
-import { useState } from "react";
 
 interface MatchPredictionProps {
   matchId: number;
@@ -17,18 +17,32 @@ interface MatchPredictionProps {
 }
 
 const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
-  const [isVoted, setIsVoted] = useState(false);
+  const toast = useToast();
   const { data: matchData } = useGetMatchPrediction(matchId);
   const votePrediction = usePatchMatchPrediction();
 
   console.log(matchData, "matchData");
 
+  const now = new Date();
+  const startTime = new Date(matchData?.data?.startTime);
+  const isStart = startTime ? now >= startTime : false;
+
+  const isVoted = matchData?.data?.vote === true;
+
+  const isLoggedIn = () => {
+    const token = localStorage.getItem("accessToken");
+    return !!token;
+  };
+
   const handleVote = (side: "HOME" | "AWAY") => {
-    votePrediction.mutate({
-      matchPredictionId: matchData?.data?.id,
-      side: side,
-    });
-    setIsVoted(true);
+    if (!isLoggedIn()) {
+      toast.error("로그인 후 이용해주세요.", "");
+    } else {
+      votePrediction.mutate({
+        matchPredictionId: matchData?.data?.id,
+        side: side,
+      });
+    }
   };
 
   return (
@@ -37,8 +51,12 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
         <p className="font-[700] text-[24px] leading-[38px] text-black whitespace-nowrap">
           승부예측
         </p>
-        <p className="text-center min-w-[81px] h-[28px] font-[700] text-[14px] leading-[20px] py-[4px] px-[8px] bg-warning text-white rounded-[5px]">
-          예측 진행중
+        <p
+          className={`text-center min-w-[81px] h-[28px] font-[700] text-[14px] leading-[20px] py-[4px] px-[8px] rounded-[5px] ${
+            isStart ? "bg-gray2 text-gray5" : "bg-warning text-white "
+          }`}
+        >
+          {isStart ? "예측 종료" : "예측 진행중"}
         </p>
       </div>
       <div className="w-full h-[40px] mb-[8px]">
@@ -75,7 +93,11 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
           </div>
         </div>
       </div>
-      <div className="relative w-full min-h-[54px] rounded-[5px] overflow-hidden">
+      <div
+        className={`relative w-full min-h-[54px] rounded-[5px] overflow-hidden mb-[12px] ${
+          isStart ? "pointer-events-none" : ""
+        }`}
+      >
         {isVoted && (
           <div className="absolute inset-0 flex w-full h-full">
             <div className="h-full bg-gray8 w-1/2"></div>
