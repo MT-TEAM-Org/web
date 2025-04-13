@@ -21,8 +21,6 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
   const { data: matchData } = useGetMatchPrediction(matchId);
   const votePrediction = usePatchMatchPrediction();
 
-  console.log(matchData, "matchData");
-
   const now = new Date();
   const startTime = new Date(matchData?.data?.startTime);
   const isStart = startTime ? now >= startTime : false;
@@ -30,7 +28,6 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
   const isVoted = matchData?.data?.vote === true;
   const voteHome = matchData?.data?.side === "HOME";
   const voteAway = matchData?.data?.side === "AWAY";
-  console.log(voteHome, "voteHome");
 
   const isLoggedIn = () => {
     const token = localStorage.getItem("accessToken");
