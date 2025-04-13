@@ -69,7 +69,7 @@ const NoticeItem = ({
       )}
     >
       <div className="w-[32px] h-[32px] rounded-[2px] bg-gray1 flex items-center justify-center text-center text-gray7 flex-shrink-0">
-        <p className="w-[25px] font-bold text-[14px] leading-5">
+        <p className="w-[25px] font-bold text-[14px] leading-5 whitespace-nowrap">
           {!isFeedback ? noticeData?.id : "공지"}
         </p>
       </div>
@@ -88,13 +88,7 @@ const NoticeItem = ({
           />
         )}
       </div>
-      <div
-        className={cn(
-          "w-full min-h-[42px] flex gap-1 flex-col",
-          "tablet:max-w-[552px]",
-          "mobile:max-w-[224px] mobile:gap-0"
-        )}
-      >
+      <div className="w-full min-h-[42px] flex gap-1 flex-col">
         <div className="w-full min-h-[20px] flex items-center gap-[2px]">
           <p className="text-[14px] leading-5 text-gray7 text-ellipsis overflow-hidden line-clamp-1">
             {searchType === "TITLE" || searchType === "TITLE_CONTENT"
