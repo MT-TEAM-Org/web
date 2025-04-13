@@ -216,49 +216,35 @@ const CustomerTiptap = ({
           />
         </div>
       </div>
-      {/* TODO: 글쓰기 페이지 height 수정 및 공지사항 작성 height 수정, 툴바 수정 */}
       <LinkPreview videoUrl={videoUrl} />
       <div className="w-full overflow-hidden">
-        <div className="relative w-full mt-3">
+        <div className="relative w-full mt-3 border border-t-0 rounded-[5px]">
           <Toolbar editor={editor} content={watch("content")} />
-          <div className="w-full relative border-b border-x rounded-b-[5px]">
+          <div
+            className={cn(
+              "w-full relative",
+              "mobile:overflow-y-auto mobile:max-h-[320px]"
+            )}
+          >
             <EditorContent editor={editor} className="w-full" />
             {showPlaceholder && (
-              <div
-                className="w-full absolute top-2.5 left-0 pointer-events-none whitespace-pre-line text-gray7 font-medium text-[14px] leading-[22px] text-left"
-                style={{ zIndex: 0 }}
-              >
-                {showPlaceholder && (
-                  <div
-                    className={cn(
-                      "absolute top-0 left-0 pointer-events-none py-2 flex flex-col gap-[2px]",
-                      "mobile:min-h-[304px] mobile:overflow-y-auto mobile:rounded-[5px] mobile:px-4 mobile:py-3 mobile:font-medium mobile:leading-[22px] mobile:tracking-[-0.02em]"
-                    )}
-                    style={{ zIndex: 0 }}
-                  >
-                    {writeType === "feedback" ? (
-                      <p
-                        className={cn(
-                          "font-bold text-[14px] leading-5 px-4 text-gray7",
-                          "mobile:font-medium"
-                        )}
-                      >
-                        자유롭게 글을 작성해주시되, 국내/해외기사의 경우
-                        유의해주세요!
-                      </p>
-                    ) : (
-                      <p className="px-4 text-[14px] leading-[22px] tracking-[-0.02em] text-gray5">
-                        내용을 입력해주세요.
-                      </p>
-                    )}
-                    {writeType === "feedback" && (
-                      <ol className="flex flex-col gap-[2px] text-[14px] leading-[22px] tracking-[-0.02em] text-gray7 list-decimal px-8">
-                        {guideItems.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ol>
-                    )}
-                  </div>
+              <div className="absolute top-0 left-0 pointer-events-none py-2 flex flex-col gap-[2px] w-full">
+                {writeType === "feedback" ? (
+                  <p className="font-bold text-[14px] leading-5 px-4 text-gray7 mobile:font-medium">
+                    자유롭게 글을 작성해주시되, 국내/해외기사의 경우
+                    유의해주세요!
+                  </p>
+                ) : (
+                  <p className="px-4 pt-2 text-[14px] leading-[22px] tracking-[-0.02em] text-gray5">
+                    내용을 입력해주세요.
+                  </p>
+                )}
+                {writeType === "feedback" && (
+                  <ol className="flex flex-col gap-[2px] text-[14px] leading-[22px] tracking-[-0.02em] text-gray7 list-decimal px-8">
+                    {guideItems.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ol>
                 )}
               </div>
             )}
