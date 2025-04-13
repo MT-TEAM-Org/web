@@ -2,6 +2,7 @@ import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { CommentItem } from "@/_types/comment";
 import { CalculateTime } from "@/app/_components/CalculateTime";
 import Image from "next/image";
+import { cn } from "@/utils";
 
 interface ReplyCommentItemProps {
   reply: CommentItem;
@@ -23,7 +24,9 @@ const ReplyCommentItem = ({
       <div className="flex gap-[12px] min-h-[112px] p-[12px] border-b border-gray1 bg-gray1">
         <Arrow_reply size={18} />
         <div className="flex flex-col gap-[12px] min-h-[52px]">
-          <div className="flex items-center gap-[8px]">
+          <div
+            className={cn("flex items-center gap-[8px]", "mobile:items-start")}
+          >
             <div
               className={`flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white ${
                 reply?.publicId === publicId ? "bg-gray7" : "bg-[#00ADEE]"
@@ -31,15 +34,40 @@ const ReplyCommentItem = ({
             >
               {reply?.publicId === publicId ? "작성자" : "관리자"}
             </div>
-            <h2 className="text-[14px] leading-[20px] text-gray6">
-              {reply?.nickname}
-            </h2>
-            <span className="text-[12px] leading-[18px] text-gray5">
-              {CalculateTime(reply?.createDate)}
-            </span>
-            <span className="text-[12px] leading-[18px] text-gray4">
-              {reply?.createdIp}
-            </span>
+            {reply?.publicId === publicId && (
+              <Image
+                alt="profile-image"
+                src={reply?.commenterImg || "/userProfileIsNull.png"}
+                width={20}
+                height={20}
+                className="w-[20px] h-[20px] rounded-full object-cover"
+              />
+            )}
+            <div
+              className={cn(
+                "flex items-center gap-[8px]",
+                "mobile:flex-col mobile:gap-0 mobile:items-start mobile:justify-center"
+              )}
+            >
+              <h2 className="text-[14px] leading-[20px] text-gray6">
+                {reply?.nickname}
+              </h2>
+              <div
+                className={cn(
+                  "flex items-center gap-[8px]",
+                  "mobile:gap-[4px]"
+                )}
+              >
+                <span className="text-[12px] leading-[18px] text-gray5">
+                  {CalculateTime(reply?.createDate)}
+                </span>
+                {reply?.publicId === publicId && (
+                  <span className="text-[12px] leading-[18px] text-gray4">
+                    {reply?.createdIp}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
           {reply?.imageUrl && (
             <Image
