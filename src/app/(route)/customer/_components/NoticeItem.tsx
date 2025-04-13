@@ -116,7 +116,7 @@ const NoticeItem = ({
         {noticeData?.commentSearchList?.comment && (
           <div className="w-full flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
             <div className="w-4 h-4 flex-shrink-0">
-              <Arrow_reply size={16} />
+              <Arrow_reply size={12} />
             </div>
             <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em] truncate">
               {noticeData?.commentSearchList?.imageUrl && <span>(이미지)</span>}
