@@ -170,6 +170,7 @@ const CustomerWrite = () => {
           onImageUpload={handleImageUpload}
           setValue={setValue}
           onSubmit={handleSubmit(onSubmit)}
+          writeType={writeType}
         />
       </form>
     </div>

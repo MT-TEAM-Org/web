@@ -18,7 +18,7 @@ import {
 import { LinkIcon } from "lucide-react";
 import LinkPreview from "@/app/_components/LinkPreview";
 import Toolbar from "@/app/_components/_tiptap/Toolbar";
-import { NOTICE_RULES } from "../_utils/noticeRules";
+import { guideItems, NOTICE_RULES } from "../_utils/noticeRules";
 import { cn } from "@/utils";
 
 interface FormData {
@@ -37,6 +37,7 @@ interface CustomerTiptapProps {
   onImageUpload: (blob: Blob) => Promise<string>;
   setValue: UseFormSetValue<FormData>;
   onSubmit?: () => void;
+  writeType: string;
 }
 
 const isYoutubeLink = (url: string) => {
@@ -51,6 +52,7 @@ const CustomerTiptap = ({
   initialContent,
   onImageUpload,
   onSubmit,
+  writeType,
 }: CustomerTiptapProps) => {
   const router = useRouter();
   const [isEditorReady, setIsEditorReady] = useState(false);
@@ -234,63 +236,28 @@ const CustomerTiptap = ({
                     )}
                     style={{ zIndex: 0 }}
                   >
-                    <p
-                      className={cn(
-                        "font-bold text-[14px] leading-5 px-4 text-gray7",
-                        "mobile:font-medium"
-                      )}
-                    >
-                      자유롭게 글을 작성해주시되, 국내/해외기사의 경우
-                      유의해주세요!
-                    </p>
-                    <ol className="flex flex-col gap-[2px] text-[14px] leading-[22px] tracking-[-0.02em] text-gray7 list-decimal px-8">
-                      <li>
-                        이미지는 이곳에 드래그 드랍으로도 업로드할 수 있습니다.
-                      </li>
-                      <li>
-                        저작권의 영향을 받을 수 있는 국내기사의 경우 반드시
-                        요약하여 작성하여야 하며, 기사원문에 있는 내용 복붙,
-                        캡쳐 사용을 금지합니다. (원문과 유사 내용이 있으면
-                        삭제처리될 수 있음)
-                      </li>
-                      <li>
-                        국내기사의 경우 링크를 올리지 않거나, 기타 공지에 맞지
-                        않는 글을 작성하신 경우 무통보 삭제됩니다.
-                      </li>
-                      <li>
-                        개인 SNS 및 블로그 출처를 금지합니다. (페이스북, 인스타,
-                        트위터 등)
-                      </li>
-                      <li>
-                        오피셜 기사 작성 시, SNS 출처는 인증된 구단의 계정이라도
-                        허용되지 않습니다. 선수 영입/방출 오피셜은 간략하게
-                        번역하셔도 되며, 계약기간이나 이적료 같은 기본 사항은
-                        기입해주세요.
-                      </li>
-                      <li>
-                        다른 커뮤니티에서 작성된 글이라도 반드시 2차 출처를
-                        기입해주세요.
-                      </li>
-                      <li>
-                        다른 사이트에서 기사를 퍼올 시, 해당 기사를 번역한
-                        역자에게 허락을 맡아야 합니다. (불펌 시 삭제 처리될 수
-                        있음)
-                      </li>
-                      <li>공식 사이트 글만 사용해주세요.</li>
-                      <li>
-                        사회적 통념에 위배되거나 분탕 목적의 글은 차단될 수
-                        있습니다.
-                      </li>
-                      <li>
-                        번역기사 작성 시, 반드시 글 말머리에 언론사를
-                        기입해주세요. (예: [BBC], [골닷컴], [르퀴프] 등) 구단의
-                        공식홈페이지 출처는 [공홈]이라 기입해 주세요. 번역은
-                        핵심 내용이 빠지지 않도록 주의해주시고, 가능하면 전문
-                        번역해주세요. 악의적 번역이나 핵심 내용 생략에 대한 문제
-                        제기가 있을 수 있습니다. 특히 선수 인터뷰 번역 시,
-                        늬앙스가 바뀌지 않게 원문 그대로 번역해주세요.
-                      </li>
-                    </ol>
+                    {writeType === "feedback" ? (
+                      <p
+                        className={cn(
+                          "font-bold text-[14px] leading-5 px-4 text-gray7",
+                          "mobile:font-medium"
+                        )}
+                      >
+                        자유롭게 글을 작성해주시되, 국내/해외기사의 경우
+                        유의해주세요!
+                      </p>
+                    ) : (
+                      <p className="px-4 text-[14px] leading-[22px] tracking-[-0.02em] text-gray5">
+                        내용을 입력해주세요.
+                      </p>
+                    )}
+                    {writeType === "feedback" && (
+                      <ol className="flex flex-col gap-[2px] text-[14px] leading-[22px] tracking-[-0.02em] text-gray7 list-decimal px-8">
+                        {guideItems.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ol>
+                    )}
                   </div>
                 )}
               </div>
