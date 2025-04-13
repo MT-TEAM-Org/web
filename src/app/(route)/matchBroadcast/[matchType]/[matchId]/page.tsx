@@ -4,6 +4,7 @@ import { use } from "react";
 import LiveSection from "../../_components/LiveSection";
 import MatchPrediction from "../../_components/MatchPrediction";
 import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
+import MatchDetailSkeleton from "../../_components/matchSkeleton";
 
 export default function MatchDetailPage({
   params,
@@ -14,7 +15,11 @@ export default function MatchDetailPage({
   const { matchType, matchId } = unwrappedParams;
   const matchIdNum = matchId;
 
-  const { data: matchSchedule } = useGetMatchSchedule(matchType);
+  const { data: matchSchedule, isLoading } = useGetMatchSchedule(matchType);
+
+  if (isLoading) {
+    return <MatchDetailSkeleton matchType={matchType} />;
+  }
 
   return (
     <div className="flex justify-start w-full max-w-[1200px] items-center mx-auto gap-x-[40px]">
