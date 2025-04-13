@@ -53,12 +53,10 @@ function HomePageContent() {
                   <MainBigSizeNews
                     data={bigNewsItems}
                     isLoading={bigNewsDataIsLoading}
-                    isError={bigNewsDataIsError}
                   />
                   <NewsComponent
                     data={newsItems}
                     isLoading={newsDataIsLoading}
-                    isError={newsDataIsError}
                   />
                 </div>
               )}

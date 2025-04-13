@@ -9,13 +9,10 @@ import { NewsItemType } from "../../news/_types/newsItemType";
 interface NewsComponentProps {
   data: NewsItemType[] | undefined;
   isLoading: boolean;
-  isError: boolean;
 }
 
-const NewsComponent = ({ data, isLoading, isError }: NewsComponentProps) => {
+const NewsComponent = ({ data, isLoading }: NewsComponentProps) => {
   const slicedNewsData = data?.slice(0, 3);
-
-  if (isError) return null;
 
   return (
     <div className="w-[436px] min-h-[236px] flex flex-col gap-4">

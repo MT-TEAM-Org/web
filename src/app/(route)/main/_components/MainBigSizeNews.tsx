@@ -12,14 +12,9 @@ import { NewsItemType } from "../../news/_types/newsItemType";
 interface MainBigSizeNEwsProps {
   data: NewsItemType[] | undefined;
   isLoading: boolean;
-  isError: boolean;
 }
 
-const MainBigSizeNews = ({
-  data,
-  isLoading,
-  isError,
-}: MainBigSizeNEwsProps) => {
+const MainBigSizeNews = ({ data, isLoading }: MainBigSizeNEwsProps) => {
   const router = useRouter();
 
   const mainPageData = data?.[0];
@@ -38,7 +33,6 @@ const MainBigSizeNews = ({
   };
 
   if (isLoading) return <MainBigSizeNewsSkeleton />;
-  if (isError) return null;
 
   return (
     <div
