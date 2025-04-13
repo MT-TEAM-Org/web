@@ -6,19 +6,21 @@ import { useRouter } from "next/navigation";
 import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
 import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import MainBigSizeNewsSkeleton from "./MainBigSizeNewsSkeleton";
-import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import CustomIcon from "@/app/_components/IconComponents";
+import { NewsItemType } from "../../news/_types/newsItemType";
 
-const MainBigSizeNews = () => {
+interface MainBigSizeNEwsProps {
+  data: NewsItemType[] | undefined;
+  isLoading: boolean;
+  isError: boolean;
+}
+
+const MainBigSizeNews = ({
+  data,
+  isLoading,
+  isError,
+}: MainBigSizeNEwsProps) => {
   const router = useRouter();
-
-  const { data, isLoading } = useGetNewsDataList({
-    page: "1",
-    orderType: "VIEW",
-    size: 1,
-    timePeriod: "WEEKLY",
-    withPageInfo: false,
-  });
 
   const mainPageData = data?.[0];
   const updatedImgUrl = updateImageUrl(mainPageData?.thumbImg, "w410");
@@ -36,6 +38,7 @@ const MainBigSizeNews = () => {
   };
 
   if (isLoading) return <MainBigSizeNewsSkeleton />;
+  if (isError) return null;
 
   return (
     <div
