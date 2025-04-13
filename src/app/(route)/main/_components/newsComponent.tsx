@@ -6,9 +6,10 @@ import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import NewsItem from "./newsItem";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { NewsItemType } from "../../news/_types/newsItemType";
+import NewsItemIsError from "./NewsItemIsError";
 
 const NewsComponent = () => {
-  const { data, isLoading } = useGetNewsDataList();
+  const { data, isLoading, isError } = useGetNewsDataList();
 
   let slicedNewsData: NewsItemType[] | undefined;
 
@@ -26,6 +27,10 @@ const NewsComponent = () => {
         ? Array(3)
             .fill(0)
             .map((_, index) => <NewsItemSkeleton key={index} />)
+        : isError || slicedNewsData?.length === 0
+        ? Array.from({ length: 3 }).map((_, index) => (
+            <NewsItemIsError key={index} />
+          ))
         : slicedNewsData?.map((newsItem: NewsListType) => (
             <NewsItem key={newsItem?.id} newsItem={newsItem} />
           ))}
