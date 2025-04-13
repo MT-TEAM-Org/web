@@ -5,7 +5,7 @@ import { PageInfo } from "../_types/toolbarType";
 import Pg_left from "@/app/_components/icon/Pg_left";
 import Pg_right from "@/app/_components/icon/Pg_right";
 import Pg_double_right from "@/app/_components/icon/Pg_double_right";
-import { cn } from "@/utils";
+import { useEffect, useState } from "react";
 
 interface PaginationProps {
   pageInfo: PageInfo;
@@ -17,9 +17,21 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
     currentPage: 1,
     totalPage: 1,
   };
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const getPageNumbers = () => {
-    const maxVisiblePage = 5;
+    const maxVisiblePage = isMobile ? 4 : 5;
     if (totalPage <= maxVisiblePage) {
       return Array.from({ length: totalPage }, (_, i) => i + 1);
     }
@@ -45,7 +57,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
   };
 
   return (
-    <div className={cn("flex", "mobile:hidden")}>
+    <div className="flex">
       <div className="flex items-center gap-[8px]">
         {totalPage > 1 && (
           <button
