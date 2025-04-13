@@ -2,13 +2,17 @@ import { LogoWhite } from "@/app/_components/icon/LogoWhite";
 import Link from "next/link";
 
 interface MyPagePostEmptyProps {
+  width?: string;
   height?: string;
 }
 
-const MyPagePostEmpty = ({ height = "h-[248px]" }: MyPagePostEmptyProps) => {
+const MyPagePostEmpty = ({
+  width = "w-full",
+  height = "h-[248px]",
+}: MyPagePostEmptyProps) => {
   return (
     <div
-      className={`flex items-center justify-center w-full ${height} rounded-b-[10px] bg-gray1`}
+      className={`flex items-center justify-center ${width} ${height} rounded-b-[10px] bg-gray1`}
     >
       <div className="flex flex-col justify-center items-center min-h-[160px] space-y-[16px]">
         <div className="opacity-30">
