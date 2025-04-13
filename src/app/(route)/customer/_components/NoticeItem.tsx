@@ -69,7 +69,7 @@ const NoticeItem = ({
       )}
     >
       <div className="w-[32px] h-[32px] rounded-[2px] bg-gray1 flex items-center justify-center text-center text-gray7 flex-shrink-0">
-        <p className="w-[25px] font-bold text-[14px] leading-5">
+        <p className="w-[25px] font-bold text-[14px] leading-5 whitespace-nowrap">
           {!isFeedback ? noticeData?.id : "공지"}
         </p>
       </div>
