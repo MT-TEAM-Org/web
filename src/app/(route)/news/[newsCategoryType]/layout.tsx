@@ -51,7 +51,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       >
         <div
           className={cn(
-            "w-[160px] h-[104px] sticky top-0 shadow-md",
+            "w-[160px] pc:h-[260px] sticky top-0 shadow-md rounded-[5px] overflow-hidden",
             "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:static tablet:shadow-none tablet:overflow-x-auto",
             "mobile:w-full mobile:h-auto mobile:min-h-[52px] mobile:static mobile:shadow-none mobile:overflow-x-auto"
           )}
