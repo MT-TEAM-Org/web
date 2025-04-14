@@ -24,6 +24,8 @@ import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import EmptyItem from "@/app/(route)/customer/_components/EmptyItem";
 import { cn } from "@/utils";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
+import Pagination from "@/app/(route)/mypage/_components/Pagination";
+import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -122,6 +124,13 @@ const NewsInfo = ({
       }
     }
   }, [searchParams]);
+
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > newsListData?.pageInfo?.totalPage) return;
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
+  };
 
   return (
     <>
@@ -263,6 +272,17 @@ const NewsInfo = ({
               />
             ))
           )}
+          <div
+            className={cn(
+              "hidden",
+              "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+            )}
+          >
+            <Pagination
+              pageInfo={newsListData?.pageInfo}
+              onPageChangeAction={handlePageChange}
+            />
+          </div>
         </div>
       </div>
       <SignInModalPopUp

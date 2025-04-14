@@ -18,6 +18,8 @@ import { SearchListType } from "../_types/searchType";
 import TotalSearchItem from "../_components/TotalSearchItem";
 import { NewsListType } from "../../news/_types/newsListItemType";
 import { cn } from "@/utils";
+import changeURLParams from "../../mypage/util/changeURLParams";
+import Pagination from "../../mypage/_components/Pagination";
 
 const Page = () => {
   const params = useParams<{ totalSearchType: string }>();
@@ -64,6 +66,13 @@ const Page = () => {
     isLoading,
     isError,
   } = useGetSearchDataList(searchOptions);
+
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > searchData?.pageInfo?.totalPage) return;
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
+  };
 
   return (
     <div
@@ -122,6 +131,17 @@ const Page = () => {
               )
             )
           ))}
+        <div
+          className={cn(
+            "hidden",
+            "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+          )}
+        >
+          <Pagination
+            pageInfo={searchData?.pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );

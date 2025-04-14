@@ -3,7 +3,7 @@
 import React, { Suspense } from "react";
 import CustomerTalkToolbar from "../_components/CustomerTalkToolbar";
 import FeedbackItem from "../_components/FeedbackItem";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import EmptyItem from "../_components/EmptyItem";
@@ -14,6 +14,8 @@ import FeedbackItemSkeleton from "../_components/FeedbackItemSkeleton";
 import { feedbackListConfig } from "../_types/feedbackListConfig";
 import { useAdminRole } from "../_utils/adminChecker";
 import { cn } from "@/utils";
+import Pagination from "../../mypage/_components/Pagination";
+import changeURLParams from "../../mypage/util/changeURLParams";
 
 const Page = () => {
   return (
@@ -26,6 +28,7 @@ const Page = () => {
 const FeedbackPage = () => {
   const adminRole = useAdminRole();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const feedbackOption: feedbackListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
@@ -54,6 +57,13 @@ const FeedbackPage = () => {
   const slicedNoticeDataList = (noticeListData?.content as NoticeContentType[])
     ?.sort((a, b) => b.id - a.id)
     .slice(0, 2);
+
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > feedbackDataList?.pageInfo?.totalPage) return;
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
+  };
 
   return (
     <div className="w-full max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10">
@@ -103,6 +113,17 @@ const FeedbackPage = () => {
             )}
           </>
         )}
+        <div
+          className={cn(
+            "hidden",
+            "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+          )}
+        >
+          <Pagination
+            pageInfo={feedbackDataList?.pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );
