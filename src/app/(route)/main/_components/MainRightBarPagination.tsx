@@ -22,13 +22,19 @@ const MainRightBarPagination = ({
       setPageNum(currentPage + 1);
     }
   };
-  const ButtonStyle =
-    "w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex gap-[10px] justify-center items-center";
+
+  const getNavButtonClass = (isDisabled: boolean) => {
+    return `${pageButtonStyle} ${isDisabled ? disabledStyle : ""}`;
+  };
+
+  const pageButtonStyle =
+    "w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center";
+  const disabledStyle = "opacity-50 cursor-not-allowed";
 
   return (
     <div className="w-[160px] min-h-[32px] flex mx-auto gap-4">
       <button
-        className={ButtonStyle}
+        className={getNavButtonClass(Number(currentPage) === 1)}
         onClick={() => handleArrowClick("left")}
         disabled={currentPage <= 1}
       >
@@ -38,9 +44,9 @@ const MainRightBarPagination = ({
         {currentPage} / {totalPage}
       </div>
       <button
-        className={ButtonStyle}
+        className={getNavButtonClass(Number(currentPage) === Number(totalPage))}
         onClick={() => handleArrowClick("right")}
-        disabled={currentPage >= totalPage}
+        disabled={currentPage === totalPage}
       >
         <Arrow_right />
       </button>
