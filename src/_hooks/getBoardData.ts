@@ -51,6 +51,8 @@ const useGetBoardData = (data: GetBoardData) =>
     queryKey: ["board", "list", data],
     retry: 1,
     enabled: !!data.boardType,
+    staleTime: 1000 * 60 * 30,
+    gcTime: 1000 * 60 * 60,
     placeholderData: keepPreviousData,
     select: (data) => ({
       content: data.data.list.content,
