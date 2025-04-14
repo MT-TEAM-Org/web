@@ -7,6 +7,7 @@ import ConfirmModal from "../../ConfirmModal";
 import useLogout from "@/_hooks/fetcher/mypage/useLogout";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useAuthStore } from "@/utils/Store";
+import Image from "next/image";
 
 interface DropDownMenuItem {
   name: string;
@@ -21,6 +22,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
   const [show, setShow] = useState(false);
   const { mutate: logout, isPending: logoutIsPending } = useLogout();
   const { logout: changeLogout } = useAuthStore();
+  const userImg = authCheckData?.data?.data?.imgUrl;
 
   useEffect(() => {
     if (show) {
@@ -93,7 +95,17 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
       `,
           }}
         >
-          <ProfileLogo />
+          {userImg ? (
+            <Image
+              alt="profile-image"
+              src={userImg}
+              width={24}
+              height={24}
+              className="rounded-full object-cover"
+            />
+          ) : (
+            <ProfileLogo />
+          )}
         </div>
         <p className="max-w-[83px] min-h-[26px] leading-[26px] text-gray7 font-medium text-[16px] tracking-[-0.02em]">
           {userNickname || ""}님
