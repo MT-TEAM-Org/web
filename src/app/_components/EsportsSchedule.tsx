@@ -21,7 +21,6 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
     pathname.startsWith("/matchBroadcast/ESPORTS");
 
   const { data: esportsSchedule, isLoading } = useGetEsportsSchedule();
-  console.log(esportsSchedule, "esportsSchedule");
   const [currentPage, setCurrentPage] = useState(0);
   const [isSelected, setIsSelected] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);

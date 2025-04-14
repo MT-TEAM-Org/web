@@ -16,6 +16,7 @@ interface PredictionData {
   matchId: number;
   startTime: string;
   vote: boolean;
+  side: string;
 }
 
 interface PredictionResponse {
