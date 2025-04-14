@@ -37,35 +37,29 @@ export default function Header() {
 
   return (
     <div className="w-full max-w-[1200px] min-h-[64px] mx-auto flex justify-between items-center">
-      <div className="flex max-w-[476.74px] items-center gap-x-[16px]">
+      <div className="flex items-center gap-x-[16px] flex-shrink overflow-hidden">
         <Link href="/">
           <Logo />
         </Link>
-        <p className="font-bold max-w-[325px] min-h-[12px] text-[16px] leading-[19.97px] text-[#00ADEE] whitespace-nowrap">
+        <p
+          className={cn(
+            "font-bold text-[16px] leading-[19.97px] text-[#00ADEE]",
+            "whitespace-nowrap overflow-hidden text-ellipsis",
+            "max-w-full"
+          )}
+        >
           함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!
         </p>
       </div>
-      <div className="flex justify-center max-w-[323px] min-h-[40px] items-center whitespace-nowrap">
-        <div className="flex tablet:gap-x-[8px]">
-          {/* 개선요청 버튼 */}
-          <Link href={headerButton[0].link}>
-            <button className={cn(`${headerButtonClass}`)}>
-              {headerButton[0].name}
-            </button>
-          </Link>
-          <div className="flex items-center">
-            <div className="w-[1px] h-[16px] border border-gray2"></div>
-          </div>
-          <div className="">
-            <Link href={headerButton[1].link}>
-              <button className={cn(`${headerButtonClass}`)}>
-                {headerButton[1].name}
-              </button>
-            </Link>
-          </div>
-        </div>
 
-        {/* 로그인/마이페이지 버튼 */}
+      <div className="flex items-center gap-x-2 whitespace-nowrap">
+        <Link href="/customer/feedback">
+          <button className="min-w-[73.75px] px-2 py-1">개선요청</button>
+        </Link>
+        <div className="w-[1px] h-[16px] bg-gray-300" />
+        <Link href="/customer">
+          <button className="min-w-[73.75px] px-2 py-1">고객센터</button>
+        </Link>
         {isLoggedIn ? (
           <MypageButton userNickname={userData?.data?.data?.nickname} />
         ) : (
