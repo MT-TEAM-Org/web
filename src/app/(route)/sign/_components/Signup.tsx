@@ -97,7 +97,11 @@ const Signup = () => {
 
   return (
     <>
-      <form className="w-full mt-[24px]" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="w-full mt-[24px]"
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete="off"
+      >
         <div className="space-y-[24px] mb-[40px]">
           <SignupMainLogo logo={userType || "LOCAL"} />
           <SnsButtons signState="signup" />
