@@ -114,7 +114,7 @@ const NewsPostItem = ({
             className="w-full h-full object-cover rounded-[5px]"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-bg0 rounded-[5px]">
+          <div className="w-full h-full flex items-center justify-center rounded-[5px]">
             <LogoWhite />
           </div>
         )}

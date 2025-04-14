@@ -51,7 +51,7 @@ const NoticePageContent = () => {
   return (
     <div
       className={cn(
-        "w-full max-w-[720px] min-h-[120px] rounded-[5px] mx-auto mb-10",
+        "w-full max-w-[720px] min-h-[120px] rounded-[5px] mx-auto",
         `${
           noticeListData?.content?.length === 0 || !noticeListData
             ? "bg-transparent"

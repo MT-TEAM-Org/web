@@ -77,9 +77,12 @@ export default function NewsPage() {
     <div className="flex justify-center">
       <div
         className={cn(
-          "w-full max-w-[720px] min-h-[120px] rounded-[5px] bg-white mx-auto mb-10",
+          "w-full max-w-[720px] min-h-[120px] rounded-[5px] mx-auto",
           "tablet:max-w-[688px]",
-          "mobile:max-w-[768px]"
+          "mobile:max-w-[768px]",
+          newsData?.content?.length === 0 || !newsData
+            ? "bg-transparent"
+            : "bg-white"
         )}
       >
         <div className="sticky top-0 z-10">
@@ -90,8 +93,7 @@ export default function NewsPage() {
             "w-full max-w-[720px] h-auto rounded-b-[5px]",
             "tablet:max-w-[688px]",
             "mobile:w-full mobile:max-w-[768px]",
-            newsData?.content?.length !== 0 &&
-              newsData &&
+            !!newsData?.content?.length &&
               "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"
           )}
         >
