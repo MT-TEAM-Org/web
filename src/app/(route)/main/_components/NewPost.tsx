@@ -21,7 +21,7 @@ const NewPost = () => {
             <MainPostItemSkeleton key={index} />
           ))
         ) : isError || newPosts?.length === 0 ? (
-          <MyPagePostEmpty height="h-[428px]" />
+          <MyPagePostEmpty width="w-[419px]" height="h-[428px]" />
         ) : (
           newPosts?.map((post, index) => (
             <NewPostItem key={index} newPosts={post} />

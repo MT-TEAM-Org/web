@@ -133,7 +133,7 @@ const NewsPostItem = ({
             </p>
           )}
           {(isNew || newsItem?.hot) && (
-            <div className="font-black text-[10px] leading-[18px] ml-1">
+            <div className="flex gap-[2px] font-black text-[10px] leading-[18px] ml-1">
               {isNew && <span className="text-gra">N</span>}
               {newsItem?.hot && <span className="text-warning">H</span>}
             </div>
