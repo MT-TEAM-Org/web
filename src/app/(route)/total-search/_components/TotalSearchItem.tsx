@@ -110,7 +110,7 @@ const TotalSearchItem = ({
 
         <div className="flex flex-col justify-center flex-1 gap-y-[4px]">
           <div className="flex items-center gap-[2px]">
-            <h2 className="max-w-[535px] text-[14px] leading-[20px] text-gray7 text-ellipsis overflow-hidden line-clamp-1">
+            <h2 className="max-w-[535px] text-[14px] leading-[20px] text-gray7 text-ellipsis overflow-hidden whitespace-nowrap">
               {searchType === "TITLE" || searchType === "TITLE_CONTENT"
                 ? highlightText(data?.title, searchType, searchString)
                 : data?.title}
@@ -121,7 +121,7 @@ const TotalSearchItem = ({
               </p>
             )}
             {isNew && (
-              <span className="font-black text-[10px] leading-[18px] text-primary">
+              <span className="font-black text-[10px] leading-[18px] text-gra">
                 N
               </span>
             )}

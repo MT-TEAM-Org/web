@@ -73,13 +73,13 @@ const NoticeItem = ({
           {!isFeedback ? noticeData?.id : "공지"}
         </p>
       </div>
-      <div className="relative w-[56px] h-[42px]  rounded-[5px] overflow-hidden bg-gray1 flex-shrink-0">
+      <div className="relative w-[56px] h-[42px] rounded-[5px] overflow-hidden bg-gray1 flex-shrink-0">
         {noticeData?.thumbnail ? (
           <Image
             src={noticeData.thumbnail}
             alt="post-preview-image"
             fill
-            className="object-contain rounded-[5px]"
+            className="object-cover rounded-[5px]"
           />
         ) : (
           <CustomIcon

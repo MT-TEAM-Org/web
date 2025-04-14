@@ -2,11 +2,9 @@ import { LogoWhite } from "@/app/_components/icon/LogoWhite";
 import React from "react";
 interface EmptyGameBoxProps {
   title: string;
+  onClick?: () => void;
 }
-const EmptyGameBox = ({ title }: EmptyGameBoxProps) => {
-  const handleRefresh = () => {
-    window.location.reload();
-  };
+const EmptyGameBox = ({ title, onClick }: EmptyGameBoxProps) => {
   return (
     <div>
       <div className="max-w-[298px] min-h-[396px] bg-gray1 rounded-[10px] flex justify-center items-center">
@@ -21,8 +19,8 @@ const EmptyGameBox = ({ title }: EmptyGameBoxProps) => {
             </p>
           </div>
           <button
-            onClick={handleRefresh}
-            className="w-[120px] h-[40px] rounded-[5px] border px-[16px] py-[13px] flex justify-center items-center border-gray3"
+            className="w-[120px] h-[40px] rounded-[5px] border px-[16px] py-[13px] flex justify-center items-center border-gray3 text-[14px] leading-[14px] tracking-[0em] font-bold text-gray7"
+            onClick={onClick}
           >
             새로고침
           </button>
