@@ -80,7 +80,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
 
   return (
     <div
-      className={`relative flex items-center gap-[16px] max-w-[165px] min-h-[42px] rounded-full py-[8px] px-[16px] ${
+      className={`relative flex items-center gap-[16px] max-w-[219px] min-h-[42px] rounded-full py-[8px] px-[16px] ${
         !show && "cursor-pointer"
       }`}
       onMouseEnter={() => setIsDropDown(true)}
@@ -107,7 +107,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
             <ProfileLogo />
           )}
         </div>
-        <p className="max-w-[83px] min-h-[26px] leading-[26px] text-gray7 font-medium text-[16px] tracking-[-0.02em]">
+        <p className="max-w-[151px] min-h-[26px] leading-[26px] text-gray7 font-medium text-[16px] tracking-[-0.02em]">
           {userNickname || ""}님
         </p>
       </div>

@@ -13,7 +13,7 @@ export const Logo = ({ size = "md" }: LogoProps) => {
       height: "24",
     },
     md: {
-      width: "119.74",
+      width: "118.49",
       height: "32",
     },
     lg: {
