@@ -1,5 +1,7 @@
 "use client";
 
+import { createPortal } from "react-dom";
+
 interface ConfirmModalProps {
   show: boolean;
   onClose: () => void;
@@ -23,7 +25,7 @@ const ConfirmModal = ({
 }: ConfirmModalProps) => {
   if (!show) return null;
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 bg-[#000000B2] bg-opacity-70 flex items-center justify-center z-50"
       onClick={onClose}
@@ -55,7 +57,8 @@ const ConfirmModal = ({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
