@@ -15,6 +15,7 @@ import useRecommendComment from "@/_hooks/fetcher/comment/useRecommendComment";
 import useDeleteRecommendComment from "@/_hooks/fetcher/comment/useDeleteRecommendComment";
 import CommentReportModal from "./CommentReportModal";
 import { ReportType } from "@/services/board/types/report";
+import { cn } from "@/utils";
 
 interface BoardReplyCommentItemProps {
   reply: CommentItem;
@@ -151,7 +152,12 @@ const BoardReplyCommentItem = ({
         <div className="flex flex-col gap-[8px] flex-grow">
           <div className="flex flex-col gap-[12px] min-h-[52px]">
             <div className="flex justify-between items-center">
-              <div className="flex items-center gap-[8px] min-h-[20px]">
+              <div
+                className={cn(
+                  "flex items-center gap-[8px] min-h-[20px]",
+                  "items-start"
+                )}
+              >
                 {reply?.admin && (
                   <div className="flex justify-center items-center h-[20px] rounded-[2px] p-[6px] font-[700] text-[12px] leading-[18px] text-white bg-gra">
                     관리자
@@ -171,15 +177,29 @@ const BoardReplyCommentItem = ({
                   height={20}
                   className="w-[20px] h-[20px] rounded-full object-cover"
                 />
-                <h2 className="text-[14px] leading-[20px] text-gray6">
-                  {reply?.nickname}
-                </h2>
-                <span className="text-[12px] leading-[18px] text-gray5">
-                  {CalculateTime(reply?.createDate)}
-                </span>
-                <span className="text-[12px] leading-[18px] text-gray4">
-                  {reply?.createdIp}
-                </span>
+                <div
+                  className={cn(
+                    "flex items-center gap-[8px]",
+                    "mobile:flex-col mobile:gap-0 mobile:items-start mobile:justify-center"
+                  )}
+                >
+                  <h2 className="text-[14px] leading-[20px] text-gray6">
+                    {reply?.nickname}
+                  </h2>
+                  <div
+                    className={cn(
+                      "flex items-center gap-[8px]",
+                      "mobile:gap-[4px]"
+                    )}
+                  >
+                    <span className="text-[12px] leading-[18px] text-gray5">
+                      {CalculateTime(reply?.createDate)}
+                    </span>
+                    <span className="text-[12px] leading-[18px] text-gray4">
+                      {reply?.createdIp}
+                    </span>
+                  </div>
+                </div>
               </div>
               <button
                 className="text-[14px] text-gray5"

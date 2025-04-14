@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { cn } from "@/utils";
 
 interface LinkPreviewProps {
   videoUrl: string;
@@ -30,7 +31,12 @@ const LinkPreview = ({ videoUrl }: LinkPreviewProps) => {
 
   return (
     meta && (
-      <div className="flex w-[696px] h-[84px] rounded-[5px] bg-[#FAFAFA] p-[12px] gap-x-[12px]">
+      <div
+        className={cn(
+          "flex pc:w-[696px] h-[84px] rounded-[5px] bg-[#FAFAFA] p-[12px] gap-x-[12px]",
+          "w-full"
+        )}
+      >
         {meta.images && meta.images.length > 0 && (
           <img
             src={meta.images[0]}

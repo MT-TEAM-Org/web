@@ -9,6 +9,7 @@ import {
   NewsListDataType,
   NewsListType,
 } from "@/app/(route)/news/_types/newsListItemType";
+import CustomIcon from "@/app/_components/IconComponents";
 
 interface NewsPostItemProps {
   newsItem: NewsListType;
@@ -29,14 +30,21 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
         className="flex items-center min-w-[436px] max-h-[68px] border-gray-300 cursor-pointer gap-4"
         onClick={handleRead}
       >
-        <div className="flex-shrink-0 max-w-[68px] max-h-[68px] rounded overflow-hidden bg-gray-300">
-          <Image
-            src={newsItem?.thumbImg ? updatedImgUrl : "/Empty_news.png"}
-            alt="News img"
-            width={68}
-            height={68}
-            className="max-w-[68px] min-h-[68px] rounded-[5px] object-cover"
-          />
+        <div className="flex-shrink-0 max-w-[68px] max-h-[68px] rounded overflow-hidden">
+          {newsItem?.thumbImg ? (
+            <Image
+              src={updatedImgUrl}
+              alt="News img"
+              width={68}
+              height={68}
+              className="max-w-[68px] min-h-[68px] rounded-[5px] object-cover"
+            />
+          ) : (
+            <CustomIcon
+              icon="DEFAULT_THUMBNAIL_ICON"
+              className="w-[68px] h-[68px] border rounded-none"
+            />
+          )}
         </div>
         <div className="w-[352px] h-[68px] flex flex-col justify-center gap-1">
           <h2 className="w-full h-[24px] font-[700] text-[16px] leading-6 text-ellipsis overflow-hidden whitespace-nowrap">

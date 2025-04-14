@@ -50,7 +50,7 @@ const LeftSidebar = () => {
   return (
     <div
       className={cn(
-        "w-full h-[260px] bg-white",
+        "w-full h-[260px] bg-white overflow-x-hidden",
         "tablet:flex tablet:w-[688px] tablet:h-[52px]",
         "mobile:flex mobile:w-full mobile:h-[48px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide"
       )}

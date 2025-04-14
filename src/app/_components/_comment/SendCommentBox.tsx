@@ -38,7 +38,18 @@ const SendCommentBox = ({
   const { mutate: postComment } = usePostComment(id);
   const { data: authCheckData } = useAuthCheck();
   const mentionedPublicId = authCheckData?.data?.data?.publicId;
-  const isMobile = window.innerWidth <= 768;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const maxChars = selectedImage ? 70 : 78;
 

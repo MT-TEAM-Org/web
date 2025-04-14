@@ -6,7 +6,7 @@ import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
 import Image from "next/image";
 import { cn } from "@/utils";
 import { Fragment } from "react";
-import MobileBackButton from "./_components/MobileBackButton";
+import MobileBackButtonWrapper from "./_components/MobileBackButton";
 
 const Mypage = () => {
   const { data, isLoading } = useGetMyPageData();
@@ -47,7 +47,7 @@ const Mypage = () => {
         "mobile:w-full mobile:h-[500px] mobile:p-[16px] mobile:gap-[16px]"
       )}
     >
-      <MobileBackButton />
+      <MobileBackButtonWrapper />
       <div
         className={cn(
           "flex justify-between items-center min-h-[48px]",

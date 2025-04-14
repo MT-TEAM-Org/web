@@ -18,7 +18,8 @@ import {
 import { LinkIcon } from "lucide-react";
 import LinkPreview from "@/app/_components/LinkPreview";
 import Toolbar from "@/app/_components/_tiptap/Toolbar";
-import { NOTICE_RULES } from "../_utils/noticeRules";
+import { guideItems, NOTICE_RULES } from "../_utils/noticeRules";
+import { cn } from "@/utils";
 
 interface FormData {
   boardType: string;
@@ -36,6 +37,7 @@ interface CustomerTiptapProps {
   onImageUpload: (blob: Blob) => Promise<string>;
   setValue: UseFormSetValue<FormData>;
   onSubmit?: () => void;
+  writeType: string;
 }
 
 const isYoutubeLink = (url: string) => {
@@ -50,6 +52,7 @@ const CustomerTiptap = ({
   initialContent,
   onImageUpload,
   onSubmit,
+  writeType,
 }: CustomerTiptapProps) => {
   const router = useRouter();
   const [isEditorReady, setIsEditorReady] = useState(false);
@@ -189,7 +192,13 @@ const CustomerTiptap = ({
 
   return (
     <div className="flex flex-col items-center w-full h-full">
-      <div className="w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-[#DBDBDB]">
+      <div
+        className={cn(
+          "w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-[#DBDBDB]",
+          "tablet:w-full",
+          "mobile:w-full"
+        )}
+      >
         <div className="flex">
           <label
             htmlFor="videoUrl"
@@ -209,73 +218,33 @@ const CustomerTiptap = ({
       </div>
       <LinkPreview videoUrl={videoUrl} />
       <div className="w-full overflow-hidden">
-        <div className="relative w-full mt-3">
+        <div className="relative w-full mt-3 border border-t-0 rounded-[5px]">
           <Toolbar editor={editor} content={watch("content")} />
-          <div className="w-full relative border-b border-x rounded-b-[5px]">
+          <div
+            className={cn(
+              "w-full relative",
+              "mobile:overflow-y-auto mobile:max-h-[320px]"
+            )}
+          >
             <EditorContent editor={editor} className="w-full" />
             {showPlaceholder && (
-              <div
-                className="w-full absolute top-2.5 left-0pointer-events-none whitespace-pre-line text-[#424242] font-medium text-[14px] leading-[22px] text-left"
-                style={{ zIndex: 0 }}
-              >
-                {showPlaceholder && (
-                  <div
-                    className="absolute top-0 left-0 pointer-events-none py-2"
-                    style={{ zIndex: 0 }}
-                  >
-                    <p className="font-semibold px-4 text-[14px] leading-[20px] text-[#424242]">
-                      자유롭게 글을 작성해주시되, 국내/해외기사의 경우
-                      유의해주세요!
-                    </p>
-                    <ol className="list-decimal px-8 mt-1">
-                      <li className="mb-1">
-                        이미지는 이곳에 드래그 드랍으로도 업로드할 수 있습니다.
-                      </li>
-                      <li className="mb-1">
-                        저작권의 영향을 받을 수 있는 국내기사의 경우 반드시
-                        요약하여 작성하여야 하며, 기사원문에 있는 내용 복붙,
-                        캡쳐 사용을 금지합니다. (원문과 유사 내용이 있으면
-                        삭제처리될 수 있음)
-                      </li>
-                      <li className="mb-1">
-                        국내기사의 경우 링크를 올리지 않거나, 기타 공지에 맞지
-                        않는 글을 작성하신 경우 무통보 삭제됩니다.
-                      </li>
-                      <li className="mb-1">
-                        개인 SNS 및 블로그 출처를 금지합니다. (페이스북, 인스타,
-                        트위터 등)
-                      </li>
-                      <li className="mb-1">
-                        오피셜 기사 작성 시, SNS 출처는 인증된 구단의 계정이라도
-                        허용되지 않습니다. 선수 영입/방출 오피셜은 간략하게
-                        번역하셔도 되며, 계약기간이나 이적료 같은 기본 사항은
-                        기입해주세요.
-                      </li>
-                      <li className="mb-1">
-                        다른 커뮤니티에서 작성된 글이라도 반드시 2차 출처를
-                        기입해주세요.
-                      </li>
-                      <li className="mb-1">
-                        다른 사이트에서 기사를 퍼올 시, 해당 기사를 번역한
-                        역자에게 허락을 맡아야 합니다. (불펌 시 삭제 처리될 수
-                        있음)
-                      </li>
-                      <li className="mb-1">공식 사이트 글만 사용해주세요.</li>
-                      <li className="mb-1">
-                        사회적 통념에 위배되거나 분탕 목적의 글은 차단될 수
-                        있습니다.
-                      </li>
-                      <li className="mb-1 ml-2">
-                        번역기사 작성 시, 반드시 글 말머리에 언론사를
-                        기입해주세요. (예: [BBC], [골닷컴], [르퀴프] 등) 구단의
-                        공식홈페이지 출처는 [공홈]이라 기입해 주세요. 번역은
-                        핵심 내용이 빠지지 않도록 주의해주시고, 가능하면 전문
-                        번역해주세요. 악의적 번역이나 핵심 내용 생략에 대한 문제
-                        제기가 있을 수 있습니다. 특히 선수 인터뷰 번역 시,
-                        늬앙스가 바뀌지 않게 원문 그대로 번역해주세요.
-                      </li>
-                    </ol>
-                  </div>
+              <div className="absolute top-0 left-0 pointer-events-none py-2 flex flex-col gap-[2px] w-full">
+                {writeType === "feedback" ? (
+                  <p className="font-bold text-[14px] leading-5 px-4 text-gray7 mobile:font-medium">
+                    자유롭게 글을 작성해주시되, 국내/해외기사의 경우
+                    유의해주세요!
+                  </p>
+                ) : (
+                  <p className="px-4 pt-2 text-[14px] leading-[22px] tracking-[-0.02em] text-gray5">
+                    내용을 입력해주세요.
+                  </p>
+                )}
+                {writeType === "feedback" && (
+                  <ol className="flex flex-col gap-[2px] text-[14px] leading-[22px] tracking-[-0.02em] text-gray7 list-decimal px-8">
+                    {guideItems.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
+                  </ol>
                 )}
               </div>
             )}
@@ -283,8 +252,18 @@ const CustomerTiptap = ({
         </div>
       </div>
       {/* 사용자 안내 */}
-      <div className="flex flex-col gap-y-1 w-[696px] min-h-[40px] rounded-[5px] bg-gray1 text-gray6 mt-3">
-        <div className="w-[672px] h-[44px] font-medium text-[14px] leading-[22px]">
+      <div
+        className={cn(
+          "flex flex-col gap-y-1 w-full min-h-[160px] rounded-[5px] p-3 bg-gray1 text-gray6 mt-3",
+          "tablet:w-full tablet:min-h-[182px]",
+          "mobile:hidden"
+        )}
+      >
+        <div
+          className={cn(
+            "w-full h-[44px] font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6"
+          )}
+        >
           <p>
             불법촬영물등을 게재할 경우 전기통신사업법 제22조의5제1항에 따라
             삭제·접속차단 등의 조치가 취해질 수 있으며 관련 법률에 따라 처벌받을
@@ -300,11 +279,14 @@ const CustomerTiptap = ({
         </ol>
       </div>
       {/* 버튼 영역 */}
-      <div className="w-[696px] h-[40px] flex justify-between mt-3">
+      <div className={cn("w-full h-[40px] flex justify-between mt-3")}>
         <button
           type="button"
           onClick={() => router.back()}
-          className="w-[120px] h-[40px] bg-white border border-gray3 rounded-[5px]"
+          className={cn(
+            "w-[120px] h-[40px] bg-white border border-gray3 rounded-[5px]",
+            "mobile:hidden"
+          )}
         >
           목록
         </button>
@@ -313,7 +295,10 @@ const CustomerTiptap = ({
           onClick={() => {
             if (onSubmit) onSubmit();
           }}
-          className="w-[120px] h-[40px] bg-gra text-white rounded-[5px]"
+          className={cn(
+            "w-[120px] h-[40px] bg-gra text-white rounded-[5px]",
+            "mobile:w-full mobile:h-[48px] mobile:text-center mobile:text-[16px] mobile:font-bold mobile:text-white"
+          )}
         >
           작성완료
         </button>

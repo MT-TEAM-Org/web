@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "min-h-[calc(100vh-188px)] pb-[40px] mx-10",
+        "min-h-[calc(100vh-188px)] mx-10",
         "tablet:max-w-[1279px]",
         "mobile:w-full mobile:mx-0"
       )}
@@ -61,7 +61,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         <div
           className={cn(
-            "flex-1 w-full max-w-[720px] min-h-[calc(100vh-188px)] mb-10",
+            "flex-1 w-full max-w-[720px] min-h-[calc(100vh-100px)] mb-10",
             "tablet:max-w-[688px]",
             "mobile:w-full mobile:max-w-none"
           )}

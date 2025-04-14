@@ -3,6 +3,8 @@ import FeedbackInfo from "./_components/FeedbackInfo";
 import { Metadata } from "next";
 import getFeedbackInfoData from "@/services/customer/getFeedbackInfoData";
 
+const stripHtml = (html: string) => html.replace(/<[^>]*>?/gm, "");
+
 export async function generateMetadata({
   params,
 }: {
@@ -15,9 +17,12 @@ export async function generateMetadata({
       id: feedbackId,
     });
 
+    const rawContent = feedbackDetail.content || "개선요청 상세 내용";
+    const plainTextContent = stripHtml(rawContent);
+
     return {
       title: feedbackDetail.title || "개선요청 상세 페이지",
-      description: feedbackDetail.content || "개선요청 상세 내용",
+      description: plainTextContent,
       openGraph: {
         title: feedbackDetail.title || "개선요청 상세 페이지",
         description: feedbackDetail.content || "개선요청 상세 내용",

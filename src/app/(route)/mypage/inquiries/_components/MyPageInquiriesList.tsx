@@ -7,10 +7,15 @@ import MyPageInquiriesEmpty from "./MyPageInquiriesEmpty";
 import { useSearchParams } from "next/navigation";
 import { InquiriesListConfig, InquiriesListData } from "../_types/inquiries";
 import MypageInquirieSkelton from "./MypageInquirieSkelton";
-import MobileBackButton from "../../_components/MobileBackButton";
+import MobileBackButtonWrapper from "../../_components/MobileBackButton";
+import { cn } from "@/utils";
+import Pagination from "../../_components/Pagination";
+import { useRouter } from "next/navigation";
+import changeURLParams from "../../util/changeURLParams";
 
 const MyPageInquiriesList = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const inquiriesOption: InquiriesListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
     size: 10,
@@ -26,9 +31,16 @@ const MyPageInquiriesList = () => {
   const { data, isLoading } = useGetInquiriesList(inquiriesOption);
   const { content, pageInfo } = data?.data?.list || {};
 
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > pageInfo.totalPage) return;
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
+  };
+
   return (
     <div>
-      <MobileBackButton mode="inquries" />
+      <MobileBackButtonWrapper mode="inquries" />
       <MypageToolbar mode="inquries" pageInfo={pageInfo} />
       <div className="flex flex-col w-full bg-[#FFFFFF] rounded-b-[5px]">
         {pageInfo?.totalElement !== 0 ? (
@@ -39,6 +51,17 @@ const MyPageInquiriesList = () => {
           <MyPageInquiriesEmpty />
         )}
         {isLoading && <MypageInquirieSkelton />}
+        <div
+          className={cn(
+            "hidden",
+            "mobile:block mobile:mt-[12px] mobile:mx-auto mobile:mb-[24px]"
+          )}
+        >
+          <Pagination
+            pageInfo={pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );
