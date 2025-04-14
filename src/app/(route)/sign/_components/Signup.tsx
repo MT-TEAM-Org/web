@@ -33,6 +33,7 @@ const Signup = () => {
     handleSubmit,
     getValues,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<SignupFormData>();
   const { mutate: snsAddInfo, isPending: snsAddInfoIsPending } =
@@ -54,6 +55,12 @@ const Signup = () => {
     sequence: 0,
   });
   const [successVerification, setSuccessVerification] = useState(false);
+
+  useEffect(() => {
+    if (isLocalSignup) {
+      reset();
+    }
+  }, []);
 
   useEffect(() => {
     if (show.service || show.personal || show.sequence) {
