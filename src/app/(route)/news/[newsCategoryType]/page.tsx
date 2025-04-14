@@ -74,10 +74,10 @@ export default function NewsPage() {
   };
 
   return (
-    <div className="flex justify-center bg-gray1">
+    <div className="flex justify-center">
       <div
         className={cn(
-          "w-full max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10",
+          "w-full max-w-[720px] min-h-[120px] rounded-[5px] bg-white mx-auto mb-10",
           "tablet:max-w-[688px]",
           "mobile:max-w-[768px]"
         )}
@@ -87,7 +87,10 @@ export default function NewsPage() {
         </div>
         <div
           className={cn(
-            "w-full max-w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+            "w-full max-w-[720px] h-auto rounded-b-[5px]",
+            newsData?.content?.length !== 0 &&
+              newsData &&
+              "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
             "tablet:max-w-[688px]",
             "mobile:w-full mobile:max-w-[768px]"
           )}
@@ -108,17 +111,19 @@ export default function NewsPage() {
               />
             ))
           )}
-          <div
-            className={cn(
-              "hidden",
-              "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
-            )}
-          >
-            <Pagination
-              pageInfo={newsData?.pageInfo}
-              onPageChangeAction={handlePageChange}
-            />
-          </div>
+          {newsData?.content?.length !== 0 && (
+            <div
+              className={cn(
+                "hidden",
+                "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+              )}
+            >
+              <Pagination
+                pageInfo={newsData?.pageInfo}
+                onPageChangeAction={handlePageChange}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

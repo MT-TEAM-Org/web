@@ -10,7 +10,7 @@ const EmptyItem = ({ title }: EmptyNoticeItemProps) => {
   return (
     <div
       className={cn(
-        "w-[720px] h-[248px] rounded-b-[10px] bg-gray1 flex items-center",
+        "w-[720px] h-[248px] rounded-b-[10px] flex items-center",
         "tablet:w-[688px]",
         "mobile:min-w-[360px] mobile:w-auto"
       )}
