@@ -93,7 +93,7 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
         className={cn(
           "w-[720px] h-auto rounded-[5px] border-b p-6 flex flex-col gap-4 bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
           "tablet:w-[688px]",
-          "mobile:max-w-full mobile:px-4 mobile:py-3 mobile:gap-3"
+          "mobile:w-full mobile:px-4 mobile:py-3 mobile:gap-3"
         )}
       >
         <div

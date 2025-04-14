@@ -4,7 +4,7 @@ import { Skeleton } from "@heroui/react";
 
 const MainPostItemSkeleton = () => {
   return (
-    <div className="min-w-[419px] h-[36px] border-b border-gray1 py-2 pr-2 flex justify-start items-center text-center gap-2 cursor-pointer">
+    <div className="min-w-[419px] h-[36px] border-b border-gray1 py-2 pr-2 flex justify-start items-center text-center gap-2">
       {/* 순번 영역 */}
       <Skeleton className="w-[20px] h-[20px] rounded-sm" />
 

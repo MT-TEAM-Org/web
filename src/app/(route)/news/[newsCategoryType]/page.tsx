@@ -11,6 +11,8 @@ import { NewsItemType } from "../_types/newsItemType";
 import { useRouter } from "next/navigation";
 import EmptyItem from "../../customer/_components/EmptyItem";
 import { cn } from "@/utils";
+import Pagination from "../../mypage/_components/Pagination";
+import changeURLParams from "../../mypage/util/changeURLParams";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -64,6 +66,13 @@ export default function NewsPage() {
 
   const { data: newsData, isLoading } = useSortedNewsDataList(newsOption);
 
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > newsData?.pageInfo?.totalPage) return;
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
+  };
+
   return (
     <div className="flex justify-center bg-gray1">
       <div
@@ -99,6 +108,17 @@ export default function NewsPage() {
               />
             ))
           )}
+          <div
+            className={cn(
+              "hidden",
+              "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+            )}
+          >
+            <Pagination
+              pageInfo={newsData?.pageInfo}
+              onPageChangeAction={handlePageChange}
+            />
+          </div>
         </div>
       </div>
     </div>

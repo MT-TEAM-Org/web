@@ -10,7 +10,12 @@ import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType"
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import useTimeAgo from "@/utils/useTimeAgo";
 import { useQueryClient } from "@tanstack/react-query";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import FeedbackInfoSkeleton from "./FeedbackInfoSkeleton";
 import StatusSaver from "./StatusSaver";
@@ -29,6 +34,8 @@ import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import { CommentItem } from "@/_types/comment";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { cn } from "@/utils";
+import Pagination from "@/app/(route)/mypage/_components/Pagination";
+import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 
 const Page = () => {
   return (
@@ -46,6 +53,7 @@ const FeedbackInfo = () => {
   const searchParams = useSearchParams();
   const adminRole = useAdminRole();
   const pathname = usePathname();
+  const router = useRouter();
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const token =
     typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
@@ -148,133 +156,154 @@ const FeedbackInfo = () => {
   };
   const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
 
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > feedbackDataList?.pageInfo?.totalPage) return;
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
+  };
+
   return (
     <>
       {feedbackIsLoading || feedbackIsError ? (
         <FeedbackInfoSkeleton />
       ) : (
-        <div
-          className={cn(
-            "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md",
-            "tablet:max-w-[687px]",
-            "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
-          )}
-        >
-          {adminRole === "ADMIN" && (
-            <StatusSaver id={infoId} status={feedbackInfoData?.status} />
-          )}
+        <>
           <div
             className={cn(
-              "w-full flex gap-2 flex-col",
-              adminRole !== "ADMIN" || adminRole === undefined
-                ? "min-h-[56px]"
-                : ""
+              "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md",
+              "tablet:max-w-[687px]",
+              "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
             )}
           >
-            <div>
-              {(adminRole !== "ADMIN" || adminRole === undefined) &&
-                statusContent[feedbackInfoData?.status]}
-            </div>
-            <h1
-              className={cn(
-                "font-bold text-[18px] leading-7 tracking-[-0.72px]",
-                "mobile:text-[16px] mobile:leading-6"
-              )}
-            >
-              {feedbackInfoData?.title}
-            </h1>
+            {adminRole === "ADMIN" && (
+              <StatusSaver id={infoId} status={feedbackInfoData?.status} />
+            )}
             <div
               className={cn(
-                "w-full max-h-[20px] flex gap-4",
-                "mobile:flex-wrap mobile:max-h-none"
+                "w-full flex gap-2 flex-col",
+                adminRole !== "ADMIN" || adminRole === undefined
+                  ? "min-h-[56px]"
+                  : ""
               )}
             >
-              <div
+              <div>
+                {(adminRole !== "ADMIN" || adminRole === undefined) &&
+                  statusContent[feedbackInfoData?.status]}
+              </div>
+              <h1
                 className={cn(
-                  "min-w-[421px] min-h-[20px] flex gap-2 text-[14px] leading-5 text-gray6",
-                  "mobile:min-w-0 mobile:flex-wrap mobile:text-[12px]"
+                  "font-bold text-[18px] leading-7 tracking-[-0.72px]",
+                  "mobile:text-[16px] mobile:leading-6"
                 )}
               >
-                <p className="font-bold">고객센터</p>
-                <p>개선요청</p>
-                <p>{timeAgo}</p>
-                {infoItems.map((item, index) => (
-                  <div key={index} className="flex gap-2">
-                    <p className="font-bold">{item.label}</p>
-                    <p>{item.value}</p>
-                  </div>
-                ))}
-              </div>
+                {feedbackInfoData?.title}
+              </h1>
               <div
                 className={cn(
-                  "min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6",
-                  "tablet:min-w-[210px]",
-                  "mobile:min-w-0 mobile:w-full mobile:justify-start mobile:text-[12px] mobile:mt-2"
+                  "w-full max-h-[20px] flex gap-4",
+                  "mobile:flex-wrap mobile:max-h-none"
                 )}
               >
-                <p>{feedbackInfoData?.nickname}</p>
-                <p>IP {feedbackInfoData?.clientIp}</p>
-              </div>
-            </div>
-          </div>
-          <hr />
-          {(feedbackInfoData?.imgUrl || youtubeEmbedUrl) && (
-            <div className="w-full min-h-auto flex flex-col gap-3">
-              {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
-                <Image
-                  src={feedbackInfoData?.imgUrl}
-                  alt="Feedback img"
-                  width={672}
-                  height={128}
-                  className="mobile:w-full mobile:h-auto"
-                />
-              )}
-              {youtubeEmbedUrl && (
-                <iframe
-                  width="100%"
-                  height="408"
-                  src={youtubeEmbedUrl}
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="mobile:h-[240px]"
-                />
-              )}
-              {!youtubeEmbedUrl && feedbackInfoData?.data?.link && (
-                <div className="w-[679px] min-h-[42px] mobile:w-full">
-                  <div>{feedbackInfoData?.data?.link}</div>
+                <div
+                  className={cn(
+                    "min-w-[421px] min-h-[20px] flex gap-2 text-[14px] leading-5 text-gray6",
+                    "mobile:min-w-0 mobile:flex-wrap mobile:text-[12px]"
+                  )}
+                >
+                  <p className="font-bold">고객센터</p>
+                  <p>개선요청</p>
+                  <p>{timeAgo}</p>
+                  {infoItems.map((item, index) => (
+                    <div key={index} className="flex gap-2">
+                      <p className="font-bold">{item.label}</p>
+                      <p>{item.value}</p>
+                    </div>
+                  ))}
                 </div>
-              )}
+                <div
+                  className={cn(
+                    "min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6",
+                    "tablet:min-w-[210px]",
+                    "mobile:min-w-0 mobile:w-full mobile:justify-start mobile:text-[12px] mobile:mt-2"
+                  )}
+                >
+                  <p>{feedbackInfoData?.nickname}</p>
+                  <p>IP {feedbackInfoData?.clientIp}</p>
+                </div>
+              </div>
             </div>
-          )}
-          <div
-            className="text-[16px] leading-6 tracking-[-0.02em] text-gray7 mobile:text-[14px]"
-            dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
-          />
-          <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
-            <RecommendButton
-              handleCommend={handleFeedbackCommend}
-              recommendCount={feedbackInfoData?.recommendCount}
-              isRecommend={feedbackInfoData?.isRecommended}
+            <hr />
+            {(feedbackInfoData?.imgUrl || youtubeEmbedUrl) && (
+              <div className="w-full min-h-auto flex flex-col gap-3">
+                {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
+                  <Image
+                    src={feedbackInfoData?.imgUrl}
+                    alt="Feedback img"
+                    width={672}
+                    height={128}
+                    className="mobile:w-full mobile:h-auto"
+                  />
+                )}
+                {youtubeEmbedUrl && (
+                  <iframe
+                    width="100%"
+                    height="408"
+                    src={youtubeEmbedUrl}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="mobile:h-[240px]"
+                  />
+                )}
+                {!youtubeEmbedUrl && feedbackInfoData?.data?.link && (
+                  <div className="w-[679px] min-h-[42px] mobile:w-full">
+                    <div>{feedbackInfoData?.data?.link}</div>
+                  </div>
+                )}
+              </div>
+            )}
+            <div
+              className="text-[16px] leading-6 tracking-[-0.02em] text-gray7 mobile:text-[14px]"
+              dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
+            />
+            <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
+              <RecommendButton
+                handleCommend={handleFeedbackCommend}
+                recommendCount={feedbackInfoData?.recommendCount}
+                isRecommend={feedbackInfoData?.isRecommended}
+              />
+            </div>
+            <div className={cn("mobile:hidden")}>
+              <PostAction type="community" />
+            </div>
+            <BoardComment
+              id={id as string}
+              publicId={feedbackInfoData?.publicId}
+              ref={comments}
+              setParentsComment={setParentsComment}
+              type="IMPROVEMENT"
+            />
+            <PostNavigation
+              nextId={feedbackInfoData?.nextId}
+              previousId={feedbackInfoData?.previousId}
+              currentPath={pathname}
+            />
+            <SignInModalPopUp
+              isOpen={isSignInModalOpen}
+              onClose={() => setIsSignInModalOpen(false)}
             />
           </div>
-          <div className={cn("mobile:hidden")}>
-            <PostAction type="community" />
+          <div className="shadow-md sticky bottom-0 z-50">
+            <SendCommentBox
+              id={id.toString()}
+              type="NOTICE"
+              parentsComment={parentsComment}
+              setParentsComment={setParentsComment}
+            />
           </div>
-          <BoardComment
-            id={id as string}
-            publicId={feedbackInfoData?.publicId}
-            ref={comments}
-            setParentsComment={setParentsComment}
-            type="IMPROVEMENT"
-          />
-          <PostNavigation
-            nextId={feedbackInfoData?.nextId}
-            previousId={feedbackInfoData?.previousId}
-            currentPath={pathname}
-          />
-        </div>
+        </>
       )}
       <div
         className={cn(
@@ -331,19 +360,18 @@ const FeedbackInfo = () => {
                   />
                 )
               )}
+          <div
+            className={cn(
+              "hidden",
+              "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+            )}
+          >
+            <Pagination
+              pageInfo={feedbackDataList?.pageInfo}
+              onPageChangeAction={handlePageChange}
+            />
+          </div>
         </div>
-        <SignInModalPopUp
-          isOpen={isSignInModalOpen}
-          onClose={() => setIsSignInModalOpen(false)}
-        />
-      </div>
-      <div className="shadow-md sticky bottom-0 z-50">
-        <SendCommentBox
-          id={id as string}
-          type="IMPROVEMENT"
-          parentsComment={parentsComment}
-          setParentsComment={setParentsComment}
-        />
       </div>
     </>
   );

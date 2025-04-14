@@ -4,7 +4,7 @@ import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList
 import useGetNoticeInfoData from "@/_hooks/fetcher/customer/useGetNoticeInfoData";
 import { noticeListConfig } from "@/app/(route)/customer/_types/noticeListConfig";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { Suspense } from "react";
 import NoticeInfoItemSkeleton from "./NoticeInfoItemSkeleton";
 import NoticeInfoItem from "./NoticeInfoItem";
@@ -14,6 +14,8 @@ import EmptyItem from "@/app/(route)/customer/_components/EmptyItem";
 import NoticeItem from "@/app/(route)/customer/_components/NoticeItem";
 import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { cn } from "@/utils";
+import Pagination from "@/app/(route)/mypage/_components/Pagination";
+import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 
 const Page = () => {
   return (
@@ -29,6 +31,7 @@ const NoticeInfo = () => {
   const id = params.noticeInfoId;
   const numberId = Number(id);
   const adminChecker = useAdminRole();
+  const router = useRouter();
   const token =
     typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
 
@@ -52,6 +55,13 @@ const NoticeInfo = () => {
     isError,
   } = useGetNoticeDataList(noticeOption);
 
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > noticeListData?.pageInfo?.totalPage) return;
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
+  };
+
   return (
     <>
       {infoIsLoading || infoIsError ? (
@@ -62,7 +72,7 @@ const NoticeInfo = () => {
       <div
         className={cn(
           "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden",
-          "tablet:max-w-[1279px]",
+          "tablet:w-[688px]",
           "mobile:hidden"
         )}
       >
@@ -75,8 +85,8 @@ const NoticeInfo = () => {
       <div
         className={cn(
           "w-[720px] h-auto rounded-[5px] bg-white shadow-md",
-          "tablet:max-w-[1279px]",
-          "mobile:max-w-[768px]"
+          "tablet:w-[688px]",
+          "mobile:w-full"
         )}
       >
         {isLoading ? (
@@ -95,6 +105,17 @@ const NoticeInfo = () => {
             />
           ))
         )}
+        <div
+          className={cn(
+            "hidden",
+            "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+          )}
+        >
+          <Pagination
+            pageInfo={noticeListData?.pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </>
   );
