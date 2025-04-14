@@ -83,33 +83,61 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
       }`}
       onMouseEnter={() => setIsDropDown(true)}
     >
-      <ProfileLogo />
-      <p className="max-w-[83px] min-h-[26px] leading-[26px] text-[#424242]">
-        {userNickname || ""}님
-      </p>
-
+      <div className="w-fit h-fit flex justify-center items-center gap-4 px-4 py-2 rounded-full bg-bg0">
+        <div
+          className="w-[24px] h-[24px] bg-[#E6F7FE] rounded-full flex justify-center items-center"
+          style={{
+            boxShadow: `
+        0px 0.8px 0.8px -0.4px rgba(24, 39, 75, 0.08),
+        0px 0.4px 0.8px -0.4px rgba(24, 39, 75, 0.12)
+      `,
+          }}
+        >
+          <ProfileLogo />
+        </div>
+        <p className="max-w-[83px] min-h-[26px] leading-[26px] text-gray7 font-medium text-[16px] tracking-[-0.02em]">
+          {userNickname || ""}님
+        </p>
+      </div>
       {isDropDown && (
         <ul
           onMouseLeave={() => setIsDropDown(false)}
           onMouseEnter={() => setIsDropDown(true)}
-          className="flex flex-col items-center gap-y-[16px] max-w-[252px] min-h-[336px] rounded-[10px] absolute top-12 right-0 z-10 bg-white shadow-[0px_8px_24px_-4px_rgba(0,0,0,0.1)] py-[16px] border-[#dbdbdb]"
+          className="flex flex-col items-center w-[252px] min-h-[298px] absolute top-full right-0 z-10 py-[16px] border rounded-[10px] border-gray3 bg-white overflow-hidden"
+          style={{
+            boxShadow: `
+              0px 8px 24px -4px rgba(78, 78, 78, 0.08),
+              0px 6px 12px -6px rgba(78, 78, 78, 0.12)
+            `,
+          }}
         >
-          {dropDownMenu.map((item, index) => (
-            <li
-              key={index}
-              className="w-[252px] min-h-[48px] border-b border-[#EEEEEE] py-[4px] px-[16px] last:py-[16px] last:border-b-0"
-            >
-              <button
-                onClick={() => handleClickMenu(item)}
-                disabled={logoutIsPending}
-                className="text-[#424242] text-[16px] leading-[16px] font-medium w-full text-left"
+          {dropDownMenu.map((item, index) => {
+            const isFirstItem = index === 0;
+            const isLastItem = index === dropDownMenu.length - 1;
+
+            return (
+              <li
+                key={index}
+                className={`
+                  w-full
+                  ${isLastItem ? "h-[58px]" : "h-[48px]"}
+                  ${!isFirstItem ? "border-b border-gray2" : ""}
+                  px-4 py-2 flex items-center hover:bg-bg0 
+                `}
               >
-                {item.name}
-              </button>
-            </li>
-          ))}
+                <button
+                  onClick={() => handleClickMenu(item)}
+                  disabled={logoutIsPending}
+                  className="text-gray7 text-[16px] font-medium w-full h-full text-left leading-[26px] tracking-[-0.02em] "
+                >
+                  {item.name}
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
+
       <ConfirmModal
         show={show}
         onClose={onClose}

@@ -11,6 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { CommentItem, CommentType } from "@/_types/comment";
 import usePostComment from "@/_hooks/fetcher/comment/usePostComment";
+import { cn } from "@/utils";
 
 interface SendCommentBoxProps {
   id?: string;
@@ -37,6 +38,18 @@ const SendCommentBox = ({
   const { mutate: postComment } = usePostComment(id);
   const { data: authCheckData } = useAuthCheck();
   const mentionedPublicId = authCheckData?.data?.data?.publicId;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const maxChars = selectedImage ? 70 : 78;
 
@@ -178,7 +191,12 @@ const SendCommentBox = ({
   };
 
   return (
-    <div className="w-full min-h-[72px] p-4 bg-white">
+    <div
+      className={cn(
+        "w-full min-h-[72px] p-4 bg-white",
+        "mobile:px-[8px] mobile:pt-[8px] mobile:pb-[16px]"
+      )}
+    >
       <form onSubmit={handlePostComment} className="w-full flex flex-col gap-2">
         <div className="w-full flex items-end gap-4">
           <button
@@ -197,7 +215,7 @@ const SendCommentBox = ({
           />
           <div ref={containerRef} className="flex-grow max-w-[576px] relative">
             <div
-              className={`w-full rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-[8px] ${getEditorHeight()}`}
+              className={`w-full rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-[8px] text-[14px] leading-[22px] ${getEditorHeight()}`}
               onClick={handleEditorClick}
             >
               {selectedImage && (
@@ -217,7 +235,7 @@ const SendCommentBox = ({
                 </div>
               )}
               {parentsComment && (
-                <p className="text-[14px] leading-[20px] text-gra">
+                <p className="leading-[20px] text-gra">
                   @{parentsComment?.nickname}
                 </p>
               )}
@@ -233,7 +251,9 @@ const SendCommentBox = ({
               {!inputValue.trim() && !selectedImage && !parentsComment && (
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
                   <span className="text-gray-400">
-                    상대를 존중하는 클린한 댓글을 남겨주세요! 추천은 센스!
+                    {isMobile
+                      ? "메세지를 입력해주세요."
+                      : "상대를 존중하는 클린한 댓글을 남겨주세요! 추천은 센스!"}
                   </span>
                 </div>
               )}

@@ -61,17 +61,17 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
           신고하기
         </button>
       )}
-      <div className="flex gap-2">
+      <div className="max-w-[237px] min-h-[35px] flex gap-2">
         <button
           onClick={copyBtn}
-          className="min-w-[138px] w-auto min-h-[32px] flex justify-center gap-1 items-center bg-white px-3 py-2 rounded-[5px] border border-gray3 text-[14px] leading-[14px] font-medium"
+          className="min-w-[138px] w-auto h-[32px] flex justify-center items-center bg-white px-2 pr-3 pl-[10px] gap-1 rounded-[5px] border border-gray3 text-[14px] leading-[14px] font-medium whitespace-nowrap"
         >
           <Copy />
           게시글 URL 복사
         </button>
         <button
           onClick={modalPopUp}
-          className="min-w-[91px] w-auto min-h-[32px] flex justify-center gap-1 items-center bg-white pr-[12px] pl-[10px] py-2 rounded-[5px] border border-gray3 text-[14px] leading-[14px] font-medium"
+          className="min-w-[91px] w-auto h-[32px] flex justify-center gap-1 items-center bg-white pr-[12px] pl-[10px] py-2 rounded-[5px] border border-gray3 text-[14px] leading-[14px] text-nowrap font-medium"
         >
           <Share />
           공유하기

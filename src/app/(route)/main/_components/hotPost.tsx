@@ -1,9 +1,11 @@
 import React from "react";
 import HotPostItem from "./hotPostItem";
 import useGetHotPost from "@/_hooks/fetcher/main/useGetHotPost";
+import MainPostItemSkeleton from "./MainPostItemSkeleton";
+import MyPagePostEmpty from "../../mypage/posts/_components/MypagePostEmpty";
 
 const HotPost = () => {
-  const { data: response } = useGetHotPost();
+  const { data: response, isLoading, isError } = useGetHotPost();
   const hotPosts = response?.data || [];
 
   return (
@@ -12,9 +14,17 @@ const HotPost = () => {
         실시간 HOT 게시글
       </h3>
       <div className="w-full min-h-[360px]">
-        {hotPosts.map((post, index) => (
-          <HotPostItem key={post.id} number={index + 1} hotPosts={post} />
-        ))}
+        {isLoading ? (
+          Array.from({ length: 10 }).map((_, index) => (
+            <MainPostItemSkeleton key={index} />
+          ))
+        ) : isError || hotPosts?.length === 0 ? (
+          <MyPagePostEmpty width="w-[419px]" height="h-[428px]" />
+        ) : (
+          hotPosts.map((post, index) => (
+            <HotPostItem key={post.id} number={index + 1} hotPosts={post} />
+          ))
+        )}
       </div>
     </div>
   );

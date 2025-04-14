@@ -8,6 +8,7 @@ import useTimeAgo from "@/utils/useTimeAgo";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { cn } from "@/utils";
+import CustomIcon from "@/app/_components/IconComponents/Icon";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
@@ -68,26 +69,26 @@ const NoticeItem = ({
       )}
     >
       <div className="w-[32px] h-[32px] rounded-[2px] bg-gray1 flex items-center justify-center text-center text-gray7 flex-shrink-0">
-        <p className="w-[25px] font-bold text-[14px] leading-5">
+        <p className="w-[25px] font-bold text-[14px] leading-5 whitespace-nowrap">
           {!isFeedback ? noticeData?.id : "공지"}
         </p>
       </div>
-      <div className="w-[56px] h-[42px] p-1 rounded-[5px] overflow-hidden bg-gray1 flex-shrink-0">
-        <Image
-          src={noticeData?.thumbnail || "/Preview_loading_image.png"}
-          alt="img"
-          width={56}
-          height={42}
-          className="object-cover"
-        />
-      </div>
-      <div
-        className={cn(
-          "w-full min-h-[42px] flex gap-1 flex-col",
-          "tablet:max-w-[552px]",
-          "mobile:max-w-[224px] mobile:gap-0"
+      <div className="relative w-[56px] h-[42px] rounded-[5px] overflow-hidden bg-gray1 flex-shrink-0">
+        {noticeData?.thumbnail ? (
+          <Image
+            src={noticeData.thumbnail}
+            alt="post-preview-image"
+            fill
+            className="object-cover rounded-[5px]"
+          />
+        ) : (
+          <CustomIcon
+            icon="DEFAULT_THUMBNAIL_ICON"
+            className="w-[56px] h-[42px]"
+          />
         )}
-      >
+      </div>
+      <div className="w-full min-h-[42px] flex gap-1 flex-col">
         <div className="w-full min-h-[20px] flex items-center gap-[2px]">
           <p className="text-[14px] leading-5 text-gray7 text-ellipsis overflow-hidden line-clamp-1">
             {searchType === "TITLE" || searchType === "TITLE_CONTENT"
@@ -115,7 +116,7 @@ const NoticeItem = ({
         {noticeData?.commentSearchList?.comment && (
           <div className="w-full flex items-center justify-start gap-1 text-ellipsis overflow-hidden whitespace-nowrap">
             <div className="w-4 h-4 flex-shrink-0">
-              <Arrow_reply size={16} />
+              <Arrow_reply size={12} />
             </div>
             <div className="w-full flex gap-[2px] font-medium text-[12px] text-gray7 leading-[18px] tracking-[-0.02em] truncate">
               {noticeData?.commentSearchList?.imageUrl && <span>(이미지)</span>}

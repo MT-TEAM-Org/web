@@ -7,6 +7,11 @@ import { PostListConfig, PostListData } from "../../posts/_types/postTypes";
 import MyPagePostEmpty from "../../posts/_components/MypagePostEmpty";
 import { useSearchParams } from "next/navigation";
 import MyPageCommentItem from "./MyPageCommentItem";
+import MobileBackButtonWrapper from "../../_components/MobileBackButton";
+import { cn } from "@/utils";
+import Pagination from "../../_components/Pagination";
+import { useRouter } from "next/navigation";
+import changeURLParams from "../../util/changeURLParams";
 
 interface PostResponse {
   commentType: "BOARD";
@@ -49,6 +54,7 @@ interface Response {
 
 const MyPageCommentList = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const postOptions: PostListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
     size: 5,
@@ -66,10 +72,18 @@ const MyPageCommentList = () => {
   const { data, isLoading } = useGetMyCommentList(postOptions);
   const { content, pageInfo } = data?.data?.list || {};
 
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > pageInfo.totalPage) return;
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
+  };
+
   return (
     <div>
+      <MobileBackButtonWrapper mode="comments" />
       <MypageToolbar mode="comments" pageInfo={pageInfo} />
-      <div className="flex flex-col items-center w-full bg-[#FFFFFF] rounded-b-[5px]">
+      <div className="flex flex-col w-full bg-[#FFFFFF] rounded-b-[5px]">
         {pageInfo?.totalElement !== 0 ? (
           content?.map((post: Response) => (
             <MyPageCommentItem
@@ -81,6 +95,17 @@ const MyPageCommentList = () => {
           <MyPagePostEmpty />
         )}
         {isLoading && <MypagePostSkelton />}
+        <div
+          className={cn(
+            "hidden",
+            "mobile:block mobile:mt-[12px] mobile:mx-auto mobile:mb-[24px]"
+          )}
+        >
+          <Pagination
+            pageInfo={pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );

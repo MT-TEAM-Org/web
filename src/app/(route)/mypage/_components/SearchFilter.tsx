@@ -5,6 +5,7 @@ import Small_Search from "@/app/_components/icon/Small_Search";
 import { useRef, useState } from "react";
 import { COMMENT_COMMENT_TYPE_OPTIONS } from "../_constants/toolbarObject";
 import { Clear } from "@/app/_components/icon/Clear";
+import { cn } from "@/utils";
 
 interface SearchFilterProps {
   searchType: string;
@@ -41,9 +42,17 @@ const SearchFilter = ({
   };
 
   return (
-    <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
+    <div
+      className={cn(
+        "flex justify-end items-center gap-[8px] w-[356px] h-[40px]",
+        "mobile:w-full"
+      )}
+    >
       {mode === "comments" && (
-        <div className="relative" onClick={() => selectRef.current?.click()}>
+        <div
+          className={cn("relative", "mobile:hidden")}
+          onClick={() => selectRef.current?.click()}
+        >
           <select
             className="appearance-none w-[120px] h-[40px] rounded-[5px] px-[12px] border text-[14px] leading-[22px] cursor-pointer [&>option]:h-[40px] [&>option]:px-[12px] [&>option]:py-[16px]"
             ref={selectRef}
@@ -69,7 +78,10 @@ const SearchFilter = ({
 
       <div className="relative" onClick={() => selectRef.current?.click()}>
         <select
-          className="appearance-none w-[120px] h-[40px] rounded-[5px] px-[12px] border text-[14px] leading-[22px] cursor-pointer [&>option]:h-[40px] [&>option]:px-[12px] [&>option]:py-[16px]"
+          className={cn(
+            "appearance-none w-[120px] h-[40px] rounded-[5px] px-[12px] border text-[14px] leading-[22px] cursor-pointer [&>option]:h-[40px] [&>option]:px-[12px] [&>option]:py-[16px]",
+            "mobile:w-[100px]"
+          )}
           ref={selectRef}
           onChange={onSearchTypeChange}
           value={searchType}
@@ -85,24 +97,40 @@ const SearchFilter = ({
             </option>
           ))}
         </select>
-        <div className="absolute top-2 right-2 pointer-events-none">
+        <div
+          className={cn(
+            "absolute top-2 right-2 pointer-events-none",
+            "mobile:right-1"
+          )}
+        >
           <Arrow_down />
         </div>
       </div>
       <form
         onSubmit={onSubmit}
-        className={`flex items-center gap-[8px] w-[228px] h-[40px] rounded-[5px] border-[1px] px-[12px] border-gray3 ${
-          isFocused && "border-gray7"
-        }`}
+        className={cn(
+          `flex items-center gap-[8px] w-[228px] h-[40px] rounded-[5px] border-[1px] px-[12px] border-gray3 ${
+            isFocused && "border-gray7"
+          }`,
+          "mobile:w-[180px]"
+        )}
       >
-        <button className="flex justify-center items-center">
+        <button
+          className={cn(
+            "flex justify-center items-center w-[24px] h-[24px]",
+            "mobile:w-[16px] mobile:h-[16px]"
+          )}
+        >
           <Small_Search />
         </button>
         <input
           type="text"
-          className={`${
-            hasValue ? "w-[144px]" : "w-[172px]"
-          } text-[14px] leading-[22px] placeholder-[#CBCBCB] focus:outline-none focus:border-none`}
+          className={cn(
+            `${
+              hasValue ? "w-[144px]" : "w-[172px]"
+            } text-[14px] leading-[22px] placeholder-gray4 focus:outline-none focus:border-none`,
+            "mobile:w-[132px]"
+          )}
           placeholder="검색어를 입력해주세요."
           ref={inputRef}
           onInput={handleInput}
@@ -111,7 +139,7 @@ const SearchFilter = ({
         />
         {hasValue && (
           <button
-            className="flex justify-center items-center"
+            className={cn("flex justify-center items-center", "mobile:hidden")}
             type="button"
             onClick={clearInput}
           >

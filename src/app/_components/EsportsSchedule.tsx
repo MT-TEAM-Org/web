@@ -21,7 +21,6 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
     pathname.startsWith("/matchBroadcast/ESPORTS");
 
   const { data: esportsSchedule, isLoading } = useGetEsportsSchedule();
-  console.log(esportsSchedule, "esportsSchedule");
   const [currentPage, setCurrentPage] = useState(0);
   const [isSelected, setIsSelected] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
@@ -30,12 +29,16 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
   const currentGroup = esportsSchedule?.data?.[currentPage] || null;
 
   useEffect(() => {
-    if (isGameboard && !isLoading && currentGroup?.id && !selectedItemId) {
-      const groupId = Number(currentGroup.id);
-      setSelectedItemId(groupId);
-      handleMatchClick(groupId);
+    if (
+      isGameboard &&
+      pathname === "/matchBroadcast/ESPORTS" &&
+      !isLoading &&
+      currentGroup?.list?.length > 0
+    ) {
+      const firstMatchId = currentGroup.list[0].id;
+      router.push(`/matchBroadcast/ESPORTS/${firstMatchId}`);
     }
-  }, [isLoading, currentGroup, isGameboard]);
+  }, [isLoading, currentGroup, pathname, isGameboard]);
 
   const getMatchStatus = (match: MatchItem) => {
     const now = new Date();

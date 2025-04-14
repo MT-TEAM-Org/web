@@ -9,8 +9,10 @@ import NoticeItemSkeleton from "./_components/NoticeItemSkeleton";
 import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { noticeListConfig } from "./_types/noticeListConfig";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
+import changeURLParams from "../mypage/util/changeURLParams";
+import Pagination from "../mypage/_components/Pagination";
 
 const Page = () => {
   return (
@@ -23,6 +25,7 @@ const Page = () => {
 const NoticePageContent = () => {
   const searchParams = useSearchParams();
   const adminChecker = useAdminRole();
+  const router = useRouter();
 
   const noticeOption: noticeListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
@@ -37,6 +40,13 @@ const NoticePageContent = () => {
     isLoading,
     isError,
   } = useGetNoticeDataList(noticeOption);
+
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > noticeListData?.pageInfo?.totalPage) return;
+    router.push(changeURLParams(searchParams, "page", page.toString()), {
+      scroll: false,
+    });
+  };
 
   return (
     <div className="w-full max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10">
@@ -71,6 +81,17 @@ const NoticePageContent = () => {
             />
           ))
         )}
+        <div
+          className={cn(
+            "hidden",
+            "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+          )}
+        >
+          <Pagination
+            pageInfo={noticeListData?.pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
       </div>
     </div>
   );

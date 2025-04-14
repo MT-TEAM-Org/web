@@ -3,6 +3,8 @@ import FeedbackInfo from "./_components/FeedbackInfo";
 import { Metadata } from "next";
 import getFeedbackInfoData from "@/services/customer/getFeedbackInfoData";
 
+const stripHtml = (html: string) => html.replace(/<[^>]*>?/gm, "");
+
 export async function generateMetadata({
   params,
 }: {
@@ -15,15 +17,19 @@ export async function generateMetadata({
       id: feedbackId,
     });
 
+    const rawContent = feedbackDetail.content || "개선요청 상세 내용";
+    const plainTextContent = stripHtml(rawContent);
+
     return {
       title: feedbackDetail.title || "개선요청 상세 페이지",
-      description: feedbackDetail.content || "개선요청 상세 내용",
+      description: plainTextContent,
       openGraph: {
         title: feedbackDetail.title || "개선요청 상세 페이지",
         description: feedbackDetail.content || "개선요청 상세 내용",
-        images: feedbackDetail.imgUrl && [
-          { url: feedbackDetail.imgUrl, width: 1200, height: 630 },
-        ],
+        images:
+          feedbackDetail.imgUrl === ""
+            ? [{ url: "/Metadata.png", width: 1200, height: 630 }]
+            : [{ url: feedbackDetail.imgUrl, width: 640, height: 315 }],
       },
       keywords: feedbackDetail.keywords || ["플레이하이브", "개선요청"],
     };

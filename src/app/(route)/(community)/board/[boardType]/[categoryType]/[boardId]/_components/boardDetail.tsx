@@ -234,7 +234,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
             onClick={checkRecommned}
             className={`min-w-[120px] w-auto h-[40px] gap-x-[4px] flex items-center text-[14px] justify-center px-4 py-[13px] font-bold rounded-[5px] ${
               boardDetailData?.data?.isRecommended
-                ? "bg-white text-primary border border-primary"
+                ? "bg-white text-gra border border-gra"
                 : "bg-white text-gray7 border border-gray3"
             }`}
           >
