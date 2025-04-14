@@ -88,11 +88,11 @@ export default function NewsPage() {
         <div
           className={cn(
             "w-full max-w-[720px] h-auto rounded-b-[5px]",
+            "tablet:max-w-[688px]",
+            "mobile:w-full mobile:max-w-[768px]",
             newsData?.content?.length !== 0 &&
               newsData &&
-              "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
-            "tablet:max-w-[688px]",
-            "mobile:w-full mobile:max-w-[768px]"
+              "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"
           )}
         >
           {isLoading ? (
