@@ -4,7 +4,6 @@ import RightSidebarWrapper from "./_components/RightSidebarWrapper";
 import { cn } from "@/utils";
 
 export const metadata = {
-  metadataBase: new URL("https://playhive.co.kr/"),
   title: "PlayHive 고객센터 페이지",
   description: "PlayHive 고객센터 페이지입니다.",
   openGraph: {
@@ -12,7 +11,7 @@ export const metadata = {
     description: "PlayHive 고객센터 페이지입니다.",
     images: [
       {
-        url: "/Metadata.png",
+        url: "https://playhive.co.kr/Metadata.png",
         width: 1200,
         height: 630,
         alt: "PlayHive 이미지",
