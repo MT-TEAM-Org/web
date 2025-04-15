@@ -43,6 +43,14 @@ export const RightSideBar = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const pageButtonStyle =
+    "w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center";
+  const disabledStyle = "opacity-50 cursor-not-allowed";
+
+  const getNavButtonClass = (isDisabled: boolean) => {
+    return `${pageButtonStyle} ${isDisabled ? disabledStyle : ""}`;
+  };
+
   const handleToPage = (type: "prev" | "next") => {
     const currentPageNum = Number(currentPage);
 
@@ -56,7 +64,11 @@ export const RightSideBar = () => {
   };
 
   return (
-    <div className="w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-6">
+    <div
+      className={`w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-6 ${
+        !isLoading && content.length === 0 ? "hidden" : ""
+      }`}
+    >
       <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px] bg-white">
         <div className="w-full h-auto max-h-[736px] rounded-[10px]">
           {content.length === 0 && isLoading && !isPaginating
@@ -76,7 +88,7 @@ export const RightSideBar = () => {
           <div className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto">
             <button
               onClick={() => handleToPage("prev")}
-              className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center"
+              className={getNavButtonClass(Number(currentPage) === 1)}
             >
               <Arrow_left width={18} height={18} />
             </button>
@@ -85,7 +97,9 @@ export const RightSideBar = () => {
             </div>
             <button
               onClick={() => handleToPage("next")}
-              className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center"
+              className={getNavButtonClass(
+                Number(currentPage) === Number(totalPage)
+              )}
             >
               <Arrow_right width={18} height={18} />
             </button>
