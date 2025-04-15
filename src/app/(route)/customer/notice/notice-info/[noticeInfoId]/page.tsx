@@ -17,17 +17,18 @@ export async function generateMetadata({
     });
 
     const rawContent = noticeDetail.content || "공지사항 상세 내용";
-    const plainTextContent = stripHtml(rawContent);
+    const plainTextContent = stripHtml(rawContent || "").trim();
+    const finalContent = plainTextContent ? rawContent : null;
 
     return {
       title: noticeDetail.title || "공지사항 상세 페이지",
-      description: noticeDetail.content || "공지사항 상세 내용",
+      description: plainTextContent || "공지사항 상세 내용",
       openGraph: {
         title: noticeDetail.title || "공지사항 상세 페이지",
-        description: plainTextContent,
+        description: finalContent,
         images:
           noticeDetail.imgUrl === ""
-            ? [{ url: "/Metadata.png", width: 1200, height: 630 }]
+            ? [{ url: "/Metadata.png", width: 1200, height: 800 }]
             : [{ url: noticeDetail.imgUrl, width: 600, height: 315 }],
       },
       keywords: noticeDetail.keywords || ["플레이하이브", "공지사항"],

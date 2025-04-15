@@ -18,14 +18,15 @@ export async function generateMetadata({
     });
 
     const rawContent = feedbackDetail.content || "개선요청 상세 내용";
-    const plainTextContent = stripHtml(rawContent);
+    const plainTextContent = stripHtml(rawContent || "").trim();
+    const finalContent = plainTextContent ? rawContent : null;
 
     return {
       title: feedbackDetail.title || "개선요청 상세 페이지",
-      description: plainTextContent,
+      description: plainTextContent || "개선요청 상세 내용",
       openGraph: {
         title: feedbackDetail.title || "개선요청 상세 페이지",
-        description: feedbackDetail.content || "개선요청 상세 내용",
+        description: finalContent || "개선요청 상세 내용",
         images:
           feedbackDetail.imgUrl === ""
             ? [{ url: "/Metadata.png", width: 1200, height: 630 }]
