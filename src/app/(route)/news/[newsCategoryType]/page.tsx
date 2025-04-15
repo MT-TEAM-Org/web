@@ -113,18 +113,19 @@ export default function NewsPage() {
               />
             ))
           )}
-
-          <div
-            className={cn(
-              "hidden",
-              "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
-            )}
-          >
-            <Pagination
-              pageInfo={newsData?.pageInfo}
-              onPageChangeAction={handlePageChange}
-            />
-          </div>
+          {newsData?.pageInfo?.totalPage > 0 && (
+            <div
+              className={cn(
+                "hidden",
+                "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+              )}
+            >
+              <Pagination
+                pageInfo={newsData?.pageInfo}
+                onPageChangeAction={handlePageChange}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
