@@ -66,7 +66,16 @@ const FeedbackPage = () => {
   };
 
   return (
-    <div className="w-full max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10">
+    <div
+      className={cn(
+        "w-full max-w-[720px] min-h-[120px] rounded-t-[5px] mx-auto",
+        `${
+          feedbackDataList?.content?.length === 0 || !feedbackDataList
+            ? "bg-transparent"
+            : "bg-white"
+        }`
+      )}
+    >
       <div className="sticky top-0 z-10">
         <CustomerTalkToolbar
           showOptions={true}
@@ -77,9 +86,11 @@ const FeedbackPage = () => {
 
       <div
         className={cn(
-          "w-full max-w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+          "w-full max-w-[720px] h-auto rounded-b-[5px] overflow-hidden",
           "tablet:max-w-[688px]",
-          "mobile:w-full"
+          "mobile:w-full",
+          !!feedbackDataList?.content?.length &&
+            "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"
         )}
       >
         {noticeIsLoading || isLoading ? (

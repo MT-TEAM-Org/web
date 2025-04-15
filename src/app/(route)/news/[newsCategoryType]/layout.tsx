@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "min-h-[calc(100vh-188px)] pb-[40px] mx-10",
+        "min-h-[calc(100vh-188px)] pb-[40px] bg-gray1",
         "tablet:max-w-[1279px]",
         "mobile:w-full mobile:mx-0"
       )}
@@ -51,9 +51,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       >
         <div
           className={cn(
-            "w-[160px] h-[104px] sticky top-0 shadow-md",
-            "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:static tablet:shadow-none tablet:overflow-x-auto",
-            "mobile:w-full mobile:h-auto mobile:min-h-[52px] mobile:static mobile:shadow-none mobile:overflow-x-auto"
+            "w-[160px] pc:h-[260px] sticky top-0 rounded-[5px] overflow-hidden",
+            "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:static tablet:overflow-x-auto",
+            "mobile:w-full mobile:h-auto mobile:min-h-[52px] mobile:static mobile:overflow-x-auto"
           )}
         >
           <NewsLeftSidebar />
@@ -61,7 +61,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         <div
           className={cn(
-            "flex-1 w-full max-w-[720px] min-h-[calc(100vh-188px)] mb-10",
+            "flex-1 w-full max-w-[720px]",
             "tablet:max-w-[688px]",
             "mobile:w-full mobile:max-w-none"
           )}
