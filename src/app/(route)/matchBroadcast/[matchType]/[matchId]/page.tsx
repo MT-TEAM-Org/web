@@ -45,10 +45,16 @@ export default function MatchDetailPage({
   }
 
   return (
-    <div className="flex flex-col justify-start w-full max-w-[1200px] mx-auto gap-x-[40px]">
-      <div className="flex flex-col max-w-[800px] ">
+    <div
+      className={cn(
+        "flex flex-col justify-start max-w-[1200px] mx-auto gap-x-[40px]",
+        "tablet:max-w-[688px]",
+        "mobile:w-full"
+      )}
+    >
+      <div className={cn("flex flex-col max-w-[800px]", "mobile:w-full")}>
         {matchType === "ESPORTS" && (
-          <div className="w-full">
+          <div className={cn("w-full", " mobile:mx-auto")}>
             <LiveSection matchId={matchIdNum} />
           </div>
         )}

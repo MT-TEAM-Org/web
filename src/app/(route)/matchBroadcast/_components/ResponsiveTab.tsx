@@ -12,13 +12,7 @@ const ResponsiveTab = () => {
   const [activeValue, setActiveValue] = useState("prediction");
 
   return (
-    <div
-      className={cn(
-        "h-[52px] rounded-t-[5px] flex justify-center items-center",
-        "tablet:max-w-[688px]",
-        "mobile:max-w-[360px]"
-      )}
-    >
+    <div className="w-full h-[52px] rounded-t-[5px] flex justify-center items-center">
       {tabList.map((tab) => (
         <div
           key={tab.value}
@@ -28,11 +22,11 @@ const ResponsiveTab = () => {
             activeValue === tab.value
               ? cn(
                   "bg-bg0 text-gra",
-                  "mobile:bg-transparent mobile:text-gray7 mobile:border-b-[2px]"
+                  "mobile:bg-transparent mobile:text-gray7 mobile:border-b-[2px] mobile:border-gray7"
                 )
               : cn(
                   "bg-white text-gray7",
-                  "mobile:bg-transparent mobile:text-gray5"
+                  "mobile:bg-transparent mobile:text-gray5 mobile:border-b-[2px] mobile:border-gray3"
                 )
           )}
         >

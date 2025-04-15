@@ -1,5 +1,6 @@
 import React, { use } from "react";
 import ScheduleContainer from "../../main/_components/scheduleContainer";
+import { cn } from "@/utils";
 
 export const metadata = {
   title: "경기 중계",
@@ -27,7 +28,7 @@ export default function Layout({
           />
         </div>
       </div>
-      <div className="my-[24px]">{children}</div>
+      <div className={cn("my-[24px]", "mobile:my-0")}>{children}</div>
     </div>
   );
 }

@@ -60,9 +60,9 @@ const LiveSection = ({ matchId }: ScheduleDataProps) => {
   return (
     <div
       className={cn(
-        "w-[800px] h-[440px]",
+        "w-[800px] aspect-video",
         "tablet:w-[688px]",
-        "mobile:w-[360px] mobile:h-[200px]"
+        "mobile:w-full"
       )}
     >
       {isLive ? (
@@ -72,17 +72,11 @@ const LiveSection = ({ matchId }: ScheduleDataProps) => {
           allowFullScreen
         />
       ) : (
-        <div
-          className={cn(
-            "w-[800px] h-[440px] flex justify-center items-center mx-auto text-center gap-x-[8px] bg-gray1",
-            "tablet:w-[688px]",
-            "mobile:w-[360px] mobile:h-[360px]"
-          )}
-        >
+        <div className="w-full h-full flex justify-center items-center mx-auto text-center gap-x-[8px] bg-gray1">
           <p className={cn(textStyle, "text-gra whitespace-nowrap")}>
             {timeRemaining}
+            <span className={cn(textStyle, "text-gra")}> 후</span>
           </p>
-          <p className={cn(textStyle, "text-gra")}>후</p>
           <p className={cn(textStyle, "text-gray7")}>경기가 시작됩니다.</p>
         </div>
       )}
