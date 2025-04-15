@@ -272,7 +272,7 @@ const NewsInfo = ({
               />
             ))
           )}
-          {newsListData?.pagInfo.totalPage > 0 && (
+          {newsListData?.pagInfo?.totalPage > 0 && (
             <div
               className={cn(
                 "hidden",
