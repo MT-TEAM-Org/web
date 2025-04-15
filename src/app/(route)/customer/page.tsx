@@ -92,17 +92,19 @@ const NoticePageContent = () => {
             />
           ))
         )}
-        <div
-          className={cn(
-            "hidden",
-            "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
-          )}
-        >
-          <Pagination
-            pageInfo={noticeListData?.pageInfo}
-            onPageChangeAction={handlePageChange}
-          />
-        </div>
+        {noticeListData?.pageInfo && (
+          <div
+            className={cn(
+              "hidden",
+              "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+            )}
+          >
+            <Pagination
+              pageInfo={noticeListData?.pageInfo}
+              onPageChangeAction={handlePageChange}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

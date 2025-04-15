@@ -360,17 +360,19 @@ const FeedbackInfo = () => {
                   />
                 )
               )}
-          <div
-            className={cn(
-              "hidden",
-              "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
-            )}
-          >
-            <Pagination
-              pageInfo={feedbackDataList?.pageInfo}
-              onPageChangeAction={handlePageChange}
-            />
-          </div>
+          {feedbackDataList?.pageInfo && (
+            <div
+              className={cn(
+                "hidden",
+                "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+              )}
+            >
+              <Pagination
+                pageInfo={feedbackDataList?.pageInfo}
+                onPageChangeAction={handlePageChange}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>
