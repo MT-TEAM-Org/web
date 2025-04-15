@@ -12,6 +12,7 @@ const MobileGnb = () => {
 
   const pathname = usePathname();
   const router = useRouter();
+  const isHome = pathname === "/";
 
   const handleToSearch = () => {
     const trimmedValue = isValue.trim();
@@ -36,7 +37,8 @@ const MobileGnb = () => {
       className={cn(
         "pc:hidden",
         "tablet:hidden",
-        "mobile:w-full mobile:min-w-[360px] mobile:min-h-[60px] mobile:py-[8px]"
+        isHome && "sticky top-0 z-50",
+        "mobile:w-full mobile:min-w-[360px] mobile:min-h-[60px] mobile:py-[8px] mobile:bg-white"
       )}
     >
       <div className="flex justify-between items-center mx-auto w-full min-w-[360px] h-[44px] px-[16px]">
