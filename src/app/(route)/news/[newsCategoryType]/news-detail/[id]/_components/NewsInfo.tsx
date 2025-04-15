@@ -132,8 +132,6 @@ const NewsInfo = ({
     });
   };
 
-  console.log(newsListData?.pageInfo);
-
   return (
     <>
       {isLoading ? (
@@ -274,7 +272,7 @@ const NewsInfo = ({
               />
             ))
           )}
-          {newsListData?.pagInfo && (
+          {newsListData?.pagInfo.totalPage > 0 && (
             <div
               className={cn(
                 "hidden",

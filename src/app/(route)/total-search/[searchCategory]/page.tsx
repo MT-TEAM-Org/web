@@ -136,17 +136,19 @@ const Page = () => {
               )
             )
           ))}
-        <div
-          className={cn(
-            "hidden",
-            "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
-          )}
-        >
-          <Pagination
-            pageInfo={searchData?.pageInfo}
-            onPageChangeAction={handlePageChange}
-          />
-        </div>
+        {searchData?.pageInfo?.totalPage > 0 && (
+          <div
+            className={cn(
+              "hidden",
+              "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+            )}
+          >
+            <Pagination
+              pageInfo={searchData?.pageInfo}
+              onPageChangeAction={handlePageChange}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

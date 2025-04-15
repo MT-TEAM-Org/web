@@ -113,7 +113,7 @@ export default function NewsPage() {
               />
             ))
           )}
-          {newsData?.pageInfo && (
+          {newsData?.pageInfo?.totalPage > 0 && (
             <div
               className={cn(
                 "hidden",

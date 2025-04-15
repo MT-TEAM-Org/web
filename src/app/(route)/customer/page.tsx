@@ -92,7 +92,7 @@ const NoticePageContent = () => {
             />
           ))
         )}
-        {noticeListData?.pageInfo && (
+        {noticeListData?.pageInfo.totalPage > 0 && (
           <div
             className={cn(
               "hidden",
