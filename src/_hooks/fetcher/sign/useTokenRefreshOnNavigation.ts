@@ -34,7 +34,7 @@ const useTokenRefreshOnNavigation = () => {
       if (!accessToken) return;
       const payload = parseJwt(accessToken);
       if (!payload.exp) return;
-      const isExpired = payload.exp * 1000 < Date.now();
+      const isExpired = payload.exp * 1000 - Date.now() < 5 * 60 * 1000;
       if (isExpired) {
         reissue();
       }
