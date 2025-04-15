@@ -77,8 +77,11 @@ const Page = () => {
   return (
     <div
       className={cn(
-        "w-full max-w-[720px] min-h-[120px] rounded-[5px] border-b bg-white mx-auto mb-10",
-        "mobile:max-w-[768px]"
+        "w-full max-w-[720px] min-h-[120px] rounded-[5px] mx-auto",
+        "mobile:max-w-[768px]",
+        searchData?.content?.length === 0 || !searchData
+          ? "bg-transparent"
+          : "bg-white"
       )}
     >
       <div className="sticky top-0 z-10">
@@ -90,9 +93,11 @@ const Page = () => {
 
       <div
         className={cn(
-          "w-full max-w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
+          "w-full max-w-[720px] h-auto rounded-b-[5px]",
           "tablet:max-w-[688px]",
-          "mobile:w-full mobile:max-w-[768px]"
+          "mobile:w-full mobile:max-w-[768px]",
+          !!searchData?.content?.length &&
+            "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"
         )}
       >
         {isLoading &&
@@ -131,17 +136,19 @@ const Page = () => {
               )
             )
           ))}
-        <div
-          className={cn(
-            "hidden",
-            "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
-          )}
-        >
-          <Pagination
-            pageInfo={searchData?.pageInfo}
-            onPageChangeAction={handlePageChange}
-          />
-        </div>
+        {searchData?.pageInfo?.totalPage > 0 && (
+          <div
+            className={cn(
+              "hidden",
+              "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+            )}
+          >
+            <Pagination
+              pageInfo={searchData?.pageInfo}
+              onPageChangeAction={handlePageChange}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

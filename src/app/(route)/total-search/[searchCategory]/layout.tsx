@@ -4,7 +4,6 @@ import { RightSideBar } from "../../(community)/_components/RightSideBar";
 import { cn } from "@/utils";
 
 export const metadata = {
-  metadataBase: new URL("https://playhive.co.kr/"),
   title: "PlayHive 전체검색",
   description: "PlayHive에서 뉴스와 콘텐츠를 검색해보세요.",
   openGraph: {
@@ -12,7 +11,7 @@ export const metadata = {
     description: "PlayHive에서 뉴스와 콘텐츠를 검색해보세요.",
     images: [
       {
-        url: "/Metadata.png",
+        url: "https://playhive.co.kr/Metadata.png",
         width: 1200,
         height: 630,
         alt: "PlayHive 이미지",
@@ -25,7 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "min-h-[calc(100vh-188px)] pb-[40px] mx-10",
+        "min-h-[calc(100vh-188px)] bg-gray1",
         "tablet:max-w-[1279px]",
         "mobile:w-full mobile:mx-0"
       )}
@@ -51,9 +50,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       >
         <div
           className={cn(
-            "w-[160px] h-[104px] sticky top-0 shadow-md",
-            "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:static tablet:shadow-none tablet:overflow-x-auto",
-            "mobile:w-full mobile:h-auto mobile:min-h-[52px] mobile:static mobile:shadow-none mobile:overflow-x-auto"
+            "w-[160px] h-[104px] sticky top-0",
+            "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:static tablet:overflow-x-auto",
+            "mobile:w-full mobile:h-auto mobile:min-h-[52px] mobile:static mobile:overflow-x-auto"
           )}
         >
           <SearchLeftSideBar />

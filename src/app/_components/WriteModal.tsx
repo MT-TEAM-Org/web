@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface WritGuideProps {
   modalId: string;
@@ -43,7 +44,7 @@ const WriteModal = ({
   const buttonBoxSize =
     "flex justify-center items-center w-[160px] max-h-[48px] py-[16px] px-[20px] border-1 rounded-[5px]";
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
       <div className="flex flex-col justify-center items-center bg-white w-[640px] h-[656px] rounded-[10px] p-[40px]">
         <h3 className="mb-[16px] w-[560px] min-h-[38px] font-[700] text-[24px] leading-[38px] text-center">
@@ -102,7 +103,8 @@ const WriteModal = ({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

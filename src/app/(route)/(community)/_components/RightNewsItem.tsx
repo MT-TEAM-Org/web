@@ -46,7 +46,7 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
         onClick={handleRead}
         className={`min-w-[288px] min-h-[92px] flex justify-center items-center border-b border-gray2 p-3 cursor-pointer gap-3  ${customClass}`}
       >
-        <div className="w-[68px] h-[68px]">
+        <div className="flex-shrink-0 w-[68px] h-[68px] rounded-[5px] overflow-hidden bg-gray1 relative">
           {updatedImgUrl ? (
             <Image
               src={updatedImgUrl}
@@ -56,9 +56,10 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
               className="max-w-[68px] h-[68px] rounded-[5px] object-cover"
             />
           ) : (
-            <div className="w-[68px] h-[68px] rounded-[5px] overflow-hidden flex items-center justify-center bg-gray-100">
-              <CustomIcon icon="DEFAULT_THUMBNAIL_ICON" />
-            </div>
+            <CustomIcon
+              icon="MAIN_DEFAULT_THUMBNAIL_ICON"
+              className="max-w-[68px] h-[68px] object-cover"
+            />
           )}
         </div>
         <div className="min-w-[194px] h-auto min-h-[68px] flex flex-col justify-center items-start gap-1 ">

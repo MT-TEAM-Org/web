@@ -52,6 +52,14 @@ const MainRightBar = () => {
     }
   };
 
+  const pageButtonStyle =
+    "w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center";
+  const disabledStyle = "opacity-50 cursor-not-allowed";
+
+  const getNavButtonClass = (isDisabled: boolean) => {
+    return `${pageButtonStyle} ${isDisabled ? disabledStyle : ""}`;
+  };
+
   const btnStyle =
     "w-1/2 h-10 flex gap-[10px] px-[16px] py-[13px] items-center justify-center rounded-t-[5px] cursor-pointer border-gray8";
   const activeBtnStyle =
@@ -102,7 +110,7 @@ const MainRightBar = () => {
         ) : eventIsLoading ? (
           Array.from({ length: 5 }).map((_, i) => <EventItemSkeleton key={i} />)
         ) : eventIsError || !gameEventData?.content?.length ? (
-          <EmptyGameBox title="이벤트 정보" onClick={handleRefresh} />
+          <EmptyGameBox title="게임 이벤트 정보" onClick={handleRefresh} />
         ) : (
           gameEventData.content.map((event) => (
             <EventItem key={event.id} gameEventData={event} />
@@ -114,7 +122,8 @@ const MainRightBar = () => {
         <div className="w-[160px] min-h-[32px] flex mx-auto gap-4">
           <button
             onClick={() => handleToPage("prev")}
-            className="w-[32px] h-[32px] rounded-[5px] border border-gray2 flex justify-center items-center p-[9px]"
+            className={getNavButtonClass(Number(currentPage) === 1)}
+            disabled={currentPage === "1"}
           >
             <Arrow_left width={18} height={18} />
           </button>
@@ -123,7 +132,13 @@ const MainRightBar = () => {
           </div>
           <button
             onClick={() => handleToPage("next")}
-            className="w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center"
+            className={getNavButtonClass(
+              Number(currentPage) ===
+                Number(filteredNewsData?.pageInfo?.totalPage)
+            )}
+            disabled={
+              Number(currentPage) === filteredNewsData?.pageInfo?.totalPage
+            }
           >
             <Arrow_right width={18} height={18} />
           </button>
