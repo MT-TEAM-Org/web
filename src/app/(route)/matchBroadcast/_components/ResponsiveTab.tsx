@@ -1,0 +1,46 @@
+"use client";
+
+import { cn } from "@/utils";
+import React, { useState } from "react";
+
+const tabList = [
+  { label: "승부예측", value: "prediction" },
+  { label: "하이브챗", value: "chat" },
+];
+
+const ResponsiveTab = () => {
+  const [activeValue, setActiveValue] = useState("prediction");
+
+  return (
+    <div
+      className={cn(
+        "h-[52px] rounded-t-[5px] flex justify-center items-center",
+        "tablet:max-w-[688px]",
+        "mobile:max-w-[360px]"
+      )}
+    >
+      {tabList.map((tab) => (
+        <div
+          key={tab.value}
+          onClick={() => setActiveValue(tab.value)}
+          className={cn(
+            "w-full h-full flex items-center justify-center px-4 py-3 font-bold leading-[28px] tracking-[-0.02em] cursor-pointer",
+            activeValue === tab.value
+              ? cn(
+                  "bg-bg0 text-gra",
+                  "mobile:bg-transparent mobile:text-gray7 mobile:border-b-[2px]"
+                )
+              : cn(
+                  "bg-white text-gray7",
+                  "mobile:bg-transparent mobile:text-gray5"
+                )
+          )}
+        >
+          {tab.label}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ResponsiveTab;

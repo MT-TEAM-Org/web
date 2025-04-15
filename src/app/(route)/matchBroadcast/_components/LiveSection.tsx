@@ -2,6 +2,7 @@
 
 import useGetEsportsLive from "@/_hooks/fetcher/match-controller/useGetEsportsLive";
 import useGetMatchPrediction from "@/_hooks/fetcher/match-controller/useGetMatchPrediction";
+import { cn } from "@/utils";
 import { useEffect, useState } from "react";
 
 interface ScheduleDataProps {
@@ -51,26 +52,38 @@ const LiveSection = ({ matchId }: ScheduleDataProps) => {
     return () => clearInterval(interval);
   }, [startTime]);
 
+  const textStyle = cn(
+    "text-[24px] font-bold leading-[38px] tracking-[-0.04em]",
+    "mobile:text-[20px] mobile:leading-[36px] mobile:tracking-[-0.02em]"
+  );
+
   return (
-    <div className="w-[800px] h-[440px]">
+    <div
+      className={cn(
+        "w-[800px] h-[440px]",
+        "tablet:w-[688px]",
+        "mobile:w-[360px] mobile:h-[200px]"
+      )}
+    >
       {isLive ? (
         <iframe
           src={`https://www.youtube.com/embed/${esportsLiveData?.data?.videoId}`}
-          width="800"
-          height="440"
+          className="w-full h-full"
           allowFullScreen
         />
       ) : (
-        <div className="w-[800px] h-[440px] flex justify-center items-center mx-auto text-center gap-x-[8px]">
-          <p className="text-[24px] font-bold leading-[38px] text-primary whitespace-nowrap">
+        <div
+          className={cn(
+            "w-[800px] h-[440px] flex justify-center items-center mx-auto text-center gap-x-[8px] bg-gray1",
+            "tablet:w-[688px]",
+            "mobile:w-[360px] mobile:h-[360px]"
+          )}
+        >
+          <p className={cn(textStyle, "text-gra whitespace-nowrap")}>
             {timeRemaining}
           </p>
-          <p className="text-[24px] font-bold leading-[38px] text-primary">
-            후
-          </p>
-          <p className="text-[24px] font-bold leading-[38px] text-gray7">
-            경기가 시작됩니다.
-          </p>
+          <p className={cn(textStyle, "text-gra")}>후</p>
+          <p className={cn(textStyle, "text-gray7")}>경기가 시작됩니다.</p>
         </div>
       )}
     </div>

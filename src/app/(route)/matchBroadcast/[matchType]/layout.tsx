@@ -27,7 +27,7 @@ export default function Layout({
           />
         </div>
       </div>
-      {children}
+      <div className="my-[24px]">{children}</div>
     </div>
   );
 }

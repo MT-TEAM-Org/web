@@ -8,6 +8,8 @@ import MatchDetailSkeleton from "../../_components/matchSkeleton";
 import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { CommentItem } from "@/_types/comment";
+import ResponsiveTab from "../../_components/ResponsiveTab";
+import { cn } from "@/utils";
 
 export default function MatchDetailPage({
   params,
@@ -50,6 +52,9 @@ export default function MatchDetailPage({
             <LiveSection matchId={matchIdNum} />
           </div>
         )}
+        <div className={cn("block", "pc:hidden")}>
+          <ResponsiveTab />
+        </div>
         <div className="w-full">
           <MatchPrediction scheduleData={matchSchedule} matchId={matchIdNum} />
         </div>
