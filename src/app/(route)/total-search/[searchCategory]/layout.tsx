@@ -4,7 +4,6 @@ import { RightSideBar } from "../../(community)/_components/RightSideBar";
 import { cn } from "@/utils";
 
 export const metadata = {
-  metadataBase: new URL("https://playhive.co.kr/"),
   title: "PlayHive 전체검색",
   description: "PlayHive에서 뉴스와 콘텐츠를 검색해보세요.",
   openGraph: {
@@ -12,7 +11,7 @@ export const metadata = {
     description: "PlayHive에서 뉴스와 콘텐츠를 검색해보세요.",
     images: [
       {
-        url: "/Metadata.png",
+        url: "https://playhive.co.kr/Metadata.png",
         width: 1200,
         height: 630,
         alt: "PlayHive 이미지",

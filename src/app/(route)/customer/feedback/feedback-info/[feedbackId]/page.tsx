@@ -18,17 +18,24 @@ export async function generateMetadata({
     });
 
     const rawContent = feedbackDetail.content || "개선요청 상세 내용";
-    const plainTextContent = stripHtml(rawContent);
+    const plainTextContent = stripHtml(rawContent || "").trim();
+    const finalContent = plainTextContent ? rawContent : null;
 
     return {
       title: feedbackDetail.title || "개선요청 상세 페이지",
-      description: plainTextContent,
+      description: plainTextContent || "개선요청 상세 내용",
       openGraph: {
         title: feedbackDetail.title || "개선요청 상세 페이지",
-        description: feedbackDetail.content || "개선요청 상세 내용",
+        description: finalContent || "개선요청 상세 내용",
         images:
           feedbackDetail.imgUrl === ""
-            ? [{ url: "/Metadata.png", width: 1200, height: 630 }]
+            ? [
+                {
+                  url: "https://playhive.co.kr/Metadata.png",
+                  width: 1200,
+                  height: 630,
+                },
+              ]
             : [{ url: feedbackDetail.imgUrl, width: 640, height: 315 }],
       },
       keywords: feedbackDetail.keywords || ["플레이하이브", "개선요청"],
@@ -40,7 +47,7 @@ export async function generateMetadata({
       openGraph: {
         title: "개선요청 상세 페이지",
         description: "개선요청 정보를 불러오는 중 오류가 발생했습니다.",
-        images: [{ url: "/Metadata.png" }],
+        images: [{ url: "https://playhive.co.kr/Metadata.png" }],
       },
       keywords: ["플레이하이브", "개선요청"],
     };
