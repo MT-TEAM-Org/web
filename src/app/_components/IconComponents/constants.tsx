@@ -223,6 +223,33 @@ const ICONS = {
       </>
     ),
   },
+  GNB_HAMBURGER_ICON: {
+    svgOptions: {
+      viewBox: "0 0 18 18",
+    },
+    icon: (
+      <>
+        <path
+          d="M1 3.00195H17"
+          stroke="#424242"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M1 9.00195H17"
+          stroke="#424242"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M1 15.002H17"
+          stroke="#424242"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </>
+    ),
+  },
 };
 
 export type IconList = keyof typeof ICONS;
@@ -237,3 +264,29 @@ export type IconType = {
 };
 
 export default ICONS as IconType;
+<svg
+  width="18"
+  height="18"
+  viewBox="0 0 18 18"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M1 3.00195H17"
+    stroke="#424242"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+  <path
+    d="M1 9.00195H17"
+    stroke="#424242"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+  <path
+    d="M1 15.002H17"
+    stroke="#424242"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+</svg>;

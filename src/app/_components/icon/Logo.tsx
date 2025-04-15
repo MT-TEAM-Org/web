@@ -5,8 +5,8 @@ interface LogoProps {
 export const Logo = ({ size = "md" }: LogoProps) => {
   const logoSize = {
     xs: {
-      width: "60.37",
-      height: "20",
+      width: "59.12",
+      height: "16",
     },
     sm: {
       width: "90.56",
