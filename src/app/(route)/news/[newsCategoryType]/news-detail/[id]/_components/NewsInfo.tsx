@@ -132,6 +132,8 @@ const NewsInfo = ({
     });
   };
 
+  console.log(newsListData?.pageInfo);
+
   return (
     <>
       {isLoading ? (
@@ -272,17 +274,19 @@ const NewsInfo = ({
               />
             ))
           )}
-          <div
-            className={cn(
-              "hidden",
-              "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
-            )}
-          >
-            <Pagination
-              pageInfo={newsListData?.pageInfo}
-              onPageChangeAction={handlePageChange}
-            />
-          </div>
+          {newsListData?.pagInfo && (
+            <div
+              className={cn(
+                "hidden",
+                "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
+              )}
+            >
+              <Pagination
+                pageInfo={newsListData?.pageInfo}
+                onPageChangeAction={handlePageChange}
+              />
+            </div>
+          )}
         </div>
       </div>
       <SignInModalPopUp
