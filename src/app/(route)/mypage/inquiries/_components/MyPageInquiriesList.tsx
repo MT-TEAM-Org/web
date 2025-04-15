@@ -54,7 +54,9 @@ const MyPageInquiriesList = () => {
         <div
           className={cn(
             "hidden",
-            "mobile:block mobile:mt-[12px] mobile:mx-auto mobile:mb-[24px]"
+            `mobile:block mobile:mt-[12px] mobile:mx-auto mobile:mb-[24px] mobile:${
+              pageInfo?.totalElement === 0 ? "hidden" : "block"
+            }`
           )}
         >
           <Pagination
