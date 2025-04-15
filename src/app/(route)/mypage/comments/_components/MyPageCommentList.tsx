@@ -3,8 +3,7 @@
 import { MypageToolbar } from "../../_components/MypageToolbar";
 import MypagePostSkelton from "../../posts/_components/MypagePostSkelton";
 import useGetMyCommentList from "@/_hooks/fetcher/mypage/useGetMyCommentList";
-import { PostListConfig, PostListData } from "../../posts/_types/postTypes";
-import MyPagePostEmpty from "../../posts/_components/MypagePostEmpty";
+import { PostListConfig } from "../../posts/_types/postTypes";
 import { useSearchParams } from "next/navigation";
 import MyPageCommentItem from "./MyPageCommentItem";
 import MobileBackButtonWrapper from "../../_components/MobileBackButton";
@@ -12,6 +11,7 @@ import { cn } from "@/utils";
 import Pagination from "../../_components/Pagination";
 import { useRouter } from "next/navigation";
 import changeURLParams from "../../util/changeURLParams";
+import CommentEmpty from "@/app/_components/_comment/CommentEmpty";
 
 interface PostResponse {
   commentType: "BOARD";
@@ -92,7 +92,7 @@ const MyPageCommentList = () => {
             />
           ))
         ) : (
-          <MyPagePostEmpty />
+          <CommentEmpty />
         )}
         {isLoading && <MypagePostSkelton />}
         <div
