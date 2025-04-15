@@ -12,10 +12,14 @@ import { cn } from "@/utils";
 import Pagination from "../../_components/Pagination";
 import { useRouter } from "next/navigation";
 import changeURLParams from "../../util/changeURLParams";
+import { usePathname } from "next/navigation";
 
 const MyPageInquiriesList = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
+  const postId = pathname.split("/").pop() || "";
+
   const inquiriesOption: InquiriesListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
     size: 10,
@@ -48,7 +52,7 @@ const MyPageInquiriesList = () => {
             <MyPageInquiriesItem key={inquiries.id} data={inquiries} />
           ))
         ) : (
-          <MyPageInquiriesEmpty isMypage />
+          <MyPageInquiriesEmpty isMypage={postId === "inquiries"} />
         )}
         {isLoading && <MypageInquirieSkelton />}
         <div
