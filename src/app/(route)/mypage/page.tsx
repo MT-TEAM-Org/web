@@ -62,7 +62,7 @@ const Mypage = () => {
         >
           <Image
             alt="profile-image"
-            src={"/userProfileIsNull.png"}
+            src={mypage?.img || "/userProfileIsNull.png"}
             width={48}
             height={48}
             className="w-[48px] h-[48px] rounded-full object-cover"

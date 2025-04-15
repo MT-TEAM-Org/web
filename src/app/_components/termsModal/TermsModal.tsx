@@ -5,6 +5,7 @@ import TermsPersonalText from "./TermsPersonalText";
 import TermsServiceText from "./TermsServiceText";
 import CustomIcon from "../IconComponents/Icon";
 import { useRef } from "react";
+import { createPortal } from "react-dom";
 
 interface Show {
   service: boolean;
@@ -42,7 +43,7 @@ const TearmsModal = ({ show, setShow }: TearmsModalProps) => {
     }
   };
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 bg-[#000000B2] bg-opacity-70 flex items-center justify-center z-50"
       onClick={disabledModal}
@@ -128,7 +129,8 @@ const TearmsModal = ({ show, setShow }: TearmsModalProps) => {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

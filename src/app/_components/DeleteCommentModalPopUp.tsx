@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 
 interface DeleteCommentModalProps {
   setActiveModal: (active: boolean) => void;
@@ -23,7 +24,7 @@ const DeleteCommentModalPopUp = ({
   const baseButtonStyle =
     "w-[160px] h-[48px] rounded-[5px] px-5 py-4 flex gap-[10px] items-center justify-center";
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="w-[408px] min-h-[208px] rounded-[10px] p-10 flex flex-col gap-6 bg-white shadow-sm items-center justify-center">
         <div className="w-full min-h-[56px] flex flex-col gap-1 items-center justify-center">
@@ -49,7 +50,8 @@ const DeleteCommentModalPopUp = ({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
