@@ -92,7 +92,7 @@ const MyPageCommentList = () => {
             />
           ))
         ) : (
-          <CommentEmpty />
+          <CommentEmpty isMypage />
         )}
         {isLoading && <MypagePostSkelton />}
         <div

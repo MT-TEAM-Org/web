@@ -48,7 +48,7 @@ const MyPageInquiriesList = () => {
             <MyPageInquiriesItem key={inquiries.id} data={inquiries} />
           ))
         ) : (
-          <MyPageInquiriesEmpty />
+          <MyPageInquiriesEmpty isMypage />
         )}
         {isLoading && <MypageInquirieSkelton />}
         <div

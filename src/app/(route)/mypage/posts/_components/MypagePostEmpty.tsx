@@ -1,4 +1,5 @@
 import { LogoWhite } from "@/app/_components/icon/LogoWhite";
+import { cn } from "@/utils";
 import Link from "next/link";
 
 interface MyPagePostEmptyProps {
@@ -15,11 +16,16 @@ const MyPagePostEmpty = ({
       className={`flex items-center justify-center ${width} ${height} rounded-b-[10px] bg-gray1`}
     >
       <div className="flex flex-col justify-center items-center min-h-[160px] space-y-[16px]">
-        <div className="opacity-30">
+        <div className={cn("opacity-30", "mobile:hidden")}>
           <LogoWhite />
         </div>
         <div className="text-center space-y-[4px] min-h-[48px]">
-          <h1 className="font-[700] leading-[24px] text-gray7">
+          <h1
+            className={cn(
+              "font-[700] leading-[24px] text-gray7",
+              "mobile:text-[14px]"
+            )}
+          >
             등록된 게시글이 없습니다.
           </h1>
           <p className="text-[14px] leading-[20px] text-gray7">
