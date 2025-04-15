@@ -3,7 +3,6 @@ import { cn } from "@/utils";
 import React from "react";
 
 export const metadata = {
-  metadataBase: new URL("https://playhive.co.kr/"),
   title: "PlayHive 개인정보 취급방침",
   description: "PlayHive 개인정보 취급방침 페이지입니다.",
   openGraph: {
@@ -11,7 +10,7 @@ export const metadata = {
     description: "PlayHive 개인정보 취급방침 페이지입니다.",
     images: [
       {
-        url: "/Metadata.png",
+        url: "https://playhive.co.kr/Metadata.png",
         width: 1200,
         height: 630,
         alt: "PlayHive 이미지",
