@@ -24,10 +24,12 @@ const postCommunitycontent = async (data: CommunityData) => {
 const usePostCommunityContent = () => {
   const router = useRouter();
   const toast = useToast();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: CommunityData) => postCommunitycontent(data),
     onSuccess: (response) => {
       toast.success("게시글 작성을 완료했습니다.", "");
+      queryClient.invalidateQueries({ queryKey: ["myPostList"] });
       const boardType = response?.data?.boardType.toLowerCase();
       const categoryType = response?.data?.categoryType;
       const boardId = response?.data?.boardId;
