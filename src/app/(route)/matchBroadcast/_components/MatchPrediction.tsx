@@ -17,7 +17,7 @@ interface MatchPredictionProps {
 }
 
 const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
-  const toast = useToast();
+  const { error } = useToast();
   const { data: matchData } = useGetMatchPrediction(matchId);
   const votePrediction = usePatchMatchPrediction();
 
@@ -36,7 +36,7 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
 
   const handleVote = (side: "HOME" | "AWAY") => {
     if (!isLoggedIn()) {
-      toast.error("로그인 후 이용해주세요.", "");
+      error("로그인 후 이용해주세요.", "");
     } else {
       votePrediction.mutate({
         matchPredictionId: matchData?.data?.id,
