@@ -31,8 +31,6 @@ export async function generateMetadata({
           ? [
               {
                 url: "https://playhive.co.kr/Metadata.png",
-                width: 1200,
-                height: 800,
               },
             ]
           : [{ url: feedbackDetail.imgUrl, width: 640, height: 315 }],
