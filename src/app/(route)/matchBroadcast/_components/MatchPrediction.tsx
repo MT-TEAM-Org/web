@@ -135,7 +135,7 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
       </div>
       <div
         className={cn(
-          `relative w-full h-[54px] rounded-[5px] mb-[12px] ${
+          `relative w-full h-[54px] rounded-[5px] mb-[12px] overflow-hidden ${
             isStart ? "pointer-events-none" : ""
           }`,
           "mobile:h-[32px] mobile:rounded-[5px] mobile:overflow-hidden"
