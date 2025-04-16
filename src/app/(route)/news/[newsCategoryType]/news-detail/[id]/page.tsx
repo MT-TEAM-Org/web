@@ -14,22 +14,23 @@ export async function generateMetadata({
     const newsDetail = await getNewsItemInfo({ id: resolvedParams.id });
     const updatedImg = updateImageUrl(newsDetail?.thumbImg, "w1200");
 
+    console.log(newsDetail?.thumbImg);
+
     return {
       title: newsDetail.title || "뉴스 상세 페이지",
       description: newsDetail.content || "뉴스 상세 내용",
       openGraph: {
         title: newsDetail.title || "뉴스 상세 페이지",
         description: newsDetail.content || "뉴스 상세 내용",
-        images:
-          newsDetail.thumbImg === ""
-            ? [
-                {
-                  url: "https://playhive.co.kr/Metadata.png",
-                  width: 1200,
-                  height: 630,
-                },
-              ]
-            : [{ url: updatedImg, width: 1200, height: 630 }],
+        images: !newsDetail.thumbImg
+          ? [
+              {
+                url: "https://playhive.co.kr/Metadata.png",
+                width: 1200,
+                height: 800,
+              },
+            ]
+          : [{ url: updatedImg, width: 1200, height: 630 }],
       },
       keywords: newsDetail.keywords || ["플레이하이브", "뉴스"],
     };

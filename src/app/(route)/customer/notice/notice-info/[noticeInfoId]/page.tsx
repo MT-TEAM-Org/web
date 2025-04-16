@@ -26,16 +26,15 @@ export async function generateMetadata({
       openGraph: {
         title: noticeDetail.title || "공지사항 상세 페이지",
         description: finalContent,
-        images:
-          noticeDetail.imgUrl === ""
-            ? [
-                {
-                  url: "https://playhive.co.kr/Metadata.png",
-                  width: 1200,
-                  height: 800,
-                },
-              ]
-            : [{ url: noticeDetail.imgUrl, width: 600, height: 315 }],
+        images: !noticeDetail.imgUrl
+          ? [
+              {
+                url: "https://playhive.co.kr/Metadata.png",
+                width: 1200,
+                height: 800,
+              },
+            ]
+          : [{ url: noticeDetail.imgUrl, width: 600, height: 315 }],
       },
       keywords: noticeDetail.keywords || ["플레이하이브", "공지사항"],
     };
@@ -46,7 +45,13 @@ export async function generateMetadata({
       openGraph: {
         title: "공지사항 상세 페이지",
         description: "공지사항 정보를 불러오는 중 오류가 발생했습니다.",
-        images: [{ url: "https://playhive.co.kr/Metadata.png" }],
+        images: [
+          {
+            url: "https://playhive.co.kr/Metadata.png",
+            width: 1200,
+            height: 800,
+          },
+        ],
       },
       keywords: ["플레이하이브", "공지사항"],
     };

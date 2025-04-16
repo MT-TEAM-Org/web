@@ -10,6 +10,18 @@ import { cn } from "@/utils";
 export const metadata = {
   title: "PlayHive 서비스소개 페이지",
   description: "PlayHive 서비스소개 페이지입니다.",
+  openGraph: {
+    title: "PlayHive 서비스소개 페이지",
+    description: "PlayHive 서비스소개 페이지입니다.",
+    images: [
+      {
+        url: "https://playhive.co.kr/Metadata.png",
+        width: 1200,
+        height: 800,
+        alt: "PlayHive 이미지",
+      },
+    ],
+  },
 };
 
 const Page = () => {
