@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/utils";
 import { usePathname, useRouter } from "next/navigation";
 
 const LeftSidebar = () => {
@@ -42,20 +43,32 @@ const LeftSidebar = () => {
   };
 
   return (
-    <div className="w-[160px] h-[364px]">
-      <div className="w-full bg-white rounded-[5px]">
+    <div
+      className={cn(
+        "w-[160px] h-[364px]",
+        "tablet:w-full tablet:h-[52px] tablet:min-w-[688px]"
+      )}
+    >
+      <div
+        className={cn(
+          "w-[160px] bg-white rounded-[5px]",
+          "tablet:flex tablet:w-full max-w-[688px] h-[52px]"
+        )}
+      >
         {boardList.map((board) => {
           const isActive = board.id === activeTab;
-
           return (
             <div
               key={board.id}
               onClick={() => handleRoute(board.path)}
-              className={`w-full h-[52px] px-[16px] py-[12px] flex justify-start items-center cursor-pointer hover:text-gra ${
-                isActive ? "font-[700] text-gra" : "font-[400] text-gray7"
-              }`}
+              className={cn(
+                `w-full h-[52px] px-[16px] py-[12px] flex justify-start items-center cursor-pointer hover:text-gra ${
+                  isActive ? "font-[700] text-gra" : "font-[400] text-gray7"
+                }`,
+                "tablet:w-full tablet:min-w-[98.29px]"
+              )}
             >
-              <p>{board.name}</p>
+              <p className="w-full">{board.name}</p>
             </div>
           );
         })}

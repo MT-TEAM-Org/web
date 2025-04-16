@@ -9,6 +9,7 @@ import { useState } from "react";
 import Pagination from "../../mypage/_components/Pagination";
 import SearchFilter from "../../mypage/_components/SearchFilter";
 import changeURLParams from "../../mypage/util/changeURLParams";
+import LeftSidebar from "./LeftSidebar";
 
 interface CommunityToolbarProps {
   boardType: string;
@@ -98,6 +99,9 @@ export const CommunityToolbar = ({
 
   return (
     <div className="w-full max-w-[720px] sticky top-0 bg-white z-10">
+      <div className="tablet:w-full h-[52px] hidden tablet:block">
+        <LeftSidebar />
+      </div>
       <div className="w-full flex justify-between items-center min-h-[64px] p-[12px] border-b">
         <button
           onClick={handleWriteClick}
@@ -112,6 +116,7 @@ export const CommunityToolbar = ({
           onSubmit={handleSubmit}
         />
       </div>
+      <div className="w-full pc:hidden"></div>
       <div className="flex justify-between items-center p-[12px]">
         <div className="flex w-full items-center gap-[4px]">
           {orderOptions.map((button) => {
