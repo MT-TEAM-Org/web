@@ -104,11 +104,11 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
   return (
     <div
       className={cn(
-        "w-[1200px] h-auto flex flex-col justify-center items-center",
+        "w-[1200px] h-auto flex flex-col justify-center items-center rounded-[5px]",
         "mobile:w-screen mobile:overflow-x-auto mobile:scrollbar-hide"
       )}
     >
-      <div className="w-full max-w-[1200px] flex items-center">
+      <div className="w-full max-w-[1200px] flex items-center rounded-[5px]">
         <div
           onClick={() => handleMatchClick(currentGroup.id)}
           className="w-full mx-auto cursor-pointer"
@@ -124,7 +124,7 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
                 ease: "easeInOut",
                 duration: 0.1,
               }}
-              className="w-full h-[126px] overflow-hidden flex justify-start items-center mx-auto p-[12px] border shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] bg-white"
+              className="w-full h-[126px] overflow-hidden flex justify-start items-center mx-auto p-[12px] border shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] bg-white rounded-[5px]"
             >
               {currentGroup?.list?.map((item: MatchItem) => {
                 const status = getMatchStatus(item);

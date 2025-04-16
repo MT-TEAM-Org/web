@@ -173,14 +173,14 @@ const ScheduleContainer = ({
           className={cn(
             "max-w-[1200px] h-[126px] flex gap-x-6 justify-between items-center",
             "tablet:max-w-[769px]",
-            "mobile:max-w-full"
+            "mobile:w-screen"
           )}
         >
           <div
             className={cn(
               "max-w-[1136px] h-[126px] flex-1 flex justify-between items-center gap-3 overflow-hidden",
               "tablet:max-w-[769px]",
-              "mobile:max-w-full"
+              "mobile:w-screen mobile:overflow-x-auto mobile:scrollbar-hide"
             )}
           >
             <AnimatePresence initial={false} mode="wait">
@@ -229,7 +229,10 @@ const ScheduleContainer = ({
           <button
             onClick={handleNextPage}
             disabled={allScheduleData.length <= itemsPerPage}
-            className="w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2"
+            className={cn(
+              "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2",
+              "mobile:hidden"
+            )}
           >
             <Arrow_right
               width="24"

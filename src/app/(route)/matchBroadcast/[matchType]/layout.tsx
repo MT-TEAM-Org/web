@@ -30,7 +30,16 @@ export default function Layout({
           />
         </div>
       </div>
-      <div className={cn("my-[24px]", "mobile:my-0")}>{children}</div>
+      <div
+        className={cn(
+          "my-[24px]",
+          "mobile:my-0",
+          "pc:min-h-[500px]",
+          "tablet:min-h-[550px]"
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 }
