@@ -12,7 +12,9 @@ export const metadata = {
     images: [
       {
         url: "https://playhive.co.kr/Metadata2.png",
-        alt: "PlayHive 이미지",
+        alt: "PlayHive 미리보기 이미지",
+        width: 1200,
+        height: 630,
       },
     ],
   },
