@@ -1,5 +1,6 @@
 import React, { use } from "react";
 import ScheduleContainer from "../../main/_components/scheduleContainer";
+import { cn } from "@/utils";
 
 export const metadata = {
   title: "경기 중계",
@@ -19,7 +20,9 @@ export default function Layout({
   return (
     <div className="w-full h-full">
       <div className="w-full h-[226px] flex justify-center items-center mx-auto bg-gray1">
-        <div className="w-full">
+        <div
+          className={cn("max-w-full", "tablet:max-w-full", "mobile:h-[158px]")}
+        >
           <ScheduleContainer
             matchType={matchType}
             showCategoryButtons={true}
@@ -27,7 +30,16 @@ export default function Layout({
           />
         </div>
       </div>
-      {children}
+      <div
+        className={cn(
+          "my-[24px]",
+          "mobile:my-0",
+          "pc:min-h-[500px]",
+          "tablet:min-h-[550px]"
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 }

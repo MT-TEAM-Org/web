@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
 import useGetEsportsSchedule from "@/_hooks/fetcher/match-controller/useGetEsportsSchedule";
 import EsportsSchedule from "@/app/_components/EsportsSchedule";
+import { cn } from "@/utils";
 
 interface ScheduleContainerProps {
   showCategoryButtons?: boolean;
@@ -29,6 +30,20 @@ const ScheduleContainer = ({
   const [selectedIndex, setSelectedIndex] = useState<number | null>(
     isGameboard ? 0 : null
   );
+
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1200);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const { data: scheduleResponse, isLoading } = useGetMatchSchedule(
     matchType || "ALL"
@@ -72,13 +87,24 @@ const ScheduleContainer = ({
 
   const isEsportsCategory = matchType === "ESPORTS";
 
-  const itemsPerPage = 4;
-  const totalPages = Math.ceil(allScheduleData.length / itemsPerPage);
+  const itemsPerPage = useMemo(() => {
+    if (isMobile) return 3;
+    if (isTablet) return 3;
+    return 4;
+  }, [isMobile, isTablet]);
 
-  const displayedItems = allScheduleData.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
+  const pageStep = useMemo(() => {
+    if (isMobile) return 1;
+    if (isTablet) return 2;
+    return 4;
+  }, [isMobile, isTablet]);
+
+  const totalPages = Math.ceil(allScheduleData.length / pageStep);
+
+  const displayedItems = useMemo(() => {
+    const startIndex = currentPage * pageStep;
+    return allScheduleData.slice(startIndex, startIndex + itemsPerPage);
+  }, [allScheduleData, currentPage, pageStep, itemsPerPage]);
 
   const isAllDataLoading = showAll ? isLoading || isEsportsLoading : isLoading;
 
@@ -111,15 +137,27 @@ const ScheduleContainer = ({
   };
 
   return (
-    <div className="w-full h-[126px] flex flex-col bg-gray1 justify-center items-center">
+    <div
+      className={cn(
+        "w-full h-auto flex flex-col bg-gray1 justify-center items-center"
+      )}
+    >
       {showCategoryButtons && (
-        <div className="w-[1200px] h-[40px] flex mb-[12px] gap-x-[8px]">
+        <div
+          className={cn(
+            "w-[1200px] h-[40px] flex mb-[12px] gap-x-[8px]",
+            "tablet:max-w-[768px]",
+            "mobile:flex mobile:gap-x-0 mobile:w-full"
+          )}
+        >
           {CATEGORUIES.map(({ value, name }) => (
             <button
               key={value}
               onClick={() => handleCategoryChange(value)}
               className={`${BUTTON_STYLE} ${
-                matchType === value ? "border-gray7" : ""
+                matchType === value
+                  ? "border-gray7 mobile:border-[2px]"
+                  : "mobile:border-gray3 mobile:border-[2px] mobile:text-gray5"
               }`}
             >
               {name}
@@ -131,8 +169,20 @@ const ScheduleContainer = ({
       {isEsportsCategory ? (
         <EsportsSchedule />
       ) : (
-        <div className="w-[1200px] h-[126px] flex gap-x-[24px] justify-center items-center">
-          <div className="w-[1136px] h-[126px] flex justify-between items-center gap-3">
+        <div
+          className={cn(
+            "max-w-[1200px] h-[126px] flex gap-x-6 justify-between items-center",
+            "tablet:max-w-[769px]",
+            "mobile:w-screen"
+          )}
+        >
+          <div
+            className={cn(
+              "max-w-[1136px] h-[126px] flex-1 flex justify-between items-center gap-3 overflow-hidden",
+              "tablet:max-w-[769px]",
+              "mobile:w-screen mobile:overflow-x-auto mobile:scrollbar-hide"
+            )}
+          >
             <AnimatePresence initial={false} mode="wait">
               <motion.div
                 key={currentPage}
@@ -147,12 +197,12 @@ const ScheduleContainer = ({
                 className="w-full flex justify-between items-center gap-3"
               >
                 {isAllDataLoading
-                  ? Array.from({ length: 4 }).map((_, index) => (
+                  ? Array.from({ length: itemsPerPage }).map((_, index) => (
                       <EmptyScheduleItem key={index} />
                     ))
                   : displayedItems.length > 0
                   ? displayedItems.map((item, index) => (
-                      <div key={index} className="w-[275px]">
+                      <div key={index}>
                         <ScheduleItem
                           isSelected={selectedIndex === index}
                           onClick={() => handleMatchClick(index)}
@@ -160,16 +210,18 @@ const ScheduleContainer = ({
                         />
                       </div>
                     ))
-                  : Array.from({ length: 4 }).map((_, index) => (
+                  : Array.from({ length: itemsPerPage }).map((_, index) => (
                       <EmptyScheduleItem key={index} />
                     ))}
 
                 {!isAllDataLoading &&
                   displayedItems.length > 0 &&
-                  displayedItems.length < 4 &&
-                  Array.from({ length: 4 - displayedItems.length }).map(
-                    (_, index) => <EmptyScheduleItem key={`empty-${index}`} />
-                  )}
+                  displayedItems.length < itemsPerPage &&
+                  Array.from({
+                    length: itemsPerPage - displayedItems.length,
+                  }).map((_, index) => (
+                    <EmptyScheduleItem key={`empty-${index}`} />
+                  ))}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -177,7 +229,9 @@ const ScheduleContainer = ({
           <button
             onClick={handleNextPage}
             disabled={allScheduleData.length <= itemsPerPage}
-            className="w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2"
+            className={cn(
+              "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2"
+            )}
           >
             <Arrow_right
               width="24"
@@ -194,8 +248,10 @@ const ScheduleContainer = ({
 
 export default ScheduleContainer;
 
-const BUTTON_STYLE =
-  "w-[78px] h-[40px] rounded-[5px] border py-[13px] pb-[16px] flex items-center justify-center font-[700] text-[14px] leading-[20px] text-center";
+const BUTTON_STYLE = cn(
+  "w-[78px] h-[40px] rounded-[5px] border py-[13px] pb-[16px] flex items-center justify-center font-[700] text-[14px] leading-[20px] text-center text-gray7",
+  "mobile:w-1/3 mobile:rounded-none mobile:border-x-0 mobile:border-t-0"
+);
 
 const CATEGORUIES = [
   {
