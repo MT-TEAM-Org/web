@@ -15,13 +15,14 @@ export default function Gnb() {
         className={cn(
           isHome && "fixed",
           "w-full top-0 bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] z-50 h-[120px]",
-          "tablet:px-[16px]"
+          "tablet:px-[16px]",
+          "mobile:hidden"
         )}
       >
         <Header />
         <Navbar />
       </div>
-      {isHome && <div className="pt-[120px]"></div>}
+      {isHome && <div className="pt-[120px] mobile:pt-0"></div>}
     </>
   );
 }
