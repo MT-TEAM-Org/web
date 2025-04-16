@@ -230,8 +230,7 @@ const ScheduleContainer = ({
             onClick={handleNextPage}
             disabled={allScheduleData.length <= itemsPerPage}
             className={cn(
-              "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2",
-              "mobile:hidden"
+              "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2"
             )}
           >
             <Arrow_right
