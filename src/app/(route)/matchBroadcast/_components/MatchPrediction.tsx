@@ -50,7 +50,7 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
     <div
       className={cn(
         "w-full min-h-[148px] mt-[24px] bg-white",
-        "mobile:min-h-[92px] mobile:mt-0"
+        "mobile:min-h-[92px] mobile:mt-0 mobile:p-4"
       )}
     >
       <div
@@ -70,7 +70,7 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
           {isStart ? "예측 종료" : "예측 진행중"}
         </p>
       </div>
-      <div className={cn("w-full h-[40px] mb-[8px]", "mobile:p-4 mobile:mb-0")}>
+      <div className={cn("w-full h-[40px] mb-[8px]", "mobile:mb-0")}>
         <div className="w-full flex justify-between items-center">
           <div className="flex items-center w-1/2 gap-2">
             {matchData?.data?.homeTeam?.logo ? (
@@ -135,10 +135,10 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
       </div>
       <div
         className={cn(
-          `relative w-full min-h-[54px] rounded-[5px] overflow-hidden mb-[12px] ${
+          `relative w-full h-[54px] rounded-[5px] mb-[12px] ${
             isStart ? "pointer-events-none" : ""
           }`,
-          "mobile:h-[32px] mobile:p-4 mobile:rounded-[5px]"
+          "mobile:h-[32px] mobile:rounded-[5px] mobile:overflow-hidden"
         )}
       >
         {isVoted && (
@@ -155,10 +155,10 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
         )}
         <div
           className={cn(
-            "flex justify-between items-center text-white w-full min-h-[54px] relative z-10 font-[700] text-[24px] leading-[38px] rounded-[5px]",
+            "flex justify-between items-center text-white w-full h-[54px] relative z-10 font-[700] text-[24px] leading-[38px] rounded-[5px]",
             isVoted && "pointer-events-none",
             !isVoted && "bg-gray3",
-            "mobile:min-h-[32px]"
+            "mobile:h-[32px]"
           )}
         >
           <div
