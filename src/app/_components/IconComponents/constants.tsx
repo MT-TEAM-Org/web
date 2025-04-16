@@ -250,6 +250,59 @@ const ICONS = {
       </>
     ),
   },
+  ARROW_UP: {
+    svgOptions: {
+      viewBox: "0 0 15 16",
+    },
+    icon: (
+      <>
+        <path
+          d="M0.833252 11.3334L7.49992 4.66671L14.1666 11.3334"
+          stroke="#424242"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </>
+    ),
+  },
+  MOBILE_USER_LOGO: {
+    svgOptions: {
+      viewBox: "0 0 20 20",
+    },
+    icon: (
+      <>
+        <path
+          d="M10.293 12.5C13.0544 12.5 15.293 10.2614 15.293 7.5C15.293 4.73858 13.0544 2.5 10.293 2.5C7.53154 2.5 5.29297 4.73858 5.29297 7.5C5.29297 10.2614 7.53154 12.5 10.293 12.5Z"
+          stroke="#656565"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M2.79297 16.875C4.30625 14.2602 7.05469 12.5 10.293 12.5C13.5313 12.5 16.2797 14.2602 17.793 16.875"
+          stroke="#656565"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </>
+    ),
+  },
+  MOBILE_MENU_ARROW_UP: {
+    svgOptions: {
+      viewBox: "0 0 16 10",
+    },
+    icon: (
+      <path
+        d="M15 8.5L8 1.5L1 8.5"
+        stroke="#424242"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    ),
+  },
 };
 
 export type IconList = keyof typeof ICONS;
@@ -264,29 +317,3 @@ export type IconType = {
 };
 
 export default ICONS as IconType;
-<svg
-  width="18"
-  height="18"
-  viewBox="0 0 18 18"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M1 3.00195H17"
-    stroke="#424242"
-    stroke-width="1.5"
-    stroke-linecap="round"
-  />
-  <path
-    d="M1 9.00195H17"
-    stroke="#424242"
-    stroke-width="1.5"
-    stroke-linecap="round"
-  />
-  <path
-    d="M1 15.002H17"
-    stroke="#424242"
-    stroke-width="1.5"
-    stroke-linecap="round"
-  />
-</svg>;

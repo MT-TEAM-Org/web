@@ -9,9 +9,12 @@ import NewsComponent from "./_components/newsComponent";
 import MainBigSizeNews from "./_components/MainBigSizeNews";
 import useHandleRefreshToken from "@/_hooks/fetcher/sign/useHandleRefreshToken";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
+import useAuthCheck from "@/_hooks/useAuthCheck";
 
 function HomePageContent() {
   const refreshToken = useHandleRefreshToken();
+  const { data: userData } = useAuthCheck();
+  console.log("userData", userData);
 
   const {
     data: newsData,

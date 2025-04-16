@@ -9,7 +9,7 @@ export const Logo = ({ size = "md" }: LogoProps) => {
       height: "16",
     },
     sm: {
-      width: "90.56",
+      width: "89.5",
       height: "24",
     },
     md: {
