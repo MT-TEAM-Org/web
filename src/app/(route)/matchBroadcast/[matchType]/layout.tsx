@@ -21,11 +21,7 @@ export default function Layout({
     <div className="w-full h-full">
       <div className="w-full h-[226px] flex justify-center items-center mx-auto bg-gray1">
         <div
-          className={cn(
-            "max-w-full",
-            "tablet:max-w-[768px]",
-            "mobile:max-w-full, mobile:h-[158px]"
-          )}
+          className={cn("max-w-full", "tablet:max-w-full", "mobile:h-[158px]")}
         >
           <ScheduleContainer
             matchType={matchType}

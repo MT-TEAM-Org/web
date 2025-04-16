@@ -8,6 +8,7 @@ import EmptyEsportsBox from "../(route)/main/_components/EmptyEsportsBox";
 import { motion, AnimatePresence } from "framer-motion";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import { useRouter, usePathname } from "next/navigation";
+import { cn } from "@/utils";
 
 interface EsportsScheduleProps {
   onMatchClick?: (matchId: number) => void;
@@ -101,7 +102,13 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
   const emptyItemCount = Math.max(0, 4 - itemCount);
 
   return (
-    <div className="w-[1200px] h-full flex flex-col justify-center items-center">
+    <div
+      className={cn(
+        "w-[1200px] h-auto flex flex-col justify-center items-center",
+        "tablet:max-w-[769px]",
+        "mobile:w-screen mobile:overflow-x-auto mobile:scrollbar-hide"
+      )}
+    >
       <div className="w-full max-w-[1200px] flex items-center">
         <div
           onClick={() => handleMatchClick(currentGroup.id)}
@@ -118,7 +125,7 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
                 ease: "easeInOut",
                 duration: 0.1,
               }}
-              className="w-full max-w-[1136px] h-[126px] flex justify-start items-center mx-auto p-[12px] border shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] bg-white"
+              className="w-full h-[126px] overflow-hidden flex justify-start items-center mx-auto p-[12px] border shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] bg-white"
             >
               {currentGroup?.list?.map((item: MatchItem) => {
                 const status = getMatchStatus(item);

@@ -49,7 +49,7 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
   return (
     <div
       className={cn(
-        "w-full max-w-[800px] min-h-[148px] mt-[24px] bg-white",
+        "w-full min-h-[148px] mt-[24px] bg-white",
         "mobile:min-h-[92px] mobile:mt-0"
       )}
     >

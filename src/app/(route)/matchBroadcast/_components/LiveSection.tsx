@@ -61,7 +61,7 @@ const LiveSection = ({ matchId }: ScheduleDataProps) => {
     <div
       className={cn(
         "w-[800px] aspect-video",
-        "tablet:w-[688px]",
+        "tablet:w-[800px]",
         "mobile:w-full"
       )}
     >

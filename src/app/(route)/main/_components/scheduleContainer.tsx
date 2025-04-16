@@ -31,6 +31,20 @@ const ScheduleContainer = ({
     isGameboard ? 0 : null
   );
 
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1200);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const { data: scheduleResponse, isLoading } = useGetMatchSchedule(
     matchType || "ALL"
   );
@@ -73,14 +87,24 @@ const ScheduleContainer = ({
 
   const isEsportsCategory = matchType === "ESPORTS";
 
-  const itemsPerPage = 4;
+  const itemsPerPage = useMemo(() => {
+    if (isMobile) return 3;
+    if (isTablet) return 3;
+    return 4;
+  }, [isMobile, isTablet]);
 
-  const totalPages = Math.ceil(allScheduleData.length / itemsPerPage);
+  const pageStep = useMemo(() => {
+    if (isMobile) return 1;
+    if (isTablet) return 2;
+    return 4;
+  }, [isMobile, isTablet]);
 
-  const displayedItems = allScheduleData.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
+  const totalPages = Math.ceil(allScheduleData.length / pageStep);
+
+  const displayedItems = useMemo(() => {
+    const startIndex = currentPage * pageStep;
+    return allScheduleData.slice(startIndex, startIndex + itemsPerPage);
+  }, [allScheduleData, currentPage, pageStep, itemsPerPage]);
 
   const isAllDataLoading = showAll ? isLoading || isEsportsLoading : isLoading;
 
@@ -115,14 +139,14 @@ const ScheduleContainer = ({
   return (
     <div
       className={cn(
-        "w-full h-[126px] flex flex-col bg-gray1 justify-center items-center"
+        "w-full h-auto flex flex-col bg-gray1 justify-center items-center"
       )}
     >
       {showCategoryButtons && (
         <div
           className={cn(
             "w-[1200px] h-[40px] flex mb-[12px] gap-x-[8px]",
-            "tablet:max-w-[769px]",
+            "tablet:max-w-[768px]",
             "mobile:flex mobile:gap-x-0 mobile:w-full"
           )}
         >
@@ -173,12 +197,12 @@ const ScheduleContainer = ({
                 className="w-full flex justify-between items-center gap-3"
               >
                 {isAllDataLoading
-                  ? Array.from({ length: 4 }).map((_, index) => (
+                  ? Array.from({ length: itemsPerPage }).map((_, index) => (
                       <EmptyScheduleItem key={index} />
                     ))
                   : displayedItems.length > 0
                   ? displayedItems.map((item, index) => (
-                      <div key={index} className="w-[275px]">
+                      <div key={index}>
                         <ScheduleItem
                           isSelected={selectedIndex === index}
                           onClick={() => handleMatchClick(index)}
@@ -186,16 +210,18 @@ const ScheduleContainer = ({
                         />
                       </div>
                     ))
-                  : Array.from({ length: 4 }).map((_, index) => (
+                  : Array.from({ length: itemsPerPage }).map((_, index) => (
                       <EmptyScheduleItem key={index} />
                     ))}
 
                 {!isAllDataLoading &&
                   displayedItems.length > 0 &&
-                  displayedItems.length < 4 &&
-                  Array.from({ length: 4 - displayedItems.length }).map(
-                    (_, index) => <EmptyScheduleItem key={`empty-${index}`} />
-                  )}
+                  displayedItems.length < itemsPerPage &&
+                  Array.from({
+                    length: itemsPerPage - displayedItems.length,
+                  }).map((_, index) => (
+                    <EmptyScheduleItem key={`empty-${index}`} />
+                  ))}
               </motion.div>
             </AnimatePresence>
           </div>
