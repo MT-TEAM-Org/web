@@ -130,7 +130,10 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
                       className="w-[16px] h-[16px] text-white"
                     />
                   ) : (
-                    <div>ㅎ</div>
+                    <CustomIcon
+                      icon="MOBILE_MENU_ARROW_DOWN"
+                      className="w-[16px] h-[16px] text-white"
+                    />
                   )}
                 </div>
               )}
