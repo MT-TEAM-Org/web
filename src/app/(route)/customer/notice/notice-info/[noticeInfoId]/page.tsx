@@ -32,7 +32,7 @@ export async function generateMetadata({
                 url: "https://playhive.co.kr/Metadata.jpg",
                 alt: "PlayHive 미리보기 이미지",
                 width: 1200,
-                height: 800,
+                height: 750,
               },
             ]
           : [{ url: noticeDetail.imgUrl, width: 600, height: 315 }],
@@ -51,7 +51,7 @@ export async function generateMetadata({
             url: "https://playhive.co.kr/Metadata.jpg",
             alt: "PlayHive 미리보기 이미지",
             width: 1200,
-            height: 630,
+            height: 750,
           },
         ],
       },
