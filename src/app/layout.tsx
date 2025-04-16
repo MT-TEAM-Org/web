@@ -5,6 +5,7 @@ import Gnb from "./_components/_gnb/Gnb";
 import Footer from "./_components/Footer";
 import { ToastContainer } from "./_components/ToastContainer";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import MobileGnb from "./_components/_gnb/_components/MobileGnb";
 
 export const metadata: Metadata = {
   title: "Playhive",
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className="defaultFont">
         <QueryProvider>
           <Gnb />
+          <MobileGnb />
           {children}
           <Footer />
           <ToastContainer />
