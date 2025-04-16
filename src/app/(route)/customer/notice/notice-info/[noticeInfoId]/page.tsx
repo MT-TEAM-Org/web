@@ -26,16 +26,15 @@ export async function generateMetadata({
       openGraph: {
         title: noticeDetail.title || "공지사항 상세 페이지",
         description: finalContent,
-        images:
-          noticeDetail.imgUrl === ""
-            ? [
-                {
-                  url: "https://playhive.co.kr/Metadata.png",
-                  width: 1200,
-                  height: 800,
-                },
-              ]
-            : [{ url: noticeDetail.imgUrl, width: 600, height: 315 }],
+        images: !noticeDetail.imgUrl
+          ? [
+              {
+                url: "https://playhive.co.kr/Metadata.png",
+                width: 1200,
+                height: 800,
+              },
+            ]
+          : [{ url: noticeDetail.imgUrl, width: 600, height: 315 }],
       },
       keywords: noticeDetail.keywords || ["플레이하이브", "공지사항"],
     };
