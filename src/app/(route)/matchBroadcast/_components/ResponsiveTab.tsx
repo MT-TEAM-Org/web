@@ -1,16 +1,19 @@
 "use client";
 
 import { cn } from "@/utils";
-import React, { useState } from "react";
+import React from "react";
+
+interface ResponsiveTabProps {
+  activeValue: string;
+  setActiveValue: (value: string) => void;
+}
 
 const tabList = [
   { label: "승부예측", value: "prediction" },
   { label: "하이브챗", value: "chat" },
 ];
 
-const ResponsiveTab = () => {
-  const [activeValue, setActiveValue] = useState("prediction");
-
+const ResponsiveTab = ({ activeValue, setActiveValue }: ResponsiveTabProps) => {
   return (
     <div className="w-full h-[52px] rounded-t-[5px] flex justify-center items-center">
       {tabList.map((tab) => (

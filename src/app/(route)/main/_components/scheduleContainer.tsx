@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
 import useGetEsportsSchedule from "@/_hooks/fetcher/match-controller/useGetEsportsSchedule";
 import EsportsSchedule from "@/app/_components/EsportsSchedule";
+import { cn } from "@/utils";
 
 interface ScheduleContainerProps {
   showCategoryButtons?: boolean;
@@ -73,6 +74,7 @@ const ScheduleContainer = ({
   const isEsportsCategory = matchType === "ESPORTS";
 
   const itemsPerPage = 4;
+
   const totalPages = Math.ceil(allScheduleData.length / itemsPerPage);
 
   const displayedItems = allScheduleData.slice(
@@ -111,15 +113,27 @@ const ScheduleContainer = ({
   };
 
   return (
-    <div className="w-full h-[126px] flex flex-col bg-gray1 justify-center items-center">
+    <div
+      className={cn(
+        "w-full h-[126px] flex flex-col bg-gray1 justify-center items-center"
+      )}
+    >
       {showCategoryButtons && (
-        <div className="w-[1200px] h-[40px] flex mb-[12px] gap-x-[8px]">
+        <div
+          className={cn(
+            "w-[1200px] h-[40px] flex mb-[12px] gap-x-[8px]",
+            "tablet:max-w-[769px]",
+            "mobile:flex mobile:gap-x-0 mobile:w-full"
+          )}
+        >
           {CATEGORUIES.map(({ value, name }) => (
             <button
               key={value}
               onClick={() => handleCategoryChange(value)}
               className={`${BUTTON_STYLE} ${
-                matchType === value ? "border-gray7" : ""
+                matchType === value
+                  ? "border-gray7 mobile:border-[2px]"
+                  : "mobile:border-gray3 mobile:border-[2px] mobile:text-gray5"
               }`}
             >
               {name}
@@ -131,8 +145,20 @@ const ScheduleContainer = ({
       {isEsportsCategory ? (
         <EsportsSchedule />
       ) : (
-        <div className="w-[1200px] h-[126px] flex gap-x-[24px] justify-center items-center">
-          <div className="w-[1136px] h-[126px] flex justify-between items-center gap-3">
+        <div
+          className={cn(
+            "max-w-[1200px] h-[126px] flex gap-x-6 justify-between items-center",
+            "tablet:max-w-[769px]",
+            "mobile:max-w-full"
+          )}
+        >
+          <div
+            className={cn(
+              "max-w-[1136px] h-[126px] flex-1 flex justify-between items-center gap-3 overflow-hidden",
+              "tablet:max-w-[769px]",
+              "mobile:max-w-full"
+            )}
+          >
             <AnimatePresence initial={false} mode="wait">
               <motion.div
                 key={currentPage}
@@ -194,8 +220,10 @@ const ScheduleContainer = ({
 
 export default ScheduleContainer;
 
-const BUTTON_STYLE =
-  "w-[78px] h-[40px] rounded-[5px] border py-[13px] pb-[16px] flex items-center justify-center font-[700] text-[14px] leading-[20px] text-center";
+const BUTTON_STYLE = cn(
+  "w-[78px] h-[40px] rounded-[5px] border py-[13px] pb-[16px] flex items-center justify-center font-[700] text-[14px] leading-[20px] text-center text-gray7",
+  "mobile:w-1/3 mobile:rounded-none mobile:border-x-0 mobile:border-t-0"
+);
 
 const CATEGORUIES = [
   {
