@@ -104,7 +104,7 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
                 "mobile:flex"
               )}
             >
-              {isStart ? "종료" : "진행중"}
+              {isStart ? "종료" : "경기중"}
             </p>
           </div>
           <div className="flex items-center w-1/2 gap-2">

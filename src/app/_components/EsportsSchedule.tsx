@@ -57,7 +57,7 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
       case "예정":
         return "bg-gray2";
       case "경기중":
-        return "bg-primary";
+        return "bg-gra text-white";
       default:
         return "bg-gray2";
     }
@@ -105,7 +105,6 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
     <div
       className={cn(
         "w-[1200px] h-auto flex flex-col justify-center items-center",
-        "tablet:max-w-[769px]",
         "mobile:w-screen mobile:overflow-x-auto mobile:scrollbar-hide"
       )}
     >
