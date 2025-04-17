@@ -24,7 +24,6 @@ const postFeedback = async ({ title, content, imgUrl, link, thumbUrl }: postFeed
       },
     }
   );
-  console.log(response);
   return response;
 };
 
