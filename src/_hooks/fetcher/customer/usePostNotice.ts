@@ -14,7 +14,7 @@ interface NoticeData {
 }
 
 const usePostNotice = () => {
-  const toast = useToast();
+  const { success, error: toastError } = useToast();
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -22,7 +22,7 @@ const usePostNotice = () => {
     mutationFn: (data: NoticeData) => postNotice(data),
     retry: 1,
     onSuccess: (response: PostCustomerResponse) => {
-      toast.success("공지사항이 생성되었습니다.", "");
+      success("공지사항이 생성되었습니다.", "");
       queryClient.invalidateQueries({ queryKey: ['noticeList'] });
       router.push(`/customer/notice/notice-info/${response?.data?.noticeId}`);
     },
@@ -30,9 +30,12 @@ const usePostNotice = () => {
       if (axios.isAxiosError(error) && error.response) {
         const errorMessage =
           error.response.data.message || "알 수 없는 오류가 발생했습니다.";
-        toast.error("공지사항 생성 실패", errorMessage);
+        toastError("공지사항 생성 실패", errorMessage);
       } else {
-        toast.error("공지사항 생성 실패", "공지사항 생성 중 오류가 발생했습니다.");
+        toastError(
+          "공지사항 생성 실패",
+          "공지사항 생성 중 오류가 발생했습니다."
+        );
       }
     },
   });

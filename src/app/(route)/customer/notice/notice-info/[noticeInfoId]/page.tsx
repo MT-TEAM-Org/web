@@ -29,9 +29,10 @@ export async function generateMetadata({
         images: !noticeDetail.imgUrl
           ? [
               {
-                url: "https://playhive.co.kr/Metadata.png",
+                url: "https://playhive.co.kr/Metadata.jpg",
+                alt: "PlayHive 미리보기 이미지",
                 width: 1200,
-                height: 800,
+                height: 750,
               },
             ]
           : [{ url: noticeDetail.imgUrl, width: 600, height: 315 }],
@@ -47,7 +48,10 @@ export async function generateMetadata({
         description: "공지사항 정보를 불러오는 중 오류가 발생했습니다.",
         images: [
           {
-            url: "https://playhive.co.kr/Metadata.png",
+            url: "https://playhive.co.kr/Metadata.jpg",
+            alt: "PlayHive 미리보기 이미지",
+            width: 1200,
+            height: 750,
           },
         ],
       },

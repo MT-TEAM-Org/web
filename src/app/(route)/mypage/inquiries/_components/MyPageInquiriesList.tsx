@@ -12,16 +12,20 @@ import { cn } from "@/utils";
 import Pagination from "../../_components/Pagination";
 import { useRouter } from "next/navigation";
 import changeURLParams from "../../util/changeURLParams";
+import { usePathname } from "next/navigation";
 
 const MyPageInquiriesList = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
+  const postId = pathname.split("/").pop() || "";
+
   const inquiriesOption: InquiriesListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
     size: 10,
     orderType:
       (searchParams.get("order_type") as InquiriesListConfig["orderType"]) ||
-      "",
+      "NONE",
     searchType:
       (searchParams.get("search_type") as InquiriesListConfig["searchType"]) ||
       "CONTENT",
@@ -48,13 +52,15 @@ const MyPageInquiriesList = () => {
             <MyPageInquiriesItem key={inquiries.id} data={inquiries} />
           ))
         ) : (
-          <MyPageInquiriesEmpty />
+          <MyPageInquiriesEmpty isMypage={postId === "inquiries"} />
         )}
         {isLoading && <MypageInquirieSkelton />}
         <div
           className={cn(
             "hidden",
-            "mobile:block mobile:mt-[12px] mobile:mx-auto mobile:mb-[24px]"
+            `mobile:block mobile:mt-[12px] mobile:mx-auto mobile:mb-[24px] mobile:${
+              pageInfo?.totalElement === 0 ? "hidden" : "block"
+            }`
           )}
         >
           <Pagination

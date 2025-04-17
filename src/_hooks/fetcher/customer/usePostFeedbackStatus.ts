@@ -7,15 +7,15 @@ interface usePostFeedbackStatus {
   id: number;
 }
 
-const usePostFeedbackStatus = ({id}: usePostFeedbackStatus) => {
-  const toast = useToast();
+const usePostFeedbackStatus = ({ id }: usePostFeedbackStatus) => {
+  const { success, error: toastError } = useToast();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => postFeedbackStatus({id}),
+    mutationFn: () => postFeedbackStatus({ id }),
     retry: 1,
     onSuccess: () => {
-      toast.success("상태가 변경되었습니다.", "");
+      success("상태가 변경되었습니다.", "");
       queryClient.refetchQueries({
         queryKey: ["feedbackInfo", id],
       });
@@ -27,9 +27,12 @@ const usePostFeedbackStatus = ({id}: usePostFeedbackStatus) => {
       if (axios.isAxiosError(error) && error.response) {
         const errorMessage =
           error.response.data.message || "알 수 없는 오류가 발생했습니다.";
-        toast.error("개선요청 상태 수정 실패", errorMessage);
+        toastError("개선요청 상태 수정 실패", errorMessage);
       } else {
-        toast.error("개선요청 상태 수정 실패", "개선요청 상태 수정 중 오류가 발생했습니다.");
+        toastError(
+          "개선요청 상태 수정 실패",
+          "개선요청 상태 수정 중 오류가 발생했습니다."
+        );
       }
     },
   });

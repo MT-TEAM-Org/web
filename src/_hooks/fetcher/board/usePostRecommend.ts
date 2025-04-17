@@ -5,19 +5,19 @@ import axios from "axios";
 
 const usePostRecommend = ({ boardId }) => {
   const queryClient = useQueryClient();
-  const toast = useToast();
+  const { success, error: toastError } = useToast();
 
   return useMutation({
     mutationFn: postRecommend,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["board", "detail", boardId] });
-      toast.success("추천이 완료되었습니다.", "");
+      success("추천이 완료되었습니다.", "");
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {
         const errorMessage =
           error.response?.data?.message || "알 수 없는 오류가 발생했습니다.";
-        toast.error("추천 실패", errorMessage);
+        toastError("추천 실패", errorMessage);
       }
     },
   });
