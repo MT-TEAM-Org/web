@@ -18,14 +18,15 @@ export async function generateMetadata({
 
     const rawContent = noticeDetail.content || "공지사항 상세 내용";
     const plainTextContent = stripHtml(rawContent || "").trim();
-    const finalContent = plainTextContent ? rawContent : null;
+
+    const hasContent = plainTextContent.length > 0;
 
     return {
       title: noticeDetail.title || "공지사항 상세 페이지",
-      description: plainTextContent || "공지사항 상세 내용",
+      description: hasContent ? plainTextContent : undefined,
       openGraph: {
         title: noticeDetail.title || "공지사항 상세 페이지",
-        description: finalContent,
+        description: hasContent ? plainTextContent : undefined,
         images: !noticeDetail.imgUrl
           ? [
               {
