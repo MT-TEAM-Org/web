@@ -11,10 +11,9 @@ const handleReissue = async () => {
     {},
     {
       headers: {
-        Authorization: `Bearer ${
-          localStorage.getItem("accessToken") ||
-          localStorage.getItem("refreshToken")
-        }`,
+        Authorization: localStorage.getItem("accessToken")
+          ? localStorage.getItem("accessToken")
+          : `Bearer ${localStorage.getItem("refreshToken")}`,
       },
     }
   );
