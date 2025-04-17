@@ -6,6 +6,7 @@ import {
   MatchItem,
   MatchScheduleResponse,
 } from "@/services/match-controller/getMatchSchedule";
+import { cn } from "@/utils";
 import { Skeleton } from "@heroui/react";
 import Image from "next/image";
 
@@ -46,9 +47,19 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
   };
 
   return (
-    <div className="w-full max-w-[800px] min-h-[148px] mt-[24px]">
-      <div className="w-full max-w-[171px] min-h-[38px] flex items-center gap-x-[8px] mb-[8px]">
-        <p className="font-[700] text-[24px] leading-[38px] text-black whitespace-nowrap">
+    <div
+      className={cn(
+        "w-full min-h-[148px] mt-[24px] bg-white",
+        "mobile:min-h-[92px] mobile:mt-0 mobile:p-4"
+      )}
+    >
+      <div
+        className={cn(
+          "w-full max-w-[171px] min-h-[38px] flex items-center gap-x-[8px] mb-[8px]",
+          "mobile:hidden"
+        )}
+      >
+        <p className="font-[700] text-[24px] leading-[38px] tracking-[-0.04em] text-black whitespace-nowrap">
           승부예측
         </p>
         <p
@@ -59,25 +70,50 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
           {isStart ? "예측 종료" : "예측 진행중"}
         </p>
       </div>
-      <div className="w-full h-[40px] mb-[8px]">
+      <div className={cn("w-full h-[40px] mb-[8px]", "mobile:mb-0")}>
         <div className="w-full flex justify-between items-center">
-          <div className="flex items-center w-[388px] gap-[6px]">
+          <div className="flex items-center w-1/2 gap-2">
             {matchData?.data?.homeTeam?.logo ? (
               <Image
                 src={matchData.data.homeTeam.logo}
                 width={40}
                 height={40}
                 alt="homeTeam Logo"
+                className={cn(
+                  "w-[40px] h-[40px]",
+                  "mobile:w-[24px] mobile:h-[24px]"
+                )}
               />
             ) : (
               <Skeleton className="w-[388px] h-[40px] rounded-md" />
             )}
-            <p className="w-full h-full font-[700] text-[18px] leading-[28px]">
+            <p
+              className={cn(
+                "w-full h-full font-[700] text-[18px] leading-[28px] tracking-[-0.04em]",
+                "text-[14px] leading-[20px]"
+              )}
+            >
               {matchData?.data?.homeTeam?.name}
             </p>
           </div>
-          <div className="flex items-center w-[388px]  gap-[8px]">
-            <p className="w-full h-full text-right font-[700] text-[18px] leading-[28px]">
+          <div>
+            <p
+              className={cn(
+                "hidden min-w-[34px] min-h-[18px] text-[10px] leading-[14px] tracking-[-0.02em] items-center justify-center rounded-[5px] p-1 whitespace-nowrap",
+                isStart ? "bg-gray2 text-gray5" : "bg-warning text-white",
+                "mobile:flex"
+              )}
+            >
+              {isStart ? "종료" : "경기중"}
+            </p>
+          </div>
+          <div className="flex items-center w-1/2 gap-2">
+            <p
+              className={cn(
+                "w-full h-full text-right font-[700] text-[18px] leading-[28px] tracking-[-0.04em]",
+                "text-[14px] leading-[20px]"
+              )}
+            >
               {matchData?.data?.awayTeam?.name}
             </p>
             {matchData?.data?.awayTeam?.logo ? (
@@ -86,6 +122,10 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
                 width={40}
                 height={40}
                 alt="awayTeam Logo"
+                className={cn(
+                  "w-[40px] h-[40px]",
+                  "mobile:w-[24px] mobile:h-[24px]"
+                )}
               />
             ) : (
               <Skeleton className="w-[388px] h-[40px] rounded-md" />
@@ -94,9 +134,12 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
         </div>
       </div>
       <div
-        className={`relative w-full min-h-[54px] rounded-[5px] overflow-hidden mb-[12px] ${
-          isStart ? "pointer-events-none" : ""
-        }`}
+        className={cn(
+          `relative w-full h-[54px] rounded-[5px] mb-[12px] overflow-hidden ${
+            isStart ? "pointer-events-none" : ""
+          }`,
+          "mobile:h-[32px] mobile:rounded-[5px] mobile:overflow-hidden"
+        )}
       >
         {isVoted && (
           <div className="absolute inset-0 flex w-full h-full">
@@ -111,25 +154,44 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
           </div>
         )}
         <div
-          className={`flex justify-between items-center text-white w-full min-h-[54px] relative z-10 font-[700] text-[24px] leading-[38px] ${
-            isVoted ? "pointer-events-none" : ""
-          } ${!isVoted ? "bg-gray3" : ""}`}
+          className={cn(
+            "flex justify-between items-center text-white w-full h-[54px] relative z-10 font-[700] text-[24px] leading-[38px] rounded-[5px]",
+            isVoted && "pointer-events-none",
+            !isVoted && "bg-gray3",
+            "mobile:h-[32px]"
+          )}
         >
           <div
             onClick={() => handleVote("HOME")}
-            className="flex items-center w-[400px] h-[54px] cursor-pointer hover:bg-gray4 group py-[8px] px-[16px]"
+            className={cn(
+              "flex items-center w-[400px] h-[54px] cursor-pointer hover:bg-gray4 group py-2 px-4 rounded-l-[5px]",
+              "mobile:h-[32px] mobile:text-[14px] mobile:leading-5 mobile:font-bold"
+            )}
           >
             {isVoted ? matchData?.data?.home : 0}%
-            <span className="w-full flex items-center ml-[16px] opacity-0 group-hover:opacity-100 text-[16px] leading-[28px] text-white">
+            <span
+              className={cn(
+                "w-full flex items-center ml-[16px] opacity-0 group-hover:opacity-100 text-[16px] leading-[28px] text-white",
+                "mobile:text-[14px] mobile:leading-5"
+              )}
+            >
               투표하기
             </span>
           </div>
-          <div className="absolute left-1/2 transform -translate-x-1/2 pointer-events-none">
+          <div
+            className={cn(
+              "absolute left-1/2 transform -translate-x-1/2 pointer-events-none",
+              "mobile:font-bold mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
+            )}
+          >
             VS
           </div>
           <div
             onClick={() => handleVote("AWAY")}
-            className="flex justify-end items-center w-[400px] h-[54px] cursor-pointer hover:bg-gray4 group py-[8px] px-[16px]"
+            className={cn(
+              "flex justify-end items-center w-[400px] h-[54px] cursor-pointer hover:bg-gray4 group py-[8px] px-[16px] rounded-r-[5px]",
+              "mobile:h-[32px] mobile:text-[14px] mobile:leading-5 mobile:font-bold"
+            )}
           >
             <span className="w-full flex justify-end items-center mr-[16px] opacity-0 group-hover:opacity-100 text-[16px] leading-[28px] text-white">
               투표하기
@@ -138,7 +200,7 @@ const MatchPrediction = ({ matchId, scheduleData }: MatchPredictionProps) => {
           </div>
         </div>
         {!isVoted && (
-          <div className="absolute inset-0 bg-gray3 opacity-20 rounded-[5px]"></div>
+          <div className="absolute inset-0 opacity-20 rounded-[5px]"></div>
         )}
       </div>
     </div>
