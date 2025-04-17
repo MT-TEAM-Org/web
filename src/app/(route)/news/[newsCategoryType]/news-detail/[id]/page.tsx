@@ -23,7 +23,10 @@ export async function generateMetadata({
         images: !newsDetail.thumbImg
           ? [
               {
-                url: "https://playhive.co.kr/Metadata.png",
+                url: "https://playhive.co.kr/Metadata.jpg",
+                alt: "PlayHive 미리보기 이미지",
+                width: 1200,
+                height: 750,
               },
             ]
           : [{ url: updatedImg, width: 1200, height: 630 }],
@@ -37,7 +40,14 @@ export async function generateMetadata({
       openGraph: {
         title: "뉴스 상세 페이지",
         description: "뉴스 정보를 불러오는 중 오류가 발생했습니다.",
-        images: [{ url: "https://playhive.co.kr/Metadata.png" }],
+        images: [
+          {
+            url: "https://playhive.co.kr/Metadata.jpg",
+            alt: "PlayHive 미리보기 이미지",
+            width: 1200,
+            height: 750,
+          },
+        ],
       },
       keywords: ["플레이하이브", "뉴스"],
     };
