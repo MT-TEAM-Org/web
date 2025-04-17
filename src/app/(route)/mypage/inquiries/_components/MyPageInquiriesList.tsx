@@ -25,7 +25,7 @@ const MyPageInquiriesList = () => {
     size: 10,
     orderType:
       (searchParams.get("order_type") as InquiriesListConfig["orderType"]) ||
-      "",
+      null,
     searchType:
       (searchParams.get("search_type") as InquiriesListConfig["searchType"]) ||
       "CONTENT",
