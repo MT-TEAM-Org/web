@@ -9,7 +9,7 @@ import axios from "axios";
 
 const usePatchMatchPrediction = () => {
   const queryClient = useQueryClient();
-  const toast = useToast();
+  const { error: toastError } = useToast();
 
   return useMutation({
     mutationFn: (data: PatchPreditonData) => patchMatchPrediction(data),
@@ -18,7 +18,7 @@ const usePatchMatchPrediction = () => {
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {
-        toast.error("투표는 한 번만 가능합니다.", "");
+        toastError("투표는 한 번만 가능합니다.", "");
       }
     },
   });

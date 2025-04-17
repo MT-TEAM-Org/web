@@ -8,12 +8,14 @@ import useAuthCheck from "@/_hooks/useAuthCheck";
 import { useAuthStore } from "@/utils/Store";
 import { useEffect } from "react";
 import { cn } from "@/utils";
+import useTokenRefreshOnNavigation from "@/_hooks/fetcher/sign/useTokenRefreshOnNavigation";
 
 export default function Header() {
   const { data: userData, isSuccess, isError } = useAuthCheck();
   const isUnActive = userData?.data?.data?.status !== "ACTIVE";
   const isLogout = isError || !isSuccess;
   const { isLoggedIn, login } = useAuthStore();
+  useTokenRefreshOnNavigation();
 
   useEffect(() => {
     if (isSuccess && !isLogout && !isUnActive) {

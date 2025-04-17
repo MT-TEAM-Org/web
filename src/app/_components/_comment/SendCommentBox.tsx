@@ -12,6 +12,7 @@ import useAuthCheck from "@/_hooks/useAuthCheck";
 import { CommentItem, CommentType } from "@/_types/comment";
 import usePostComment from "@/_hooks/fetcher/comment/usePostComment";
 import { cn } from "@/utils";
+import useIsMobile from "@/utils/useIsMobile";
 
 interface SendCommentBoxProps {
   id?: string;
@@ -38,18 +39,7 @@ const SendCommentBox = ({
   const { mutate: postComment } = usePostComment(id);
   const { data: authCheckData } = useAuthCheck();
   const mentionedPublicId = authCheckData?.data?.data?.publicId;
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const isMobile = useIsMobile();
 
   const maxChars = selectedImage ? 70 : 78;
 

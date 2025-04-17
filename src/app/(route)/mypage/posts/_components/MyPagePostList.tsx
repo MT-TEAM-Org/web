@@ -12,6 +12,7 @@ import Pagination from "../../_components/Pagination";
 import { useRouter } from "next/navigation";
 import changeURLParams from "../../util/changeURLParams";
 import { cn } from "@/utils";
+import useIsMobile from "@/utils/useIsMobile";
 
 const MyPagePostList = () => {
   const searchParams = useSearchParams();
@@ -29,6 +30,7 @@ const MyPagePostList = () => {
   };
   const { data, isLoading } = useMyPostList(postOptions);
   const { content, pageInfo } = data?.data?.list || {};
+  const isMobile = useIsMobile();
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > pageInfo.totalPage) return;
@@ -47,13 +49,15 @@ const MyPagePostList = () => {
             <MyPagePostItem key={post.id} data={post} />
           ))
         ) : (
-          <MyPagePostEmpty />
+          <MyPagePostEmpty height={isMobile ? "h-[500px]" : "h-[248px]"} />
         )}
         {isLoading && <MypagePostSkelton />}
         <div
           className={cn(
             "hidden",
-            "mobile:block mobile:mt-[12px] mobile:mx-auto mobile:mb-[24px]"
+            `mobile:block mobile:mt-[12px] mobile:mx-auto mobile:mb-[24px] mobile:${
+              pageInfo?.totalElement === 0 ? "hidden" : "block"
+            }`
           )}
         >
           <Pagination
