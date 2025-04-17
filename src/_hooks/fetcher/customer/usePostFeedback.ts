@@ -2,7 +2,7 @@
 
 import { useToast } from "@/_hooks/useToast";
 import postFeedback from "@/services/customer/postFeedback";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
@@ -10,7 +10,8 @@ export interface PostCustomerResponse {
   status: string;
   msg: string;
   data: {
-    noticeId: number;
+    noticeId?: number;
+    improvementId?: number;
     publicId: string;
     nickname: string;
     clientIp: string;
@@ -40,13 +41,15 @@ interface FeedbackData {
 const usePostFeedback = () => {
   const toast = useToast();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (data: FeedbackData) => postFeedback(data),
     retry: 1,
     onSuccess: (response: PostCustomerResponse) => {
       toast.success("개선요청이 생성되었습니다.", "");
-      router.push(`/customer/feedback/feedback-info/${response?.data?.noticeId}`);
+      queryClient.invalidateQueries({ queryKey: ['feedbackDataList'] });
+      router.push(`/customer/feedback/feedback-info/${response?.data?.improvementId}`);
     },
     onError: (error) => {
       if (axios.isAxiosError(error) && error.response) {
