@@ -10,6 +10,7 @@ import {
   NewsListType,
 } from "@/app/(route)/news/_types/newsListItemType";
 import CustomIcon from "@/app/_components/IconComponents";
+import { cn } from "@/utils";
 
 interface NewsPostItemProps {
   newsItem: NewsListType;
@@ -27,7 +28,10 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
       }`}
     >
       <div
-        className="flex items-center min-w-[436px] max-h-[68px] border-gray-300 cursor-pointer gap-4"
+        className={cn(
+          "flex items-center min-w-[436px] max-h-[68px] border-gray-300 cursor-pointer gap-4",
+          "mobile:max-w-[768px] mobile:min-w-0"
+        )}
         onClick={handleRead}
       >
         <div className="flex-shrink-0 max-w-[68px] max-h-[68px] rounded overflow-hidden">
@@ -46,7 +50,12 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
             />
           )}
         </div>
-        <div className="w-[352px] h-[68px] flex flex-col justify-center gap-1">
+        <div
+          className={cn(
+            "max-w-[352px] h-[68px] flex flex-col justify-center gap-1",
+            "mobile:max-w-[700px]"
+          )}
+        >
           <h2 className="w-full h-[24px] font-[700] text-[16px] leading-6 text-ellipsis overflow-hidden whitespace-nowrap">
             {newsItem?.title}
           </h2>

@@ -27,7 +27,7 @@ const NewsComponent = ({ data, isLoading }: NewsComponentProps) => {
     <div
       className={cn(
         "w-[436px] min-h-[236px] flex flex-col gap-4",
-        "mobile:min-h-[396px]"
+        "mobile:w-full mobile:min-h-[132px]"
       )}
     >
       {isLoading

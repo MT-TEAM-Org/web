@@ -52,7 +52,7 @@ function HomePageContent() {
           className={cn(
             "w-full max-w-[1200px] min-h-[704px] mb-[30px] flex gap-x-10",
             "tablet:max-w-[768px]",
-            "mobile:flex-col"
+            "mobile:flex-col mobile:px-4"
           )}
         >
           <div className="max-w-[862px] h-auto flex gap-10">
@@ -61,9 +61,18 @@ function HomePageContent() {
                 <div
                   className={cn(
                     "w-full min-h-[236px] flex gap-4",
-                    "tablet:h-[396px]"
+                    "tablet:h-[396px]",
+                    "mobile:h-[196px] mobile:min-h-0 mobile:flex-col mobile:gap-2"
                   )}
                 >
+                  <h1
+                    className={cn(
+                      "font-bold leading-6 tracking-[-0.02em] text-black hidden",
+                      "mobile:block"
+                    )}
+                  >
+                    뉴스
+                  </h1>
                   <MainBigSizeNews
                     data={bigNewsItems}
                     isLoading={bigNewsDataIsLoading}
