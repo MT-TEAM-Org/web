@@ -6,6 +6,7 @@ import PostItem from "../../../_components/PostItem";
 import useGetBoardData from "@/_hooks/getBoardData";
 import PostItemSkeleton from "../../../_components/PostItemSkelton";
 import { useSearchParams } from "next/navigation";
+import { cn } from "@/utils";
 
 interface category {
   boardType: string;
@@ -37,8 +38,13 @@ export default function Category({ params }: { params: Promise<category> }) {
   const pageInfo = boardData?.pageInfo;
 
   return (
-    <div className="w-full flex justify-center bg-[#FAFAFA]  mb-[46px] min-h-[calc(100vh-476px)]">
-      <div className="w-full min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto">
+    <div className="w-full flex justify-center bg-[#FAFAFA] mb-[46px] min-h-[100px]">
+      <div
+        className={cn(
+          "w-full min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto",
+          "tablet:mx-auto tablet:flex tablet:flex-col tablet:items-center"
+        )}
+      >
         <CommunityToolbar boardType={boardType} pageInfo={pageInfo} />
         <PostItem
           boardType={boardType}
