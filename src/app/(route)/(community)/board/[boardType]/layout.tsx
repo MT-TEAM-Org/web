@@ -2,6 +2,7 @@ import React from "react";
 import Banner from "../../_components/Banner";
 import LeftSidebar from "../../_components/LeftSidebar";
 import { RightSideBar } from "../../_components/RightSideBar";
+import { cn } from "@/utils";
 
 export const metadata = {
   title: "게시판 페이지",
@@ -10,17 +11,28 @@ export const metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col w-full justify-center items-center bg-gray1">
+    <div
+      className={cn(
+        "flex flex-col w-full justify-center items-center bg-gray1"
+      )}
+    >
       <Banner />
-      <div className="mt-[24px] w-[1200px] flex justify-center mx-auto gap-[16px]">
-        <div className="w-[160px] min-h-[364px]">
-          <div className="sticky top-0">
+      <div className="mt-[24px] w-[1200px] flex justify-center mx-auto gap-[16px] tablet:w-full">
+        <div className="w-full max-w-[160px] min-h-[364px] hidden pc:block tablet:w-full">
+          <div className="w-full sticky top-0">
             <LeftSidebar />
           </div>
         </div>
-        <div className="flex-1 max-w-[720px] min-h-[120px]">{children}</div>
-        <div className="flex-1">
-          <div className="sticky top-0">
+        <div
+          className={cn(
+            "flex-1 min-w-[720px] min-h-[120px]",
+            "tablet:min-w-[688px] tablet:mx-auto"
+          )}
+        >
+          {children}
+        </div>
+        <div className="flex-1 tablet:hidden mobile:hidden">
+          <div className="sticky top-0 ">
             <RightSideBar />
           </div>
         </div>

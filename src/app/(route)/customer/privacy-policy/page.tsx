@@ -10,10 +10,10 @@ export const metadata = {
     description: "PlayHive 개인정보 취급방침 페이지입니다.",
     images: [
       {
-        url: "https://playhive.co.kr/Metadata.jpg",
+        url: "https://playhive.co.kr/Metadata.png",
         alt: "PlayHive 미리보기 이미지",
         width: 1200,
-        height: 750,
+        height: 630,
       },
     ],
   },

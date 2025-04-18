@@ -18,21 +18,22 @@ export async function generateMetadata({
 
     const rawContent = noticeDetail.content || "공지사항 상세 내용";
     const plainTextContent = stripHtml(rawContent || "").trim();
-    const finalContent = plainTextContent ? rawContent : null;
+
+    const hasContent = plainTextContent.length > 0;
 
     return {
       title: noticeDetail.title || "공지사항 상세 페이지",
-      description: plainTextContent || "공지사항 상세 내용",
+      description: hasContent ? plainTextContent : undefined,
       openGraph: {
         title: noticeDetail.title || "공지사항 상세 페이지",
-        description: finalContent,
+        description: hasContent ? plainTextContent : undefined,
         images: !noticeDetail.imgUrl
           ? [
               {
-                url: "https://playhive.co.kr/Metadata.jpg",
+                url: "https://playhive.co.kr/Metadata.png",
                 alt: "PlayHive 미리보기 이미지",
                 width: 1200,
-                height: 750,
+                height: 630,
               },
             ]
           : [{ url: noticeDetail.imgUrl, width: 600, height: 315 }],
@@ -48,10 +49,10 @@ export async function generateMetadata({
         description: "공지사항 정보를 불러오는 중 오류가 발생했습니다.",
         images: [
           {
-            url: "https://playhive.co.kr/Metadata.jpg",
+            url: "https://playhive.co.kr/Metadata.png",
             alt: "PlayHive 미리보기 이미지",
             width: 1200,
-            height: 750,
+            height: 630,
           },
         ],
       },

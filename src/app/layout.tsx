@@ -13,6 +13,19 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.png",
   },
+  openGraph: {
+    title: "Playhive",
+    description: "함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!",
+    url: "https://playhive.co.kr",
+    images: [
+      {
+        url: "https://playhive.co.kr/Metadata.png",
+        alt: "PlayHive 미리보기 이미지",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -21,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className="defaultFont">
         <QueryProvider>
           <Gnb />
