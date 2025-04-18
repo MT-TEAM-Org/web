@@ -19,14 +19,15 @@ export async function generateMetadata({
 
     const rawContent = feedbackDetail.content || "개선요청 상세 내용";
     const plainTextContent = stripHtml(rawContent || "").trim();
-    const finalContent = plainTextContent ? rawContent : null;
+
+    const hasContent = plainTextContent.length > 0;
 
     return {
       title: feedbackDetail.title || "개선요청 상세 페이지",
-      description: plainTextContent || "개선요청 상세 내용",
+      description: hasContent ? plainTextContent : undefined,
       openGraph: {
         title: feedbackDetail.title || "개선요청 상세 페이지",
-        description: finalContent || "개선요청 상세 내용",
+        description: hasContent ? plainTextContent : undefined,
         images: !feedbackDetail.imgUrl
           ? [
               {
@@ -49,10 +50,10 @@ export async function generateMetadata({
         description: "개선요청 정보를 불러오는 중 오류가 발생했습니다.",
         images: [
           {
-            url: "https://playhive.co.kr/Metadata.jpg",
+            url: "https://playhive.co.kr/Metadata.png",
             alt: "PlayHive 미리보기 이미지",
             width: 1200,
-            height: 750,
+            height: 630,
           },
         ],
       },
