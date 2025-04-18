@@ -12,11 +12,15 @@ import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import useGetMainRightBarNewsData from "@/_hooks/fetcher/main/mainRightBar/useGetMainRightBarNewsData";
+import useIsTablet from "@/utils/useIsTablet";
 
 const MainRightBar = () => {
   const [pageNum, setPageNum] = useState(1);
   const [currentPage, setCurrentPage] = useState("1");
   const [buttonActive, setButtonActive] = useState(true);
+  const isTablet = useIsTablet();
+
+  const size = isTablet ? 3 : 5;
 
   const {
     data: gameEventData,
@@ -40,7 +44,7 @@ const MainRightBar = () => {
     isLoading: newsIsLoading,
     isError: newsIsError,
     refetch: refetchNewsData,
-  } = useGetMainRightBarNewsData({ page: currentPage }) ?? {};
+  } = useGetMainRightBarNewsData({ page: currentPage, size }) ?? {};
 
   const handleToPage = (type: "prev" | "next") => {
     const current = Number(currentPage);

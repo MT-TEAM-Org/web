@@ -10,6 +10,7 @@ import MainBigSizeNews from "./_components/MainBigSizeNews";
 import useHandleRefreshToken from "@/_hooks/fetcher/sign/useHandleRefreshToken";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import useAuthCheck from "@/_hooks/useAuthCheck";
+import { cn } from "@/utils";
 
 function HomePageContent() {
   const refreshToken = useHandleRefreshToken();
@@ -47,11 +48,22 @@ function HomePageContent() {
       </div>
 
       <div className="min-h-[704px] flex justify-center">
-        <div className="w-full max-w-[1200px] min-h-[704px] mb-[30px] flex gap-x-10">
-          <div className="max-w-[862px] min-h-[668px] flex gap-10">
+        <div
+          className={cn(
+            "w-full max-w-[1200px] min-h-[704px] mb-[30px] flex gap-x-10",
+            "tablet:max-w-[768px]",
+            "mobile:flex-col"
+          )}
+        >
+          <div className="max-w-[862px] h-auto flex gap-10">
             <div className="flex flex-col gap-10">
               {!bigNewsDataIsError && !newsDataIsError && (
-                <div className="w-full min-h-[236px] flex gap-4">
+                <div
+                  className={cn(
+                    "w-full min-h-[236px] flex gap-4",
+                    "tablet:min-h-396px]"
+                  )}
+                >
                   <MainBigSizeNews
                     data={bigNewsItems}
                     isLoading={bigNewsDataIsLoading}
@@ -60,6 +72,9 @@ function HomePageContent() {
                     data={newsItems}
                     isLoading={newsDataIsLoading}
                   />
+                  <div className={cn("hidden", "tablet:block")}>
+                    <MainRightBar />
+                  </div>
                 </div>
               )}
 
@@ -69,7 +84,12 @@ function HomePageContent() {
               </div>
             </div>
           </div>
-          <div className="max-w-[298px] min-h-[696px] flex-1">
+          <div
+            className={cn(
+              "max-w-[298px] min-h-[696px] flex-1",
+              "tablet:hidden"
+            )}
+          >
             <MainRightBar />
           </div>
         </div>
