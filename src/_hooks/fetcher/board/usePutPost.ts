@@ -5,6 +5,7 @@ import putPost, { EditBoardData } from "@/services/board/putPost";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface PutPostParams {
   data: EditBoardData;
@@ -16,13 +17,14 @@ interface ApiReponse {
 }
 
 const usePutPost = () => {
-  const toast = useToast();
+  const { success, error: toastError } = useToast();
   const router = useRouter();
-
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ data, boardId }: PutPostParams) => putPost(data, boardId),
     onSuccess: (response: ApiReponse) => {
-      toast.success("게시글 수정이 완료되었습니다.", "");
+      success("게시글 수정이 완료되었습니다.", "");
+      queryClient.invalidateQueries({ queryKey: ["myPostList"] });
       const boardType = response?.data?.boardType.toLowerCase();
       const categoryType = response?.data?.categoryType;
       const boardId = response?.data?.boardId;
@@ -36,7 +38,7 @@ const usePutPost = () => {
       if (axios.isAxiosError(error)) {
         const errorMesaage =
           error.response?.data?.message || "알 수 없는 오류가 발생했습니다.";
-        toast.error("게시글 등록 실패", errorMesaage);
+        toastError("게시글 등록 실패", errorMesaage);
       }
     },
   });

@@ -1,8 +1,9 @@
 interface LogoProps {
   size?: "xs" | "sm" | "md" | "lg";
+  className?: string;
 }
 
-export const Logo = ({ size = "md" }: LogoProps) => {
+export const Logo = ({ size = "md", className }: LogoProps) => {
   const logoSize = {
     xs: {
       width: "59.12",
@@ -17,7 +18,7 @@ export const Logo = ({ size = "md" }: LogoProps) => {
       height: "32",
     },
     lg: {
-      width: "149.93",
+      width: "148.62",
       height: "40",
     },
   };
@@ -31,6 +32,7 @@ export const Logo = ({ size = "md" }: LogoProps) => {
       viewBox="0 0 120 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <mask id="path-1-inside-1_31164_3883" fill="white">
         <path

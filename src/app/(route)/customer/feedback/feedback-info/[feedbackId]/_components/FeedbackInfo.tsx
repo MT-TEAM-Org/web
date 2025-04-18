@@ -360,7 +360,7 @@ const FeedbackInfo = () => {
                   />
                 )
               )}
-          {feedbackDataList?.pageInfo.totalPage > 0 && (
+          {feedbackDataList?.pageInfo?.totalPage > 0 && (
             <div
               className={cn(
                 "hidden",

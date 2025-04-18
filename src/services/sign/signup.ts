@@ -9,7 +9,7 @@ interface Signup {
 
 const signup = async (data: Signup) => {
   const response = await axios.post(
-    `${process.env.NEXT_PUBLIC_API_URL}api/create`,
+    `${process.env.NEXT_PUBLIC_API_URL}api/me/create`,
     data
   );
   return response;

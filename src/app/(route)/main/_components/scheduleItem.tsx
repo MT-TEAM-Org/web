@@ -1,6 +1,7 @@
 "use client";
 
 import { MatchItem } from "@/services/match-controller/getMatchSchedule";
+import { cn } from "@/utils";
 import { formatDate } from "@/utils/formatData";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -43,7 +44,7 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
     if (currentTime > expectedEndTime) {
       setGameStatus("종료");
     } else {
-      setGameStatus("진행중");
+      setGameStatus("경기중");
     }
   };
 
@@ -54,13 +55,23 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
   return (
     <div
       onClick={onClick}
-      className={`w-full h-[126px] p-[12px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] border
+      className={`w-[275px] h-[126px] p-[12px] rounded-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] border
       ${isSelected ? "border-gray7" : "border-gray3"}
     `}
     >
       <div className="w-[275px] flex mb-[8px] items-center gap-x-[8px]">
-        <div className="w-auto min-w-[37px] h-auto min-h-[26px] rounded-[5px] py-1 px-2 flex gap-1 bg-gray2 items-center justify-center">
-          <p className="font-medium text-[12px] leading-[18px] flex text-center justify-center align-center text-gray5">
+        <div
+          className={cn(
+            "w-auto min-w-[37px] h-auto min-h-[26px] rounded-[5px] py-1 px-2 flex gap-1 bg-gray2 items-center justify-center",
+            gameStatus === "경기중" && "text-white bg-gra"
+          )}
+        >
+          <p
+            className={cn(
+              "font-medium text-[12px] leading-[18px] flex text-center justify-center align-center text-gray5",
+              gameStatus === "경기중" && "text-white bg-gra"
+            )}
+          >
             {gameStatus}
           </p>
         </div>

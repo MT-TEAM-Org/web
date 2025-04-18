@@ -14,7 +14,8 @@ const nextConfig: NextConfig = {
       "naver.com",
       "sports-phinf.pstatic.net",
       "nng-phinf.pstatic.net",
-      'dthumb-phinf.pstatic.net',
+      "dthumb-phinf.pstatic.net",
+      "playhive.co.kr/customer"
     ],
     remotePatterns: [
       {

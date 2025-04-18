@@ -7,7 +7,7 @@ const Comment = () => {
     <Suspense fallback={""}>
       <div
         className={cn(
-          "max-w-[720px] min-h-[450px] bg-gray1 rounded-[5px]",
+          "max-w-[720px] min-h-[450px] rounded-[5px]",
           "mobile:w-full mobile:mx-auto"
         )}
       >

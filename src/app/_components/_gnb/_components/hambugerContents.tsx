@@ -54,7 +54,7 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
     <div className="fixed top-[60px] overflow-y-auto w-full h-full flex flex-col justify-center items-center bg-white z-50">
       {isLoggedIn ? (
         <div className="flex flex-col justify-center items-center w-full h-[102px]">
-          <div className="w-full max-w-[192px] h-[42px]">
+          <div className="flex items-center w-full max-w-[192px] h-[42px] bg-[#F8FDFF] rounded-full">
             <div className="flex items-center justify-center mx-auto w-full gap-x-[16px]">
               {userData?.data?.data?.imgUrl ? (
                 <Image
@@ -67,7 +67,7 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
               ) : (
                 <div className="rounded-full flex items-center justify-center">
                   <CustomIcon
-                    icon="MOBILE_USER_LOGO"
+                    icon="MOBILE_HAMBURGER_DEFAULT_PROFILE"
                     className="w-[24px] h-[24px] text-white ml-[12px]"
                   />
                 </div>
@@ -77,7 +77,7 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
               </p>
             </div>
           </div>
-          <p className="w-full h-[24px] flex items-center mx-auto justify-center font-bold text-[16px] leading-[24px]">
+          <p className="w-full h-[24px] mt-[4px] flex items-center mx-auto justify-center font-bold text-[16px] leading-[24px]">
             플레이하이브에 오신것을 환영합니다.
           </p>
         </div>

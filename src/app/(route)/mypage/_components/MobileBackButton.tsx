@@ -72,7 +72,7 @@ const MobileBackButton = ({ mode }: MobileBackButtonProps) => {
       className={cn(
         "hidden",
         "tablet:hidden",
-        "mobile:flex mobile:items-center mobile:justify-between mobile:w-full mobile:h-[48px] mobile:border-b mobile:border-gray2 mobile:absolute mobile:top-[124px] mobile:left-0"
+        "mobile:flex mobile:items-center mobile:justify-between mobile:w-full mobile:h-[48px] mobile:border-b mobile:border-gray2 mobile:absolute mobile:top-[60px] mobile:left-0"
       )}
     >
       <div className="flex items-center">
