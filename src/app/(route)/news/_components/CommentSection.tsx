@@ -45,14 +45,6 @@ const CommentSection = ({ newsInfoData }: CommentSectionProps) => {
         nextId={newsInfoData?.nextId}
         previousId={newsInfoData?.previousId}
       />
-      <div className="shadow-md sticky bottom-0">
-        <SendCommentBox
-          id={newsInfoData?.id.toString()}
-          parentsComment={parentsComment}
-          setParentsComment={setParentsComment}
-          type="NEWS"
-        />
-      </div>
     </>
   );
 };

@@ -26,6 +26,8 @@ import { cn } from "@/utils";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
+import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
+import { CommentItem } from "@/_types/comment";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -44,6 +46,9 @@ const NewsInfo = ({
   const newsDetailType = pathname.split("/")[2];
   const token =
     typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+  const [parentsComment, setParentsComment] = useState<CommentItem | null>(
+    null
+  );
 
   useEffect(() => {
     const validTypes = ["esports", "football", "baseball"];
@@ -139,7 +144,7 @@ const NewsInfo = ({
       ) : (
         <div
           className={cn(
-            "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md",
+            "w-[720px] h-auto rounded-t-[5px] border-b p-6 flex gap-4 flex-col shadow-md bg-white",
             "tablet:max-w-[687px]",
             "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
           )}
@@ -229,6 +234,14 @@ const NewsInfo = ({
           <CommentSection newsInfoData={newsInfoData} />
         </div>
       )}
+      <div className="shadow-sm sticky bottom-0">
+        <SendCommentBox
+          id={newsInfoData?.id.toString()}
+          parentsComment={parentsComment}
+          setParentsComment={setParentsComment}
+          type="NEWS"
+        />
+      </div>
 
       <div
         className={cn(
