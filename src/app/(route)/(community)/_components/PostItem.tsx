@@ -88,7 +88,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
             href={`/board/${boardType}/${data.categoryType}/${data.id}`}
             key={`${data.id}-${index}`}
             onClick={() => handlePostClick(data.id)}
-            className="flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]"
+            className="flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]  hover:bg-bg0"
           >
             <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] text-[14px] p-2 bg-gray1 font-bold">
               <span>{numberOverThousand(data?.id)}</span>

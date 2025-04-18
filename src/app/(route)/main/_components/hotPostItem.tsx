@@ -16,7 +16,7 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
         pathname: `/board/${hotPosts?.boardType}/${hotPosts?.categoryType}/${hotPosts?.id}`,
       }}
     >
-      <div className="min-w-[419px] h-[36px] border-b border-gray1 py-2 pr-2 flex justify-start items-center text-center gap-2 cursor-pointer hover:bg-[#F8FDFF]">
+      <div className="min-w-[419px] h-[36px] border-b border-gray1 py-2 pr-2 flex justify-start items-center text-center gap-2 cursor-pointer hover:bg-bg0">
         <div className="w-[20px] h-[20px] rounded-sm gap-[10px] font-bold text-[12px] leading-[18px] text-gray7">
           {number}
         </div>
@@ -41,7 +41,7 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
                 [{hotPosts.commentCount}]
               </p>
             )}
-            <p className="font-[900] w-[10px] h-[18px] text-[10px] leading-[18px] text-[#00ADEE]">
+            <p className="font-[900] w-[10px] h-[18px] text-[10px] leading-[18px] text-gra">
               N
             </p>
             <p className="font-[900] w-[10px] h-[18px] text-[10px] leading-[18px] text-[#DC2800]">
