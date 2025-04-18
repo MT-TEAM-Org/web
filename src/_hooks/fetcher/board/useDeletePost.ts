@@ -15,7 +15,12 @@ const useDeletePost = (boardId: string) => {
     mutationFn: () => deletePost({ boardId }),
     onSuccess: () => {
       success("게시글이 삭제되었습니다.", "");
-      queryClient.invalidateQueries({ queryKey: ["myPostList"] });
+      queryClient.invalidateQueries({
+        queryKey: ["board", "list"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["myPostList"],
+      });
       router.back();
     },
     onError: (error) => {

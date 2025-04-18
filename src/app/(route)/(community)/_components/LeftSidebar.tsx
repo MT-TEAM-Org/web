@@ -62,7 +62,7 @@ const LeftSidebar = () => {
               key={board.id}
               onClick={() => handleRoute(board.path)}
               className={cn(
-                `w-full h-[52px] px-[16px] py-[12px] flex justify-start items-center cursor-pointer hover:text-gra ${
+                `w-full h-[52px] px-[16px] py-[12px] flex justify-start items-center cursor-pointer bg-white hover:text-gra ${
                   isActive ? "font-[700] text-gra" : "font-[400] text-gray7"
                 }`,
                 "tablet:w-full tablet:min-w-[98.29px]"

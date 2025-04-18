@@ -24,7 +24,12 @@ const usePutPost = () => {
     mutationFn: ({ data, boardId }: PutPostParams) => putPost(data, boardId),
     onSuccess: (response: ApiReponse) => {
       success("게시글 수정이 완료되었습니다.", "");
-      queryClient.invalidateQueries({ queryKey: ["myPostList"] });
+      queryClient.invalidateQueries({
+        queryKey: ["board", "list"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["myPostList"],
+      });
       const boardType = response?.data?.boardType.toLowerCase();
       const categoryType = response?.data?.categoryType;
       const boardId = response?.data?.boardId;
