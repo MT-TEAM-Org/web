@@ -19,7 +19,11 @@ const HotPost = () => {
             <MainPostItemSkeleton key={index} />
           ))
         ) : isError || hotPosts?.length === 0 ? (
-          <MyPagePostEmpty width="w-[419px]" height="h-[428px]" isHome />
+          <MyPagePostEmpty
+            width="w-[419px]"
+            height="h-[428px] bg-#F8FDFF"
+            isHome
+          />
         ) : (
           hotPosts.map((post, index) => (
             <HotPostItem key={post.id} number={index + 1} hotPosts={post} />
