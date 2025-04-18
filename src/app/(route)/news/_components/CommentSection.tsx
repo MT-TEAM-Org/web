@@ -6,7 +6,6 @@ import { NewsInfoDataType } from "@/app/(route)/news/_types/newsInfoType";
 import { usePathname } from "next/navigation";
 import BoardComment from "../../(community)/_components/BoardComment";
 import { CommentItem } from "@/_types/comment";
-import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 
 interface CommentSectionProps {
   newsInfoData?: NewsInfoDataType;

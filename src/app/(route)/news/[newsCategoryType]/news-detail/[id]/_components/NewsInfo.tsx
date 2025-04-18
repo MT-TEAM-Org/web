@@ -9,13 +9,12 @@ import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import useTimeAgo from "@/utils/useTimeAgo";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { use, useEffect, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import NewsInfoSkeleton from "./NewsInfoSkeleton";
 import ChangedCategory from "@/app/(route)/news/_utils/changedCategory";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 import Image from "next/image";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
-import CommentSection from "@/app/(route)/news/_components/CommentSection";
 import NewsTalkToolbar from "@/app/(route)/news/_components/NewsTalkToolbar";
 import NewsPostItemSkeleton from "@/app/(route)/news/_components/NewsPostItemSkeleton";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
@@ -28,6 +27,8 @@ import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { CommentItem } from "@/_types/comment";
+import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
+import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -44,6 +45,8 @@ const NewsInfo = ({
   const router = useRouter();
   const pathname = usePathname();
   const newsDetailType = pathname.split("/")[2];
+  const comments = useRef(null);
+  const commentBarRef = useRef<HTMLDivElement>(null);
   const token =
     typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
   const [parentsComment, setParentsComment] = useState<CommentItem | null>(
@@ -135,6 +138,17 @@ const NewsInfo = ({
     router.push(changeURLParams(searchParams, "page", page.toString()), {
       scroll: false,
     });
+  };
+
+  const onHandleToTop = () => {
+    if (commentBarRef.current) {
+      const navBarHeight = 130;
+      const y =
+        commentBarRef.current.getBoundingClientRect().top +
+        window.scrollY -
+        navBarHeight;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
   };
 
   return (
@@ -231,9 +245,20 @@ const NewsInfo = ({
           <div className={cn("mobile:hidden")}>
             <PostAction type="news" source={newsInfoData?.source} />
           </div>
-          <CommentSection newsInfoData={newsInfoData} />
         </div>
       )}
+      <BoardComment
+        id={newsInfoData?.id.toString()}
+        ref={comments}
+        setParentsComment={setParentsComment}
+        type="NEWS"
+      />
+      <PostNavigation
+        currentPath={pathname}
+        scrollToCommentBar={onHandleToTop}
+        nextId={newsInfoData?.nextId}
+        previousId={newsInfoData?.previousId}
+      />
       <div className="shadow-sm sticky bottom-0">
         <SendCommentBox
           id={newsInfoData?.id.toString()}
