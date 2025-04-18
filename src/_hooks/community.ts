@@ -29,7 +29,13 @@ const usePostCommunityContent = () => {
     mutationFn: (data: CommunityData) => postCommunitycontent(data),
     onSuccess: (response) => {
       success("게시글 작성을 완료했습니다.", "");
-      queryClient.invalidateQueries({ queryKey: ["myPostList"] });
+      queryClient.invalidateQueries({
+        queryKey: ["board", "list"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["myPostList"],
+      });
+
       const boardType = response?.data?.boardType.toLowerCase();
       const categoryType = response?.data?.categoryType;
       const boardId = response?.data?.boardId;
