@@ -32,7 +32,7 @@ const MatchDetailSkeleton = ({ matchType }: MatchSkeletonProps) => {
         )}
 
         <Skeleton
-          className={cn("w-full h-[48px] rounded-lg hidden", "mobile:block")}
+          className={cn("w-full h-[48px] rounded-lg block", "pc:hidden")}
         />
 
         {/* 예측 섹션 스켈레톤 */}
@@ -60,7 +60,9 @@ const MatchDetailSkeleton = ({ matchType }: MatchSkeletonProps) => {
           </div>
 
           {/* 예측 클릭 */}
-          <Skeleton className={cn("w-full h-[54px] rounded-md", "mobile:")} />
+          <Skeleton
+            className={cn("w-full h-[54px] rounded-md", "mobile:h-[32px]")}
+          />
         </div>
         <div className="flex flex-col gap-1">
           {/* 댓글 */}
