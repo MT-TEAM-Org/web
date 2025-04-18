@@ -1,10 +1,15 @@
 import getGameEvent from "@/services/main/mainRightBar/getGameEvent";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetGameEvent = ({ pageNum }: { pageNum: number }) => {
+interface useGetGameEventProps {
+  pageNum: number;
+  size: number;
+}
+
+const useGetGameEvent = ({ pageNum, size = 5 }: useGetGameEventProps) => {
   return useQuery({
-    queryKey: ["gameEvent", pageNum],
-    queryFn: () => getGameEvent({ pageNum }),
+    queryKey: ["gameEvent", pageNum, size],
+    queryFn: () => getGameEvent({ pageNum, size }),
   });
 };
 

@@ -13,12 +13,18 @@ import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import useGetMainRightBarNewsData from "@/_hooks/fetcher/main/mainRightBar/useGetMainRightBarNewsData";
 import useIsTablet from "@/utils/useIsTablet";
+import { cn } from "@/utils";
+import useIsMobile from "@/utils/useIsMobile";
 
 const MainRightBar = () => {
   const [pageNum, setPageNum] = useState(1);
   const [currentPage, setCurrentPage] = useState("1");
   const [buttonActive, setButtonActive] = useState(true);
   const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
+
+  const itemCount = isMobile ? 2 : isTablet ? 3 : 5;
+  const skeletonCount = isMobile ? 2 : isTablet ? 4 : 3;
 
   const size = isTablet ? 3 : 5;
 
@@ -29,6 +35,7 @@ const MainRightBar = () => {
     refetch: refetchGameEvent,
   } = useGetGameEvent({
     pageNum,
+    size: itemCount,
   });
 
   const handleRefresh = () => {
@@ -72,7 +79,12 @@ const MainRightBar = () => {
     "border-b border-b-gray5 border-gray5 font-[500] text-[14px] leading-[22px] text-gray5";
 
   return (
-    <div className="flex flex-col w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px]">
+    <div
+      className={cn(
+        "flex flex-col w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px]",
+        "tablet:min-h-[396px]"
+      )}
+    >
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px]">
         <button
           onClick={() => setButtonActive(true)}

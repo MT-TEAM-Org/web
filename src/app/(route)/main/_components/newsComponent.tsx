@@ -7,6 +7,7 @@ import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { NewsItemType } from "../../news/_types/newsItemType";
 import useIsMobile from "@/utils/useIsMobile";
 import useIsTablet from "@/utils/useIsTablet";
+import { cn } from "@/utils";
 
 interface NewsComponentProps {
   data: NewsItemType[] | undefined;
@@ -23,7 +24,12 @@ const NewsComponent = ({ data, isLoading }: NewsComponentProps) => {
   const skeletonCount = isMobile ? 2 : isTablet ? 4 : 3;
 
   return (
-    <div className="w-[436px] h-auto flex flex-col gap-4">
+    <div
+      className={cn(
+        "w-[436px] min-h-[236px] flex flex-col gap-4",
+        "mobile:min-h-[396px]"
+      )}
+    >
       {isLoading
         ? Array(skeletonCount)
             .fill(0)

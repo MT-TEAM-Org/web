@@ -61,7 +61,7 @@ function HomePageContent() {
                 <div
                   className={cn(
                     "w-full min-h-[236px] flex gap-4",
-                    "tablet:min-h-396px]"
+                    "tablet:h-[396px]"
                   )}
                 >
                   <MainBigSizeNews
