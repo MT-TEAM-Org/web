@@ -14,7 +14,7 @@ const NewPostItem = ({ newPosts }: NewPostItemProps) => {
     <Link
       href={`/board/${newPosts?.boardType}/${newPosts?.categoryType}/${newPosts?.id}`}
     >
-      <div className="w-full h-[36px] border-b border-gray1 py-2 pr-[8px] flex justify-start items-center text-center cursor-pointer">
+      <div className="w-full h-[36px] border-b border-gray1 py-2 pr-[8px] flex justify-start items-center text-center cursor-pointer hover:bg-bg0">
         <div className="min-w-[20px] h-[20px] rounded-[2px] p-[4px] flex bg-gray1 items-center mr-[8px]">
           <p className="w-full text-bold text-[12px] leading-[18px] tracking-[-0.02em] text-gray7 whitespace-nowrap">
             {numberOverThousand(newPosts?.id ?? 0)}

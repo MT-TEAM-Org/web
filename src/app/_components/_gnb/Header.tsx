@@ -56,11 +56,15 @@ export default function Header() {
 
       <div className="flex items-center gap-x-2 whitespace-nowrap">
         <Link href="/customer/feedback">
-          <button className="min-w-[73.75px] px-2 py-1">개선요청</button>
+          <button className="min-w-[73.75px] px-4 py-2 hover:text-gra">
+            개선요청
+          </button>
         </Link>
         <div className="w-[1px] h-[16px] bg-gray-300" />
         <Link href="/customer">
-          <button className="min-w-[73.75px] px-2 py-1">고객센터</button>
+          <button className="min-w-[73.75px] px-4 py-2 hover:text-gra">
+            고객센터
+          </button>
         </Link>
         {isLoggedIn ? (
           <MypageButton userNickname={userData?.data?.data?.nickname} />

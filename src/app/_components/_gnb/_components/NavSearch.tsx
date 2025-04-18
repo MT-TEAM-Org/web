@@ -34,7 +34,7 @@ const NavSearch = () => {
   return (
     <div
       className={cn(
-        "w-full max-w-[414px] h-[48px] rounded-full bg-white border-[0.5px] px-4 flex items-center gap-[10px] relative transition-all focus-within:ring-1 focus-within:ring-gray9",
+        "w-full max-w-[414px] h-[48px] rounded-full bg-gray1 border-[0.5px] px-4 flex items-center gap-[10px] relative transition-all focus-within:ring-1 focus-within:ring-gray9",
         "tablet:w-full tablet:max-w-[292px]"
       )}
     >
