@@ -26,7 +26,7 @@ const SearchLeftSidebar = () => {
   const currentPathStyle =
     "font-bold text-gra bg-bg0 mobile:bg-transparent mobile:text-gray7 mobile:border-b-2 mobile:border-gray7";
   const defaultStyle =
-    "font-[400] text-gray7 bg-white mobile:text-gray5 mobile:border-b-2 mobile:border-gray3";
+    "font-[400] text-gray7 bg-white pc:hover:text-gra mobile:text-gray5 mobile:border-b-2 mobile:border-gray3";
 
   return (
     <div

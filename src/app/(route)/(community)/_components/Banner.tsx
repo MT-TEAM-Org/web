@@ -27,7 +27,7 @@ const Banner = ({ url }: BannerProps) => {
   }
 
   return (
-    <div className="w-full h-[120px] relative">
+    <div className="w-full h-[120px] relative mobile:hidden">
       <Image
         src={`/${bannerUrl}`}
         alt="Banner"
