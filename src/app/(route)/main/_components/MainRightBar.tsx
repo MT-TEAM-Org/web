@@ -66,17 +66,16 @@ const MainRightBar = () => {
   const pageButtonStyle =
     "w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center";
   const disabledStyle = "opacity-50 cursor-not-allowed";
-
-  const getNavButtonClass = (isDisabled: boolean) => {
-    return `${pageButtonStyle} ${isDisabled ? disabledStyle : ""}`;
-  };
-
   const btnStyle =
     "w-1/2 h-10 flex gap-[10px] px-[16px] py-[13px] items-center justify-center rounded-t-[5px] cursor-pointer border-gray8";
   const activeBtnStyle =
     "border-[1px] border-b-0 font-[700] text-[14px] leading-[21px] text-gray7";
   const passiveBtnStyle =
     "border-b border-b-gray5 border-gray5 font-[500] text-[14px] leading-[22px] text-gray5";
+
+  const getNavButtonClass = (isDisabled: boolean) => {
+    return `${pageButtonStyle} ${isDisabled ? disabledStyle : ""}`;
+  };
 
   return (
     <div

@@ -30,7 +30,6 @@ const NewsComponent = ({ data, isLoading }: NewsComponentProps) => {
         "mobile:max-w-[768px] mobile:min-h-[132px]"
       )}
     >
-      {/* TODO: 실시간 HOT, 최신 게시글 구조 변경 및 반응형 추가, 스켈레톤 UI 수정 */}
       {isLoading
         ? Array(skeletonCount)
             .fill(0)
