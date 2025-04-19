@@ -130,7 +130,7 @@ const generateVerificationEmail = (email: string) => {
               margin-bottom: 24px;
             "
           >
-            1234
+{code}
           </div>
           <p
             style="

@@ -1,5 +1,5 @@
 import axios from "axios";
-import generateVerificationEmail from "./emailTemplate/emailTemlate";
+import generateVerificationEmail from "./emailTemplate/emailTemplate";
 
 const sendVerification = async (email: string) => {
   const htmlTemplate = generateVerificationEmail(email);
