@@ -6,7 +6,6 @@ import { cn } from "@/utils";
 const MainLivePost = () => {
   const [activeTab, setActiveTab] = useState("hot");
 
-  // 탭 정보를 객체 배열로 정의
   const tabs = [
     {
       id: "hot",
@@ -30,8 +29,8 @@ const MainLivePost = () => {
       <div
         className={cn(
           "w-full min-h-[392px] flex flex-col gap-6",
-          "pc:hidden",
-          "mobile:w-screen"
+          "mobile:w-full mobile:max-w-[calc(100vw-32px)] mobile:mx-auto",
+          "pc:hidden"
         )}
       >
         <div className="flex">
