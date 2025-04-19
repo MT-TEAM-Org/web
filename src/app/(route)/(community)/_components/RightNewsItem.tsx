@@ -48,7 +48,7 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
         className={cn(
           "min-w-[288px] min-h-[92px] flex justify-center items-center border-b border-gray2 p-3 cursor-pointer gap-3",
           customClass,
-          "mobile:max-w-full"
+          "mobile:w-full mobile:max-w-[calc(100vw-32px)] mobile:mx-auto"
         )}
       >
         <div className="flex-shrink-0 w-[68px] h-[68px] rounded-[5px] overflow-hidden bg-gray1 relative">
@@ -69,8 +69,8 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
         </div>
         <div
           className={cn(
-            "max-w-[194px] h-auto min-h-[68px] flex flex-col justify-center items-start gap-1",
-            "mobile:max-w-[574px]"
+            "h-auto min-h-[68px] flex flex-col justify-center items-start gap-1 flex-1",
+            "mobile:min-w-0"
           )}
         >
           <div className={styles.title}>{newsItem.title}</div>
