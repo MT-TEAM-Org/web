@@ -29,7 +29,7 @@ const MainLivePost = () => {
       <div
         className={cn(
           "w-full min-h-[392px] flex flex-col gap-6",
-          "mobile:w-full mobile:max-w-[calc(100vw-32px)] mobile:mx-auto",
+          "mobile:w-full mobile:max-w-[calc(100vw-32px)] mobile:mx-auto mobile:min-h-fit mobile:mb-8",
           "pc:hidden"
         )}
       >

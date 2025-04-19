@@ -10,7 +10,12 @@ const NewPost = () => {
   const newPosts = response?.data?.data;
 
   return (
-    <div className="w-full min-h-[392px] flex flex-col gap-2">
+    <div
+      className={cn(
+        "w-full min-h-[392px] flex flex-col gap-2",
+        "mobile:min-h-[auto] mobile:h-fit"
+      )}
+    >
       <h3
         className={cn(
           "font-[700] text-[16px] leading-6 tracking-[-0.02em] align-center hidden",
@@ -19,7 +24,12 @@ const NewPost = () => {
       >
         실시간 최신 게시글
       </h3>
-      <div className="w-full min-h-[360px]">
+      <div
+        className={cn(
+          "w-full min-h-[360px]",
+          "mobile:min-h-[auto] mobile:h-fit"
+        )}
+      >
         {isLoading ? (
           Array.from({ length: 10 }).map((_, index) => (
             <MainPostItemSkeleton key={index} />
