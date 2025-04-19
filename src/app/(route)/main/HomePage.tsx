@@ -91,7 +91,8 @@ function HomePageContent() {
           <div
             className={cn(
               "max-w-[298px] min-h-[696px] flex-1",
-              "tablet:hidden"
+              "tablet:hidden",
+              "mobile:max-w-full mobile:min-h-[496px]"
             )}
           >
             <MainRightBar />

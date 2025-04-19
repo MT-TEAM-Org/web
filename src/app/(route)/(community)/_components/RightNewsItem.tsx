@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
+import { cn } from "@/utils";
 
 interface NewsItemProps {
   newsItem: NewsItemType;
@@ -27,9 +28,9 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
   }, [newsItem?.id, pathname]);
 
   const titleStyle =
-    "w-[194px] h-[24px] font-[700] text-[16px] leading-6 tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap";
+    "w-[194px] h-[24px] font-[700] text-[16px] leading-6 tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap mobile:w-full";
   const contentStyle =
-    "w-[194px] h-[40px] text-[14px] leading-5 tracking-[0%] opacity-90 line-clamp-2 overflow-hidden";
+    "w-[194px] h-[40px] text-[14px] leading-5 tracking-[0%] opacity-90 line-clamp-2 overflow-hidden mobile:w-full";
 
   const styles = {
     title: `${titleStyle} ${read ? "text-gray5" : "text-gray9"}`,
@@ -44,7 +45,11 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
     >
       <div
         onClick={handleRead}
-        className={`min-w-[288px] min-h-[92px] flex justify-center items-center border-b border-gray2 p-3 cursor-pointer gap-3  ${customClass}`}
+        className={cn(
+          "min-w-[288px] min-h-[92px] flex justify-center items-center border-b border-gray2 p-3 cursor-pointer gap-3",
+          customClass,
+          "mobile:max-w-full"
+        )}
       >
         <div className="flex-shrink-0 w-[68px] h-[68px] rounded-[5px] overflow-hidden bg-gray1 relative">
           {updatedImgUrl ? (
@@ -62,7 +67,12 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
             />
           )}
         </div>
-        <div className="min-w-[194px] h-auto min-h-[68px] flex flex-col justify-center items-start gap-1 ">
+        <div
+          className={cn(
+            "max-w-[194px] h-auto min-h-[68px] flex flex-col justify-center items-start gap-1",
+            "mobile:max-w-[574px]"
+          )}
+        >
           <div className={styles.title}>{newsItem.title}</div>
           <div className={styles.content}>{newsItem?.content}</div>
         </div>

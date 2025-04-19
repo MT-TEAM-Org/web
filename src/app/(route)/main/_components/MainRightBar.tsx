@@ -80,8 +80,9 @@ const MainRightBar = () => {
   return (
     <div
       className={cn(
-        "flex flex-col w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px]",
-        "tablet:min-h-[396px]"
+        "flex flex-col max-w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px]",
+        "tablet:min-h-[396px]",
+        "mobile:max-w-full mobile:min-h-[468px]"
       )}
     >
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px]">
@@ -117,7 +118,10 @@ const MainRightBar = () => {
                 <RightNewsItem
                   key={data.id}
                   newsItem={data}
-                  customClass="w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3"
+                  customClass={cn(
+                    "max-w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3",
+                    "mobile:max-w-full"
+                  )}
                 />
               ))
             )}

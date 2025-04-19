@@ -1,11 +1,9 @@
 import React from "react";
 import NewPostItem from "./NewPostItem";
-import useGetNewContent, {
-  ApiResponse,
-} from "@/_hooks/fetcher/main/useGetNewContent";
+import useGetNewContent from "@/_hooks/fetcher/main/useGetNewContent";
 import MainPostItemSkeleton from "./MainPostItemSkeleton";
 import MyPagePostEmpty from "../../mypage/posts/_components/MypagePostEmpty";
-import { cn } from "@heroui/theme";
+import { cn } from "@/utils";
 
 const NewPost = () => {
   const { data: response, isLoading, isError } = useGetNewContent();
