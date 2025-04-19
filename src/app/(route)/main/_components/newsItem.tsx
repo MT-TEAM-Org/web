@@ -5,10 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
 import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
-import {
-  NewsListDataType,
-  NewsListType,
-} from "@/app/(route)/news/_types/newsListItemType";
+import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import CustomIcon from "@/app/_components/IconComponents";
 import { cn } from "@/utils";
 
@@ -29,37 +26,47 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
     >
       <div
         className={cn(
-          "flex items-center min-w-[436px] max-h-[68px] border-gray-300 cursor-pointer gap-4",
-          "mobile:max-w-[768px] mobile:min-w-0"
+          "flex items-center w-full max-w-[436px] h-[68px] border-gray-300 cursor-pointer gap-4 overflow-hidden",
+          "mobile:w-full mobile:max-w-[calc(100vw-32px)]"
         )}
         onClick={handleRead}
       >
-        <div className="flex-shrink-0 max-w-[68px] max-h-[68px] rounded overflow-hidden">
+        <div className="flex-shrink-0 w-[68px] h-[68px] rounded">
           {newsItem?.thumbImg ? (
             <Image
               src={updatedImgUrl}
               alt="News img"
               width={68}
               height={68}
-              className="max-w-[68px] min-h-[68px] rounded-[5px] object-cover"
+              className="w-full h-full rounded-[5px] object-cover"
             />
           ) : (
             <CustomIcon
               icon="DEFAULT_THUMBNAIL_ICON"
-              className="w-[68px] h-[68px] border rounded-none"
+              className="w-full h-full border rounded-none"
             />
           )}
         </div>
         <div
           className={cn(
-            "max-w-[352px] h-[68px] flex flex-col justify-center gap-1",
-            "mobile:max-w-[700px]"
+            "flex-1 h-[68px] flex flex-col justify-center gap-1 overflow-hidden",
+            "mobile:min-w-0"
           )}
         >
-          <h2 className="w-full h-[24px] font-[700] text-[16px] leading-6 text-ellipsis overflow-hidden whitespace-nowrap">
+          <h2
+            className={cn(
+              "w-full h-[24px] font-[700] text-[16px] leading-6 text-ellipsis overflow-hidden whitespace-nowrap",
+              "mobile:w-full"
+            )}
+          >
             {newsItem?.title}
           </h2>
-          <p className="w-full h-[40px] font-[500] text-[14px] leading-5 overflow-hidden line-clamp-2">
+          <p
+            className={cn(
+              "w-full h-[40px] font-[500] text-[14px] leading-5 overflow-hidden line-clamp-2",
+              "mobile:w-full"
+            )}
+          >
             {newsItem?.content}
           </p>
         </div>

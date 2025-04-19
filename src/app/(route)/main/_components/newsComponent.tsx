@@ -26,10 +26,11 @@ const NewsComponent = ({ data, isLoading }: NewsComponentProps) => {
   return (
     <div
       className={cn(
-        "w-[436px] min-h-[236px] flex flex-col gap-4",
-        "mobile:w-full mobile:min-h-[132px]"
+        "max-w-[436px] min-h-[236px] flex flex-col gap-4",
+        "mobile:max-w-[768px] mobile:min-h-[132px]"
       )}
     >
+      {/* TODO: 실시간 HOT, 최신 게시글 구조 변경 및 반응형 추가, 스켈레톤 UI 수정 */}
       {isLoading
         ? Array(skeletonCount)
             .fill(0)

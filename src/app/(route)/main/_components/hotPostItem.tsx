@@ -3,6 +3,7 @@ import { getKoreanBoardType } from "@/utils/boardType/boardTypeKorean";
 import { GetHotContentItem } from "@/services/main/getHotContent";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
 import Link from "next/link";
+import { cn } from "@/utils";
 
 interface HotPostItemProps {
   number: number;
@@ -16,7 +17,13 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
         pathname: `/board/${hotPosts?.boardType}/${hotPosts?.categoryType}/${hotPosts?.id}`,
       }}
     >
-      <div className="min-w-[419px] h-[36px] border-b border-gray1 py-2 pr-2 flex justify-start items-center text-center gap-2 cursor-pointer">
+      <div
+        className={cn(
+          "w-full h-[36px] border-b border-gray1 py-2 pr-2 flex justify-start items-center text-center gap-2 cursor-pointer"
+          // "tablet:w-screen",
+          // "mobile:w-screen"
+        )}
+      >
         <div className="w-[20px] h-[20px] rounded-sm gap-[10px] font-bold text-[12px] leading-[18px] text-gray7">
           {number}
         </div>

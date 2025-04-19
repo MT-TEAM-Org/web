@@ -5,6 +5,7 @@ import useGetNewContent, {
 } from "@/_hooks/fetcher/main/useGetNewContent";
 import MainPostItemSkeleton from "./MainPostItemSkeleton";
 import MyPagePostEmpty from "../../mypage/posts/_components/MypagePostEmpty";
+import { cn } from "@heroui/theme";
 
 const NewPost = () => {
   const { data: response, isLoading, isError } = useGetNewContent();
@@ -12,7 +13,12 @@ const NewPost = () => {
 
   return (
     <div className="w-full min-h-[392px] flex flex-col gap-2">
-      <h3 className="font-[700] text-[16px] leading-6 tracking-[-0.02em] align-center">
+      <h3
+        className={cn(
+          "font-[700] text-[16px] leading-6 tracking-[-0.02em] align-center hidden",
+          "pc:block"
+        )}
+      >
         실시간 최신 게시글
       </h3>
       <div className="w-full min-h-[360px]">

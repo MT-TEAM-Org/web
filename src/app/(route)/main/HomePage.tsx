@@ -11,6 +11,7 @@ import useHandleRefreshToken from "@/_hooks/fetcher/sign/useHandleRefreshToken";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { cn } from "@/utils";
+import MainLivePost from "./_components/MainLivePost";
 
 function HomePageContent() {
   const refreshToken = useHandleRefreshToken();
@@ -42,7 +43,7 @@ function HomePageContent() {
     : bigNewsData?.content || [];
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className={cn("flex flex-col gap-6", "mobile:gap-0")}>
       <div className="p-6 bg-gray1">
         <ScheduleContainer showAll={true} />
       </div>
@@ -60,7 +61,7 @@ function HomePageContent() {
               {!bigNewsDataIsError && !newsDataIsError && (
                 <div
                   className={cn(
-                    "w-full min-h-[236px] flex gap-4",
+                    "max-w-full min-h-[236px] flex gap-4 overflow-hidden",
                     "tablet:h-[396px]",
                     "mobile:h-[196px] mobile:min-h-0 mobile:flex-col mobile:gap-2"
                   )}
@@ -86,11 +87,7 @@ function HomePageContent() {
                   </div>
                 </div>
               )}
-
-              <div className="w-full min-h-[392px] flex gap-6">
-                <HotPost />
-                <NewPost />
-              </div>
+              <MainLivePost />
             </div>
           </div>
           <div
