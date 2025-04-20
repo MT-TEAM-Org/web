@@ -79,7 +79,7 @@ const MainRightBar = () => {
     <div
       className={cn(
         "flex flex-col max-w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px]",
-        "tablet:max-w-full tablet:min-h-[396px]",
+        "tablet:min-h-[396px]",
         "mobile:max-w-full mobile:min-h-[468px]"
       )}
     >
@@ -104,7 +104,12 @@ const MainRightBar = () => {
 
       <div className="flex flex-col gap-2">
         {buttonActive ? (
-          <div className="w-full h-auto max-h-[736px] flex flex-col gap-2">
+          <div
+            className={cn(
+              "w-full h-auto max-h-[736px] flex flex-col gap-2",
+              "tablet:max-h-[292px] tablet:overflow-hidden"
+            )}
+          >
             {newsIsLoading ? (
               <>
                 {Array.from({ length: skeletonCount }).map((_, i) => (

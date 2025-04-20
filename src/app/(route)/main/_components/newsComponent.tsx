@@ -26,12 +26,13 @@ const NewsComponent = ({ data, isLoading }: NewsComponentProps) => {
   return (
     <div
       className={cn(
-        "max-w-[436px] min-h-[236px] flex flex-col gap-4",
-        "mobile:max-w-[768px] mobile:min-h-[132px]"
+        "max-w-[436px] h-[236px] flex flex-col gap-4 overflow-hidden",
+        "tablet:h-auto",
+        "mobile:max-w-[768px] mobile:h-[152px] tablet:overflow-hidden"
       )}
     >
       {isLoading
-        ? Array(skeletonCount)
+        ? Array(itemCount)
             .fill(0)
             .map((_, index) => <NewsItemSkeleton key={index} />)
         : slicedNewsData?.map((newsItem: NewsListType) => (
