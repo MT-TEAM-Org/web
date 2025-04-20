@@ -15,6 +15,7 @@ interface SearchFilterProps {
   commentType?: string;
   onCommentTypeChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   mode?: "posts" | "inquries" | "comments";
+  isMobileGnb?: boolean;
 }
 
 const SearchFilter = ({
@@ -25,6 +26,7 @@ const SearchFilter = ({
   commentType,
   onCommentTypeChange,
   mode,
+  isMobileGnb = false,
 }: SearchFilterProps) => {
   const selectRef = useRef<HTMLSelectElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -44,7 +46,9 @@ const SearchFilter = ({
   return (
     <div
       className={cn(
-        "flex justify-end items-center gap-[8px] w-[356px] h-[40px]",
+        `flex ${
+          isMobileGnb ? "justify-start" : "justify-end"
+        } items-center gap-[8px] w-[356px] h-[40px]`,
         "mobile:w-full"
       )}
     >
@@ -112,7 +116,9 @@ const SearchFilter = ({
           `flex items-center gap-[8px] w-[228px] h-[40px] rounded-[5px] border-[1px] px-[12px] border-gray3 ${
             isFocused && "border-gray7"
           }`,
-          "mobile:w-[180px]"
+          `${
+            isMobileGnb ? "mobile:w-full mobile:mr-[16px]" : "mobile:w-[180px]"
+          }`
         )}
       >
         <button
@@ -129,7 +135,7 @@ const SearchFilter = ({
             `${
               hasValue ? "w-[144px]" : "w-[172px]"
             } text-[14px] leading-[22px] placeholder-gray4 focus:outline-none focus:border-none`,
-            "mobile:w-[132px]"
+            `${isMobileGnb ? "mobile:w-full" : "mobile:w-[132px]"}`
           )}
           placeholder="검색어를 입력해주세요."
           ref={inputRef}

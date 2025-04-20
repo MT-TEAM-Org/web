@@ -464,6 +464,36 @@ const ICONS = {
       />
     ),
   },
+  MOBILE_BLUE_CHECK: {
+    svgOptions: {
+      viewBox: "0 0 14 10",
+    },
+    icon: (
+      <>
+        <path
+          d="M13 1L4.75 9L1 5.36364"
+          stroke="#00ADEE"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </>
+    ),
+  },
+  MOBILE_ARROW_LEFT: {
+    SvgOptions: {
+      viewBox: "0 0 11 18",
+    },
+    icon: (
+      <path
+        d="M9.5 17L1.5 9L9.5 1"
+        stroke="#424242"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    ),
+  },
 };
 
 export type IconList = keyof typeof ICONS;
@@ -478,3 +508,19 @@ export type IconType = {
 };
 
 export default ICONS as IconType;
+
+<svg
+  width="11"
+  height="18"
+  viewBox="0 0 11 18"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M9.5 17L1.5 9L9.5 1"
+    stroke="#424242"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>;
