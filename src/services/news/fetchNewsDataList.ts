@@ -22,7 +22,7 @@ const fetchNewsDataList = async ({
   startIndex,
 }: NewsDataProps = {}) => {
   const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}api/news2`,
+    `${process.env.NEXT_PUBLIC_API_URL}api/news`,
     {
       params: {
         category,

@@ -49,7 +49,7 @@ const MainLivePost = () => {
         </div>
         <div>{tabs.find((tab) => tab.id === activeTab)?.component}</div>
       </div>
-      <div className={cn("hidden", "pc:flex pc:gap-6")}>
+      <div className={cn("w-[862px] hidden", "pc:flex pc:gap-6")}>
         <HotPost />
         <NewPost />
       </div>
