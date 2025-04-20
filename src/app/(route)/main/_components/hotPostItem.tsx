@@ -26,7 +26,7 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
         <div className="w-[20px] h-[20px] rounded-sm font-bold text-[12px] leading-[20px] text-gray7 flex items-center justify-center flex-shrink-0">
           {number}
         </div>
-        <div className="max-w-[40px] w-[40px] h-[20px] font-[700] text-[12px] leading-[20px] text-gray5 whitespace-nowrap overflow-hidden text-ellipsis flex-shrink-0 line-clamp-1">
+        <div className="max-w-[40px] h-[20px] font-[700] text-[12px] leading-[20px] text-gray5 whitespace-nowrap overflow-hidden text-ellipsis flex-shrink-0 line-clamp-1">
           {getKoreanBoardType(hotPosts?.boardType)}
         </div>
         <div className="flex items-center gap-[2px] min-w-0">
@@ -49,13 +49,15 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
           </div>
           <div className="flex items-center gap-x-[2px] flex-shrink-0 h-[20px]">
             {(hotPosts?.commentCount ?? 0) > 0 && (
-              <p className="w-[22px] h-[20px] font-[500] text-[12px] leading-[20px] text-gra flex items-center">
+              <p className="font-[500] text-[12px] leading-[20px] text-gra flex items-center">
                 [{hotPosts.commentCount}]
               </p>
             )}
-            <p className="font-[900] w-[10px] h-[20px] text-[10px] leading-[20px] text-gra flex items-center">
-              N
-            </p>
+            {hotPosts?.isNew && (
+              <p className="font-[900] w-[10px] h-[20px] text-[10px] leading-[20px] text-gra flex items-center">
+                N
+              </p>
+            )}
             {hotPosts?.isHot && (
               <p className="font-[900] w-[10px] h-[20px] text-[10px] leading-[20px] text-new flex items-center">
                 H

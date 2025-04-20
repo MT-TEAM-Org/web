@@ -33,7 +33,7 @@ const MainLivePost = () => {
           "pc:hidden"
         )}
       >
-        <div className="flex">
+        <div className="w-full flex">
           {tabs.map((tab) => (
             <div
               key={tab.id}

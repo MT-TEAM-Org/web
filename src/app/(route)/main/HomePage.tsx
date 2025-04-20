@@ -40,6 +40,8 @@ function HomePageContent() {
     ? bigNewsData
     : bigNewsData?.content || [];
 
+  // 스켈레톤UI, 게임 이벤트 아이템 동적 테스트, 뉴스 없을 때 테스트, 실시간 게시글 데이터 없을 때 테스트
+
   return (
     <div className={cn("flex flex-col gap-6", "mobile:gap-0")}>
       <div className="p-6 bg-gray1">

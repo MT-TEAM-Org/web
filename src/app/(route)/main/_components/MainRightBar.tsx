@@ -23,9 +23,7 @@ const MainRightBar = () => {
   const isTablet = useIsTablet();
   const isMobile = useIsMobile();
 
-  const itemCount = isMobile ? 2 : isTablet ? 3 : 5;
-  const skeletonCount = isMobile ? 2 : isTablet ? 4 : 3;
-
+  const skeletonCount = isMobile ? 5 : isTablet ? 3 : 5;
   const size = isTablet ? 3 : 5;
 
   const {
@@ -35,8 +33,15 @@ const MainRightBar = () => {
     refetch: refetchGameEvent,
   } = useGetGameEvent({
     pageNum,
-    size: itemCount,
+    size,
   });
+
+  const {
+    data: filteredNewsData,
+    isLoading: newsIsLoading,
+    isError: newsIsError,
+    refetch: refetchNewsData,
+  } = useGetMainRightBarNewsData({ page: currentPage, size }) ?? {};
 
   const handleRefresh = () => {
     if (buttonActive) {
@@ -45,13 +50,6 @@ const MainRightBar = () => {
       refetchGameEvent?.();
     }
   };
-
-  const {
-    data: filteredNewsData,
-    isLoading: newsIsLoading,
-    isError: newsIsError,
-    refetch: refetchNewsData,
-  } = useGetMainRightBarNewsData({ page: currentPage, size }) ?? {};
 
   const handleToPage = (type: "prev" | "next") => {
     const current = Number(currentPage);
@@ -108,9 +106,11 @@ const MainRightBar = () => {
         {buttonActive ? (
           <div className="w-full h-auto max-h-[736px] flex flex-col gap-2">
             {newsIsLoading ? (
-              Array.from({ length: 5 })?.map((_, i) => (
-                <RightNewsItemSkeleton key={i} />
-              ))
+              <>
+                {Array.from({ length: skeletonCount }).map((_, i) => (
+                  <RightNewsItemSkeleton key={`news-skeleton-${i}`} />
+                ))}
+              </>
             ) : newsIsError || !filteredNewsData?.content?.length ? (
               <EmptyGameBox title="뉴스 정보" onClick={handleRefresh} />
             ) : (
@@ -127,7 +127,11 @@ const MainRightBar = () => {
             )}
           </div>
         ) : eventIsLoading ? (
-          Array.from({ length: 5 }).map((_, i) => <EventItemSkeleton key={i} />)
+          <>
+            {Array.from({ length: skeletonCount }).map((_, i) => (
+              <EventItemSkeleton key={`event-skeleton-${i}`} />
+            ))}
+          </>
         ) : eventIsError || !gameEventData?.content?.length ? (
           <EmptyGameBox title="게임 이벤트 정보" onClick={handleRefresh} />
         ) : (
