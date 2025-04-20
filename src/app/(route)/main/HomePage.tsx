@@ -56,12 +56,18 @@ function HomePageContent() {
             "mobile:flex-col mobile:px-4"
           )}
         >
-          <div className="max-w-[862px] h-auto flex gap-10">
-            <div className="flex flex-col gap-10">
+          <div
+            className={cn(
+              "max-w-[862px] h-auto flex gap-10",
+              "tablet:max-w-[705px] tablet:w-full",
+              "mobile:max-w-full"
+            )}
+          >
+            <div className="w-full flex flex-col gap-10">
               {!bigNewsDataIsError && !newsDataIsError && (
                 <div
                   className={cn(
-                    "max-w-full min-h-[236px] flex gap-4 overflow-hidden",
+                    "max-w-full min-h-[236px] flex gap-4",
                     "tablet:h-[396px]",
                     "mobile:h-[196px] mobile:min-h-0 mobile:flex-col mobile:gap-2"
                   )}
@@ -87,7 +93,9 @@ function HomePageContent() {
                   </div>
                 </div>
               )}
-              <MainLivePost />
+              <div className={cn("w-full", "tablet:w-full")}>
+                <MainLivePost />
+              </div>
             </div>
           </div>
           <div

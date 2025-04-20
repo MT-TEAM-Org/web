@@ -79,7 +79,7 @@ const MainRightBar = () => {
     <div
       className={cn(
         "flex flex-col max-w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px]",
-        "tablet:min-h-[396px]",
+        "tablet:max-w-full tablet:min-h-[396px]",
         "mobile:max-w-full mobile:min-h-[468px]"
       )}
     >
