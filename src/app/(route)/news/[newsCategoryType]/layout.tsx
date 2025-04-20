@@ -70,7 +70,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         <div
           className={cn(
-            "sticky top-0 mb-[42px]",
+            "sticky top-0 self-start",
             "tablet:hidden",
             "mobile:hidden"
           )}

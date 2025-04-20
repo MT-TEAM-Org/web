@@ -96,7 +96,7 @@ export const CommunityToolbar = ({
   ];
 
   const buttonStyle =
-    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[20px]";
+    "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[20px] hover:font-[700] hover:text-gray7 hover:border-gray7";
 
   return (
     <div className="w-full max-w-[720px] sticky top-0 bg-white z-10 tablet:max-w-[688px] tablet:mx-auto ">
