@@ -46,13 +46,15 @@ const LeftSidebar = () => {
     <div
       className={cn(
         "w-[160px] h-[364px]",
-        "tablet:w-full tablet:h-[52px] tablet:min-w-[688px]"
+        "tablet:w-full tablet:h-[52px] tablet:min-w-[688px]",
+        "mobile:w-full mobile:h-[48px]"
       )}
     >
       <div
         className={cn(
           "w-[160px] bg-white rounded-[5px]",
-          "tablet:flex tablet:w-full max-w-[688px] h-[52px]"
+          "tablet:flex tablet:w-full max-w-[688px] h-[52px]",
+          "mobile:flex mobile:w-full mobile:h-full mobile:overflow-x-scroll"
         )}
       >
         {boardList.map((board) => {
@@ -65,7 +67,8 @@ const LeftSidebar = () => {
                 `w-full h-[52px] px-[16px] py-[12px] flex justify-start items-center cursor-pointer bg-white hover:text-gra ${
                   isActive ? "font-[700] text-gra" : "font-[400] text-gray7"
                 }`,
-                "tablet:w-full tablet:min-w-[98.29px]"
+                "tablet:w-full tablet:min-w-[98.29px]",
+                "mobile:w-fit mobile:text-center mobile:py-[13px] mobile:px-[16px] whitespace-nowrap"
               )}
             >
               <p className="w-full">{board.name}</p>

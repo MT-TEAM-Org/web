@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { REGISTRATION } from "@/constants/userRegistration";
+import { REGISTRATION } from "@/app/_constants/userRegistration";
 import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
 import Image from "next/image";
 import { cn } from "@/utils";
