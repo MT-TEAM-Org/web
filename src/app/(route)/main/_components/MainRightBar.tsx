@@ -23,8 +23,8 @@ const MainRightBar = () => {
   const isTablet = useIsTablet();
   const isMobile = useIsMobile();
 
-  const skeletonCount = isMobile ? 5 : isTablet ? 3 : 5;
-  const size = isTablet ? 3 : 5;
+  const skeletonCount = isMobile ? 3 : isTablet ? 3 : 5;
+  const size = isMobile ? 3 : isTablet ? 3 : 5;
 
   const {
     data: gameEventData,
@@ -80,7 +80,7 @@ const MainRightBar = () => {
       className={cn(
         "flex flex-col max-w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px]",
         "tablet:min-h-[396px]",
-        "mobile:max-w-full mobile:min-h-[468px]"
+        "mobile:max-w-full mobile:min-h-fit"
       )}
     >
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px]">
@@ -102,12 +102,13 @@ const MainRightBar = () => {
         </button>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className={cn("flex flex-col gap-2", "mobile:overflow-hidden")}>
         {buttonActive ? (
           <div
             className={cn(
               "w-full h-auto max-h-[736px] flex flex-col gap-2",
-              "tablet:max-h-[292px] tablet:overflow-hidden"
+              "tablet:max-h-[292px] tablet:overflow-hidden",
+              "mobile:max-h-[292px] mobile:overflow-hidden"
             )}
           >
             {newsIsLoading ? (
