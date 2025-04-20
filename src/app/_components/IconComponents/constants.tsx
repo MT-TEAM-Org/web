@@ -481,7 +481,7 @@ const ICONS = {
     ),
   },
   MOBILE_ARROW_LEFT: {
-    SvgOptions: {
+    svgOptions: {
       viewBox: "0 0 11 18",
     },
     icon: (
