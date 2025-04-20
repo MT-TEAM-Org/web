@@ -19,7 +19,7 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
     >
       <div
         className={cn(
-          "w-full h-[36px] border-b border-gray1 py-2 pr-2 flex justify-start items-center text-center gap-2 cursor-pointer",
+          "w-full h-[36px] border-b border-gray1 py-2 pr-2 flex justify-start items-center text-center gap-2 cursor-pointer hover:bg-bg0",
           "mobile:w-full mobile:max-w-[calc(100vw-32px)] mobile:mx-auto"
         )}
       >

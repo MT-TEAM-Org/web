@@ -134,13 +134,13 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
                   w-full
                   ${isLastItem ? "h-[58px]" : "h-[48px]"}
                   ${!isFirstItem ? "border-b border-gray2" : ""}
-                  px-4 py-2 flex items-center hover:bg-bg0 
+                  px-4 py-2 flex items-center hover:bg-bg0
                 `}
               >
                 <button
                   onClick={() => handleClickMenu(item)}
                   disabled={logoutIsPending}
-                  className="text-gray7 text-[16px] font-medium w-full h-full text-left leading-[26px] tracking-[-0.02em] "
+                  className="text-gray7 text-[16px] font-medium w-full h-full text-left leading-[26px] tracking-[-0.02em] hover:text-gra "
                 >
                   {item.name}
                 </button>

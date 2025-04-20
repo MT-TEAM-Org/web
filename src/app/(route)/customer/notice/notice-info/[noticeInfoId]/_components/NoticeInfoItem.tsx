@@ -229,7 +229,7 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
           onClose={() => setIsSignInModalOpen(false)}
         />
       </div>
-      <div className="shadow-md sticky bottom-0 z-50">
+      <div className="shadow-sm sticky bottom-0 z-50">
         <SendCommentBox
           id={id.toString()}
           type="NOTICE"
