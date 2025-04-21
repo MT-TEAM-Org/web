@@ -65,11 +65,11 @@ const BoardMobile = () => {
   };
 
   return (
-    <div className="w-full min-w-[360px] max-w-[687px] h-[48px] flex items-center justify-between border-b border-gray2">
+    <div className="w-full min-w-[360px] max-w-[687px] h-[48px] flex items-center justify-between border-b border-gray2 pc:hidden tablet:hidden">
       <div className="w-full flex items-center">
         <div
           onClick={handleNavLeftIconClick}
-          className="w-[48px] h-[48px] flex items-center justify-center"
+          className="w-[48px] h-[48px] flex items-center justify-center cursor-pointer"
         >
           {isSearching ? (
             <CustomIcon
@@ -110,7 +110,10 @@ const BoardMobile = () => {
               </div>
             </div>
             <div className="flex justify-center items-center min-w-[137px] gap-x-[16px]">
-              <div onClick={handleSearchClick} className="w-[24px] h-[24px]">
+              <div
+                onClick={handleSearchClick}
+                className="w-[24px] h-[24px] cursor-pointer"
+              >
                 <Small_Search />
               </div>
               <button

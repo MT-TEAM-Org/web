@@ -71,7 +71,7 @@ const LeftSidebar = () => {
                 "mobile:w-full mobile:h-full mobile:text-center mobile:py-[13px] mobile:px-[16px] whitespace-nowrap"
               )}
             >
-              <p className="w-full">{board.name}</p>
+              <p className="w-full mobile:w-full">{board.name}</p>
             </div>
           );
         })}
