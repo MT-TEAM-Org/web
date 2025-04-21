@@ -1,4 +1,5 @@
 import { LogoWhite } from "@/app/_components/icon/LogoWhite";
+import { cn } from "@/utils";
 import React from "react";
 interface EmptyGameBoxProps {
   title: string;
@@ -7,7 +8,12 @@ interface EmptyGameBoxProps {
 const EmptyGameBox = ({ title, onClick }: EmptyGameBoxProps) => {
   return (
     <div>
-      <div className="max-w-[298px] min-h-[396px] bg-gray1 rounded-[10px] flex justify-center items-center">
+      <div
+        className={cn(
+          "max-w-[298px] min-h-[396px] bg-gray1 rounded-[10px] flex justify-center items-center",
+          "mobile:max-w-full"
+        )}
+      >
         <div className="w-[298px] h-[160px] flex flex-col justify-center items-center gap-4">
           <LogoWhite />
           <div className="h-[48px] flex flex-col justify-center items-center gap-1 text-center text-gray7">

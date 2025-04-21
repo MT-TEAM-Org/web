@@ -8,6 +8,7 @@ export type GetHotContentItem = {
   title: string;
   commentCount: number;
   isHot: boolean;
+  isNew: boolean;
   isImage: boolean;
 };
 
