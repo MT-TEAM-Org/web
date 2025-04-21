@@ -8,6 +8,8 @@ const useGetMatchSchedule = (category?: string) => {
     queryFn: () => getMatchSchedule(category),
     queryKey: ["matchSchedule", category],
     retry: 1,
+    staleTime: 1000 * 60 * 30,
+    gcTime: 1000 * 60 * 60,
   });
 };
 

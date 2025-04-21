@@ -1,5 +1,5 @@
 import { memo } from "react";
-import termsServiceObject from "@/constants/termsServiceObject";
+import termsServiceObject from "@/app/_constants/termsServiceObject";
 
 const TermsServiceText = () => {
   // 원형 번호 문자 매핑

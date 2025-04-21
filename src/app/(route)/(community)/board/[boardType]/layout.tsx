@@ -17,8 +17,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       )}
     >
       <Banner />
-      <div className="mt-[24px] w-[1200px] flex justify-center mx-auto gap-[16px] tablet:w-full">
-        <div className="w-full max-w-[160px] min-h-[364px] hidden pc:block tablet:w-full">
+      <div className="mt-[24px] mobile:mt-0 w-[1200px] flex justify-center mx-auto gap-[16px] tablet:w-full mobile:w-full mobile:max-w-[687px] mobile:min-w-[360px]">
+        <div className="w-full max-w-[160px] min-h-[364px] hidden pc:block tablet:w-full mobile:w-full">
           <div className="w-full sticky top-0">
             <LeftSidebar />
           </div>
@@ -26,7 +26,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div
           className={cn(
             "flex-1 min-w-[720px] min-h-[120px]",
-            "tablet:min-w-[688px] tablet:mx-auto"
+            "tablet:min-w-[688px] tablet:mx-auto",
+            "mobile:w-full mobile:max-w-[687px] mobile:min-w-[360px]"
           )}
         >
           {children}

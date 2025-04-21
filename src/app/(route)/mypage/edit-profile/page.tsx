@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { REGISTRATION } from "@/constants/userRegistration";
+import { REGISTRATION } from "@/app/_constants/userRegistration";
 import useGetMyPageData from "@/_hooks/fetcher/mypage/useGetMyPageData";
 import ProfileImage from "./_components/ProfileImage";
 import { useToast } from "@/_hooks/useToast";
