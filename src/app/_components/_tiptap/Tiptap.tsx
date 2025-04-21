@@ -19,6 +19,7 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 import { useEditStore } from "@/utils/Store";
+import { cn } from "@/utils";
 
 interface TiptapProps {
   onChange: (content: string) => void;
@@ -305,9 +306,14 @@ const Tiptap = ({
   }
 
   return (
-    <div className="w-[720px] min-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px] gap-3 box-border">
-      <div>
-        <div className="w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-gray3">
+    <div
+      className={cn(
+        "w-full max-w-[720px] min-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px] gap-3 box-border",
+        "mobile:min-w-[360px] mobile:max-w-[687px] mobile:w-full"
+      )}
+    >
+      <div className="mobile:w-full mobile:max-w-[687px]">
+        <div className="w-full max-w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-gray3">
           <div className="flex">
             <label
               htmlFor="videoUrl"
@@ -326,7 +332,12 @@ const Tiptap = ({
           </div>
         </div>
         <LinkPreview videoUrl={videoUrl} />
-        <div className="relative min-w-[696px] min-h-[419px] border border-t-0 rounded-[5px] mt-2 ">
+        <div
+          className={cn(
+            "relative min-w-[696px] min-h-[419px] border border-t-0 rounded-[5px] mt-2",
+            "mobile:min-w-[328px] mobile:w-full mobile:overflow-y-scroll"
+          )}
+        >
           <Toolbar editor={editor} content={watch("content")} />
           <div className="relative">
             <EditorContent
@@ -404,15 +415,15 @@ const Tiptap = ({
         </div>
       </div>
       {/* 사용자 안내 */}
-      <div className="flex flex-col gap-y-1 w-[696px] min-h-[40px] rounded-[5px] p-[12px] bg-[#FAFAFA] text-[#656565]">
-        <div className="w-[672px] h-[44px] font-medium text-[14px] leading-[22px] ">
+      <div className="flex flex-col gap-y-1 w-full max-w-[696px] min-h-[40px] rounded-[5px] p-[12px] bg-[#FAFAFA] text-[#656565] mobile:overflow-y-scroll">
+        <div className="w-full min-h-[44px] font-medium text-[14px] leading-[22px] ">
           <p>
             불법촬영물등을 게재할 경우 전기통신사업법 제22조의5제1항에 따라
             삭제·접속차단 등의 조치가 취해질 수 있으며 관련 법률에 따라 처벌받을
             수 있습니다.
           </p>
         </div>
-        <div className=" w-[672px] h-[88px] font-medium text-[14px] leading-[22px]">
+        <div className="w-full max-w h-[88px] font-medium text-[14px] leading-[22px]">
           <p>
             • 허용 확장자 (jpg, jpeg, png,webp,heic, mp4,mov,webm,gif) 총 15개
             까지, 파일당 50MB 까지 업로드 가능합니다.
@@ -425,18 +436,18 @@ const Tiptap = ({
           <p>• 음원 있는 움짤/동영상은 45초 이내 길이만 가능합니다.</p>
         </div>
       </div>
-      <div className="w-[696px] h-[40px] flex justify-between">
+      <div className="w-full max-w-[696px] h-[40px] flex justify-between mobile:justify-center">
         <button
           type="button"
           onClick={() => router.back()}
-          className="w-[120px] h-[40px] bg-[#FFFFFF] border border-[#DBDBDB]"
+          className="w-[120px] h-[40px] bg-[#FFFFFF] border border-[#DBDBDB] mobile:hidden"
         >
           목록
         </button>
         <button
           type="submit"
           disabled={isPending}
-          className={`w-[120px] h-[40px] rounded-[5px] ${
+          className={`w-[120px] h-[40px] rounded-[5px] mobile:w-full mobile:h-[48px] font-bold ${
             isPending ? "bg-gray-500" : "bg-[#00ADEE]"
           } text-[white]`}
         >
