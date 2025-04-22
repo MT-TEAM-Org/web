@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 import PostItemSkeleton from "@/app/(route)/(community)/_components/PostItemSkelton";
 import { cn } from "@/utils";
 import MobileDetailGnb from "@/app/(route)/(community)/_components/gnb/mobileDetailGnb";
+import LeftSidebar from "@/app/(route)/(community)/_components/LeftSidebar";
 
 interface BoardDetailProps {
   boardType: string;
@@ -41,11 +42,14 @@ const BoardDetailPage = ({ params }: { params: Promise<BoardDetailProps> }) => {
       className={cn(
         "w-full max-w-[720px]",
         "tablet:max-w-[688px] tablet:mx-auto",
-        "mobile:mx-auto"
+        "mobile:mx-auto mobile:w-full"
       )}
     >
-      <div className="w-full hidden mobile:block sticky top-0 z-10">
+      <div className="w-full max-w-[687px] min-w-[360px] hidden mobile:block sticky top-0 z-10">
         <MobileDetailGnb boardId={boardId} />
+      </div>
+      <div className="hidden tablet:block sticky top-0 z-10">
+        <LeftSidebar />
       </div>
       <div
         className="w-full min-h-[100px] tablet:flex tablet:flex-col tablet:justify-center tablet:items-center tablet:mx-auto mobile:mb-[16px]
