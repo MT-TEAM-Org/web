@@ -8,22 +8,34 @@ import { useState } from "react";
 import SearchFilter from "@/app/(route)/mypage/_components/SearchFilter";
 import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 import NewsMobileGnbModal from "./NewsMobileGnbModal";
+import FilterMobileModal from "./FilterMobileModal";
+import { cn } from "@/utils";
 
 const NewsMobileGnb = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchType, setSearchType] = useState("TITLE");
 
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const isDetail = () => {
+    const newsDetail = pathname.split("/").slice(3, 4)[0];
+    if (newsDetail === "news-detail") {
+      return "hidden";
+    }
+  };
+
   const NavPath = pathname.split("/").slice(2, 3)[0];
 
   const nowCategory = () => {
-    const seletedCategory = NEWS_NAVBAR.find((navbar) => navbar.id === NavPath);
-    if (seletedCategory) {
-      return seletedCategory.name;
+    const selectedCategory = NEWS_NAVBAR.find(
+      (navbar) => navbar.id === NavPath
+    );
+    if (selectedCategory) {
+      return selectedCategory.name;
     }
     return "카테고리 없음";
   };
@@ -35,6 +47,13 @@ const NewsMobileGnb = () => {
   };
   const onOpen = () => {
     setIsModalOpen(true);
+  };
+
+  const FilterOnClose = () => {
+    setIsFilterOpen(false);
+  };
+  const FilterOnOpen = () => {
+    setIsFilterOpen(true);
   };
 
   const handleSearchClick = () => {
@@ -65,7 +84,14 @@ const NewsMobileGnb = () => {
   };
 
   return (
-    <div className="w-full max-w-[768px] h-[48px] flex items-center justify-around border-b border-gray2 pc:hidden tablet:hidden">
+    <div
+      className={cn(
+        "w-full max-w-[768px] h-[48px] flex items-center justify-around bg-white",
+        "pc:hidden",
+        "tablet:hidden",
+        isDetail()
+      )}
+    >
       <div className="w-full flex items-center">
         <div
           onClick={handleNavLeftIconClick}
@@ -84,7 +110,7 @@ const NewsMobileGnb = () => {
           )}
         </div>
         {isSearching ? (
-          <div className="w-full">
+          <div className="w-full flex items-center justify-center">
             <SearchFilter
               searchType={searchType}
               searchOptions={SEARCH_OPTION}
@@ -92,6 +118,12 @@ const NewsMobileGnb = () => {
               onSubmit={handleSubmit}
               isMobileGnb={true}
             />
+            <div
+              onClick={FilterOnOpen}
+              className="w-[48px] h-[48px] cursor-pointer flex items-center"
+            >
+              <CustomIcon icon="FILTER_ICON" className="w-[24px] h-[24px]" />
+            </div>
           </div>
         ) : (
           <div className="w-full flex items-center justify-between ">
@@ -109,9 +141,9 @@ const NewsMobileGnb = () => {
                 </div>
               </div>
             </div>
-            <div className="flex justify-center items-center min-w-[137px] gap-x-[16px]">
+            <div className="flex justify-center items-center min-w-[96px] gap-x-[16px]">
               <div
-                onClick={() => console.log("test")}
+                onClick={FilterOnOpen}
                 className="w-[24px] h-[24px] cursor-pointer"
               >
                 <CustomIcon icon="FILTER_ICON" className="w-[24px] h-[24px]" />
@@ -132,6 +164,7 @@ const NewsMobileGnb = () => {
           onClose={onClose}
         />
       )}
+      {isFilterOpen && <FilterMobileModal onClose={FilterOnClose} />}
     </div>
   );
 };
@@ -143,5 +176,4 @@ const SEARCH_OPTION = [
   { label: "제목", value: "TITLE" },
   { label: "내용", value: "CONTENT" },
   { label: "댓글", value: "COMMENT" },
-  { label: "작성자", value: "NICKNAME" },
 ];

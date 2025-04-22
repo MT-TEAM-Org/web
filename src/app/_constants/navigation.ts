@@ -122,22 +122,22 @@ export const NEWS_NAVBAR = [
   },
   {
     name: "E스포츠",
-    link: "/news/ESPORTS",
-    id: "ESPORTS",
+    link: "/board/esports/ALL",
+    id: "esports",
   },
   {
     name: "축구",
-    link: "/news/FOOTBALL",
-    id: "FOOTBALL",
+    link: "/board/football/ALL",
+    id: "football",
   },
   {
     name: "야구",
-    link: "/news/BASEBALL",
-    id: "news",
+    link: "/board/baseball/ALL",
+    id: "baseball",
   },
   {
-    name: "개선요청",
-    link: "/customer/feedback",
-    id: "feedback",
-  },
+    name: "경기중계",
+    link: "/matchBroadcast/ESPORTS",
+    id: "matchBroadcast",
+  }
 ];

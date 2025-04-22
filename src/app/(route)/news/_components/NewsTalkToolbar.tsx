@@ -77,7 +77,7 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
 
   return (
     <div className={cn("rounded-[5px] bg-white", "mobile:w-full")}>
-      <NewsMobileGnb />
+      {/* <NewsMobileGnb /> */}
       <div
         className={cn(
           "w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white",

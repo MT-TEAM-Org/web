@@ -2,6 +2,7 @@ import React from "react";
 import NewsLeftSidebar from "../_components/NewsLeftSidebar";
 import { RightSideBar } from "../../(community)/_components/RightSideBar";
 import { cn } from "@/utils";
+import NewsMobileGnb from "../_components/newsGnb/NewsMobileGnb";
 
 export const metadata = {
   title: "PlayHive 뉴스 페이지",
@@ -26,7 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       className={cn(
         "min-h-[calc(100vh-188px)] pb-[40px] bg-gray1",
         "tablet:max-w-[1279px]",
-        "mobile:w-full mobile:mx-0"
+        "mobile:w-full mobile:mx-0 mobile:pb-0"
       )}
     >
       <div
@@ -55,6 +56,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             "mobile:w-full mobile:h-auto mobile:min-h-[52px] mobile:static mobile:overflow-x-auto"
           )}
         >
+          <NewsMobileGnb />
           <NewsLeftSidebar />
         </div>
 
