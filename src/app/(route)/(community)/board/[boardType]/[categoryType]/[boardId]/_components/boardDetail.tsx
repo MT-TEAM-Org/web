@@ -149,11 +149,11 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
             </div>
           ) : (
             <div className="flex flex-col gap-y-[8px] text-gray6 tablet:max-w-[640px]">
-              <h1 className="font-bold text-[18px] leading-[28px] text-[#303030]">
+              <h1 className="font-bold text-[18px] leading-[28px] text-[#303030] mobile:text-[16px] mobile:leading-[24px]">
                 {boardDetailData?.data?.title}
               </h1>
               <div className="flex gap-x-[16px] max-w-[672px] min-h-[20px] mobile:flex-col">
-                <div className="flex gap-x-[4px] w-[421px] h-[20px]">
+                <div className="flex gap-x-[4px] w-[421px] h-[20px] mobile:text-[12px] mobile:leading-[18px]">
                   <p className="font-bold text-[14px] leading-[20px] ">
                     {getKoreanBoardType(boardDetailData?.data?.boardType)}
                   </p>
@@ -179,7 +179,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                 <div
                   className={cn(
                     "flex justify-end w-[235px] h-[20px] whitespace-nowrap gap-x-[4px] font-medium text-[14px] leading-[20px]",
-                    "mobile:justify-start mobile:mt-[4px]"
+                    "mobile:justify-start mobile:mt-[4px] mobile:text-[12px] mobile:leading-[18px]"
                   )}
                 >
                   <p>{boardDetailData?.data?.nickname}</p>

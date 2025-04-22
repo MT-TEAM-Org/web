@@ -21,7 +21,7 @@ const MobileDetailGnb = ({ boardId }: MobileDetailGnbProps) => {
   };
 
   return (
-    <div className="w-full h-[48px] flex justify-between items-center bg-white border border-gray2 sticky top-0 z-10">
+    <div className="w-full max-w-[687px] h-[48px] flex justify-between items-center bg-white border border-gray2 sticky top-0 z-10">
       <div className="w-full h-full flex items-center">
         <div
           onClick={() => router.push("/")}
