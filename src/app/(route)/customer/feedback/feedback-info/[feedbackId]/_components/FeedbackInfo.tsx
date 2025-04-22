@@ -298,7 +298,7 @@ const FeedbackInfo = () => {
           <div className="shadow-md sticky bottom-0 z-50">
             <SendCommentBox
               id={id.toString()}
-              type="NOTICE"
+              type="IMPROVEMENT"
               parentsComment={parentsComment}
               setParentsComment={setParentsComment}
             />

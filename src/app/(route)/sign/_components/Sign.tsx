@@ -5,6 +5,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { cn } from "@/utils";
 
 interface Tabs {
   id: "login" | "signup";
@@ -24,7 +25,12 @@ function Sign() {
   const loginSignupStyle =
     "w-1/2 flex items-center justify-center rounded-t-[5px] cursor-pointer border-gray-600 border-[#303030] text-[#424242]";
   return (
-    <div className="w-[328px] min-h-[480px] mx-auto mt-[40px] select-none">
+    <div
+      className={cn(
+        "w-[328px] min-h-[480px] mx-auto mt-[40px] select-none",
+        "mobile:mt-[16px]"
+      )}
+    >
       <div className="w-full min-h-[52px] flex">
         {tabs.map(({ id, label }) => (
           <div
