@@ -17,10 +17,6 @@ const useHandleRefreshToken = () => {
     ) {
       localStorage.setItem("refreshToken", refreshToken);
       reissue();
-
-      const url = new URL(window.location.href);
-      url.searchParams.delete("refreshToken");
-      window.history.replaceState({}, "", url.pathname + url.search);
     }
   }, [refreshToken]);
 
