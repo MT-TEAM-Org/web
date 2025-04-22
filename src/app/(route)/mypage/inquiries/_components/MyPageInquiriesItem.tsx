@@ -39,7 +39,7 @@ const MyPageInquiriesItem = ({ data }: MyPageInquiriesItemProps) => {
     >
       <div className="flex items-center justify-center min-w-[65px] h-[32px] rounded-[2px] px-[8px] py-[4px] bg-[#FAFAFA]">
         <p
-          className={`font-[700] text-[14px] leading-[20px] ${
+          className={`font-[700] text-[14px] leading-[20px] text-nowrap ${
             data?.isAdminAnswered === "답변완료"
               ? "text-[#00ADEE]"
               : "text-gray7"

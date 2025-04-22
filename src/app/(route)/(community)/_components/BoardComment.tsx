@@ -10,6 +10,7 @@ import BoardCommentItem from "./BoardCommentItem";
 import ToggleButton from "@/app/_components/_gnb/_components/ToggleButton";
 import useGetBestComment from "@/_hooks/fetcher/comment/useGetBestComment";
 import { useSearchParams } from "next/navigation";
+import { cn } from "@/utils";
 
 interface BoardCommentProps {
   ref: React.RefObject<HTMLDivElement>;
@@ -90,10 +91,20 @@ const BoardComment = ({
       <div className="bg-gray1 rounded-t-[5px] rounded-b-[10px]" ref={ref}>
         <div className="flex justify-between items-center min-h-[48px] py-[4px] pl-[16px]">
           <div className="flex items-center gap-[8px]">
-            <span className="font-[700] text-[18px] leading-[28px] text-gray8">
+            <span
+              className={cn(
+                "font-[700] text-[18px] leading-[28px] text-gray8",
+                "mobile:text-[12px]"
+              )}
+            >
               댓글
             </span>
-            <span className="text-[14px] leading-[20px] text-gray5">
+            <span
+              className={cn(
+                "text-[14px] leading-[20px] text-gray5",
+                "mobile:text-[12px]"
+              )}
+            >
               총 {totalComments}개
             </span>
           </div>
@@ -106,13 +117,23 @@ const BoardComment = ({
               >
                 <Refresh />
               </button>
-              <p className="font-bold text-[14px] leading-[14px] text-gray6">
+              <p
+                className={cn(
+                  "font-bold text-[14px] leading-[14px] text-gray6",
+                  "mobile:text-[12px]"
+                )}
+              >
                 새로고침
               </p>
             </div>
             <div className="w-auto h-auto rounded-[5px] px-3 py-[10px] flex gap-2 items-center text-center">
               <div className="flex gap-2 items-center justify-center">
-                <p className="font-bold text-[14px] leading-[14px] text-gray6">
+                <p
+                  className={cn(
+                    "font-bold text-[14px] leading-[14px] text-gray6",
+                    "mobile:text-[12px]"
+                  )}
+                >
                   클린봇 활성화
                 </p>
                 <ToggleButton />
