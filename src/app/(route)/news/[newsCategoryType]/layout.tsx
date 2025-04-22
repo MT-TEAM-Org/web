@@ -3,7 +3,6 @@ import NewsLeftSidebar from "../_components/NewsLeftSidebar";
 import { RightSideBar } from "../../(community)/_components/RightSideBar";
 import { cn } from "@/utils";
 import NewsMobileGnb from "../_components/newsGnb/NewsMobileGnb";
-import NewsDetailGnb from "../_components/newsGnb/NewsDetailGnb";
 
 export const metadata = {
   title: "PlayHive 뉴스 페이지",

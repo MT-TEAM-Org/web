@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
 import { cn } from "@/utils";
 import ShareModalPopUp from "@/app/_components/ShareModalPopUp";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface NewsDetailGnbProps {
   title: string;
