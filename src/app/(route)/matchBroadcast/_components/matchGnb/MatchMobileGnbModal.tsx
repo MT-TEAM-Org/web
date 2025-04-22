@@ -1,9 +1,11 @@
 "use client";
 
 import CustomIcon from "@/app/_components/IconComponents/Icon";
-import { NEWS_NAVBAR } from "@/app/_constants/navigation";
+import { MATCH_NAVBAR } from "@/app/_constants/navigation";
+import useIsMobile from "@/utils/useIsMobile";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface MobileNavModalProps {
   currentCategory: string;
@@ -15,12 +17,15 @@ const MatchMobileGnbModal = ({
   onClose,
 }: MobileNavModalProps) => {
   const [animate, setAnimate] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setAnimate(true);
   }, []);
 
-  return (
+  if (!isMobile) return null;
+
+  return createPortal(
     <div
       onClick={onClose}
       className="fixed inset-0 bg-black/70 flex items-end z-50"
@@ -28,12 +33,12 @@ const MatchMobileGnbModal = ({
       <div
         onClick={(e) => e.stopPropagation()}
         className={`
-          w-full h-fit bg-white pb-[24px]
+          w-full h-fit bg-white pb-[24px] pc:hidden tablet:hidden
           transform transition-transform duration-300 ease-out
           ${animate ? "translate-y-0" : "translate-y-full"}
         `}
       >
-        {NEWS_NAVBAR.map((item) => (
+        {MATCH_NAVBAR.map((item) => (
           <Link
             href={item.link}
             className={`flex items-center justify-center w-full h-[48px] py-[16px] px-[12px] border-b border-gray2 last:border-none cursor-pointer ${
@@ -45,17 +50,18 @@ const MatchMobileGnbModal = ({
               {item.name}
             </p>
             <div className="flex items-center justify-center w-[24px] h-[24px]">
-              {currentCategory === item.name ? (
+              {currentCategory === item.name && (
                 <CustomIcon
                   icon="MOBILE_BLUE_CHECK"
                   className="w-[12px] h-[8px] text-white"
                 />
-              ) : null}
+              )}
             </div>
           </Link>
         ))}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

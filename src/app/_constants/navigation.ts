@@ -141,3 +141,31 @@ export const NEWS_NAVBAR = [
     id: "matchBroadcast",
   }
 ];
+
+export const MATCH_NAVBAR = [
+  {
+    name: "경기중계",
+    link: "/matchBroadcast/ESPORTS",
+    id: "matchBroadcast",
+  },
+  {
+    name: "E스포츠",
+    link: "/board/esports/ALL",
+    id: "esports",
+  },
+  {
+    name: "축구",
+    link: "/board/football/ALL",
+    id: "football",
+  },
+  {
+    name: "야구",
+    link: "/board/baseball/ALL",
+    id: "baseball",
+  },
+  {
+    name: "뉴스",
+    link: "/news/ALL",
+    id: "news",
+  }
+];
