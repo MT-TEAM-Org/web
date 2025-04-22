@@ -21,7 +21,7 @@ const MobileDetailGnb = ({ boardId }: MobileDetailGnbProps) => {
   };
 
   return (
-    <div className="w-full max-w-[687px] h-[48px] flex justify-between items-center bg-white border border-gray2 sticky top-0 z-10">
+    <div className="w-full max-w-[768px] h-[48px] flex justify-between items-center bg-white border border-gray2 sticky top-0 z-10">
       <div className="w-full h-full flex items-center">
         <div
           onClick={() => router.push("/")}
@@ -32,11 +32,11 @@ const MobileDetailGnb = ({ boardId }: MobileDetailGnbProps) => {
             className="w-[18px] h-[18px] text-white"
           />
         </div>
-        <p className="w-full max-w-[216px] overflow-hidden font-bold text-[16px] leading-[26px] text-black">
+        <p className="w-full max-w-[216px] truncate font-bold text-[16px] leading-[26px] text-black">
           {boardDetailData?.data?.title}
         </p>
       </div>
-      <div className="flex w-[96px] h-full items-center gap-x-[16px] py-[14px] px-[16px]">
+      <div className="flex max-w-[96px] h-full items-center gap-x-[16px] py-[14px] px-[16px]">
         <div className="w-[24px] h-[24px] flex items-center justify-center">
           <CustomIcon
             icon="MOBILE_DETAIL_GNB_REPORT_ICON"
