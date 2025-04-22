@@ -132,7 +132,7 @@ const NewsMobileGnb = () => {
                 onClick={onOpen}
                 className="flex items-center min-w-[175px] font-bold text-[16px] leading-[26px]"
               >
-                {currentCategory}
+                뉴스톡톡
                 <div className="flex items-center justify-center w-[24px] h-[24px]">
                   <CustomIcon
                     icon="BLACK_MOBILE_ARROW_DOWN"

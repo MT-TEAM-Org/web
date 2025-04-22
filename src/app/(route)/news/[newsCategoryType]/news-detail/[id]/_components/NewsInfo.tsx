@@ -29,6 +29,7 @@ import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { CommentItem } from "@/_types/comment";
 import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
+import NewsDetailGnb from "@/app/(route)/news/_components/newsGnb/NewsDetailGnb";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -156,96 +157,103 @@ const NewsInfo = ({
       {isLoading ? (
         <NewsInfoSkeleton />
       ) : (
-        <div
-          className={cn(
-            "w-[720px] h-auto rounded-t-[5px] border-b p-6 flex gap-4 flex-col shadow-md bg-white",
-            "tablet:max-w-[687px]",
-            "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
-          )}
-        >
-          <div className="w-full h-auto flex flex-col gap-2">
-            <h1
-              className={cn(
-                "w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-gray8",
-                "tablet:text-[18px] tablet:leading-7 tablet:tracking-[-0.72px] tablet:font-bold",
-                "mobile:text-[16px] mobile:leading-6 mobile:tracking-[-0.02em]"
-              )}
-            >
-              {newsInfoData?.title}
-            </h1>
-
-            <div
-              className={cn(
-                "w-full h-auto min-h-[20px] gap-4 flex justify-between text-gray2",
-                "mobile:flex-wrap mobile:h-[40px] mobile:gap-1"
-              )}
-            >
-              <div className="flex gap-2 text-gray6 font-[700] leading-5 text-[14px] items-center">
-                <div
-                  className={cn(
-                    "flex gap-1 font-medium text-[14px] leading-5",
-                    "mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
-                  )}
-                >
-                  <ChangedCategory category={newsInfoData?.category} />
-                  <p>{formattedTime}</p>
-                </div>
-                <div
-                  className={cn(
-                    "flex gap-1 font-medium text-[14px] leading-5",
-                    "mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
-                  )}
-                >
-                  <p className="font-bold">조회수 {newsInfoData?.viewCount}</p>
-                  <p className="font-bold">댓글 {newsInfoData?.commentCount}</p>
-                  <p className="font-bold">
-                    추천 {newsInfoData?.recommendCount}
-                  </p>
-                </div>
-              </div>
-              <div
+        <>
+          <NewsDetailGnb title={newsInfoData?.title} />
+          <div
+            className={cn(
+              "w-[720px] h-auto rounded-t-[5px] border-b p-6 flex gap-4 flex-col shadow-md bg-white",
+              "tablet:max-w-[687px]",
+              "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
+            )}
+          >
+            <div className="w-full h-auto flex flex-col gap-2">
+              <h1
                 className={cn(
-                  "text-[14px] flex justify-end font-[500] leading-5 gap-1 text-gray6",
-                  "tablet:min-w-[210px]",
-                  "mobile:text-[12px] mobile:h-[18px] mobile:tracking-[-0.02em] mobile:w-full mobile:justify-start"
+                  "w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-gray8",
+                  "tablet:text-[18px] tablet:leading-7 tablet:tracking-[-0.72px] tablet:font-bold",
+                  "mobile:text-[16px] mobile:leading-6 mobile:tracking-[-0.02em]"
                 )}
               >
-                <p>네이버 스포츠</p>
+                {newsInfoData?.title}
+              </h1>
+
+              <div
+                className={cn(
+                  "w-full h-auto min-h-[20px] gap-4 flex justify-between text-gray2",
+                  "mobile:flex-wrap mobile:h-[40px] mobile:gap-1"
+                )}
+              >
+                <div className="flex gap-2 text-gray6 font-[700] leading-5 text-[14px] items-center">
+                  <div
+                    className={cn(
+                      "flex gap-1 font-medium text-[14px] leading-5",
+                      "mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
+                    )}
+                  >
+                    <ChangedCategory category={newsInfoData?.category} />
+                    <p>{formattedTime}</p>
+                  </div>
+                  <div
+                    className={cn(
+                      "flex gap-1 font-medium text-[14px] leading-5",
+                      "mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
+                    )}
+                  >
+                    <p className="font-bold">
+                      조회수 {newsInfoData?.viewCount}
+                    </p>
+                    <p className="font-bold">
+                      댓글 {newsInfoData?.commentCount}
+                    </p>
+                    <p className="font-bold">
+                      추천 {newsInfoData?.recommendCount}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className={cn(
+                    "text-[14px] flex justify-end font-[500] leading-5 gap-1 text-gray6",
+                    "tablet:min-w-[210px]",
+                    "mobile:text-[12px] mobile:h-[18px] mobile:tracking-[-0.02em] mobile:w-full mobile:justify-start"
+                  )}
+                >
+                  <p>네이버 스포츠</p>
+                </div>
               </div>
             </div>
-          </div>
-          <hr />
-          <div className="w-full h-auto flex flex-col items-center justify-start gap-3">
-            {newsInfoData?.thumbImg && (
-              <Image
-                src={newsInfoData ? updatedImgUrl : "/Empty_news.png"}
-                alt="News detail img"
-                width={672}
-                height={338}
-                className="object-cover mobile:h-auto"
-              />
-            )}
-            <p
-              className={cn(
-                "font-[500] text-[16px] leading-6 tracking-[-0.02em] text-gray7 overflow-hidden line-clamp-2",
-                "mobile:text-[14px] mobile:leading-5"
+            <hr />
+            <div className="w-full h-auto flex flex-col items-center justify-start gap-3">
+              {newsInfoData?.thumbImg && (
+                <Image
+                  src={newsInfoData ? updatedImgUrl : "/Empty_news.png"}
+                  alt="News detail img"
+                  width={672}
+                  height={338}
+                  className="object-cover mobile:h-auto"
+                />
               )}
-            >
-              {newsInfoData?.content}
-            </p>
-          </div>
-          <div className="flex items-center justify-center">
-            <RecommendButton
-              handleCommend={handleNewsCommend}
-              recommendCount={newsInfoData?.recommendCount}
-              isRecommend={newsInfoData?.recommend}
-            />
-          </div>
+              <p
+                className={cn(
+                  "font-[500] text-[16px] leading-6 tracking-[-0.02em] text-gray7 overflow-hidden line-clamp-2",
+                  "mobile:text-[14px] mobile:leading-5"
+                )}
+              >
+                {newsInfoData?.content}
+              </p>
+            </div>
+            <div className="flex items-center justify-center">
+              <RecommendButton
+                handleCommend={handleNewsCommend}
+                recommendCount={newsInfoData?.recommendCount}
+                isRecommend={newsInfoData?.recommend}
+              />
+            </div>
 
-          <div className={cn("mobile:hidden")}>
-            <PostAction type="news" source={newsInfoData?.source} />
+            <div className={cn("mobile:hidden")}>
+              <PostAction type="news" source={newsInfoData?.source} />
+            </div>
           </div>
-        </div>
+        </>
       )}
       <BoardComment
         id={newsInfoData?.id.toString()}

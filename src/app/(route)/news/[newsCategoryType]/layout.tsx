@@ -3,6 +3,7 @@ import NewsLeftSidebar from "../_components/NewsLeftSidebar";
 import { RightSideBar } from "../../(community)/_components/RightSideBar";
 import { cn } from "@/utils";
 import NewsMobileGnb from "../_components/newsGnb/NewsMobileGnb";
+import NewsDetailGnb from "../_components/newsGnb/NewsDetailGnb";
 
 export const metadata = {
   title: "PlayHive 뉴스 페이지",
@@ -53,7 +54,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           className={cn(
             "w-[160px] pc:h-[260px] sticky top-0 rounded-[5px] overflow-hidden",
             "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:static tablet:overflow-x-auto",
-            "mobile:w-full mobile:h-auto mobile:min-h-[52px] mobile:static mobile:overflow-x-auto"
+            "mobile:w-full mobile:h-auto mobile:min-h-[48px] mobile:static mobile:overflow-x-auto"
           )}
         >
           <NewsMobileGnb />
