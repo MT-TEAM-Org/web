@@ -1,5 +1,3 @@
-import { link } from "fs";
-
 export const NAVBARS = [
   {
     name: "E스포츠",
