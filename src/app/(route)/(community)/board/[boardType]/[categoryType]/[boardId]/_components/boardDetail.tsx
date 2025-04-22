@@ -153,25 +153,23 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                 {boardDetailData?.data?.title}
               </h1>
               <div className="flex gap-x-[16px] max-w-[672px] min-h-[20px] mobile:flex-col mobile:w-full ">
-                <div className="flex gap-x-[4px] w-[421px] h-[20px] mobile:text-[12px] mobile:leading-[18px]">
-                  <p className="font-bold text-[14px] leading-[20px] ">
+                <div className="flex gap-x-[4px] w-full h-[20px] mobile:text-[12px] mobile:leading-[18px] mobile:w-full">
+                  <p className="font-bold ">
                     {getKoreanBoardType(boardDetailData?.data?.boardType)}
                   </p>
-                  <p className="font-medium text-[14px] leading-[20px]">
+                  <p className="font-medium">
                     {getKoreanCategoryType(boardDetailData?.data?.categoryType)}
                   </p>
-                  <p className="font-medium text-[14px] leading-[20px]">
-                    1분 전
-                  </p>
-                  <div className="flex gap-x-[4px] font-medium text-[14px] leading-[20px]">
+                  <p className="font-medium">1분 전</p>
+                  <div className="flex gap-x-[4px] font-medium">
                     <p className="font-bold">조회수</p>
                     <p> {boardDetailData?.data?.viewCount}</p>
                   </div>
-                  <div className="flex gap-x-[4px] font-medium text-[14px] leading-[20px]">
+                  <div className="flex gap-x-[4px] font-medium">
                     <p className="font-bold">댓글</p>
                     <p> {boardDetailData?.data?.commentCount}</p>
                   </div>
-                  <div className="flex gap-x-[4px] font-medium text-[14px] leading-[20px]">
+                  <div className="flex gap-x-[4px] font-medium">
                     <p className="font-bold">추천</p>
                     <p> {boardDetailData?.data?.recommendCount}</p>
                   </div>
@@ -179,7 +177,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                 <div
                   className={cn(
                     "flex justify-end w-[235px] h-[20px] whitespace-nowrap gap-x-[4px] font-medium text-[14px] leading-[20px]",
-                    "mobile:justify-start mobile:mt-[4px] mobile:text-[12px] mobile:leading-[18px]"
+                    "mobile:justify-start mobile:mt-[4px] mobile:text-[12px] mobile:leading-[18px] mobile:h-[]"
                   )}
                 >
                   <p>{boardDetailData?.data?.nickname}</p>
@@ -209,7 +207,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
             </div>
           )}
         </div>
-        <div className="content flex flex-col gap-[12px] font-medium text-[16px] leading-[24px] text-gray7">
+        <div className="content flex flex-col gap-[12px] font-medium text-[16px] leading-[24px] text-gray7 mobile:text-[14px]">
           {isLoading ? (
             <div className="flex justify-center items-center min-h-[200px]">
               <Spinner className="w-10 h-10" />
