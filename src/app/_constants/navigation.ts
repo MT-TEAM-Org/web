@@ -113,3 +113,31 @@ export const HAMBURGER_MENU = [
     id: "customer",
   },
 ];
+
+export const NEWS_NAVBAR = [
+  {
+    name: "뉴스톡톡",
+    link: "/news/ALL",
+    id: "ALL",
+  },
+  {
+    name: "E스포츠",
+    link: "/news/ESPORTS",
+    id: "ESPORTS",
+  },
+  {
+    name: "축구",
+    link: "/news/FOOTBALL",
+    id: "FOOTBALL",
+  },
+  {
+    name: "야구",
+    link: "/news/BASEBALL",
+    id: "news",
+  },
+  {
+    name: "개선요청",
+    link: "/customer/feedback",
+    id: "feedback",
+  },
+];
