@@ -6,6 +6,7 @@ import useGetBoardData from "@/_hooks/getBoardData";
 import { CommunityToolbar } from "@/app/(route)/(community)/_components/CommunityToolbar";
 import { useSearchParams } from "next/navigation";
 import PostItemSkeleton from "@/app/(route)/(community)/_components/PostItemSkelton";
+import { cn } from "@/utils";
 
 interface BoardDetailProps {
   boardType: string;
@@ -36,14 +37,22 @@ const BoardDetailPage = ({ params }: { params: Promise<BoardDetailProps> }) => {
   const pageInfo = boardData?.pageInfo;
 
   return (
-    <div className="w-full">
-      <div className="w-full min-h-[100px]">
+    <div
+      className={cn(
+        "w-full max-w-[720px]",
+        "tablet:max-w-[688px] tablet:mx-auto"
+      )}
+    >
+      <div
+        className="w-full min-h-[100px] tablet:flex tablet:flex-col tablet:justify-center tablet:items-center tablet:mx-auto
+"
+      >
         <BoardDetail boardId={boardId} />
       </div>
-      <div>
+      <div className="w-full tablet:w-full tablet:max-w-[688px]">
         <CommunityToolbar boardType={boardType} pageInfo={pageInfo} />
       </div>
-      <div className="w-full min-h-[120px]">
+      <div className="w-full min-h-[120px] tablet:w-full tablet:max-w-[688px] tablet:mx-auto">
         <PostItem
           boardType={boardType}
           categoryType={categoryType}

@@ -136,7 +136,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-[16px] w-[720px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D]">
+      <div className="flex flex-col gap-[16px] w-full max-w-[720px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D]">
         <div className="w-[672px]">
           {isLoading ? (
             <div className="py-4">
@@ -146,7 +146,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
               <hr />
             </div>
           ) : (
-            <div className="flex flex-col gap-y-[8px] text-gray6">
+            <div className="flex flex-col gap-y-[8px] text-gray6 tablet:max-w-[640px]">
               <h1 className="font-bold text-[18px] leading-[28px] text-[#303030]">
                 {boardDetailData?.data?.title}
               </h1>
@@ -262,7 +262,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
         />
         {/* 하단 게시글 목록 자리 */}
       </div>
-      <div className="shadow-md sticky bottom-0">
+      <div className="shadow-md sticky bottom-0 w-full">
         <SendCommentBox
           id={boardId}
           type="BOARD"
