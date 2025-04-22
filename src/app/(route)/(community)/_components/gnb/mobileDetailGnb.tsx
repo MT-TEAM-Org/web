@@ -32,7 +32,7 @@ const MobileDetailGnb = ({ boardId }: MobileDetailGnbProps) => {
             className="w-[18px] h-[18px] text-white"
           />
         </div>
-        <p className="w-full max-w-[216px] overflow-hidden font-bold text-[16px] leading-[26px] text-black">
+        <p className="w-full max-w-[216px] truncate font-bold text-[16px] leading-[26px] text-black">
           {boardDetailData?.data?.title}
         </p>
       </div>
