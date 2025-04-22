@@ -3,6 +3,7 @@
 import { useState } from "react";
 import FindId from "./_components/FindId";
 import FindPassword from "./_components/FindPassword";
+import { cn } from "@/utils";
 
 interface Tabs {
   id: "findId" | "findPassword";
@@ -23,7 +24,12 @@ const FindAccount = () => {
     "w-1/2 flex items-center justify-center rounded-t-[5px] cursor-pointer border-gray-600 border-[#303030] text-[#424242]";
   return (
     <div className="min-h-[calc(100vh-516px)]">
-      <div className="w-[328px] min-h-[480px] mx-auto mt-[40px] select-none">
+      <div
+        className={cn(
+          "w-[328px] min-h-[480px] mx-auto mt-[40px] select-none",
+          "mobile:mt-[16px]"
+        )}
+      >
         <div className="w-full min-h-[52px] flex">
           {tabs.map(({ id, label }) => (
             <div
