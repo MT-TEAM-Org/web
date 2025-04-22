@@ -138,7 +138,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-[16px] w-full max-w-[720px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D]">
+      <div className="flex flex-col gap-[16px] w-full max-w-[720px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D] mobile:max-w-[768px]">
         <div className="w-full max-w-[672px]">
           {isLoading ? (
             <div className="py-4">
@@ -239,7 +239,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
         <div className="w-full h-auto flex justify-center">
           <button
             onClick={checkRecommned}
-            className={`w-full max-w-[120px] h-[40px] gap-x-[4px] flex items-center text-[14px] justify-center px-4 py-[13px] font-bold rounded-[5px] mobile:max-w-[687px] ${
+            className={`w-full max-w-[120px] h-[40px] gap-x-[4px] flex items-center text-[14px] justify-center px-4 py-[13px] font-bold rounded-[5px] mobile:max-w-[768px] ${
               boardDetailData?.data?.isRecommended
                 ? "bg-white text-gra border border-gra"
                 : "bg-white text-gray7 border border-gray3"
