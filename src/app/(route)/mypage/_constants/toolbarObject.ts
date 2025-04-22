@@ -34,7 +34,6 @@ export const INQURIES_SEARCH_OPTIONS: DropdownOption[] = [
 export const COMMENT_COMMENT_TYPE_OPTIONS: DropdownOption[] = [
   { label: "게시판", value: "BOARD" },
   { label: "문의내역", value: "INQUIRY" },
-  { label: "댓글", value: "COMMENT" },
   { label: "뉴스", value: "NEWS" },
   { label: "공지사항", value: "NOTICE" },
   { label: "개선요청", value: "IMPROVEMENT" },
