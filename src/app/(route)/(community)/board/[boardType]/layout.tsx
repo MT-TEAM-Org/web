@@ -25,9 +25,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
         <div
           className={cn(
-            "flex-1 min-w-[720px] min-h-[120px]",
+            "flex-1 max-w-[720px] min-h-[120px]",
             "tablet:min-w-[688px] tablet:mx-auto",
-            "mobile:w-full mobile:max-w-[687px] min-w-0"
+            "mobile:w-full mobile:max-w-[687px] mobile:min-w-0"
           )}
         >
           {children}
