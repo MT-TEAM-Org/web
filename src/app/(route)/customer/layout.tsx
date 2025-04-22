@@ -64,7 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           className={cn(
             "flex-1 w-full max-w-[720px] mb-10",
             "tablet:max-w-[688px]",
-            "mobile:w-full mobile:max-w-none mobile:mb-0"
+            "mobile:max-w-[768px] mobile:mb-0"
           )}
         >
           {children}

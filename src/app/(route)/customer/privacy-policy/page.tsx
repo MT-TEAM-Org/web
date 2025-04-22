@@ -24,7 +24,7 @@ const Page = () => {
     <div
       className={cn(
         "w-full max-w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm",
-        "mobile:w-full"
+        "mobile:max-w-[768px]"
       )}
     >
       <div className="w-full min-h-[64px] border-b p-4 flex justify-between items-center sticky top-0 z-10 border-gray2 bg-white">
