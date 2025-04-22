@@ -133,12 +133,16 @@ const FindPassword = () => {
 
   const onSubmit = (data: FormData) => {
     if (!checkVerificationIsSuccess) {
-      alert("이메일 인증을 완료해주세요.");
+      error("이메일 인증을 완료해주세요.", "");
       return;
     }
     mutate(data.email, {
       onSuccess: () => {
         router.push("/sign");
+        success(
+          "이메일로 전송된 새 비밀번호로 로그인 해주세요.",
+          "로그인 후 비밀번호를 변경해주세요."
+        );
       },
     });
   };
