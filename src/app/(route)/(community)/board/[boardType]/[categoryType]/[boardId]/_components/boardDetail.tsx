@@ -21,6 +21,8 @@ import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import { CommentItem } from "@/_types/comment";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
+import MobileDetailGnb from "@/app/(route)/(community)/_components/gnb/mobileDetailGnb";
+import { cn } from "@/utils";
 
 interface BoardDetailProps {
   boardId: string;
@@ -137,7 +139,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
   return (
     <>
       <div className="flex flex-col gap-[16px] w-full max-w-[720px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D]">
-        <div className="w-[672px]">
+        <div className="w-full max-w-[672px]">
           {isLoading ? (
             <div className="py-4">
               <h1 className="font-bold text-[18px] leading-[28px] text-[#303030] opacity-50 animate-pulse">
@@ -150,7 +152,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
               <h1 className="font-bold text-[18px] leading-[28px] text-[#303030]">
                 {boardDetailData?.data?.title}
               </h1>
-              <div className="flex gap-x-[16px] max-w-[672px] min-h-[20px]">
+              <div className="flex gap-x-[16px] max-w-[672px] min-h-[20px] mobile:flex-col">
                 <div className="flex gap-x-[4px] w-[421px] h-[20px]">
                   <p className="font-bold text-[14px] leading-[20px] ">
                     {getKoreanBoardType(boardDetailData?.data?.boardType)}
@@ -174,13 +176,18 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                     <p> {boardDetailData?.data?.recommendCount}</p>
                   </div>
                 </div>
-                <div className="flex justify-end w-[235px] h-[20px] whitespace-nowrap gap-x-[4px] font-medium text-[14px] leading-[20px]">
+                <div
+                  className={cn(
+                    "flex justify-end w-[235px] h-[20px] whitespace-nowrap gap-x-[4px] font-medium text-[14px] leading-[20px]",
+                    "mobile:justify-start mobile:mt-[4px]"
+                  )}
+                >
                   <p>{boardDetailData?.data?.nickname}</p>
                   <p>IP {maskIP(boardDetailData?.data?.clientIp)}</p>
                 </div>
               </div>
               {isEditable && (
-                <div className="w-full min-h-[32px] flex justify-end my-[16px]">
+                <div className="w-full min-h-[32px] flex justify-end my-[16px] mobile:hidden">
                   <div className="max-w-[106px] h-[32px] flex gap-x-[8px] text-[14px] font-medium leading-[14px] text-gray7">
                     <button
                       onClick={handleEditClick}
@@ -232,7 +239,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
         <div className="w-full h-auto flex justify-center">
           <button
             onClick={checkRecommned}
-            className={`min-w-[120px] w-auto h-[40px] gap-x-[4px] flex items-center text-[14px] justify-center px-4 py-[13px] font-bold rounded-[5px] ${
+            className={`w-full max-w-[120px] h-[40px] gap-x-[4px] flex items-center text-[14px] justify-center px-4 py-[13px] font-bold rounded-[5px] mobile:max-w-[687px] ${
               boardDetailData?.data?.isRecommended
                 ? "bg-white text-gra border border-gra"
                 : "bg-white text-gray7 border border-gray3"
@@ -243,10 +250,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
             <p>{boardDetailData?.data?.recommendCount}</p>
           </button>
         </div>
-        <PostAction
-          type="community"
-          onReport={() => alert("신고하기 기능 추가예정!")}
-        />
+        <PostAction type="community" />
         <BoardComment
           ref={comments}
           id={boardId}
