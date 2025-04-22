@@ -42,10 +42,10 @@ const BoardDetailPage = ({ params }: { params: Promise<BoardDetailProps> }) => {
       className={cn(
         "w-full max-w-[720px]",
         "tablet:max-w-[688px] tablet:mx-auto",
-        "mobile:mx-auto mobile:w-full mobile:overflow-x-hidden"
+        "mobile:mx-auto mobile:w-full mobile:max-w-[768px]"
       )}
     >
-      <div className="w-full max-w-[687px] min-w-[360px] hidden mobile:block mobile:w-full sticky top-0 z-10">
+      <div className="w-full max-w-[768px] min-w-[360px] hidden mobile:block mobile:w-full sticky top-0 z-10">
         <MobileDetailGnb boardId={boardId} />
       </div>
       <div className="hidden tablet:block sticky top-0 z-10">
