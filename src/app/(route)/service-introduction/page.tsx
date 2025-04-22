@@ -6,7 +6,7 @@ import DoubleLogo from "@/app/_components/icon/Service_DoubleLogo";
 import Service_PlayHive from "@/app/_components/icon/Service_PlayHive";
 import Link from "next/link";
 import { cn } from "@/utils";
-import ServiceIntroductionMobile from "./_components/ServiceIntroductionMobile";
+import MatchMobileGnb from "../matchBroadcast/_components/matchGnb/MatchMobileGnb";
 
 export const metadata = {
   title: "PlayHive 서비스소개 페이지",
@@ -124,7 +124,7 @@ const Page = () => {
 
   return (
     <div className="w-full h-full overflow-x-hidden">
-      <ServiceIntroductionMobile />
+      <MatchMobileGnb type="service" />
       <div
         className={cn(
           "w-full h-[480px] flex items-center justify-center bg-gradient-to-r from-gra to-[#006388]",

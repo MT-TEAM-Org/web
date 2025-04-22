@@ -7,16 +7,13 @@ import React, { useEffect, useState } from "react";
 
 interface FilterMobileModalProps {
   onClose: () => void;
+  type?: "news" | "totalSearch";
 }
 
-const filterOption = [
-  { link: "DAILY", name: "일간", id: "1" },
-  { link: "WEEKLY", name: "주간", id: "2" },
-  { link: "MONTHLY", name: "월간", id: "3" },
-  { link: "YEARLY", name: "연간", id: "4" },
-];
-
-const FilterMobileModal = ({ onClose }: FilterMobileModalProps) => {
+const FilterMobileModal = ({
+  onClose,
+  type = "news",
+}: FilterMobileModalProps) => {
   const [animate, setAnimate] = useState(false);
 
   const pathname = usePathname();
@@ -26,7 +23,16 @@ const FilterMobileModal = ({ onClose }: FilterMobileModalProps) => {
     setAnimate(true);
   }, []);
 
-  const currentTime = searchParams.get("time") || "DAILY";
+  const currentTime =
+    searchParams.get("time") || (type === "news" ? "DAILY" : "ALL");
+
+  const filterOption = [
+    ...(type === "totalSearch" ? [{ link: "ALL", name: "전체", id: "5" }] : []),
+    { link: "DAILY", name: "일간", id: "1" },
+    { link: "WEEKLY", name: "주간", id: "2" },
+    { link: "MONTHLY", name: "월간", id: "3" },
+    { link: "YEARLY", name: "연간", id: "4" },
+  ];
 
   return (
     <div
@@ -60,12 +66,12 @@ const FilterMobileModal = ({ onClose }: FilterMobileModalProps) => {
               {item.name}
             </p>
             <div className="flex items-center justify-center w-[24px] h-[24px]">
-              {currentTime === item.link ? (
+              {currentTime === item.link && (
                 <CustomIcon
                   icon="MOBILE_BLUE_CHECK"
                   className="w-[12px] h-[8px] text-white"
                 />
-              ) : null}
+              )}
             </div>
           </Link>
         ))}
