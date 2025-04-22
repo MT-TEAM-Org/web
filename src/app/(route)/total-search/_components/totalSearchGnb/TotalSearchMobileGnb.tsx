@@ -1,7 +1,6 @@
 "use client";
 
 import SearchFilter from "@/app/(route)/mypage/_components/SearchFilter";
-import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 import FilterMobileModal from "@/app/(route)/news/_components/newsGnb/FilterMobileModal";
 import Small_Search from "@/app/_components/icon/Small_Search";
 import CustomIcon from "@/app/_components/IconComponents";
@@ -10,12 +9,15 @@ import { cn } from "@/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import TotalSearchMobileGnbModal from "./TotalSearchMobileGnbModal";
+import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 
 const TotalSearchMobileGnb = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSearching, setIsSearching] = useState(false);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchType, setSearchType] = useState("TITLE");
+  const [uiState, setUiState] = useState({
+    isModalOpen: false,
+    isSearching: false,
+    isFilterOpen: false,
+  });
 
   const router = useRouter();
   const pathname = usePathname();
@@ -27,35 +29,25 @@ const TotalSearchMobileGnb = () => {
     const selectedCategory = TOTAL_NAVBAR.find(
       (navbar) => navbar.id === NavPath
     );
-    if (selectedCategory) {
-      return selectedCategory.name;
-    }
-    return "카테고리 없음";
+    return selectedCategory ? selectedCategory.name : "카테고리 없음";
   };
 
   const currentCategory = nowCategory();
 
-  const onClose = () => {
-    setIsModalOpen(false);
-  };
-  const onOpen = () => {
-    setIsModalOpen(true);
-  };
-
-  const FilterOnClose = () => {
-    setIsFilterOpen(false);
-  };
-  const FilterOnOpen = () => {
-    setIsFilterOpen(true);
+  const toggleState = (stateName: keyof typeof uiState, value?: boolean) => {
+    setUiState((prev) => ({
+      ...prev,
+      [stateName]: value !== undefined ? value : !prev[stateName],
+    }));
   };
 
-  const handleSearchClick = () => {
-    setIsSearching((prev) => !prev);
-  };
+  const handleSearchClick = () => toggleState("isSearching");
+  const openModal = () => toggleState("isModalOpen", true);
+  const closeModal = () => toggleState("isModalOpen", false);
 
   const handleNavLeftIconClick = () => {
-    if (isSearching) {
-      setIsSearching(false);
+    if (uiState.isSearching) {
+      toggleState("isSearching", false);
     } else {
       router.back();
     }
@@ -67,19 +59,18 @@ const TotalSearchMobileGnb = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const inputValue = (e.target as HTMLFormElement)[1] as HTMLInputElement;
-    if (inputValue.value.trim() === "") return;
+    const inputValue = e.target[1].value;
+    if (inputValue.trim() === "") return;
 
     let totalSearchParams = changeURLParams(
       searchParams,
       "searchType",
       searchType
     );
-
     totalSearchParams = changeURLParams(
       new URLSearchParams(totalSearchParams.split("?")[1]),
       "search",
-      inputValue.value
+      inputValue
     );
 
     const params = new URLSearchParams(totalSearchParams.split("?")[1]);
@@ -101,7 +92,7 @@ const TotalSearchMobileGnb = () => {
           onClick={handleNavLeftIconClick}
           className="w-[48px] h-[48px] flex items-center justify-center cursor-pointer"
         >
-          {isSearching ? (
+          {uiState.isSearching ? (
             <CustomIcon
               icon="CLOSE_X"
               className="w-[18px] h-[18px] text-gray7"
@@ -113,7 +104,7 @@ const TotalSearchMobileGnb = () => {
             />
           )}
         </div>
-        {isSearching ? (
+        {uiState.isSearching ? (
           <div className="w-full flex items-center justify-center">
             <SearchFilter
               searchType={searchType}
@@ -123,21 +114,20 @@ const TotalSearchMobileGnb = () => {
               isMobileGnb={true}
             />
             <div
-              onClick={FilterOnOpen}
+              onClick={() => toggleState("isFilterOpen", true)}
               className="w-[48px] h-[48px] cursor-pointer flex items-center"
             >
               <CustomIcon icon="FILTER_ICON" className="w-[24px] h-[24px]" />
             </div>
           </div>
         ) : (
-          <div className="w-full flex items-center justify-between ">
+          <div className="w-full flex items-center justify-between">
             <div className="w-full">
               <div
-                onClick={onOpen}
+                onClick={openModal}
                 className="flex items-center min-w-[175px] font-bold text-[16px] leading-[26px]"
               >
                 통합검색
-                {/* 미확정 */}
                 <div className="flex items-center justify-center w-[24px] h-[24px]">
                   <CustomIcon
                     icon="BLACK_MOBILE_ARROW_DOWN"
@@ -148,7 +138,7 @@ const TotalSearchMobileGnb = () => {
             </div>
             <div className="flex justify-center items-center min-w-[96px] gap-x-[16px]">
               <div
-                onClick={FilterOnOpen}
+                onClick={() => toggleState("isFilterOpen", true)}
                 className="w-[24px] h-[24px] cursor-pointer"
               >
                 <CustomIcon icon="FILTER_ICON" className="w-[24px] h-[24px]" />
@@ -163,14 +153,17 @@ const TotalSearchMobileGnb = () => {
           </div>
         )}
       </div>
-      {isModalOpen && (
+      {uiState.isModalOpen && (
         <TotalSearchMobileGnbModal
           currentCategory={currentCategory}
-          onClose={onClose}
+          onClose={closeModal}
         />
       )}
-      {isFilterOpen && (
-        <FilterMobileModal type="totalSearch" onClose={FilterOnClose} />
+      {uiState.isFilterOpen && (
+        <FilterMobileModal
+          type="totalSearch"
+          onClose={() => toggleState("isFilterOpen", false)}
+        />
       )}
     </div>
   );
