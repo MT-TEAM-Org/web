@@ -52,7 +52,7 @@ const BoardDetailPage = ({ params }: { params: Promise<BoardDetailProps> }) => {
         <LeftSidebar />
       </div>
       <div
-        className="w-full min-h-[100px] tablet:flex tablet:flex-col tablet:justify-center tablet:items-center tablet:mx-auto mobile:mb-[16px]
+        className="w-full min-h-[100px] tablet:flex tablet:flex-col tablet:justify-center tablet:items-center tablet:mx-auto
 "
       >
         <BoardDetail boardId={boardId} />
