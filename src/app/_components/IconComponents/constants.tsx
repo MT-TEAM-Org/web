@@ -494,6 +494,88 @@ const ICONS = {
       />
     ),
   },
+  MOBILE_DETAIL_GNB_REPORT_ICON: {
+    svgOptions: {
+      viewBox: "0 0 18 18",
+    },
+    icon: (
+      <>
+        <path
+          d="M9 2L9 1"
+          stroke="#656565"
+          strokeWidth="1.44"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M14.2812 2.88016L15.0013 2.16016"
+          stroke="#656565"
+          strokeWidth="1.44"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M3.72 2.88016L3 2.16016"
+          stroke="#656565"
+          strokeWidth="1.44"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M3 13V10.0001C2.99998 9.20828 3.15667 8.42432 3.46106 7.69339C3.76544 6.96245 4.2115 6.29899 4.7735 5.74124C5.33551 5.1835 6.00235 4.74251 6.7356 4.44369C7.46884 4.14487 8.25398 3.99414 9.04575 4.00017C12.354 4.02492 15 6.76687 15 10.0751V13"
+          stroke="#656565"
+          strokeWidth="1.44"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M16.3333 13H1.66667C1.29848 13 1 13.3582 1 13.8V16.2C1 16.6418 1.29848 17 1.66667 17H16.3333C16.7015 17 17 16.6418 17 16.2V13.8C17 13.3582 16.7015 13 16.3333 13Z"
+          stroke="#656565"
+          strokeWidth="1.44"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </>
+    ),
+  },
+  MOBILE_DETAIL_GNB_SHARE_ICON: {
+    svgOptions: {
+      viewBox: "0 0 18 19",
+    },
+    icon: (
+      <>
+        <path
+          d="M12.8517 4.32715L5.375 8.7058M5.375 10.3628L13.2549 14.3084"
+          stroke="#656565"
+          strokeWidth="1.5"
+        />
+        <ellipse
+          cx="14.6894"
+          cy="14.956"
+          rx="2.31047"
+          ry="2.31047"
+          stroke="#656565"
+          strokeWidth="1.5"
+        />
+        <ellipse
+          cx="14.6894"
+          cy="3.30949"
+          rx="2.31047"
+          ry="2.31047"
+          stroke="#656565"
+          strokeWidth="1.5"
+        />
+        <ellipse
+          cx="3.31047"
+          cy="9.13225"
+          rx="2.31047"
+          ry="2.31047"
+          stroke="#656565"
+          strokeWidth="1.5"
+        />
+      </>
+    ),
+  },
   FILTER_ICON: {
     svgOptions: {
       viewBox: "0 0 24 24",
@@ -545,19 +627,3 @@ export type IconType = {
 };
 
 export default ICONS as IconType;
-
-<svg
-  width="11"
-  height="18"
-  viewBox="0 0 11 18"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M9.5 17L1.5 9L9.5 1"
-    stroke="#424242"
-    stroke-width="1.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-</svg>;
