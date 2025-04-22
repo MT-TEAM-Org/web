@@ -19,7 +19,7 @@ const CommentItem = ({ className, data, bestComment }: CommentItemProps) => {
     <div
       className={
         bestComment
-          ? `${bestCommentStyle} bg-[#F8FDFF] ${className}`
+          ? `${bestCommentStyle} bg-bg0 ${className}`
           : `${bestCommentStyle} ${className}`
       }
     >

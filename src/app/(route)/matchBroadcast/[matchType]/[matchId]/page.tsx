@@ -74,14 +74,16 @@ export default function MatchDetailPage({
         "mobile:w-full"
       )}
     >
-      <div className={cn("flex flex-col max-w-[800px]", "mobile:w-full")}>
+      <div
+        className={cn("flex flex-col max-w-[800px] w-full", "mobile:w-full")}
+      >
         {matchType === "ESPORTS" && (
-          <div className={cn("w-full", " mobile:mx-auto")}>
+          <div className={cn("w-full", "mobile:mx-auto")}>
             <LiveSection matchId={matchIdNum} />
           </div>
         )}
 
-        <div className={cn("block", "pc:hidden")}>
+        <div className={cn("block w-full", "pc:hidden")}>
           <ResponsiveTab
             activeValue={activeValue}
             setActiveValue={setActiveValue}

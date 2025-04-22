@@ -10,7 +10,7 @@ interface ResponsiveTabProps {
 
 const tabList = [
   { label: "승부예측", value: "prediction" },
-  { label: "하이브챗", value: "chat" },
+  { label: "채팅", value: "chat" },
 ];
 
 const ResponsiveTab = ({ activeValue, setActiveValue }: ResponsiveTabProps) => {
@@ -21,7 +21,7 @@ const ResponsiveTab = ({ activeValue, setActiveValue }: ResponsiveTabProps) => {
           key={tab.value}
           onClick={() => setActiveValue(tab.value)}
           className={cn(
-            "w-full h-full flex items-center justify-center px-4 py-3 font-bold leading-[28px] tracking-[-0.02em] cursor-pointer",
+            "flex-1 h-full flex items-center justify-center px-4 py-3 font-bold leading-[28px] tracking-[-0.02em] cursor-pointer",
             activeValue === tab.value
               ? cn(
                   "bg-bg0 text-gra",

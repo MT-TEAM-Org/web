@@ -17,7 +17,7 @@ const usePostRecommend = ({ boardId }) => {
       if (axios.isAxiosError(error)) {
         const errorMessage =
           error.response?.data?.message || "알 수 없는 오류가 발생했습니다.";
-        toastError("추천 실패", errorMessage);
+        toastError("로그인 후 다시 시도해주세요.", "");
       }
     },
   });

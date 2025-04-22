@@ -140,10 +140,10 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
             </div>
             {item.dropDown && (
               <div
-                className={`bg-gray1 pl-[32px] overflow-hidden transition-all duration-300 ${
+                className={`transform origin-top bg-gray1 pl-[32px] overflow-hidden transition-transform duration-300 ${
                   isDropDown[item.id]
-                    ? "max-h-[500px] opacity-100"
-                    : "max-h-0 opacity-0 py-0"
+                    ? "scale-y-100 opacity-100 h-auto"
+                    : "scale-y-0 opacity-0 h-0"
                 }`}
               >
                 {item.dropDown.map((subItem) => (

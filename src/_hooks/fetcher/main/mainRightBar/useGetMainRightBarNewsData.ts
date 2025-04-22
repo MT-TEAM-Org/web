@@ -6,6 +6,7 @@ interface NewsDataProps {
   page?: string;
   isMainPage?: boolean;
   startIndex?: number;
+  size?: number
 }
 
 interface NewsListWithPageInfo {
@@ -22,15 +23,16 @@ const useGetMainRightBarNewsData = ({
   page = "1",
   isMainPage = false,
   startIndex = 3,
+  size = 5,
 }: NewsDataProps = {}) => {
   const currentPage = Number(page);
 
   return useQuery<NewsListWithPageInfo>({
-    queryKey: ["mainRightBarNewsDataList", currentPage, isMainPage],
+    queryKey: ["mainRightBarNewsDataList", currentPage, isMainPage, size],
     queryFn: () =>
       fetchNewsDataList({
         page: String(currentPage),
-        size: 5,
+        size,
         withPageInfo: true,
         timePeriod: "WEEKLY",
         startIndex,

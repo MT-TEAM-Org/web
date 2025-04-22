@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import termsPersonalObject from "@/constants/termsPersonalObject";
+import termsPersonalObject from "@/app/_constants/termsPersonalObject";
 
 const TermsPersonalText = () => {
   return (

@@ -8,6 +8,7 @@ import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import MainBigSizeNewsSkeleton from "./MainBigSizeNewsSkeleton";
 import CustomIcon from "@/app/_components/IconComponents";
 import { NewsItemType } from "../../news/_types/newsItemType";
+import { cn } from "@/utils";
 
 interface MainBigSizeNEwsProps {
   data: NewsItemType[] | undefined;
@@ -37,7 +38,10 @@ const MainBigSizeNews = ({ data, isLoading }: MainBigSizeNEwsProps) => {
   return (
     <div
       onClick={handleClick}
-      className="relative w-[410px] h-[236px] rounded-[10px] overflow-hidden cursor-pointer"
+      className={cn(
+        "relative w-[410px] h-[236px] rounded-[10px] overflow-hidden cursor-pointer hidden",
+        "pc:block"
+      )}
     >
       {mainPageData?.thumbImg ? (
         <Image
