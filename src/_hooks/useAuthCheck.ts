@@ -52,6 +52,7 @@ const useAuthCheck = () => {
       queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
       queryClient.invalidateQueries({ queryKey: ["myPostList"] });
       queryClient.invalidateQueries({ queryKey: ["myCommentList"] });
+      queryClient.invalidateQueries({ queryKey: ["userInfo"] });
       logout();
     }
   }, [query.isError]);
