@@ -38,7 +38,7 @@ export default function Category({ params }: { params: Promise<category> }) {
   const pageInfo = boardData?.pageInfo;
 
   return (
-    <div className="w-full flex justify-center bg-[#FAFAFA] mb-[46px] min-h-[100px] tablet:w-full mobile:w-full mobile:max-w-[768px]">
+    <div className="w-full min-w-[720px] flex justify-center bg-[#FAFAFA] mb-[46px] min-h-[100px] tablet:w-full mobile:w-full mobile:max-w-[768px]">
       <div
         className={cn(
           "w-full min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto sticky top-0",
