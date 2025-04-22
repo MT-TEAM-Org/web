@@ -67,12 +67,12 @@ const MyPageInquirieComment = ({
               총 {totalComments}개
             </span>
           </div>
-          <div className="max-w-[101px] min-h-[40px] flex items-center px-[12px] py-[10px] gap-[8px] bg-[#FAFAFA] rounded-md">
-            <button
-              className={`cursor-pointer ${isFocused && "animate-spin"}`}
-              onClick={refetchComment}
-              disabled={isLoading}
-            >
+          <div
+            className="max-w-[101px] min-h-[40px] flex items-center px-[12px] py-[10px] gap-[8px] bg-[#FAFAFA] rounded-md cursor-pointer"
+            onClick={refetchComment}
+            aria-disabled={isLoading}
+          >
+            <button className={`${isFocused && "animate-spin"}`}>
               <Refresh />
             </button>
             <p

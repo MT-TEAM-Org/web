@@ -9,6 +9,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
 import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/utils";
+import Arrow_left from "./icon/Arrow_left";
+import CustomIcon from "./IconComponents/Icon";
 
 interface EsportsScheduleProps {
   onMatchClick?: (matchId: number) => void;
@@ -61,6 +63,15 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
       default:
         return "bg-gray2";
     }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    } else if (totalGroups > 0) {
+      setCurrentPage(totalGroups - 1); 
+    }
+    setSelectedItemId(null); 
   };
 
   const handleNextPage = () => {
@@ -187,22 +198,36 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
             </div>
           </AnimatePresence>
         </div>
-        <button
-          onClick={handleNextPage}
-          disabled={totalGroups <= 1}
-          className={cn(
-            "min-w-[40px] w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 ml-6",
-            "tablet: tablet:right-0",
-            "mobile: mobile:right-0"
-          )}
-        >
-          <Arrow_right
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            d="M7 21 L17 12 L7 3"
-          />
-        </button>
+        <div>
+          <button
+            onClick={handlePrevPage}
+            disabled={totalGroups <= 1}
+            className={cn(
+              "min-w-[40px] w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 ml-6",
+              "tablet: tablet:right-0",
+              "mobile: mobile:right-0"
+            )}
+          >
+            <CustomIcon
+              icon="MATCH_PREV_ICON"
+              className="w-[18px] h-[18px] text-white"
+            />
+          </button>
+          <button
+            onClick={handleNextPage}
+            disabled={totalGroups <= 1}
+            className={cn(
+              "min-w-[40px] w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 ml-6",
+              "tablet: tablet:right-0",
+              "mobile: mobile:right-0"
+            )}
+          >
+            <CustomIcon
+              icon="MATCH_NEXT_ICON"
+              className="w-[18px] h-[18px] text-white"
+            />
+          </button>
+        </div>
       </div>
     </div>
   );

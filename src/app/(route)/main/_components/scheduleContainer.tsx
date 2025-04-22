@@ -10,6 +10,7 @@ import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSc
 import useGetEsportsSchedule from "@/_hooks/fetcher/match-controller/useGetEsportsSchedule";
 import EsportsSchedule from "@/app/_components/EsportsSchedule";
 import { cn } from "@/utils";
+import CustomIcon from "@/app/_components/IconComponents/Icon";
 
 interface ScheduleContainerProps {
   showCategoryButtons?: boolean;
@@ -113,6 +114,15 @@ const ScheduleContainer = ({
       setCurrentPage(currentPage + 1);
     } else if (allScheduleData.length > 0) {
       setCurrentPage(0);
+    }
+    setSelectedIndex(isGameboard ? 0 : null);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    } else if (allScheduleData.length > 0) {
+      setCurrentPage(totalPages - 1);
     }
     setSelectedIndex(isGameboard ? 0 : null);
   };
@@ -225,21 +235,34 @@ const ScheduleContainer = ({
               </motion.div>
             </AnimatePresence>
           </div>
-
-          <button
-            onClick={handleNextPage}
-            disabled={allScheduleData.length <= itemsPerPage}
-            className={cn(
-              "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2"
-            )}
-          >
-            <Arrow_right
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              d="M7 21 L17 12 L7 3"
-            />
-          </button>
+          <div className="flex flex-col items-center justify-center">
+            <button
+              onClick={handlePrevPage}
+              disabled={allScheduleData.length <= itemsPerPage}
+              className={cn(
+                "min-w-[40px] w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2",
+                "tablet: tablet:right-0",
+                "mobile: mobile:right-0"
+              )}
+            >
+              <CustomIcon
+                icon="MATCH_PREV_ICON"
+                className="w-[18px] h-[18px] text-white"
+              />
+            </button>
+            <button
+              onClick={handleNextPage}
+              disabled={allScheduleData.length <= itemsPerPage}
+              className={cn(
+                "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2"
+              )}
+            >
+              <CustomIcon
+                icon="MATCH_NEXT_ICON"
+                className="w-[18px] h-[18px] text-white"
+              />
+            </button>
+          </div>
         </div>
       )}
     </div>

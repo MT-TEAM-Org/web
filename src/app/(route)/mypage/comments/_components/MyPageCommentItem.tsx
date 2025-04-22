@@ -77,6 +77,18 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
     TIP: "플레이 팁",
     UNKNOWN: "기타",
   };
+
+  const commentTypeURL = {
+    BOARD: `/board/${data?.postResponse?.boardType}/${data?.postResponse?.categoryType}/${data?.postResponse?.id}?commentId=${data?.commentResponse?.commentId}`,
+    IMPROVEMENT: `/customer/feedback/feedback-info/${data?.postResponse?.id}`,
+    INQUIRY: `/mypage/inquiries/${data?.postResponse?.id}`,
+    NEWS: `/news/${data?.postResponse?.boardType.toLowerCase()}/news-detail/${
+      data?.postResponse?.id
+    }`,
+    NOTICE: `/customer/notice/notice-info/${data?.postResponse?.id}`,
+    MATCH: "경기중계",
+  };
+
   const getKoreanBoardType = (type: string) => {
     return boardTypeMap[type] || type;
   };
@@ -87,7 +99,7 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
 
   return (
     <Link
-      href={`/board/${data?.postResponse?.boardType}/${data?.postResponse?.categoryType}/${data?.postResponse?.id}?commentId=${data?.commentResponse?.commentId}`}
+      href={commentTypeURL[data?.postResponse?.commentType]}
       className="flex gap-[12px] w-full min-h-[88px] p-[12px] border-b border-gray1 hover:bg-bg0"
     >
       <div className="flex justify-center items-center w-[32px] h-[32px] rounded-[2px] p-[4px] bg-gray1 font-[700] text-[14px] leading-[20px] text-gray7">
@@ -129,9 +141,11 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
           <span className="overflow-hidden text-ellipsis line-clamp-1">
             {data?.postResponse?.nickname}
           </span>
-          <span className={cn("text-gray4 whitespace-nowrap")}>
-            IP {data?.postResponse?.createdIp}
-          </span>
+          {data?.postResponse?.commentType !== "NEWS" && (
+            <span className={cn("text-gray4 whitespace-nowrap")}>
+              IP {data?.postResponse?.createdIp}
+            </span>
+          )}
         </div>
         <div className="flex items-center min-h-[18px]">
           <div className="flex justify-center items-center w-[16px] h-[16px]">

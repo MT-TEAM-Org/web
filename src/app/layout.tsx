@@ -7,6 +7,7 @@ import { ToastContainer } from "./_components/ToastContainer";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import MobileGnb from "./_components/_gnb/_components/MobileGnb";
 import GoogleAnalytics from "@/lib/GoogleAnalytics";
+import { suitFont } from "./font";
 
 export const metadata: Metadata = {
   title: "Playhive",
@@ -35,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={suitFont.variable}>
       <body className="defaultFont">
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />

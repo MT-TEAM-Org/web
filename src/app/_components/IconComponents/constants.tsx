@@ -576,6 +576,78 @@ const ICONS = {
       </>
     ),
   },
+  MATCH_PREV_ICON: {
+    svgOptions: {
+      viewBox: "0 0 11 18",
+    },
+    icon: (
+      <>
+        <path
+          d="M9.5 0.999999L1.5 9L9.5 17"
+          stroke="#424242"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </>
+    ),
+  },
+  MATCH_NEXT_ICON: {
+    svgOptions: {
+      viewBox: "0 0 11 18",
+    },
+    icon: (
+      <>
+        <path
+          d="M1.5 17L9.5 9L1.5 1"
+          stroke="#424242"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </>
+    ),
+  },
+  FILTER_ICON: {
+    svgOptions: {
+      viewBox: "0 0 24 24",
+    },
+    icon: (
+      <>
+        <path
+          d="M4 5.77777H7.55556M20 5.77777H11.1111M4 12H14.6667M20 12H18.2222M4 18.2222H5.77778M20 18.2222H9.33333"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M9.33333 7.55556C10.3152 7.55556 11.1111 6.75962 11.1111 5.77778C11.1111 4.79594 10.3152 4 9.33333 4C8.35149 4 7.55556 4.79594 7.55556 5.77778C7.55556 6.75962 8.35149 7.55556 9.33333 7.55556Z"
+          stroke="currentColor"
+          fill="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M16.4444 13.7778C17.4263 13.7778 18.2222 12.9818 18.2222 12C18.2222 11.0182 17.4263 10.2222 16.4444 10.2222C15.4626 10.2222 14.6667 11.0182 14.6667 12C14.6667 12.9818 15.4626 13.7778 16.4444 13.7778Z"
+          stroke="currentColor"
+          fill="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M7.55556 20C8.5374 20 9.33333 19.2041 9.33333 18.2222C9.33333 17.2404 8.5374 16.4445 7.55556 16.4445C6.57372 16.4445 5.77778 17.2404 5.77778 18.2222C5.77778 19.2041 6.57372 20 7.55556 20Z"
+          stroke="currentColor"
+          fill="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </>
+    ),
+  },
 };
 
 export type IconList = keyof typeof ICONS;
