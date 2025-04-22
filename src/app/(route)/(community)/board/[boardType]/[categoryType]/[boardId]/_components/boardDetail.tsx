@@ -229,7 +229,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
               )}
               {parse(content, options)}
               {!youtubeEmbedUrl && (
-                <div className="w-[679px] min-h-[42px]">
+                <div className="w-full max-w-[679px] min-h-[42px] mobile:hidden">
                   <div>{boardDetailData?.data?.link}</div>
                 </div>
               )}

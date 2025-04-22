@@ -576,6 +576,38 @@ const ICONS = {
       </>
     ),
   },
+  MATCH_PREV_ICON: {
+    svgOptions: {
+      viewBox: "0 0 11 18",
+    },
+    icon: (
+      <>
+        <path
+          d="M9.5 0.999999L1.5 9L9.5 17"
+          stroke="#424242"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </>
+    ),
+  },
+  MATCH_NEXT_ICON: {
+    svgOptions: {
+      viewBox: "0 0 11 18",
+    },
+    icon: (
+      <>
+        <path
+          d="M1.5 17L9.5 9L1.5 1"
+          stroke="#424242"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </>
+    ),
+  },
   FILTER_ICON: {
     svgOptions: {
       viewBox: "0 0 24 24",
