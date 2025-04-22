@@ -36,7 +36,7 @@ const NewPost = () => {
           ))
         ) : isError || newPosts?.length === 0 ? (
           <MyPagePostEmpty
-            width="w-[419px] mobile:w-full"
+            width="w-[419px] mobile:w-full tablet:w-full"
             height="h-[428px]"
             isHome
           />
