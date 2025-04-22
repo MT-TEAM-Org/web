@@ -6,6 +6,7 @@ import Footer from "./_components/Footer";
 import { ToastContainer } from "./_components/ToastContainer";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import MobileGnb from "./_components/_gnb/_components/MobileGnb";
+import GoogleAnalytics from "@/lib/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "Playhive",
@@ -36,6 +37,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="defaultFont">
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+        ) : null}
         <QueryProvider>
           <Gnb />
           <MobileGnb />

@@ -41,7 +41,7 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
   };
 
   return (
-    <div className="w-full h-auto flex justify-between">
+    <div className="w-full h-auto flex justify-between mobile:hidden">
       {type === "news" ? (
         <Link
           href={`${source}`}

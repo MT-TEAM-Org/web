@@ -54,7 +54,7 @@ const LeftSidebar = () => {
         className={cn(
           "w-[160px] bg-white rounded-[5px]",
           "tablet:flex tablet:w-full max-w-[688px] h-[52px]",
-          "mobile:flex mobile:justify-center mobile:w-full mobile:h-full mobile:overflow-x-scroll"
+          "mobile:flex mobile:justify-center mobile:w-full mobile:h-full mobile:overflow-x-scroll scrollbar-hide"
         )}
       >
         {boardList.map((board) => {
