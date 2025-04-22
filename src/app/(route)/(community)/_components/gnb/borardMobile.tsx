@@ -65,7 +65,7 @@ const BoardMobile = () => {
   };
 
   return (
-    <div className="w-full min-w-[360px] max-w-[687px] h-[48px] flex items-center justify-between border-b border-gray2 pc:hidden tablet:hidden">
+    <div className="w-full min-w-[360px] max-w-[768px] h-[48px] flex items-center justify-between border-b border-gray2 pc:hidden tablet:hidden">
       <div className="w-full flex items-center">
         <div
           onClick={handleNavLeftIconClick}

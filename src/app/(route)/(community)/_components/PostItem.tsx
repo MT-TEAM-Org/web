@@ -81,7 +81,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
   };
 
   return (
-    <div className="w-full tablet:max-w-[688px] flex flex-col items-center mobile:min-w-[360px] mobile:max-w-[687px]">
+    <div className="w-full tablet:max-w-[688px] flex flex-col items-center mobile:min-w-[360px] mobile:max-w-[768px]">
       {postsData && postsData.length > 0 ? (
         postsData.map((data: BoardListItem, index: number) => (
           <Link

@@ -139,7 +139,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
   return (
     <>
       <div className="flex flex-col gap-[16px] w-full max-w-[720px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D] mobile:max-w-[768px]">
-        <div className="w-full max-w-[672px]">
+        <div className="w-full max-w-[672px] mobile:w-full mobile:max-w-[768px]">
           {isLoading ? (
             <div className="py-4">
               <h1 className="font-bold text-[18px] leading-[28px] text-[#303030] opacity-50 animate-pulse">
@@ -152,7 +152,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
               <h1 className="font-bold text-[18px] leading-[28px] text-[#303030] mobile:text-[16px] mobile:leading-[24px]">
                 {boardDetailData?.data?.title}
               </h1>
-              <div className="flex gap-x-[16px] max-w-[672px] min-h-[20px] mobile:flex-col">
+              <div className="flex gap-x-[16px] max-w-[672px] min-h-[20px] mobile:flex-col mobile:w-full ">
                 <div className="flex gap-x-[4px] w-[421px] h-[20px] mobile:text-[12px] mobile:leading-[18px]">
                   <p className="font-bold text-[14px] leading-[20px] ">
                     {getKoreanBoardType(boardDetailData?.data?.boardType)}
