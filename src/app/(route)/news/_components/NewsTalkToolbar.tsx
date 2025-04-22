@@ -11,7 +11,6 @@ import { POST_SEARCH_OPTIONS } from "@/app/(route)/mypage/_constants/toolbarObje
 import { newsListConfig } from "../_types/newsListConfig";
 import OrderDateButton from "./OrderDateButton";
 import { cn } from "@/utils";
-import NewsMobileGnb from "./newsGnb/NewsMobileGnb";
 
 interface NewsTalkToolbarProps {
   newsType?: string;
@@ -77,7 +76,6 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
 
   return (
     <div className={cn("rounded-[5px] bg-white", "mobile:w-full")}>
-      {/* <NewsMobileGnb /> */}
       <div
         className={cn(
           "w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white",
