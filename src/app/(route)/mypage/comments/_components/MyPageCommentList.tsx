@@ -12,6 +12,7 @@ import Pagination from "../../_components/Pagination";
 import { useRouter } from "next/navigation";
 import changeURLParams from "../../util/changeURLParams";
 import CommentEmpty from "@/app/_components/_comment/CommentEmpty";
+import useIsMobile from "@/utils/useIsMobile";
 
 interface PostResponse {
   commentType: "BOARD";
@@ -55,6 +56,7 @@ interface Response {
 const MyPageCommentList = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const isMobile = useIsMobile();
   const postOptions: PostListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
     size: 5,
@@ -65,9 +67,10 @@ const MyPageCommentList = () => {
       (searchParams.get("search_type") as PostListConfig["searchType"]) ||
       "CONTENT",
     search: searchParams.get("search") || "",
-    commentType:
-      (searchParams.get("comment_type") as PostListConfig["commentType"]) ||
-      "BOARD",
+    commentType: isMobile
+      ? "ALL"
+      : (searchParams.get("comment_type") as PostListConfig["commentType"]) ||
+        "BOARD",
   };
   const { data, isLoading } = useGetMyCommentList(postOptions);
   const { content, pageInfo } = data?.data?.list || {};
