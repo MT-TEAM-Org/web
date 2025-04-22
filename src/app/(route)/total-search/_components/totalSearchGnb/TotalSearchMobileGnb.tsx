@@ -70,19 +70,19 @@ const TotalSearchMobileGnb = () => {
     const inputValue = (e.target as HTMLFormElement)[1] as HTMLInputElement;
     if (inputValue.value.trim() === "") return;
 
-    let newSearchParams = changeURLParams(
+    let totalSearchParams = changeURLParams(
       searchParams,
       "searchType",
       searchType
     );
 
-    newSearchParams = changeURLParams(
-      new URLSearchParams(newSearchParams.split("?")[1]),
+    totalSearchParams = changeURLParams(
+      new URLSearchParams(totalSearchParams.split("?")[1]),
       "search",
       inputValue.value
     );
 
-    const params = new URLSearchParams(newSearchParams.split("?")[1]);
+    const params = new URLSearchParams(totalSearchParams.split("?")[1]);
     params.set("page", "1");
 
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
