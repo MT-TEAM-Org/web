@@ -140,7 +140,7 @@ const FindPassword = () => {
       onSuccess: () => {
         router.push("/sign");
         success(
-          "이메일로 전송된 새 비밀번호로 로그인 해주세요.",
+          "이메일로 새 비밀번호를 전송했습니다.",
           "로그인 후 비밀번호를 변경해주세요."
         );
       },
