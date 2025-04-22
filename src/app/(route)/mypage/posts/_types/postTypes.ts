@@ -3,7 +3,7 @@ export interface PostListConfig {
   size: number;
   orderType: "CREATE" | "RECOMMEND" | "COMMENT";
   searchType: "TITLE" | "CONTENT" | "TITLE_CONTENT" | "COMMENT";
-  commentType?: "BOARD" | "IMPROEMENT" | "INQUIRY" | "NEWS" | "NOTICE";
+  commentType?: "BOARD" | "IMPROEMENT" | "INQUIRY" | "NEWS" | "NOTICE" | "ALL";
   search: string;
 }
 
