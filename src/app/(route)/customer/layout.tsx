@@ -2,6 +2,7 @@ import React from "react";
 import CustomerLeftSidebar from "./_components/CustomerLeftSidebar";
 import RightSidebarWrapper from "./_components/RightSidebarWrapper";
 import { cn } from "@/utils";
+import CustomerMobileGnb from "./_components/customerGnb/CustomerMobileGnb";
 
 export const metadata = {
   title: "PlayHive 고객센터 페이지",
@@ -26,7 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       className={cn(
         "w-screen min-h-[calc(100vh-188px)] bg-gray1",
         "tablet:max-w-[1279px]",
-        "mobile:w-full mobile:mx-0"
+        "mobile:w-full mobile:mx-0 mobile:min-h-fit"
       )}
     >
       <div
@@ -52,9 +53,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           className={cn(
             "w-[160px] h-[260px] sticky top-0 rounded-t-[5px] overflow-hidden",
             "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:static tablet:overflow-x-auto",
-            "mobile:w-full mobile:h-auto mobile:min-h-[52px] mobile:static mobile:overflow-x-auto"
+            "mobile:w-full mobile:h-auto mobile:min-h-[48px] mobile:static mobile:overflow-x-auto"
           )}
         >
+          <CustomerMobileGnb />
           <CustomerLeftSidebar />
         </div>
 
@@ -62,7 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           className={cn(
             "flex-1 w-full max-w-[720px] mb-10",
             "tablet:max-w-[688px]",
-            "mobile:w-full mobile:max-w-none"
+            "mobile:w-full mobile:max-w-none mobile:mb-0"
           )}
         >
           {children}
