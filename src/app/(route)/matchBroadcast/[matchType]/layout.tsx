@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import ScheduleContainer from "../../main/_components/scheduleContainer";
 import { cn } from "@/utils";
+import MatchMobileGnb from "../_components/matchGnb/MatchMobileGnb";
 
 export const metadata = {
   title: "경기 중계",
@@ -19,6 +20,7 @@ export default function Layout({
 
   return (
     <div className="w-full h-full">
+      <MatchMobileGnb />
       <div className="w-full h-[226px] flex justify-center items-center mx-auto bg-gray1">
         <div
           className={cn("max-w-full", "tablet:max-w-full", "mobile:h-[158px]")}
