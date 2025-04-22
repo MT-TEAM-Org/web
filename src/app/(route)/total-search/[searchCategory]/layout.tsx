@@ -2,6 +2,7 @@ import React from "react";
 import SearchLeftSideBar from "../_components/SearchLeftSideBar";
 import { RightSideBar } from "../../(community)/_components/RightSideBar";
 import { cn } from "@/utils";
+import TotalSearchMobileGnb from "../_components/totalSearchGnb/TotalSearchMobileGnb";
 
 export const metadata = {
   title: "PlayHive 전체검색",
@@ -55,6 +56,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             "mobile:w-full mobile:h-auto mobile:min-h-[52px] mobile:static mobile:overflow-x-auto"
           )}
         >
+          <TotalSearchMobileGnb />
           <SearchLeftSideBar />
         </div>
 
@@ -62,7 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           className={cn(
             "flex-1 w-full max-w-[720px] min-h-[calc(100vh-188px)] mb-10",
             "tablet:max-w-[688px]",
-            "mobile:w-full mobile:max-w-none"
+            "mobile:w-full mobile:max-w-none mobile:mb-0"
           )}
         >
           {children}
