@@ -37,4 +37,5 @@ export const COMMENT_COMMENT_TYPE_OPTIONS: DropdownOption[] = [
   { label: "뉴스", value: "NEWS" },
   { label: "공지사항", value: "NOTICE" },
   { label: "개선요청", value: "IMPROVEMENT" },
+  { label: "승부예측", value: "MATCH" },
 ];
