@@ -15,6 +15,8 @@ const MobileGnb = () => {
   const pathname = usePathname();
   const router = useRouter();
   const isHome = pathname === "/";
+  const isSign = pathname.includes("/sign");
+  const isShow = isHome || isSign;
 
   const handleToSearch = () => {
     const trimmedValue = isValue.trim();
@@ -44,11 +46,11 @@ const MobileGnb = () => {
 
   return (
     <>
-      {isHome && (
+      {isShow && (
         <div
           className={cn(
             "hidden",
-            isHome && "sticky top-0 z-50",
+            isShow && "sticky top-0 z-50",
             "mobile:w-full mobile:min-w-[360px] mobile:min-h-[60px] mobile:py-[8px] mobile:bg-white mobile:block"
           )}
         >
