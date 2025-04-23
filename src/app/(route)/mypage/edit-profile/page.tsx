@@ -179,7 +179,7 @@ const EditProfile = () => {
 
   const buttonStyle = "w-1/2 h-[40px] border-[1px] rounded-[5px]";
   return (
-    <div className="max-w-[720px] rounded-[5px] bg-[#FFFFFF]">
+    <div className="rounded-[5px] bg-[#FFFFFF]">
       <MobileBackButtonWrapper />
       <div
         className={cn(

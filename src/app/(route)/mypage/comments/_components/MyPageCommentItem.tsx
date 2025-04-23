@@ -96,7 +96,7 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
   const getKoreanCategoryType = (type: string) => {
     return categoryTypeMap[type] || type;
   };
-  console.log(commentTypeURL[data?.postResponse?.commentType]);
+
   return (
     <Link
       href={commentTypeURL[data?.postResponse?.commentType]}
