@@ -19,6 +19,7 @@ export const metadata = {
       },
     ],
   },
+  keywords: ["플레이하이브", "고객센터", "공지사항"],
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

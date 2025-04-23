@@ -2,8 +2,21 @@ import { cn } from "@/utils";
 import MypageLeftSidebar from "./_components/MypageLeftSidebar";
 
 export const metadata = {
-  title: "마이페이지",
-  description: "마이페이지입니다.",
+  title: "PlayHive 마이페이지",
+  description: "PlayHive 마이페이지입니다.",
+  openGraph: {
+    title: "PlayHive 마이페이지",
+    description: "PlayHive 마이페이지입니다.",
+    images: [
+      {
+        url: "https://playhive.co.kr/Metadata.png",
+        alt: "PlayHive 미리보기 이미지",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  keywords: ["플레이하이브", "마이페이지", "내정보"],
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
