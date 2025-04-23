@@ -40,7 +40,7 @@ export default function Layout({
       <div
         className={cn(
           "my-[24px]",
-          "mobile:my-0",
+          "mobile:mt-[20px]",
           "pc:min-h-[500px]",
           "tablet:min-h-[550px]"
         )}

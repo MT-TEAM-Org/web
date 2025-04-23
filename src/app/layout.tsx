@@ -42,6 +42,10 @@ export default function RootLayout({
           name="google-site-verification"
           content="pGIRhN9ZARqJ4YvsrWTumwGGZ84_1szS0Y4KtZavPJQ"
         />
+        <meta
+          name="viewport"
+          content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
+        />
       </head>
       <body className="defaultFont">
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (

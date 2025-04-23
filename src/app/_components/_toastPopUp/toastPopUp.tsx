@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CustomIcon from "../IconComponents/Icon";
 import { ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from "../ToastIcon";
+import { cn } from "@/utils";
 
 interface ToastPopUpProps {
   visible: boolean;
@@ -22,12 +23,25 @@ const ToastPopUp = ({
   visible,
 }: ToastPopUpProps) => {
   const [toastKey, setToastKey] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (visible) {
       setToastKey((prev) => prev + 1);
     }
   }, [visible]);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const width = window.innerWidth;
+      setIsMobile(width >= 360 && width <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const stateIcons = {
     success: <SuccessIcon />,
@@ -55,9 +69,11 @@ const ToastPopUp = ({
     },
   };
 
-  const defaultToastStyle =
-    "fixed z-[999] top-[160px] inset-x-0 mx-auto flex gap-x-[16px] justify-center items-center max-w-[640px] min-h-[56px] rounded-[10px] px-[16px] py-[8px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.1)]";
-  //TODO: 종료 애니메이션이 작동 안 됨 / 애니메이션 효과 추후 수정 필요
+  const defaultToastStyle = cn(
+    "fixed z-[999] inset-x-0 mx-auto flex gap-x-[16px] justify-center items-center max-w-[640px] min-h-[56px] rounded-[10px] px-[16px] py-[8px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.1)]",
+    "mobile:w-full mobile:max-w-[328px] mobile:h-[48px]",
+    isMobile ? "bottom-[80px]" : "top-[160px]"
+  );
   return (
     <AnimatePresence
       mode="wait"
@@ -70,9 +86,9 @@ const ToastPopUp = ({
       {visible && (
         <motion.div
           key={toastKey}
-          initial={{ opacity: 0, y: -100 }}
+          initial={{ opacity: 0, y: isMobile ? 100 : -100 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -100 }}
+          exit={{ opacity: 0, y: isMobile ? 100 : -100 }}
           transition={{
             duration: 0.3,
             ease: "easeInOut",
@@ -87,14 +103,14 @@ const ToastPopUp = ({
             <div>{message}</div>
           </div>
           <button
-            className="w-[24px] h-[24px]"
+            className="w-[24px] h-[24px] mobile:w-[24px] mobile:h-[24px]"
             onClick={() => {
               if (onClose) onClose();
             }}
           >
             <CustomIcon
               icon="CLOSE_X"
-              className={stateConfig[state].textColor}
+              className={stateConfig[state].textColor + " w-[14px] h-[14px]"}
             />
           </button>
         </motion.div>
