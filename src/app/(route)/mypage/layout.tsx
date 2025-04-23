@@ -11,6 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div
       className={cn(
         "bg-[#fafafa] min-h-[calc(100vh-476px)] pb-[40px]",
+        "tablet:pb-[76px]",
         "mobile:bg-white mobile:pb-0"
       )}
     >
