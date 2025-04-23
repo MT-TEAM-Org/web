@@ -59,6 +59,7 @@ const StatusSaver = ({ id, status }) => {
     <div
       className={cn(
         "min-w-[672px] h-[40px] flex justify-between items-center",
+        "tablet:min-w-[648px]",
         "mobile:min-w-[328px] mobile:h-[24px]"
       )}
     >

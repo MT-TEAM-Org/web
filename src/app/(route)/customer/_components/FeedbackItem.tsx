@@ -96,7 +96,12 @@ const FeedbackItem = ({
             "mobile:max-w-[720px] mobile:gap-0"
           )}
         >
-          <div className="w-full min-h-[20px] flex items-center gap-[4px]">
+          <div
+            className={cn(
+              "w-full min-h-[20px] flex items-center gap-[4px]",
+              "mobile:justify-between"
+            )}
+          >
             <div
               className={cn(
                 "flex items-center gap-[4px] overflow-hidden",
@@ -117,6 +122,9 @@ const FeedbackItem = ({
                 {isNew && <p className="text-gra">N</p>}
                 {feedbackData?.isHot && <p className="text-warning">H</p>}
               </div>
+            </div>
+            <div className={cn("hidden", "mobile:block")}>
+              <FeedbackItemStatus status={feedbackData?.status} />
             </div>
           </div>
 
@@ -154,7 +162,7 @@ const FeedbackItem = ({
       </div>
 
       {hasStatus && (
-        <div className="mobile:hidden ml-2">
+        <div className={cn("ml-2", "mobile:hidden")}>
           <FeedbackItemStatus status={feedbackData?.status} />
         </div>
       )}
