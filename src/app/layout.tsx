@@ -37,6 +37,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={suitFont.variable}>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="cF7_Wd9tH5nJ0lCOOiDsFripsC15dB9d9rLNgyhJmS0"
+        />
+      </head>
       <body className="defaultFont">
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
