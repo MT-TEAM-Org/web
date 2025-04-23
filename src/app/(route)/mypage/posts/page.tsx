@@ -7,8 +7,9 @@ const Posts = () => {
     <Suspense fallback={""}>
       <div
         className={cn(
-          "min-h-[450px] bg-gray1 rounded-[5px]",
-          "mobile:bg-white mobile:w-full mobile:mx-auto"
+          "pc:min-h-[450px] bg-gray1 rounded-[5px]",
+          "tablet:mb-[40px]",
+          "mobile:bg-white"
         )}
       >
         <MyPagePostList />
