@@ -86,7 +86,6 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
       data?.postResponse?.id
     }`,
     NOTICE: `/customer/notice/notice-info/${data?.postResponse?.id}`,
-    MATCH: "경기중계",
   };
 
   const getKoreanBoardType = (type: string) => {
