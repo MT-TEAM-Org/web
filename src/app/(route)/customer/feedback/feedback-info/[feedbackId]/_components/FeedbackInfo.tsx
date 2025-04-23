@@ -298,7 +298,12 @@ const FeedbackInfo = () => {
               onClose={() => setIsSignInModalOpen(false)}
             />
           </div>
-          <div className="shadow-md sticky bottom-0 z-50">
+          <div
+            className={cn(
+              "shadow-md sticky bottom-0 z-50",
+              "mobile:shadow-none mobile:border-b"
+            )}
+          >
             <SendCommentBox
               id={id.toString()}
               type="IMPROVEMENT"

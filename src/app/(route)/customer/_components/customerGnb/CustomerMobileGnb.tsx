@@ -133,7 +133,7 @@ const CustomerMobileGnb = () => {
               {shouldShowWriteButton() && (
                 <div
                   onClick={handleWritePage}
-                  className="w-[65px] h-[32px] rounded-[5px] px-3 py-[9px] text-nowrap flex items-center justify-center bg-gra text-[14px] text-white"
+                  className="w-[65px] h-[32px] rounded-[5px] px-3 py-[9px] text-nowrap flex items-center justify-center cursor-pointer bg-gra text-[14px] text-white"
                 >
                   글쓰기
                 </div>
