@@ -17,6 +17,7 @@ import { CommentItem } from "@/_types/comment";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { cn } from "@/utils";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
+import NewsDetailGnb from "@/app/(route)/news/_components/newsGnb/NewsDetailGnb";
 
 interface NoticeInfoItemProps {
   data: NoticeInfoItemType;
@@ -89,6 +90,7 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
 
   return (
     <>
+      <NewsDetailGnb title={data?.title} type="notice" />
       <div
         className={cn(
           "w-[720px] h-auto rounded-[5px] border-b p-6 flex flex-col gap-4 bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",

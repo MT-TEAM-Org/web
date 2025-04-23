@@ -36,6 +36,7 @@ import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { cn } from "@/utils";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
+import NewsDetailGnb from "@/app/(route)/news/_components/newsGnb/NewsDetailGnb";
 
 const Page = () => {
   return (
@@ -169,9 +170,10 @@ const FeedbackInfo = () => {
         <FeedbackInfoSkeleton />
       ) : (
         <>
+          <NewsDetailGnb title={feedbackInfoData?.title} type="feedback" />
           <div
             className={cn(
-              "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md",
+              "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md bg-white",
               "tablet:max-w-[687px]",
               "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
             )}
@@ -184,7 +186,8 @@ const FeedbackInfo = () => {
                 "w-full flex gap-2 flex-col",
                 adminRole !== "ADMIN" || adminRole === undefined
                   ? "min-h-[56px]"
-                  : ""
+                  : "",
+                "mobile:gap-1"
               )}
             >
               <div>
@@ -202,7 +205,7 @@ const FeedbackInfo = () => {
               <div
                 className={cn(
                   "w-full max-h-[20px] flex gap-4",
-                  "mobile:flex-wrap mobile:max-h-none"
+                  "mobile:flex-wrap mobile:max-h-fit mobile:gap-1"
                 )}
               >
                 <div
@@ -225,7 +228,7 @@ const FeedbackInfo = () => {
                   className={cn(
                     "min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6",
                     "tablet:min-w-[210px]",
-                    "mobile:min-w-0 mobile:w-full mobile:justify-start mobile:text-[12px] mobile:mt-2"
+                    "mobile:min-w-0 mobile:w-full mobile:justify-start mobile:text-[12px] mobile:mt-0"
                   )}
                 >
                   <p>{feedbackInfoData?.nickname}</p>
@@ -295,7 +298,12 @@ const FeedbackInfo = () => {
               onClose={() => setIsSignInModalOpen(false)}
             />
           </div>
-          <div className="shadow-md sticky bottom-0 z-50">
+          <div
+            className={cn(
+              "shadow-md sticky bottom-0 z-50",
+              "mobile:shadow-none mobile:border-b"
+            )}
+          >
             <SendCommentBox
               id={id.toString()}
               type="IMPROVEMENT"
@@ -328,7 +336,7 @@ const FeedbackInfo = () => {
           className={cn(
             "w-[720px] h-auto rounded-b-[5px] mb-10 shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
             "tablet:max-w-[687px]",
-            "mobile:w-full mobile:max-w-full"
+            "mobile:w-full mobile:max-w-full mobile:mb-0"
           )}
         >
           {isLoading ? (
