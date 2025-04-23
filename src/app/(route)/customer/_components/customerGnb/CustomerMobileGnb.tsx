@@ -17,16 +17,23 @@ const CustomerMobileGnb = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const infoUrl = pathname.split("/").slice(3, 4)[0];
+  const writeUrl = pathname.split("/").slice(2, 4)[0];
   const listUrl = pathname.split("/")[2];
   const adminRole = useAdminRole();
 
   const isDetail = () => {
-    if (
-      infoUrl === "notice-info" ||
-      infoUrl === "feedback-info" ||
-      infoUrl === "write"
-    ) {
+    if (infoUrl === "notice-info" || infoUrl === "feedback-info") {
       return "hidden";
+    }
+  };
+
+  const isWrite = () => {
+    if (infoUrl === "write" && writeUrl === "notice") {
+      return "공지사항 작성";
+    } else if (infoUrl === "write" && writeUrl === "feedback") {
+      return "개선요청 작성";
+    } else {
+      return "고객센터";
     }
   };
 
@@ -75,6 +82,13 @@ const CustomerMobileGnb = () => {
     );
   };
 
+  // 작성 페이지 여부 확인
+  const isWritePage = () => {
+    return (
+      infoUrl === "write" && (writeUrl === "notice" || writeUrl === "feedback")
+    );
+  };
+
   return (
     <div
       className={cn(
@@ -115,7 +129,7 @@ const CustomerMobileGnb = () => {
           <div className="w-full flex items-center justify-between">
             <div className="w-full">
               <div className="flex items-center min-w-[175px] font-bold text-[16px] leading-[26px]">
-                고객센터
+                {isWrite()}
               </div>
             </div>
             <div
@@ -124,13 +138,15 @@ const CustomerMobileGnb = () => {
                 !shouldShowWriteButton() && "min-w-[48px]"
               )}
             >
-              <div
-                onClick={handleSearchClick}
-                className="w-[24px] h-[24px] cursor-pointer"
-              >
-                <Small_Search />
-              </div>
-              {shouldShowWriteButton() && (
+              {!isWritePage() && (
+                <div
+                  onClick={handleSearchClick}
+                  className="w-[24px] h-[24px] cursor-pointer"
+                >
+                  <Small_Search />
+                </div>
+              )}
+              {shouldShowWriteButton() && !isWritePage() && (
                 <div
                   onClick={handleWritePage}
                   className="w-[65px] h-[32px] rounded-[5px] px-3 py-[9px] text-nowrap flex items-center justify-center cursor-pointer bg-gra text-[14px] text-white"

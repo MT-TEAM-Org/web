@@ -11,7 +11,6 @@ import getUpload from "@/_hooks/getUpload";
 import usePutPost from "@/_hooks/fetcher/board/usePutPost";
 import CustomerTiptap from "../../_components/CustomerTiptap";
 import { cn } from "@/utils";
-import WriteMobileGnb from "../_components/WriteMobileGnb";
 
 const Page = () => {
   return (
@@ -142,10 +141,9 @@ const CustomerWrite = () => {
     <div
       className={cn(
         "max-w-[720px] min-h-[648px] h-auto flex flex-col justify-center items-center bg-white shadow-sm rounded-[5px] border px-3 pt-3 pb-6 gap-3",
-        "mobile:max-w-[768px] mobile:min-h-fit"
+        "mobile:max-w-[768px] mobile:min-h-fit mobile:rounded-none"
       )}
     >
-      <WriteMobileGnb />
       <form
         className={cn("flex flex-col gap-3", "tablet:w-full", "mobile:w-full")}
         onSubmit={handleSubmit(onSubmit)}
