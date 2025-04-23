@@ -235,7 +235,7 @@ const ScheduleContainer = ({
               </motion.div>
             </AnimatePresence>
           </div>
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-[12px]">
             <button
               onClick={handlePrevPage}
               disabled={allScheduleData.length <= itemsPerPage}
