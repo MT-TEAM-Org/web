@@ -10,6 +10,13 @@ const CustomerLeftSidebar = () => {
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
   const [show, setShow] = useState(false);
+  const writePage = pathname.split("/")[3];
+
+  const writePageHidden = () => {
+    if (writePage === "write") {
+      return "mobile:hidden";
+    }
+  };
 
   useEffect(() => {
     if (show) {
@@ -53,7 +60,8 @@ const CustomerLeftSidebar = () => {
       className={cn(
         "w-[160px] bg-white",
         "tablet:w-full tablet:flex tablet:h-[52px]",
-        "mobile:w-full mobile:min-h-48px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide"
+        "mobile:w-full mobile:min-h-48px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide",
+        writePageHidden()
       )}
     >
       <div
