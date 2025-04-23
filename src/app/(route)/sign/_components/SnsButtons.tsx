@@ -14,16 +14,16 @@ const SnsButtons = ({ signState }: SnsButtonsProps) => {
   const router = useRouter();
 
   const snsButtonObject = [
-    {
-      name: "naver" as "naver",
-      icon: <Naver />,
-      link: `${process.env.NEXT_PUBLIC_API_URL}oauth2/authorization/naver`,
-    },
-    {
-      name: "kakao" as "kakao",
-      icon: <Kakao />,
-      link: `${process.env.NEXT_PUBLIC_API_URL}oauth2/authorization/kakao`,
-    },
+    // {
+    //   name: "naver" as "naver",
+    //   icon: <Naver />,
+    //   link: `${process.env.NEXT_PUBLIC_API_URL}oauth2/authorization/naver`,
+    // },
+    // {
+    //   name: "kakao" as "kakao",
+    //   icon: <Kakao />,
+    //   link: `${process.env.NEXT_PUBLIC_API_URL}oauth2/authorization/kakao`,
+    // },
     {
       name: "google" as "google",
       icon: <Google />,
