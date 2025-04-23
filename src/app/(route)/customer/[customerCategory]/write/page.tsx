@@ -140,14 +140,20 @@ const CustomerWrite = () => {
   return (
     <div
       className={cn(
-        "max-w-[720px] min-h-[648px] h-auto flex flex-col justify-center items-center bg-white shadow-sm rounded-[5px] border px-3 pt-3 pb-6 gap-3"
+        "max-w-[720px] min-h-[648px] h-auto flex flex-col justify-center items-center bg-white shadow-sm rounded-[5px] border px-3 pt-3 pb-6 gap-3",
+        "mobile:max-w-[768px] mobile:min-h-fit mobile:rounded-none"
       )}
     >
       <form
         className={cn("flex flex-col gap-3", "tablet:w-full", "mobile:w-full")}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h2 className="w-[95px] min-h-[28px] flex gap-3 font-bold text-[18px] leading-7 tracking-[-0.72px] items-center text-gray8">
+        <h2
+          className={cn(
+            "w-[95px] min-h-[28px] flex gap-3 font-bold text-[18px] leading-7 tracking-[-0.72px] items-center text-gray8",
+            "mobile:hidden"
+          )}
+        >
           {writeType === "notice" ? "공지사항 작성" : "개선요청 작성"}
         </h2>
         <div className="w-full h-[40px] flex items-center justify-center gap-5 border border-gray3 rounded-[5px]">

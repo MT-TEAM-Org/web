@@ -161,7 +161,7 @@ const NewsInfo = ({
           <NewsDetailGnb title={newsInfoData?.title} />
           <div
             className={cn(
-              "w-[720px] h-auto rounded-t-[5px] border-b p-6 flex gap-4 flex-col shadow-md bg-white",
+              "w-[720px] h-auto rounded-t-[5px] p-6 flex gap-4 flex-col shadow-md bg-white",
               "tablet:max-w-[687px]",
               "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
             )}
@@ -253,20 +253,23 @@ const NewsInfo = ({
               <PostAction type="news" source={newsInfoData?.source} />
             </div>
           </div>
+          <div className="flex flex-col bg-white px-6 gap-4">
+            <BoardComment
+              id={newsInfoData?.id.toString()}
+              ref={comments}
+              setParentsComment={setParentsComment}
+              type="NEWS"
+            />
+            <PostNavigation
+              currentPath={pathname}
+              scrollToCommentBar={onHandleToTop}
+              nextId={newsInfoData?.nextId}
+              previousId={newsInfoData?.previousId}
+            />
+          </div>
         </>
       )}
-      <BoardComment
-        id={newsInfoData?.id.toString()}
-        ref={comments}
-        setParentsComment={setParentsComment}
-        type="NEWS"
-      />
-      <PostNavigation
-        currentPath={pathname}
-        scrollToCommentBar={onHandleToTop}
-        nextId={newsInfoData?.nextId}
-        previousId={newsInfoData?.previousId}
-      />
+
       <div className="shadow-sm sticky bottom-0">
         <SendCommentBox
           id={newsInfoData?.id.toString()}
@@ -275,7 +278,6 @@ const NewsInfo = ({
           type="NEWS"
         />
       </div>
-
       <div
         className={cn(
           "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden",

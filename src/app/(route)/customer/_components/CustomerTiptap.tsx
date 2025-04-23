@@ -191,7 +191,7 @@ const CustomerTiptap = ({
     "font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6";
 
   return (
-    <div className="flex flex-col items-center w-full h-full">
+    <div className={"flex flex-col items-center w-full h-full"}>
       <div
         className={cn(
           "w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-[#DBDBDB]",
@@ -223,7 +223,7 @@ const CustomerTiptap = ({
           <div
             className={cn(
               "w-full relative",
-              "mobile:overflow-y-auto mobile:max-h-[320px]"
+              "mobile:overflow-y-auto mobile:max-h-[400px]"
             )}
           >
             <EditorContent editor={editor} className="w-full" />
@@ -255,8 +255,7 @@ const CustomerTiptap = ({
       <div
         className={cn(
           "flex flex-col gap-y-1 w-full min-h-[160px] rounded-[5px] p-3 bg-gray1 text-gray6 mt-3",
-          "tablet:w-full tablet:min-h-[182px]",
-          "mobile:hidden"
+          "tablet:w-full tablet:min-h-[182px]"
         )}
       >
         <div

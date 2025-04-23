@@ -52,11 +52,10 @@ const NoticePageContent = () => {
     <div
       className={cn(
         "w-full max-w-[720px] min-h-[120px] rounded-[5px] mx-auto",
-        `${
-          noticeListData?.content?.length === 0 || !noticeListData
-            ? "bg-transparent"
-            : "bg-white"
-        }`
+        "mobile:max-w-[768px]",
+        noticeListData?.content?.length === 0 || !noticeListData
+          ? "bg-transparent"
+          : "bg-white"
       )}
     >
       <div className={cn("sticky top-0 z-10", "mobile:hidden")}>
@@ -71,7 +70,7 @@ const NoticePageContent = () => {
         className={cn(
           "w-full max-w-[720px] h-auto rounded-b-[5px]",
           "tablet:max-w-[688px]",
-          "mobile:w-full",
+          "mobile:max-w-[768px]",
           !!noticeListData?.content?.length &&
             "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"
         )}
