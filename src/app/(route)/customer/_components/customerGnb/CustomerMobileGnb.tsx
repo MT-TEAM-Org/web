@@ -3,13 +3,21 @@
 import Small_Search from "@/app/_components/icon/Small_Search";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import SearchFilter from "@/app/(route)/mypage/_components/SearchFilter";
 import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 import { cn } from "@/utils";
 import { useAdminRole } from "../../_utils/adminChecker";
 
 const CustomerMobileGnb = () => {
+  return (
+    <Suspense fallback={""}>
+      <Page />
+    </Suspense>
+  );
+};
+
+const Page = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchType, setSearchType] = useState("TITLE");
 
