@@ -23,7 +23,13 @@ const FindAccount = () => {
   const findIdPasswordStyle =
     "w-1/2 flex items-center justify-center rounded-t-[5px] cursor-pointer border-gray-600 border-[#303030] text-[#424242]";
   return (
-    <div className="min-h-[calc(100vh-516px)]">
+    <div
+      className={cn(
+        "min-h-[calc(100vh-516px)]",
+        "tablet:min-h-[calc(100vh-555.67px)]",
+        "mobile:h-full"
+      )}
+    >
       <div
         className={cn(
           "w-[328px] min-h-[480px] mx-auto mt-[40px] select-none",
