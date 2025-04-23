@@ -75,7 +75,7 @@ const MypageLeftSidebar = () => {
         className={cn(
           "w-full bg-[#FFFFFF] rounded-[5px]",
           "tablet:flex tablet:rounded-b-none tablet:items-center",
-          "mobile:flex mobile:h-[48px] mobile:border-b-2 mobile:border-gray3 mobile:w-[768px]"
+          "mobile:flex mobile:h-[48px] mobile:border-b-2 mobile:border-gray3 mobile:w-[768px] mobile:rounded-none"
         )}
       >
         {boardList.map((board) => {
