@@ -7,6 +7,7 @@ import ConfirmModal from "@/app/_components/ConfirmModal";
 import useLogout from "@/_hooks/fetcher/mypage/useLogout";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { cn } from "@/utils";
+import useRouteHome from "@/_hooks/fetcher/mypage/useRouteHome";
 
 const MypageLeftSidebar = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const MypageLeftSidebar = () => {
   const userRole = authCheckData?.data?.data?.role;
   const [show, setShow] = useState(false);
   const { mutate: logout, isPending: logoutIsPending } = useLogout();
+  useRouteHome();
 
   useEffect(() => {
     if (show) {
@@ -75,7 +77,7 @@ const MypageLeftSidebar = () => {
         className={cn(
           "w-full bg-[#FFFFFF] rounded-[5px]",
           "tablet:flex tablet:rounded-b-none tablet:items-center",
-          "mobile:flex mobile:h-[48px] mobile:border-b-2 mobile:border-gray3 mobile:w-[768px]"
+          "mobile:flex mobile:h-[48px] mobile:border-b-2 mobile:border-gray3 mobile:w-[768px] mobile:rounded-none"
         )}
       >
         {boardList.map((board) => {

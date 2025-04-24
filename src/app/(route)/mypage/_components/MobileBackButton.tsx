@@ -96,7 +96,7 @@ const MobileBackButton = ({ mode }: MobileBackButtonProps) => {
         )}
       </div>
       {showSearchType ? (
-        <div className="mx-[8px]">
+        <div className="w-full ml-[8px]">
           <SearchFilter
             onSearchTypeChange={handleSearchTypeChange}
             searchType={searchType}
@@ -105,6 +105,7 @@ const MobileBackButton = ({ mode }: MobileBackButtonProps) => {
             commentType={commentType}
             onCommentTypeChange={handleCommentTypeChange}
             mode={mode}
+            isMobileGnb={true}
           />
         </div>
       ) : (

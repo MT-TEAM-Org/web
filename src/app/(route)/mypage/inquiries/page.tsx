@@ -7,7 +7,8 @@ const Inquiries = () => {
     <Suspense fallback={""}>
       <div
         className={cn(
-          "max-w-[720px] min-h-[450px] bg-[#FAFAFA] rounded-[5px]",
+          "pc:min-h-[450px] bg-[#FAFAFA] rounded-[5px]",
+          "tablet:mb-[40px]",
           "mobile:bg-white"
         )}
       >

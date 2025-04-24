@@ -20,7 +20,7 @@ const useDeleteAccount = () => {
       localStorage.removeItem("accessToken");
       queryClient.refetchQueries({ queryKey: ["authCheck"] });
       logout();
-      router.push("/");
+      router.replace("/");
     },
   });
 };

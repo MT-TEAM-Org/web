@@ -19,7 +19,7 @@ const useLogout = () => {
       queryClient.invalidateQueries({ queryKey: ["myCommentList"] });
       queryClient.invalidateQueries({ queryKey: ["userInfo"] });
       queryClient.invalidateQueries({ queryKey: ["mypage"] });
-      router.push("/");
+      router.replace("/");
     },
   });
 };

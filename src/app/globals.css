@@ -205,3 +205,18 @@ button {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* 서비스소개 애니메이션 */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 65s linear infinite;
+}
