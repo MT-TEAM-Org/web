@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import Arrow_right from "@/app/_components/icon/Arrow_right";
 import ScheduleItem from "./scheduleItem";
 import EmptyScheduleItem from "./EmptyScheduleItem";
 import { motion, AnimatePresence } from "framer-motion";
