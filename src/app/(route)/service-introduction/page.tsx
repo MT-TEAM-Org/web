@@ -23,6 +23,7 @@ export const metadata = {
       },
     ],
   },
+  keywords: ["플레이하이브", "서비스소개"],
 };
 
 const Page = () => {

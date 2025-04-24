@@ -19,6 +19,7 @@ export const metadata = {
       },
     ],
   },
+  keywords: ["플레이하이브", "뉴스", "게시판", "통합검색"],
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
