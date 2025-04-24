@@ -153,7 +153,7 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
                       if (subItem.title === "로그아웃") {
                         logout();
                         onClose();
-                        router.push("/");
+                        router.replace("/");
                       } else if (subItem.link) {
                         handleRoute(subItem.link);
                       }
