@@ -28,6 +28,7 @@ export const metadata: Metadata = {
       },
     ],
   },
+  keywords: ["플레이하이브", "스포츠", "E스포츠", "커뮤니티", "축구", "야구"],
 };
 
 export default function RootLayout({

@@ -6,10 +6,8 @@ import { formatDate } from "@/utils/formatData";
 import Image from "next/image";
 import EmptyEsportsBox from "../(route)/main/_components/EmptyEsportsBox";
 import { motion, AnimatePresence } from "framer-motion";
-import Arrow_right from "@/app/_components/icon/Arrow_right";
 import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/utils";
-import Arrow_left from "./icon/Arrow_left";
 import CustomIcon from "./IconComponents/Icon";
 
 interface EsportsScheduleProps {
@@ -69,9 +67,9 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
     } else if (totalGroups > 0) {
-      setCurrentPage(totalGroups - 1); 
+      setCurrentPage(totalGroups - 1);
     }
-    setSelectedItemId(null); 
+    setSelectedItemId(null);
   };
 
   const handleNextPage = () => {
@@ -203,7 +201,7 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
             onClick={handlePrevPage}
             disabled={totalGroups <= 1}
             className={cn(
-              "min-w-[40px] w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 ml-6",
+              "min-w-[40px] w-[40px] h-[40px] mb-[12px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 ml-6",
               "tablet: tablet:right-0",
               "mobile: mobile:right-0"
             )}
