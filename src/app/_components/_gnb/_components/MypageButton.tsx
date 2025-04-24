@@ -84,6 +84,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
         !show && "cursor-pointer"
       }`}
       onMouseEnter={() => setIsDropDown(true)}
+      onMouseLeave={() => setIsDropDown(false)}
     >
       <div className="w-fit h-fit flex justify-center items-center gap-4 px-4 py-2 rounded-full bg-bg0">
         <div
@@ -131,16 +132,15 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
               <li
                 key={index}
                 className={`
-                  w-full
+                  w-[252px] h-[48px] text-left cursor-pointer  px-4 py-1 flex items-center hover:bg-bg0
                   ${isLastItem ? "h-[58px]" : "h-[48px]"}
                   ${!isFirstItem ? "border-b border-gray2" : ""}
-                  px-4 py-2 flex items-center hover:bg-bg0
                 `}
+                onClick={() => handleClickMenu(item)}
               >
                 <button
-                  onClick={() => handleClickMenu(item)}
                   disabled={logoutIsPending}
-                  className="text-gray7 text-[16px] font-medium w-full h-full text-left leading-[26px] tracking-[-0.02em] hover:text-gra "
+                  className=" leading-[26px] text-gray7 text-[16px] font-medium  tracking-[-0.02em]"
                 >
                   {item.name}
                 </button>
