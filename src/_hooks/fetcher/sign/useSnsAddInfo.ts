@@ -20,7 +20,7 @@ const useSnsAddInfo = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["authCheck"] });
       login();
-      router.push("/");
+      router.replace("/");
     },
   });
 };

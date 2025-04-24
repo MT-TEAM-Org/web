@@ -17,6 +17,7 @@ import SnsSignup from "./SnsSignup";
 import useSnsAddInfo from "@/_hooks/fetcher/sign/useSnsAddInfo";
 import useHandleRefreshToken from "@/_hooks/fetcher/sign/useHandleRefreshToken";
 import usePrefillFormFromAuth from "@/_hooks/fetcher/sign/usePrefillFormFromAuth";
+import { cn } from "@/utils";
 
 interface Selected {
   allAgree: boolean;
@@ -161,7 +162,7 @@ const Signup = () => {
       {show.service || show.personal || show.sequence ? (
         <TearmsModal show={show} setShow={setShow} />
       ) : null}
-      <div className="mb-[80px]">
+      <div className={cn("mb-[80px]", "tablet:mb-[37px]")}>
         <AccountHelp signState="signup" />
       </div>
     </>
