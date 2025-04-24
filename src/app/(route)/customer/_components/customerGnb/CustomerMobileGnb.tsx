@@ -75,6 +75,10 @@ const Page = () => {
     return false;
   };
 
+  const isPolicyOrTerms = () => {
+    return listUrl === "privacy-policy" || listUrl === "terms";
+  };
+
   const handleSearchTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchType(e.target.value);
   };
@@ -90,7 +94,6 @@ const Page = () => {
     );
   };
 
-  // 작성 페이지 여부 확인
   const isWritePage = () => {
     return (
       infoUrl === "write" && (writeUrl === "notice" || writeUrl === "feedback")
@@ -146,7 +149,7 @@ const Page = () => {
                 !shouldShowWriteButton() && "min-w-[48px]"
               )}
             >
-              {!isWritePage() && (
+              {!isWritePage() && !isPolicyOrTerms() && (
                 <div
                   onClick={handleSearchClick}
                   className="w-[24px] h-[24px] cursor-pointer"

@@ -85,7 +85,7 @@ const FeedbackPage = () => {
 
       <div
         className={cn(
-          "w-full max-w-[720px] h-auto rounded-b-[5px] overflow-hidden",
+          "w-full max-w-[720px] h-auto rounded-b-[5px] overflow-hidden bg-white",
           "tablet:max-w-[688px]",
           "mobile:max-w-[768px]",
           !!feedbackDataList?.content?.length &&
