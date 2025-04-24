@@ -70,7 +70,7 @@ const MatchMobileGnb = ({ type }: MobileGnbProps) => {
           )}
         </div>
       ) : (
-        <h1 className="w-full text-center font-bold text-[16px] leading-[26px] tracking-[-0.02em] text-black">
+        <h1 className="w-full text-start font-bold text-[16px] leading-[26px] tracking-[-0.02em] text-black">
           서비스소개
         </h1>
       )}
