@@ -6,7 +6,6 @@ import { cn } from "@/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import MatchMobileGnbModal from "./MatchMobileGnbModal";
-import Link from "next/link";
 
 interface MobileGnbProps {
   type: "match" | "service";
@@ -31,6 +30,14 @@ const MatchMobileGnb = ({ type }: MobileGnbProps) => {
   const onClose = () => setIsModalOpen(false);
   const onOpen = () => setIsModalOpen(true);
 
+  const handleToRouting = () => {
+    if (type === "match") {
+      router.push("/");
+    } else {
+      router.back();
+    }
+  };
+
   return (
     <div
       className={cn(
@@ -39,14 +46,15 @@ const MatchMobileGnb = ({ type }: MobileGnbProps) => {
         "pc:hidden tablet:hidden"
       )}
     >
-      <Link href={"/"}>
-        <div className="w-[48px] h-[48px] flex items-center justify-center cursor-pointer">
-          <CustomIcon
-            icon="MOBILE_ARROW_LEFT"
-            className="w-[18px] h-[18px] text-white"
-          />
-        </div>
-      </Link>
+      <div
+        onClick={handleToRouting}
+        className="w-[48px] h-[48px] flex items-center justify-center cursor-pointer"
+      >
+        <CustomIcon
+          icon="MOBILE_ARROW_LEFT"
+          className="w-[18px] h-[18px] text-white"
+        />
+      </div>
 
       {type === "match" ? (
         <div className="w-full flex items-center justify-between">
