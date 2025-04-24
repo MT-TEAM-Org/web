@@ -205,3 +205,18 @@ button {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* 서비스소개 애니메이션 */
+@keyframes scrollX {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.scroll-x-animation {
+  animation: scrollX 30s linear infinite;
+}

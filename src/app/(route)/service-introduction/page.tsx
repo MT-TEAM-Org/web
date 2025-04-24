@@ -7,6 +7,7 @@ import Service_PlayHive from "@/app/_components/icon/Service_PlayHive";
 import Link from "next/link";
 import { cn } from "@/utils";
 import MatchMobileGnb from "../matchBroadcast/_components/matchGnb/MatchMobileGnb";
+import ServiceAnimation from "./_components/ServiceAnimation";
 
 export const metadata = {
   title: "PlayHive 서비스소개 페이지",
@@ -133,6 +134,7 @@ const Page = () => {
         )}
       >
         {/* 애니메이션 들어갈 부분 */}
+        <ServiceAnimation />
         <div
           className={cn(
             "w-[520px] min-h-[296px] rounded-[20px] p-10 flex gap-6 shadow-sm bg-white z-10",
