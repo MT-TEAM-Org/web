@@ -24,12 +24,18 @@ const NavSearch = () => {
     router.push(searchPath);
   };
 
+  console.log(pathname);
+  const isSearchPage = pathname.includes("/total-search");
+
   useEffect(() => {
-    if (isSearching) {
+    if (!isSearchPage) {
       setIsValue("");
+    }
+
+    if (isSearching) {
       setIsSearching(false);
     }
-  }, [pathname, isSearching]);
+  }, [pathname]);
 
   return (
     <div

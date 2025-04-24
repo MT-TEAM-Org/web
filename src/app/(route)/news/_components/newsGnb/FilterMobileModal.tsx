@@ -34,6 +34,11 @@ const FilterMobileModal = ({
     { link: "YEARLY", name: "연간", id: "4" },
   ];
 
+  const handleOptionClick = () => {
+    setAnimate(false);
+    setTimeout(onClose, 200);
+  };
+
   return (
     <div
       onClick={onClose}
@@ -58,6 +63,7 @@ const FilterMobileModal = ({
                 page: "1",
               },
             }}
+            onClick={handleOptionClick}
             className={`flex items-center justify-center w-full h-[48px] py-[16px] px-[12px] border-b border-gray2 last:border-none cursor-pointer ${
               currentTime === item.link ? "text-gra" : "text-black"
             }`}
