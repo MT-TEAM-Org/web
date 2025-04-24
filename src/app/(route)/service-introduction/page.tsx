@@ -133,7 +133,6 @@ const Page = () => {
           "mobile:h-[236px]"
         )}
       >
-        {/* 애니메이션 들어갈 부분 */}
         <ServiceAnimation />
         <div
           className={cn(
