@@ -4,6 +4,7 @@ import { useState } from "react";
 import FindId from "./_components/FindId";
 import FindPassword from "./_components/FindPassword";
 import { cn } from "@/utils";
+import useRouteHome from "@/_hooks/fetcher/mypage/useRouteHome";
 
 interface Tabs {
   id: "findId" | "findPassword";
@@ -14,6 +15,7 @@ const FindAccount = () => {
   const [findAccountState, setFindAccountState] = useState<
     "findId" | "findPassword"
   >("findId");
+  useRouteHome(true);
 
   const tabs: Tabs[] = [
     { id: "findId", label: "아이디 찾기" },

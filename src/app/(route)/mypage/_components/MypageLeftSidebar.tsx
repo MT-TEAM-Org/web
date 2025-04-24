@@ -7,6 +7,7 @@ import ConfirmModal from "@/app/_components/ConfirmModal";
 import useLogout from "@/_hooks/fetcher/mypage/useLogout";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { cn } from "@/utils";
+import useRouteHome from "@/_hooks/fetcher/mypage/useRouteHome";
 
 const MypageLeftSidebar = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const MypageLeftSidebar = () => {
   const userRole = authCheckData?.data?.data?.role;
   const [show, setShow] = useState(false);
   const { mutate: logout, isPending: logoutIsPending } = useLogout();
+  useRouteHome();
 
   useEffect(() => {
     if (show) {
