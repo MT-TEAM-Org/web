@@ -28,7 +28,7 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
 
   const paramsConfig = {
     category: newsType,
-    orderType: searchParams.get("order_type") || "DATE",
+    orderType: searchParams.get("order_type") || "CREATE",
     timePeriod: searchParams.get("time") || "DAILY",
     content: searchParams.get("content") || "",
     page: searchParams.get("page") || "1",
