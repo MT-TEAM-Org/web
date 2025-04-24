@@ -67,8 +67,12 @@ const LeftSidebar = () => {
                 `w-full h-[52px] px-[16px] py-[12px] flex justify-start items-center cursor-pointer bg-white hover:text-gra ${
                   isActive ? "font-[700] text-gra" : "font-[400] text-gray7"
                 }`,
-                "tablet:w-full tablet:min-w-[98.29px]",
-                "mobile:w-full mobile:h-full mobile:text-center mobile:py-[13px] mobile:px-[16px] mobile:whitespace-nowrap"
+                "tablet:w-full tablet:min-w-[98.29px] tablet:text-center",
+                `mobile:w-full mobile:h-full mobile:text-center mobile:py-[13px] mobile:px-[16px] mobile:whitespace-nowrap mobile:border-b-2 ${
+                  isActive
+                    ? "mobile:border-b-2 mobile:border-gray7 mobile:text-[#424242] mobile:font-bold"
+                    : "mobile:text-gray5"
+                }`
               )}
             >
               <p className="w-full mobile:w-full">{board.name}</p>

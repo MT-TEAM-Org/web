@@ -141,7 +141,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
                 <span className="font-medium text-[12px] leading-[18px] text-gray5">
                   {CalculateTime(data?.createdAt)}
                 </span>
-                <span className="font-medium text-[12px] leading-[18px] text-gray5">
+                <span className="font-medium text-[12px] leading-[18px] text-gray5 mobile:max-w-[32px] mobile:truncate mobile:overflow-hidden mobile:whitespace-nowrap">
                   {data?.nickname}
                 </span>
                 <span className="font-medium text-[12px] leading-[18px] text-gray4">

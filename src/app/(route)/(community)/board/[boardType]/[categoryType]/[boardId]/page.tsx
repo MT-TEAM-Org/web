@@ -42,7 +42,7 @@ const BoardDetailPage = ({ params }: { params: Promise<BoardDetailProps> }) => {
       className={cn(
         "w-full max-w-[720px]",
         "tablet:w-full tablet:max-w-[688px] tablet:mx-auto",
-        "mobile:mx-auto mobile:w-full mobile:max-w-[768px] mobile:overflow-x-hidden"
+        "mobile:mx-auto mobile:w-full mobile:max-w-[768px]"
       )}
     >
       <div className="w-full max-w-[768px] min-w-[360px] hidden mobile:block mobile:w-full sticky top-0 z-10">
@@ -53,14 +53,14 @@ const BoardDetailPage = ({ params }: { params: Promise<BoardDetailProps> }) => {
       </div>
       <div
         className="w-full pc:min-w-[720px] min-w-[688px] min-h-[100px] tablet:w-full tablet:max-w-[688px] tablet:flex tablet:flex-col tablet:justify-center tablet:items-center tablet:mx-auto
-"
+mobile:w-full mobile:max-w-[768px] mobile:min-w-[360px]"
       >
         <BoardDetail boardId={boardId} />
       </div>
       <div className="w-full tablet:w-full tablet:max-w-[688px] mobile:hidden">
         <CommunityToolbar boardType={boardType} pageInfo={pageInfo} />
       </div>
-      <div className="w-full min-h-[120px] tablet:w-full tablet:max-w-[688px] tablet:mx-auto mobile:bg-white">
+      <div className="w-full min-h-[120px] tablet:w-full tablet:max-w-[688px] tablet:mx-auto bg-white">
         <PostItem
           boardType={boardType}
           categoryType={categoryType}

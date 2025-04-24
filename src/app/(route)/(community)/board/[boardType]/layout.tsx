@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "flex flex-col w-full justify-center items-center bg-gray1 mobile:w-full mobile:max-w-[768px] mobile:min-w-[360px] mobile:mx-auto"
+        "flex flex-col w-full justify-center items-center bg-gray1 pb-[40px] mobile:pb-0 mobile:w-full mobile:max-w-[768px] mobile:min-w-[360px] mobile:mx-auto"
       )}
     >
       <Banner />

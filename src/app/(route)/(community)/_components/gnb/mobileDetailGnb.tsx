@@ -24,7 +24,7 @@ const MobileDetailGnb = ({ boardId }: MobileDetailGnbProps) => {
     <div className="w-full max-w-[768px] h-[48px] flex justify-between items-center bg-white border border-gray2 sticky top-0 z-10">
       <div className="w-full h-full flex items-center">
         <div
-          onClick={() => router.push("/")}
+          onClick={() => router.back()}
           className="flex items-center justify-center w-[48px] h-[48px] p-[10px]"
         >
           <CustomIcon
