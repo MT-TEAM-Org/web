@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect } from "react";
 import useReissue from "./useReissue";
-import { useAuthStore } from "@/utils/Store";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAuthStore } from "@/utils/Store";
 
 const fetchAuthCheck = async () => {
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}api/me`, {
@@ -48,12 +48,14 @@ const useAuthCheck = () => {
 
     if (query.isError && typeof window !== "undefined") {
       localStorage.removeItem("accessToken");
-      queryClient.invalidateQueries({ queryKey: ["authCheck"] });
+      queryClient.refetchQueries({ queryKey: ["authCheck"] });
       queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
       queryClient.invalidateQueries({ queryKey: ["myPostList"] });
       queryClient.invalidateQueries({ queryKey: ["myCommentList"] });
       queryClient.invalidateQueries({ queryKey: ["userInfo"] });
       queryClient.invalidateQueries({ queryKey: ["mypage"] });
+      queryClient.invalidateQueries({ queryKey: ["commentList"] });
+      queryClient.invalidateQueries({ queryKey: ["bestComment"] });
       logout();
     }
   }, [query.isError]);

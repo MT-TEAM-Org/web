@@ -13,6 +13,8 @@ import { CommentItem, CommentType } from "@/_types/comment";
 import usePostComment from "@/_hooks/fetcher/comment/usePostComment";
 import { cn } from "@/utils";
 import useIsMobile from "@/utils/useIsMobile";
+import { useAuthStore } from "@/utils/Store";
+import SignInModalPopUp from "../SignInModalPopUp";
 
 interface SendCommentBoxProps {
   id?: string;
@@ -40,6 +42,8 @@ const SendCommentBox = ({
   const { data: authCheckData } = useAuthCheck();
   const mentionedPublicId = authCheckData?.data?.data?.publicId;
   const isMobile = useIsMobile();
+  const { isLoggedIn } = useAuthStore();
+  const [guestModal, setGuestModal] = useState(false);
 
   const maxChars = selectedImage ? 70 : 78;
 
@@ -77,6 +81,10 @@ const SendCommentBox = ({
   };
 
   const handleFileSelect = () => {
+    if (!isLoggedIn) {
+      setGuestModal(true);
+      return;
+    }
     fileInputRef.current?.click();
   };
 
@@ -110,6 +118,10 @@ const SendCommentBox = ({
     e: React.FormEvent | React.KeyboardEvent
   ) => {
     e.preventDefault();
+    if (!isLoggedIn) {
+      setGuestModal(true);
+      return;
+    }
     if (!inputValue.trim() && !selectedImage) return;
     if (isSubmittingRef.current) return;
     isSubmittingRef.current = true;
@@ -260,6 +272,10 @@ const SendCommentBox = ({
           </button>
         </div>
       </form>
+      <SignInModalPopUp
+        isOpen={guestModal}
+        onClose={() => setGuestModal(false)}
+      />
     </div>
   );
 };
