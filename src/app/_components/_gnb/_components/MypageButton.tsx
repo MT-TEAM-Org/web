@@ -84,6 +84,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
         !show && "cursor-pointer"
       }`}
       onMouseEnter={() => setIsDropDown(true)}
+      onMouseLeave={() => setIsDropDown(false)}
     >
       <div className="w-fit h-fit flex justify-center items-center gap-4 px-4 py-2 rounded-full bg-bg0">
         <div
