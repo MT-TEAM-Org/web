@@ -5,8 +5,21 @@ import { RightSideBar } from "../../_components/RightSideBar";
 import { cn } from "@/utils";
 
 export const metadata = {
-  title: "게시판 페이지",
-  description: "게시판 페이지입니다.",
+  title: "PlayHive 게시판 페이지",
+  description: "PlayHive 게시판 페이지입니다.",
+  openGraph: {
+    title: "PlayHive 게시판 페이지",
+    description: "PlayHive 게시판 페이지입니다.",
+    images: [
+      {
+        url: "https://playhive.co.kr/Metadata.png",
+        alt: "PlayHive 미리보기 이미지",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  keywords: ["플레이하이브", "게시판", "커뮤니티", "E스포츠", "축구", "야구"],
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
