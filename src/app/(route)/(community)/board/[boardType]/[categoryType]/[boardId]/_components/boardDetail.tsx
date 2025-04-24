@@ -23,6 +23,7 @@ import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import MobileDetailGnb from "@/app/(route)/(community)/_components/gnb/mobileDetailGnb";
 import { cn } from "@/utils";
+import useTimeAgo from "@/utils/useTimeAgo";
 
 interface BoardDetailProps {
   boardId: string;
@@ -41,6 +42,8 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
     null
   );
   const pathname = usePathname();
+  const formattedTime = useTimeAgo(boardDetailData?.data?.createDate);
+  console.log(boardDetailData);
 
   const maskIP = (ip: string) => {
     if (!ip) return "";
@@ -160,7 +163,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                   <p className="font-medium">
                     {getKoreanCategoryType(boardDetailData?.data?.categoryType)}
                   </p>
-                  <p className="font-medium">1분 전</p>
+                  <p className="font-medium">{formattedTime}</p>
                   <div className="flex gap-x-[4px] font-medium">
                     <p className="font-bold">조회수</p>
                     <p> {boardDetailData?.data?.viewCount}</p>
