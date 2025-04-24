@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import Arrow_right from "@/app/_components/icon/Arrow_right";
 import ScheduleItem from "./scheduleItem";
 import EmptyScheduleItem from "./EmptyScheduleItem";
 import { motion, AnimatePresence } from "framer-motion";
@@ -235,7 +234,7 @@ const ScheduleContainer = ({
               </motion.div>
             </AnimatePresence>
           </div>
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-[12px]">
             <button
               onClick={handlePrevPage}
               disabled={allScheduleData.length <= itemsPerPage}
