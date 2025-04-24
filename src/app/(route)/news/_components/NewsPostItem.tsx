@@ -96,7 +96,7 @@ const NewsPostItem = ({
       onClick={handleToInfo}
       className={cn(
         `w-full ${getMinHeightClass()} flex items-center gap-3 border-b border-gray1 p-3 bg-white cursor-pointer hover:bg-bg0`,
-        "mobile:p-2"
+        "mobile:p-4"
       )}
     >
       <div
