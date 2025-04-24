@@ -164,12 +164,7 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
         <hr />
 
         {(data?.imgUrl || youtubeEmbedUrl) && (
-          <div
-            className={cn(
-              "w-full max-w-[672px] min-h-[188px] flex flex-col gap-3",
-              "mobile:min-h-[128px]"
-            )}
-          >
+          <div className="w-full flex flex-col gap-3 aspect-video">
             {data?.imgUrl && !youtubeEmbedUrl && (
               <Image
                 src={data?.imgUrl}
@@ -187,6 +182,7 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+                className="mobile:h-full"
               />
             )}
             {!youtubeEmbedUrl && data?.link && (

@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "w-screen min-h-[calc(100vh-188px)] bg-gray1",
+        "w-full min-h-[calc(100vh-188px)] bg-gray1",
         "tablet:max-w-[1279px]",
         "mobile:w-full mobile:mx-0 mobile:min-h-fit"
       )}

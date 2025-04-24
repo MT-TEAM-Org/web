@@ -278,11 +278,12 @@ const NewsInfo = ({
           type="NEWS"
         />
       </div>
+
       <div
         className={cn(
-          "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden",
-          "tablet:max-w-[687px]",
-          "mobile:w-full mobile:max-w-full mobile:min-h-[56px]"
+          "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden mt-2",
+          "tablet:max-w-[687px] tablet:mt-3",
+          "mobile:w-full mobile:max-w-full mobile:min-h-[56px] mobile:mt-4"
         )}
       >
         <NewsTalkToolbar
@@ -320,7 +321,7 @@ const NewsInfo = ({
               />
             ))
           )}
-          {newsListData?.pagInfo?.totalPage > 0 && (
+          {newsListData?.pageInfo?.totalPage > 0 && (
             <div
               className={cn(
                 "hidden",

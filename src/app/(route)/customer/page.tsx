@@ -68,7 +68,7 @@ const NoticePageContent = () => {
 
       <div
         className={cn(
-          "w-full max-w-[720px] h-auto rounded-b-[5px]",
+          "w-full max-w-[720px] h-auto rounded-b-[5px] bg-white",
           "tablet:max-w-[688px]",
           "mobile:max-w-[768px]",
           !!noticeListData?.content?.length &&

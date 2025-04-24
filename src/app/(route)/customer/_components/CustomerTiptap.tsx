@@ -20,6 +20,7 @@ import LinkPreview from "@/app/_components/LinkPreview";
 import Toolbar from "@/app/_components/_tiptap/Toolbar";
 import { guideItems, NOTICE_RULES } from "../_utils/noticeRules";
 import { cn } from "@/utils";
+import { useToast } from "@/_hooks/useToast";
 
 interface FormData {
   boardType: string;
@@ -38,6 +39,7 @@ interface CustomerTiptapProps {
   setValue: UseFormSetValue<FormData>;
   onSubmit?: () => void;
   writeType: string;
+  isTitleOverLimit: boolean;
 }
 
 const isYoutubeLink = (url: string) => {
@@ -53,13 +55,16 @@ const CustomerTiptap = ({
   onImageUpload,
   onSubmit,
   writeType,
+  isTitleOverLimit,
 }: CustomerTiptapProps) => {
   const router = useRouter();
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
+  const { error: errorToast } = useToast();
   const [showPlaceholder, setShowPlaceholder] = useState(
     !initialContent || initialContent === "" || initialContent === "<p></p>"
   );
+  const [isOverLimit, setIsOverLimit] = useState(false);
 
   const editor = useEditor({
     extensions: [
@@ -137,6 +142,17 @@ const CustomerTiptap = ({
       },
     },
     onUpdate: ({ editor }) => {
+      const text = editor.getText();
+      if (text.length > 1000) {
+        setIsOverLimit(true);
+        errorToast(
+          "입력 제한 초과",
+          "본문은 최대 1000자까지 입력할 수 있습니다."
+        );
+        return;
+      } else {
+        setIsOverLimit(false);
+      }
       const html = editor.getHTML();
       const hasContent = html !== "" && html !== "<p></p>";
 
@@ -291,12 +307,16 @@ const CustomerTiptap = ({
         </button>
         <button
           type="button"
+          disabled={isOverLimit || isTitleOverLimit}
           onClick={() => {
             if (onSubmit) onSubmit();
           }}
           className={cn(
-            "w-[120px] h-[40px] bg-gra text-white rounded-[5px]",
-            "mobile:w-full mobile:h-[48px] mobile:text-center mobile:text-[16px] mobile:font-bold mobile:text-white"
+            "w-[120px] h-[40px] rounded-[5px] transition-all duration-200 ease-in-out",
+            isOverLimit || isTitleOverLimit
+              ? "bg-gray-300 text-white cursor-not-allowed"
+              : "bg-gra text-white",
+            "mobile:w-full mobile:h-[48px] mobile:text-center mobile:text-[16px] mobile:font-bold"
           )}
         >
           작성완료
