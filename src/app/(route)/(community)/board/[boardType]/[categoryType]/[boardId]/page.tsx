@@ -41,7 +41,7 @@ const BoardDetailPage = ({ params }: { params: Promise<BoardDetailProps> }) => {
     <div
       className={cn(
         "w-full max-w-[720px]",
-        "tablet:max-w-[688px] tablet:mx-auto",
+        "tablet:w-full tablet:max-w-[688px] tablet:mx-auto",
         "mobile:mx-auto mobile:w-full mobile:max-w-[768px] mobile:overflow-x-hidden"
       )}
     >
@@ -52,7 +52,7 @@ const BoardDetailPage = ({ params }: { params: Promise<BoardDetailProps> }) => {
         <LeftSidebar />
       </div>
       <div
-        className="w-full min-w-[720px] min-h-[100px] tablet:flex tablet:flex-col tablet:justify-center tablet:items-center tablet:mx-auto
+        className="w-full pc:min-w-[720px] min-w-[688px] min-h-[100px] tablet:w-full tablet:max-w-[688px] tablet:flex tablet:flex-col tablet:justify-center tablet:items-center tablet:mx-auto
 "
       >
         <BoardDetail boardId={boardId} />

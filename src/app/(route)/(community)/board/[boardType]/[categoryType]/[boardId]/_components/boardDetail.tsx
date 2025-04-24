@@ -21,7 +21,6 @@ import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import { CommentItem } from "@/_types/comment";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
-import MobileDetailGnb from "@/app/(route)/(community)/_components/gnb/mobileDetailGnb";
 import { cn } from "@/utils";
 import useTimeAgo from "@/utils/useTimeAgo";
 
@@ -141,7 +140,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-[16px] w-full max-w-[720px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D] mobile:max-w-[768px]">
+      <div className="flex flex-col gap-[16px] w-full pc:min-w-[720px] tablet:w-full tablet:max-w-[688px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D] mobile:max-w-[768px]">
         <div className="w-full max-w-[672px] mobile:w-full mobile:max-w-[768px]">
           {isLoading ? (
             <div className="py-4">

@@ -104,7 +104,7 @@ export const CommunityToolbar = ({
         <BoardMobile />
         <LeftSidebar />
       </div>
-      <div className="mobile:hidden w-full flex justify-between items-center min-h-[64px] p-[12px] border-b mobile:w-full mobile:max-w-[768px]">
+      <div className="mobile:hidden w-full pc:min-w-[720px] flex justify-between items-center min-h-[64px] p-[12px] border-b mobile:w-full mobile:max-w-[768px]">
         <button
           onClick={handleWriteClick}
           className="defaultButtonColor w-[120px] h-[40px] rounded-[5px] px-[16px] py-[13px] text-white font-[700] text-[14px] leading-[14px]"
