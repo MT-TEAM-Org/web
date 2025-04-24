@@ -238,7 +238,7 @@ const FeedbackInfo = () => {
             </div>
             <hr />
             {(feedbackInfoData?.imgUrl || youtubeEmbedUrl) && (
-              <div className="w-full min-h-auto flex flex-col gap-3">
+              <div className="w-full flex flex-col gap-3 aspect-video">
                 {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
                   <Image
                     src={feedbackInfoData?.imgUrl}
@@ -257,7 +257,7 @@ const FeedbackInfo = () => {
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="mobile:h-[240px]"
+                    className="mobile:h-full"
                   />
                 )}
                 {!youtubeEmbedUrl && feedbackInfoData?.data?.link && (
