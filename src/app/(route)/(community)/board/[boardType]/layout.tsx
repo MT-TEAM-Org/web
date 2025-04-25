@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "flex flex-col w-full justify-center items-center bg-gray1 mobile:w-full mobile:mx-auto"
+        "flex flex-col w-full justify-center items-center bg-gray1 pb-[40px] mobile:pb-0 mobile:w-full mobile:max-w-[768px] mobile:min-w-[360px] mobile:mx-auto"
       )}
     >
       <Banner />
@@ -39,7 +39,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div
           className={cn(
             "flex-1 max-w-[720px] min-h-[120px]",
-            "tablet:min-w-[688px] tablet:w-full tablet:mx-auto",
+            "tablet:max-w-[688px] tablet:w-full tablet:mx-auto",
             "mobile:w-full mobile:max-w-[768px] mobile:min-w-0"
           )}
         >
