@@ -96,7 +96,6 @@ export const CommunityToolbar = ({
       icon: <Mini_logo />,
     },
   ];
-  console.log("isShow", isShow);
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[20px] hover:font-[700] hover:text-gray7 hover:border-gray7";
 
