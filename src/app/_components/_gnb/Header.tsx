@@ -14,12 +14,14 @@ export default function Header() {
   const { data: userData, isSuccess, isError } = useAuthCheck();
   const isUnActive = userData?.data?.data?.status !== "ACTIVE";
   const isLogout = isError || !isSuccess;
-  const { isLoggedIn, login } = useAuthStore();
+  const { isLoggedIn, login, logout } = useAuthStore();
   useTokenRefreshOnNavigation();
 
   useEffect(() => {
     if (isSuccess && !isLogout && !isUnActive) {
       login();
+    } else if (isSuccess && isUnActive) {
+      logout();
     }
   }, [isSuccess]);
 

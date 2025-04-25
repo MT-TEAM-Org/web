@@ -93,7 +93,7 @@ const Page = () => {
 
       <div
         className={cn(
-          "w-full max-w-[720px] h-auto rounded-b-[5px]",
+          "w-full max-w-[720px] h-auto rounded-b-[5px] bg-white",
           "tablet:max-w-[688px]",
           "mobile:w-full mobile:max-w-[768px]",
           !!searchData?.content?.length &&

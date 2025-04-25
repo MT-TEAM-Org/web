@@ -17,6 +17,8 @@ import { ReportType } from "@/services/board/types/report";
 import useRecommendComment from "@/_hooks/fetcher/comment/useRecommendComment";
 import useDeleteRecommendComment from "@/_hooks/fetcher/comment/useDeleteRecommendComment";
 import { cn } from "@/utils";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
+import { useAuthStore } from "@/utils/Store";
 
 interface BoardCommentItemProps {
   comment: CommentItem;
@@ -48,10 +50,12 @@ const BoardCommentItem = ({
   } = useDeleteRecommendComment();
   const [show, setShow] = useState(false);
   const [activeModal, setActiveModal] = useState(false);
+  const [guestModal, setGuestModal] = useState(false);
   const [isRecommend, setIsRecommend] = useState({
     recommend: comment?.recommended,
     recommendCount: comment?.recommendCount,
   });
+  const { isLoggedIn } = useAuthStore();
 
   useEffect(() => {
     setIsRecommend({
@@ -63,7 +67,8 @@ const BoardCommentItem = ({
   // publicId: 게시글 작성자의 publicId
   // authCheck?.data?.data?.publicId: 로그인한 사용자의 publicId
   // comment.publicId: 댓글 작성자의 publicId
-  const isCommentAuthor = authCheck?.data?.data?.publicId === comment?.publicId; // 댓글 작성자와 로그인한 사용자가 같은지 확인
+  const isCommentAuthor =
+    isLoggedIn && authCheck?.data?.data?.publicId === comment?.publicId; // 댓글 작성자와 로그인한 사용자가 같은지 확인
   const isBoardAuthor =
     type !== "NEWS" ? comment?.publicId === publicId : undefined; // 게시글 작성자와 댓글 작성자가 같은지 확인
   const reportData = {
@@ -111,6 +116,11 @@ const BoardCommentItem = ({
   };
 
   const handleRecommendComment = (commentId: number) => {
+    if (!isLoggedIn) {
+      setGuestModal(true);
+      return;
+    }
+
     setIsRecommend((prev) => {
       const nextRecommend = !prev.recommend;
       const nextRecommendCount = nextRecommend
@@ -145,7 +155,13 @@ const BoardCommentItem = ({
     });
   };
 
-  const handleReportComment = () => setActiveModal(true);
+  const handleReportComment = () => {
+    if (!isLoggedIn) {
+      setGuestModal(true);
+      return;
+    }
+    setActiveModal(true);
+  };
 
   const recommendDivStyle =
     isRecommend.recommendCount >= 1 ? "min-w-[61px]" : "w-[53px]";
@@ -261,7 +277,13 @@ const BoardCommentItem = ({
           </button>
           <button
             className="inline-flex h-6 items-center justify-center rounded-[5px] border border-gray3 bg-white px-2 py-[6px] gap-[10px] text-[12px] font-medium leading-none tracking-[-0.02em] text-gray7"
-            onClick={() => setParentsComment(comment)}
+            onClick={() => {
+              if (!isLoggedIn) {
+                setGuestModal(true);
+                return;
+              }
+              setParentsComment(comment);
+            }}
           >
             답글 달기
           </button>
@@ -280,6 +302,12 @@ const BoardCommentItem = ({
           <CommentReportModal
             setActiveModal={setActiveModal}
             reportData={reportData}
+          />
+        )}
+        {guestModal && (
+          <SignInModalPopUp
+            isOpen={guestModal}
+            onClose={() => setGuestModal(false)}
           />
         )}
       </div>

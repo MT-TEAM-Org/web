@@ -12,7 +12,7 @@ const useLogin = () => {
     onSuccess: (data) => {
       localStorage.setItem("accessToken", data.headers.authorization);
       queryClient.invalidateQueries({ queryKey: ["authCheck"] });
-      router.push("/");
+      router.replace("/");
     },
   });
 };

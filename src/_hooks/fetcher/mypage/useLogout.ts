@@ -2,24 +2,26 @@
 
 import logout from "@/services/mypage/logout";
 import { useMutation } from "@tanstack/react-query";
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 const useLogout = () => {
-  const queryClient = useQueryClient();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: logout,
     onSuccess: () => {
       localStorage.removeItem("accessToken");
-      queryClient.invalidateQueries({ queryKey: ["authCheck"] });
+      queryClient.refetchQueries({ queryKey: ["authCheck"] });
       queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
       queryClient.invalidateQueries({ queryKey: ["myPostList"] });
       queryClient.invalidateQueries({ queryKey: ["myCommentList"] });
       queryClient.invalidateQueries({ queryKey: ["userInfo"] });
       queryClient.invalidateQueries({ queryKey: ["mypage"] });
-      router.push("/");
+      queryClient.invalidateQueries({ queryKey: ["commentList"] });
+      queryClient.invalidateQueries({ queryKey: ["bestComment"] });
+      router.replace("/");
     },
   });
 };

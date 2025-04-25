@@ -80,13 +80,13 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
 
   const commentTypeURL = {
     BOARD: `/board/${data?.postResponse?.boardType}/${data?.postResponse?.categoryType}/${data?.postResponse?.id}?commentId=${data?.commentResponse?.commentId}`,
-    IMPROVEMENT: `/customer/feedback/feedback-info/${data?.postResponse?.id}`,
+    IMPROVEMENT: `/customer/feedback/feedback-info/${data?.postResponse?.id}?commentId=${data?.commentResponse?.commentId}`,
     INQUIRY: `/mypage/inquiries/${data?.postResponse?.id}`,
     NEWS: `/news/${data?.postResponse?.boardType.toLowerCase()}/news-detail/${
       data?.postResponse?.id
-    }`,
-    NOTICE: `/customer/notice/notice-info/${data?.postResponse?.id}`,
-    MATCH: "경기중계",
+    }?commentId=${data?.commentResponse?.commentId}`,
+    NOTICE: `/customer/notice/notice-info/${data?.postResponse?.id}?commentId=${data?.commentResponse?.commentId}`,
+    MATCH: "",
   };
 
   const getKoreanBoardType = (type: string) => {

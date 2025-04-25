@@ -19,11 +19,13 @@ interface CommunityToolbarProps {
     totalPage: number;
     totalElement: number;
   };
+  isShow?: boolean;
 }
 
 export const CommunityToolbar = ({
   boardType,
   pageInfo,
+  isShow,
 }: CommunityToolbarProps) => {
   const { resetEditState } = useEditStore();
 
@@ -94,17 +96,20 @@ export const CommunityToolbar = ({
       icon: <Mini_logo />,
     },
   ];
-
   const buttonStyle =
     "flex justify-center items-center gap-[4px] h-[32px] rounded-[5px] border px-[8px] py-[12px] text-[14px] leading-[20px] hover:font-[700] hover:text-gray7 hover:border-gray7";
 
   return (
     <div className="w-full max-w-[720px] sticky top-0 bg-white z-10 tablet:max-w-[768px] tablet:mx-auto mobile:w-full mobile:max-w-[768px]">
-      <div className="tablet:w-full mobile:w-full mobile:max-w-[768px] mobile:min-h-[96px] mobile:flex mobile:flex-col h-[52px] pc:hidden block">
+      <div className="mobile:w-full mobile:max-w-[768px] mobile:min-h-[96px] mobile:flex mobile:flex-col h-[52px] pc:hidden block">
         <BoardMobile />
-        <LeftSidebar />
+        {isShow && (
+          <div className="block w-full max-w-[768px] h-[48px]">
+            <LeftSidebar />
+          </div>
+        )}
       </div>
-      <div className="mobile:hidden w-full flex justify-between items-center min-h-[64px] p-[12px] border-b mobile:w-full mobile:max-w-[768px]">
+      <div className="mobile:hidden w-full pc:min-w-[720px] flex justify-between items-center min-h-[64px] p-[12px] border-b mobile:w-full mobile:max-w-[768px]">
         <button
           onClick={handleWriteClick}
           className="defaultButtonColor w-[120px] h-[40px] rounded-[5px] px-[16px] py-[13px] text-white font-[700] text-[14px] leading-[14px]"

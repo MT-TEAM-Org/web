@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import usePostFeedback from "@/_hooks/fetcher/customer/usePostFeedback";
@@ -11,6 +11,7 @@ import getUpload from "@/_hooks/getUpload";
 import usePutPost from "@/_hooks/fetcher/board/usePutPost";
 import CustomerTiptap from "../../_components/CustomerTiptap";
 import { cn } from "@/utils";
+import { useToast } from "@/_hooks/useToast";
 
 const Page = () => {
   return (
@@ -41,6 +42,9 @@ const CustomerWrite = () => {
   const editPost = usePutPost();
   const searchParams = useSearchParams();
   const editParam = searchParams.get("edit");
+  const { error: errorToast } = useToast();
+
+  const [isTitleOverLimit, setIsTitleOverLimit] = useState(false);
 
   useEffect(() => {
     const validTypes = ["notice", "feedback"];
@@ -161,6 +165,19 @@ const CustomerWrite = () => {
           <input
             {...register("title")}
             type="text"
+            maxLength={30}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value.length > 30) {
+                setIsTitleOverLimit(true);
+                errorToast(
+                  "입력 제한 초과",
+                  "제목은 최대 30자까지 입력할 수 있습니다."
+                );
+              } else {
+                setIsTitleOverLimit(false);
+              }
+            }}
             placeholder="제목을 입력해주세요."
             className="px-4 py-2 w-full h-full rounded-md placeholder:text-gray5"
           />
@@ -178,6 +195,7 @@ const CustomerWrite = () => {
           setValue={setValue}
           onSubmit={handleSubmit(onSubmit)}
           writeType={writeType}
+          isTitleOverLimit={isTitleOverLimit}
         />
       </form>
     </div>

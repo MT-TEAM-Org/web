@@ -6,6 +6,7 @@ import Signup from "./Signup";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { cn } from "@/utils";
+import useRouteHome from "@/_hooks/fetcher/mypage/useRouteHome";
 
 interface Tabs {
   id: "login" | "signup";
@@ -16,6 +17,7 @@ function Sign() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const loginSignupState = searchParams.get("sign") || "login";
+  useRouteHome(true);
 
   const tabs: Tabs[] = [
     { id: "login", label: "로그인" },
@@ -53,7 +55,13 @@ function Sign() {
 
 const SignSuspense = () => {
   return (
-    <div className="min-h-[calc(100vh-516px)]">
+    <div
+      className={cn(
+        "min-h-[calc(100vh-516px)]",
+        "tablet:min-h-[calc(100vh-592.67px)] tablet:mb-[37px]",
+        "mobile:h-full"
+      )}
+    >
       <Suspense fallback={""}>
         <Sign />
       </Suspense>

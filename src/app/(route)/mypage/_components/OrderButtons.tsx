@@ -29,9 +29,9 @@ const OrderButtons = ({ orderType, onOrderType }: OrderButtonsProps) => {
       {ORDER_OPTION.map((option) => (
         <button
           key={option.value}
-          className={`${buttonStyle} w-[${option.w}px] ${
-            option.value === orderType && "font-[700] border-[#424242]"
-          }`}
+          className={`hover:text-gray7 hover:border-gray7 hover:font-[700] ${buttonStyle} w-[${
+            option.w
+          }px] ${option.value === orderType && "font-[700] border-gray7"}`}
           onClick={() => onOrderType(option.value as ListConfig["orderType"])}
         >
           {option.logo}

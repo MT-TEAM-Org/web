@@ -64,8 +64,7 @@ const NoticeItem = ({
       className={cn(
         `${
           isFeedback ? "bg-bg0" : "hover:bg-bg0"
-        } w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer`,
-        "mobile:p-2"
+        } w-full ${getMinHeightClass()} border-b p-3 flex gap-3 border-gray1 items-center justify-start cursor-pointer`
       )}
     >
       <div className="w-[32px] h-[32px] rounded-[2px] bg-gray1 flex items-center justify-center text-center text-gray7 flex-shrink-0">

@@ -5,12 +5,7 @@ import { cn } from "@/utils";
 const Comment = () => {
   return (
     <Suspense fallback={""}>
-      <div
-        className={cn(
-          "max-w-[720px] min-h-[450px] rounded-[5px]",
-          "mobile:w-full mobile:mx-auto"
-        )}
-      >
+      <div className={cn("pc:min-h-[450px] rounded-[5px]", "tablet:mb-[40px]")}>
         <MyPageCommentList />
       </div>
     </Suspense>

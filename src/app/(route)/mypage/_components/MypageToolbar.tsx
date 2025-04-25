@@ -99,7 +99,7 @@ export const MypageToolbar = ({ mode, pageInfo }: MypageToolbarProps) => {
           "mobile:hidden"
         )}
       >
-        <h2 className="font-[700] text-[18px] leading-[28px] text-[#303030]">
+        <h2 className="font-[700] text-[18px] leading-[28px] text-[#303030] tracking-[-0.72px]">
           {mode === "inquries" && userRole === "ADMIN"
             ? "문의내역"
             : MODE_OBJECT[mode].title}

@@ -11,6 +11,9 @@ import { numberOverThousand } from "@/utils/boardType/numberOfThousand";
 import { useEffect, useState } from "react";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
 import EmptyBoard from "./emptyBoard";
+import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
+import NoticeItem from "../../customer/_components/NoticeItem";
+import { NoticeContentType } from "../../customer/_types/NoticeItemType";
 
 interface BoardListItem {
   id: number;
@@ -44,8 +47,15 @@ interface PostItemProps {
 
 const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
   const [readPosts, setReadPosts] = useState<number[]>([]);
+  const { data: noticeResponse } = useGetNoticeDataList();
 
   const postsData = boardData?.content;
+  const noticeData = noticeResponse?.content;
+  console.log("noticeData", noticeData);
+
+  const slicedNoticeDataList = (noticeData as NoticeContentType[])
+    ?.sort((a, b) => b.id - a.id)
+    .slice(0, 2);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -82,6 +92,13 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
 
   return (
     <div className="w-full tablet:max-w-[688px] flex flex-col items-center mobile:min-w-[360px] mobile:max-w-[768px]">
+      {slicedNoticeDataList?.map((noticeListData: NoticeContentType) => (
+        <NoticeItem
+          key={noticeListData.id}
+          noticeData={noticeListData}
+          isFeedback={true}
+        />
+      ))}
       {postsData && postsData.length > 0 ? (
         postsData.map((data: BoardListItem, index: number) => (
           <Link
@@ -141,7 +158,7 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
                 <span className="font-medium text-[12px] leading-[18px] text-gray5">
                   {CalculateTime(data?.createdAt)}
                 </span>
-                <span className="font-medium text-[12px] leading-[18px] text-gray5">
+                <span className="font-medium text-[12px] leading-[18px] text-gray5 mobile:max-w-[32px] mobile:truncate mobile:overflow-hidden mobile:whitespace-nowrap">
                   {data?.nickname}
                 </span>
                 <span className="font-medium text-[12px] leading-[18px] text-gray4">

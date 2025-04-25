@@ -1,11 +1,11 @@
 "use client";
 
-import { use } from "react";
+import { use, useState } from "react";
 import { CommunityToolbar } from "../../../_components/CommunityToolbar";
 import PostItem from "../../../_components/PostItem";
 import useGetBoardData from "@/_hooks/getBoardData";
 import PostItemSkeleton from "../../../_components/PostItemSkelton";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
 
 interface category {
@@ -15,6 +15,10 @@ interface category {
 export default function Category({ params }: { params: Promise<category> }) {
   const unwrappedParams = use(params);
   const { boardType, categoryType } = unwrappedParams;
+  const pathname = usePathname();
+  const pathSegments = pathname.split("/");
+  const hasId = pathSegments.length > 4 && !isNaN(Number(pathSegments[4]));
+  const [isShow, setIsShow] = useState(!hasId);
 
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page") || "1";
@@ -38,7 +42,7 @@ export default function Category({ params }: { params: Promise<category> }) {
   const pageInfo = boardData?.pageInfo;
 
   return (
-    <div className="w-full min-w-[720px] flex justify-center bg-[#FAFAFA] mb-[46px] min-h-[100px] tablet:w-full mobile:w-full mobile:max-w-[768px]">
+    <div className="w-full max-w-[720px] flex justify-center bg-[#FAFAFA] mb-[46px] min-h-[100px] tablet:w-full mobile:w-full mobile:max-w-[768px] mobile:mb-0">
       <div
         className={cn(
           "w-full min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto sticky top-0",
@@ -46,7 +50,11 @@ export default function Category({ params }: { params: Promise<category> }) {
           "mobile:w-full mobile:max-w-[768px]"
         )}
       >
-        <CommunityToolbar boardType={boardType} pageInfo={pageInfo} />
+        <CommunityToolbar
+          boardType={boardType}
+          pageInfo={pageInfo}
+          isShow={isShow}
+        />
         <PostItem
           boardType={boardType}
           categoryType={categoryType}

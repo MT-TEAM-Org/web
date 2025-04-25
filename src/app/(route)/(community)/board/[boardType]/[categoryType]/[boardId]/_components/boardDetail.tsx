@@ -21,8 +21,8 @@ import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import { CommentItem } from "@/_types/comment";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
-import MobileDetailGnb from "@/app/(route)/(community)/_components/gnb/mobileDetailGnb";
 import { cn } from "@/utils";
+import useTimeAgo from "@/utils/useTimeAgo";
 
 interface BoardDetailProps {
   boardId: string;
@@ -41,6 +41,8 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
     null
   );
   const pathname = usePathname();
+  const formattedTime = useTimeAgo(boardDetailData?.data?.createDate);
+  console.log(boardDetailData);
 
   const maskIP = (ip: string) => {
     if (!ip) return "";
@@ -138,7 +140,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-[16px] w-full max-w-[720px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D] mobile:max-w-[768px]">
+      <div className="flex flex-col gap-[16px] w-full pc:min-w-[720px] tablet:w-full tablet:max-w-[688px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D] mobile:w-full mobile:max-w-[768px]">
         <div className="w-full max-w-[672px] mobile:w-full mobile:max-w-[768px]">
           {isLoading ? (
             <div className="py-4">
@@ -160,7 +162,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                   <p className="font-medium">
                     {getKoreanCategoryType(boardDetailData?.data?.categoryType)}
                   </p>
-                  <p className="font-medium">1분 전</p>
+                  <p className="font-medium">{formattedTime}</p>
                   <div className="flex gap-x-[4px] font-medium">
                     <p className="font-bold">조회수</p>
                     <p> {boardDetailData?.data?.viewCount}</p>
@@ -185,18 +187,18 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                 </div>
               </div>
               {isEditable && (
-                <div className="w-full min-h-[32px] flex justify-end my-[16px] mobile:hidden">
-                  <div className="max-w-[106px] h-[32px] flex gap-x-[8px] text-[14px] font-medium leading-[14px] text-gray7">
+                <div className="w-full min-h-[32px] flex justify-end my-[16px] mobile:mt-[4px] mobilr:mb-[12px]">
+                  <div className="max-w-[106px] h-[32px] flex gap-x-[8px] text-[14px] font-medium leading-[14px] text-gray7 mobile:text-[12px] mobile:leading-[18px]">
                     <button
                       onClick={handleEditClick}
-                      className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]"
+                      className="flex items-center justify-center w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white py-[9px] px-[12px] whitespace-nowrap mobile:py-[6px] mobile:px-[8px] mobile:w-[60px] mobile:h-[30px]"
                     >
                       수정
                     </button>
                     <button
                       type="button"
                       onClick={handleDeletePost}
-                      className="w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white pt-[9px] py-[12px]"
+                      className="flex items-center justify-center w-[49px] h-[32px] rounded-[5px] border border-gray3 bg-white py-[9px] px-[12px] whitespace-nowrap mobile:py-[6px] mobile:px-[8px] mobile:w-[60px] mobile:h-[30px]"
                     >
                       삭제
                     </button>

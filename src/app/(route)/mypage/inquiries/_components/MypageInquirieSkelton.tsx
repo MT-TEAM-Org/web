@@ -1,3 +1,4 @@
+import { cn } from "@/utils";
 import { Skeleton } from "@heroui/react";
 
 const MypageInquirieSkelton = () => {
@@ -12,14 +13,24 @@ const MypageInquirieSkelton = () => {
           >
             <Skeleton className="min-w-[65px] h-[32px] rounded-[2px]" />
             <div className="w-full min-h-[42px] flex flex-col justify-center gap-[4px]">
-              <div className="w-[619px] flex items-center gap-[2px]">
-                <Skeleton className="w-[60%] h-[20px] rounded-md" />
+              <div className="flex items-center gap-[2px]">
+                <Skeleton className="w-[80%] h-[20px] rounded-md" />
               </div>
               <div className="flex gap-[4px]">
                 <Skeleton className="w-[21px] h-[16px] rounded-md" />
                 <Skeleton className="w-[28px] h-[16px] rounded-md" />
-                <Skeleton className="w-[60px] h-[16px] rounded-md" />
-                <Skeleton className="w-[88px] h-[16px] rounded-md" />
+                <Skeleton
+                  className={cn(
+                    "w-[60px] h-[16px] rounded-md",
+                    "mobile:w-[40px]"
+                  )}
+                />
+                <Skeleton
+                  className={cn(
+                    "w-[88px] h-[16px] rounded-md",
+                    "mobile:w-[68px]"
+                  )}
+                />
               </div>
             </div>
           </div>

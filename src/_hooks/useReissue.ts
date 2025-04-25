@@ -37,10 +37,14 @@ const useReissue = () => {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
         localStorage.removeItem("accessToken");
         queryClient.refetchQueries({ queryKey: ["authCheck"] });
-        logout();
         queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
         queryClient.invalidateQueries({ queryKey: ["myPostList"] });
         queryClient.invalidateQueries({ queryKey: ["myCommentList"] });
+        queryClient.invalidateQueries({ queryKey: ["userInfo"] });
+        queryClient.invalidateQueries({ queryKey: ["mypage"] });
+        queryClient.invalidateQueries({ queryKey: ["commentList"] });
+        queryClient.invalidateQueries({ queryKey: ["bestComment"] });
+        logout();
       }
     },
   });

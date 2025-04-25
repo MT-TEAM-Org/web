@@ -65,8 +65,7 @@ const FeedbackItem = ({
     <div
       onClick={handleFeedbackClick}
       className={cn(
-        `w-full ${getMinHeightClass()} border-b p-3 flex border-gray1 items-center justify-between cursor-pointer hover:bg-bg0`,
-        "mobile:p-2"
+        `w-full ${getMinHeightClass()} border-b p-3 flex border-gray1 items-center justify-between cursor-pointer hover:bg-bg0`
       )}
     >
       <div className="flex items-center gap-3 w-full overflow-hidden">
