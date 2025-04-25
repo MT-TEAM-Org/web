@@ -83,16 +83,19 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
           </p>
         </div>
       ) : (
-        <div className="flex w-full h-[72px] justify-center items-center mx-auto gap-x-[8px]">
-          <div className="flex justify-center items-center w-[40px] h-[40px] bg-gray1 rounded-full">
-            <CustomIcon
-              icon="MOBILE_USER_LOGO"
-              className="w-[20px] h-[20px] text-white"
-            />
+        <div className="flex w-full h-[72px] justify-between items-center p-4">
+          <div className="flex items-center gap-2">
+            <div className="flex justify-center items-center w-[40px] h-[40px] bg-gray1 rounded-full">
+              <CustomIcon
+                icon="MOBILE_USER_LOGO"
+                className="w-[20px] h-[20px] text-white"
+              />
+            </div>
+            <p className="h-[20px] text-[14px] font-bold leading-[20px] text-gray8">
+              로그인이 필요합니다.
+            </p>
           </div>
-          <p className="h-[20px] text-[14px] font-bold leading-[20px] text-gray8 ">
-            로그인이 필요합니다.
-          </p>
+
           <button
             onClick={handleLoginClick}
             className="flex items-center justify-center w-full max-w-[120px] h-[40px] bg-[#00ADEE] rounded-[5px] py-[13px] px-[16px] whitespace-nowrap"
