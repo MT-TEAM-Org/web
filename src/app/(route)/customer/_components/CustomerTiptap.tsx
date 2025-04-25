@@ -204,7 +204,7 @@ const CustomerTiptap = ({
   }, [videoUrl, editor]);
 
   const listItemClassName =
-    "font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6";
+    "font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6 mobile:ml-[12px]";
 
   return (
     <div className={"flex flex-col items-center w-full h-full"}>
@@ -276,7 +276,7 @@ const CustomerTiptap = ({
       >
         <div
           className={cn(
-            "w-full h-[44px] font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6"
+            "w-full h-[44px] font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6 mobile:h-full mobile:max-h-[66px]"
           )}
         >
           <p>

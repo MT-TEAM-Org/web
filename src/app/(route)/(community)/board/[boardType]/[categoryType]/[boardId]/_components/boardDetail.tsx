@@ -23,6 +23,7 @@ import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { cn } from "@/utils";
 import useTimeAgo from "@/utils/useTimeAgo";
+import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 
 interface BoardDetailProps {
   boardId: string;
@@ -237,7 +238,12 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
           )}
         </div>
         <div className="w-full h-auto flex justify-center">
-          <button
+          <RecommendButton
+            handleCommend={checkRecommned}
+            recommendCount={boardDetailData?.data?.recommendCount}
+            isRecommend={boardDetailData?.data?.isRecommended}
+          />
+          {/* <button
             onClick={checkRecommned}
             className={`w-full max-w-[120px] h-[40px] gap-x-[4px] flex items-center text-[14px] justify-center px-4 py-[13px] font-bold rounded-[5px] mobile:max-w-[768px] ${
               boardDetailData?.data?.isRecommended
@@ -248,7 +254,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
             <Single_logo width="16" height="16" fill="#00ADEE" />
             추천
             <p>{boardDetailData?.data?.recommendCount}</p>
-          </button>
+          </button> */}
         </div>
         <PostAction type="community" />
         <BoardComment
@@ -264,7 +270,6 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
           scrollToCommentBar={onHandleToTop}
           currentPath={pathname}
         />
-        {/* 하단 게시글 목록 자리 */}
       </div>
       <div className="shadow-md sticky bottom-0 w-full">
         <SendCommentBox

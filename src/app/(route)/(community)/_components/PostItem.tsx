@@ -14,6 +14,8 @@ import EmptyBoard from "./emptyBoard";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import NoticeItem from "../../customer/_components/NoticeItem";
 import { NoticeContentType } from "../../customer/_types/NoticeItemType";
+import Pagination from "../../mypage/_components/Pagination";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface BoardListItem {
   id: number;
@@ -43,15 +45,28 @@ interface PostItemProps {
   boardType: string;
   categoryType: string;
   boardData?: BoardData;
+  pageInfo?: {
+    currentPage: number;
+    totalPage: number;
+    totalElement: number;
+  };
 }
 
-const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
+const PostItem = ({
+  boardType,
+  categoryType,
+  boardData,
+  pageInfo,
+}: PostItemProps) => {
   const [readPosts, setReadPosts] = useState<number[]>([]);
   const { data: noticeResponse } = useGetNoticeDataList();
 
   const postsData = boardData?.content;
   const noticeData = noticeResponse?.content;
-  console.log("noticeData", noticeData);
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const slicedNoticeDataList = (noticeData as NoticeContentType[])
     ?.sort((a, b) => b.id - a.id)
@@ -87,6 +102,16 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
           error
         );
       }
+    }
+  };
+
+  const handlePageChange = (page: number) => {
+    if (pageInfo && pageInfo.totalPage) {
+      if (page < 1 || page > pageInfo.totalPage) return;
+
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("page", page.toString());
+      router.push(`${pathname}?${params.toString()}`);
     }
   };
 
@@ -171,6 +196,14 @@ const PostItem = ({ boardType, categoryType, boardData }: PostItemProps) => {
       ) : (
         <EmptyBoard />
       )}
+      <div className="w-full hidden mobile:block mobile:mt-[12px]">
+        <div className="flex justify-center items-center">
+          <Pagination
+            pageInfo={pageInfo}
+            onPageChangeAction={handlePageChange}
+          />
+        </div>
+      </div>
     </div>
   );
 };
