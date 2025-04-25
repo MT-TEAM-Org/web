@@ -56,40 +56,41 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
         <div className="flex flex-col justify-center items-center w-full h-[102px]">
           <div className="flex items-center w-full max-w-[192px] h-[42px] bg-[#F8FDFF] rounded-full">
             <div className="flex items-center justify-center mx-auto w-full gap-x-[16px]">
-              {userData?.data?.data?.imgUrl ? (
-                <Image
-                  src={userData.data.data.imgUrl}
-                  alt="사용자 프로필"
-                  width={24}
-                  height={24}
-                  className="rounded-full ml-[16px]"
-                />
-              ) : (
-                <div className="rounded-full flex items-center justify-center">
+              <div className="w-[24px] h-[24px] rounded-full items-center justify-center shadow-md overflow-hidden">
+                {userData?.data?.data?.imgUrl ? (
+                  <Image
+                    src={userData.data.data.imgUrl}
+                    alt="사용자 프로필"
+                    width={24}
+                    height={24}
+                    className="object-cover"
+                  />
+                ) : (
                   <CustomIcon
                     icon="MOBILE_HAMBURGER_DEFAULT_PROFILE"
-                    className="w-[24px] h-[24px] text-white ml-[12px]"
+                    className="text-white object-cover p-1 mb-[1px] ml-[1px]"
                   />
-                </div>
-              )}
-              <p className="w-full text-[16px] leading-[26px] text-gray7">
+                )}
+              </div>
+
+              <p className="text-[16px] leading-[26px] text-gray7 tracking-[-0.02em]">
                 {userData?.data?.data?.nickname}님
               </p>
             </div>
           </div>
-          <p className="w-full h-[24px] mt-[4px] flex items-center mx-auto justify-center font-bold text-[16px] leading-[24px]">
+          <p className="w-full h-[24px] mt-[4px] flex items-center mx-auto justify-center font-bold text-[16px] leading-[24px] tracking-[-0.02em]">
             플레이하이브에 오신것을 환영합니다.
           </p>
         </div>
       ) : (
         <div className="flex w-full h-[72px] justify-center items-center mx-auto gap-x-[8px]">
-          <div className="flex justify-center items-center w-[40px] h-[40px]">
+          <div className="flex justify-center items-center w-[40px] h-[40px] bg-gray1 rounded-full">
             <CustomIcon
               icon="MOBILE_USER_LOGO"
               className="w-[20px] h-[20px] text-white"
             />
           </div>
-          <p className="h-[20px] text-[14px] font-bold leading-[20px] text-gray8">
+          <p className="h-[20px] text-[14px] font-bold leading-[20px] text-gray8 ">
             로그인이 필요합니다.
           </p>
           <button
