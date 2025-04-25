@@ -264,7 +264,6 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
           scrollToCommentBar={onHandleToTop}
           currentPath={pathname}
         />
-        {/* 하단 게시글 목록 자리 */}
       </div>
       <div className="shadow-md sticky bottom-0 w-full">
         <SendCommentBox

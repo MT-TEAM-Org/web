@@ -59,6 +59,7 @@ export default function Category({ params }: { params: Promise<category> }) {
           boardType={boardType}
           categoryType={categoryType}
           boardData={boardData}
+          pageInfo={pageInfo}
         />
       </div>
     </div>
