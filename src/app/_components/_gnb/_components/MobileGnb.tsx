@@ -57,12 +57,28 @@ const MobileGnb = () => {
           <div className="flex justify-between items-center mx-auto w-full min-w-[360px] h-[44px] px-[16px]">
             <div
               className={cn(
-                "flex items-center h-[40px] flex-1 border border-gray-300 rounded-full px-[16px] gap-x-[12px] focus-within:border-gray-600",
+                "flex items-center h-[40px] flex-1 border border-gray-300 rounded-full gap-x-[12px] focus-within:border-gray-600",
                 isHamburgerOpen && "border-none"
               )}
             >
-              <div onClick={() => router.push("/")} className="cursor-pointer">
-                <Logo size={isHamburgerOpen ? "sm" : "xs"} />
+              <div
+                onClick={() => router.push("/")}
+                className={cn(
+                  "cursor-pointer flex gap-[2px] items-center justify-center",
+                  !isHamburgerOpen && "ml-4"
+                )}
+              >
+                <CustomIcon
+                  icon="MOBILE_LOGO"
+                  className={cn(
+                    isHamburgerOpen ? "h-[26px]" : "h-[16px]",
+                    "text-white"
+                  )}
+                />
+                <CustomIcon
+                  icon="MOBILE_PLAYHIVE"
+                  className={cn(isHamburgerOpen ? "h-[20px]" : "h-[14px]")}
+                />
               </div>
               <input
                 type="text"

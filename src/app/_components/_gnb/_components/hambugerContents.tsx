@@ -94,7 +94,7 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
           </p>
           <button
             onClick={handleLoginClick}
-            className="flex items-center justify-center w-full max-w-[120px] h-[40px] bg-[#00ADEE]  rounded-[5px] py-[13px] px-[16px] whitespace-nowrap"
+            className="flex items-center justify-center w-full max-w-[120px] h-[40px] bg-[#00ADEE] rounded-[5px] py-[13px] px-[16px] whitespace-nowrap"
           >
             <span className="font-bold text-[14px] leading-[14px] text-white">
               로그인/회원가입
@@ -103,7 +103,9 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
         </div>
       )}
       <div className="w-full h-full flex flex-col  items-center gap-y-[16px] overflow-y-auto pb-[100px]">
-        {HAMBURGER_MENU.map((item) => (
+        {HAMBURGER_MENU.filter(
+          (item) => !(item.authRequired && !isLoggedIn)
+        ).map((item) => (
           <div key={item.title} className="w-full">
             <div
               onClick={() => {
