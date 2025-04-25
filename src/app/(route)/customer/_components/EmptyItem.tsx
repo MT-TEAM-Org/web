@@ -22,15 +22,15 @@ const EmptyItem = ({ title }: EmptyNoticeItemProps) => {
       <div
         className={cn(
           "w-full min-h-[80px] flex flex-col gap-4 items-center justify-center",
-          "mobile:gap-0"
+          "mobile:gap-1"
         )}
       >
         {!isMobile ? (
           <LogoWhite />
         ) : (
           <div className="flex gap-[6px] items-center">
-            <CustomIcon icon="EMPTY_LOGO" className="h-[30px]" />
-            <CustomIcon icon="EMPTY_PLAYHIVE" className="h-[23px]" />
+            <CustomIcon icon="EMPTY_LOGO" className="h-[38px]" />
+            <CustomIcon icon="EMPTY_PLAYHIVE" className="h-[28px]" />
           </div>
         )}
 
