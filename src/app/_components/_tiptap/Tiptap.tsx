@@ -20,6 +20,7 @@ import {
 } from "react-hook-form";
 import { useEditStore } from "@/utils/Store";
 import { cn } from "@/utils";
+import { NOTICE_RULES } from "@/app/(route)/customer/_utils/noticeRules";
 
 interface TiptapProps {
   onChange: (content: string) => void;
@@ -304,6 +305,8 @@ const Tiptap = ({
   if (!isEditorReady) {
     return null;
   }
+  const listItemClassName =
+    "font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6 mobile:pl-[12px]";
 
   return (
     <div
@@ -335,11 +338,11 @@ const Tiptap = ({
         <div
           className={cn(
             "relative min-w-[696px] min-h-[419px] border border-t-0 rounded-[5px] mt-2",
-            "mobile:min-w-[328px] mobile:w-full mobile:overflow-y-scroll"
+            "mobile:min-w-[328px] mobile:w-full"
           )}
         >
           <Toolbar editor={editor} content={watch("content")} />
-          <div className="relative">
+          <div className="relative overflow-y-scroll">
             <EditorContent
               editor={editor}
               className="w-full
@@ -415,28 +418,27 @@ const Tiptap = ({
         </div>
       </div>
       {/* 사용자 안내 */}
-      <div className="flex flex-col gap-y-1 w-full max-w-[696px] min-h-[40px] rounded-[5px] p-[12px] bg-[#FAFAFA] text-[#656565] mobile:overflow-y-scroll">
-        <div className="w-full min-h-[44px] font-medium text-[14px] leading-[22px] ">
+      <div className="flex flex-col gap-y-1 w-full max-w-[696px] min-h-[40px] rounded-[5px] p-[12px] bg-[#FAFAFA] text-[#656565] mobile:h-full mobile:max-h-[270px] mobile:p-[12px]">
+        <div
+          className={cn(
+            "w-full h-[44px] font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6 mobile:h-full mobile:max-h-[66px]"
+          )}
+        >
           <p>
             불법촬영물등을 게재할 경우 전기통신사업법 제22조의5제1항에 따라
             삭제·접속차단 등의 조치가 취해질 수 있으며 관련 법률에 따라 처벌받을
             수 있습니다.
           </p>
         </div>
-        <div className="w-full max-w h-[88px] font-medium text-[14px] leading-[22px]">
-          <p>
-            • 허용 확장자 (jpg, jpeg, png,webp,heic, mp4,mov,webm,gif) 총 15개
-            까지, 파일당 50MB 까지 업로드 가능합니다.
-          </p>
-          <p>
-            • 50MB보다 더 큰 용량의 영상물은 유튜브 링크 첨부시 재생이
-            가능합니다.
-          </p>
-          <p>• 11MB~50MB 움짤은 11MB 이하로 자동변환됩니다.</p>
-          <p>• 음원 있는 움짤/동영상은 45초 이내 길이만 가능합니다.</p>
-        </div>
+        <ol>
+          {NOTICE_RULES.map((rule, index) => (
+            <li key={index} className={listItemClassName}>
+              • {rule}
+            </li>
+          ))}
+        </ol>
       </div>
-      <div className="w-full max-w-[696px] h-[40px] flex justify-between mobile:justify-center">
+      <div className="w-full max-w-[696px] h-[40px] flex justify-between mobile:justify-center mobile:mt-[12px] mobile:mb-[24px]">
         <button
           type="button"
           onClick={() => router.back()}
