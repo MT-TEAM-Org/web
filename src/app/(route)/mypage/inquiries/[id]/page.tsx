@@ -59,9 +59,9 @@ const InquirieDetail = ({
       <div className={cn("space-y-[12px]", "mobile:space-y-[0px]")}>
         <div
           className={cn(
-            "flex flex-col justify-center gap-[16px] w-[720px] min-h-[497px] rounded-b-[5px] p-[24px] bg-white",
+            "flex flex-col justify-center shadow-soft-md gap-[16px] w-[720px] min-h-[497px] rounded-b-[5px] p-[24px] bg-white",
             "tablet:w-[688px]",
-            "mobile:w-full mobile:gap-0 mobile:justify-start mobile:min-h-[0px] mobile:p-0"
+            "mobile:w-full mobile:shadow-none mobile:gap-0 mobile:justify-start mobile:min-h-[0px] mobile:p-0"
           )}
         >
           <h1
@@ -132,7 +132,7 @@ const InquirieDetail = ({
       </div>
       <div
         className={cn(
-          "shadow-md sticky bottom-0 max-w-[720px]",
+          "sticky bottom-0 max-w-[720px]",
           "mobile:w-full mobile:mx-auto"
         )}
       >
