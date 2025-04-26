@@ -37,6 +37,7 @@ import { cn } from "@/utils";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 import NewsDetailGnb from "@/app/(route)/news/_components/newsGnb/NewsDetailGnb";
+import { ReportType } from "@/services/board/types/report";
 
 const Page = () => {
   return (
@@ -80,6 +81,7 @@ const FeedbackInfo = () => {
     isLoading: feedbackIsLoading,
     isError: feedbackIsError,
   } = useGetFeedbackInfoData({ id: infoId, token });
+
   const { mutate: feedbackAddRecommend } = usePostFeedbackRecommend();
   const { mutate: feedbackDeleteRecommend } = useDeleteFeedbackRecommend();
 
@@ -155,7 +157,7 @@ const FeedbackInfo = () => {
     const match = url.match(youtubeRegex);
     return match ? `https://www.youtube.com/embed/${match[1]}` : null;
   };
-  const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
+  const youtubeEmbedUrl = link && getYouTubeEmbedUrl(link);
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > feedbackDataList?.pageInfo?.totalPage) return;
@@ -164,13 +166,24 @@ const FeedbackInfo = () => {
     });
   };
 
+  const reportData = {
+    reportedPublicId: feedbackInfoData?.publicId,
+    reportType: "IMPROVEMENT" as ReportType,
+    reportedContentId: Number(id),
+  };
+
   return (
     <>
       {feedbackIsLoading || feedbackIsError ? (
         <FeedbackInfoSkeleton />
       ) : (
         <>
-          <NewsDetailGnb title={feedbackInfoData?.title} type="feedback" />
+          <NewsDetailGnb
+            title={feedbackInfoData?.title}
+            type="feedback"
+            data={feedbackInfoData}
+            id={Number(id)}
+          />
           <div
             className={cn(
               "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md bg-white",
@@ -279,7 +292,7 @@ const FeedbackInfo = () => {
               />
             </div>
             <div className={cn("mobile:hidden")}>
-              <PostAction type="community" />
+              <PostAction type="community" reportData={reportData} />
             </div>
             <BoardComment
               id={id as string}

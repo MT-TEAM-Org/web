@@ -4,13 +4,22 @@ import { cn } from "@/utils";
 import ShareModalPopUp from "@/app/_components/ShareModalPopUp";
 import { useRouter } from "next/navigation";
 import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
+import { ReportType } from "@/services/board/types/report";
+import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
 
 interface NewsDetailGnbProps {
   title: string;
   type?: "news" | "notice" | "feedback";
+  data?: FeedbackContentType;
+  id?: number;
 }
 
-const NewsDetailGnb = ({ title, type = "news" }: NewsDetailGnbProps) => {
+const NewsDetailGnb = ({
+  title,
+  type = "news",
+  data,
+  id,
+}: NewsDetailGnbProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const [reportActiveModal, setReportActiveModal] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
@@ -55,6 +64,12 @@ const NewsDetailGnb = ({ title, type = "news" }: NewsDetailGnbProps) => {
     };
   }, []);
 
+  const reportData = {
+    reportedPublicId: data?.publicId,
+    reportType: "IMPROVEMENT" as ReportType,
+    reportedContentId: Number(id),
+  };
+
   return (
     <div
       className={cn(
@@ -98,7 +113,10 @@ const NewsDetailGnb = ({ title, type = "news" }: NewsDetailGnbProps) => {
         </div>
       </div>
       {reportActiveModal && (
-        <ReportModalPopUp setActiveModal={setReportActiveModal} />
+        <ReportModalPopUp
+          setActiveModal={setReportActiveModal}
+          reportData={reportData}
+        />
       )}
       {activeModal && (
         <ShareModalPopUp setActiveModal={setActiveModal} url={url} />

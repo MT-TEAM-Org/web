@@ -18,6 +18,7 @@ import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { cn } from "@/utils";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import NewsDetailGnb from "@/app/(route)/news/_components/newsGnb/NewsDetailGnb";
+import { ReportType } from "@/services/board/types/report";
 
 interface NoticeInfoItemProps {
   data: NoticeInfoItemType;
@@ -86,7 +87,7 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
     return match ? `https://www.youtube.com/embed/${match[1]}` : null;
   };
 
-  const youtubeEmbedUrl = getYouTubeEmbedUrl(link);
+  const youtubeEmbedUrl = link && getYouTubeEmbedUrl(link);
 
   return (
     <>
@@ -206,9 +207,6 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
             recommendCount={data?.recommendCount}
             isRecommend={data?.isRecommended}
           />
-        </div>
-        <div className="mobile:hidden">
-          <PostAction type="community" />
         </div>
         <BoardComment
           id={id.toString()}
