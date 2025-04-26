@@ -129,6 +129,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
           <input
             {...register("title")}
             type="text"
+            maxLength={30}
             placeholder="제목을 입력해주세요"
             className="w-full min-h-[40px] rounded-[5px] py-3 px-4 moble:w-full mobile:h-[40px]"
           />

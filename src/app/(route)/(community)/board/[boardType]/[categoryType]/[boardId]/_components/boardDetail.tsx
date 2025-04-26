@@ -8,7 +8,6 @@ import useDeletePost from "@/_hooks/fetcher/board/useDeletePost";
 import { useEditStore } from "@/utils/Store";
 import { usePathname, useRouter } from "next/navigation";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
-import Single_logo from "@/app/_components/icon/Single_logo";
 import usePostRecommend from "@/_hooks/fetcher/board/usePostRecommend";
 import useDeleteRecommendPost from "@/_hooks/fetcher/board/useDeleteRecommnedPost";
 import useGetBoardDetail from "@/_hooks/fetcher/board/useGetBoardDetail";
@@ -24,12 +23,15 @@ import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { cn } from "@/utils";
 import useTimeAgo from "@/utils/useTimeAgo";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 
 interface BoardDetailProps {
   boardId: string;
 }
 
 const BoardDetail = ({ boardId }: BoardDetailProps) => {
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+
   const router = useRouter();
   const { setEditMode, setBoardId, setBoardData } = useEditStore();
   const { data: boardDetailData, isLoading } = useGetBoardDetail(boardId);
@@ -43,7 +45,6 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
   );
   const pathname = usePathname();
   const formattedTime = useTimeAgo(boardDetailData?.data?.createDate);
-  console.log(boardDetailData);
 
   const maskIP = (ip: string) => {
     if (!ip) return "";
@@ -83,12 +84,24 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
     mutateDeleteRecommend({ boardId });
   };
 
-  const checkRecommned = () => {
+  const checkRecommend = () => {
+    if (notloginRecommend()) {
+      return;
+    }
+
     if (boardDetailData?.data?.isRecommended) {
       handleDeleteRecommend();
     } else {
       handleRecommend();
     }
+  };
+
+  const notloginRecommend = () => {
+    if (!userData?.data) {
+      setIsSignInModalOpen(true);
+      return true;
+    }
+    return false;
   };
 
   const isEditable =
@@ -218,15 +231,19 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
           ) : (
             <>
               {youtubeEmbedUrl && (
-                <iframe
-                  width="100%"
-                  height="408"
-                  src={youtubeEmbedUrl}
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+                <div
+                  className="relative w-full"
+                  style={{ paddingBottom: "56.25%" }}
+                >
+                  <iframe
+                    className="absolute top-0 left-0 w-full h-full"
+                    src={youtubeEmbedUrl}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
               )}
               {parse(content, options)}
               {!youtubeEmbedUrl && (
@@ -237,24 +254,21 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
             </>
           )}
         </div>
-        <div className="w-full h-auto flex justify-center">
+        <div
+          onClick={notloginRecommend}
+          className="w-full h-auto flex justify-center"
+        >
+          {isSignInModalOpen && (
+            <SignInModalPopUp
+              isOpen={isSignInModalOpen}
+              onClose={() => setIsSignInModalOpen(false)}
+            />
+          )}
           <RecommendButton
-            handleCommend={checkRecommned}
+            handleCommend={checkRecommend}
             recommendCount={boardDetailData?.data?.recommendCount}
             isRecommend={boardDetailData?.data?.isRecommended}
           />
-          {/* <button
-            onClick={checkRecommned}
-            className={`w-full max-w-[120px] h-[40px] gap-x-[4px] flex items-center text-[14px] justify-center px-4 py-[13px] font-bold rounded-[5px] mobile:max-w-[768px] ${
-              boardDetailData?.data?.isRecommended
-                ? "bg-white text-gra border border-gra"
-                : "bg-white text-gray7 border border-gray3"
-            }`}
-          >
-            <Single_logo width="16" height="16" fill="#00ADEE" />
-            추천
-            <p>{boardDetailData?.data?.recommendCount}</p>
-          </button> */}
         </div>
         <PostAction type="community" />
         <BoardComment

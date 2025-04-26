@@ -21,6 +21,7 @@ import {
 import { useEditStore } from "@/utils/Store";
 import { cn } from "@/utils";
 import { NOTICE_RULES } from "@/app/(route)/customer/_utils/noticeRules";
+import { useToast } from "@/_hooks/useToast";
 
 interface TiptapProps {
   onChange: (content: string) => void;
@@ -103,7 +104,10 @@ const Tiptap = ({
   const [showPlaceholder, setShowPlaceholder] = useState(
     !initialContent || initialContent === "" || initialContent === "<p></p>"
   );
+  const [isContentTooLong, setIsContentTooLong] = useState(false);
   const { isEditMode } = useEditStore();
+
+  const showToast = useToast();
 
   const detectImageAddition = (prevHTML: string, currentHTML: string) => {
     const prevHasImage = prevHTML.includes("<img");
@@ -128,7 +132,8 @@ const Tiptap = ({
       Link,
       CustomImage.configure({
         HTMLAttributes: {
-          class: "max-w-full h-auto mx-auto block",
+          class:
+            "max-w-full h-auto mx-auto block mobile:max-w-[200px] mobile:max-h-[200px]",
         },
         allowBase64: true,
         inline: false,
@@ -221,8 +226,8 @@ const Tiptap = ({
 
     onUpdate: async ({ editor }) => {
       const html = editor.getHTML();
-      const hasContent = html !== "" && html !== "<p></p>";
-
+      const text = editor.getText();
+      setIsContentTooLong(text.length > 1000);
       setShowPlaceholder(false);
 
       // 이미지 처리 중에는 추가 업데이트 무시
@@ -297,6 +302,12 @@ const Tiptap = ({
   }, []);
 
   useEffect(() => {
+    if (isContentTooLong) {
+      showToast.error("글자수가 너무 많습니다.", "");
+    }
+  });
+
+  useEffect(() => {
     if (editor) {
       setIsEditorReady(true);
     }
@@ -345,6 +356,7 @@ const Tiptap = ({
           <div className="relative overflow-y-scroll">
             <EditorContent
               editor={editor}
+              maxLength={1000}
               className="w-full
             "
             />
@@ -448,7 +460,7 @@ const Tiptap = ({
         </button>
         <button
           type="submit"
-          disabled={isPending}
+          disabled={isPending || isContentTooLong}
           className={`w-[120px] h-[40px] rounded-[5px] mobile:w-full mobile:h-[48px] font-bold ${
             isPending ? "bg-gray-500" : "bg-[#00ADEE]"
           } text-[white]`}
