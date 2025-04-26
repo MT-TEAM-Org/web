@@ -7,7 +7,7 @@ const SearchEmptyBox = () => {
     <div
       className={cn(
         "w-full h-[248px] rounded-b-[10px] bg-gray1 flex flex-col items-center justify-center gap-4",
-        "tablet:w-[688px] tablet:h-[230px] tablet:shadow-md",
+        "tablet:w-[688px] tablet:h-[230px] tablet:shadow-soft-md",
         "mobile:h-[444px] mobile:min-h-auto"
       )}
     >

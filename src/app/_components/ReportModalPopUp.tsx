@@ -62,7 +62,7 @@ const ReportModalPopUp = ({ setActiveModal, reportData }: ReportModalPopUp) => {
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleReport}
         className={cn(
-          "w-[408px] min-h-[362px] rounded-[10px] p-10 flex flex-col gap-6 bg-white shadow-md",
+          "w-[408px] min-h-[362px] rounded-[10px] p-10 flex flex-col gap-6 bg-white shadow-soft-md",
           "mobile:w-[328px] mobile:min-h-[292px] mobile:p-6 mobile:gap-[16px]"
         )}
       >

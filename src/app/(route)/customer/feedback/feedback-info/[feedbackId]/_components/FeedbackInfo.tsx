@@ -186,7 +186,7 @@ const FeedbackInfo = () => {
           />
           <div
             className={cn(
-              "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md bg-white",
+              "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-soft-md bg-white",
               "tablet:max-w-[687px]",
               "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
             )}
@@ -313,7 +313,7 @@ const FeedbackInfo = () => {
           </div>
           <div
             className={cn(
-              "shadow-md sticky bottom-0 z-50",
+              "shadow-soft-md sticky bottom-0 z-50",
               "mobile:shadow-none mobile:border-b"
             )}
           >
@@ -341,7 +341,7 @@ const FeedbackInfo = () => {
       </div>
       <div
         className={cn(
-          "w-full h-auto rounded-[5px] shadow-md bg-white",
+          "w-full h-auto rounded-[5px] shadow-soft-md bg-white",
           "mobile:max-w-full"
         )}
       >

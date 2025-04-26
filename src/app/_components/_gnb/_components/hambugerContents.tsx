@@ -56,7 +56,7 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
         <div className="flex flex-col justify-center items-center w-full h-[102px]">
           <div className="flex items-center w-full max-w-[192px] h-[42px] bg-[#F8FDFF] rounded-full">
             <div className="flex items-center justify-center mx-auto w-full gap-x-[16px]">
-              <div className="w-[24px] h-[24px] rounded-full items-center justify-center shadow-md overflow-hidden">
+              <div className="w-[24px] h-[24px] rounded-full items-center justify-center shadow-soft-md overflow-hidden">
                 {userData?.data?.data?.imgUrl ? (
                   <Image
                     src={userData.data.data.imgUrl}

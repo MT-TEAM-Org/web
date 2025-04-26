@@ -12,7 +12,7 @@ const ServiceItem = ({ title, content, imgUrl }: itemType) => {
   return (
     <div
       className={cn(
-        "w-[320px] min-h-[300px] rounded-[20px] shadow-md flex flex-col items-center justify-center overflow-hidden",
+        "w-[320px] min-h-[300px] rounded-[20px] shadow-soft-md flex flex-col items-center justify-center overflow-hidden",
         "tablet:w-[320px]",
         "mobile:min-w-[328px] w-[328px] mobile:h-[92px] mobile:min-h-0 mobile:flex-row mobile:flex mobile:items-center mobile:justify-center"
       )}

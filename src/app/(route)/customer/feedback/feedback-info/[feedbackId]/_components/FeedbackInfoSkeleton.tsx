@@ -7,7 +7,7 @@ const FeedbackInfoSkeleton = () => {
   return (
     <div
       className={cn(
-        "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-md",
+        "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-soft-md",
         "tablet:max-w-[687px]",
         "mobile:max-w-full"
       )}
