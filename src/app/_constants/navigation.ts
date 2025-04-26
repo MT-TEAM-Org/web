@@ -89,6 +89,7 @@ export const HAMBURGER_MENU = [
       },
     ],
     id: "mypage",
+    authRequired: true,
   },
   {
     title: "고객센터",

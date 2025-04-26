@@ -12,6 +12,8 @@ import usePutPost from "@/_hooks/fetcher/board/usePutPost";
 import CustomerTiptap from "../../_components/CustomerTiptap";
 import { cn } from "@/utils";
 import { useToast } from "@/_hooks/useToast";
+import { useAdminRole } from "../../_utils/adminChecker";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 
 const Page = () => {
   return (
@@ -43,7 +45,8 @@ const CustomerWrite = () => {
   const searchParams = useSearchParams();
   const editParam = searchParams.get("edit");
   const { error: errorToast } = useToast();
-
+  const adminRole = useAdminRole();
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isTitleOverLimit, setIsTitleOverLimit] = useState(false);
 
   useEffect(() => {
@@ -119,6 +122,11 @@ const CustomerWrite = () => {
   };
 
   const onSubmit = async (data: CustomerFormData) => {
+    if (!adminRole) {
+      setIsSignInModalOpen(true);
+      return;
+    }
+
     const thumbnail =
       data.imgUrl || (data.link ? getYoutubeThumbnail(data.link) : "");
     const communityData = {
@@ -198,6 +206,10 @@ const CustomerWrite = () => {
           isTitleOverLimit={isTitleOverLimit}
         />
       </form>
+      <SignInModalPopUp
+        isOpen={isSignInModalOpen}
+        onClose={() => setIsSignInModalOpen(false)}
+      />
     </div>
   );
 };

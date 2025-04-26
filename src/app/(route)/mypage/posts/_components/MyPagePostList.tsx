@@ -43,7 +43,14 @@ const MyPagePostList = () => {
     <div>
       <MobileBackButtonWrapper mode="posts" />
       <MypageToolbar mode="posts" pageInfo={pageInfo} />
-      <div className="flex flex-col w-full bg-[#FFFFFF] rounded-b-[5px]">
+      <div
+        className={cn(
+          `flex flex-col w-full bg-[#FFFFFF] rounded-b-[5px] ${
+            pageInfo?.totalElement !== 0 && "shadow-soft-md"
+          }`,
+          "mobile:shadow-none"
+        )}
+      >
         {pageInfo?.totalElement !== 0 ? (
           content?.map((post: PostListData["content"][number]) => (
             <MyPagePostItem key={post.id} data={post} />
