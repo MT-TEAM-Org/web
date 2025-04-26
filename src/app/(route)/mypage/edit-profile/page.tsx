@@ -181,9 +181,9 @@ const EditProfile = () => {
   return (
     <div
       className={cn(
-        "rounded-[5px] bg-[#FFFFFF]",
+        "rounded-[5px] bg-[#FFFFFF] shadow-soft-md",
         "tablet:mb-[40px]",
-        "mobile:mx-auto"
+        "mobile:mx-auto mobile:shadow-none"
       )}
     >
       <MobileBackButtonWrapper />
