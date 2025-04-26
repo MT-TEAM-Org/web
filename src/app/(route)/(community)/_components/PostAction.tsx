@@ -9,6 +9,7 @@ import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import { ReportType } from "@/services/board/types/report";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useAdminRole } from "../../customer/_utils/adminChecker";
 
 interface PostActionProps {
   type: "news" | "community";
@@ -31,6 +32,7 @@ const PostAction = ({
   const [activeModal, setActiveModal] = useState(false);
   const [activeReportModal, setActiveReportModal] = useState(false);
   const url = window.location.href;
+  const adminRole = useAdminRole();
   const { success, error } = useToast();
 
   const modalPopUp = () => {
@@ -49,6 +51,11 @@ const PostAction = ({
   const [guestModal, setGuestModal] = useState(false);
 
   const handleReport = () => {
+    if (!adminRole) {
+      setGuestModal(true);
+      return;
+    }
+
     setActiveReportModal(true);
     if (onReport) {
       onReport();

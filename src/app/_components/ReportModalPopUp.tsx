@@ -15,7 +15,7 @@ const report = [
 
 interface ReportModalPopUp {
   setActiveModal: (active: boolean) => void;
-  reportData: {
+  reportData?: {
     reportedPublicId: string;
     reportType: ReportType;
     reportedContentId: number;

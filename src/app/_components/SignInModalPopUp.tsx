@@ -5,8 +5,12 @@ import Link from "next/link";
 import { Logo } from "./icon/Logo";
 import { createPortal } from "react-dom";
 import { cn } from "@/utils";
+import useIsMobile from "@/utils/useIsMobile";
+import CustomIcon from "./IconComponents";
 
 const SignInModalPopUp = ({ isOpen, onClose }) => {
+  const isMobile = useIsMobile();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -48,7 +52,20 @@ const SignInModalPopUp = ({ isOpen, onClose }) => {
             "mobile:h-[126px]"
           )}
         >
-          <Logo />
+          {!isMobile ? (
+            <Logo />
+          ) : (
+            <div className="flex gap-[3px] items-center">
+              <CustomIcon
+                icon="MOBILE_LOGO"
+                className={cn("h-[30px]", "text-white")}
+              />
+              <CustomIcon
+                icon="MOBILE_PLAYHIVE"
+                className={cn("h-[24px]", "text-white")}
+              />
+            </div>
+          )}
           <div
             className={cn(
               "w-full h-[80px] flex flex-col gap-1",
