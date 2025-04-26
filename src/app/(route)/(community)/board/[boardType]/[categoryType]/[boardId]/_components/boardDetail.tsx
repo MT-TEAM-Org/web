@@ -154,7 +154,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-[16px] w-full pc:min-w-[720px] tablet:w-full tablet:max-w-[688px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D] mobile:w-full mobile:max-w-[768px]">
+      <div className="flex flex-col gap-[16px] w-full pc:min-w-[720px] tablet:w-full tablet:max-w-[688px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D] mobile:w-full mobile:max-w-[768px] mobile:shadow-none">
         <div className="w-full max-w-[672px] mobile:w-full mobile:max-w-[768px]">
           {isLoading ? (
             <div className="py-4">

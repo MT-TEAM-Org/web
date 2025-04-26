@@ -322,13 +322,14 @@ const Tiptap = ({
   return (
     <div
       className={cn(
-        "w-full max-w-[720px] min-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px] gap-3 box-border",
+        "w-full max-w-[720px] max-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px] gap-3 box-border",
+        "tablet:w-full tablet:min-w-[668px]",
         "mobile:min-w-[360px] mobile:max-w-[768px] mobile:w-full"
       )}
     >
-      <div className="mobile:w-full mobile:max-w-[768px]">
-        <div className="w-full max-w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-gray3">
-          <div className="flex">
+      <div className="tablet:w-full tablet:max-w-[668px] mobile:w-full mobile:max-w-[768px]">
+        <div className="w-full max-w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-gray3 tablet:w-full tablet:max-w-[668px]">
+          <div className="flex tablet:w-full">
             <label
               htmlFor="videoUrl"
               className="w-[24px] h-[40px] flex items-center justify-center mx-2"
@@ -348,12 +349,13 @@ const Tiptap = ({
         <LinkPreview videoUrl={videoUrl} />
         <div
           className={cn(
-            "relative min-w-[696px] min-h-[419px] border border-t-0 rounded-[5px] mt-[12px]",
+            "relative pc:min-w-[696px] min-h-[419px] border border-t-0 rounded-[5px] mt-[12px]",
+            "tablet:w-[668px]",
             "mobile:min-w-[328px] mobile:w-full"
           )}
         >
           <Toolbar editor={editor} content={watch("content")} />
-          <div className="relative overflow-y-scroll">
+          <div className="relative overflow-y-scroll tablet:max-w-[668px]">
             <EditorContent
               editor={editor}
               maxLength={1000}
