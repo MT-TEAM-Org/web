@@ -312,10 +312,10 @@ const Tiptap = ({
     <div
       className={cn(
         "w-full max-w-[720px] min-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px] gap-3 box-border",
-        "mobile:min-w-[360px] mobile:max-w-[687px] mobile:w-full"
+        "mobile:min-w-[360px] mobile:max-w-[768px] mobile:w-full"
       )}
     >
-      <div className="mobile:w-full mobile:max-w-[687px]">
+      <div className="mobile:w-full mobile:max-w-[768px]">
         <div className="w-full max-w-[696px] min-h-[40px] flex border flex-col rounded-[5px] border-gray3">
           <div className="flex">
             <label
@@ -337,7 +337,7 @@ const Tiptap = ({
         <LinkPreview videoUrl={videoUrl} />
         <div
           className={cn(
-            "relative min-w-[696px] min-h-[419px] border border-t-0 rounded-[5px] mt-2",
+            "relative min-w-[696px] min-h-[419px] border border-t-0 rounded-[5px] mt-[12px]",
             "mobile:min-w-[328px] mobile:w-full"
           )}
         >
