@@ -8,6 +8,7 @@ import { useEditStore } from "@/utils/Store";
 import WriteModal from "../WriteModal";
 import CustomIcon from "../IconComponents/Icon";
 import { cn } from "@/utils";
+import LeftSidebar from "@/app/(route)/(community)/_components/LeftSidebar";
 
 interface TitleDagProps {
   register: UseFormRegister<any>;
@@ -33,7 +34,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
     ...(boardType === "esports"
       ? [
           { name: "전적인증", value: "VERIFICATION" },
-          { name: "플레이팁", value: "TIP" },
+          { name: "플레이 팁", value: "TIP" },
         ]
       : []),
     { name: "개선요청", value: "SUGGESTION" },
@@ -52,7 +53,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full mobile:max-w-[768px]">
       {writeGuideVisible && (
         <WriteModal
           modalId={modalId}
@@ -60,10 +61,13 @@ const TitleDag = ({ register }: TitleDagProps) => {
           onClose={handleCloseModal}
         />
       )}
+      <div className="hidden tablet:flex w-full max-w-[688px] h-[52px]">
+        <LeftSidebar />
+      </div>
       <div
         className={cn(
           "flex justify-between items-center mx-auto max-w-[696px] min-h-[40px] pt-2",
-          "mobile:flex mobile:justify-start mobile:items-center mobile:w-full mobile:min-w-[360px] mobile:max-w-[688px] mobile:h-[48px] mobile:py-[10px] mobile:border-b mobile:border-gray2"
+          "mobile:flex mobile:justify-start tablet:w-full tablet:max-w-[664px] mobile:items-center mobile:w-full mobile:min-w-[360px] mobile:max-w-[688px] mobile:h-[48px] mobile:py-[10px] mobile:border-b mobile:border-gray2"
         )}
       >
         <div
@@ -75,7 +79,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
             className="w-[18px] h-[18px] text-white"
           />
         </div>
-        <h1 className="flex max-w-[80px] min-h-[28px] font-[700] text-[18px] leading-[28px] whitespace-nowrap">
+        <h1 className="flex max-w-[80px] min-h-[28px] font-[700] text-[18px] leading-[28px] whitespace-nowrap mobile:w-full mobile:max-w-[664px] mobile:h-[40px]">
           {isEditMode ? "게시글 수정" : "게시글 작성"}
         </h1>
         <button
@@ -86,7 +90,27 @@ const TitleDag = ({ register }: TitleDagProps) => {
           글쓰기 유의사항
         </button>
       </div>
-      <div className="flex justify-between items-center mx-auto w-full max-w-[696px] h-[50px] space-x-1 mt-2 mobile:space-x-0 mobile:px-[12px]">
+      <div
+        className={cn(
+          "hidden mobile:flex gap-2 w-full max-w-[768px] px-[12px] mt-[12px] overflow-x-scroll scrollbar-hide"
+        )}
+      >
+        {optionValues.map((option) => (
+          <div
+            key={option.value}
+            onClick={() => setSelectedCategory(option.value)}
+            className={cn(
+              "flex items-center justify-center w-full h-[32px] whitespace-nowrap text-center border  rounded-[5px] px-[8px] py-[9px]",
+              selectedCategory === option.value
+                ? "border-gray7"
+                : "border-gray3"
+            )}
+          >
+            {option.name}
+          </div>
+        ))}
+      </div>
+      <div className="flex justify-between items-center mx-auto w-full max-w-[696px] h-[50px] space-x-1 mt-2 tablet:w-full tablet:max-w-[664px] mobile:space-x-0 mobile:max-w-[768px] mobile:px-[12px]">
         <div className="relative w-[160px] h-[50px] border rounded-[5px] mobile:hidden">
           <select
             {...register("categoryType")}
@@ -107,14 +131,15 @@ const TitleDag = ({ register }: TitleDagProps) => {
         <div
           className={cn(
             "w-[528px] min-h-[45px] border rounded-[5px]",
-            "mobile:w-full mobile:min-w-[328px] mobile:max-w-[687px] "
+            "mobile:w-full mobile:min-w-[328px] mobile:max-w-[768px] "
           )}
         >
           <input
             {...register("title")}
             type="text"
+            maxLength={30}
             placeholder="제목을 입력해주세요"
-            className="w-full min-h-[40px] rounded-[5px] py-3 px-4 mobile:h-[40px]"
+            className="w-full min-h-[40px] rounded-[5px] py-3 px-4 moble:w-full mobile:h-[40px]"
           />
         </div>
       </div>

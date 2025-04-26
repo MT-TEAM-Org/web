@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/utils";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -14,7 +15,6 @@ const WriteModal = ({
   onClose,
 }: WritGuideProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [dontShowAgain, setDontShowAgain] = useState(false);
 
   useEffect(() => {
     if (forceShow) {
@@ -42,15 +42,34 @@ const WriteModal = ({
   if (!isVisible) return null;
 
   const buttonBoxSize =
-    "flex justify-center items-center w-[160px] max-h-[48px] py-[16px] px-[20px] border-1 rounded-[5px]";
+    "flex justify-center items-center w-[160px] max-h-[48px] py-[16px] px-[20px] border-1 rounded-[5px] mobile:w-full mobile:max-w-[136px] mobile:h-[40px]";
 
   return createPortal(
-    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
-      <div className="flex flex-col justify-center items-center bg-white w-[640px] h-[656px] rounded-[10px] p-[40px]">
-        <h3 className="mb-[16px] w-[560px] min-h-[38px] font-[700] text-[24px] leading-[38px] text-center">
+    <div
+      className={cn(
+        "fixed inset-0 bg-black/70 flex justify-center items-center z-50 mobile:px-[16px]"
+      )}
+    >
+      <div
+        className={cn(
+          "flex flex-col justify-center items-center bg-white w-[640px] h-[656px] rounded-[10px] p-[40px]",
+          "mobile:w-full mobile:max-w-[768px] "
+        )}
+      >
+        <h3
+          className={cn(
+            "mb-[16px] w-[560px] min-h-[38px] font-[700] text-[24px] leading-[38px] text-center",
+            "mobile:flex mobile:items-center mobile:justify-center mobile:w-full mobile:max-w-[280px] mobile:text-[16px] mobile:leading-[24px]"
+          )}
+        >
           글쓰기 유의사항
         </h3>
-        <ol className="flex flex-col bg-gray1 rounded-[5px]  list-decimal list-inside w-[560px] min-h-[450px] font-[500] text-[14px] leading-[22px] text-gray6 p-[16px]">
+        <ol
+          className={cn(
+            "flex flex-col bg-gray1 rounded-[5px]  list-decimal list-inside w-[560px] min-h-[450px] font-[500] text-[14px] leading-[22px] text-gray6 p-[16px]",
+            "mobile:w-full mobile:min-w-[280px] mobile:overflow-y-scroll"
+          )}
+        >
           <li>이미지는 이곳에 드래그 드랍으로도 업로드할 수 있습니다.</li>
           <li>
             저작권의 영향을 받을 수 있는 국내기사의 경우 반드시 요약하여
@@ -88,16 +107,21 @@ const WriteModal = ({
             최대한 원문 번역해주세요.
           </li>
         </ol>
-        <div className="w-[560px] min-h-[48px] flex justify-center items-center gap-x-[8px] mt-[24px]">
+        <div
+          className={cn(
+            "w-[560px] min-h-[48px] flex justify-center items-center gap-x-[8px] mt-[24px]",
+            "mobille:w-full mobile:max-w-[280px]"
+          )}
+        >
           <button
             onClick={handleDontShowAgain}
-            className={`${buttonBoxSize} bg-white`}
+            className={`${buttonBoxSize} bg-white border-1 border-gray3`}
           >
             다시 보지 않기
           </button>
           <button
             onClick={handleConfirm}
-            className={`${buttonBoxSize} bg-primary text-white`}
+            className={`${buttonBoxSize} bg-[#00ADEE] text-white`}
           >
             확인했어요!
           </button>

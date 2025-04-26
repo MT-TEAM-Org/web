@@ -57,10 +57,10 @@ mobile:w-full mobile:max-w-[768px] mobile:min-w-[360px]"
       >
         <BoardDetail boardId={boardId} />
       </div>
-      <div className="w-full tablet:w-full tablet:max-w-[688px] mobile:hidden">
+      <div className="w-full tablet:w-full tablet:max-w-[688px] mobile:hidden mt-[12px]">
         <CommunityToolbar boardType={boardType} pageInfo={pageInfo} />
       </div>
-      <div className="w-full min-h-[120px] tablet:w-full tablet:max-w-[688px] tablet:mx-auto bg-white">
+      <div className="w-full min-h-[120px] tablet:w-full tablet:max-w-[688px] tablet:mx-auto bg-white mobile:mt-[16px]">
         <PostItem
           boardType={boardType}
           categoryType={categoryType}

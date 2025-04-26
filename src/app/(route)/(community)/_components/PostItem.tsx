@@ -130,7 +130,7 @@ const PostItem = ({
             href={`/board/${boardType}/${data.categoryType}/${data.id}`}
             key={`${data.id}-${index}`}
             onClick={() => handlePostClick(data.id)}
-            className="flex items-center w-full max-w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]  hover:bg-bg0"
+            className="flex items-center w-full max-w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]  hover:bg-bg0 mobile:max-w-[768px]"
           >
             <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] text-[14px] p-2 bg-gray1 font-bold">
               <span>{numberOverThousand(data?.id)}</span>
@@ -196,7 +196,7 @@ const PostItem = ({
       ) : (
         <EmptyBoard />
       )}
-      <div className="w-full hidden mobile:block mobile:mt-[12px]">
+      <div className="w-full hidden mobile:block mobile:mt-[12px] mobile:mb-[24px]">
         <div className="flex justify-center items-center">
           <Pagination
             pageInfo={pageInfo}

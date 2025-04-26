@@ -101,7 +101,7 @@ export const CommunityToolbar = ({
 
   return (
     <div className="w-full max-w-[720px] sticky top-0 bg-white z-10 tablet:max-w-[768px] tablet:mx-auto mobile:w-full mobile:max-w-[768px]">
-      <div className="mobile:w-full mobile:max-w-[768px] mobile:min-h-[96px] mobile:flex mobile:flex-col h-[52px] pc:hidden block">
+      <div className="mobile:w-full mobile:max-w-[768px] mobile:min-h-[96px] mobile:flex mobile:flex-col h-[52px] pc:hidden tablet:hidden block">
         <BoardMobile />
         {isShow && (
           <div className="block w-full max-w-[768px] h-[48px]">
