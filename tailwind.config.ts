@@ -29,6 +29,9 @@ export default {
         tablet: { min: "769px", max: "1279px" },
         pc: { min: "1280px" },
       },
+      boxShadow: {
+        "soft-md": "0px 6px 10px 0px rgba(0, 0, 0, 0.05)",
+      },
 
       colors: {
         Primary: "#1228EF",
