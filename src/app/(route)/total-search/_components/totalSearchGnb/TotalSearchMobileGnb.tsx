@@ -87,7 +87,7 @@ const TotalSearchMobileGnb = () => {
         "tablet:hidden"
       )}
     >
-      <div className="w-full flex items-center">
+      <div className={cn("w-full flex items-center", uiState && "gap-2")}>
         <div
           onClick={handleNavLeftIconClick}
           className="w-[48px] h-[48px] flex items-center justify-center cursor-pointer"
