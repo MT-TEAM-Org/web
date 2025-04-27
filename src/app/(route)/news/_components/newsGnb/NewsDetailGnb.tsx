@@ -4,25 +4,34 @@ import { cn } from "@/utils";
 import ShareModalPopUp from "@/app/_components/ShareModalPopUp";
 import { useRouter } from "next/navigation";
 import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
+import { ReportType } from "@/services/board/types/report";
+import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
+import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 
 interface NewsDetailGnbProps {
   title: string;
   type?: "news" | "notice" | "feedback";
+  data?: FeedbackContentType;
+  id?: number;
 }
 
-const NewsDetailGnb = ({ title, type = "news" }: NewsDetailGnbProps) => {
+const NewsDetailGnb = ({
+  title,
+  type = "news",
+  data,
+  id,
+}: NewsDetailGnbProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const [reportActiveModal, setReportActiveModal] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [guestModal, setGuestModal] = useState(false);
   const url = window.location.href;
   const router = useRouter();
+  const adminRole = useAdminRole();
 
   const modalPopUp = () => {
     setActiveModal((prev) => !prev);
-  };
-
-  const reportModalPopUp = () => {
-    setReportActiveModal((prev) => !prev);
   };
 
   const titleText = () => {
@@ -55,6 +64,20 @@ const NewsDetailGnb = ({ title, type = "news" }: NewsDetailGnbProps) => {
     };
   }, []);
 
+  const reportData = {
+    reportedPublicId: data?.publicId,
+    reportType: "IMPROVEMENT" as ReportType,
+    reportedContentId: Number(id),
+  };
+
+  const handleReportClick = () => {
+    if (!adminRole) {
+      setGuestModal(true);
+    } else {
+      setReportActiveModal(true);
+    }
+  };
+
   return (
     <div
       className={cn(
@@ -83,7 +106,7 @@ const NewsDetailGnb = ({ title, type = "news" }: NewsDetailGnbProps) => {
         )}
       >
         {type === "feedback" && (
-          <div onClick={reportModalPopUp} className="w-1/2">
+          <div onClick={handleReportClick} className="w-1/2">
             <CustomIcon
               icon="MOBILE_DETAIL_GNB_REPORT_ICON"
               className="w-[18px] h-[18px] text-white"
@@ -97,8 +120,17 @@ const NewsDetailGnb = ({ title, type = "news" }: NewsDetailGnbProps) => {
           />
         </div>
       </div>
+      {guestModal && (
+        <SignInModalPopUp
+          isOpen={guestModal}
+          onClose={() => setGuestModal(false)}
+        />
+      )}
       {reportActiveModal && (
-        <ReportModalPopUp setActiveModal={setReportActiveModal} />
+        <ReportModalPopUp
+          setActiveModal={setReportActiveModal}
+          reportData={reportData}
+        />
       )}
       {activeModal && (
         <ShareModalPopUp setActiveModal={setActiveModal} url={url} />

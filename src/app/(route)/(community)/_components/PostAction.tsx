@@ -5,19 +5,34 @@ import Copy from "@/app/_components/icon/Copy";
 import Share from "@/app/_components/icon/Share";
 import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 import ShareModalPopUp from "@/app/_components/ShareModalPopUp";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
+import { ReportType } from "@/services/board/types/report";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useAdminRole } from "../../customer/_utils/adminChecker";
 
 interface PostActionProps {
   type: "news" | "community";
   source?: string;
   onReport?: () => void;
+  // 게시판 신고기능 끝나면 reportData 옵셔널 처리 삭제해주시면 됩니다
+  reportData?: {
+    reportedPublicId: string;
+    reportType: ReportType;
+    reportedContentId: number;
+  };
 }
 
-const PostAction = ({ type, onReport, source }: PostActionProps) => {
+const PostAction = ({
+  type,
+  onReport,
+  source,
+  reportData,
+}: PostActionProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const [activeReportModal, setActiveReportModal] = useState(false);
   const url = window.location.href;
+  const adminRole = useAdminRole();
   const { success, error } = useToast();
 
   const modalPopUp = () => {
@@ -33,7 +48,14 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
     }
   };
 
+  const [guestModal, setGuestModal] = useState(false);
+
   const handleReport = () => {
+    if (!adminRole) {
+      setGuestModal(true);
+      return;
+    }
+
     setActiveReportModal(true);
     if (onReport) {
       onReport();
@@ -77,8 +99,17 @@ const PostAction = ({ type, onReport, source }: PostActionProps) => {
       {activeModal && (
         <ShareModalPopUp setActiveModal={setActiveModal} url={url} />
       )}
+      {guestModal && (
+        <SignInModalPopUp
+          isOpen={guestModal}
+          onClose={() => setGuestModal(false)}
+        />
+      )}
       {activeReportModal && (
-        <ReportModalPopUp setActiveModal={setActiveReportModal} />
+        <ReportModalPopUp
+          setActiveModal={setActiveReportModal}
+          reportData={reportData}
+        />
       )}
     </div>
   );

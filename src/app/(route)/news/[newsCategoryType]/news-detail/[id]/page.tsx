@@ -11,7 +11,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   try {
     const resolvedParams = await params;
-    const newsDetail = await getNewsItemInfo({ id: resolvedParams.id });
+    const newsDetail = await getNewsItemInfo({
+      id: resolvedParams.id,
+      openGraph: true,
+    });
     const updatedImg = updateImageUrl(newsDetail?.thumbImg, "w1200");
 
     return {

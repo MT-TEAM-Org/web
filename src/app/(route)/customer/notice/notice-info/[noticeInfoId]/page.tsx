@@ -14,6 +14,7 @@ export async function generateMetadata({
     const noticeId = Number(resolvedParams.noticeInfoId);
     const noticeDetail = await getNoticeInfoData({
       id: noticeId,
+      openGraph: true,
     });
 
     const rawContent = noticeDetail.content || "공지사항 상세 내용";

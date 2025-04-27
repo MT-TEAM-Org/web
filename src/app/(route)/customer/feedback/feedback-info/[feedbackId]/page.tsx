@@ -15,6 +15,7 @@ export async function generateMetadata({
     const feedbackId = Number(resolvedParams.feedbackId);
     const feedbackDetail = await getFeedbackInfoData({
       id: feedbackId,
+      openGraph: true,
     });
 
     const rawContent = feedbackDetail.content || "개선요청 상세 내용";

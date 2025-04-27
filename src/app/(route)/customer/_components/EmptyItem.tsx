@@ -15,7 +15,7 @@ const EmptyItem = ({ title }: EmptyNoticeItemProps) => {
     <div
       className={cn(
         "w-[720px] h-[248px] rounded-b-[10px] flex items-center bg-transparent",
-        "tablet:w-[688px] tablet:shadow-md",
+        "tablet:w-[688px] tablet:shadow-soft-md",
         "mobile:min-w-[360px] mobile:w-auto mobile:bg-gray1"
       )}
     >
@@ -35,7 +35,7 @@ const EmptyItem = ({ title }: EmptyNoticeItemProps) => {
         )}
 
         <div className="w-full min-h-[24px] flex gap-1 text-center items-center justify-center">
-          <p className="text-bold text-[16px] leading-6 tracking-[-0.02em] text-gray7">
+          <p className="font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray7">
             등록된 <span>{title}</span> 없습니다.
           </p>
         </div>
