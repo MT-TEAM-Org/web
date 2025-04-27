@@ -120,7 +120,7 @@ export default function Footer() {
               )}
             >
               <p
-                className={`${footerGrayText} tablet:font-[500] tablet:text-[12px] tablet:leading-[18px] tablet:text-gray6, mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]`}
+                className={`${footerGrayText} tablet:font-[500] tablet:text-[12px] tablet:leading-[18px] tablet:text-gray6 mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]`}
               >
                 서비스명 : PlayHive · 대표 : 홍길표 · 개인정보 보호책임자 :
                 홍길표
@@ -173,7 +173,7 @@ export default function Footer() {
         <div
           className={cn(
             "w-full max-w-[1200px] h-[80px] flex justify-between items-center mx-auto border-gray7 border-t-[1px]",
-            "tablet:justify-center tablet:items-center tablet:h-[43px]",
+            "tablet:justify-center tablet:items-center",
             "mobile:justify-center mobile:items-center mobile:max-w-[calc(100%-32px)] mobile:mx-auto"
           )}
         >

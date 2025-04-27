@@ -56,15 +56,15 @@ export default function Header() {
         </p>
       </div>
 
-      <div className="flex items-center gap-x-2 whitespace-nowrap">
+      <div className="flex gap-x-2 h-[40px] whitespace-nowrap items-center">
         <Link href="/customer/feedback">
-          <button className="min-w-[73.75px] px-4 py-2 hover:text-gra">
+          <button className="flex items-center justify-center w-auto px-4 py-2  hover:text-gra tablet:p-4 tablet:w-[73.75px] ">
             개선요청
           </button>
         </Link>
-        <div className="w-[1px] h-[16px] bg-gray-300" />
+        <div className="w-[1px] h-[16px] bg-gray-300 self-center my-auto " />
         <Link href="/customer">
-          <button className="min-w-[73.75px] px-4 py-2 hover:text-gra">
+          <button className="flex items-center justify-center w-auto px-4 py-2 hover:text-gra tablet:p-4 tablet:w-[73.75px]">
             고객센터
           </button>
         </Link>
