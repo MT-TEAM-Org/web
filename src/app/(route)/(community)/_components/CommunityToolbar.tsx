@@ -25,9 +25,10 @@ interface CommunityToolbarProps {
 export const CommunityToolbar = ({
   boardType,
   pageInfo,
-  isShow,
+  isShow = false,
 }: CommunityToolbarProps) => {
   const { resetEditState } = useEditStore();
+  console.log(isShow);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -101,14 +102,14 @@ export const CommunityToolbar = ({
 
   return (
     <div className="w-full max-w-[720px] sticky top-0 bg-white z-10 tablet:max-w-[768px] tablet:mx-auto mobile:w-full mobile:max-w-[768px]">
-      <div className="mobile:w-full mobile:max-w-[768px] mobile:min-h-[96px] mobile:flex mobile:flex-col h-[52px] pc:hidden tablet:hidden block">
+      <div className="mobile:w-full mobile:max-w-[768px] mobile:max-h-[48px] mobile:flex mobile:flex-col h-[52px] pc:hidden tablet:hidden block">
         <BoardMobile />
-        {isShow && (
-          <div className="block w-full max-w-[768px] h-[48px]">
-            <LeftSidebar />
-          </div>
-        )}
       </div>
+      {isShow && (
+        <div className="block pc:hidden w-full max-w-[768px] h-[48px]">
+          <LeftSidebar />
+        </div>
+      )}
       <div className="mobile:hidden w-full pc:min-w-[720px] flex justify-between items-center min-h-[64px] p-[12px] border-b mobile:w-full mobile:max-w-[768px]">
         <button
           onClick={handleWriteClick}

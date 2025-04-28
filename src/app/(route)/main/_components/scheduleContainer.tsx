@@ -232,6 +232,18 @@ const ScheduleContainer = ({
           </div>
           <div className="flex flex-col items-center justify-center gap-[12px]">
             <button
+              onClick={handleNextPage}
+              disabled={allScheduleData.length <= itemsPerPage}
+              className={cn(
+                "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2"
+              )}
+            >
+              <CustomIcon
+                icon="MATCH_NEXT_ICON"
+                className="w-[18px] h-[18px] text-white"
+              />
+            </button>
+            <button
               onClick={handlePrevPage}
               disabled={allScheduleData.length <= itemsPerPage}
               className={cn(
@@ -242,18 +254,6 @@ const ScheduleContainer = ({
             >
               <CustomIcon
                 icon="MATCH_PREV_ICON"
-                className="w-[18px] h-[18px] text-white"
-              />
-            </button>
-            <button
-              onClick={handleNextPage}
-              disabled={allScheduleData.length <= itemsPerPage}
-              className={cn(
-                "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2"
-              )}
-            >
-              <CustomIcon
-                icon="MATCH_NEXT_ICON"
                 className="w-[18px] h-[18px] text-white"
               />
             </button>

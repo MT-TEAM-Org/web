@@ -132,9 +132,8 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
               <li
                 key={index}
                 className={`
-                  w-[252px] h-[48px] text-left cursor-pointer  px-4 py-1 flex items-center hover:bg-bg0
+                  w-[252px] h-[48px] text-left cursor-pointer  px-4 py-1 flex items-center hover:bg-bg0 border-b border-gray2
                   ${isLastItem ? "h-[58px]" : "h-[48px]"}
-                  ${!isFirstItem ? "border-b border-gray2" : ""}
                 `}
                 onClick={() => handleClickMenu(item)}
               >
