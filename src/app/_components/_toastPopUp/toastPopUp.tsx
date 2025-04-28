@@ -72,7 +72,7 @@ const ToastPopUp = ({
   const defaultToastStyle = cn(
     "fixed z-[999] inset-x-0 mx-auto flex gap-x-[16px] justify-center items-center max-w-[640px] min-h-[56px] rounded-[10px] px-[16px] py-[8px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.1)]",
     "mobile:w-full mobile:max-w-[328px] mobile:h-[48px]",
-    isMobile ? "bottom-[80px]" : "top-[160px]"
+    isMobile ? "bottom-[80px]" : "top-[40px]"
   );
   return (
     <AnimatePresence
