@@ -22,7 +22,7 @@ const MyPageInquiriesList = () => {
 
   const inquiriesOption: InquiriesListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-    size: 10,
+    size: 20,
     orderType:
       (searchParams.get("order_type") as InquiriesListConfig["orderType"]) ||
       "NONE",
