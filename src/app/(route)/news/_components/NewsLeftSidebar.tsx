@@ -1,4 +1,5 @@
 "use client";
+
 import { cn } from "@/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -47,53 +48,70 @@ const LeftSidebar = () => {
     return currentCategory === boardCategory;
   };
 
+  const inDetail = () => {
+    if (pathname.includes("news-detail")) {
+      return "tablet:sticky tablet:z-20";
+    } else {
+      return "tablet:static";
+    }
+  };
+
   return (
     <div
       className={cn(
-        "w-full h-[260px] bg-white overflow-x-hidden",
-        "tablet:flex tablet:w-[688px] tablet:h-[52px]",
-        "mobile:flex mobile:w-full mobile:h-[48px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide"
+        "w-[160px] pc:h-[260px] sticky top-0 rounded-[5px] overflow-hidden",
+        "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:overflow-x-auto",
+        inDetail(),
+        "mobile:w-full mobile:h-auto mobile:min-h-[48px] mobile:static mobile:overflow-x-auto"
       )}
     >
       <div
         className={cn(
-          "w-full flex flex-col",
-          "tablet:flex-row tablet:w-full",
-          "mobile:flex-row mobile:inline-flex mobile:min-w-fit"
+          "w-full h-[260px] bg-white overflow-x-hidden",
+          "tablet:flex tablet:w-[688px] tablet:h-[52px]",
+          "mobile:flex mobile:w-full mobile:h-[48px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide"
         )}
       >
-        {boardList.map((board) => (
-          <Link
-            href={board.path}
-            key={board.id}
-            className={cn(
-              "block w-full",
-              "tablet:flex tablet:flex-1",
-              "mobile:inline-block"
-            )}
-          >
-            <div
+        <div
+          className={cn(
+            "w-full flex flex-col",
+            "tablet:flex-row tablet:w-full",
+            "mobile:flex-row mobile:inline-flex mobile:min-w-fit"
+          )}
+        >
+          {boardList.map((board) => (
+            <Link
+              href={board.path}
+              key={board.id}
               className={cn(
-                `w-full h-[52px] px-4 py-3 cursor-pointer ${
-                  isCurrentPath(board.category)
-                    ? "font-[700] text-gra bg-bg0 mobile:text-gray7 mobile:border-b-2 mobile:border-b-gray7 mobile:bg-transparent"
-                    : "font-[400] text-gray7 bg-white pc:hover:text-gra mobile:text-gray5 mobile:border-b-2 mobile:border-b-gray3"
-                }`,
-                "tablet:flex tablet:items-center tablet:justify-center tablet:text-center tablet:text-[16px] tablet:leading-7 tablet:tracking-[-0.02em]",
-                "mobile:inline-flex mobile:min-w-[72px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-center mobile:text-[14px] mobile:leading-5"
+                "block w-full",
+                "tablet:flex tablet:flex-1",
+                "mobile:inline-block"
               )}
             >
-              <p
+              <div
                 className={cn(
-                  "text-[16px] leading-7 tracking-[-0.02em] whitespace-nowrap",
-                  "mobile:text-[14px] mobile:leading-5"
+                  `w-full h-[52px] px-4 py-3 cursor-pointer ${
+                    isCurrentPath(board.category)
+                      ? "font-[700] text-gra bg-bg0 mobile:text-gray7 mobile:border-b-2 mobile:border-b-gray7 mobile:bg-transparent"
+                      : "font-[400] text-gray7 bg-white pc:hover:text-gra mobile:text-gray5 mobile:border-b-2 mobile:border-b-gray3"
+                  }`,
+                  "tablet:flex tablet:items-center tablet:justify-center tablet:text-center tablet:text-[16px] tablet:leading-7 tablet:tracking-[-0.02em]",
+                  "mobile:inline-flex mobile:min-w-[72px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-center mobile:text-[14px] mobile:leading-5"
                 )}
               >
-                {board.name}
-              </p>
-            </div>
-          </Link>
-        ))}
+                <p
+                  className={cn(
+                    "text-[16px] leading-7 tracking-[-0.02em] whitespace-nowrap",
+                    "mobile:text-[14px] mobile:leading-5"
+                  )}
+                >
+                  {board.name}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

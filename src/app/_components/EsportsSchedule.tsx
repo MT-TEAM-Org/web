@@ -115,7 +115,7 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
       className={cn(
         "w-[1200px] h-auto flex flex-col justify-center items-center rounded-[5px] overflow-hidden",
         "tablet:max-w-[768px] tablet:overflow-x-auto tablet:scrollbar-hide",
-        "mobile:w-screen mobile:overflow-x-auto mobile:scrollbar-hide"
+        "mobile:w-full mobile:overflow-x-auto mobile:scrollbar-hide mobile:px-3"
       )}
     >
       <div className="w-full max-w-[1200px] flex justify-between items-center rounded-[5px]">
