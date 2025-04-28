@@ -12,6 +12,7 @@ interface category {
   boardType: string;
   categoryType: string;
 }
+
 export default function Category({ params }: { params: Promise<category> }) {
   const unwrappedParams = use(params);
   const { boardType, categoryType } = unwrappedParams;
@@ -42,7 +43,7 @@ export default function Category({ params }: { params: Promise<category> }) {
   const pageInfo = boardData?.pageInfo;
 
   return (
-    <div className="w-full max-w-[720px] flex justify-center bg-[#FAFAFA] mb-[46px] min-h-[100px] tablet:w-full mobile:w-full mobile:max-w-[768px] mobile:mb-0">
+    <div className="w-full max-w-[720px] flex justify-center bg-[#FAFAFA] pc:mb-0 tablet:mb-[46px] min-h-[100px] tablet:w-full mobile:w-full mobile:max-w-[768px] mobile:mb-0">
       <div
         className={cn(
           "w-full min-h-[120px] rounded-[5px] border-b bg-[#FFFFFF] mx-auto sticky top-0",
@@ -53,13 +54,14 @@ export default function Category({ params }: { params: Promise<category> }) {
         <CommunityToolbar
           boardType={boardType}
           pageInfo={pageInfo}
-          isShow={isShow}
+          isShow={true}
         />
         <PostItem
           boardType={boardType}
           categoryType={categoryType}
           boardData={boardData}
           pageInfo={pageInfo}
+          isDetailPage={false}
         />
       </div>
     </div>

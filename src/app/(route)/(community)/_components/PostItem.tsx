@@ -50,6 +50,7 @@ interface PostItemProps {
     totalPage: number;
     totalElement: number;
   };
+  isDetailPage: boolean;
 }
 
 const PostItem = ({
@@ -57,6 +58,7 @@ const PostItem = ({
   categoryType,
   boardData,
   pageInfo,
+  isDetailPage,
 }: PostItemProps) => {
   const [readPosts, setReadPosts] = useState<number[]>([]);
   const { data: noticeResponse } = useGetNoticeDataList();
@@ -116,7 +118,11 @@ const PostItem = ({
   };
 
   return (
-    <div className="w-full tablet:max-w-[688px] flex flex-col items-center mobile:min-w-[360px] mobile:max-w-[768px]">
+    <div
+      className={`w-full tablet:max-w-[688px] flex flex-col items-center mobile:min-w-[360px] mobile:max-w-[768px] ${
+        isDetailPage ? "mb-[40px]" : ""
+      }`}
+    >
       {slicedNoticeDataList?.map((noticeListData: NoticeContentType) => (
         <NoticeItem
           key={noticeListData.id}
@@ -132,7 +138,7 @@ const PostItem = ({
             onClick={() => handlePostClick(data.id)}
             className="flex items-center w-full max-w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]  hover:bg-bg0 mobile:max-w-[768px]"
           >
-            <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] text-[14px] p-2 bg-gray1 font-bold">
+            <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] text-[14px] p-2 bg-gray1 font-bold text-gray7">
               <span>{numberOverThousand(data?.id)}</span>
             </div>
             <div className="flex items-center gap-[10px]">

@@ -152,7 +152,7 @@ const Tiptap = ({
     editorProps: {
       attributes: {
         class:
-          "editor-class flex flex-col font-semibold text-[14px] leading-[20px] text-gray7 min-h-[375px] p-4 gap-y-[2px]",
+          "editor-class flex flex-col font-medium text-[14px] leading-[20px] text-gray7 min-h-[375px] p-4 gap-y-[2px]",
       },
       handlePaste: (view, event) => {
         const items = Array.from(event.clipboardData?.items || []);
@@ -324,7 +324,7 @@ const Tiptap = ({
       className={cn(
         "w-full max-w-[720px] max-h-[835px] flex flex-col items-center pt-[12px] pb-[24px] px-[12px] gap-3 box-border",
         "tablet:w-full tablet:min-w-[668px]",
-        "mobile:min-w-[360px] mobile:max-w-[768px] mobile:w-full"
+        "mobile:min-w-[360px] mobile:max-w-[768px] mobile:w-full mobile:max-h-[900px]"
       )}
     >
       <div className="tablet:w-full tablet:max-w-[668px] mobile:w-full mobile:max-w-[768px]">
@@ -372,7 +372,7 @@ const Tiptap = ({
                     className="absolute top-0 left-0 pointer-events-none py-2"
                     style={{ zIndex: 0 }}
                   >
-                    <p className="font-semibold px-4 text-[14px] leading-[20px] text-[#424242]">
+                    <p className="font-semibold px-4 text-[14px] leading-[20px] text-[#424242] mobile:font-medium">
                       자유롭게 글을 작성해주시되, 국내/해외기사의 경우
                       유의해주세요!
                     </p>
