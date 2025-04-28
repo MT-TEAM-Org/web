@@ -86,7 +86,7 @@ const NoticeInfo = () => {
         className={cn(
           "w-[720px] h-auto rounded-[5px] bg-white",
           "tablet:w-[688px]",
-          "mobile:w-full mobile:mt-2"
+          "mobile:w-full mobile:mt-3"
         )}
       >
         {isLoading ? (

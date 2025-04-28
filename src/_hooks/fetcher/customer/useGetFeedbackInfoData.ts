@@ -11,6 +11,10 @@ const useGetFeedbackInfoData = ({id, token}: useGetFeedbackInfoDataProps) => {
     queryKey: ["feedbackInfo", id],
     queryFn: () => getFeedbackInfoData({id, token}),
     retry: 1,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 };
 

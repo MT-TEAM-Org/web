@@ -91,7 +91,7 @@ const Toolbar = ({ editor, content }: Props) => {
   }
 
   return (
-    <div className="flex justify-between items-center w-full border border-r-0 border-l-0 border-[#ced4da] rounded-t-[5px]">
+    <div className="flex justify-between items-center w-full border border-r-0 border-l-0 border-[#ced4da] rounded-t-[5px] tablet:max-w-[668px] tablet:w-full">
       <div className="flex justify-start items-center">
         {toolbarButtons.map((button, index) => (
           <React.Fragment key={index}>

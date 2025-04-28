@@ -162,9 +162,7 @@ const Signup = () => {
       {show.service || show.personal || show.sequence ? (
         <TearmsModal show={show} setShow={setShow} />
       ) : null}
-      <div className={cn("mb-[80px]", "tablet:mb-[37px]")}>
-        <AccountHelp signState="signup" />
-      </div>
+      <AccountHelp signState="signup" />
     </>
   );
 };

@@ -85,7 +85,7 @@ const ShareModalPopUp = ({ setActiveModal, url }) => {
     >
       <div
         className={cn(
-          "w-[408px] min-h-[274px] rounded-[10px] p-10 flex flex-col gap-6 bg-white shadow-md relative",
+          "w-[408px] min-h-[274px] rounded-[10px] p-10 flex flex-col gap-6 bg-white shadow-soft-md relative",
           "mobile:w-[328px] mobile:min-h-[204px] mobile:h-[204px] mobile:p-6"
         )}
       >

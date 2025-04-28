@@ -10,7 +10,7 @@ const ChangedCategory = ({ category }: ChangedCategoryProps): string => {
       case "FOOTBALL":
         return "축구";
       case "ESPORTS":
-        return "e스포츠";
+        return "E스포츠";
       default:
         return "기타";
     }

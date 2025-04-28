@@ -161,7 +161,7 @@ const NewsInfo = ({
           <NewsDetailGnb title={newsInfoData?.title} />
           <div
             className={cn(
-              "w-[720px] h-auto rounded-t-[5px] p-6 flex gap-4 flex-col shadow-md bg-white",
+              "w-[720px] h-auto rounded-t-[5px] p-6 flex gap-4 flex-col shadow-soft-md bg-white",
               "tablet:max-w-[687px]",
               "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
             )}
@@ -294,7 +294,7 @@ const NewsInfo = ({
 
       <div
         className={cn(
-          "w-full h-auto rounded-[5px] shadow-md bg-white",
+          "w-full h-auto rounded-[5px] shadow-soft-md bg-white",
           "mobile:max-w-full"
         )}
       >

@@ -16,7 +16,7 @@ const ServiceBenefitItem = ({
   return (
     <div
       className={cn(
-        `min-w-[361px] min-h-[80px] rounded-[200px] py-4 px-6 bg-white shadow-md flex justify-center items-center gap-3 ${
+        `min-w-[361px] min-h-[80px] rounded-[200px] py-4 px-6 bg-white shadow-soft-md flex justify-center items-center gap-3 ${
           reverse ? "flex-row-reverse" : "flex-row"
         }`,
         "mobile:min-w-[328px] mobile:min-h-[40px] mobile:px-4 mobile:py-2 mobile:gap-2"

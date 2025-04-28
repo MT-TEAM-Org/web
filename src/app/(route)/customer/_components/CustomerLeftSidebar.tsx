@@ -50,6 +50,17 @@ const CustomerLeftSidebar = () => {
     }
   };
 
+  const inDetail = () => {
+    if (
+      pathname.includes("feedback-info") ||
+      pathname.includes("notice-info")
+    ) {
+      return "tablet:sticky tablet:z-20";
+    } else {
+      return "tablet:static";
+    }
+  };
+
   const currentPathStyle =
     "font-bold text-gra bg-bg0 mobile:bg-transparent mobile:text-gray7 mobile:border-b-2 mobile:border-gray7";
   const defaultStyle =
@@ -58,58 +69,67 @@ const CustomerLeftSidebar = () => {
   return (
     <div
       className={cn(
-        "w-[160px] bg-white",
-        "tablet:w-full tablet:flex tablet:h-[52px]",
-        "mobile:w-full mobile:min-h-48px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide",
-        writePageHidden()
+        "w-[160px] h-[260px] sticky top-0 rounded-t-[5px] overflow-hidden",
+        "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:overflow-x-auto",
+        inDetail(),
+        "mobile:w-full mobile:h-auto mobile:min-h-[48px] mobile:static mobile:overflow-x-auto"
       )}
     >
       <div
         className={cn(
-          "w-full flex flex-col justify-center",
-          "tablet:flex-row tablet:w-full",
-          "mobile:flex-row mobile:min-w-fit mobile:justify-start"
+          "w-[160px] bg-white",
+          "tablet:w-full tablet:flex tablet:h-[52px]",
+          "mobile:w-full mobile:min-h-48px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide",
+          writePageHidden()
         )}
       >
-        {boardList.map((board) => (
-          <Link
-            key={board.id}
-            href={board.path}
-            className={cn(
-              "block w-full",
-              "tablet:flex tablet:flex-1",
-              "mobile:inline-block"
-            )}
-          >
-            <div
-              className={cn(
-                `w-full h-[52px] px-4 py-3 cursor-pointer ${
-                  isCurrentPath(board.path) && !show
-                    ? currentPathStyle
-                    : defaultStyle
-                }`,
-                "tablet:flex tablet:items-center tablet:justify-center tablet:h-full tablet:w-full",
-                "mobile:inline-flex mobile:min-w-[122px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-[14px]"
-              )}
-            >
-              <p className="whitespace-nowrap">{board.name}</p>
-            </div>
-          </Link>
-        ))}
         <div
           className={cn(
-            `w-full h-[52px] px-4 py-3 cursor-pointer ${
-              show ? currentPathStyle : defaultStyle
-            }`,
-            "tablet:flex-1 tablet:flex tablet:items-center tablet:justify-center tablet:h-full tablet:w-full",
-            "mobile:inline-flex mobile:min-w-[98px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-[14px] mobile:leading-5"
+            "w-full flex flex-col justify-center",
+            "tablet:flex-row tablet:w-full",
+            "mobile:flex-row mobile:min-w-fit mobile:justify-start"
           )}
-          onClick={() => setShow(true)}
         >
-          <p className="whitespace-nowrap">1:1 문의하기</p>
+          {boardList.map((board) => (
+            <Link
+              key={board.id}
+              href={board.path}
+              className={cn(
+                "block w-full",
+                "tablet:flex tablet:flex-1",
+                "mobile:inline-block"
+              )}
+            >
+              <div
+                className={cn(
+                  `w-full h-[52px] px-4 py-3 cursor-pointer ${
+                    isCurrentPath(board.path) && !show
+                      ? currentPathStyle
+                      : defaultStyle
+                  }`,
+                  "tablet:flex tablet:items-center tablet:justify-center tablet:h-full tablet:w-full",
+                  "mobile:inline-flex mobile:min-w-[122px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-[14px]"
+                )}
+              >
+                <p className="whitespace-nowrap">{board.name}</p>
+              </div>
+            </Link>
+          ))}
+          <div
+            className={cn(
+              `w-full h-[52px] px-4 py-3 cursor-pointer ${
+                show ? currentPathStyle : defaultStyle
+              }`,
+              "tablet:flex-1 tablet:flex tablet:items-center tablet:justify-center tablet:h-full tablet:w-full",
+              "mobile:inline-flex mobile:min-w-[98px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-[14px] mobile:leading-5"
+            )}
+            onClick={() => setShow(true)}
+          >
+            <p className="whitespace-nowrap">1:1 문의하기</p>
+          </div>
         </div>
+        {show && <ModalPopup show={show} setShow={setShow} />}
       </div>
-      {show && <ModalPopup show={show} setShow={setShow} />}
     </div>
   );
 };

@@ -75,7 +75,7 @@ const NewsPostItem = ({
   const getMinHeightClass = () => {
     return newsComment || newsCommentImage
       ? "h-[136px] mobile:h-[136px]"
-      : "h-[116px] mobile:h-[116px]";
+      : "h-[116px] mobile:h-[114px]";
   };
 
   const handleToInfo = () => {
@@ -114,7 +114,7 @@ const NewsPostItem = ({
             className="w-full h-full object-cover rounded-[5px]"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center rounded-[5px]">
+          <div className="w-full h-full flex items-center justify-center rounded-[5px] bg-gray1">
             <LogoWhite />
           </div>
         )}

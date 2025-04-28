@@ -146,11 +146,7 @@ const ScheduleContainer = ({
   };
 
   return (
-    <div
-      className={cn(
-        "w-full h-auto flex flex-col bg-gray1 justify-center items-center"
-      )}
-    >
+    <div className="w-full h-auto flex flex-col bg-gray1 justify-center items-center">
       {showCategoryButtons && (
         <div
           className={cn(
@@ -182,14 +178,14 @@ const ScheduleContainer = ({
           className={cn(
             "max-w-[1200px] h-[126px] flex gap-x-6 justify-between items-center",
             "tablet:max-w-[769px]",
-            "mobile:w-screen"
+            "mobile:w-full mobile:px-4"
           )}
         >
           <div
             className={cn(
               "max-w-[1136px] h-[126px] flex-1 flex justify-between items-center gap-3 overflow-hidden",
               "tablet:max-w-[769px]",
-              "mobile:w-screen mobile:overflow-x-auto mobile:scrollbar-hide"
+              "mobile:w-full mobile:overflow-x-auto mobile:scrollbar-hide"
             )}
           >
             <AnimatePresence initial={false} mode="wait">

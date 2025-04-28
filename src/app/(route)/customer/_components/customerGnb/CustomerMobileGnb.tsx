@@ -103,13 +103,13 @@ const Page = () => {
   return (
     <div
       className={cn(
-        "w-full max-w-[768px] h-[48px] flex items-center justify-around bg-white",
+        "w-full max-w-[768px] h-[48px] flex items-center justify-around bg-white border-b border-gray2",
         "pc:hidden",
         "tablet:hidden",
         isDetail()
       )}
     >
-      <div className="w-full flex items-center">
+      <div className={cn("w-full flex items-center", isSearching && "gap-2")}>
         <div
           onClick={handleNavLeftIconClick}
           className="w-[48px] h-[48px] flex items-center justify-center cursor-pointer"
