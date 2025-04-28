@@ -432,7 +432,7 @@ const Tiptap = ({
         </div>
       </div>
       {/* 사용자 안내 */}
-      <div className="flex flex-col gap-y-1 w-full max-w-[696px] min-h-[40px] rounded-[5px] p-[12px] bg-[#FAFAFA] text-[#656565] mobile:h-full mobile:max-h-[270px] mobile:p-[12px]">
+      <div className="flex flex-col gap-y-1 w-full max-w-[696px] max-h-[170px] rounded-[5px] p-[12px] bg-[#FAFAFA] text-[#656565] mobile:h-full mobile:max-h-[270px] mobile:p-[12px]">
         <div
           className={cn(
             "w-full h-[44px] font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray6 mobile:h-full mobile:max-h-[66px]"
