@@ -50,16 +50,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           "mobile:w-full mobile:flex mobile:flex-col mobile:gap-0 mobile:mt-0"
         )}
       >
-        <div
-          className={cn(
-            "w-[160px] pc:h-[260px] sticky top-0 rounded-[5px] overflow-hidden",
-            "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:static tablet:overflow-x-auto",
-            "mobile:w-full mobile:h-auto mobile:min-h-[48px] mobile:static mobile:overflow-x-auto"
-          )}
-        >
-          <NewsMobileGnb />
-          <NewsLeftSidebar />
-        </div>
+        <NewsMobileGnb />
+        <NewsLeftSidebar />
 
         <div
           className={cn(
