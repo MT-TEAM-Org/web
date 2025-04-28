@@ -25,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       className={cn(
         "bg-[#fafafa] min-h-[calc(100vh-476px)] pb-[40px]",
         "tablet:pb-0",
-        "mobile:bg-white mobile:pb-0"
+        "mobile:bg-white mobile:pb-0 mobile:min-h-[calc(100vh-450.67px)]"
       )}
     >
       <div
@@ -64,7 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           className={cn(
             "w-[720px]",
             "tablet:w-[688px]",
-            "mobile:w-full mobile:h-[500px]"
+            "mobile:min-h-[500px] mobile:w-full"
           )}
         >
           {children}
