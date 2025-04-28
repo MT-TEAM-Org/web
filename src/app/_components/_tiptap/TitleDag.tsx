@@ -79,7 +79,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
             className="w-[18px] h-[18px] text-white"
           />
         </div>
-        <h1 className="flex max-w-[80px] min-h-[28px] font-[700] text-[18px] leading-[28px] whitespace-nowrap mobile:w-full mobile:max-w-[664px] mobile:h-[40px]">
+        <h1 className="flex max-w-[80px] min-h-[28px] font-[700] text-[18px] leading-[28px] whitespace-nowrap mobile:w-full mobile:max-w-[664px] mobile:h-[40px] mobile:flex mobile:items-center">
           {isEditMode ? "게시글 수정" : "게시글 작성"}
         </h1>
         <button
