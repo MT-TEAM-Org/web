@@ -74,15 +74,15 @@ const ReportModalPopUp = ({ setActiveModal, reportData }: ReportModalPopUp) => {
         >
           <p
             className={cn(
-              "font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-center",
+              "font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-center text-black",
               "mobile:text-[18px] mobile:leading-7"
             )}
           >
             게시글 신고
           </p>
         </div>
-        <div className="w-full h-[148px] flex flex-col gap-[12px] justify-start items-center text-[14px] leading-[22px] tracking-[-0.02em] text-gray7">
-          <ul className="w-full h-[148px] flex flex-col gap-3">
+        <div className="w-full min-h-[148px] flex flex-col gap-[12px] justify-start items-center">
+          <ul className="w-full flex flex-col gap-3">
             {report.map((reason, index) => (
               <li key={index} className="flex items-center justify-start gap-2">
                 <input
@@ -94,7 +94,7 @@ const ReportModalPopUp = ({ setActiveModal, reportData }: ReportModalPopUp) => {
                 />
                 <label
                   htmlFor={`reportReason${reason.value}`}
-                  className="cursor-pointer"
+                  className="cursor-pointer text-[14px] leading-[22px] tracking-[-0.02em] text-gray7"
                 >
                   {reason.label}
                 </label>
@@ -103,10 +103,7 @@ const ReportModalPopUp = ({ setActiveModal, reportData }: ReportModalPopUp) => {
           </ul>
         </div>
         <div
-          className={cn(
-            "w-full min-h-[48px] flex gap-2",
-            "mobile:min-h-[36px]"
-          )}
+          className={cn("w-full h-[48px] flex gap-2", "mobile:min-h-[36px]")}
         >
           <button
             onClick={closeModal}

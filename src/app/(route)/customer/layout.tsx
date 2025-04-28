@@ -50,22 +50,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           "mobile:w-full mobile:flex mobile:flex-col mobile:gap-0 mobile:mt-0"
         )}
       >
-        <div
-          className={cn(
-            "w-[160px] h-[260px] sticky top-0 rounded-t-[5px] overflow-hidden",
-            "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:static tablet:overflow-x-auto",
-            "mobile:w-full mobile:h-auto mobile:min-h-[48px] mobile:static mobile:overflow-x-auto"
-          )}
-        >
-          <CustomerMobileGnb />
-          <CustomerLeftSidebar />
-        </div>
+        <CustomerMobileGnb />
+        <CustomerLeftSidebar />
 
         <div
           className={cn(
-            "flex-1 w-full max-w-[720px] mb-10",
+            "flex-1 w-full max-w-[720px] mb-0",
             "tablet:max-w-[688px]",
-            "mobile:max-w-[768px] mobile:mb-0"
+            "mobile:max-w-[768px]"
           )}
         >
           {children}
