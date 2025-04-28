@@ -70,8 +70,12 @@ export default function Footer() {
                     "mobile:text-[18px] mobile:leading-[28px] mobile:tracking-[0.04em]"
                   )}
                 >
-                  <span className={cn("hidden", "pc:block")}>모두</span> 함께
-                  즐기는 클린 스포츠 커뮤니티, 플레이 하이브!
+                  <span
+                    className={cn("inline", "tablet:hidden", "mobile:hidden")}
+                  >
+                    모두
+                  </span>{" "}
+                  함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!
                 </span>
               </p>
               <div

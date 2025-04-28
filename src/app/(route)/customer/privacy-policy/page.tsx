@@ -23,8 +23,8 @@ const Page = () => {
   return (
     <div
       className={cn(
-        "w-full max-w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm",
-        "mobile:max-w-[768px]"
+        "w-full max-w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm mb-10",
+        "mobile:max-w-[768px] mobile:mb-0"
       )}
     >
       <div className="w-full min-h-[64px] border-b p-4 flex justify-between items-center sticky top-0 z-10 border-gray2 bg-white">
@@ -32,7 +32,7 @@ const Page = () => {
           개인정보 취급방침
         </h1>
       </div>
-      <div className="text-[14px] leading-[22px] text-gray6 p-3">
+      <div className="text-[14px] leading-[22px] text-gray6 p-3 mx-3">
         <TermsPersonalText />
       </div>
     </div>
