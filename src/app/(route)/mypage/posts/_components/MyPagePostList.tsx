@@ -19,7 +19,7 @@ const MyPagePostList = () => {
   const router = useRouter();
   const postOptions: PostListConfig = {
     page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-    size: 5,
+    size: 20,
     orderType:
       (searchParams.get("order_type") as PostListConfig["orderType"]) ||
       "CREATE",
