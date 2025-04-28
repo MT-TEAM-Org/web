@@ -60,7 +60,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <MypageLeftSidebar />
           </div>
         </div>
-        <div className={cn("w-[720px]", "tablet:w-[688px]", "mobile:w-full")}>
+        <div
+          className={cn(
+            "w-[720px]",
+            "tablet:w-[688px]",
+            "mobile:min-h-[500px] mobile:w-full"
+          )}
+        >
           {children}
         </div>
       </div>
