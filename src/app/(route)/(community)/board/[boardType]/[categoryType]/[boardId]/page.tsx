@@ -66,6 +66,7 @@ mobile:w-full mobile:max-w-[768px] mobile:min-w-[360px]"
           categoryType={categoryType}
           boardData={boardData}
           isDetailPage={true}
+          isLoading={isLoading}
         />
       </div>
     </div>

@@ -16,6 +16,7 @@ import NoticeItem from "../../customer/_components/NoticeItem";
 import { NoticeContentType } from "../../customer/_types/NoticeItemType";
 import Pagination from "../../mypage/_components/Pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import PostItemSkeleton from "./PostItemSkelton";
 
 interface BoardListItem {
   id: number;
@@ -51,6 +52,7 @@ interface PostItemProps {
     totalElement: number;
   };
   isDetailPage: boolean;
+  isLoading: boolean;
 }
 
 const PostItem = ({
@@ -59,6 +61,7 @@ const PostItem = ({
   boardData,
   pageInfo,
   isDetailPage,
+  isLoading,
 }: PostItemProps) => {
   const [readPosts, setReadPosts] = useState<number[]>([]);
   const { data: noticeResponse } = useGetNoticeDataList();
@@ -117,10 +120,14 @@ const PostItem = ({
     }
   };
 
+  if (isLoading) {
+    return <PostItemSkeleton />;
+  }
+
   return (
     <div
       className={`w-full tablet:max-w-[688px] flex flex-col items-center mobile:min-w-[360px] mobile:max-w-[768px] ${
-        isDetailPage ? "mb-[40px]" : ""
+        isDetailPage ? "tablet:mb-[40px]" : ""
       }`}
     >
       {slicedNoticeDataList?.map((noticeListData: NoticeContentType) => (

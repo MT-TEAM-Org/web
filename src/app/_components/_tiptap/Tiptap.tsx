@@ -133,7 +133,7 @@ const Tiptap = ({
       CustomImage.configure({
         HTMLAttributes: {
           class:
-            "max-w-full h-auto mx-auto block mobile:max-w-[200px] mobile:max-h-[200px]",
+            "max-w-[600px] h-[400px] mx-auto block mobile:max-w-[200px] mobile:max-h-[200px]",
         },
         allowBase64: true,
         inline: false,
@@ -355,7 +355,7 @@ const Tiptap = ({
           )}
         >
           <Toolbar editor={editor} content={watch("content")} />
-          <div className="relative overflow-y-scroll tablet:max-w-[668px]">
+          <div className="relative overflow-y-scroll max-h-[397px] tablet:max-w-[668px]">
             <EditorContent
               editor={editor}
               maxLength={1000}

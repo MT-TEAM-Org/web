@@ -29,11 +29,16 @@ export const metadata: Metadata = {
     ],
   },
   keywords: ["플레이하이브", "스포츠", "E스포츠", "커뮤니티", "축구", "야구"],
-  viewport:
-    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
   other: {
     "google-site-verification": "pGIRhN9ZARqJ4YvsrWTumwGGZ84_1szS0Y4KtZavPJQ",
   },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: "no",
 };
 
 export default function RootLayout({

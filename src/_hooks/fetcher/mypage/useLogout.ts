@@ -17,8 +17,8 @@ const useLogout = () => {
       success(
         "로그아웃 되었습니다.",
         "로그인해서 플레이하이브에서 재밌게 놀아봐요!"
-      ),
-        localStorage.removeItem("accessToken");
+      );
+      localStorage.removeItem("accessToken");
       queryClient.refetchQueries({ queryKey: ["authCheck"] });
       queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
       queryClient.invalidateQueries({ queryKey: ["myPostList"] });

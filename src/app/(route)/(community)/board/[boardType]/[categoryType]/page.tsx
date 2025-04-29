@@ -36,10 +36,6 @@ export default function Category({ params }: { params: Promise<category> }) {
     search: searchQuery,
   });
 
-  if (isLoading) {
-    return <PostItemSkeleton />;
-  }
-
   const pageInfo = boardData?.pageInfo;
 
   return (
@@ -62,6 +58,7 @@ export default function Category({ params }: { params: Promise<category> }) {
           boardData={boardData}
           pageInfo={pageInfo}
           isDetailPage={false}
+          isLoading={isLoading}
         />
       </div>
     </div>
