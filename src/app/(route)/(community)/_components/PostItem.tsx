@@ -30,6 +30,8 @@ interface BoardListItem {
   commentCount: number;
   createdAt: string;
   updatedAt: string;
+  isNew: boolean;
+  isHot: boolean;
 }
 
 interface BoardData {
@@ -165,10 +167,10 @@ const PostItem = ({
                 )}
               </div>
             </div>
-            <div className="flex flex-col justify-center flex-1 gap-y-[4px]  mobile:whitespace-nowrap">
-              <div className="flex items-center gap-[2px] max-w-[584px]">
+            <div className="flex flex-col justify-center flex-1 gap-y-[4px] ">
+              <div className="flex items-center gap-[2px] w-full max-w-[584px] mobile:w-full mobile:max-w-[768px]">
                 <h2
-                  className={`text-[14px] leading-[20px] overflow-hidden whitespace-nowrap overflow-ellipsis  ${
+                  className={`text-[14px] leading-[20px] overflow-ellipsis line-clamp-1  ${
                     isPostRead(data?.id) ? "text-gray5" : "text-gray7"
                   }`}
                 >
@@ -179,27 +181,31 @@ const PostItem = ({
                     [{data.commentCount}]
                   </p>
                 )}
-                <span className="font-black text-[10px] leading-[18px] text-gra">
-                  N
-                </span>
-                <span className="font-black text-[10px] leading-[18px] text-[#DC2800]">
-                  H
-                </span>
+                {data?.isNew && (
+                  <span className="font-black text-[10px] leading-[18px] text-gra">
+                    N
+                  </span>
+                )}
+                {data?.isHot && (
+                  <span className="font-black text-[10px] leading-[18px] text-[#DC2800]">
+                    H
+                  </span>
+                )}
               </div>
               <div className="flex font-semibold gap-1 items-center">
-                <p className="text-[12px] leading-[18px] text-gray5 ">
+                <p className="text-[12px] leading-[18px] text-gray5  whitespace-nowrap">
                   {getKoreanBoardType(data?.boardType)}
                 </p>
-                <span className="font-medium text-[12px] leading-[18px] text-gray5">
+                <span className="font-medium text-[12px] leading-[18px] text-gray5 whitespace-nowrap">
                   {getKoreanCategoryType(data?.categoryType)}
                 </span>
-                <span className="font-medium text-[12px] leading-[18px] text-gray5">
+                <span className="font-medium text-[12px] leading-[18px] text-gray5 whitespace-nowrap">
                   {CalculateTime(data?.createdAt)}
                 </span>
-                <span className="font-medium text-[12px] leading-[18px] text-gray5 mobile:max-w-[32px] mobile:truncate mobile:overflow-hidden mobile:whitespace-nowrap">
+                <span className="font-medium text-[12px] leading-[18px] text-gray5 mobile:max-w-[100px] mobile:line-clamp-1 mobile:overflow-hidden mobile:overflow-ellipsis">
                   {data?.nickname}
                 </span>
-                <span className="font-medium text-[12px] leading-[18px] text-gray4">
+                <span className="font-medium text-[12px] leading-[18px] text-gray4 whitespace-nowrap">
                   IP {data?.createdIp}
                 </span>
               </div>
