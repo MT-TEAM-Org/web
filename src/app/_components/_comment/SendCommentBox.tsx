@@ -141,7 +141,7 @@ const SendCommentBox = ({
       },
       {
         onSuccess: () => {
-          refetch();
+          if (refetch) refetch();
           if (parentsComment) setParentsComment(null);
           if (type === "INQUIRY") {
             queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });
