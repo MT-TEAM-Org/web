@@ -178,7 +178,7 @@ const ScheduleContainer = ({
           className={cn(
             "max-w-[1200px] h-[126px] flex gap-x-6 justify-between items-center",
             "tablet:max-w-[769px]",
-            "mobile:w-full mobile:px-4"
+            "mobile:w-full"
           )}
         >
           <div

@@ -41,7 +41,11 @@ export default function Layout({
         )}
       >
         <div
-          className={cn("max-w-full", "tablet:max-w-full", "mobile:h-[158px]")}
+          className={cn(
+            "max-w-full",
+            "tablet:max-w-full tablet:mx-6",
+            "mobile:h-[158px]"
+          )}
         >
           <ScheduleContainer
             matchType={matchType}
