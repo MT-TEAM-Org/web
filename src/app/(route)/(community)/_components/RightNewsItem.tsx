@@ -11,9 +11,14 @@ import { cn } from "@/utils";
 interface NewsItemProps {
   newsItem: NewsItemType;
   customClass?: string;
+  wrapperWidth?: number;
 }
 
-const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
+const RightNewsItem = ({
+  newsItem,
+  customClass,
+  wrapperWidth,
+}: NewsItemProps) => {
   const { handleRead } = useReadNews(newsItem?.id, false);
   const [read, setRead] = useState(false);
   const pathname = usePathname();
@@ -27,10 +32,16 @@ const RightNewsItem = ({ newsItem, customClass }: NewsItemProps) => {
     setRead(isReadInStorage || isCurrentPage);
   }, [newsItem?.id, pathname]);
 
-  const titleStyle =
-    "w-[194px] h-[24px] font-[700] text-[16px] leading-6 tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap mobile:w-full";
-  const contentStyle =
-    "w-[194px] h-[40px] text-[14px] leading-5 tracking-[0%] opacity-90 line-clamp-2 overflow-hidden mobile:w-full";
+  const isWide = wrapperWidth === 298;
+
+  const titleStyle = cn(
+    isWide ? "w-[194px]" : "w-[184px]",
+    "h-[24px] font-[700] text-[16px] leading-6 tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap mobile:w-full"
+  );
+  const contentStyle = cn(
+    isWide ? "w-[194px]" : "w-[184px]",
+    "h-[40px] text-[14px] leading-5 tracking-[0%] opacity-90 line-clamp-2 overflow-hidden mobile:w-full"
+  );
 
   const styles = {
     title: `${titleStyle} ${read ? "text-gray5" : "text-gray9"}`,

@@ -29,6 +29,11 @@ export const metadata: Metadata = {
     ],
   },
   keywords: ["플레이하이브", "스포츠", "E스포츠", "커뮤니티", "축구", "야구"],
+  viewport:
+    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+  other: {
+    "google-site-verification": "pGIRhN9ZARqJ4YvsrWTumwGGZ84_1szS0Y4KtZavPJQ",
+  },
 };
 
 export default function RootLayout({
@@ -38,16 +43,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={suitFont.variable}>
-      <head>
-        <meta
-          name="google-site-verification"
-          content="pGIRhN9ZARqJ4YvsrWTumwGGZ84_1szS0Y4KtZavPJQ"
-        />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-        />
-      </head>
       <body className="defaultFont">
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />

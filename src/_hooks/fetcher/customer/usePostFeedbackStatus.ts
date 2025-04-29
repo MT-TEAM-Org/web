@@ -5,14 +5,16 @@ import axios from "axios";
 
 interface usePostFeedbackStatus {
   id: number;
+  status: "PENDING" | "RECEIVED" | "COMPLETED";
 }
 
-const usePostFeedbackStatus = ({ id }: usePostFeedbackStatus) => {
+const usePostFeedbackStatus = ({ id, status }: usePostFeedbackStatus) => {
   const { success, error: toastError } = useToast();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => postFeedbackStatus({ id }),
+    mutationFn: ({ id, status }: usePostFeedbackStatus) =>
+      postFeedbackStatus({ id, status }),
     retry: 1,
     onSuccess: () => {
       success("상태가 변경되었습니다.", "");

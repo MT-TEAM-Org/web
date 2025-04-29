@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "bg-[#fafafa] min-h-[calc(100vh-514px)] pb-[40px]",
+        "bg-[#fafafa] min-h-[calc(100vh-476px)] pb-[40px]",
         "tablet:min-h-[calc(100vh-562.67px)] tablet:pb-0",
         "mobile:bg-white mobile:pb-0 mobile:min-h-[calc(100vh-450.67px)]"
       )}
