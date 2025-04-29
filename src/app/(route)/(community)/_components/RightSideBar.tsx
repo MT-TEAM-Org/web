@@ -65,7 +65,7 @@ export const RightSideBar = () => {
 
   return (
     <div
-      className={`w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-[24px] pc:pb-[50px]${
+      className={`w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-[24px]${
         !isLoading && content.length === 0 ? "hidden" : ""
       }`}
     >

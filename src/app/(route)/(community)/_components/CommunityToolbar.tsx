@@ -11,6 +11,8 @@ import SearchFilter from "../../mypage/_components/SearchFilter";
 import changeURLParams from "../../mypage/util/changeURLParams";
 import LeftSidebar from "./LeftSidebar";
 import BoardMobile from "./gnb/borardMobile";
+import useAuthCheck from "@/_hooks/useAuthCheck";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 
 interface CommunityToolbarProps {
   boardType: string;
@@ -28,23 +30,29 @@ export const CommunityToolbar = ({
   isShow = false,
 }: CommunityToolbarProps) => {
   const { resetEditState } = useEditStore();
-  console.log(isShow);
+  const [searchType, setSearchType] = useState("TITLE");
+  const [selectedOrderType, setSelectedOrderType] = useState("CREATE");
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [searchType, setSearchType] = useState("TITLE");
-  const [selectedOrderType, setSelectedOrderType] = useState("CREATE");
+  const { data: userData } = useAuthCheck();
 
   const handleWriteClick = () => {
-    const pathParts = pathname.split("/");
-    const basePath = pathParts[1];
-    const boardType = pathParts[2];
-    const categoryType = pathParts[3] || "FREE";
-    resetEditState();
+    if (!userData?.data) {
+      setIsSignInModalOpen(true);
+      return true;
+    } else {
+      const pathParts = pathname.split("/");
+      const basePath = pathParts[1];
+      const boardType = pathParts[2];
+      const categoryType = pathParts[3] || "FREE";
+      resetEditState();
 
-    router.push(`/${basePath}/${boardType}/${categoryType}/write`);
+      router.push(`/${basePath}/${boardType}/${categoryType}/write`);
+    }
   };
 
   const handleOrderClick = (type: string) => {
@@ -117,6 +125,12 @@ export const CommunityToolbar = ({
         >
           글쓰기
         </button>
+        {isSignInModalOpen && (
+          <SignInModalPopUp
+            isOpen={isSignInModalOpen}
+            onClose={() => setIsSignInModalOpen(false)}
+          />
+        )}
         <SearchFilter
           searchType={searchType}
           searchOptions={searchOptions}

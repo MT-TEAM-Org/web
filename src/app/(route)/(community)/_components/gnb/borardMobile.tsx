@@ -8,17 +8,24 @@ import { useState } from "react";
 import MobileNavModal from "./mobileNavModal";
 import SearchFilter from "@/app/(route)/mypage/_components/SearchFilter";
 import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
+import useAuthCheck from "@/_hooks/useAuthCheck";
+import { useEditStore } from "@/utils/Store";
+import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 
 const BoardMobile = () => {
+  const { resetEditState } = useEditStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [searchType, setSearchType] = useState("TITLE");
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const NavPath = pathname.split("/").slice(2, 3)[0];
+
+  const { data: userData } = useAuthCheck();
 
   const nowCategory = () => {
     const seletedCategory = NAVBARS.find((navbar) => navbar.id === NavPath);
@@ -46,6 +53,15 @@ const BoardMobile = () => {
       setIsSearching(false);
     } else {
       router.back();
+    }
+  };
+
+  const handleWriteClick = () => {
+    if (!userData?.data) {
+      setIsSignInModalOpen(true);
+    } else {
+      router.push(`${pathname}/write`);
+      resetEditState();
     }
   };
 
@@ -116,8 +132,14 @@ const BoardMobile = () => {
               >
                 <Small_Search />
               </div>
+              {isSignInModalOpen && (
+                <SignInModalPopUp
+                  isOpen={isSignInModalOpen}
+                  onClose={() => setIsSignInModalOpen(false)}
+                />
+              )}
               <button
-                onClick={() => router.push(`${pathname}/write`)}
+                onClick={handleWriteClick}
                 className="flex items-center justify-center w-[65px] h-[32px] bg-[#00ADEE] text-white rounded-[5px] py-[9px] px-[12px] text-[14px] whitespace-nowrap"
               >
                 글쓰기
