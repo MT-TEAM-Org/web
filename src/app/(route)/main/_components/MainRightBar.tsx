@@ -124,6 +124,7 @@ const MainRightBar = () => {
                 <RightNewsItem
                   key={data.id}
                   newsItem={data}
+                  wrapperWidth={298}
                   customClass={cn(
                     "max-w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3",
                     "mobile:max-w-full"

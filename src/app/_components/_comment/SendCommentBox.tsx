@@ -7,7 +7,7 @@ import getUpload from "@/_hooks/getUpload";
 import Plus from "@/app/_components/icon/Plus";
 import Cancel_icon from "@/app/_components/icon/Cancel_icon";
 import { useToast } from "@/_hooks/useToast";
-import { useQueryClient } from "@tanstack/react-query";
+import { RefetchOptions, useQueryClient } from "@tanstack/react-query";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { CommentItem, CommentType } from "@/_types/comment";
 import usePostComment from "@/_hooks/fetcher/comment/usePostComment";
@@ -15,12 +15,16 @@ import { cn } from "@/utils";
 import useIsMobile from "@/utils/useIsMobile";
 import { useAuthStore } from "@/utils/Store";
 import SignInModalPopUp from "../SignInModalPopUp";
+import { QueryObserverResult } from "@tanstack/react-query";
 
 interface SendCommentBoxProps {
   id?: string;
   parentsComment?: CommentItem;
   setParentsComment: (comment: CommentItem) => void;
   type: CommentType;
+  refetch?: (
+    options?: RefetchOptions
+  ) => Promise<QueryObserverResult<any, Error>>;
 }
 
 const SendCommentBox = ({
@@ -28,6 +32,7 @@ const SendCommentBox = ({
   parentsComment,
   setParentsComment,
   type,
+  refetch,
 }: SendCommentBoxProps) => {
   const queryClient = useQueryClient();
   const [inputValue, setInputValue] = useState<string>("");
@@ -136,6 +141,7 @@ const SendCommentBox = ({
       },
       {
         onSuccess: () => {
+          refetch();
           if (parentsComment) setParentsComment(null);
           if (type === "INQUIRY") {
             queryClient.invalidateQueries({ queryKey: ["inquiriesList"] });

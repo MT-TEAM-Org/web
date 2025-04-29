@@ -36,10 +36,18 @@ const statusOptions = [
   { label: "접수 전", value: "PENDING" },
   { label: "접수 완료", value: "RECEIVED" },
   { label: "개선 완료", value: "COMPLETED" },
-];
+] as const;
 
-const StatusSaver = ({ id, status }) => {
-  const [selectedStatus, setSelectedStatus] = useState("");
+type FeedbackStatus = "PENDING" | "RECEIVED" | "COMPLETED";
+
+interface StatusSaverProps {
+  id: number;
+  status: FeedbackStatus;
+}
+
+const StatusSaver = ({ id, status }: StatusSaverProps) => {
+  const [selectedStatus, setSelectedStatus] =
+    useState<FeedbackStatus>("PENDING");
 
   useEffect(() => {
     if (status) {
@@ -49,10 +57,10 @@ const StatusSaver = ({ id, status }) => {
     }
   }, [status]);
 
-  const { mutate: feedbackUpdate } = usePostFeedbackStatus({ id });
+  const { mutate: feedbackUpdate } = usePostFeedbackStatus({ id, status });
 
   const handleUpdatedStatus = () => {
-    feedbackUpdate(id);
+    feedbackUpdate({ id, status: selectedStatus });
   };
 
   return (
@@ -70,20 +78,29 @@ const StatusSaver = ({ id, status }) => {
         )}
       >
         {statusOptions.map(({ label, value }, index) => (
-          <div
+          <label
             key={index}
             className={cn(
               "min-w-[84px] h-[24px] flex items-center gap-2 text-[14px] leading-[22px] text-gray7 font-[500] tracking-[-0.02em]",
-              "mobile:min-w-[64px] mobile:text-[12px] mobile:[18px] mobile:tracking-[0.02em]"
+              "mobile:min-w-[64px] mobile:text-[12px] mobile:[18px] mobile:tracking-[0.02em]",
+              "cursor-pointer"
             )}
           >
+            <input
+              type="radio"
+              name="status"
+              value={value}
+              checked={selectedStatus === value}
+              onChange={() => setSelectedStatus(value as FeedbackStatus)}
+              className="hidden"
+            />
             <div
               className={`${radioClassNames} ${
                 selectedStatus === value ? selectedRadioClassNames : ""
               }`}
             />
             <p>{label}</p>
-          </div>
+          </label>
         ))}
       </div>
       <button

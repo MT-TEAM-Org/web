@@ -10,10 +10,12 @@ import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { cn } from "@/utils";
 import MainLivePost from "./_components/MainLivePost";
+import useIsTablet from "@/utils/useIsTablet";
 
 function HomePageContent() {
   const refreshToken = useHandleRefreshToken();
   const { data: userData } = useAuthCheck();
+  const isTablet = useIsTablet();
 
   const {
     data: newsData,
@@ -86,9 +88,11 @@ function HomePageContent() {
                     data={newsItems}
                     isLoading={newsDataIsLoading}
                   />
-                  <div className={cn("hidden", "tablet:block")}>
-                    <MainRightBar />
-                  </div>
+                  {isTablet && (
+                    <div className="tablet:block">
+                      <MainRightBar />
+                    </div>
+                  )}
                 </div>
               )}
               <div className={cn("w-full", "tablet:w-full")}>
@@ -96,15 +100,16 @@ function HomePageContent() {
               </div>
             </div>
           </div>
-          <div
-            className={cn(
-              "max-w-[298px] min-h-[696px] flex-1",
-              "tablet:hidden",
-              "mobile:max-w-full mobile:min-h-fit"
-            )}
-          >
-            <MainRightBar />
-          </div>
+          {!isTablet && (
+            <div
+              className={cn(
+                "max-w-[298px] min-h-[696px] flex-1",
+                "mobile:max-w-full mobile:min-h-fit"
+              )}
+            >
+              <MainRightBar />
+            </div>
+          )}
         </div>
       </div>
     </div>
