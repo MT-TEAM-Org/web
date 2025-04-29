@@ -154,7 +154,12 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-[16px] w-full pc:min-w-[720px] tablet:w-full tablet:max-w-[688px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D] mobile:w-full mobile:max-w-[768px] mobile:shadow-none">
+      <div
+        className={cn(
+          "flex flex-col gap-[16px] w-full pc:min-w-[720px] tablet:w-full tablet:max-w-[688px] rounded-5px border-b p-[24px] bg-white shadow-[0_0_10px_0_#0000000D]",
+          "mobile:w-full mobile:max-w-[768px] mobile:gap-y-[12px] mobile:shadow-none mobile:py-[12px] mobile:px-[16px]"
+        )}
+      >
         <div className="w-full max-w-[672px] mobile:w-full mobile:max-w-[768px]">
           {isLoading ? (
             <div className="py-4">
@@ -164,7 +169,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
               <hr />
             </div>
           ) : (
-            <div className="flex flex-col gap-y-[8px] text-gray6 tablet:max-w-[640px]">
+            <div className="flex flex-col gap-y-[8px] mobile:gap-y-[4px] text-gray6 tablet:max-w-[640px]">
               <h1 className="font-bold text-[18px] leading-[28px] text-[#303030] mobile:text-[16px] mobile:leading-[24px]">
                 {boardDetailData?.data?.title}
               </h1>
@@ -193,7 +198,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                 <div
                   className={cn(
                     "flex justify-end w-[235px] h-[20px] whitespace-nowrap gap-x-[4px] font-medium text-[14px] leading-[20px]",
-                    "mobile:justify-start mobile:mt-[4px] mobile:text-[12px] mobile:leading-[18px] mobile:h-[]"
+                    "mobile:justify-start mobile:mt-[4px] mobile:text-[12px] mobile:leading-[18px] mobile:h-[18px]"
                   )}
                 >
                   <p>{boardDetailData?.data?.nickname}</p>
@@ -219,7 +224,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                   </div>
                 </div>
               )}
-              <hr className={isEditable ? "" : "mt-[16px]"} />
+              <hr className={isEditable ? "" : "mt-[16px] mobile:mt-[12px]"} />
             </div>
           )}
         </div>
