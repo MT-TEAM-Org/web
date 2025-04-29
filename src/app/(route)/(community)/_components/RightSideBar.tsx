@@ -79,6 +79,7 @@ export const RightSideBar = () => {
                 <RightNewsItem
                   key={data.id}
                   newsItem={data}
+                  wrapperWidth={288}
                   customClass="w-full h-[92px] rounded-[5px] bg-white p-3 box-border"
                 />
               ))}
