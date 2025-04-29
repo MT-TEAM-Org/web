@@ -34,7 +34,7 @@ const InquirieDetail = ({
   const unwrappedParams = use(params);
   const { id } = unwrappedParams;
   const pathname = usePathname();
-  const { data, isLoading } = useGetInquiriesDetail(id);
+  const { data, refetch } = useGetInquiriesDetail(id);
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);
   const { data: authCheckData } = useAuthCheck();
@@ -141,6 +141,7 @@ const InquirieDetail = ({
           type="INQUIRY"
           parentsComment={parentsComment}
           setParentsComment={setParentsComment}
+          refetch={refetch}
         />
       </div>
     </>
