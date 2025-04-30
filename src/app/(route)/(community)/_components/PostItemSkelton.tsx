@@ -2,13 +2,13 @@ import { Skeleton } from "@heroui/react";
 
 const PostItemSkeleton = () => {
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full mobile:mb-[40px] mobile:w-full mobile:max-w-[768px]">
       {Array(15)
         .fill(0)
         .map((_, index) => (
           <div
             key={index}
-            className="flex items-center w-[720px] min-h-[66px] gap-[12px] border-b p-[12px]"
+            className="flex items-center w-full max-w-[720px] mobile:w-full mobile:max-w-[768px] min-h-[66px] gap-[12px] border-b p-[12px]"
           >
             {/* 게시글 ID 영역 */}
             <div className="flex items-center justify-center w-[32px] h-[32px] rounded-[2px] p-2 bg-gray1">

@@ -24,6 +24,7 @@ import { cn } from "@/utils";
 import useTimeAgo from "@/utils/useTimeAgo";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
+import DetailTitleSkeleton from "@/app/(route)/(community)/_components/DetailTitleSkeleton";
 
 interface BoardDetailProps {
   boardId: string;
@@ -162,10 +163,8 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
       >
         <div className="w-full max-w-[672px] mobile:w-full mobile:max-w-[768px]">
           {isLoading ? (
-            <div className="py-4">
-              <h1 className="font-bold text-[18px] leading-[28px] text-[#303030] opacity-50 animate-pulse">
-                로딩 중...
-              </h1>
+            <div>
+              <DetailTitleSkeleton />
               <hr />
             </div>
           ) : (
@@ -230,7 +229,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
         </div>
         <div className="content flex flex-col gap-[12px] font-medium text-[16px] leading-[24px] text-gray7 mobile:text-[14px]">
           {isLoading ? (
-            <div className="flex justify-center items-center min-h-[200px]">
+            <div className="flex justify-center items-center w-full min-h-[400px]">
               <Spinner className="w-10 h-10" />
             </div>
           ) : (

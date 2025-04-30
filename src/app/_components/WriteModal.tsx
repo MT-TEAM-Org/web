@@ -29,6 +29,18 @@ const WriteModal = ({
     }
   }, [modalId, forceShow]);
 
+  useEffect(() => {
+    if (isVisible) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [isVisible]);
+
   const handleDontShowAgain = () => {
     localStorage.setItem(`modal-${modalId}-seen`, `true`);
     setIsVisible(false);
@@ -46,6 +58,7 @@ const WriteModal = ({
 
   return createPortal(
     <div
+      onClick={handleConfirm}
       className={cn(
         "fixed inset-0 bg-black/70 flex justify-center items-center z-50 mobile:px-[16px]"
       )}

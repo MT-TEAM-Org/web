@@ -3,6 +3,7 @@ import axios from "axios";
 
 interface GetBoardData {
   boardType: string;
+  boardId?: string;
   categoryType?: string;
   orderType?: string;
   searchType?: string;
@@ -16,6 +17,7 @@ const getBoardData = async (data: GetBoardData) => {
     boardType,
     categoryType,
     searchType,
+    boardId,
     search,
     orderType,
     page = 1,
@@ -33,6 +35,7 @@ const getBoardData = async (data: GetBoardData) => {
       params: {
         boardType,
         categoryType: checkCategory,
+        boardId,
         orderType,
         searchType,
         search,
