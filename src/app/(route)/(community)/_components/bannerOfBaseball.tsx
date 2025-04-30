@@ -5,7 +5,7 @@ const BannerOfBaseball = () => {
   return (
     <div className="relative w-full h-[160px] overflow-hidden mobile:hidden">
       <Image
-        src="/BannerOfBaseball.png"
+        src="/bannerOfBaseball.png"
         alt="esportsBanner"
         fill
         style={{

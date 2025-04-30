@@ -1,13 +1,11 @@
 "use client";
 import Image from "next/image";
-import bannerEsports from "/public/BannerOfEsports.png";
-import { cn } from "@/utils";
 
 const BannerOfEsports = () => {
   return (
     <div className="relative w-full h-[160px] overflow-hidden mobile:hidden">
       <Image
-        src="/BannerOfEsports.png"
+        src="/bannerOfEsports.png"
         alt="esportsBanner"
         fill
         style={{
