@@ -1,9 +1,10 @@
-// _components/Banner.tsx
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
+import BannerOfFootball from "./bannerOfFootball";
+import BannerOfBaseball from "./bannerOfBaseball";
+import BannerOfEsports from "./bannerOfEsports";
 
 interface BannerProps {
   url?: string;
@@ -11,32 +12,18 @@ interface BannerProps {
 
 const Banner = ({ url }: BannerProps) => {
   const pathname = usePathname();
+  const segment = pathname.split("/")[2]?.toLowerCase() || "";
 
-  let bannerUrl = url;
-
-  if (!bannerUrl) {
-    const segment = pathname.split("/")[2].toLowerCase();
-
-    if (segment === "football") {
-      bannerUrl = "soccer_banner.png";
-    } else if (segment === "baseball") {
-      bannerUrl = "baseballBanner.png";
-    } else if (segment === "esports") {
-      bannerUrl = "esportsBanner.png";
-    }
+  switch (segment) {
+    case "football":
+      return <BannerOfFootball />;
+    case "baseball":
+      return <BannerOfBaseball />;
+    case "esports":
+      return <BannerOfEsports />;
+    default:
+      return null;
   }
-
-  return (
-    <div className="w-full h-[120px] relative mobile:hidden">
-      <Image
-        src={`/${bannerUrl}`}
-        alt="Banner"
-        fill
-        style={{ objectFit: "cover" }}
-        priority
-      />
-    </div>
-  );
 };
 
 export default Banner;

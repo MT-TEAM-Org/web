@@ -110,7 +110,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
           </div>
         ))}
       </div>
-      <div className="flex justify-between items-center mx-auto w-full max-w-[696px] h-[50px] space-x-1 mt-2 tablet:w-full tablet:max-w-[664px] mobile:space-x-0 mobile:max-w-[768px] mobile:px-[12px]">
+      <div className="flex justify-between items-center mx-auto w-full max-w-[696px] h-[50px] space-x-1 mt-[8px] mobile:mt-[12px] tablet:w-full tablet:max-w-[664px] mobile:space-x-0 mobile:max-w-[768px] mobile:px-[12px]">
         <div className="relative w-[160px] h-[50px] border rounded-[5px] mobile:hidden">
           <select
             {...register("categoryType")}
