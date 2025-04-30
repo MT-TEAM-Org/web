@@ -51,6 +51,7 @@ export default function Layout({
             matchType={matchType}
             showCategoryButtons={true}
             showAll={false}
+            isMatch={true}
           />
         </div>
       </div>

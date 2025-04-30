@@ -96,7 +96,7 @@ const NewsDetailGnb = ({
           className="w-[18px] h-[18px] text-white"
         />
       </div>
-      <h1 className="font-bold text-[16px] leading-[26px] tracking-[-0.02em] text-black truncate w-full">
+      <h1 className="font-bold text-[16px] leading-[26px] tracking-[-0.02em] text-black truncate w-full select-none">
         {titleText()}
       </h1>
       <div

@@ -106,7 +106,7 @@ const HamburgerContents = ({ onClose }: HamburgerContentsProps) => {
           </button>
         </div>
       )}
-      <div className="w-full h-full flex flex-col  items-center gap-y-[16px] overflow-y-auto pb-[100px]">
+      <div className="w-full h-full flex flex-col items-center gap-y-[16px] overflow-y-auto pb-[100px]">
         {HAMBURGER_MENU.filter(
           (item) => !(item.authRequired && !isLoggedIn)
         ).map((item) => (
