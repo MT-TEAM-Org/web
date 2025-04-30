@@ -255,7 +255,6 @@ const Tiptap = ({
                 const blob = await response.blob();
                 const downloadUrl = await onImageUpload(blob);
                 processedHtml = processedHtml.replace(img.src, downloadUrl);
-                console.log("downloadUrl", downloadUrl);
 
                 if (index === 0) {
                   firstImageUrl = downloadUrl;
