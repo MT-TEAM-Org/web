@@ -15,12 +15,14 @@ interface ScheduleContainerProps {
   showCategoryButtons?: boolean;
   showAll?: boolean;
   matchType?: string;
+  isMatch?: boolean;
 }
 
 const ScheduleContainer = ({
   showCategoryButtons = false,
   showAll = false,
   matchType,
+  isMatch = false,
 }: ScheduleContainerProps) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -178,7 +180,8 @@ const ScheduleContainer = ({
           className={cn(
             "max-w-[1200px] h-[126px] flex gap-x-6 justify-between items-center",
             "tablet:max-w-[769px]",
-            "mobile:w-full mobile:px-4"
+            "mobile:w-full",
+            isMatch && "mobile:px-3"
           )}
         >
           <div

@@ -44,7 +44,7 @@ function HomePageContent() {
 
   return (
     <div className={cn("flex flex-col gap-6", "mobile:gap-0")}>
-      <div className="p-6 bg-gray1">
+      <div className={cn("p-6 bg-gray1", "mobile:p-4")}>
         <ScheduleContainer showAll={true} />
       </div>
 
@@ -53,7 +53,7 @@ function HomePageContent() {
           className={cn(
             "w-full max-w-[1200px] min-h-[704px] mb-[30px] flex gap-x-10",
             "tablet:max-w-[768px]",
-            "mobile:flex-col mobile:px-4"
+            "mobile:flex-col mobile:p-4"
           )}
         >
           <div
