@@ -30,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       )}
     >
       <Banner />
-      <div className="mt-[24px] mobile:mt-0 w-full max-w-[1200px] flex justify-center mx-auto gap-[16px] tablet:w-full mobile:w-full mobile:max-w-[768px] mobile:min-w-[360px]">
+      <div className="mt-[24px] mobile:mt-0 w-full max-w-[1200px] flex justify-center mx-auto gap-[16px] pc:min-h-[calc(100vh-660px)] tablet:min-h-[calc(100vh-707px)] tablet:w-full mobile:w-full mobile:max-w-[768px] mobile:min-h-[calc(100vh-451px)] mobile:min-w-[360px]">
         <div className="w-full max-w-[160px] min-h-[364px] hidden pc:block tablet:w-full mobile:w-full">
           <div className="w-full sticky top-0">
             <LeftSidebar />
