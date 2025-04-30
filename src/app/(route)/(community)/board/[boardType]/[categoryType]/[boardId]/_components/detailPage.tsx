@@ -1,5 +1,4 @@
 "use client";
-import { use } from "react";
 import BoardDetail from "./boardDetail";
 import PostItem from "@/app/(route)/(community)/_components/PostItem";
 import useGetBoardData from "@/_hooks/getBoardData";
@@ -9,15 +8,14 @@ import { cn } from "@/utils";
 import MobileDetailGnb from "@/app/(route)/(community)/_components/gnb/mobileDetailGnb";
 import LeftSidebar from "@/app/(route)/(community)/_components/LeftSidebar";
 
-export interface BoardDetailProps {
+interface BoardDetailPageProps {
+  boardId: string;
   boardType: string;
   categoryType: string;
-  boardId: string;
 }
 
-const BoardDetailPage = ({ params }: { params: Promise<BoardDetailProps> }) => {
-  const unwrappedParams = use(params);
-  const { boardId, boardType, categoryType } = unwrappedParams;
+const BoardDetailPage = ({ params }: { params: BoardDetailPageProps }) => {
+  const { boardId, boardType, categoryType } = params;
 
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page") || "1";
@@ -36,8 +34,6 @@ const BoardDetailPage = ({ params }: { params: Promise<BoardDetailProps> }) => {
   });
 
   const pageInfo = boardData?.pageInfo;
-
-  console.log("전달된 boardId:", unwrappedParams.boardId);
 
   return (
     <div

@@ -2,12 +2,12 @@ import { Metadata } from "next";
 import React from "react";
 import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import getBoardDetail from "@/services/board/getBoardDetail";
-import BoardDetailPage, { BoardDetailProps } from "./_components/detailPage";
+import BoardDetailPage from "./_components/detailPage";
 
 export async function generateMetadata({
   params,
 }: {
-  params: { boardType: string; boardId: string; categoryType: string };
+  params: any;
 }): Promise<Metadata> {
   try {
     const boardDetail = await getBoardDetail(params.boardId);
@@ -53,18 +53,15 @@ export async function generateMetadata({
   }
 }
 
-const Page = ({
-  params,
-}: {
-  params: { boardType: string; categoryType: string; boardId: string };
-}) => {
-  const paramsPromise: Promise<BoardDetailProps> = Promise.resolve({
-    boardType: params.boardType,
-    categoryType: params.categoryType,
-    boardId: params.boardId,
-  });
-
-  return <BoardDetailPage params={paramsPromise} />;
+const Page = ({ params }: { params: any }) => {
+  return (
+    <BoardDetailPage
+      params={{
+        boardType: params.boardType,
+        categoryType: params.categoryType,
+        boardId: params.boardId,
+      }}
+    />
+  );
 };
-
 export default Page;
