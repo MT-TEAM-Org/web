@@ -6,11 +6,7 @@ import BannerOfFootball from "./bannerOfFootball";
 import BannerOfBaseball from "./bannerOfBaseball";
 import BannerOfEsports from "./bannerOfEsports";
 
-interface BannerProps {
-  url?: string;
-}
-
-const Banner = ({ url }: BannerProps) => {
+const Banner = () => {
   const pathname = usePathname();
   const segment = pathname.split("/")[2]?.toLowerCase() || "";
 
