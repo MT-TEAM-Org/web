@@ -201,28 +201,28 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
             onClick={handleNextPage}
             disabled={totalGroups <= 1}
             className={cn(
-              "min-w-[40px] w-[40px] h-[40px] mb-[12px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 ml-[24px]",
+              "min-w-[40px] w-[40px] h-[40px] mb-[12px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 ml-[24px] group",
               "tablet: tablet:right-0",
               "mobile: mobile:right-0"
             )}
           >
             <CustomIcon
               icon="MATCH_NEXT_ICON"
-              className="w-[18px] h-[18px] text-white"
+              className="w-[18px] h-[18px] text-white group-hover:text-gray2"
             />
           </button>
           <button
             onClick={handlePrevPage}
             disabled={totalGroups <= 1}
             className={cn(
-              "min-w-[40px] w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 ml-[24px]",
+              "min-w-[40px] w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 ml-[24px] group",
               "tablet: tablet:right-0",
               "mobile: mobile:right-0"
             )}
           >
             <CustomIcon
               icon="MATCH_PREV_ICON"
-              className="w-[18px] h-[18px] text-white"
+              className="w-[18px] h-[18px] text-white group-hover:text-gray2"
             />
           </button>
         </div>
