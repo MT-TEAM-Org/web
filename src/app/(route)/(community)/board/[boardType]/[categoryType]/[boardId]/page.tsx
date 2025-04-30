@@ -1,76 +1,70 @@
-"use client";
-import { use } from "react";
-import BoardDetail from "./_components/boardDetail";
-import PostItem from "@/app/(route)/(community)/_components/PostItem";
-import useGetBoardData from "@/_hooks/getBoardData";
-import { CommunityToolbar } from "@/app/(route)/(community)/_components/CommunityToolbar";
-import { useSearchParams } from "next/navigation";
-import PostItemSkeleton from "@/app/(route)/(community)/_components/PostItemSkelton";
-import { cn } from "@/utils";
-import MobileDetailGnb from "@/app/(route)/(community)/_components/gnb/mobileDetailGnb";
-import LeftSidebar from "@/app/(route)/(community)/_components/LeftSidebar";
+import { Metadata } from "next";
+import React from "react";
+import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
+import getBoardDetail from "@/services/board/getBoardDetail";
+import BoardDetailPage, { BoardDetailProps } from "./_components/detailPage";
 
-interface BoardDetailProps {
-  boardType: string;
-  categoryType: string;
-  boardId: string;
+export async function generateMetadata({
+  params,
+}: {
+  params: { boardType: string; boardId: string; categoryType: string };
+}): Promise<Metadata> {
+  try {
+    const boardDetail = await getBoardDetail(params.boardId);
+    const updatedImg = updateImageUrl(boardDetail?.thumnail, "w1200");
+
+    return {
+      title: boardDetail.title || "게시판 상세 페이지",
+      description: boardDetail.content || "게시판 상세 내용",
+      openGraph: {
+        title: boardDetail.title || "게시판 상세 페이지",
+        description: boardDetail.content || "게시판 상세 내용",
+        images: !boardDetail.thumnail
+          ? [
+              {
+                url: "https://playhive.co.kr/Metadata.png",
+                alt: "PlayHive 미리보기 이미지",
+                width: 1200,
+                height: 630,
+              },
+            ]
+          : [{ url: updatedImg, width: 1200, height: 630 }],
+      },
+      keywords: boardDetail.keywords || ["플레이하이브", "게시판"],
+    };
+  } catch (error) {
+    return {
+      title: "게시판 상세 페이지",
+      description: "게시판 정보를 불러오는 중 오류가 발생했습니다.",
+      openGraph: {
+        title: "게시판 상세 페이지",
+        description: "게시판 정보를 불러오는 중 오류가 발생했습니다.",
+        images: [
+          {
+            url: "https://playhive.co.kr/Metadata.png",
+            alt: "PlayHive 미리보기 이미지",
+            width: 1200,
+            height: 630,
+          },
+        ],
+      },
+      keywords: ["플레이하이브", "게시판"],
+    };
+  }
 }
 
-const BoardDetailPage = ({ params }: { params: Promise<BoardDetailProps> }) => {
-  const unwrappedParams = use(params);
-  const { boardId, boardType, categoryType } = unwrappedParams;
-
-  const searchParams = useSearchParams();
-  const currentPage = searchParams.get("page") || "1";
-  const searchQuery = searchParams.get("search");
-  const searchType = searchParams.get("search_type");
-  const orderType = searchParams.get("orderType") || "CREATE";
-
-  const { data: boardData, isLoading } = useGetBoardData({
-    boardType: boardType?.toUpperCase(),
-    categoryType: categoryType,
-    orderType: orderType,
-    page: Number(currentPage),
-    searchType: searchQuery ? searchType : undefined,
-    search: searchQuery,
+const Page = ({
+  params,
+}: {
+  params: { boardType: string; categoryType: string; boardId: string };
+}) => {
+  const paramsPromise: Promise<BoardDetailProps> = Promise.resolve({
+    boardType: params.boardType,
+    categoryType: params.categoryType,
+    boardId: params.boardId,
   });
 
-  const pageInfo = boardData?.pageInfo;
-
-  return (
-    <div
-      className={cn(
-        "w-full max-w-[720px]",
-        "tablet:w-full tablet:max-w-[688px] tablet:mx-auto",
-        "mobile:mx-auto mobile:w-full mobile:max-w-[768px]"
-      )}
-    >
-      <div className="w-full max-w-[768px] min-w-[360px] hidden mobile:block mobile:w-full sticky top-0 z-10">
-        <MobileDetailGnb boardId={boardId} />
-      </div>
-      <div className="hidden tablet:block sticky top-0 z-10">
-        <LeftSidebar />
-      </div>
-      <div
-        className="w-full pc:min-w-[720px] min-w-[688px] min-h-[100px] tablet:w-full tablet:max-w-[688px] tablet:flex tablet:flex-col tablet:justify-center tablet:items-center tablet:mx-auto
-mobile:w-full mobile:max-w-[768px] mobile:min-w-[360px]"
-      >
-        <BoardDetail boardId={boardId} />
-      </div>
-      <div className="w-full tablet:w-full tablet:max-w-[688px] mobile:hidden mt-[12px]">
-        <CommunityToolbar boardType={boardType} pageInfo={pageInfo} />
-      </div>
-      <div className="w-full min-h-[120px] tablet:w-full tablet:max-w-[688px] tablet:mx-auto bg-white mobile:mt-[16px]">
-        <PostItem
-          boardType={boardType}
-          categoryType={categoryType}
-          boardData={boardData}
-          isDetailPage={true}
-          isLoading={isLoading}
-        />
-      </div>
-    </div>
-  );
+  return <BoardDetailPage params={paramsPromise} />;
 };
 
-export default BoardDetailPage;
+export default Page;

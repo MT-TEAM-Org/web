@@ -17,6 +17,7 @@ import { NoticeContentType } from "../../customer/_types/NoticeItemType";
 import Pagination from "../../mypage/_components/Pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PostItemSkeleton from "./PostItemSkelton";
+import { highlightText } from "@/utils/searchHighlightText";
 
 interface BoardListItem {
   id: number;
@@ -74,6 +75,8 @@ const PostItem = ({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const search = searchParams.get("search") || null;
+  const searchType = searchParams.get("search_type") || null;
 
   const slicedNoticeDataList = (noticeData as NoticeContentType[])
     ?.sort((a, b) => b.id - a.id)
@@ -174,7 +177,7 @@ const PostItem = ({
                     isPostRead(data?.id) ? "text-gray5" : "text-gray7"
                   }`}
                 >
-                  {data?.title}
+                  {highlightText(data?.title, searchType, search)}
                 </h2>
                 {data?.commentCount > 0 && (
                   <p className="text-gra font-medium text-[12px] leading-[18px]">
