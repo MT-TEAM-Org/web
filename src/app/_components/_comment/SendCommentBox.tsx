@@ -198,19 +198,27 @@ const SendCommentBox = ({
       : "h-[40px] overflow-y-hidden";
   };
 
+  const buttonStyles =
+    "w-[40px] h-[40px] flex-shrink-0 flex items-center justify-center rounded-[5px] border border-gray2 bg-gray1";
+
   return (
     <div
       className={cn(
-        "w-full h-[72px] p-4 bg-white",
-        "mobile:px-[8px] mobile:pt-[8px] mobile:pb-[16px] mobile:h-[64px]"
+        "w-full p-4 bg-white",
+        "mobile:px-[8px] mobile:pt-[8px] mobile:pb-[16px]"
       )}
     >
       <form onSubmit={handlePostComment} className="w-full flex flex-col gap-2">
-        <div className="w-full flex items-end gap-4">
+        <div
+          className={cn(
+            "w-full flex items-end gap-4",
+            "mobile:gap-2 mobile:justify-center"
+          )}
+        >
           <button
             type="button"
             onClick={handleFileSelect}
-            className="w-10 h-10 flex items-center justify-center rounded-[5px] border border-gray2 bg-gray1"
+            className={buttonStyles}
           >
             <Plus />
           </button>
@@ -221,9 +229,16 @@ const SendCommentBox = ({
             accept="image/*"
             className="hidden"
           />
-          <div ref={containerRef} className="flex-grow max-w-[576px] relative">
+          <div
+            ref={containerRef}
+            className={cn(
+              "flex-grow max-w-[576px] relative w-full",
+              "tablet:max-w-[544px]",
+              "mobile:max-w-[615px]"
+            )}
+          >
             <div
-              className={`w-full rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-[8px] text-[14px] leading-[22px] ${getEditorHeight()}`}
+              className={`rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-[8px] text-[14px] leading-[22px] w-full ${getEditorHeight()}`}
               onClick={handleEditorClick}
             >
               {selectedImage && (
@@ -236,14 +251,14 @@ const SendCommentBox = ({
                   <button
                     type="button"
                     onClick={removeImage}
-                    className="w-4 h-4 absolute top-[-8px] right-[-8px] bg-black opacity-70 text-white text-xs flex items-center justify-center rounded-full"
+                    className="w-[40px] h-[40px] absolute top-[-8px] right-[-8px] bg-black opacity-70 text-white text-xs flex items-center justify-center rounded-full"
                   >
                     <Cancel_icon />
                   </button>
                 </div>
               )}
               {parentsComment && (
-                <p className="leading-[20px] text-gra">
+                <p className="leading-[20px] text-gra text-nowrap flex-shrink-0">
                   @{parentsComment?.nickname}
                 </p>
               )}
@@ -254,7 +269,7 @@ const SendCommentBox = ({
                 onKeyDown={handleKeyDown}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                className="flex-grow outline-none min-w-0 overflow-y-hidden"
+                className="flex-grow outline-none min-w-0 overflow-y-hidden w-full"
               />
               {!inputValue.trim() && !selectedImage && !parentsComment && (
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -270,7 +285,7 @@ const SendCommentBox = ({
           <button
             type="submit"
             disabled={!inputValue.trim() && !selectedImage}
-            className="w-10 h-10 flex items-center justify-center rounded-[5px] border border-gray2 bg-gray1"
+            className={buttonStyles}
           >
             <Send_icon
               fill={inputValue.trim() || selectedImage ? "#00ADEE" : "#C0C0C0"}

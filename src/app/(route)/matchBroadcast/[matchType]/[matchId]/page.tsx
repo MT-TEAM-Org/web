@@ -70,7 +70,7 @@ export default function MatchDetailPage({
     <div
       className={cn(
         "flex flex-col justify-start max-w-[1200px] mx-auto gap-x-[40px]",
-        "tablet:max-w-full tablet:flex tablet:items-center",
+        "tablet:max-w-full tablet:flex tablet:items-center tablet:mx-10",
         "mobile:w-full"
       )}
     >

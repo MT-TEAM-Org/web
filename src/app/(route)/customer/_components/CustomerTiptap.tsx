@@ -73,7 +73,8 @@ const CustomerTiptap = ({
       Link,
       Image.configure({
         HTMLAttributes: {
-          class: "max-w-full h-auto mx-auto block",
+          class:
+            "max-w-[600px] h-[400px] mx-auto block mobile:max-w-[200px] mobile:max-h-[200px]",
         },
         allowBase64: true,
         inline: false,
