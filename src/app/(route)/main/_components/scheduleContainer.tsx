@@ -235,26 +235,26 @@ const ScheduleContainer = ({
               onClick={handleNextPage}
               disabled={allScheduleData.length <= itemsPerPage}
               className={cn(
-                "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2"
+                "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 group"
               )}
             >
               <CustomIcon
                 icon="MATCH_NEXT_ICON"
-                className="w-[18px] h-[18px] text-white"
+                className="w-[18px] h-[18px] text-white group-hover:text-gray2"
               />
             </button>
             <button
               onClick={handlePrevPage}
               disabled={allScheduleData.length <= itemsPerPage}
               className={cn(
-                "min-w-[40px] w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2",
+                "min-w-[40px] w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 group",
                 "tablet: tablet:right-0",
                 "mobile: mobile:right-0"
               )}
             >
               <CustomIcon
                 icon="MATCH_PREV_ICON"
-                className="w-[18px] h-[18px] text-white"
+                className="w-[18px] h-[18px] text-white group-hover:text-gray2"
               />
             </button>
           </div>
