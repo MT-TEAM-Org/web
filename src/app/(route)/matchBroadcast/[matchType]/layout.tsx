@@ -32,7 +32,7 @@ export default function Layout({
   const { matchType } = unwrappedParams;
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full mobile:min-h-[calc(100vh-450px)]">
       <MatchMobileGnb type="match" />
       <div
         className={cn(
