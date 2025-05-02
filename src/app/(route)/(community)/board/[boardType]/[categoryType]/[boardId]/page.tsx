@@ -4,11 +4,15 @@ import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import getBoardDetail from "@/services/board/getBoardDetail";
 import BoardDetailPage from "./_components/detailPage";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: any;
-}): Promise<Metadata> {
+type Props = {
+  params: {
+    boardId: string;
+    boardType: string;
+    categoryType: string;
+  };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const boardDetail = await getBoardDetail(params.boardId);
     const updatedImg = updateImageUrl(boardDetail?.thumnail, "w1200");
