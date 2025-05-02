@@ -61,6 +61,12 @@ const CustomerLeftSidebar = () => {
     }
   };
 
+  const isWrite = () => {
+    if (pathname.includes("write")) {
+      return "mobile:hidden";
+    }
+  };
+
   const currentPathStyle =
     "font-bold text-gra bg-bg0 mobile:bg-transparent mobile:text-gray7 mobile:border-b-2 mobile:border-gray7";
   const defaultStyle =
@@ -71,8 +77,9 @@ const CustomerLeftSidebar = () => {
       className={cn(
         "w-[160px] h-[260px] sticky top-0 rounded-t-[5px] overflow-hidden",
         "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:overflow-x-auto",
+        "mobile:w-full mobile:h-auto mobile:min-h-[48px] mobile:static mobile:overflow-x-auto",
         inDetail(),
-        "mobile:w-full mobile:h-auto mobile:min-h-[48px] mobile:static mobile:overflow-x-auto"
+        isWrite()
       )}
     >
       <div

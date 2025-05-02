@@ -47,7 +47,7 @@ export default function Header() {
         </Link>
         <p
           className={cn(
-            "font-bold text-[16px] leading-[19.97px] text-[#00ADEE]",
+            "font-bold text-[16px] leading-[19.97px] text-[#00ADEE] tracking-[-0.04em]",
             "whitespace-nowrap overflow-hidden text-ellipsis",
             "max-w-full"
           )}

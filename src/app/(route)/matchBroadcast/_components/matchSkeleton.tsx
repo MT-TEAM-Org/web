@@ -2,7 +2,7 @@ import { cn } from "@/utils";
 import { Skeleton } from "@heroui/react";
 
 interface MatchSkeletonProps {
-  matchType: string;
+  matchType?: string;
 }
 
 const MatchDetailSkeleton = ({ matchType }: MatchSkeletonProps) => {
