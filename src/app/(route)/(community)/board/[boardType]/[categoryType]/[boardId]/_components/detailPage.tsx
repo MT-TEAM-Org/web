@@ -14,9 +14,11 @@ interface BoardDetailPageProps {
   categoryType: string;
 }
 
-const BoardDetailPage = ({ params }: { params: BoardDetailPageProps }) => {
-  const { boardId, boardType, categoryType } = params;
-
+const BoardDetailPage = ({
+  boardId,
+  boardType,
+  categoryType,
+}: BoardDetailPageProps) => {
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page") || "1";
   const searchQuery = searchParams.get("search");

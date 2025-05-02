@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 const useGetBoardDetail = (boardId: string) => {
   return useQuery({
     queryKey: ["board", "detail", boardId],
-    queryFn: () => getBoardDetail(boardId),
+    queryFn: () => getBoardDetail(boardId, false),
     enabled: !!boardId,
   });
 };
