@@ -1,20 +1,16 @@
 import { Metadata } from "next";
-import React from "react";
 import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import getBoardDetail from "@/services/board/getBoardDetail";
 import BoardDetailPage from "./_components/detailPage";
 
-type Props = {
-  params: {
-    boardId: string;
-    boardType: string;
-    categoryType: string;
-  };
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ boardId: string; boardType: string; categoryType: string }>;
+}): Promise<Metadata> {
   try {
-    const boardDetail = await getBoardDetail(params.boardId);
+    const resolvedParams = await params;
+    const boardDetail = await getBoardDetail(resolvedParams.boardId, true);
     const updatedImg = updateImageUrl(boardDetail?.thumnail, "w1200");
 
     return {
@@ -57,15 +53,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-const Page = ({ params }: { params: any }) => {
+const Page = async ({
+  params,
+}: {
+  params: Promise<{ boardId: string; boardType: string; categoryType: string }>;
+}) => {
+  const resolvedParams = await params;
   return (
     <BoardDetailPage
-      params={{
-        boardType: params.boardType,
-        categoryType: params.categoryType,
-        boardId: params.boardId,
-      }}
+      boardId={resolvedParams.boardId}
+      boardType={resolvedParams.boardType}
+      categoryType={resolvedParams.categoryType}
     />
   );
 };
+
 export default Page;
