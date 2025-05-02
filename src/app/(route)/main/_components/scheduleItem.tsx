@@ -63,13 +63,13 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
         <div
           className={cn(
             "w-auto min-w-[37px] h-auto min-h-[26px] rounded-[5px] py-1 px-2 flex gap-1 bg-gray2 items-center justify-center",
-            gameStatus === "경기중" && "text-white bg-gra"
+            gameStatus === "경기중" && "text-white bg-[#00ADEE]"
           )}
         >
           <p
             className={cn(
               "font-medium text-[12px] leading-[18px] flex text-center justify-center align-center text-gray5",
-              gameStatus === "경기중" && "text-white bg-gra"
+              gameStatus === "경기중" && "text-white"
             )}
           >
             {gameStatus}
