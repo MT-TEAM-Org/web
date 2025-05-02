@@ -78,7 +78,7 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
     } else if (totalGroups > 0) {
       setCurrentPage(0);
     }
-    setSelectedItemId(null); // 페이지 변경 시 선택 초기화
+    setSelectedItemId(null);
   };
 
   const handleMatchClick = (matchId: number) => {
@@ -88,12 +88,6 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
       onMatchClick(matchId);
     } else {
       router.push(`/matchBroadcast/ESPORTS/${matchId}`);
-    }
-  };
-
-  const handleDetailMatchClick = () => {
-    if (selectedItemId) {
-      router.push(`/matchBroadcast/ESPORTS/${selectedItemId}`);
     }
   };
 

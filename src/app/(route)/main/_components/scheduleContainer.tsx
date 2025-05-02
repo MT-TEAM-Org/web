@@ -170,7 +170,6 @@ const ScheduleContainer = ({
           ))}
         </div>
       )}
-
       {isEsportsCategory ? (
         <EsportsSchedule />
       ) : (

@@ -55,7 +55,7 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
   return (
     <div
       onClick={onClick}
-      className={`w-[275px] h-[126px] p-[12px] rounded-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] border
+      className={`w-[275px] h-[126px] p-[12px] rounded-[5px] bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] border
       ${isSelected ? "border-gray7" : "border-gray3"}
     `}
     >
@@ -63,13 +63,13 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
         <div
           className={cn(
             "w-auto min-w-[37px] h-auto min-h-[26px] rounded-[5px] py-1 px-2 flex gap-1 bg-gray2 items-center justify-center",
-            gameStatus === "경기중" && "text-white bg-gra"
+            gameStatus === "경기중" && "text-white bg-[#00ADEE]"
           )}
         >
           <p
             className={cn(
               "font-medium text-[12px] leading-[18px] flex text-center justify-center align-center text-gray5",
-              gameStatus === "경기중" && "text-white bg-gra"
+              gameStatus === "경기중" && "text-white"
             )}
           >
             {gameStatus}
