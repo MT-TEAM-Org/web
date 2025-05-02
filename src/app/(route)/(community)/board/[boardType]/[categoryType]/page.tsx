@@ -4,9 +4,8 @@ import { use, useState } from "react";
 import { CommunityToolbar } from "../../../_components/CommunityToolbar";
 import PostItem from "../../../_components/PostItem";
 import useGetBoardData from "@/_hooks/getBoardData";
-import PostItemSkeleton from "../../../_components/PostItemSkelton";
-import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
+import { useSearchParams } from "next/navigation";
 
 interface category {
   boardType: string;
@@ -16,10 +15,6 @@ interface category {
 export default function Category({ params }: { params: Promise<category> }) {
   const unwrappedParams = use(params);
   const { boardType, categoryType } = unwrappedParams;
-  const pathname = usePathname();
-  const pathSegments = pathname.split("/");
-  const hasId = pathSegments.length > 4 && !isNaN(Number(pathSegments[4]));
-  const [isShow, setIsShow] = useState(!hasId);
 
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page") || "1";
