@@ -59,11 +59,7 @@ const LiveSection = ({ matchId }: ScheduleDataProps) => {
 
   return (
     <div
-      className={cn(
-        "w-[800px] aspect-video",
-        "tablet:w-[800px]",
-        "mobile:w-full"
-      )}
+      className={cn("w-[800px] aspect-video", "tablet:w-full", "mobile:w-full")}
     >
       {isLive ? (
         <iframe

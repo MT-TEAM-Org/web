@@ -57,7 +57,7 @@ const SignSuspense = () => {
   return (
     <div
       className={cn(
-        "min-h-[calc(100vh-594px)] mb-[40px]",
+        "min-h-[calc(100vh-556px)] mb-[40px]",
         "tablet:min-h-[calc(100vh-642.67px)]",
         "mobile:min-h-[calc(100vh-566.67px)]"
       )}
