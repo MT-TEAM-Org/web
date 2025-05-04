@@ -11,14 +11,17 @@ export async function generateMetadata({
   try {
     const resolvedParams = await params;
     const boardDetail = await getBoardDetail(resolvedParams.boardId, true);
-    const updatedImg = updateImageUrl(boardDetail?.thumbnail, "w1200");
+    const updatedImg = updateImageUrl(boardDetail?.data?.thumbnail, "w1200");
+    const removeHtmlContent = boardDetail?.data?.content
+      ? boardDetail.data.content.replace(/<[^>]+>/g, " ").trim()
+      : "게시판 상세 내용";
 
     return {
       title: boardDetail?.data?.title || "게시판 상세 페이지",
-      description: boardDetail?.data?.content || "게시판 상세 내용",
+      description: removeHtmlContent || "게시판 상세 내용",
       openGraph: {
         title: boardDetail?.data?.title || "게시판 상세 페이지",
-        description: boardDetail?.data?.content || "게시판 상세 내용",
+        description: removeHtmlContent || "게시판 상세 내용",
         images: !boardDetail?.data?.thumbnail
           ? [
               {
