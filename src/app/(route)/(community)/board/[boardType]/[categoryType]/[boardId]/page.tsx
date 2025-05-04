@@ -11,15 +11,15 @@ export async function generateMetadata({
   try {
     const resolvedParams = await params;
     const boardDetail = await getBoardDetail(resolvedParams.boardId, true);
-    const updatedImg = updateImageUrl(boardDetail?.thumnail, "w1200");
+    const updatedImg = updateImageUrl(boardDetail?.thumbnail, "w1200");
 
     return {
-      title: boardDetail.title || "게시판 상세 페이지",
-      description: boardDetail.content || "게시판 상세 내용",
+      title: boardDetail?.data?.title || "게시판 상세 페이지",
+      description: boardDetail?.data?.content || "게시판 상세 내용",
       openGraph: {
-        title: boardDetail.title || "게시판 상세 페이지",
-        description: boardDetail.content || "게시판 상세 내용",
-        images: !boardDetail.thumnail
+        title: boardDetail?.data?.title || "게시판 상세 페이지",
+        description: boardDetail?.data?.content || "게시판 상세 내용",
+        images: !boardDetail?.data?.thumbnail
           ? [
               {
                 url: "https://playhive.co.kr/Metadata.png",

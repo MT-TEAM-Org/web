@@ -6,6 +6,8 @@ const useGetBoardDetail = (boardId: string) => {
     queryKey: ["board", "detail", boardId],
     queryFn: () => getBoardDetail(boardId, false),
     enabled: !!boardId,
+    staleTime: 1000 * 60 * 30,
+    gcTime: 1000 * 60 * 60,
   });
 };
 

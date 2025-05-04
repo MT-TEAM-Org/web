@@ -97,7 +97,7 @@ const ToastPopUp = ({
         >
           {stateIcons[state]}
           <div
-            className={`flex gap-x-[16px] w-[512px] min-h-[26px] ${stateConfig[state].textColor}`}
+            className={`flex gap-x-[16px] w-[512px] min-h-[26px] whitespace-nowrap ${stateConfig[state].textColor}`}
           >
             <div>{title}</div>
             <div>{message}</div>
