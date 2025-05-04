@@ -1,23 +1,37 @@
 "use client";
 
+import usePostReport from "@/_hooks/fetcher/board/usePostReport";
 import useGetBoardDetail from "@/_hooks/getBoardDetail";
+import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
+import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 import ShareModalPopUp from "@/app/_components/ShareModalPopUp";
+import { ReportType } from "@/services/board/types/report";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface MobileDetailGnbProps {
   boardId: string;
+  reportData?: {
+    reportedPublicId: string;
+    reportType: ReportType;
+    reportedContentId: number;
+  };
 }
 
-const MobileDetailGnb = ({ boardId }: MobileDetailGnbProps) => {
+const MobileDetailGnb = ({ boardId, reportData }: MobileDetailGnbProps) => {
   const [activeModal, setActiveModal] = useState(false);
+  const [activeReportModal, setActiveReportModal] = useState(false);
   const { data: boardDetailData } = useGetBoardDetail(boardId);
   const router = useRouter();
   const url = window.location.href;
 
   const modalPopUp = () => {
     setActiveModal((prev) => !prev);
+  };
+
+  const handleReport = () => {
+    setActiveReportModal(true);
   };
 
   return (
@@ -37,7 +51,10 @@ const MobileDetailGnb = ({ boardId }: MobileDetailGnbProps) => {
         </p>
       </div>
       <div className="flex max-w-[96px] h-full items-center gap-x-[16px] py-[14px] px-[16px]">
-        <div className="w-[24px] h-[24px] flex items-center justify-center">
+        <div
+          onClick={handleReport}
+          className="w-[24px] h-[24px] flex items-center justify-center"
+        >
           <CustomIcon
             icon="MOBILE_DETAIL_GNB_REPORT_ICON"
             className="w-[18px] h-[18px] text-white"
@@ -55,6 +72,12 @@ const MobileDetailGnb = ({ boardId }: MobileDetailGnbProps) => {
       </div>
       {activeModal && (
         <ShareModalPopUp setActiveModal={setActiveModal} url={url} />
+      )}
+      {activeReportModal && (
+        <ReportModalPopUp
+          setActiveModal={setActiveReportModal}
+          reportData={reportData}
+        />
       )}
     </div>
   );
