@@ -1,10 +1,8 @@
 import axios from "axios";
 
-const getBoardDetail = async (boardId: string, openGraph: boolean) => {
+const getBoardDetail = async (boardId: String) => {
   const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}api/board/${boardId}${
-      openGraph ? "?openGraph=true" : ""
-    }`
+    `${process.env.NEXT_PUBLIC_API_URL}api/board/${boardId}`
   );
   return response.data;
 };
