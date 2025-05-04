@@ -18,7 +18,7 @@ const usePostReport = () => {
         errorToast(error.response.data.message, "");
         return;
       }
-      errorToast("신고에 실패했습니다. 다시 시도해주세요.", "");
+      errorToast("신고에 실패했습니다.", "");
     },
   });
 };
