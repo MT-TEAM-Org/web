@@ -16,7 +16,7 @@ interface DropDownMenuItem {
 
 export const MypageButton = ({ userNickname }: { userNickname: string }) => {
   const router = useRouter();
-  const [isDropDown, setIsDropDown] = useState(true);
+  const [isDropDown, setIsDropDown] = useState(false);
   const { data: authCheckData } = useAuthCheck();
   const userRole = authCheckData?.data?.data?.role;
   const [show, setShow] = useState(false);
