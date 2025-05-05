@@ -31,6 +31,7 @@ export const metadata: Metadata = {
   keywords: ["플레이하이브", "스포츠", "E스포츠", "커뮤니티", "축구", "야구"],
   other: {
     "google-site-verification": "pGIRhN9ZARqJ4YvsrWTumwGGZ84_1szS0Y4KtZavPJQ",
+    "naver-site-verification": "7da94a4ed4283cfc772ded058e02215b7f6c9978",
   },
 };
 
