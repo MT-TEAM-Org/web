@@ -16,7 +16,7 @@ interface DropDownMenuItem {
 
 export const MypageButton = ({ userNickname }: { userNickname: string }) => {
   const router = useRouter();
-  const [isDropDown, setIsDropDown] = useState(false);
+  const [isDropDown, setIsDropDown] = useState(true);
   const { data: authCheckData } = useAuthCheck();
   const userRole = authCheckData?.data?.data?.role;
   const [show, setShow] = useState(false);
@@ -80,7 +80,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
 
   return (
     <div
-      className={`z-20 relative flex items-center gap-[16px] max-w-[219px] min-h-[42px] rounded-full ${
+      className={`z-20 relative flex items-center gap-[16px] w-[218px] min-h-[42px] rounded-full ${
         !show && "cursor-pointer"
       }`}
       onMouseEnter={() => setIsDropDown(true)}
@@ -108,7 +108,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
             <ProfileLogo />
           )}
         </div>
-        <p className="max-w-[151px] min-h-[26px] leading-[26px] text-gray7 font-medium text-[16px] tracking-[-0.02em]">
+        <p className="w-full min-h-[26px] leading-[26px] text-gray7 font-medium text-[16px] tracking-[-0.02em]">
           {userNickname || ""}님
         </p>
       </div>
@@ -116,7 +116,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
         <ul
           onMouseLeave={() => setIsDropDown(false)}
           onMouseEnter={() => setIsDropDown(true)}
-          className="flex flex-col items-center w-[252px] min-h-[298px] absolute top-full right-0 z-10 py-[16px] border rounded-[10px] border-gray3 bg-white overflow-hidden"
+          className="flex flex-col items-center w-full  min-h-[298px] absolute top-full right-0 z-10 py-[16px] border rounded-[10px] border-gray3 bg-white overflow-hidden"
           style={{
             boxShadow: `
               0px 8px 24px -4px rgba(78, 78, 78, 0.08),
@@ -125,14 +125,13 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
           }}
         >
           {dropDownMenu.map((item, index) => {
-            const isFirstItem = index === 0;
             const isLastItem = index === dropDownMenu.length - 1;
 
             return (
               <li
                 key={index}
                 className={`
-                  w-[252px] h-[48px] text-left cursor-pointer  px-4 py-1 flex items-center hover:bg-bg0 border-b border-gray2
+                  w-full min-w-[218px]  h-[48px] text-left cursor-pointer  px-4 py-1 flex items-center hover:bg-bg0 border-b border-gray2
                   ${isLastItem ? "h-[58px]" : "h-[48px]"}
                 `}
                 onClick={() => handleClickMenu(item)}
