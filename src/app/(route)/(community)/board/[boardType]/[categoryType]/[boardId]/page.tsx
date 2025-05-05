@@ -10,7 +10,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   try {
     const resolvedParams = await params;
-    const boardDetail = await getBoardDetail(resolvedParams.boardId);
+    const boardDetail = await getBoardDetail(resolvedParams.boardId, true);
     const updatedImg = updateImageUrl(boardDetail?.data?.thumbnail, "w1200");
     const removeHtmlContent = boardDetail?.data?.content
       ? boardDetail.data.content.replace(/<[^>]+>/g, " ").trim()
