@@ -8,7 +8,7 @@ import ShareModalPopUp from "@/app/_components/ShareModalPopUp";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import { ReportType } from "@/services/board/types/report";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAdminRole } from "../../customer/_utils/adminChecker";
 
 interface PostActionProps {
@@ -31,13 +31,17 @@ const PostAction = ({
 }: PostActionProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const [activeReportModal, setActiveReportModal] = useState(false);
-  const url = window.location.href;
+  const [url, setUrl] = useState("");
   const adminRole = useAdminRole();
   const { success, error } = useToast();
 
   const modalPopUp = () => {
     setActiveModal((prev) => !prev);
   };
+
+  useEffect(() => {
+    setUrl(window.location.href);
+  }, []);
 
   const copyBtn = async () => {
     try {

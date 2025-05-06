@@ -14,7 +14,9 @@ const HotPostItem = ({ number, hotPosts }: HotPostItemProps) => {
   return (
     <Link
       href={{
-        pathname: `/board/${hotPosts?.boardType}/${hotPosts?.categoryType}/${hotPosts?.id}`,
+        pathname: `/board/${hotPosts?.boardType.toLocaleLowerCase()}/${
+          hotPosts?.categoryType
+        }/${hotPosts?.id}`,
       }}
     >
       <div

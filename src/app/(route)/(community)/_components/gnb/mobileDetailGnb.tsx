@@ -1,14 +1,12 @@
 "use client";
 
-import usePostReport from "@/_hooks/fetcher/board/usePostReport";
 import useGetBoardDetail from "@/_hooks/getBoardDetail";
-import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
 import ReportModalPopUp from "@/app/_components/ReportModalPopUp";
 import ShareModalPopUp from "@/app/_components/ShareModalPopUp";
 import { ReportType } from "@/services/board/types/report";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface MobileDetailGnbProps {
   boardId: string;
@@ -22,9 +20,9 @@ interface MobileDetailGnbProps {
 const MobileDetailGnb = ({ boardId, reportData }: MobileDetailGnbProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const [activeReportModal, setActiveReportModal] = useState(false);
+  const [url, setUrl] = useState("");
   const { data: boardDetailData } = useGetBoardDetail(boardId);
   const router = useRouter();
-  const url = window.location.href;
 
   const modalPopUp = () => {
     setActiveModal((prev) => !prev);
@@ -33,6 +31,10 @@ const MobileDetailGnb = ({ boardId, reportData }: MobileDetailGnbProps) => {
   const handleReport = () => {
     setActiveReportModal(true);
   };
+
+  useEffect(() => {
+    setUrl(window.location.href);
+  }, []);
 
   return (
     <div className="w-full max-w-[768px] h-[48px] flex justify-between items-center bg-white border border-gray2 sticky top-0 z-10">
