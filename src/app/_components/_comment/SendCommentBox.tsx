@@ -232,7 +232,7 @@ const SendCommentBox = ({
             )}
           >
             <div
-              className="rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-[8px] text-[14px] leading-[22px] w-full"
+              className="rounded-[5px] border border-gray7 px-3 py-2 flex items-start gap-[8px] text-[14px] leading-[22px] w-full min-h-[44px]"
               onClick={handleEditorClick}
             >
               {selectedImage && (
