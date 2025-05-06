@@ -50,7 +50,7 @@ const SendCommentBox = ({
   const { isLoggedIn } = useAuthStore();
   const [guestModal, setGuestModal] = useState(false);
 
-  const maxChars = selectedImage ? 70 : 78;
+  const maxChars = 120;
 
   useEffect(() => {
     textRef.current?.focus();
@@ -192,12 +192,6 @@ const SendCommentBox = ({
     }
   }, [textRef.current?.innerText]);
 
-  const getEditorHeight = () => {
-    return inputValue.length > 39 || selectedImage
-      ? "min-h-[68px]"
-      : "h-[40px] overflow-y-hidden";
-  };
-
   const buttonStyles =
     "w-[40px] h-[40px] flex-shrink-0 flex items-center justify-center rounded-[5px] border border-gray2 bg-gray1";
 
@@ -238,7 +232,7 @@ const SendCommentBox = ({
             )}
           >
             <div
-              className={`rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-[8px] text-[14px] leading-[22px] w-full ${getEditorHeight()}`}
+              className="rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-[8px] text-[14px] leading-[22px] w-full"
               onClick={handleEditorClick}
             >
               {selectedImage && (
@@ -251,7 +245,7 @@ const SendCommentBox = ({
                   <button
                     type="button"
                     onClick={removeImage}
-                    className="w-[40px] h-[40px] absolute top-[-8px] right-[-8px] bg-black opacity-70 text-white text-xs flex items-center justify-center rounded-full"
+                    className="w-[16px] h-[16px] absolute top-[-6px] right-[-6px] bg-black opacity-70 text-white text-xs flex items-center justify-center rounded-full"
                   >
                     <Cancel_icon />
                   </button>
