@@ -80,7 +80,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
 
   return (
     <div
-      className={`z-20 relative flex items-center gap-[16px] w-[218px] min-h-[42px] rounded-full ${
+      className={`z-20 relative flex items-center gap-[16px] w-full max-w-[218px] min-h-[42px] rounded-full ${
         !show && "cursor-pointer"
       }`}
       onMouseEnter={() => setIsDropDown(true)}
@@ -116,7 +116,7 @@ export const MypageButton = ({ userNickname }: { userNickname: string }) => {
         <ul
           onMouseLeave={() => setIsDropDown(false)}
           onMouseEnter={() => setIsDropDown(true)}
-          className="flex flex-col items-center w-full  min-h-[298px] absolute top-full right-0 z-10 py-[16px] border rounded-[10px] border-gray3 bg-white overflow-hidden"
+          className="flex flex-col items-center w-full min-w-[218px] min-h-[298px] absolute top-full right-0 z-10 py-[16px] border rounded-[10px] border-gray3 bg-white overflow-hidden"
           style={{
             boxShadow: `
               0px 8px 24px -4px rgba(78, 78, 78, 0.08),
