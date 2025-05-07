@@ -65,22 +65,29 @@ const SendCommentBox = ({
   const handleContentChange = () => {
     if (textRef.current) {
       let text = textRef.current.innerText;
+
       if (text.length > maxChars) {
         text = text.slice(0, maxChars);
-        const selection = window.getSelection();
-        const range = selection?.getRangeAt(0);
         textRef.current.innerText = text;
-        if (selection && range && textRef.current) {
+
+        const selection = window.getSelection();
+        if (selection && textRef.current.firstChild) {
           selection.removeAllRanges();
           const newRange = document.createRange();
-          newRange.setStart(
-            textRef.current.firstChild || textRef.current,
-            Math.min(maxChars, text.length)
-          );
+
+          const lastChild = textRef.current.lastChild || textRef.current;
+
+          if (lastChild.nodeType === Node.TEXT_NODE) {
+            newRange.setStart(lastChild, lastChild.textContent?.length || 0);
+          } else {
+            newRange.setStartAfter(lastChild);
+          }
+
           newRange.collapse(true);
           selection.addRange(newRange);
         }
       }
+
       setInputValue(text);
     }
   };
@@ -263,7 +270,7 @@ const SendCommentBox = ({
                 onKeyDown={handleKeyDown}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                className="flex-grow outline-none min-w-0 overflow-y-hidden w-full"
+                className="flex-grow outline-none min-w-0 overflow-y-visible w-full break-words whitespace-pre-wrap"
               />
               {!inputValue.trim() && !selectedImage && !parentsComment && (
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
