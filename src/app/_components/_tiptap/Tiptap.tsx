@@ -133,7 +133,7 @@ const Tiptap = ({
       CustomImage.configure({
         HTMLAttributes: {
           class:
-            "max-w-[600px] h-[400px] mx-auto block mobile:max-w-[200px] mobile:max-h-[200px]",
+            "w-full h-auto mx-auto block mobile:max-w-[200px] mobile:max-h-[200px]",
         },
         allowBase64: true,
         inline: false,
