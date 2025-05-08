@@ -50,7 +50,7 @@ const SendCommentBox = ({
   const { isLoggedIn } = useAuthStore();
   const [guestModal, setGuestModal] = useState(false);
 
-  const maxChars = selectedImage ? 70 : 78;
+  const maxChars = 120;
 
   useEffect(() => {
     textRef.current?.focus();
@@ -65,22 +65,29 @@ const SendCommentBox = ({
   const handleContentChange = () => {
     if (textRef.current) {
       let text = textRef.current.innerText;
+
       if (text.length > maxChars) {
         text = text.slice(0, maxChars);
-        const selection = window.getSelection();
-        const range = selection?.getRangeAt(0);
         textRef.current.innerText = text;
-        if (selection && range && textRef.current) {
+
+        const selection = window.getSelection();
+        if (selection && textRef.current.firstChild) {
           selection.removeAllRanges();
           const newRange = document.createRange();
-          newRange.setStart(
-            textRef.current.firstChild || textRef.current,
-            Math.min(maxChars, text.length)
-          );
+
+          const lastChild = textRef.current.lastChild || textRef.current;
+
+          if (lastChild.nodeType === Node.TEXT_NODE) {
+            newRange.setStart(lastChild, lastChild.textContent?.length || 0);
+          } else {
+            newRange.setStartAfter(lastChild);
+          }
+
           newRange.collapse(true);
           selection.addRange(newRange);
         }
       }
+
       setInputValue(text);
     }
   };
@@ -192,12 +199,6 @@ const SendCommentBox = ({
     }
   }, [textRef.current?.innerText]);
 
-  const getEditorHeight = () => {
-    return inputValue.length > 39 || selectedImage
-      ? "min-h-[68px]"
-      : "h-[40px] overflow-y-hidden";
-  };
-
   const buttonStyles =
     "w-[40px] h-[40px] flex-shrink-0 flex items-center justify-center rounded-[5px] border border-gray2 bg-gray1";
 
@@ -238,7 +239,7 @@ const SendCommentBox = ({
             )}
           >
             <div
-              className={`rounded-[5px] border border-gray7 px-3 py-2 overflow-y-auto max-h-[120px] flex items-center gap-[8px] text-[14px] leading-[22px] w-full ${getEditorHeight()}`}
+              className="rounded-[5px] border border-gray7 px-3 py-2 flex items-start gap-[8px] text-[14px] leading-[22px] w-full min-h-[44px]"
               onClick={handleEditorClick}
             >
               {selectedImage && (
@@ -251,7 +252,7 @@ const SendCommentBox = ({
                   <button
                     type="button"
                     onClick={removeImage}
-                    className="w-[40px] h-[40px] absolute top-[-8px] right-[-8px] bg-black opacity-70 text-white text-xs flex items-center justify-center rounded-full"
+                    className="w-[16px] h-[16px] absolute top-[-6px] right-[-6px] bg-black opacity-70 text-white text-xs flex items-center justify-center rounded-full"
                   >
                     <Cancel_icon />
                   </button>
@@ -269,7 +270,7 @@ const SendCommentBox = ({
                 onKeyDown={handleKeyDown}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                className="flex-grow outline-none min-w-0 overflow-y-hidden w-full"
+                className="flex-grow outline-none min-w-0 overflow-y-visible w-full break-words whitespace-pre-wrap"
               />
               {!inputValue.trim() && !selectedImage && !parentsComment && (
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
