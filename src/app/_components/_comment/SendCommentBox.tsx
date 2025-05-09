@@ -53,8 +53,9 @@ const SendCommentBox = ({
   const maxChars = 120;
 
   useEffect(() => {
+    if (isMobile === undefined || isMobile) return;
     textRef.current?.focus();
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     if (parentsComment) {
