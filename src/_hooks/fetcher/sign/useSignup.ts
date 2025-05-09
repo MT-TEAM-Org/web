@@ -22,7 +22,15 @@ const useSignup = () => {
       router.push("/sign?sign=login");
     },
     onError: (error: any) => {
-      isError(error?.response?.data?.message || "회원가입에 실패했습니다.", "");
+      if (error?.response?.status === 409) {
+        isError("이미 가입된 이메일입니다.", "");
+        return;
+      } else {
+        isError(
+          error?.response?.data?.message || "회원가입에 실패했습니다.",
+          ""
+        );
+      }
     },
   });
 };
