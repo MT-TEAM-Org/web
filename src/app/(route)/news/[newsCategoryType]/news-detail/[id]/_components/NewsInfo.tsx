@@ -152,6 +152,12 @@ const NewsInfo = ({
     }
   };
 
+  const infoItems = [
+    { label: "조회수", value: newsInfoData?.viewCount },
+    { label: "댓글", value: newsInfoData?.commentCount },
+    { label: "추천", value: newsInfoData?.recommendCount },
+  ];
+
   return (
     <>
       {isLoading ? (
@@ -195,19 +201,16 @@ const NewsInfo = ({
                   </div>
                   <div
                     className={cn(
-                      "flex gap-1 font-medium text-[14px] leading-5",
+                      "flex gap-2 font-medium text-[14px] leading-5",
                       "mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
                     )}
                   >
-                    <p className="font-bold">
-                      조회수 {newsInfoData?.viewCount}
-                    </p>
-                    <p className="font-bold">
-                      댓글 {newsInfoData?.commentCount}
-                    </p>
-                    <p className="font-bold">
-                      추천 {newsInfoData?.recommendCount}
-                    </p>
+                    {infoItems.map((item) => (
+                      <p key={item.label} className="font-bold flex gap-1">
+                        {item.label}
+                        <span className="font-[500]">{item.value}</span>
+                      </p>
+                    ))}
                   </div>
                 </div>
                 <div

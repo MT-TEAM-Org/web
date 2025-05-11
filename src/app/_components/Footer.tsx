@@ -93,8 +93,8 @@ export default function Footer() {
                   </p>
                   <p
                     className={cn(
-                      "tablet:text-[12px] tablet:leading-[18px] tablet:text-gray5",
-                      "mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em] mobile:text-gray5"
+                      "text-gray5 text-[12px] leading-[18px] tracking-[-0.02em]",
+                      "pc:text-[16px] pc:leading-[24px]"
                     )}
                   >
                     AM 10:00 - PM 7:00
