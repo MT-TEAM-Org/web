@@ -192,12 +192,12 @@ const NewsInfo = ({
                 <div className="flex gap-2 text-gray6 font-[700] leading-5 text-[14px] items-center">
                   <div
                     className={cn(
-                      "flex gap-1 font-medium text-[14px] leading-5",
+                      "flex gap-1 text-[14px] leading-5 font-bold",
                       "mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
                     )}
                   >
                     <ChangedCategory category={newsInfoData?.category} />
-                    <p>{formattedTime}</p>
+                    <p className="font-medium">{formattedTime}</p>
                   </div>
                   <div
                     className={cn(
