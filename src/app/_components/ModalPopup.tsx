@@ -59,7 +59,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
     >
       <form
         className={cn(
-          "flex flex-col bg-white w-[548px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg text-black",
+          "flex flex-col bg-white w-[640px] min-h-[520px] rounded-[10px] p-[40px] shadow-lg text-black",
           "mobile:w-full mobile:h-full mobile:p-0 mobile:rounded-none"
         )}
         onClick={(e) => e.stopPropagation()}
@@ -94,9 +94,7 @@ const ModalPopup = ({ show, setShow }: ModalPopupProps) => {
             <CustomIcon icon="CLOSE_X" className="w-[24px] h-[24px]" />
           </button>
         </div>
-        <div
-          className={cn("flex flex-col p-4 h-full", "mobile:justify-between")}
-        >
+        <div className={cn("flex flex-col h-full", "mobile:justify-between")}>
           <div className="flex flex-col">
             <div className="flex flex-col items-start gap-[4px]">
               <label
