@@ -14,6 +14,7 @@ const EventItem = ({ gameEventData }: EventItemProps) => {
       <div
         className={cn(
           "min-w-[298px] h-[92px] flex items-center border border-gray2 rounded-[5px] p-3 gap-3 cursor-pointer",
+          "tablet:min-w-full tablet:max-w-full",
           "mobile:w-full mobile:max-w-[calc(100vw-32px)] mobile:mx-auto"
         )}
       >

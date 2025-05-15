@@ -79,7 +79,7 @@ const MainRightBar = () => {
     <div
       className={cn(
         "flex flex-col max-w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px]",
-        "tablet:min-h-[396px]",
+        "tablet:max-w-full tablet:min-h-[396px]",
         "mobile:max-w-full mobile:min-h-fit"
       )}
     >
@@ -107,7 +107,7 @@ const MainRightBar = () => {
           <div
             className={cn(
               "w-full h-auto max-h-[736px] flex flex-col gap-2",
-              "tablet:max-h-[292px] tablet:overflow-hidden",
+              "tablet:min-w-[348px] tablet:max-h-[292px] tablet:overflow-hidden",
               "mobile:max-h-[292px] mobile:overflow-hidden"
             )}
           >
@@ -127,6 +127,7 @@ const MainRightBar = () => {
                   wrapperWidth={298}
                   customClass={cn(
                     "max-w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3",
+                    "tablet:max-w-full tablet:min-w-[194px]",
                     "mobile:max-w-full"
                   )}
                 />
@@ -134,17 +135,31 @@ const MainRightBar = () => {
             )}
           </div>
         ) : eventIsLoading ? (
-          <>
+          <div
+            className={cn(
+              "w-full h-auto flex flex-col gap-2",
+              "tablet:min-w-[348px] tablet:max-h-[292px] tablet:overflow-hidden",
+              "mobile:max-h-[292px] mobile:overflow-hidden"
+            )}
+          >
             {Array.from({ length: skeletonCount }).map((_, i) => (
               <EventItemSkeleton key={`event-skeleton-${i}`} />
             ))}
-          </>
+          </div>
         ) : eventIsError || !gameEventData?.content?.length ? (
           <EmptyGameBox title="게임 이벤트 정보" onClick={handleRefresh} />
         ) : (
-          gameEventData.content.map((event) => (
-            <EventItem key={event.id} gameEventData={event} />
-          ))
+          <div
+            className={cn(
+              "w-full h-auto flex flex-col gap-2",
+              "tablet:min-w-[348px] tablet:max-h-[292px] tablet:overflow-hidden",
+              "mobile:max-h-[292px] mobile:overflow-hidden"
+            )}
+          >
+            {gameEventData.content.map((event) => (
+              <EventItem key={event.id} gameEventData={event} />
+            ))}
+          </div>
         )}
       </div>
 
