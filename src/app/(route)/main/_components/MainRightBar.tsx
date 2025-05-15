@@ -89,6 +89,7 @@ const MainRightBar = () => {
           className={`${btnStyle} ${
             buttonActive ? activeBtnStyle : passiveBtnStyle
           }`}
+          aria-label="뉴스 탭"
         >
           뉴스
         </button>
@@ -97,20 +98,21 @@ const MainRightBar = () => {
           className={`${btnStyle} ${
             !buttonActive ? activeBtnStyle : passiveBtnStyle
           }`}
+          aria-label="게임 이벤트 탭"
         >
           게임 이벤트
         </button>
       </div>
 
-      <div className={cn("flex flex-col gap-2", "mobile:overflow-hidden")}>
+      <div
+        className={cn(
+          "w-full h-auto max-h-[736px] flex flex-col gap-2",
+          "tablet:min-w-[348px] tablet:max-h-[292px] tablet:overflow-hidden",
+          "mobile:max-h-[292px] mobile:overflow-hidden"
+        )}
+      >
         {buttonActive ? (
-          <div
-            className={cn(
-              "w-full h-auto max-h-[736px] flex flex-col gap-2",
-              "tablet:min-w-[348px] tablet:max-h-[292px] tablet:overflow-hidden",
-              "mobile:max-h-[292px] mobile:overflow-hidden"
-            )}
-          >
+          <>
             {newsIsLoading ? (
               <>
                 {Array.from({ length: skeletonCount }).map((_, i) => (
@@ -133,33 +135,31 @@ const MainRightBar = () => {
                 />
               ))
             )}
-          </div>
-        ) : eventIsLoading ? (
-          <div
-            className={cn(
-              "w-full h-auto flex flex-col gap-2",
-              "tablet:min-w-[348px] tablet:max-h-[292px] tablet:overflow-hidden",
-              "mobile:max-h-[292px] mobile:overflow-hidden"
-            )}
-          >
-            {Array.from({ length: skeletonCount }).map((_, i) => (
-              <EventItemSkeleton key={`event-skeleton-${i}`} />
-            ))}
-          </div>
-        ) : eventIsError || !gameEventData?.content?.length ? (
-          <EmptyGameBox title="게임 이벤트 정보" onClick={handleRefresh} />
+          </>
         ) : (
-          <div
-            className={cn(
-              "w-full h-auto flex flex-col gap-2",
-              "tablet:min-w-[348px] tablet:max-h-[292px] tablet:overflow-hidden",
-              "mobile:max-h-[292px] mobile:overflow-hidden"
+          <>
+            {eventIsLoading ? (
+              <>
+                {Array.from({ length: skeletonCount }).map((_, i) => (
+                  <EventItemSkeleton key={`event-skeleton-${i}`} />
+                ))}
+              </>
+            ) : eventIsError || !gameEventData?.content?.length ? (
+              <EmptyGameBox title="게임 이벤트 정보" onClick={handleRefresh} />
+            ) : (
+              gameEventData.content.map((event) => (
+                <EventItem
+                  key={event.id}
+                  gameEventData={event}
+                  customClass={cn(
+                    "max-w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3",
+                    "tablet:max-w-full tablet:min-w-[194px]",
+                    "mobile:max-w-full"
+                  )}
+                />
+              ))
             )}
-          >
-            {gameEventData.content.map((event) => (
-              <EventItem key={event.id} gameEventData={event} />
-            ))}
-          </div>
+          </>
         )}
       </div>
 

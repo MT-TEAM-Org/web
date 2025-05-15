@@ -22,7 +22,11 @@ const FeedbackItemSkeleton = () => {
         {/* 제목 및 정보 영역 */}
         <div className="w-full min-h-[20px] flex gap-[2px] items-center">
           <Skeleton
-            className={cn("h-[16px] w-[60%] rounded-md", "mobile:w-[80%]")}
+            className={cn(
+              "h-[16px] w-[60%] rounded-md",
+              "tablet:w-[80%]",
+              "mobile:w-[80%]"
+            )}
           />{" "}
           {/* 제목 */}
         </div>

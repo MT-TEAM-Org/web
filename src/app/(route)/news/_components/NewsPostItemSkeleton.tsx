@@ -8,6 +8,7 @@ const NewsPostItemSkeleton = () => {
     <div
       className={cn(
         "min-w-[720px] min-h-[116px] flex items-center justify-start gap-3 border-b border-gray1 p-3 bg-white",
+        "tablet:max-w-full tablet:min-w-full",
         "mobile:max-w-[768px] mobile:min-w-0 mobile:h-[114px]"
       )}
     >
@@ -23,6 +24,7 @@ const NewsPostItemSkeleton = () => {
       <div
         className={cn(
           "w-[524px] h-auto min-h-[90px] flex flex-col gap-1",
+          "tablet:w-full",
           "mobile:w-[510px] mobile:min-h-[82px]"
         )}
       >
@@ -30,6 +32,7 @@ const NewsPostItemSkeleton = () => {
         <div
           className={cn(
             "w-[524px] h-auto min-h-[24px] flex gap-[2px] items-center justify-start",
+            "tablet:w-full",
             "mobile:w-[80%]"
           )}
         >
@@ -41,7 +44,11 @@ const NewsPostItemSkeleton = () => {
         {/* 콘텐츠 영역 */}
         <div>
           <Skeleton
-            className={cn("w-[524px] h-[40px] rounded-md", "mobile:w-[90%]")}
+            className={cn(
+              "w-[524px] h-[40px] rounded-md",
+              "tablet:w-[90%]",
+              "mobile:w-[90%]"
+            )}
           />
         </div>
 
@@ -49,7 +56,8 @@ const NewsPostItemSkeleton = () => {
         <div className="flex gap-1">
           <Skeleton className="h-[18px] w-[10%] rounded-md" /> {/* 카테고리 */}
           <Skeleton className="h-[18px] w-[20%] rounded-md" /> {/* 시간 */}
-          <Skeleton className="h-[18px] w-[30%] rounded-md" /> {/* 출처 */}
+          <Skeleton className="h-[18px] w-[30%] rounded-md tablet:w-[20%]" />{" "}
+          {/* 출처 */}
         </div>
       </div>
     </div>

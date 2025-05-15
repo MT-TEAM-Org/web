@@ -174,7 +174,8 @@ const FeedbackInfo = () => {
 
   return (
     <>
-      {feedbackIsLoading || feedbackIsError ? (
+      <FeedbackInfoSkeleton />
+      {/* {feedbackIsLoading || feedbackIsError ? (
         <FeedbackInfoSkeleton />
       ) : (
         <>
@@ -326,7 +327,7 @@ const FeedbackInfo = () => {
             />
           </div>
         </>
-      )}
+      )} */}
       <div
         className={cn(
           "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden mt-4",
