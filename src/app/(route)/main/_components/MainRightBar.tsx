@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import EventItem from "./EventItem";
+import EventItem, { GameEventData } from "./EventItem";
 import useGetGameEvent from "@/_hooks/fetcher/main/mainRightBar/useGetGameEvent";
 import EmptyGameBox from "./EmptyGameBox";
 import MainRightBarPagination from "./MainRightBarPagination";
@@ -86,18 +86,20 @@ const MainRightBar = () => {
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px]">
         <button
           onClick={() => setButtonActive(true)}
-          className={`${btnStyle} ${
+          className={cn(
+            btnStyle,
             buttonActive ? activeBtnStyle : passiveBtnStyle
-          }`}
+          )}
           aria-label="뉴스 탭"
         >
           뉴스
         </button>
         <button
           onClick={() => setButtonActive(false)}
-          className={`${btnStyle} ${
+          className={cn(
+            btnStyle,
             !buttonActive ? activeBtnStyle : passiveBtnStyle
-          }`}
+          )}
           aria-label="게임 이벤트 탭"
         >
           게임 이벤트
@@ -147,16 +149,8 @@ const MainRightBar = () => {
             ) : eventIsError || !gameEventData?.content?.length ? (
               <EmptyGameBox title="게임 이벤트 정보" onClick={handleRefresh} />
             ) : (
-              gameEventData.content.map((event) => (
-                <EventItem
-                  key={event.id}
-                  gameEventData={event}
-                  customClass={cn(
-                    "max-w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3",
-                    "tablet:max-w-full tablet:min-w-[194px]",
-                    "mobile:max-w-full"
-                  )}
-                />
+              gameEventData.content.map((event: GameEventData) => (
+                <EventItem key={event.id} gameEventData={event} />
               ))
             )}
           </>
@@ -169,6 +163,7 @@ const MainRightBar = () => {
             onClick={() => handleToPage("prev")}
             className={getNavButtonClass(Number(currentPage) === 1)}
             disabled={currentPage === "1"}
+            aria-label="이전 페이지"
           >
             <Arrow_left width={18} height={18} />
           </button>
@@ -184,6 +179,7 @@ const MainRightBar = () => {
             disabled={
               Number(currentPage) === filteredNewsData?.pageInfo?.totalPage
             }
+            aria-label="다음 페이지"
           >
             <Arrow_right width={18} height={18} />
           </button>
