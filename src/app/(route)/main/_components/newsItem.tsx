@@ -27,6 +27,7 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
       <div
         className={cn(
           "flex items-center w-full max-w-[436px] h-[68px] border-gray-300 cursor-pointer gap-4 overflow-hidden",
+          "tablet:max-w-full",
           "mobile:w-full mobile:max-w-[calc(100vw-32px)]"
         )}
         onClick={handleRead}

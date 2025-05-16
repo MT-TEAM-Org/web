@@ -24,6 +24,7 @@ const TermsOfService = () => {
     <div
       className={cn(
         "w-full max-w-[720px] h-auto rounded-[5px] border-b bg-white flex flex-col shadow-sm mb-10",
+        "tablet:max-w-full",
         "mobile:max-w-[768px] mobile:mb-0"
       )}
     >

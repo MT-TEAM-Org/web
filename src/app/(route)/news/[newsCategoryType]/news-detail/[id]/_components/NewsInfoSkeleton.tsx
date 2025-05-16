@@ -10,7 +10,7 @@ const NewsInfoSkeleton = () => {
       <div
         className={cn(
           "flex flex-col gap-4 w-[720px] h-auto bg-white p-6 rounded-[5px] border-b border-white shadow-sm mb-2",
-          "tablet:max-w-[687px]",
+          "tablet:max-w-full tablet:w-full",
           "mobile:max-w-full"
         )}
       >
