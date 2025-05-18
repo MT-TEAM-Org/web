@@ -43,7 +43,7 @@ const Mypage = () => {
     <div
       className={cn(
         "flex flex-col gap-[24px] w-[720px] min-h-[238px] bg-[#FFFFFF] rounded-[10px] p-[24px]",
-        "tablet:rounded-t-none tablet:w-[688px] tablet:mb-[76px]",
+        "tablet:rounded-t-none tablet:w-full tablet:mb-[76px]",
         "mobile:w-full mobile:h-[500px] mobile:p-[16px] mobile:gap-[16px]"
       )}
     >
