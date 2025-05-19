@@ -69,7 +69,7 @@ const MypageLeftSidebar = () => {
     <div
       className={cn(
         "w-[160px] h-[364px]",
-        "tablet:w-[688px] tablet:h-[52px]",
+        "tablet:w-full tablet:min-w-[708px] tablet:h-[52px]",
         "mobile:w-full mobile:h-[48px]"
       )}
     >
