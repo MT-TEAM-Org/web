@@ -60,7 +60,7 @@ const InquirieDetail = ({
         <div
           className={cn(
             "flex flex-col justify-center shadow-soft-md gap-[16px] w-[720px] min-h-[497px] rounded-b-[5px] p-[24px] bg-white",
-            "tablet:w-[688px]",
+            "tablet:w-full",
             "mobile:w-full mobile:shadow-none mobile:gap-0 mobile:justify-start mobile:min-h-[0px] mobile:p-0"
           )}
         >
@@ -123,6 +123,7 @@ const InquirieDetail = ({
           <div
             className={cn(
               "max-w-[720px] h-auto bg-[#FAFAFA] rounded-[5px]",
+              "tablet:w-full tablet:max-w-full",
               "mobile:mx-auto"
             )}
           >
@@ -133,6 +134,7 @@ const InquirieDetail = ({
       <div
         className={cn(
           "sticky bottom-0 max-w-[720px]",
+          "tablet:w-full tablet:max-w-full",
           "mobile:w-full mobile:mx-auto"
         )}
       >
