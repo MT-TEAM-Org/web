@@ -27,14 +27,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div
       className={cn(
         "min-h-[calc(100vh-188px)] pb-[40px] bg-gray1",
-        "tablet:max-w-[1279px]",
+        "tablet:min-w-[768px] tablet:max-w-[1279px] tablet:px-[40px]",
         "mobile:w-full mobile:mx-0 mobile:pb-0"
       )}
     >
       <div
         className={cn(
           "max-w-[1200px] mx-auto pt-[40px] pb-[20px]",
-          "tablet:w-[688px]",
+          "tablet:max-w-full",
           "mobile:hidden"
         )}
       >
@@ -46,7 +46,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div
         className={cn(
           "mt-[20px] max-w-[1200px] flex mx-auto gap-4",
-          "tablet:max-w-[688px] tablet:flex-col tablet:gap-0",
+          "tablet:max-w-[1279px] tablet:flex-col tablet:gap-0",
           "mobile:w-full mobile:flex mobile:flex-col mobile:gap-0 mobile:mt-0"
         )}
       >
@@ -56,7 +56,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div
           className={cn(
             "flex-1 w-full max-w-[720px]",
-            "tablet:max-w-[688px]",
+            "tablet:max-w-full",
             "mobile:w-full mobile:max-w-none"
           )}
         >

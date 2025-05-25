@@ -69,6 +69,7 @@ const FeedbackPage = () => {
     <div
       className={cn(
         "w-full max-w-[720px] min-h-[120px] rounded-t-[5px] mx-auto",
+        "tablet:max-w-full",
         "mobile:max-w-[768px]",
         feedbackDataList?.content?.length === 0 || !feedbackDataList
           ? "bg-transparent"
@@ -86,7 +87,7 @@ const FeedbackPage = () => {
       <div
         className={cn(
           "w-full max-w-[720px] h-auto rounded-b-[5px] overflow-hidden bg-white",
-          "tablet:max-w-[688px]",
+          "tablet:max-w-full",
           "mobile:max-w-[768px]",
           !!feedbackDataList?.content?.length &&
             "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"

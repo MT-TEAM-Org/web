@@ -27,8 +27,8 @@ const NewsComponent = ({ data, isLoading }: NewsComponentProps) => {
     <div
       className={cn(
         "max-w-[436px] h-[236px] flex flex-col gap-4 overflow-hidden",
-        "tablet:h-auto",
-        "mobile:max-w-[768px] mobile:h-[152px] tablet:overflow-hidden"
+        "tablet:min-w-[348px] tablet:max-w-full tablet:h-auto tablet:overflow-hidden",
+        "mobile:max-w-[768px] mobile:h-[152px]"
       )}
     >
       {isLoading

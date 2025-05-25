@@ -174,7 +174,8 @@ const FeedbackInfo = () => {
 
   return (
     <>
-      {feedbackIsLoading || feedbackIsError ? (
+      <FeedbackInfoSkeleton />
+      {/* {feedbackIsLoading || feedbackIsError ? (
         <FeedbackInfoSkeleton />
       ) : (
         <>
@@ -187,7 +188,7 @@ const FeedbackInfo = () => {
           <div
             className={cn(
               "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-soft-md bg-white",
-              "tablet:max-w-[687px]",
+              "tablet:max-w-full tablet:w-full",
               "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
             )}
           >
@@ -218,6 +219,7 @@ const FeedbackInfo = () => {
               <div
                 className={cn(
                   "w-full max-h-[20px] flex gap-4",
+                  "tablet:justify-between",
                   "mobile:flex-wrap mobile:max-h-fit mobile:gap-1"
                 )}
               >
@@ -240,7 +242,7 @@ const FeedbackInfo = () => {
                 <div
                   className={cn(
                     "min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6",
-                    "tablet:min-w-[210px]",
+                    "tablet:min-w-[210px] tablet:text-end",
                     "mobile:min-w-0 mobile:w-full mobile:justify-start mobile:text-[12px] mobile:mt-0"
                   )}
                 >
@@ -325,11 +327,11 @@ const FeedbackInfo = () => {
             />
           </div>
         </>
-      )}
+      )} */}
       <div
         className={cn(
           "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden mt-4",
-          "tablet:max-w-[687px] tablet:mt-3",
+          "tablet:max-w-full tablet:w-full tablet:mt-3",
           "mobile:w-full mobile:max-w-full mobile:min-h-[56px]"
         )}
       >
@@ -342,13 +344,14 @@ const FeedbackInfo = () => {
       <div
         className={cn(
           "w-full h-auto rounded-[5px] shadow-soft-md bg-white",
+          "tablet:max-w-full",
           "mobile:max-w-full"
         )}
       >
         <div
           className={cn(
             "w-[720px] h-auto rounded-b-[5px] mb-10",
-            "tablet:max-w-[687px]",
+            "tablet:w-full",
             "mobile:w-full mobile:max-w-full mobile:mb-0"
           )}
         >

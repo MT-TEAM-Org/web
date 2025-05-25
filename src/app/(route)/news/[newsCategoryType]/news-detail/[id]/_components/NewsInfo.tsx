@@ -168,7 +168,7 @@ const NewsInfo = ({
           <div
             className={cn(
               "w-[720px] h-auto rounded-t-[5px] p-6 flex gap-4 flex-col shadow-soft-md bg-white",
-              "tablet:max-w-[687px]",
+              "tablet:max-w-full tablet:w-auto",
               "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
             )}
           >
@@ -285,7 +285,7 @@ const NewsInfo = ({
       <div
         className={cn(
           "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden mt-2",
-          "tablet:max-w-[687px] tablet:mt-3",
+          "tablet:max-w-full tablet:w-auto tablet:mt-3",
           "mobile:w-full mobile:max-w-full mobile:min-h-[56px] mobile:mt-4"
         )}
       >
@@ -304,7 +304,7 @@ const NewsInfo = ({
         <div
           className={cn(
             "w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
-            "tablet:max-w-[687px]",
+            "tablet:max-w-full tablet:w-auto",
             "mobile:w-full mobile:max-w-full"
           )}
         >

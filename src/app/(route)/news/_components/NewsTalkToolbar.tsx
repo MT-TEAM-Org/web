@@ -79,6 +79,7 @@ const NewsTalkToolbar = ({ newsType, pageInfo }: NewsTalkToolbarProps) => {
       <div
         className={cn(
           "w-full flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white",
+          "tablet:max-w-full",
           "mobile:hidden"
         )}
       >

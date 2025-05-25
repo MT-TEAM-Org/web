@@ -49,6 +49,7 @@ const PostNavigation = ({
     <div
       className={cn(
         "w-full max-w-[672px] min-h-[40px] flex justify-between",
+        "tablet:max-w-full",
         "mobile:hidden"
       )}
     >

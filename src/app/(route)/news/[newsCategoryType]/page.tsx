@@ -78,7 +78,7 @@ export default function NewsPage() {
       <div
         className={cn(
           "w-full max-w-[720px] min-h-[120px] rounded-[5px] mx-auto",
-          "tablet:max-w-[688px]",
+          "tablet:max-w-[1279px]",
           "mobile:max-w-[768px]",
           newsData?.content?.length === 0 || !newsData
             ? "bg-transparent"
@@ -91,7 +91,7 @@ export default function NewsPage() {
         <div
           className={cn(
             "w-full max-w-[720px] h-auto rounded-b-[5px]",
-            "tablet:max-w-[688px]",
+            "tablet:max-w-[1279px]",
             "mobile:w-full mobile:max-w-[768px]",
             !!newsData?.content?.length &&
               "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"

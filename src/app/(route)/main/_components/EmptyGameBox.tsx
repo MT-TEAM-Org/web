@@ -11,10 +11,11 @@ const EmptyGameBox = ({ title, onClick }: EmptyGameBoxProps) => {
       <div
         className={cn(
           "max-w-[298px] min-h-[396px] bg-gray1 rounded-[10px] flex justify-center items-center",
+          "tablet:max-w-full",
           "mobile:max-w-full"
         )}
       >
-        <div className="w-[298px] h-[160px] flex flex-col justify-center items-center gap-4">
+        <div className="w-[298px] h-[160px] flex flex-col justify-center items-center gap-4 tablet:w-full">
           <LogoWhite />
           <div className="h-[48px] flex flex-col justify-center items-center gap-1 text-center text-gray7">
             <p className="text-[16px] leading-[24px] font-bold tracking-[-0.02em]">

@@ -68,14 +68,14 @@ const LeftSidebar = () => {
       <div
         className={cn(
           "w-full h-[260px] bg-white overflow-x-hidden",
-          "tablet:flex tablet:w-[688px] tablet:h-[52px]",
+          "tablet:flex tablet:max-w-full tablet:h-[52px]",
           "mobile:flex mobile:w-full mobile:h-[48px] mobile:overflow-x-auto mobile:whitespace-nowrap mobile:scrollbar-hide"
         )}
       >
         <div
           className={cn(
             "w-full flex flex-col",
-            "tablet:flex-row tablet:w-full",
+            "tablet:flex-row",
             "mobile:flex-row mobile:inline-flex mobile:min-w-fit"
           )}
         >
@@ -85,7 +85,7 @@ const LeftSidebar = () => {
               key={board.id}
               className={cn(
                 "block w-full",
-                "tablet:flex tablet:flex-1",
+                "tablet:max-w-full tablet:flex tablet:flex-1",
                 "mobile:inline-block"
               )}
             >
@@ -96,7 +96,7 @@ const LeftSidebar = () => {
                       ? "font-[700] text-gra bg-bg0 mobile:text-gray7 mobile:border-b-2 mobile:border-b-gray7 mobile:bg-transparent"
                       : "font-[400] text-gray7 bg-white pc:hover:text-gra mobile:text-gray5 mobile:border-b-2 mobile:border-b-gray3"
                   }`,
-                  "tablet:flex tablet:items-center tablet:justify-center tablet:text-center tablet:text-[16px] tablet:leading-7 tablet:tracking-[-0.02em]",
+                  "tablet:w-full tablet:flex tablet:flex-1 tablet:items-center tablet:justify-center tablet:text-center tablet:text-[16px] tablet:leading-7 tablet:tracking-[-0.02em]",
                   "mobile:inline-flex mobile:min-w-[72px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-center mobile:text-[14px] mobile:leading-5"
                 )}
               >

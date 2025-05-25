@@ -63,7 +63,7 @@ const LiveSection = ({ matchId }: ScheduleDataProps) => {
     >
       {isLive ? (
         <iframe
-          src={`https://www.youtube.com/embed/${esportsLiveData?.data?.videoId}`}
+          src={`https://www.youtube.com/embed/${esportsLiveData?.data?.videoId}?autoplay=1&mute=1`}
           className="w-full h-full"
           allowFullScreen
         />

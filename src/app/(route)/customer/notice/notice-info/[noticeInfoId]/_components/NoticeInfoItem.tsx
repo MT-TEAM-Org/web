@@ -95,13 +95,14 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
       <div
         className={cn(
           "w-[720px] h-auto rounded-[5px] border-b p-6 flex flex-col gap-4 bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
-          "tablet:w-[688px]",
+          "tablet:w-full",
           "mobile:w-full mobile:px-4 mobile:py-3 mobile:gap-3"
         )}
       >
         <div
           className={cn(
             "w-full max-w-[672px] min-h-[56px] flex gap-2 flex-col",
+            "tablet:max-w-full",
             "mobile:max-w-full mobile:min-h-[68px] mobile:gap-1"
           )}
         >
@@ -115,20 +116,20 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
           </h1>
           <div
             className={cn(
-              "w-full max-w-[672px] min-h-[20px] flex gap-4",
-              "mobile:flex-col mobile:max-w-full mobile:gap-1 mobile:min-h-[18px]"
+              "min-h-[20px] flex gap-4 justify-between",
+              "mobile:flex-col mobile:gap-1 mobile:min-h-[18px]"
             )}
           >
             <div
               className={cn(
-                "w-full min-h-[20px] flex gap-2",
+                "min-h-[20px] flex gap-2",
                 "mobile:gap-1 mobile:min-h-[18px]"
               )}
             >
               <div
                 className={cn(
-                  "min-w-[140px] min-h-[20px] flex gap-1 text-[14px] leading-5 text-gray6",
-                  "mobile:min-w-[103px] mobile:min-h-[18px] mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
+                  "min-h-[20px] flex gap-1 text-[14px] leading-5 text-gray6",
+                  "mobile:min-h-[18px] mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
                 )}
               >
                 <p className="font-bold">고객센터</p>
@@ -152,8 +153,9 @@ const NoticeInfoItem = ({ data, id }: NoticeInfoItemProps) => {
             </div>
             <div
               className={cn(
-                "w-[235px] min-h-[20px] flex gap-1 text-[14px] leading-5 text-gray6",
-                "mobile:w-full mobile:min-h-[18px] mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
+                "min-h-[20px] flex gap-1 text-[14px] leading-5 text-gray6 text-nowrap",
+                "tablet:min-w-0 tablet:flex-shrink tablet:justify-end tablet:overflow-hidden",
+                "mobile:min-h-[18px] mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]"
               )}
             >
               <p>{data?.nickname}</p>

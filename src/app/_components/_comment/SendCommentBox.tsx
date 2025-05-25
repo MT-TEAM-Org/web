@@ -207,6 +207,7 @@ const SendCommentBox = ({
     <div
       className={cn(
         "w-full p-4 bg-white",
+        "tablet:max-w-full tablet:w-auto",
         "mobile:px-[8px] mobile:pt-[8px] mobile:pb-[16px]"
       )}
     >
@@ -235,7 +236,7 @@ const SendCommentBox = ({
             ref={containerRef}
             className={cn(
               "flex-grow max-w-[576px] relative w-full",
-              "tablet:max-w-[544px]",
+              "tablet:max-w-full tablet:w-auto",
               "mobile:max-w-[615px]"
             )}
           >

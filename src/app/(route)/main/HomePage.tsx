@@ -52,7 +52,7 @@ function HomePageContent() {
         <div
           className={cn(
             "w-full max-w-[1200px] min-h-[704px] mb-[30px] flex gap-x-10",
-            "tablet:max-w-[768px]",
+            "tablet:max-w-full tablet:px-6",
             "mobile:flex-col mobile:p-4"
           )}
         >
@@ -68,7 +68,7 @@ function HomePageContent() {
                 <div
                   className={cn(
                     "max-w-full min-h-[236px] flex gap-4",
-                    "tablet:h-[396px]",
+                    "tablet:h-[396px] tablet:justify-between",
                     "mobile:h-[196px] mobile:min-h-0 mobile:flex-col mobile:gap-2"
                   )}
                 >

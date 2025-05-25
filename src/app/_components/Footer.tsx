@@ -27,8 +27,8 @@ export default function Footer() {
     <div
       className={cn(
         "w-full min-h-[356px] bg-black flex flex-col justify-center text-white pt-[40px]",
-        "tablet:text-center tablet:pt-[24px]",
-        "mobile:text-center mobile:pt-[24px]"
+        "tablet:text-center tablet:pt-[24px] tablet:px-[16px]",
+        "mobile:text-center mobile:pt-[24px] mobile:px-[16px]"
       )}
     >
       <div
@@ -87,7 +87,7 @@ export default function Footer() {
               >
                 <div className="flex flex-col">
                   <p
-                    className={`${footerGrayText} font-[700] text-[24px] tablet:text-[16px] leading-[44px] tablet:leading-[24px] text-white tablet:text-gray5 mobile:text-[16px] mobile:leading-6 mobile:tracking-[-0.02em] mobile:text-gray5`}
+                    className={`${footerGrayText} font-[700] text-[24px] tablet:text-[16px] leading-[44px] tablet:leading-[24px] text-white tablet:text-gray5 pc:text-gray5 mobile:text-[16px] mobile:leading-6 mobile:tracking-[-0.02em] mobile:text-gray5`}
                   >
                     TeamPlayHive@gmail.com
                   </p>
@@ -119,12 +119,13 @@ export default function Footer() {
             <div
               className={cn(
                 "pc:flex pc:my-[24px]",
-                "tablet:text-center tablet:justify-center tablet:items-center tablet:border-t-[1px] tablet:border-gray7 tablet:py-[16px]",
-                "mobile:text-center mobile:justify-center mobile:items-center mobile:border-t-[1px] mobile:border-gray7 mobile:py-[16px] mobile:mx-4"
+                "tablet:text-center tablet:justify-center tablet:items-center",
+                "mobile:text-center mobile:justify-center mobile:items-center"
               )}
             >
+              <hr className="w-full border-gray7 pb-4 pc:hidden" />
               <p
-                className={`${footerGrayText} tablet:font-[500] tablet:text-[12px] tablet:leading-[18px] tablet:text-gray6 mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em]`}
+                className={`${footerGrayText} tablet:font-[500] tablet:text-[12px] tablet:leading-[18px] text-gray6 mobile:text-[12px] mobile:leading-[18px] mobile:tracking-[-0.02em] mobile:mb-4`}
               >
                 서비스명 : PlayHive · 대표 : 홍길표 · 개인정보 보호책임자 :
                 홍길표
@@ -173,10 +174,11 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <hr className="w-full border-gray7 pc:max-w-[1200px] pc:mx-auto" />
       <div className="flex flex-col items-center">
         <div
           className={cn(
-            "w-full max-w-[1200px] h-[80px] flex justify-between items-center mx-auto border-gray7 border-t-[1px]",
+            "w-full max-w-[1200px] h-[80px] flex justify-between items-center mx-auto",
             "tablet:justify-center tablet:items-center",
             "mobile:justify-center mobile:items-center mobile:max-w-[calc(100%-32px)] mobile:mx-auto"
           )}

@@ -35,11 +35,15 @@ const RightNewsItem = ({
   const isWide = wrapperWidth === 298;
 
   const titleStyle = cn(
-    isWide ? "w-[194px]" : "w-[184px]",
+    isWide
+      ? "w-[194px] tablet:min-w-full tablet:max-w-full"
+      : "w-[184px] tablet:min-w-full tablet:max-w-full",
     "h-[24px] font-[700] text-[16px] leading-6 tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap mobile:w-full"
   );
   const contentStyle = cn(
-    isWide ? "w-[194px]" : "w-[184px]",
+    isWide
+      ? "w-[194px] tablet:min-w-full tablet:max-w-full tablet:w-full"
+      : "w-[184px] tablet:min-w-full tablet:max-w-full tablet:w-full",
     "h-[40px] text-[14px] leading-5 tracking-[0%] opacity-90 line-clamp-2 overflow-hidden mobile:w-full"
   );
 
