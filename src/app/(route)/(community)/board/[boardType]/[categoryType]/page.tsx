@@ -32,7 +32,6 @@ export default function Category({ params }: { params: Promise<category> }) {
   });
 
   const pageInfo = boardData?.pageInfo;
-  //테스트용 주석2
 
   return (
     <div className="w-full max-w-[720px] flex justify-center bg-[#FAFAFA] pc:mb-0 tablet:mb-[46px] min-h-[100px] tablet:w-full mobile:w-full mobile:max-w-[768px] mobile:mb-0">
