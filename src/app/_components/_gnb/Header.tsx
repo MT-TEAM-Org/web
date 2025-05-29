@@ -42,7 +42,7 @@ export default function Header() {
   return (
     <div className="w-full max-w-[1200px] min-h-[64px] mx-auto flex justify-between items-center">
       <div className="flex items-center gap-x-[16px] flex-shrink overflow-hidden">
-        <Link href="/">
+        <Link href="/" aria-label="메인페이지">
           <Logo />
         </Link>
         <p

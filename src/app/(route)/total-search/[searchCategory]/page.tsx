@@ -78,6 +78,7 @@ const Page = () => {
     <div
       className={cn(
         "w-full max-w-[720px] min-h-[120px] rounded-[5px] mx-auto",
+        "tablet:max-w-full",
         "mobile:max-w-[768px]",
         searchData?.content?.length === 0 || !searchData
           ? "bg-transparent"
@@ -94,7 +95,7 @@ const Page = () => {
       <div
         className={cn(
           "w-full max-w-[720px] h-auto rounded-b-[5px] bg-white",
-          "tablet:max-w-[688px]",
+          "tablet:max-w-full",
           "mobile:w-full mobile:max-w-[768px]",
           !!searchData?.content?.length &&
             "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"

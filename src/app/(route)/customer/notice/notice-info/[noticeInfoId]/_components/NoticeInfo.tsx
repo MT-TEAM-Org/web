@@ -72,7 +72,7 @@ const NoticeInfo = () => {
       <div
         className={cn(
           "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden mt-4",
-          "tablet:w-[688px] tablet:mt-3",
+          "tablet:w-full tablet:mt-3",
           "mobile:hidden"
         )}
       >
@@ -84,9 +84,9 @@ const NoticeInfo = () => {
       </div>
       <div
         className={cn(
-          "w-[720px] h-auto rounded-[5px] bg-white",
-          "tablet:w-[688px]",
-          "mobile:w-full mobile:mt-3"
+          "w-[720px] h-auto rounded-[5px] bg-white mb-10",
+          "tablet:w-full",
+          "mobile:w-full mobile:mt-3 mobile:mb-0"
         )}
       >
         {isLoading ? (

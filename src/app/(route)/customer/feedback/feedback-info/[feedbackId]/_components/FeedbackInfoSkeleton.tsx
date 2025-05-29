@@ -8,7 +8,7 @@ const FeedbackInfoSkeleton = () => {
     <div
       className={cn(
         "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-soft-md",
-        "tablet:max-w-[687px]",
+        "tablet:max-w-full tablet:w-full",
         "mobile:max-w-full"
       )}
     >
@@ -18,12 +18,17 @@ const FeedbackInfoSkeleton = () => {
         <Skeleton className="w-[50px] h-[20px] rounded-md" />
         {/* 제목 */}
         <Skeleton
-          className={cn("w-[80%] h-[24px] rounded-md", "mobile:h-[36px]")}
+          className={cn(
+            "w-[80%] h-[24px] rounded-md",
+            "tablet:w-[100%]",
+            "mobile:h-[36px]"
+          )}
         />
         {/* 메타데이터 */}
         <div
           className={cn(
             "w-full max-h-[20px] flex gap-4",
+            "tablet:justify-between",
             "mobile:flex-col mobile:max-h-[40px]"
           )}
         >
@@ -34,7 +39,12 @@ const FeedbackInfoSkeleton = () => {
             {/* 개선요청 */}
             <Skeleton className="w-[50px] h-[16px] rounded-md" /> {/* 시간 */}
           </div>
-          <div className="min-w-[235px] min-h-[20px] flex gap-1">
+          <div
+            className={cn(
+              "min-w-[235px] min-h-[20px] flex gap-1",
+              "tablet:min-w-0"
+            )}
+          >
             <Skeleton
               className={cn("w-[80px] h-[16px] rounded-md", "mobile:hidden")}
             />{" "}

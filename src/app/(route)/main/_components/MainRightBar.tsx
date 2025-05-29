@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import EventItem from "./EventItem";
+import EventItem, { GameEventData } from "./EventItem";
 import useGetGameEvent from "@/_hooks/fetcher/main/mainRightBar/useGetGameEvent";
 import EmptyGameBox from "./EmptyGameBox";
 import MainRightBarPagination from "./MainRightBarPagination";
@@ -79,38 +79,42 @@ const MainRightBar = () => {
     <div
       className={cn(
         "flex flex-col max-w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px]",
-        "tablet:min-h-[396px]",
+        "tablet:max-w-full tablet:min-h-[396px]",
         "mobile:max-w-full mobile:min-h-fit"
       )}
     >
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px]">
         <button
           onClick={() => setButtonActive(true)}
-          className={`${btnStyle} ${
+          className={cn(
+            btnStyle,
             buttonActive ? activeBtnStyle : passiveBtnStyle
-          }`}
+          )}
+          aria-label="뉴스 탭"
         >
           뉴스
         </button>
         <button
           onClick={() => setButtonActive(false)}
-          className={`${btnStyle} ${
+          className={cn(
+            btnStyle,
             !buttonActive ? activeBtnStyle : passiveBtnStyle
-          }`}
+          )}
+          aria-label="게임 이벤트 탭"
         >
           게임 이벤트
         </button>
       </div>
 
-      <div className={cn("flex flex-col gap-2", "mobile:overflow-hidden")}>
+      <div
+        className={cn(
+          "w-full h-auto max-h-[736px] flex flex-col gap-2",
+          "tablet:min-w-[348px] tablet:max-h-[292px] tablet:overflow-hidden",
+          "mobile:max-h-[292px] mobile:overflow-hidden"
+        )}
+      >
         {buttonActive ? (
-          <div
-            className={cn(
-              "w-full h-auto max-h-[736px] flex flex-col gap-2",
-              "tablet:max-h-[292px] tablet:overflow-hidden",
-              "mobile:max-h-[292px] mobile:overflow-hidden"
-            )}
-          >
+          <>
             {newsIsLoading ? (
               <>
                 {Array.from({ length: skeletonCount }).map((_, i) => (
@@ -127,24 +131,29 @@ const MainRightBar = () => {
                   wrapperWidth={298}
                   customClass={cn(
                     "max-w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3",
+                    "tablet:max-w-full tablet:min-w-[194px]",
                     "mobile:max-w-full"
                   )}
                 />
               ))
             )}
-          </div>
-        ) : eventIsLoading ? (
-          <>
-            {Array.from({ length: skeletonCount }).map((_, i) => (
-              <EventItemSkeleton key={`event-skeleton-${i}`} />
-            ))}
           </>
-        ) : eventIsError || !gameEventData?.content?.length ? (
-          <EmptyGameBox title="게임 이벤트 정보" onClick={handleRefresh} />
         ) : (
-          gameEventData.content.map((event) => (
-            <EventItem key={event.id} gameEventData={event} />
-          ))
+          <>
+            {eventIsLoading ? (
+              <>
+                {Array.from({ length: skeletonCount }).map((_, i) => (
+                  <EventItemSkeleton key={`event-skeleton-${i}`} />
+                ))}
+              </>
+            ) : eventIsError || !gameEventData?.content?.length ? (
+              <EmptyGameBox title="게임 이벤트 정보" onClick={handleRefresh} />
+            ) : (
+              gameEventData.content.map((event: GameEventData) => (
+                <EventItem key={event.id} gameEventData={event} />
+              ))
+            )}
+          </>
         )}
       </div>
 
@@ -154,6 +163,7 @@ const MainRightBar = () => {
             onClick={() => handleToPage("prev")}
             className={getNavButtonClass(Number(currentPage) === 1)}
             disabled={currentPage === "1"}
+            aria-label="이전 페이지"
           >
             <Arrow_left width={18} height={18} />
           </button>
@@ -169,6 +179,7 @@ const MainRightBar = () => {
             disabled={
               Number(currentPage) === filteredNewsData?.pageInfo?.totalPage
             }
+            aria-label="다음 페이지"
           >
             <Arrow_right width={18} height={18} />
           </button>

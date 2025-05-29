@@ -23,15 +23,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "bg-[#fafafa] min-h-[calc(100vh-476px)] pb-[40px]",
-        "tablet:min-h-[calc(100vh-562.67px)] tablet:pb-0",
-        "mobile:bg-white mobile:pb-0 mobile:min-h-[calc(100vh-450.67px)]"
+        "bg-[#fafafa] min-h-[calc(100vh-477px)] pb-[40px]",
+        "tablet:min-h-[calc(100vh-547.67px)] tablet:pb-0",
+        "mobile:bg-white mobile:pb-0 mobile:min-h-[calc(100vh-451.67px)]"
       )}
     >
       <div
         className={cn(
           "max-w-[1200px] mx-auto pt-[40px] pb-[20px]",
-          "tablet:max-w-[688px]",
+          "tablet:min-w-[708px] tablet:max-w-[1279px] tablet:mx-[40px]",
           "mobile:hidden"
         )}
       >
@@ -45,25 +45,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div
         className={cn(
           "mt-[20px] max-w-[1200px] flex mx-auto gap-[16px]",
-          "tablet:w-full tablet:flex-col tablet:items-center tablet:gap-0",
+          "tablet:min-w-[708px] tablet:max-w-[1279px] tablet:mx-[40px] tablet:flex-col tablet:items-center tablet:gap-0",
           "mobile:w-full mobile:mt-0 mobile:flex-col mobile:gap-0"
         )}
       >
         <div
           className={cn(
             "w-[160px] min-h-[364px]",
-            "tablet:w-[688px] tablet:min-h-[52px]",
+            "tablet:w-full tablet:min-h-[52px]",
             "mobile:w-full mobile:min-h-[48px] mobile:overflow-x-auto mobile:scrollbar-hide mobile:mt-[48px]"
           )}
         >
-          <div className="sticky w-max top-0">
+          <div className="sticky w-max top-0 tablet:w-full">
             <MypageLeftSidebar />
           </div>
         </div>
         <div
           className={cn(
             "w-[720px]",
-            "tablet:w-[688px]",
+            "tablet:w-full",
             "mobile:min-h-[500px] mobile:w-full"
           )}
         >
