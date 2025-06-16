@@ -42,6 +42,9 @@ function HomePageContent() {
     ? bigNewsData
     : bigNewsData?.content || [];
 
+  const isValidNews = bigNewsItems.length !== 0 && newsItems.length !== 0;
+  const isError = bigNewsDataIsError || newsDataIsError;
+
   return (
     <div className={cn("flex flex-col gap-6", "mobile:gap-0")}>
       <div className={cn("p-6 bg-gray1", "mobile:p-4")}>
@@ -64,7 +67,7 @@ function HomePageContent() {
             )}
           >
             <div className="w-full flex flex-col gap-10">
-              {bigNewsItems.length !== 0 && newsItems.length !== 0 && (
+              {isValidNews && !isError && (
                 <div
                   className={cn(
                     "max-w-full min-h-[236px] flex gap-4",
