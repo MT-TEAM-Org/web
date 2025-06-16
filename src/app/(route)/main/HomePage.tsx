@@ -42,8 +42,6 @@ function HomePageContent() {
     ? bigNewsData
     : bigNewsData?.content || [];
 
-  console.log(bigNewsItems);
-
   return (
     <div className={cn("flex flex-col gap-6", "mobile:gap-0")}>
       <div className={cn("p-6 bg-gray1", "mobile:p-4")}>
