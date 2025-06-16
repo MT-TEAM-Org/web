@@ -72,6 +72,7 @@ const PostAction = ({
         <Link
           href={`${source}`}
           target="_blank"
+          rel="noopener noreferrer"
           className="min-w-[104px] w-auto min-h-[32px] rounded-[5px] text-[14px] font-[500] leading-[14px] flex items-center justify-center bg-white px-3 py-[9px] border border-gray3"
         >
           기사 원문 보기
