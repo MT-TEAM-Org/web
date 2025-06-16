@@ -31,8 +31,9 @@ function HomePageContent() {
     page: "1",
     orderType: "VIEW",
     size: 1,
-    timePeriod: "WEEKLY",
+    timePeriod: "MONTHLY",
     withPageInfo: false,
+    startIndex: 1,
   });
 
   const newsItems = Array.isArray(newsData)
@@ -67,7 +68,7 @@ function HomePageContent() {
             )}
           >
             <div className="w-full flex flex-col gap-10">
-              {isValidNews && !isError && (
+              {(isValidNews || !isError) && (
                 <div
                   className={cn(
                     "max-w-full min-h-[236px] flex gap-4",

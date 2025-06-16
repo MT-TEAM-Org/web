@@ -1,25 +1,15 @@
 import axios from "axios";
-
-interface NewsDataProps {
-  page?: string;
-  size?: number;
-  timePeriod?: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
-  category?: "BASEBALL" | "FOOTBALL" | "ESPORTS" | "";
-  orderType?: "DATE" | "COMMENT" | "VIEW";
-  content?: string;
-  withPageInfo?: boolean;
-  startIndex?: number;
-}
+import { NewsDataProps } from "../../app/(route)/main/_types/NewsDataProps"
 
 const fetchNewsDataList = async ({
   page = "1",
   size = 5,
   withPageInfo = false,
-  timePeriod = "WEEKLY",
+  timePeriod = "MONTHLY",
   category = "",
   orderType = "DATE",
   content,
-  startIndex,
+  startIndex = 1,
 }: NewsDataProps = {}) => {
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}api/news`,
