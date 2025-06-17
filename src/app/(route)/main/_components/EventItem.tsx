@@ -22,6 +22,8 @@ const EventItem = ({ gameEventData }: EventItemProps) => {
     <Link
       href={gameEventData?.link}
       target="_blank"
+      rel="noopener noreferrer"
+
       className="w-full h-[92px] flex items-center p-3 gap-3 border rounded-[5px] border-gray2 bg-white"
     >
       <div className="w-[68px] h-[68px] rounded-[5px] relative bg-gray1 overflow-hidden flex-shrink-0">
