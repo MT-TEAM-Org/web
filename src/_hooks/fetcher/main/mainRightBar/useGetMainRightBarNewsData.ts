@@ -1,29 +1,21 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import fetchNewsDataList from "@/services/news/fetchNewsDataList";
-import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
+import { NewsListWithPageInfo } from "@/app/(route)/main/_types/NewsDataProps";
 
 interface NewsDataProps {
   page?: string;
   isMainPage?: boolean;
   startIndex?: number;
-  size?: number
-}
-
-interface NewsListWithPageInfo {
-  content: NewsItemType[];
-  pageInfo: {
-    currentPage: number;
-    totalPage: number;
-    totalElements: number;
-    startIndex?: number;
-  };
+  size?: number;
+  timePeriod?: "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
 }
 
 const useGetMainRightBarNewsData = ({
   page = "1",
   isMainPage = false,
-  startIndex = 3,
+  startIndex = 4,
   size = 5,
+  timePeriod = "MONTHLY",
 }: NewsDataProps = {}) => {
   const currentPage = Number(page);
 
@@ -34,7 +26,7 @@ const useGetMainRightBarNewsData = ({
         page: String(currentPage),
         size,
         withPageInfo: true,
-        timePeriod: "WEEKLY",
+        timePeriod,
         startIndex,
       }),
     placeholderData: keepPreviousData,
