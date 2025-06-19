@@ -132,8 +132,7 @@ const Tiptap = ({
       Link,
       CustomImage.configure({
         HTMLAttributes: {
-          class:
-            "w-full h-auto mx-auto block mobile:max-w-[200px] mobile:max-h-[200px]",
+          class: "w-full h-auto mx-auto block mobile:w-auto mobile:h-auto",
         },
         allowBase64: true,
         inline: false,
@@ -152,7 +151,7 @@ const Tiptap = ({
     editorProps: {
       attributes: {
         class:
-          "editor-class flex flex-col font-medium text-[14px] leading-[20px] text-gray7 min-h-[375px] p-4 gap-y-[2px]",
+          "editor-class flex flex-col font-medium text-[14px] leading-[20px] text-gray7 min-h-[430px] tablet:min-h-[430px] mobile:min-h-[530px] p-4 gap-y-[2px]",
       },
       handlePaste: (view, event) => {
         const items = Array.from(event.clipboardData?.items || []);
