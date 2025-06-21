@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
-import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import MainBigSizeNewsSkeleton from "./MainBigSizeNewsSkeleton";
 import CustomIcon from "@/app/_components/IconComponents";
 import { NewsItemType } from "../../news/_types/newsItemType";
@@ -19,7 +18,6 @@ const MainBigSizeNews = ({ data, isLoading }: MainBigSizeNEwsProps) => {
   const router = useRouter();
 
   const mainPageData = data?.[0];
-  const updatedImgUrl = updateImageUrl(mainPageData?.thumbImg, "w410");
   const { handleRead } = useReadNews(mainPageData?.id, false);
   const categoryPath = mainPageData?.category?.toLowerCase() || "";
 
@@ -45,7 +43,7 @@ const MainBigSizeNews = ({ data, isLoading }: MainBigSizeNEwsProps) => {
     >
       {mainPageData?.thumbImg ? (
         <Image
-          src={updatedImgUrl}
+          src={mainPageData?.thumbImg}
           alt="main news"
           width={410}
           height={236}

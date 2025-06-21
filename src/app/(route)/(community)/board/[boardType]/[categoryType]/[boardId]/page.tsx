@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import getBoardDetail from "@/services/board/getBoardDetail";
 import BoardDetailPage from "./_components/detailPage";
 
@@ -11,7 +10,6 @@ export async function generateMetadata({
   try {
     const resolvedParams = await params;
     const boardDetail = await getBoardDetail(resolvedParams.boardId, true);
-    const updatedImg = updateImageUrl(boardDetail?.data?.thumbnail, "w1200");
     const removeHtmlContent = boardDetail?.data?.content
       ? boardDetail.data.content.replace(/<[^>]+>/g, " ").trim()
       : "게시판 상세 내용";
@@ -31,7 +29,7 @@ export async function generateMetadata({
                 height: 630,
               },
             ]
-          : [{ url: updatedImg, width: 1200, height: 630 }],
+          : [{ url: boardDetail?.data?.thumbnail, width: 1200, height: 630 }],
       },
       keywords: boardDetail.keywords || ["플레이하이브", "게시판"],
     };

@@ -5,7 +5,6 @@ import useGetNewsInfoData from "@/_hooks/fetcher/news/useGetNewInfo";
 import usePatchRecommend from "@/_hooks/fetcher/news/usePatchRecommend";
 import useSortedNewsDataList from "@/_hooks/fetcher/news/useSortedNewsDataList";
 import { newsListConfig } from "@/app/(route)/news/_types/newsListConfig";
-import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import useTimeAgo from "@/utils/useTimeAgo";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -99,7 +98,6 @@ const NewsInfo = ({
   };
 
   const { data: newsListData } = useSortedNewsDataList(newsOption);
-  const updatedImgUrl = updateImageUrl(newsInfoData?.thumbImg, "w360");
 
   const sliceNewsListData = newsListData
     ? newsListData?.content?.slice(0, 10)
@@ -228,7 +226,9 @@ const NewsInfo = ({
             <div className="w-full h-auto flex flex-col items-center justify-start gap-3">
               {newsInfoData?.thumbImg && (
                 <Image
-                  src={newsInfoData ? updatedImgUrl : "/Empty_news.png"}
+                  src={
+                    newsInfoData ? newsInfoData?.thumbImg : "/Empty_news.png"
+                  }
                   alt="News detail img"
                   width={672}
                   height={338}

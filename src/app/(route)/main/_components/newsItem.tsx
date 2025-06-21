@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
-import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import CustomIcon from "@/app/_components/IconComponents";
 import { cn } from "@/utils";
@@ -14,7 +13,6 @@ interface NewsPostItemProps {
 }
 
 const NewsItem = ({ newsItem }: NewsPostItemProps) => {
-  const updatedImgUrl = updateImageUrl(newsItem?.thumbImg, "w68");
   const { handleRead } = useReadNews(newsItem?.id, false);
   const categoryPath = newsItem?.category?.toLowerCase() || "";
 
@@ -35,7 +33,7 @@ const NewsItem = ({ newsItem }: NewsPostItemProps) => {
         <div className="flex-shrink-0 w-[68px] h-[68px] rounded">
           {newsItem?.thumbImg ? (
             <Image
-              src={updatedImgUrl}
+              src={newsItem?.thumbImg}
               alt="News img"
               width={68}
               height={68}

@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
 import useTimeAgo from "@/utils/useTimeAgo";
 import ChangedCategory from "@/app/(route)/news/_utils/changedCategory";
-import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
@@ -24,7 +23,6 @@ const NewsPostItem = ({
   searchType,
   searchString,
 }: NewsPostItemProps) => {
-  const updatedImgUrl = updateImageUrl(newsItem?.thumbImg, "w160");
   const { isRead, handleRead } = useReadNews(newsItem?.id);
   const [isNew, setIsNew] = useState(false);
   const date = useTimeAgo(newsItem?.postDate);
@@ -107,7 +105,7 @@ const NewsPostItem = ({
       >
         {newsItem?.thumbImg ? (
           <Image
-            src={updatedImgUrl}
+            src={newsItem?.thumbImg}
             alt="Thumbnail"
             width={160}
             height={92}
