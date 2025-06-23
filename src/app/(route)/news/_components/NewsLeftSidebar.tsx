@@ -57,13 +57,14 @@ const LeftSidebar = () => {
   };
 
   return (
-    <div
+    <aside
       className={cn(
         "w-[160px] pc:h-[260px] sticky top-0 rounded-[5px] overflow-hidden",
         "tablet:w-full tablet:h-auto tablet:min-h-[52px] tablet:overflow-x-auto",
         inDetail(),
         "mobile:w-full mobile:h-auto mobile:min-h-[48px] mobile:static mobile:overflow-x-auto"
       )}
+      aria-label="뉴스 왼쪽 사이드바"
     >
       <div
         className={cn(
@@ -78,6 +79,7 @@ const LeftSidebar = () => {
             "tablet:flex-row",
             "mobile:flex-row mobile:inline-flex mobile:min-w-fit"
           )}
+          aria-label="뉴스 카테고리"
         >
           {boardList.map((board) => (
             <Link
@@ -88,6 +90,7 @@ const LeftSidebar = () => {
                 "tablet:max-w-full tablet:flex tablet:flex-1",
                 "mobile:inline-block"
               )}
+              aria-label={`뉴스 ${board.name} 카테고리로 이동`}
             >
               <div
                 className={cn(
@@ -113,7 +116,7 @@ const LeftSidebar = () => {
           ))}
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 

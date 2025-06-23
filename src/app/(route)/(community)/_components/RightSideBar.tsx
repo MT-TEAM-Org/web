@@ -117,13 +117,13 @@ export const RightSideBar = () => {
         )}
       </section>
 
-      <div
+      <button
         onClick={scrollToTop}
         className="w-[48px] h-[48px] bg-white rounded-[10px] shadow-md flex justify-center items-center p-[10px] gap-[10px] cursor-pointer"
         aria-label="상단으로 이동 버튼"
       >
         <Arrow_up />
-      </div>
+      </button>
     </aside>
   );
 };
