@@ -5,11 +5,11 @@ import { cn } from "@/utils";
 import NewsMobileGnb from "../_components/newsGnb/NewsMobileGnb";
 
 export const metadata = {
-  title: "PlayHive 뉴스 페이지",
-  description: "PlayHive 뉴스 페이지입니다.",
+  title: "뉴스 페이지",
+  description: "뉴스 페이지입니다.",
   openGraph: {
-    title: "PlayHive 뉴스 페이지",
-    description: "PlayHive 뉴스 페이지입니다.",
+    title: "뉴스 페이지",
+    description: "뉴스 페이지입니다.",
     images: [
       {
         url: "https://playhive.co.kr/Metadata.png",

@@ -3,7 +3,7 @@ import { cn } from "@/utils";
 import React from "react";
 
 export const metadata = {
-  title: "PlayHive 개인정보 취급방침",
+  title: "PlayHive 개인정보 취급방침 페이지",
   description: "PlayHive 개인정보 취급방침 페이지입니다.",
   openGraph: {
     title: "PlayHive 개인정보 취급방침",
