@@ -3,15 +3,15 @@ import { cn } from "@/utils";
 import React from "react";
 
 export const metadata = {
-  title: "PlayHive 개인정보 취급방침 페이지",
-  description: "PlayHive 개인정보 취급방침 페이지입니다.",
+  title: "Playhive - 개인정보 취급방침 페이지",
+  description: "Playhive 개인정보 취급방침 페이지입니다.",
   openGraph: {
-    title: "PlayHive 개인정보 취급방침",
-    description: "PlayHive 개인정보 취급방침 페이지입니다.",
+    title: "Playhive - 개인정보 취급방침",
+    description: "Playhive 개인정보 취급방침 페이지입니다.",
     images: [
       {
         url: "https://playhive.co.kr/Metadata.png",
-        alt: "PlayHive 미리보기 이미지",
+        alt: "Playhive 미리보기 이미지",
         width: 1200,
         height: 630,
       },
