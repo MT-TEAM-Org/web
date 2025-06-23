@@ -64,12 +64,16 @@ export const RightSideBar = () => {
   };
 
   return (
-    <div
+    <aside
       className={`w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-[24px]${
         !isLoading && content.length === 0 ? "hidden" : ""
       }`}
+      aria-label="뉴스 오른쪽 사이드 바"
     >
-      <div className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px] bg-white">
+      <section
+        className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px] bg-white"
+        aria-label="오른쪽 사이드 바 뉴스 목록"
+      >
         <div className="w-full h-auto max-h-[736px] rounded-[10px]">
           {content.length === 0 && isLoading && !isPaginating
             ? Array.from({ length: 5 }).map((_, index) => (
@@ -86,10 +90,14 @@ export const RightSideBar = () => {
         </div>
 
         {(isLoading || totalPage > 1) && (
-          <div className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto">
+          <nav
+            className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto"
+            aria-label="오른쪽 뉴스 목록 페이지네이션"
+          >
             <button
               onClick={() => handleToPage("prev")}
               className={getNavButtonClass(Number(currentPage) === 1)}
+              aria-label="이전 페이지로 이동"
             >
               <Arrow_left width={18} height={18} />
             </button>
@@ -101,19 +109,21 @@ export const RightSideBar = () => {
               className={getNavButtonClass(
                 Number(currentPage) === Number(totalPage)
               )}
+              aria-label="다음 페이지로 이동"
             >
               <Arrow_right width={18} height={18} />
             </button>
-          </div>
+          </nav>
         )}
-      </div>
+      </section>
 
       <div
         onClick={scrollToTop}
         className="w-[48px] h-[48px] bg-white rounded-[10px] shadow-md flex justify-center items-center p-[10px] gap-[10px] cursor-pointer"
+        aria-label="상단으로 이동 버튼"
       >
         <Arrow_up />
       </div>
-    </div>
+    </aside>
   );
 };
