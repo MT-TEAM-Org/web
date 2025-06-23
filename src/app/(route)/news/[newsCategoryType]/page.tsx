@@ -74,8 +74,8 @@ export default function NewsPage() {
   };
 
   return (
-    <div className="flex justify-center">
-      <div
+    <main className="flex justify-center" aria-label="뉴스 페이지 메인 콘텐츠">
+      <section
         className={cn(
           "w-full max-w-[720px] min-h-[120px] rounded-[5px] mx-auto",
           "tablet:max-w-[1279px]",
@@ -84,6 +84,7 @@ export default function NewsPage() {
             ? "bg-transparent"
             : "bg-white"
         )}
+        aria-label="뉴스 목록 섹션"
       >
         <div className="sticky top-0 z-10">
           <NewsTalkToolbar newsType={category} pageInfo={newsData?.pageInfo} />
@@ -114,7 +115,7 @@ export default function NewsPage() {
             ))
           )}
           {newsData?.pageInfo?.totalPage > 0 && (
-            <div
+            <nav
               className={cn(
                 "hidden",
                 "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
@@ -124,10 +125,10 @@ export default function NewsPage() {
                 pageInfo={newsData?.pageInfo}
                 onPageChangeAction={handlePageChange}
               />
-            </div>
+            </nav>
           )}
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

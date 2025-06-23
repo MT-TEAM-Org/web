@@ -126,6 +126,7 @@ const SearchFilter = ({
             "flex justify-center items-center w-[24px] h-[24px]",
             "mobile:w-[16px] mobile:h-[16px]"
           )}
+          aria-label="검색 버튼"
         >
           <Small_Search />
         </button>

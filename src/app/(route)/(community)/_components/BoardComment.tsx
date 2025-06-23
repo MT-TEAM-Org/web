@@ -114,7 +114,10 @@ const BoardComment = ({
               onClick={refetchComment}
               aria-disabled={isLoading || bestIsLoading}
             >
-              <button className={`${isFocused && "animate-spin"}`}>
+              <button
+                className={`${isFocused && "animate-spin"}`}
+                aria-label="댓글 새로고침 버튼"
+              >
                 <Refresh />
               </button>
               <p
