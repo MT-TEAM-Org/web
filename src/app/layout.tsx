@@ -79,7 +79,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <ToastContainer />
-          <ReactQueryDevtools />
+          {process.env.NODE_ENV === "development" && <ReactQueryDevtools />}
         </QueryProvider>
       </body>
     </html>
