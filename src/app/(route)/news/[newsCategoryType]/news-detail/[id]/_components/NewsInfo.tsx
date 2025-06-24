@@ -163,23 +163,26 @@ const NewsInfo = ({
       ) : (
         <>
           <NewsDetailGnb title={newsInfoData?.title} />
-          <div
+          <article
             className={cn(
               "w-[720px] h-auto rounded-t-[5px] p-6 flex gap-4 flex-col shadow-soft-md bg-white",
               "tablet:max-w-full tablet:w-auto",
               "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
             )}
+            aria-label="뉴스 본문"
           >
             <div className="w-full h-auto flex flex-col gap-2">
-              <h1
-                className={cn(
-                  "w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-gray8",
-                  "tablet:text-[18px] tablet:leading-7 tablet:tracking-[-0.72px] tablet:font-bold",
-                  "mobile:text-[16px] mobile:leading-6 mobile:tracking-[-0.02em]"
-                )}
-              >
-                {newsInfoData?.title}
-              </h1>
+              <header>
+                <h1
+                  className={cn(
+                    "w-full h-auto font-bold text-[18px] leading-7 tracking-[-0.72px] text-gray8",
+                    "tablet:text-[18px] tablet:leading-7 tablet:tracking-[-0.72px] tablet:font-bold",
+                    "mobile:text-[16px] mobile:leading-6 mobile:tracking-[-0.02em]"
+                  )}
+                >
+                  {newsInfoData?.title}
+                </h1>
+              </header>
 
               <div
                 className={cn(
@@ -255,8 +258,8 @@ const NewsInfo = ({
             <div className={cn("mobile:hidden")}>
               <PostAction type="news" source={newsInfoData?.source} />
             </div>
-          </div>
-          <div className="flex flex-col bg-white px-6 gap-4">
+          </article>
+          <section className="flex flex-col bg-white px-6 gap-4">
             <BoardComment
               id={newsInfoData?.id.toString()}
               ref={comments}
@@ -269,7 +272,7 @@ const NewsInfo = ({
               nextId={newsInfoData?.nextId}
               previousId={newsInfoData?.previousId}
             />
-          </div>
+          </section>
         </>
       )}
 
@@ -282,24 +285,26 @@ const NewsInfo = ({
         />
       </div>
 
-      <div
+      <section
         className={cn(
           "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden mt-2",
           "tablet:max-w-full tablet:w-auto tablet:mt-3",
           "mobile:w-full mobile:max-w-full mobile:min-h-[56px] mobile:mt-4"
         )}
+        aria-label="뉴스 툴바"
       >
         <NewsTalkToolbar
           newsType={category}
           pageInfo={newsListData?.pageInfo}
         />
-      </div>
+      </section>
 
-      <div
+      <section
         className={cn(
           "w-full h-auto rounded-[5px] shadow-soft-md bg-white",
           "mobile:max-w-full"
         )}
+        aria-label="뉴스 추천 목록"
       >
         <div
           className={cn(
@@ -325,20 +330,21 @@ const NewsInfo = ({
             ))
           )}
           {newsListData?.pageInfo?.totalPage > 0 && (
-            <div
+            <nav
               className={cn(
                 "hidden",
                 "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
               )}
+              aria-label="뉴스 추천 목록"
             >
               <Pagination
                 pageInfo={newsListData?.pageInfo}
                 onPageChangeAction={handlePageChange}
               />
-            </div>
+            </nav>
           )}
         </div>
-      </div>
+      </section>
       <SignInModalPopUp
         isOpen={isSignInModalOpen}
         onClose={() => setIsSignInModalOpen(false)}

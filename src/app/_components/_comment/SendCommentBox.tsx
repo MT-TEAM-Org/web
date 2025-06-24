@@ -222,6 +222,7 @@ const SendCommentBox = ({
             type="button"
             onClick={handleFileSelect}
             className={buttonStyles}
+            aria-label="이미지 업로드 버튼"
           >
             <Plus />
           </button>
@@ -255,6 +256,7 @@ const SendCommentBox = ({
                     type="button"
                     onClick={removeImage}
                     className="w-[16px] h-[16px] absolute top-[-6px] right-[-6px] bg-black opacity-70 text-white text-xs flex items-center justify-center rounded-full"
+                    aria-label="이미지 삭제 버튼"
                   >
                     <Cancel_icon />
                   </button>
@@ -289,6 +291,7 @@ const SendCommentBox = ({
             type="submit"
             disabled={!inputValue.trim() && !selectedImage}
             className={buttonStyles}
+            aria-label="댓글 전송 버튼"
           >
             <Send_icon
               fill={inputValue.trim() || selectedImage ? "#00ADEE" : "#C0C0C0"}
