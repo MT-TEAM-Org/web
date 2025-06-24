@@ -10,13 +10,13 @@ import GoogleAnalytics from "@/lib/GoogleAnalytics";
 import { suitFont } from "./font";
 
 export const metadata: Metadata = {
-  title: "Playhive",
+  title: { default: "Playhive", template: "Playhive - %s" },
   description: "함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!",
   icons: {
     icon: "/favicon.png",
   },
   openGraph: {
-    title: "Playhive",
+    title: { default: "Playhive", template: "Playhive - %s" },
     description: "함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!",
     url: "https://playhive.co.kr",
     images: [
@@ -79,7 +79,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <ToastContainer />
-          <ReactQueryDevtools />
+          {process.env.NODE_ENV === "development" && <ReactQueryDevtools />}
         </QueryProvider>
       </body>
     </html>

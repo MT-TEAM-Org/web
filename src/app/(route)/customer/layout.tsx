@@ -5,11 +5,11 @@ import { cn } from "@/utils";
 import CustomerMobileGnb from "./_components/customerGnb/CustomerMobileGnb";
 
 export const metadata = {
-  title: "PlayHive 고객센터 페이지",
-  description: "PlayHive 고객센터 페이지입니다.",
+  title: "고객센터 페이지",
+  description: "고객센터 페이지입니다.",
   openGraph: {
-    title: "PlayHive 고객센터 페이지",
-    description: "PlayHive 고객센터 페이지입니다.",
+    title: "고객센터 페이지",
+    description: "고객센터 페이지입니다.",
     images: [
       {
         url: "https://playhive.co.kr/Metadata.png",
