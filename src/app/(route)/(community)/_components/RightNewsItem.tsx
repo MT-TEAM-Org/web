@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
 import { usePathname } from "next/navigation";
-import { updateImageUrl } from "@/app/(route)/news/_utils/updatedImgUrl";
 import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
 import { cn } from "@/utils";
@@ -22,7 +21,6 @@ const RightNewsItem = ({
   const { handleRead } = useReadNews(newsItem?.id, false);
   const [read, setRead] = useState(false);
   const pathname = usePathname();
-  const updatedImgUrl = updateImageUrl(newsItem?.thumbImg, "w68");
   const categoryPath = newsItem?.category?.toLowerCase() || "";
 
   useEffect(() => {
@@ -67,9 +65,9 @@ const RightNewsItem = ({
         )}
       >
         <div className="flex-shrink-0 w-[68px] h-[68px] rounded-[5px] overflow-hidden bg-gray1 relative">
-          {updatedImgUrl ? (
+          {newsItem?.thumbImg ? (
             <Image
-              src={updatedImgUrl}
+              src={newsItem?.thumbImg}
               alt="news img"
               width={68}
               height={68}
