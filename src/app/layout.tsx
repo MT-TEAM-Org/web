@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import QueryProvider from "./_components/QueryProvider";
-import Gnb from "./_components/_gnb/Gnb";
-import Footer from "./_components/Footer";
-import { ToastContainer } from "./_components/ToastContainer";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import MobileGnb from "./_components/_gnb/_components/MobileGnb";
 import GoogleAnalytics from "@/lib/GoogleAnalytics";
 import { suitFont } from "./font";
 
@@ -74,11 +70,7 @@ export default function RootLayout({
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
         ) : null}
         <QueryProvider>
-          <Gnb />
-          <MobileGnb />
           {children}
-          <Footer />
-          <ToastContainer />
           {process.env.NODE_ENV === "development" && <ReactQueryDevtools />}
         </QueryProvider>
       </body>
