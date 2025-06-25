@@ -53,6 +53,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
             className={getNavButtonClass(currentPage === 1)}
             onClick={() => onPageChangeAction(1)}
             disabled={currentPage === 1}
+            aria-label="첫 페이지로 이동"
           >
             <Pg_double_left />
           </button>
@@ -61,6 +62,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
           className={getNavButtonClass(currentPage === 1)}
           onClick={() => onPageChangeAction(currentPage - 1)}
           disabled={currentPage === 1}
+          aria-label="이전 페이지로 이동"
         >
           <Pg_left />
         </button>
@@ -75,6 +77,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
                 pageNumber === currentPage && "font-[700] border-1 border-gray7"
               } text-[14px] leading-[20px] text-[#424242]`}
               onClick={() => onPageChangeAction(pageNumber)}
+              aria-label={`페이지 ${pageNumber}로 이동`}
             >
               {pageNumber}
             </button>
@@ -94,6 +97,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
           className={getNavButtonClass(currentPage === totalPage)}
           onClick={() => onPageChangeAction(currentPage + 1)}
           disabled={currentPage === totalPage}
+          aria-label="다음 페이지로 이동"
         >
           <Pg_right />
         </button>
@@ -102,6 +106,7 @@ const Pagination = ({ pageInfo, onPageChangeAction }: PaginationProps) => {
             className={getNavButtonClass(currentPage === totalPage)}
             onClick={() => onPageChangeAction(totalPage)}
             disabled={currentPage === totalPage}
+            aria-label="마지막 페이지로 이동"
           >
             <Pg_double_right />
           </button>

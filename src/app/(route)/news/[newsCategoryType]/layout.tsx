@@ -5,11 +5,11 @@ import { cn } from "@/utils";
 import NewsMobileGnb from "../_components/newsGnb/NewsMobileGnb";
 
 export const metadata = {
-  title: "PlayHive 뉴스 페이지",
-  description: "PlayHive 뉴스 페이지입니다.",
+  title: "뉴스 페이지",
+  description: "뉴스 페이지입니다.",
   openGraph: {
-    title: "PlayHive 뉴스 페이지",
-    description: "PlayHive 뉴스 페이지입니다.",
+    title: "뉴스 페이지",
+    description: "뉴스 페이지입니다.",
     images: [
       {
         url: "https://playhive.co.kr/Metadata.png",
@@ -24,7 +24,7 @@ export const metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div
+    <main
       className={cn(
         "min-h-[calc(100vh-188px)] pb-[40px] bg-gray1",
         "tablet:min-w-[768px] tablet:max-w-[1279px] tablet:px-[40px]",
@@ -43,17 +43,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </h1>
       </div>
 
-      <div
+      <section
         className={cn(
           "mt-[20px] max-w-[1200px] flex mx-auto gap-4",
           "tablet:max-w-[1279px] tablet:flex-col tablet:gap-0",
           "mobile:w-full mobile:flex mobile:flex-col mobile:gap-0 mobile:mt-0"
         )}
+        aria-label="뉴스 목록"
       >
         <NewsMobileGnb />
         <NewsLeftSidebar />
 
-        <div
+        <section
           className={cn(
             "flex-1 w-full max-w-[720px]",
             "tablet:max-w-full",
@@ -61,9 +62,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           )}
         >
           {children}
-        </div>
+        </section>
 
-        <div
+        <aside
           className={cn(
             "sticky top-0 self-start",
             "tablet:hidden",
@@ -71,8 +72,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           )}
         >
           <RightSideBar />
-        </div>
-      </div>
-    </div>
+        </aside>
+      </section>
+    </main>
   );
 }

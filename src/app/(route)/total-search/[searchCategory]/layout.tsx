@@ -5,11 +5,11 @@ import { cn } from "@/utils";
 import TotalSearchMobileGnb from "../_components/totalSearchGnb/TotalSearchMobileGnb";
 
 export const metadata = {
-  title: "PlayHive 전체검색",
-  description: "PlayHive에서 뉴스와 콘텐츠를 검색해보세요.",
+  title: "전체검색",
+  description: "뉴스와 콘텐츠를 검색해보세요.",
   openGraph: {
-    title: "PlayHive 전체검색",
-    description: "PlayHive에서 뉴스와 콘텐츠를 검색해보세요.",
+    title: "전체검색",
+    description: "뉴스와 콘텐츠를 검색해보세요.",
     images: [
       {
         url: "https://playhive.co.kr/Metadata2.png",

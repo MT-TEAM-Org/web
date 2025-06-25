@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import React from "react";
 import getNewsItemInfo from "@/services/news/GetNewsItemInfo";
 import NewsInfo from "./_components/NewsInfo";
-import { updateImageUrl } from "../../../_utils/updatedImgUrl";
 
 export async function generateMetadata({
   params,
@@ -15,7 +14,6 @@ export async function generateMetadata({
       id: resolvedParams.id,
       openGraph: true,
     });
-    const updatedImg = updateImageUrl(newsDetail?.thumbImg, "w1200");
 
     return {
       title: newsDetail.title || "뉴스 상세 페이지",
@@ -32,7 +30,7 @@ export async function generateMetadata({
                 height: 630,
               },
             ]
-          : [{ url: updatedImg, width: 1200, height: 630 }],
+          : [{ url: newsDetail?.thumbImg, width: 1200, height: 630 }],
       },
       keywords: newsDetail.keywords || ["플레이하이브", "뉴스"],
     };

@@ -1,22 +1,18 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import QueryProvider from "./_components/QueryProvider";
-import Gnb from "./_components/_gnb/Gnb";
-import Footer from "./_components/Footer";
-import { ToastContainer } from "./_components/ToastContainer";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import MobileGnb from "./_components/_gnb/_components/MobileGnb";
 import GoogleAnalytics from "@/lib/GoogleAnalytics";
 import { suitFont } from "./font";
 
 export const metadata: Metadata = {
-  title: "Playhive",
+  title: { default: "Playhive", template: "Playhive - %s" },
   description: "함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!",
   icons: {
     icon: "/favicon.png",
   },
   openGraph: {
-    title: "Playhive",
+    title: { default: "Playhive", template: "Playhive - %s" },
     description: "함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!",
     url: "https://playhive.co.kr",
     images: [
@@ -74,12 +70,8 @@ export default function RootLayout({
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
         ) : null}
         <QueryProvider>
-          <Gnb />
-          <MobileGnb />
           {children}
-          <Footer />
-          <ToastContainer />
-          <ReactQueryDevtools />
+          {process.env.NODE_ENV === "development" && <ReactQueryDevtools />}
         </QueryProvider>
       </body>
     </html>

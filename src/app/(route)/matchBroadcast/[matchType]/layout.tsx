@@ -4,11 +4,11 @@ import { cn } from "@/utils";
 import MatchMobileGnb from "../_components/matchGnb/MatchMobileGnb";
 
 export const metadata = {
-  title: "PlayHive 경기중계 페이지",
-  description: "PlayHive 경기중계 페이지입니다.",
+  title: "경기중계 페이지",
+  description: "경기중계 페이지입니다.",
   openGraph: {
-    title: "PlayHive 경기중계 페이지",
-    description: "PlayHive 경기중계 페이지입니다.",
+    title: "경기중계 페이지",
+    description: "경기중계 페이지입니다.",
     images: [
       {
         url: "https://playhive.co.kr/Metadata.png",
