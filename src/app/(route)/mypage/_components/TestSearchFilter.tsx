@@ -28,7 +28,7 @@ export default function CustomDropdown() {
       <button
         onClick={toggleDropdown}
         className={cn(
-          "w-full border rounded-[5px] px-4 py-2 bg-[#FFFFFF] flex justify-between items-center gap-2 text-nowrap",
+          "w-full h-[40px] border rounded-[5px] px-4 py-2 bg-[#FFFFFF] flex justify-between items-center gap-2 text-nowrap",
           isOpen
             ? "border-black border-b-0 rounded-b-none"
             : "border-[#DBDBDB] hover:border-black"

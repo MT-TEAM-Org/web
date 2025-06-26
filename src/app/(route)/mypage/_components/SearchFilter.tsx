@@ -1,11 +1,11 @@
 "use client";
 
-import Arrow_down from "@/app/_components/icon/Arrow_down";
 import Small_Search from "@/app/_components/icon/Small_Search";
 import { useRef, useState } from "react";
 import { COMMENT_COMMENT_TYPE_OPTIONS } from "../_constants/toolbarObject";
 import { Clear } from "@/app/_components/icon/Clear";
 import { cn } from "@/utils";
+import Icon from "@/app/_components/IconComponents";
 
 interface SearchFilterProps {
   searchType: string;
@@ -18,6 +18,8 @@ interface SearchFilterProps {
   isMobileGnb?: boolean;
 }
 
+const textStyle = "font-[500] text-[14px] leading-[20px] text-black";
+
 const SearchFilter = ({
   searchType,
   searchOptions,
@@ -28,10 +30,12 @@ const SearchFilter = ({
   mode,
   isMobileGnb = false,
 }: SearchFilterProps) => {
-  const selectRef = useRef<HTMLSelectElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [hasValue, setHasValue] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+
+  const [isCommentTypeOpen, setIsCommentTypeOpen] = useState(false);
+  const [isSearchTypeOpen, setIsSearchTypeOpen] = useState(false);
 
   const handleInput = () => setHasValue(!!inputRef.current?.value);
 
@@ -39,77 +43,166 @@ const SearchFilter = ({
     if (inputRef.current) {
       inputRef.current.value = "";
       setHasValue(false);
-      inputRef.current.focus(); // 포커스 유지
+      inputRef.current.focus();
     }
   };
+
+  const handleCommentTypeSelect = (option: {
+    label: string;
+    value: string;
+  }) => {
+    if (onCommentTypeChange) {
+      const mockEvent = {
+        target: { value: option.value },
+      } as React.ChangeEvent<HTMLSelectElement>;
+      onCommentTypeChange(mockEvent);
+    }
+    setIsCommentTypeOpen(false);
+  };
+
+  const handleSearchTypeSelect = (option: { label: string; value: string }) => {
+    const mockEvent = {
+      target: { value: option.value },
+    } as React.ChangeEvent<HTMLSelectElement>;
+    onSearchTypeChange(mockEvent);
+    setIsSearchTypeOpen(false);
+  };
+
+  const selectedCommentTypeLabel =
+    COMMENT_COMMENT_TYPE_OPTIONS.find((opt) => opt.value === commentType)
+      ?.label || "";
+  const selectedSearchTypeLabel =
+    searchOptions.find((opt) => opt.value === searchType)?.label || "";
 
   return (
     <div
       className={cn(
-        `flex ${
-          isMobileGnb ? "justify-start" : "justify-end"
-        } items-center gap-[8px] w-[356px] h-[40px]`,
+        "flex items-center gap-[8px] min-w-[356px] h-[40px]",
+        isMobileGnb ? "justify-start" : "justify-end",
         "mobile:w-full"
       )}
     >
+      {/* 댓글 타입 드롭다운 */}
       {mode === "comments" && (
         <div
-          className={cn("relative", "mobile:hidden")}
-          onClick={() => selectRef.current?.click()}
+          className={cn(
+            "relative inline-block text-left w-[120px]",
+            "mobile:hidden"
+          )}
+          onMouseEnter={() => setIsCommentTypeOpen(true)}
+          onMouseLeave={() => setIsCommentTypeOpen(false)}
         >
-          <select
-            className="appearance-none w-[120px] h-[40px] rounded-[5px] px-[12px] border text-[14px] leading-[22px] cursor-pointer [&>option]:h-[40px] [&>option]:px-[12px] [&>option]:py-[16px]"
-            ref={selectRef}
-            onChange={onCommentTypeChange}
-            value={commentType}
+          <button
+            onClick={() => setIsCommentTypeOpen(!isCommentTypeOpen)}
+            className={cn(
+              "w-full h-[40px] border rounded-[5px] px-4 py-2 bg-white flex justify-between items-center gap-2 text-nowrap",
+              isCommentTypeOpen
+                ? "border-black border-b-0 rounded-b-none"
+                : "border-gray3 hover:border-black"
+            )}
           >
-            {COMMENT_COMMENT_TYPE_OPTIONS.map((option) => (
-              <option
-                key={option.value}
-                value={option.value}
-                className="h-[40px] px-[12px] py-[16px]"
-                defaultValue={commentType}
-              >
-                {option.label}
-              </option>
-            ))}
-          </select>
-          <div className="absolute top-2 right-2 pointer-events-none">
-            <Arrow_down />
-          </div>
+            <span className={textStyle}>{selectedCommentTypeLabel}</span>
+            {isCommentTypeOpen ? (
+              <Icon icon="SELECT_ARROW_DOWN" />
+            ) : (
+              <Icon icon="SELECT_ARROW_UP" />
+            )}
+          </button>
+
+          {/* 구분선 */}
+          {isCommentTypeOpen && (
+            <div className="relative w-full h-[1px]">
+              <hr className="border-gray3" />
+              <div className="absolute top-0 left-0 w-[1px] h-px bg-black" />
+              <div className="absolute top-0 right-0 w-[1px] h-px bg-black" />
+            </div>
+          )}
+
+          {/* 드롭다운 목록 */}
+          {isCommentTypeOpen && (
+            <ul
+              className={cn(
+                "absolute w-full bg-white border border-t-0 rounded-[5px] rounded-t-none shadow-lg z-10 border-black"
+              )}
+            >
+              {COMMENT_COMMENT_TYPE_OPTIONS.map((option) => (
+                <li
+                  key={option.value}
+                  onClick={() => handleCommentTypeSelect(option)}
+                  className={cn(
+                    "w-full h-[40px] px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center",
+                    textStyle
+                  )}
+                >
+                  {option.label}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
 
-      <div className="relative" onClick={() => selectRef.current?.click()}>
-        <select
+      {/* 검색 타입 드롭다운 */}
+      <div
+        className={cn(
+          "relative inline-block text-left w-[120px]",
+          "mobile:w-[100px]"
+        )}
+        onMouseEnter={() => setIsSearchTypeOpen(true)}
+        onMouseLeave={() => setIsSearchTypeOpen(false)}
+      >
+        <button
+          onClick={() => setIsSearchTypeOpen(!isSearchTypeOpen)}
           className={cn(
-            "appearance-none w-[120px] h-[40px] rounded-[5px] px-[12px] border text-[14px] leading-[22px] cursor-pointer [&>option]:h-[40px] [&>option]:px-[12px] [&>option]:py-[16px]",
-            "mobile:w-[100px]"
-          )}
-          ref={selectRef}
-          onChange={onSearchTypeChange}
-          value={searchType}
-        >
-          {searchOptions.map((option) => (
-            <option
-              key={option.value}
-              value={option.value}
-              className="h-[40px] px-[12px] py-[16px]"
-              defaultValue={searchType}
-            >
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <div
-          className={cn(
-            "absolute top-2 right-2 pointer-events-none",
-            "mobile:right-1"
+            "w-full h-[40px] border rounded-[5px] px-4 py-2 bg-white flex justify-between items-center gap-2 text-nowrap",
+            isSearchTypeOpen
+              ? "border-black border-b-0 rounded-b-none"
+              : "border-gray3 hover:border-black"
           )}
         >
-          <Arrow_down />
-        </div>
+          <span className={cn(textStyle, "mobile:text-[12px]")}>
+            {selectedSearchTypeLabel}
+          </span>
+          {isSearchTypeOpen ? (
+            <Icon icon="SELECT_ARROW_DOWN" />
+          ) : (
+            <Icon icon="SELECT_ARROW_UP" />
+          )}
+        </button>
+
+        {/* 구분선 */}
+        {isSearchTypeOpen && (
+          <div className="relative w-full h-[1px]">
+            <hr className="border-gray3" />
+            <div className="absolute top-0 left-0 w-[1px] h-px bg-black" />
+            <div className="absolute top-0 right-0 w-[1px] h-px bg-black" />
+          </div>
+        )}
+
+        {/* 드롭다운 목록 */}
+        {isSearchTypeOpen && (
+          <ul
+            className={cn(
+              "absolute w-full bg-white border border-t-0 rounded-[5px] rounded-t-none shadow-lg z-10 border-black"
+            )}
+          >
+            {searchOptions.map((option) => (
+              <li
+                key={option.value}
+                onClick={() => handleSearchTypeSelect(option)}
+                className={cn(
+                  "w-full h-[40px] px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center",
+                  textStyle,
+                  "mobile:text-[12px]"
+                )}
+              >
+                {option.label}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
+
       <form
         onSubmit={onSubmit}
         className={cn(

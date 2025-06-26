@@ -13,7 +13,6 @@ import LeftSidebar from "./LeftSidebar";
 import BoardMobile from "./gnb/borardMobile";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
-import CustomDropdown from "../../mypage/_components/TestSearchFilter";
 
 interface CommunityToolbarProps {
   boardType: string;
@@ -132,13 +131,12 @@ export const CommunityToolbar = ({
             onClose={() => setIsSignInModalOpen(false)}
           />
         )}
-        <CustomDropdown />
-        {/* <SearchFilter
+        <SearchFilter
           searchType={searchType}
           searchOptions={searchOptions}
           onSearchTypeChange={handleSearchTypeChange}
           onSubmit={handleSubmit}
-        /> */}
+        />
       </div>
       <div className="w-full pc:hidden"></div>
       <div className="flex justify-between items-center p-[12px]">
