@@ -18,7 +18,8 @@ interface SearchFilterProps {
   isMobileGnb?: boolean;
 }
 
-const textStyle = "font-[500] text-[14px] leading-[20px] text-black";
+const textStyle =
+  "font-[500] text-[14px] leading-[20px] text-black mobile:leading-[22px] mobile:tracking-[-0.02em]";
 
 const SearchFilter = ({
   searchType,
@@ -87,7 +88,7 @@ const SearchFilter = ({
         <div
           className={cn(
             "relative inline-block text-left w-[120px]",
-            "mobile:hidden"
+            "mobile:hidden mobile:w-[114px]"
           )}
           onMouseEnter={() => setIsCommentTypeOpen(true)}
           onMouseLeave={() => setIsCommentTypeOpen(false)}
@@ -146,7 +147,7 @@ const SearchFilter = ({
       <div
         className={cn(
           "relative inline-block text-left w-[120px]",
-          "mobile:w-[100px]"
+          "mobile:w-full"
         )}
         onMouseEnter={() => setIsSearchTypeOpen(true)}
         onMouseLeave={() => setIsSearchTypeOpen(false)}
@@ -160,7 +161,12 @@ const SearchFilter = ({
               : "border-gray3 hover:border-black"
           )}
         >
-          <span className={cn(textStyle, "mobile:text-[12px]")}>
+          <span
+            className={cn(
+              textStyle,
+              "mobile:leading-[22px] mobile:tracking-[-0.02em]"
+            )}
+          >
             {selectedSearchTypeLabel}
           </span>
           {isSearchTypeOpen ? (
@@ -192,8 +198,7 @@ const SearchFilter = ({
                 onClick={() => handleSearchTypeSelect(option)}
                 className={cn(
                   "w-full h-[40px] px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center",
-                  textStyle,
-                  "mobile:text-[12px]"
+                  textStyle
                 )}
               >
                 {option.label}
