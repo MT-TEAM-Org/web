@@ -123,7 +123,7 @@ const SearchFilter = ({
           {isCommentTypeOpen && (
             <ul
               className={cn(
-                "absolute w-full bg-white border border-t-0 rounded-[5px] rounded-t-none shadow-lg z-10 border-black"
+                "absolute w-full bg-white border border-t-0 rounded-[5px] rounded-t-none shadow-lg z-10 border-black overflow-hidden"
               )}
             >
               {COMMENT_COMMENT_TYPE_OPTIONS.map((option) => (
@@ -131,7 +131,7 @@ const SearchFilter = ({
                   key={option.value}
                   onClick={() => handleCommentTypeSelect(option)}
                   className={cn(
-                    "w-full h-[40px] px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center",
+                    "w-full h-[40px] px-4 py-2 hover:bg-gray1 cursor-pointer flex items-center",
                     textStyle
                   )}
                 >
@@ -189,7 +189,7 @@ const SearchFilter = ({
         {isSearchTypeOpen && (
           <ul
             className={cn(
-              "absolute w-full bg-white border border-t-0 rounded-[5px] rounded-t-none shadow-lg z-50 border-black"
+              "absolute w-full bg-white border border-t-0 rounded-[5px] rounded-t-none shadow-lg z-50 border-black overflow-hidden"
             )}
           >
             {searchOptions.map((option) => (
@@ -197,7 +197,7 @@ const SearchFilter = ({
                 key={option.value}
                 onClick={() => handleSearchTypeSelect(option)}
                 className={cn(
-                  "w-full h-[40px] px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center",
+                  "w-full h-[40px] px-4 py-2 hover:bg-gray1 cursor-pointer flex items-center",
                   textStyle
                 )}
               >
