@@ -119,7 +119,7 @@ const TitleDag = ({ register }: TitleDagProps) => {
         {optionValues.map((option) => (
           <div
             key={option.value}
-            onClick={() => setSelectedCategory(option.value)}
+            onClick={() => handleCategorySelect(option)}
             className={cn(
               "flex items-center justify-center w-full h-[32px] whitespace-nowrap text-center border  rounded-[5px] px-[8px] py-[9px]",
               selectedCategory === option.value
