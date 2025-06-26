@@ -183,7 +183,7 @@ const SearchFilter = ({
         {isSearchTypeOpen && (
           <ul
             className={cn(
-              "absolute w-full bg-white border border-t-0 rounded-[5px] rounded-t-none shadow-lg z-10 border-black"
+              "absolute w-full bg-white border border-t-0 rounded-[5px] rounded-t-none shadow-lg z-50 border-black"
             )}
           >
             {searchOptions.map((option) => (

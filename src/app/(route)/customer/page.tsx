@@ -59,7 +59,7 @@ const NoticePageContent = () => {
           : "bg-white"
       )}
     >
-      <div className={cn("sticky top-0 z-10", "mobile:hidden")}>
+      <div className={cn("sticky top-0 z-50", "mobile:hidden")}>
         <CustomerTalkToolbar
           showOptions={false}
           paginationData={noticeListData?.pageInfo}

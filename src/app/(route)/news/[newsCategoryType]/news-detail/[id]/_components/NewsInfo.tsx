@@ -287,7 +287,7 @@ const NewsInfo = ({
 
       <section
         className={cn(
-          "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden mt-2",
+          "w-[720px] min-h-[120px] rounded-t-[5px] mt-2",
           "tablet:max-w-full tablet:w-auto tablet:mt-3",
           "mobile:w-full mobile:max-w-full mobile:min-h-[56px] mobile:mt-4"
         )}
