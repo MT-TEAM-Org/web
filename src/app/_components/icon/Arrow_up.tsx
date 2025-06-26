@@ -1,9 +1,14 @@
 import React from "react";
 
-const Arrow_up = () => (
+interface ArrowUpProps {
+  size?: number;
+  viewBox?: string;
+}
+
+const Arrow_up = ({ size = 20, viewBox = "0 0 15 16" }: ArrowUpProps) => (
   <svg
-    width="15"
-    height="15"
+    width={size}
+    height={size}
     viewBox="0 0 15 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
