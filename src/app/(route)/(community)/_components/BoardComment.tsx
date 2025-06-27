@@ -5,12 +5,13 @@ import { CommentItem, CommentResponse, CommentType } from "@/_types/comment";
 import CommentEmpty from "@/app/_components/_comment/CommentEmpty";
 import CommentMoreButton from "@/app/_components/_comment/CommentMoreButton";
 import Refresh from "@/app/_components/icon/Refresh";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import BoardCommentItem from "./BoardCommentItem";
 import ToggleButton from "@/app/_components/_gnb/_components/ToggleButton";
 import useGetBestComment from "@/_hooks/fetcher/comment/useGetBestComment";
 import { useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
+import profanityFilter from "@/utils/bad-words/profanityFilter";
 
 interface BoardCommentProps {
   ref: React.RefObject<HTMLDivElement>;
@@ -43,11 +44,68 @@ const BoardComment = ({
     isLoading: bestIsLoading,
   } = useGetBestComment({ id, type });
 
-  const { pageInfo: bestPageInfo, content: bestContent } =
+  const { pageInfo: bestPageInfo, content: bestContent = [] } =
     (bestComment?.data?.content as CommentResponse) || {};
+
+  // 모든 댓글 데이터 가져오기
+  const allComments = useMemo(() => {
+    return (
+      commentList?.pages.flatMap((page) => page.data.content.content) || []
+    );
+  }, [commentList]);
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isCommentLoaded, setIsCommentLoaded] = useState<boolean>(false);
+  const [isFilterActive, setIsFilterActive] = useState<boolean>(true);
+
+  // 비속어 필터링 함수
+  const filterBadWords = useCallback(
+    (text: string): string => {
+      if (!isFilterActive || !text) return text || "";
+      try {
+        return profanityFilter.clean(text);
+      } catch (error) {
+        console.error("비속어 필터링 중 오류 발생:", error);
+        return text || "";
+      }
+    },
+    [isFilterActive]
+  );
+
+  // 댓글 데이터에 비속어 필터링 적용
+  const filteredBestComments = useMemo(() => {
+    if (!bestContent) return [];
+    return bestContent.map((comment) => ({
+      ...comment,
+      comment: isFilterActive
+        ? filterBadWords(comment.comment)
+        : comment.comment,
+      replyList:
+        comment.replyList?.map((reply) => ({
+          ...reply,
+          comment: isFilterActive
+            ? filterBadWords(reply.comment)
+            : reply.comment,
+        })) || [],
+    }));
+  }, [bestContent, isFilterActive, filterBadWords]);
+
+  const filteredAllComments = useMemo(() => {
+    if (!allComments) return [];
+    return allComments.map((comment) => ({
+      ...comment,
+      comment: isFilterActive
+        ? filterBadWords(comment.comment)
+        : comment.comment,
+      replyList:
+        comment.replyList?.map((reply: CommentItem) => ({
+          ...reply,
+          comment: isFilterActive
+            ? filterBadWords(reply.comment)
+            : reply.comment,
+        })) || [],
+    }));
+  }, [allComments, isFilterActive, filterBadWords]);
 
   useEffect(() => {
     if (commentId && !isCommentLoaded) {
@@ -69,10 +127,6 @@ const BoardComment = ({
       }
     }
   }, [commentId, hasNextPage]);
-
-  // 모든 댓글
-  const allComments =
-    commentList?.pages.flatMap((page) => page.data.content.content) || [];
 
   const totalComments =
     commentList?.pages[0]?.data?.content?.pageInfo?.totalElement || 0;
@@ -139,13 +193,16 @@ const BoardComment = ({
                 >
                   클린봇 활성화
                 </p>
-                <ToggleButton />
+                <ToggleButton
+                  isActive={isFilterActive}
+                  onToggle={setIsFilterActive}
+                />
               </div>
             </div>
           </div>
         </div>
         {bestPageInfo?.totalElement
-          ? bestContent.map((comment) => (
+          ? filteredBestComments.map((comment) => (
               <BoardCommentItem
                 key={comment.commentId}
                 comment={comment}
@@ -159,7 +216,7 @@ const BoardComment = ({
         {!totalComments ? (
           <CommentEmpty />
         ) : (
-          allComments.map((comment) => (
+          filteredAllComments.map((comment) => (
             <BoardCommentItem
               key={comment.commentId}
               comment={comment}
