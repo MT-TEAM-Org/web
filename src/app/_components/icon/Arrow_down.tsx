@@ -1,8 +1,12 @@
-const Arrow_down = () => {
+interface ArrowDownProps {
+  size?: number;
+}
+
+const Arrow_down = ({ size = 24 }: ArrowDownProps) => {
   return (
     <svg
-      width="24"
-      height="24"
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

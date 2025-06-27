@@ -871,6 +871,44 @@ const ICONS = {
       </>
     ),
   },
+  SELECT_ARROW_UP: {
+    svgOptions: {
+      width: 18,
+      height: 18,
+      viewBox: "0 0 18 18",
+    },
+    icon: (
+      <>
+        <path
+          d="M1 5L9 13L17 5"
+          stroke="#424242"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
+  },
+  SELECT_ARROW_DOWN: {
+    svgOptions: {
+      width: 18,
+      height: 18,
+      viewBox: "0 0 18 18",
+    },
+    icon: (
+      <>
+        <path
+          d="M16 12.5L9 5.5L2 12.5"
+          stroke="#424242"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
+  },
 };
 
 export type IconList = keyof typeof ICONS;

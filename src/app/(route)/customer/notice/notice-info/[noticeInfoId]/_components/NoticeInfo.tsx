@@ -71,7 +71,7 @@ const NoticeInfo = () => {
       )}
       <div
         className={cn(
-          "w-[720px] min-h-[120px] rounded-t-[5px] overflow-hidden mt-4",
+          "w-[720px] min-h-[120px] rounded-t-[5px] mt-4",
           "tablet:w-full tablet:mt-3",
           "mobile:hidden"
         )}

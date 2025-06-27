@@ -28,7 +28,7 @@ const CustomerTalkToolbarContent = ({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const [searchType, setSearchType] = useState(
-    searchParams.get("search_type") || "TITLE rubCONTENT"
+    searchParams.get("search_type") || "TITLE_CONTENT"
   );
   const searchOptions = POST_SEARCH_OPTIONS;
 
@@ -92,7 +92,7 @@ const CustomerTalkToolbarContent = ({
     );
 
   return (
-    <div className="rounded-[5px] overflow-hidden bg-white">
+    <div className="rounded-[5px] bg-white">
       <div
         className={cn(
           "w-full h-[64px] flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white",
@@ -100,7 +100,7 @@ const CustomerTalkToolbarContent = ({
         )}
       >
         {toolbarContent}
-        <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px] z-10">
+        <div className="flex justify-end items-center gap-[8px] w-[356px] h-[40px]">
           <SearchFilter
             searchType={searchType}
             searchOptions={searchOptions}
