@@ -43,16 +43,28 @@ export const RightSideBar = () => {
     }
   }, [newsData]);
 
+  // 스크롤 위치에 따라 탑 버튼 표시/숨김
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const handleScroll = () => {
-      setIsTopVisible(window.scrollY > 600);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      timeoutId = setTimeout(() => {
+        setIsTopVisible(window.scrollY > 600);
+      }, 16);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
     };
   }, []);
 
