@@ -31,6 +31,7 @@
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
     "axios": "^1.7.9",
+    "badwords-ko": "^1.0.4",
     "cheerio": "^1.0.0",
     "framer-motion": "^12.5.0",
     "html-react-parser": "^5.2.2",

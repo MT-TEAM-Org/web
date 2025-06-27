@@ -6,9 +6,16 @@ import { NewsInfoDataType } from "@/app/(route)/news/_types/newsInfoType";
 interface CommentBarProps {
   data?: NewsInfoDataType;
   onRefresh?: () => void;
+  isActive?: boolean;
+  onToggle?: (isActive: boolean) => void;
 }
 
-const CommentBar = ({ data, onRefresh }: CommentBarProps) => {
+const CommentBar = ({ 
+  data, 
+  onRefresh, 
+  isActive = true, 
+  onToggle = () => {} 
+}: CommentBarProps) => {
   return (
     <div className="w-full max-w-[800px] min-h-[48px] flex justify-between items-center bg-gray1 text-gray6 rounded-md">
       <div className="flex items-center gap-2 ml-4">
@@ -30,7 +37,10 @@ const CommentBar = ({ data, onRefresh }: CommentBarProps) => {
             <p className="font-bold text-[14px] leading-[14px] text-gray6">
               클린봇 활성화
             </p>
-            <ToggleButton />
+            <ToggleButton 
+              isActive={isActive} 
+              onToggle={onToggle || (() => {})} 
+            />
           </div>
         </div>
       </div>
