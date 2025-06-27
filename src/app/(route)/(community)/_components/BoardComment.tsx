@@ -11,7 +11,7 @@ import ToggleButton from "@/app/_components/_gnb/_components/ToggleButton";
 import useGetBestComment from "@/_hooks/fetcher/comment/useGetBestComment";
 import { useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
-import BadWordFilter from "badwords-ko";
+import profanityFilter from "@/utils/bad-words/profanityFilter";
 
 interface BoardCommentProps {
   ref: React.RefObject<HTMLDivElement>;
@@ -62,10 +62,8 @@ const BoardComment = ({
   const filterBadWords = useCallback(
     (text: string): string => {
       if (!isFilterActive || !text) return text || "";
-
       try {
-        const filter = new BadWordFilter();
-        return filter.clean(text);
+        return profanityFilter.clean(text);
       } catch (error) {
         console.error("비속어 필터링 중 오류 발생:", error);
         return text || "";
