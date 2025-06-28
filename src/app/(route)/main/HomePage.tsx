@@ -46,6 +46,8 @@ function HomePageContent() {
   const isValidNews = bigNewsItems.length !== 0 && newsItems.length !== 0;
   const isError = bigNewsDataIsError || newsDataIsError;
 
+  console.log({ NEXT_PULIC_API_URL: process.env.NEXT_PUBLIC_API_URL });
+
   return (
     <div className={cn("flex flex-col gap-6", "mobile:gap-0")}>
       <div className={cn("p-6 bg-gray1", "mobile:p-4")}>
