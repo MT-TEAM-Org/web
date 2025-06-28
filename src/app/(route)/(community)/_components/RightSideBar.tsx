@@ -121,7 +121,7 @@ export const RightSideBar = () => {
                 ))}
           </div>
 
-          {(isLoading || totalPage > 1) && (
+          {(isLoading || (totalPage ?? 0) > 1) && (
             <nav
               className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto"
               aria-label="오른쪽 뉴스 목록 페이지네이션"
