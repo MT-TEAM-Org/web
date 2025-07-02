@@ -37,7 +37,7 @@ export default {
         Primary: "#1228EF",
         Secondary: "#1024D3",
         Tertiary: "#0E1FAD",
-        quaternary: "#09126D",
+        quaternary: "#0076A2",
         Fifth: "#000641",
         gra: "#00ADEE",
         bg0: "#F8FDFF",
