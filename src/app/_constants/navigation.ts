@@ -140,7 +140,7 @@ export const NEWS_NAVBAR = [
     name: "경기중계",
     link: "/matchBroadcast/ESPORTS",
     id: "matchBroadcast",
-  }
+  },
 ];
 
 export const MATCH_NAVBAR = [
@@ -168,14 +168,15 @@ export const MATCH_NAVBAR = [
     name: "뉴스",
     link: "/news/ALL",
     id: "news",
-  }
+  },
 ];
 
 export const TOTAL_NAVBAR = [
   {
     name: "통합검색",
     link: "/total-search/board",
-    id: "total-search"},
+    id: "total-search",
+  },
   {
     name: "E스포츠",
     link: "/board/esports/ALL",
@@ -200,5 +201,48 @@ export const TOTAL_NAVBAR = [
     name: "경기중계",
     link: "/matchBroadcast/ESPORTS",
     id: "matchBroadcast",
-  }
+  },
+];
+
+import Document_icon from "../_components/icon/Document_icon";
+import Edit_icon from "../_components/icon/Edit_icon";
+import Home_icon from "../_components/icon/Home_icon";
+import Mail_icon from "../_components/icon/Mail_icon";
+import My_icon from "../_components/icon/My_icon";
+import Review_icon from "../_components/icon/Review_icon";
+import Talk_icon from "../_components/icon/Talk_icon";
+
+export const ADMIN_NAVBARS = [
+  { id: "dashboard", name: "대시보드", link: "/dashboard", icon: Home_icon },
+  { id: "users", name: "회원 관리", link: "/dashboard/users", icon: My_icon },
+  {
+    id: "posts",
+    name: "게시물 관리",
+    link: "/dashboard/posts",
+    icon: Document_icon,
+  },
+  {
+    id: "comments",
+    name: "댓글 관리",
+    link: "/dashboard/comments",
+    icon: Talk_icon,
+  },
+  {
+    id: "inquiries",
+    name: "문의 관리",
+    link: "/dashboard/inquiries",
+    icon: Mail_icon,
+  },
+  {
+    id: "suggestions",
+    name: "개선요청 관리",
+    link: "/dashboard/suggestions",
+    icon: Review_icon,
+  },
+  {
+    id: "notices",
+    name: "공지 관리",
+    link: "/dashboard/notices",
+    icon: Edit_icon,
+  },
 ];
