@@ -34,11 +34,11 @@ export default {
       },
 
       colors: {
-        Primary: "#1228EF",
-        Secondary: "#1024D3",
-        Tertiary: "#0E1FAD",
+        Primary: "#00ADEE",
+        Secondary: "#009AD4",
+        Tertiary: "#008ABE",
         quaternary: "#0076A2",
-        Fifth: "#000641",
+        Fifth: "#00516F",
         gra: "#00ADEE",
         bg0: "#F8FDFF",
         bg1: "#FAFBFF",
