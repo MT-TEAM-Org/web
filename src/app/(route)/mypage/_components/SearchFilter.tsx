@@ -110,15 +110,6 @@ const SearchFilter = ({
             )}
           </button>
 
-          {/* 구분선 */}
-          {isCommentTypeOpen && (
-            <div className="relative w-full h-[1px]">
-              <hr className="border-gray3" />
-              <div className="absolute top-0 left-0 w-[1px] h-px bg-black" />
-              <div className="absolute top-0 right-0 w-[1px] h-px bg-black" />
-            </div>
-          )}
-
           {/* 드롭다운 목록 */}
           {isCommentTypeOpen && (
             <ul
@@ -126,6 +117,7 @@ const SearchFilter = ({
                 "absolute w-full bg-white border border-t-0 rounded-[5px] rounded-t-none shadow-lg z-10 border-black overflow-hidden"
               )}
             >
+              <hr className="border-gray3 m-0" />
               {COMMENT_COMMENT_TYPE_OPTIONS.map((option) => (
                 <li
                   key={option.value}
@@ -176,15 +168,6 @@ const SearchFilter = ({
           )}
         </button>
 
-        {/* 구분선 */}
-        {isSearchTypeOpen && (
-          <div className="relative w-full h-[1px]">
-            <hr className="border-gray3" />
-            <div className="absolute top-0 left-0 w-[1px] h-px bg-black" />
-            <div className="absolute top-0 right-0 w-[1px] h-px bg-black" />
-          </div>
-        )}
-
         {/* 드롭다운 목록 */}
         {isSearchTypeOpen && (
           <ul
@@ -192,6 +175,7 @@ const SearchFilter = ({
               "absolute w-full bg-white border border-t-0 rounded-[5px] rounded-t-none shadow-lg z-50 border-black overflow-hidden"
             )}
           >
+            <hr className="border-gray3 m-0" />
             {searchOptions.map((option) => (
               <li
                 key={option.value}
