@@ -38,7 +38,7 @@ export const RightSideBar = () => {
   useEffect(() => {
     if (newsData && !Array.isArray(newsData)) {
       setContent(newsData.content);
-      setTotalPage(newsData.pageInfo.totalPage);
+      setTotalPage(newsData?.pageInfo?.totalPage);
       setIsPaginating(false);
     }
   }, [newsData]);
