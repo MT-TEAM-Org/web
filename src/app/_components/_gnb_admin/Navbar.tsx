@@ -14,10 +14,10 @@ export default function AdminSidebar() {
 
   return (
     <aside
-      className={`bg-Fifth text-white flex flex-col gap-4 transition-all duration-300 ease-in-out ${
+      className={cn(
+        "bg-Fifth h-[calc(100vh-64px)] text-white flex flex-col gap-4 transition-all duration-300 ease-in-out",
         isMini ? "w-[60px]" : "w-[180px]"
-      }`}
-      style={{ height: "calc(100vh - 64px)" }}>
+      )}>
       <nav className="flex flex-col">
         {ADMIN_NAVBARS.map((item) => (
           <Link key={item.id} href={item.link}>
