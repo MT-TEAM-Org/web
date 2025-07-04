@@ -1,3 +1,5 @@
+import { IconList } from "../_components/IconComponents/constants";
+
 export const NAVBARS = [
   {
     name: "E스포츠",
@@ -204,45 +206,42 @@ export const TOTAL_NAVBAR = [
   },
 ];
 
-import Document_icon from "../_components/icon/Document_icon";
-import Edit_icon from "../_components/icon/Edit_icon";
-import Home_icon from "../_components/icon/Home_icon";
-import Mail_icon from "../_components/icon/Mail_icon";
-import My_icon from "../_components/icon/My_icon";
-import Review_icon from "../_components/icon/Review_icon";
-import Talk_icon from "../_components/icon/Talk_icon";
-
-export const ADMIN_NAVBARS = [
-  { id: "dashboard", name: "대시보드", link: "/dashboard", icon: Home_icon },
-  { id: "users", name: "회원 관리", link: "/dashboard/users", icon: My_icon },
+export const ADMIN_NAVBARS: {
+  id: string;
+  name: string;
+  link: string;
+  icon: IconList;
+}[] = [
+  { id: "dashboard", name: "대시보드", link: "/dashboard", icon: "HOME" },
+  { id: "users", name: "회원 관리", link: "/dashboard/users", icon: "MY" },
   {
     id: "posts",
     name: "게시물 관리",
     link: "/dashboard/posts",
-    icon: Document_icon,
+    icon: "ALARM",
   },
   {
     id: "comments",
     name: "댓글 관리",
     link: "/dashboard/comments",
-    icon: Talk_icon,
+    icon: "TALK",
   },
   {
     id: "inquiries",
     name: "문의 관리",
     link: "/dashboard/inquiries",
-    icon: Mail_icon,
+    icon: "MAIL",
   },
   {
     id: "suggestions",
     name: "개선요청 관리",
     link: "/dashboard/suggestions",
-    icon: Review_icon,
+    icon: "REVIEW",
   },
   {
     id: "notices",
     name: "공지 관리",
     link: "/dashboard/notices",
-    icon: Edit_icon,
+    icon: "EDIT",
   },
 ];

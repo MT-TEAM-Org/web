@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { LogoWhite } from "../icon/LogoWhite";
 import { cn } from "@/utils";
-import Alarm from "../icon/Alarm_icon";
 import { AdminSidebarStore } from "@/utils/Store";
+import Icon from "../IconComponents/Icon";
 
 export default function Header() {
   const { toggleMini } = AdminSidebarStore();
@@ -36,7 +36,7 @@ export default function Header() {
       {/* TODO : 클릭 할 경우 dropDown */}
       <div className="flex gap-4 h-[40px] whitespace-nowrap items-center">
         <button className="flex items-center justify-center gap-2 w-auto px-4 py-2 bg-quaternary rounded-full text-white  hover:bg-Primary transition-all duration-200">
-          <Alarm /> <span> 알림 0 </span>
+          <Icon icon="ALARM" /> <span> 알림 0 </span>
         </button>
 
         {/* TODO : 유저 이미지 추가 */}

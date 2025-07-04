@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ADMIN_NAVBARS } from "@/app/_constants/navigation";
-import LinkOut_icon from "../icon/LinkOut_icon";
 import { AdminSidebarStore } from "@/utils/Store";
 import { cn } from "@/utils";
+import Icon from "../IconComponents/Icon";
 
 export default function AdminSidebar() {
   const pathname = usePathname();
@@ -28,7 +28,7 @@ export default function AdminSidebar() {
                 isActive(item.link) ? "bg-Fifth font-semibold" : "text-white"
               }`}>
               <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-200">
-                <item.icon />
+                <Icon icon={item.icon} />
               </div>
 
               {!isMini && (
@@ -60,7 +60,7 @@ export default function AdminSidebar() {
             )}>
             {!isMini && <span>사용자 페이지</span>}
             <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-200">
-              <LinkOut_icon />
+              <Icon icon="LINK_OUT" />
             </div>
           </div>
         </Link>
