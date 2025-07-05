@@ -119,3 +119,15 @@ export const useAuthStore = create<AuthState>((set) => ({
   login: () => set({ isLoggedIn: true }),
   logout: () => set({ isLoggedIn: false }),
 }));
+
+interface SidebarState {
+  isMini: boolean;
+  toggleMini: () => void;
+  setMini: (value: boolean) => void;
+}
+
+export const AdminSidebarStore = create<SidebarState>((set) => ({
+  isMini: false,
+  toggleMini: () => set((state) => ({ isMini: !state.isMini })),
+  setMini: (value) => set({ isMini: value }),
+}));
