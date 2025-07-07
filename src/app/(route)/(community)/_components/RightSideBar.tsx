@@ -17,6 +17,7 @@ export const RightSideBar = () => {
   const [content, setContent] = useState<NewsItemType[]>([]);
   const [isPaginating, setIsPaginating] = useState(false);
   const [isTopVisible, setIsTopVisible] = useState(false);
+  const [hasData, setHasData] = useState<boolean>(false);
 
   const sidebarRef = useRef<HTMLElement | null>(null);
 
@@ -40,6 +41,9 @@ export const RightSideBar = () => {
       setContent(newsData.content);
       setTotalPage(newsData?.pageInfo?.totalPage);
       setIsPaginating(false);
+      setHasData(newsData.content && newsData.content.length > 0);
+    } else if (!isLoading && !newsData) {
+      setHasData(false);
     }
   }, [newsData]);
 
@@ -92,73 +96,75 @@ export const RightSideBar = () => {
     }
   };
 
+  if (!hasData && !isLoading) {
+    return null;
+  }
+
   return (
-    newsData && (
-      <aside
-        ref={sidebarRef}
-        className={cn(
-          "w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-[24px]",
-          !isLoading && content.length === 0 ? "hidden" : ""
-        )}
-        aria-label="뉴스 오른쪽 사이드 바"
+    <aside
+      ref={sidebarRef}
+      className={cn(
+        "w-[288px] h-auto max-h-[880px] top-[250px] left-[1272px] flex flex-col gap-[24px]",
+        !isLoading && content.length === 0 ? "hidden" : ""
+      )}
+      aria-label="뉴스 오른쪽 사이드 바"
+    >
+      <section
+        className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px] bg-white"
+        aria-label="오른쪽 사이드 바 뉴스 목록"
       >
-        <section
-          className="w-full h-auto max-h-[808px] flex flex-col gap-4 pb-6 shadow-md rounded-[10px] bg-white"
-          aria-label="오른쪽 사이드 바 뉴스 목록"
-        >
-          <div className="w-full h-auto max-h-[736px] rounded-[10px]">
-            {content.length === 0 && isLoading && !isPaginating
-              ? Array.from({ length: 5 }).map((_, index) => (
-                  <RightNewsItemSkeleton key={index} />
-                ))
-              : content?.map((data: NewsItemType) => (
-                  <RightNewsItem
-                    key={data.id}
-                    newsItem={data}
-                    wrapperWidth={288}
-                    customClass="w-full h-[92px] rounded-[5px] bg-white p-3 box-border"
-                  />
-                ))}
-          </div>
+        <div className="w-full h-auto max-h-[736px] rounded-[10px]">
+          {content.length === 0 && isLoading && !isPaginating
+            ? Array.from({ length: 5 }).map((_, index) => (
+                <RightNewsItemSkeleton key={index} />
+              ))
+            : content?.map((data: NewsItemType) => (
+                <RightNewsItem
+                  key={data.id}
+                  newsItem={data}
+                  wrapperWidth={288}
+                  customClass="w-full h-[92px] rounded-[5px] bg-white p-3 box-border"
+                />
+              ))}
+        </div>
 
-          {(isLoading || (totalPage ?? 0) > 1) && (
-            <nav
-              className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto"
-              aria-label="오른쪽 뉴스 목록 페이지네이션"
-            >
-              <button
-                onClick={() => handleToPage("prev")}
-                className={getNavButtonClass(Number(currentPage) === 1)}
-                aria-label="이전 페이지로 이동"
-              >
-                <Arrow_left width={18} height={18} />
-              </button>
-              <div className="w-[64px] h-[32px] font-[500] text-[14px] leading-[20px] text-gray6 flex items-center justify-center">
-                {currentPage} / {totalPage}
-              </div>
-              <button
-                onClick={() => handleToPage("next")}
-                className={getNavButtonClass(
-                  Number(currentPage) === Number(totalPage)
-                )}
-                aria-label="다음 페이지로 이동"
-              >
-                <Arrow_right width={18} height={18} />
-              </button>
-            </nav>
-          )}
-        </section>
-
-        {isTopVisible && (
-          <button
-            onClick={scrollToTop}
-            className="w-[48px] h-[48px] bg-white rounded-[10px] shadow-md flex justify-center items-center p-[10px] gap-[10px] cursor-pointer"
-            aria-label="상단으로 이동 버튼"
+        {(isLoading || (totalPage ?? 0) > 1) && (
+          <nav
+            className="w-[160px] h-[32px] flex gap-4 items-center justify-center m-auto"
+            aria-label="오른쪽 뉴스 목록 페이지네이션"
           >
-            <Arrow_up />
-          </button>
+            <button
+              onClick={() => handleToPage("prev")}
+              className={getNavButtonClass(Number(currentPage) === 1)}
+              aria-label="이전 페이지로 이동"
+            >
+              <Arrow_left width={18} height={18} />
+            </button>
+            <div className="w-[64px] h-[32px] font-[500] text-[14px] leading-[20px] text-gray6 flex items-center justify-center">
+              {currentPage} / {totalPage}
+            </div>
+            <button
+              onClick={() => handleToPage("next")}
+              className={getNavButtonClass(
+                Number(currentPage) === Number(totalPage)
+              )}
+              aria-label="다음 페이지로 이동"
+            >
+              <Arrow_right width={18} height={18} />
+            </button>
+          </nav>
         )}
-      </aside>
-    )
+      </section>
+
+      {isTopVisible && (
+        <button
+          onClick={scrollToTop}
+          className="w-[48px] h-[48px] bg-white rounded-[10px] shadow-md flex justify-center items-center p-[10px] gap-[10px] cursor-pointer"
+          aria-label="상단으로 이동 버튼"
+        >
+          <Arrow_up />
+        </button>
+      )}
+    </aside>
   );
 };
