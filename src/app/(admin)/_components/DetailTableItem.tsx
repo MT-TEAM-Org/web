@@ -117,7 +117,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
   const getLinkPath = () => {
     return type === "inquiry"
       ? `/admin-inquiries/${idx}`
-      : `/admin-improvements/${idx}`;
+      : `/admin-improvement/${idx}`;
   };
 
   const handleRoute = () => {
