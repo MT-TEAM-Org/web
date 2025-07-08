@@ -15,7 +15,7 @@ const Page = () => {
       <SearchFilter />
 
       {/* 하단 내역 테이블 */}
-      <DetailTable />
+      <DetailTable type="list" />
     </div>
   );
 };
