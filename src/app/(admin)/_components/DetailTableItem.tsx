@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { cn } from "@/utils";
 import Link from "next/link";
@@ -5,6 +7,7 @@ import {
   ImprovementTableRow,
   InquiryTableRow,
 } from "../_type/DetailTableType/DetailTableItem";
+import { useRouter } from "next/navigation";
 
 type DetailTableItemProps = {
   row: InquiryTableRow | ImprovementTableRow;
@@ -21,6 +24,8 @@ const isInquiry = (
 };
 
 const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
+  const router = useRouter();
+
   // 타입별 cellConfig 생성
   const getCellConfig = () => {
     if (isInquiry(row)) {
@@ -115,9 +120,14 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
       : `/admin-improvements/${idx}`;
   };
 
+  const handleRoute = () => {
+    router.push(getLinkPath());
+  };
+
   return (
     <tr
       key={idx}
+      onClick={handleRoute}
       className="border-t hover:bg-gray1 px-4 py-2 text-[14px] leading-5 cursor-pointer"
     >
       {cellConfig.map((cell) => (
@@ -125,7 +135,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
           key={cell.key}
           className={cn("px-4 py-2 text-center", cell.className)}
         >
-          {isList ? <Link href={getLinkPath()}>{cell.value}</Link> : cell.value}
+          {cell.value}
         </td>
       ))}
     </tr>
