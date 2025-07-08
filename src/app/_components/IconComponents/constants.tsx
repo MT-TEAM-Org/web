@@ -1154,6 +1154,200 @@ const ICONS = {
       </>
     ),
   },
+  SEARCH_DROPDOWN_DOWN: {
+    svgOptions: {
+      width: 8,
+      height: 18,
+      viewBox: "0 0 8 18",
+      fill: false,
+    },
+    icon: (
+      <>
+        <path
+          d="M7.73167 10H0.268334C0.0444792 10 -0.0805157 10.1962 0.0581151 10.3302L3.78978 13.9229C3.89659 14.0257 4.10227 14.0257 4.21022 13.9229L7.94188 10.3302C8.08052 10.1962 7.95552 10 7.73167 10Z"
+          fill="#303030"
+        />
+        <path
+          d="M7.73167 8H0.268334C0.0444792 8 -0.0805157 7.80376 0.0581151 7.66979L3.78978 4.07713C3.89659 3.97429 4.10227 3.97429 4.21022 4.07713L7.94188 7.66979C8.08052 7.80376 7.95552 8 7.73167 8Z"
+          fill="#CBCBCB"
+        />
+      </>
+    ),
+  },
+  SEARCH_DROPDOWN_UP: {
+    svgOptions: {
+      width: 8,
+      height: 18,
+      viewBox: "0 0 8 18",
+      fill: false,
+    },
+    icon: (
+      <>
+        <path
+          d="M7.73167 10H0.268334C0.0444792 10 -0.0805157 10.1962 0.0581151 10.3302L3.78978 13.9229C3.89659 14.0257 4.10227 14.0257 4.21022 13.9229L7.94188 10.3302C8.08052 10.1962 7.95552 10 7.73167 10Z"
+          fill="#CBCBCB"
+        />
+        <path
+          d="M7.73167 8H0.268334C0.0444792 8 -0.0805157 7.80376 0.0581151 7.66979L3.78978 4.07713C3.89659 3.97429 4.10227 3.97429 4.21022 4.07713L7.94188 7.66979C8.08052 7.80376 7.95552 8 7.73167 8Z"
+          fill="#303030"
+        />
+      </>
+    ),
+  },
+  PAGINATION_DOUBLE_LEFT_ARROW: {
+    svgOptions: {
+      width: 18,
+      height: 18,
+      viewBox: "0 0 18 18",
+      fill: false,
+    },
+    icon: (
+      <>
+        <path
+          d="M13.3242 3.75195L8.43025 8.64515L13.3242 13.5383"
+          stroke="#656565"
+          strokeWidth="1.125"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+        <path
+          d="M9.21826 3.75195L4.32429 8.64515L9.21826 13.5383"
+          stroke="#656565"
+          strokeWidth="1.125"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
+  },
+  PAGINATION_DOUBLE_RIGHT_ARROW: {
+    svgOptions: {
+      width: 18,
+      height: 18,
+      viewBox: "0 0 18 18",
+      fill: false,
+    },
+    icon: (
+      <>
+        <path
+          d="M4.5 3.75195L9.39397 8.64515L4.5 13.5383"
+          stroke="#656565"
+          strokeWidth="1.125"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+        <path
+          d="M8.60596 3.75195L13.4999 8.64515L8.60596 13.5383"
+          stroke="#656565"
+          strokeWidth="1.125"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
+  },
+  PAGINATION_LEFT_ARROW: {
+    svgOptions: {
+      width: 18,
+      height: 18,
+      viewBox: "0 0 18 18",
+      fill: false,
+    },
+    icon: (
+      <>
+        <path
+          d="M11.625 15L5.625 9L11.625 3"
+          stroke="#656565"
+          strokeWidth="1.125"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
+  },
+  PAGINATION_RIGHT_ARROW: {
+    svgOptions: {
+      width: 18,
+      height: 18,
+      viewBox: "0 0 18 18",
+      fill: false,
+    },
+    icon: (
+      <>
+        <path
+          d="M6.375 15L12.375 9L6.375 3"
+          stroke="#656565"
+          strokeWidth="1.125"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
+  },
+  CALENDAR_ICON: {
+    svgOptions: {
+      width: 24,
+      height: 24,
+      viewBox: "0 0 24 24",
+      fill: false,
+    },
+    icon: (
+      <>
+        <rect
+          x="4.41797"
+          y="6.50781"
+          width="15.1579"
+          height="13.4936"
+          rx="0.842077"
+          stroke="#656565"
+          strokeWidth="1.5"
+          fill="none"
+        />
+        <rect
+          x="4.41797"
+          y="6.375"
+          width="15.1579"
+          height="2.37347"
+          rx="0.842077"
+          fill="#656565"
+          stroke="#656565"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M6.99609 11.6367H8.99609V13.4181H6.99609V11.6367ZM6.99609 15.1994H8.99609V16.9807H6.99609V15.1994ZM10.9961 11.6367H12.9961V13.4181H10.9961V11.6367ZM10.9961 15.1994H12.9961V16.9807H10.9961V15.1994ZM14.9961 11.6367H16.9961V13.4181H14.9961V11.6367ZM14.9961 15.1994H16.9961V16.9807H14.9961V15.1994Z"
+          fill="#656565"
+        />
+        <path d="M9.21797 4H7.41797V8H9.21797V4Z" fill="#656565" />
+        <path d="M16.418 4H14.618V8H16.418V4Z" fill="#656565" />
+      </>
+    ),
+  },
+  FILTER_CHECKER: {
+    svgOptions: {
+      width: 14,
+      height: 10,
+      viewBox: "0 0 14 10",
+      fill: false,
+    },
+    icon: (
+      <>
+        <path
+          d="M13 1L4.75 9L1 5.36364"
+          stroke="#DBDBDB"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
+  },
 };
 
 export type IconList = keyof typeof ICONS;
