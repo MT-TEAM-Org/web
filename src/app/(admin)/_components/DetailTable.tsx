@@ -69,7 +69,7 @@ const DetailTable = () => {
             <tr>
               {tableConfig.headers.map((header) => (
                 <th key={header.key} className="px-4 py-3 border-b">
-                  <div className="flex items-center gap-1 font-bold text-[14px] leading-5 text-gray8 cursor-pointer">
+                  <div className="flex items-center gap-1 font-bold text-[14px] leading-5 text-gray8 cursor-pointer select-none">
                     {header.label} {header.icons}
                   </div>
                 </th>

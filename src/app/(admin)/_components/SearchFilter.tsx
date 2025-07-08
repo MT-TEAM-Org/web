@@ -3,7 +3,7 @@ import { cn } from "@/utils";
 import React, { useRef } from "react";
 
 const buttonStyle =
-  "w-[120px] min-h-[40px] rounded-[5px] border px-4 py-[13px] text-center border-gray3 font-bold text-[14px] text-gray7";
+  "w-[120px] min-h-[40px] rounded-[5px] border px-4 py-[13px] text-center border-gray3 font-bold text-[14px] text-gray7 transition-colors";
 
 const SearchFilter = () => {
   const startRef = useRef<HTMLInputElement>(null);
@@ -13,23 +13,12 @@ const SearchFilter = () => {
     {
       name: "초기화",
       value: "init",
-      style: "bg-white border-gray3",
+      style: "bg-white border-gray3 hover:bg-gray1",
     },
     {
       name: "검색",
       value: "search",
-      style: "bg-Primary text-white",
-    },
-  ];
-
-  const radio = [
-    {
-      name: "회원",
-      value: "member",
-    },
-    {
-      name: "비회원",
-      value: "non-member",
+      style: "bg-Primary text-white hover:bg-primary/80",
     },
   ];
 
@@ -77,7 +66,7 @@ const SearchFilter = () => {
               </label>
               <label
                 htmlFor="member"
-                className="text-[14px] leading-[22px] tracking-[-0.02em] cursor-pointer"
+                className="text-[14px] leading-[22px] tracking-[-0.02em] cursor-pointer select-none"
               >
                 회원
               </label>
@@ -95,7 +84,7 @@ const SearchFilter = () => {
               </label>
               <label
                 htmlFor="non-member"
-                className="text-[14px] leading-[22px] tracking-[-0.02em] cursor-pointer"
+                className="text-[14px] leading-[22px] tracking-[-0.02em] cursor-pointer select-none"
               >
                 비회원
               </label>
@@ -120,7 +109,7 @@ const SearchFilter = () => {
               </label>
               <label
                 htmlFor="waiting"
-                className="text-[14px] leading-[22px] tracking-[-0.02em] cursor-pointer"
+                className="text-[14px] leading-[22px] tracking-[-0.02em] cursor-pointer select-none"
               >
                 답변대기
               </label>
@@ -138,7 +127,7 @@ const SearchFilter = () => {
               </label>
               <label
                 htmlFor="completed"
-                className="text-[14px] leading-[22px] tracking-[-0.02em] cursor-pointer"
+                className="text-[14px] leading-[22px] tracking-[-0.02em] cursor-pointer select-none"
               >
                 답변완료
               </label>
@@ -181,7 +170,7 @@ const SearchFilter = () => {
                 <Icon icon="CALENDAR_ICON" />
               </div>
             </div>
-            <span className="flex items-center justify-center text-center mx-3 font-normal text-[16px] leading-7 tracking-[-0.02em] text-gray7">
+            <span className="flex items-center justify-center text-center mx-3 font-normal text-[16px] leading-7 tracking-[-0.02em] text-gray7 select-none">
               ~
             </span>
             {/* 종료 날짜 */}

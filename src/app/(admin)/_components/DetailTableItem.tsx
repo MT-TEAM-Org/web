@@ -19,29 +19,26 @@ const DetailTableItem = ({ row, idx }: DetailTableItemProps) => {
       key: "status",
       value: row.status,
       className: cn(
-        "px-4 py-2 font-bold",
+        "font-bold",
         row.status === "답변대기" ? "text-warning" : "text-gray8"
       ),
     },
     {
       key: "member",
       value: row.member,
-      className: "px-4 py-2",
     },
     {
       key: "email",
       value: row.email,
-      className: "px-4 py-2",
     },
     {
       key: "content",
       value: row.content,
-      className: "px-4 py-2 truncate max-w-[1112px]",
+      className: "truncate max-w-[1112px]",
     },
     {
       key: "date",
       value: row.date,
-      className: "px-4 py-2",
     },
   ];
 
@@ -51,7 +48,7 @@ const DetailTableItem = ({ row, idx }: DetailTableItemProps) => {
       className="border-t hover:bg-gray1 px-4 py-2 text-[14px] leading-5 cursor-pointer"
     >
       {cellConfig.map((cell) => (
-        <td key={cell.key} className={cell.className}>
+        <td key={cell.key} className={cn("px-4 py-2", cell.className)}>
           {cell.value}
         </td>
       ))}
