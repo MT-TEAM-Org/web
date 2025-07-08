@@ -120,8 +120,8 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
 
   const getLinkPath = () => {
     return type === "inquiry"
-      ? `/admin-inquiries/${idx}`
-      : `/admin-improvement/${idx}`;
+      ? `/dashBoard/inquiries/${idx}`
+      : `/dashBoard/suggestions/${idx}`;
   };
 
   const handleRoute = () => {

@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import SearchFilter from "../_components/SearchFilter";
-import DetailTable from "../_components/DetailTable";
-import OverviewStatBox from "../_components/OverviewStatBox";
+import SearchFilter from "../../_components/SearchFilter";
+import DetailTable from "../../_components/DetailTable";
+import OverviewStatBox from "../../_components/OverviewStatBox";
 
 const Page = () => {
   return (

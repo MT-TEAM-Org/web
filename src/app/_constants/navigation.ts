@@ -229,13 +229,13 @@ export const ADMIN_NAVBARS: {
   {
     id: "inquiries",
     name: "문의 관리",
-    link: "/dashboard/inquiries",
+    link: "/dashBoard/inquiries",
     icon: "MAIL",
   },
   {
     id: "suggestions",
     name: "개선요청 관리",
-    link: "/dashboard/suggestions",
+    link: "/dashBoard/suggestions",
     icon: "REVIEW",
   },
   {
