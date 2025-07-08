@@ -5,13 +5,14 @@ import DetailTableItem from "./DetailTableItem";
 import Pagination from "./Pagination";
 
 interface DetailTableProps {
-  type: "list" | "detail";
+  isList: boolean;
+  type: "improvement" | "inquiry";
+  title?: string;
+  totalCount?: string;
 }
 
-const DetailTable = ({ type }: DetailTableProps) => {
+const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
   const tableConfig = {
-    title: "문의 내역",
-    totalCount: 165,
     headers: [
       {
         key: "status",
@@ -35,7 +36,7 @@ const DetailTable = ({ type }: DetailTableProps) => {
         key: "content",
         label: "내용",
         icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: type === "detail" ? "w-[246px]" : "flex-1",
+        className: isList ? "truncate max-w-[246px]" : "truncate flex-1",
       },
       {
         key: "date",
@@ -66,13 +67,13 @@ const DetailTable = ({ type }: DetailTableProps) => {
   };
   return (
     <div className="w-full flex flex-col gap-4">
-      {type === "list" && (
+      {isList && (
         <div className="flex gap-2 items-center">
           <h3 className="font-bold text-[20px] leading-[36px] tracking-[-0.02em] text-black">
-            {tableConfig.title}
+            {title}
           </h3>
           <p className="font-bold text-[16px] leading-[24px] tracking-[-0.02em] text-gray7">
-            검색결과 총 {tableConfig.totalCount}건
+            검색결과 총 {totalCount}건
           </p>
         </div>
       )}
@@ -104,6 +105,7 @@ const DetailTable = ({ type }: DetailTableProps) => {
                 row={tableConfig.data[idx % tableConfig.data.length]}
                 idx={idx}
                 type={type}
+                isList={isList}
               />
             ))}
           </tbody>

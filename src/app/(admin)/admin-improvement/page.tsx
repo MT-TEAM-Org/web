@@ -8,14 +8,19 @@ import OverviewStatBox from "../_components/OverviewStatBox";
 const Page = () => {
   return (
     <div className="min-h-screen w-full bg-white flex flex-col gap-10">
-      {/* 문의현황 */}
-      <OverviewStatBox title="문의현황" />
+      {/* 개선요청 현황 */}
+      <OverviewStatBox title="개선요청 현황" />
 
       {/* 검색 필터 */}
       <SearchFilter />
 
       {/* 하단 내역 테이블 */}
-      <DetailTable type="inquiry" isList title="문의 내역" totalCount="165" />
+      <DetailTable
+        type="improvement"
+        isList
+        title="개선요청 내역"
+        totalCount="165"
+      />
     </div>
   );
 };

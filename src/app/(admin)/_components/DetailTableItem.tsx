@@ -12,10 +12,11 @@ interface DetailTableItemProps {
     date: string;
   };
   idx: number;
-  type: "list" | "detail";
+  isList: boolean;
+  type: "inquiry" | "improvement";
 }
 
-const DetailTableItem = ({ row, idx, type }: DetailTableItemProps) => {
+const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
   const cellConfig = [
     {
       key: "status",
@@ -38,8 +39,7 @@ const DetailTableItem = ({ row, idx, type }: DetailTableItemProps) => {
     {
       key: "content",
       value: row.content,
-      className:
-        type === "detail" ? "truncate max-w-[246px]" : "truncate flex-1",
+      className: !isList ? "truncate max-w-[246px]" : "truncate flex-1",
     },
     {
       key: "date",
@@ -58,7 +58,7 @@ const DetailTableItem = ({ row, idx, type }: DetailTableItemProps) => {
           key={cell.key}
           className={cn("px-4 py-2 text-center", cell.className)}
         >
-          {type === "list" ? (
+          {isList ? (
             <Link href={`/admin-inquiries/${idx}`}>{cell.value}</Link>
           ) : (
             cell.value
