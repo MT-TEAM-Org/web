@@ -8,7 +8,7 @@ const Page = () => {
   return (
     <div className="w-full min-h-screen flex flex-col gap-4">
       <div className="flex gap-2 items-center justify-start">
-        <Link href="/admin-inquiries">
+        <Link href="/dashBoard/inquiries">
           <Icon icon="BACK_ARROW" />
         </Link>
         <h1 className="font-bold text-[24px] leading-38px] tracking-[-0.04em] text-black">

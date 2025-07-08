@@ -3,9 +3,9 @@
 import DetailTable from "@/app/(admin)/_components/DetailTable";
 import React from "react";
 
-interface UserImprovementListProps {
+interface UserDetailFeedbackListProps {
   totalCount: string;
-  type: "improvement" | "inquiry";
+  type: "suggestions" | "inquiry";
   title: string;
 }
 
@@ -13,7 +13,7 @@ const UserDetailFeedbackList = ({
   totalCount,
   type,
   title,
-}: UserImprovementListProps) => {
+}: UserDetailFeedbackListProps) => {
   return (
     <div className="w-1/2 flex flex-col gap-2">
       <div className="flex gap-2 items-center">

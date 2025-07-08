@@ -16,7 +16,7 @@ const Page = () => {
 
       {/* 하단 내역 테이블 */}
       <DetailTable
-        type="improvement"
+        type="suggestions"
         isList
         title="개선요청 내역"
         totalCount="165"

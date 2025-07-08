@@ -2,23 +2,22 @@
 
 import React from "react";
 import { cn } from "@/utils";
-import Link from "next/link";
 import {
-  ImprovementTableRow,
+  SuggestionsTableRow,
   InquiryTableRow,
 } from "../_type/DetailTableType/DetailTableItem";
 import { useRouter } from "next/navigation";
 
 type DetailTableItemProps = {
-  row: InquiryTableRow | ImprovementTableRow;
+  row: InquiryTableRow | SuggestionsTableRow;
   idx: number;
-  type: "inquiry" | "improvement";
+  type: "inquiry" | "suggestions";
   isList: boolean;
 };
 
 // 타입 가드 함수
 const isInquiry = (
-  row: InquiryTableRow | ImprovementTableRow
+  row: InquiryTableRow | SuggestionsTableRow
 ): row is InquiryTableRow => {
   return "member" in row && "email" in row;
 };
@@ -61,7 +60,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         },
       ];
     } else {
-      // Improvement 타입인 경우
+      // suggestions 타입인 경우
       return [
         {
           key: "status",
