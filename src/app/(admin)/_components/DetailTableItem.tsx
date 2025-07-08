@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "@/utils";
-import { ClassNames } from "@emotion/react";
+import Link from "next/link";
 
 interface DetailTableItemProps {
   // 임시
@@ -56,7 +56,7 @@ const DetailTableItem = ({ row, idx }: DetailTableItemProps) => {
           key={cell.key}
           className={cn("px-4 py-2 text-center", cell.className)}
         >
-          {cell.value}
+          <Link href={`/admin-inquiries/${idx}`}>{cell.value}</Link>
         </td>
       ))}
     </tr>
