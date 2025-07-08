@@ -59,7 +59,6 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         key: "title",
         label: "제목",
         icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        // improvement 타입의 제목 width 수정 필요
         className: !isList ? "truncate min-w-[103px]" : "truncate flex-1",
       },
     },
