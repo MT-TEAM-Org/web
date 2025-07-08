@@ -2,7 +2,7 @@ import Icon from "@/app/_components/IconComponents";
 import React from "react";
 import Link from "next/link";
 import ImprovementMeta from "./_components/ImprovementMeta";
-import UserInquiriesList from "../../admin-inquiries/[inquiriesId]/_components/UserInquiriesList";
+import UserImprovementList from "./_components/UserImprovementList";
 
 const Page = () => {
   return (
@@ -17,7 +17,7 @@ const Page = () => {
       </div>
       <div className="w-full flex gap-10">
         <ImprovementMeta />
-        <UserInquiriesList />
+        <UserImprovementList />
       </div>
     </div>
   );

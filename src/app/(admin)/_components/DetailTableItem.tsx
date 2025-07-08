@@ -52,7 +52,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "content",
           value: row.content,
-          className: !isList ? "truncate max-w-[246px]" : "truncate flex-1",
+          className: !isList ? "truncate max-w-[103px]" : "truncate flex-1",
         },
         {
           key: "date",
@@ -67,7 +67,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
           key: "status",
           value: row.status,
           className: cn(
-            "font-bold w-[100px]",
+            "font-bold min-w-[100px]",
             row.status === "접수"
               ? "text-warning"
               : row.status === "완료"
@@ -86,27 +86,27 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "recommendations",
           value: row.recommendations,
-          className: "w-[100px]",
+          className: !isList ? "w-[100px]" : "w-[100px]",
         },
         {
           key: "nickname",
           value: row.nickname,
-          className: "w-[160px]",
+          className: !isList ? "w-[160px]" : "w-[160px]",
         },
         {
           key: "title",
           value: row.title,
-          className: "w-[200px]",
+          className: !isList ? "truncate max-w-[103px]" : "w-[103px]",
         },
         {
           key: "content",
           value: row.content,
-          className: !isList ? "truncate max-w-[246px]" : "truncate flex-1",
+          className: !isList ? "truncate max-w-[103px]" : "truncate flex-1",
         },
         {
           key: "date",
           value: row.date,
-          className: "w-[160px]",
+          className: !isList ? "w-[160px]" : "w-[160px]",
         },
       ];
     }
