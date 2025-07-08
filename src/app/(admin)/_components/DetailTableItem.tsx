@@ -67,7 +67,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
           key: "status",
           value: row.status,
           className: cn(
-            "font-bold min-w-[100px]",
+            "font-bold w-[100px]",
             row.status === "접수"
               ? "text-warning"
               : row.status === "완료"
@@ -96,12 +96,16 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "title",
           value: row.title,
-          className: !isList ? "truncate max-w-[103px]" : "w-[103px]",
+          className: !isList
+            ? "truncate min-w-[103px]"
+            : "flex-1 basis-0 overflow-hidden text-ellipsis whitespace-nowrap",
         },
         {
           key: "content",
           value: row.content,
-          className: !isList ? "truncate max-w-[103px]" : "truncate flex-1",
+          className: !isList
+            ? "truncate min-w-[103px]"
+            : "flex-1 basis-0 overflow-hidden text-ellipsis whitespace-nowrap",
         },
         {
           key: "date",

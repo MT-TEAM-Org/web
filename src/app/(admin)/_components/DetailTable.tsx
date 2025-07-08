@@ -18,7 +18,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
       key: "status",
       label: "처리 상태",
       icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-      className: isList ? "w-[90px]" : "w-[100px]",
+      className: isList ? "w-[100px]" : "w-[100px]",
     },
     nickname: {
       key: "nickname",
@@ -175,7 +175,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         </div>
       )}
       <div className="overflow-x-auto border rounded-md">
-        <table className="min-w-full h-[36px] text-left border-collapse text-nowrap">
+        <table className="min-w-full h-[36px] text-left border-collapse text-nowrap table-fixed w-full">
           <thead className="bg-gray1">
             <tr>
               {tableConfig.headers.map((header) => (
