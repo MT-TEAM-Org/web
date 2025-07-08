@@ -1348,6 +1348,26 @@ const ICONS = {
       </>
     ),
   },
+  BACK_ARROW: {
+    svgOptions: {
+      width: 24,
+      height: 24,
+      viewBox: "0 0 24 24",
+      fill: false,
+    },
+    icon: (
+      <>
+        <path
+          d="M15.5 20L7.5 12L15.5 4"
+          stroke="#424242"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
+  },
 };
 
 export type IconList = keyof typeof ICONS;

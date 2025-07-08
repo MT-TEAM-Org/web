@@ -12,9 +12,10 @@ interface DetailTableItemProps {
     date: string;
   };
   idx: number;
+  type?: "list" | "detail";
 }
 
-const DetailTableItem = ({ row, idx }: DetailTableItemProps) => {
+const DetailTableItem = ({ row, idx, type = "list" }: DetailTableItemProps) => {
   const cellConfig = [
     {
       key: "status",
@@ -37,7 +38,7 @@ const DetailTableItem = ({ row, idx }: DetailTableItemProps) => {
     {
       key: "content",
       value: row.content,
-      className: "truncate flex-1",
+      className: type === "detail" ? "truncate w-[246px]" : "truncate flex-1",
     },
     {
       key: "date",

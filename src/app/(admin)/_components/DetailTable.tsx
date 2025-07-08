@@ -4,7 +4,11 @@ import React from "react";
 import DetailTableItem from "./DetailTableItem";
 import Pagination from "./Pagination";
 
-const DetailTable = () => {
+interface DetailTableProps {
+  type?: "list" | "detail";
+}
+
+const DetailTable = ({ type = "list" }: DetailTableProps) => {
   const tableConfig = {
     title: "문의 내역",
     totalCount: 165,
@@ -31,7 +35,7 @@ const DetailTable = () => {
         key: "content",
         label: "내용",
         icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "flex-1",
+        className: type === "detail" ? "w-[246px]" : "flex-1",
       },
       {
         key: "date",
