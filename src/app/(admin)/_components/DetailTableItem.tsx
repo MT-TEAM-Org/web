@@ -52,7 +52,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "content",
           value: row.content,
-          className: !isList ? "truncate max-w-[246px]" : "truncate flex-1",
+          className: !isList ? "truncate max-w-[103px]" : "truncate flex-1",
         },
         {
           key: "date",
@@ -86,27 +86,31 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "recommendations",
           value: row.recommendations,
-          className: "w-[100px]",
+          className: !isList ? "w-[100px]" : "w-[100px]",
         },
         {
           key: "nickname",
           value: row.nickname,
-          className: "w-[160px]",
+          className: !isList ? "w-[160px]" : "w-[160px]",
         },
         {
           key: "title",
           value: row.title,
-          className: "w-[200px]",
+          className: !isList
+            ? "truncate min-w-[103px]"
+            : "flex-1 basis-0 overflow-hidden text-ellipsis whitespace-nowrap",
         },
         {
           key: "content",
           value: row.content,
-          className: !isList ? "truncate max-w-[246px]" : "truncate flex-1",
+          className: !isList
+            ? "truncate min-w-[103px]"
+            : "flex-1 basis-0 overflow-hidden text-ellipsis whitespace-nowrap",
         },
         {
           key: "date",
           value: row.date,
-          className: "w-[160px]",
+          className: !isList ? "w-[160px]" : "w-[160px]",
         },
       ];
     }
@@ -117,7 +121,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
   const getLinkPath = () => {
     return type === "inquiry"
       ? `/admin-inquiries/${idx}`
-      : `/admin-improvements/${idx}`;
+      : `/admin-improvement/${idx}`;
   };
 
   const handleRoute = () => {

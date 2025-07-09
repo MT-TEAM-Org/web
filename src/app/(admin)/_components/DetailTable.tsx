@@ -18,7 +18,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
       key: "status",
       label: "처리 상태",
       icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-      className: "w-[100px]",
+      className: isList ? "w-[100px]" : "w-[100px]",
     },
     nickname: {
       key: "nickname",
@@ -30,11 +30,11 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
       key: "content",
       label: "내용",
       icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-      className: !isList ? "truncate max-w-[246px]" : "truncate flex-1",
+      className: !isList ? "truncate min-w-[103px]" : "truncate flex-1",
     },
     date: {
       key: "date",
-      label: "작성일자",
+      label: "작성날짜",
       icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
       className: "w-[160px]",
     },
@@ -59,8 +59,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         key: "title",
         label: "제목",
         icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        // improvement 타입의 제목 width 수정 필요
-        className: !isList ? "truncate max-w-[246px]" : "truncate flex-1",
+        className: !isList ? "truncate min-w-[103px]" : "truncate flex-1",
       },
     },
     inquiry: {
@@ -175,7 +174,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         </div>
       )}
       <div className="overflow-x-auto border rounded-md">
-        <table className="min-w-full h-[36px] text-left border-collapse text-nowrap">
+        <table className="min-w-full h-[36px] text-left border-collapse text-nowrap table-fixed w-full">
           <thead className="bg-gray1">
             <tr>
               {tableConfig.headers.map((header) => (

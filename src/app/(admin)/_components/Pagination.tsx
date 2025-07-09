@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const paginationStyle =
-  "w-[32px] h-[32px] rounded-[5px] border bg-white border-gray2 flex items-center justify-center border";
+  "w-[32px] h-[32px] rounded-[5px] border bg-white border-gray2 flex items-center justify-center border font-bold text-[14px] leading-5 text-gray7";
 
 const Pagination = () => {
   const router = useRouter();
