@@ -9,24 +9,27 @@ const buttonStyle =
   "w-[120px] h-[40px] flex items-center justify-center rounded-[5px] px-4 py-[13px] font-bold text-[14px]";
 
 const Page = () => {
-  const [show, setShow] = useState(false);
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const button = [
     {
       name: "전체 삭제",
       value: "deleteAll",
       style: "bg-white border border-gray3 hover:bg-gray1",
+      onClick: () => {},
     },
     {
       name: "삭제",
       value: "delete",
       style: "bg-white border border-gray3 hover:bg-gray1",
+      onClick: () => setShowDeleteModal(true),
     },
     {
       name: "공지 등록",
       value: "register",
       style: "bg-Primary text-white hover:bg-primary/80",
-      onClick: () => setShow(true),
+      onClick: () => setShowPostModal(true),
     },
   ];
 
@@ -55,8 +58,8 @@ const Page = () => {
       </div>
       <div className="w-full bg-gray1">표 들어갈 부분</div>
 
-      {/* <PostNoticeModal show={show} setShow={setShow} /> */}
-      <DeleteModal show={show} setShow={setShow} />
+      <PostNoticeModal show={showPostModal} setShow={setShowPostModal} />
+      <DeleteModal show={showDeleteModal} setShow={setShowDeleteModal} />
     </div>
   );
 };
