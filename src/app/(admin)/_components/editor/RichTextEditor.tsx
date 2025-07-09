@@ -10,14 +10,14 @@ interface RichTextEditorProps {
 
 export const RichTextEditor = ({
   content = "",
-  placeholder = "내용을 입력하세요...",
+  placeholder = "내용을 입력해주세요.",
 }: RichTextEditorProps) => {
   const editor = useEditor({
     extensions: getExtensions(placeholder),
     content,
     editorProps: {
       attributes: {
-        class: 'prose max-w-none focus:outline-none',
+        class: "prose max-w-none focus:outline-none",
       },
     },
   });
