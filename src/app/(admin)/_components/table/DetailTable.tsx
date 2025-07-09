@@ -261,7 +261,11 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         <table className="min-w-full h-[36px] text-left border-collapse text-nowrap table-fixed w-full">
           <thead className="bg-gray1">
             <tr>
-              {type === "notice" && <CheckBoxIcon />}
+              {type === "notice" && (
+                <th className="w-[48px]">
+                  <CheckBoxIcon />
+                </th>
+              )}
               {tableConfig.headers.map((header) => (
                 <th
                   key={header.key}
