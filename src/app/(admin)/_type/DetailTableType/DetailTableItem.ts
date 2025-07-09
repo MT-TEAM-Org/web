@@ -22,7 +22,7 @@ export interface NoticeTableRow extends BaseTableRow {
   title: string;
 }
 
-export interface ContentTableRow extends BaseTableRow {
+export interface ContentTableRow extends Omit<BaseTableRow, 'content'> {
   isReport: string;
   reportCount: string;
   userStatus: string;

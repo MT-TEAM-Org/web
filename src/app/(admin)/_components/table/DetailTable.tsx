@@ -262,7 +262,8 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
           userStatus: "정상",
           writer: "hive짱짱12",
           type: "게시글",
-          titleContent: "게시글제목게시글제목게시글제목게시글제목",
+          titleContent:
+            "댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목",
           date: "25.05.29",
         },
         {
@@ -272,8 +273,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
           userStatus: "경고",
           writer: "hive짱짱12",
           type: "댓글",
-          titleContent:
-            "댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목",
+          titleContent: "게시글제목게시글제목게시글제목게시글제목",
           date: "25.05.29",
         },
         {
@@ -283,7 +283,8 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
           userStatus: "정상",
           writer: "hive짱짱12",
           type: "게시글",
-          titleContent: "게시글제목게시글제목게시글제목게시글제목",
+          titleContent:
+            "댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목",
           date: "25.05.29",
         },
       ];
@@ -366,7 +367,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
             </tr>
           </thead>
           <tbody className="text-gray8">
-            {/* {Array.from({ length: 10 }, (_, idx) => {
+            {Array.from({ length: 10 }, (_, idx) => {
               const rowData = tableConfig.data[idx % tableConfig.data.length];
               return (
                 <DetailTableItem
@@ -377,7 +378,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
                   isList={isList}
                 />
               );
-            })} */}
+            })}
           </tbody>
         </table>
       </div>

@@ -11,6 +11,8 @@ import {
 import { useRouter } from "next/navigation";
 import CheckBoxIcon from "../common/CheckBoxIcon";
 
+// TODO: 텍스트 크기, 셀 height, truncate 추가 필요.
+
 type DetailTableItemProps = {
   row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow | ContentTableRow;
   idx: number;
@@ -20,21 +22,32 @@ type DetailTableItemProps = {
 
 // 타입 가드 함수
 const isInquiry = (
-  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow | ContentTableRow
 ): row is InquiryTableRow => {
   return "member" in row && "email" in row;
 };
 
 const isNotice = (
-  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow | ContentTableRow
 ): row is NoticeTableRow => {
-  return "writer" in row && "title" in row;
+  return "writer" in row && "title" in row && "content" in row;
 };
 
 const isContent = (
   row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow | ContentTableRow
 ): row is ContentTableRow => {
-  return "writer" in row && "title" in row;
+  return (
+    "isReport" in row &&
+    "reportCount" in row &&
+    "userStatus" in row &&
+    "titleContent" in row
+  );
+};
+
+const isSuggestions = (
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow | ContentTableRow
+): row is SuggestionsTableRow => {
+  return "recommendations" in row && "nickname" in row && "importance" in row;
 };
 
 const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
@@ -66,7 +79,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "content",
           value: row.content,
-          className: !isList ? "truncate max-w-[103px]" : "truncate flex-1",
+          className: !isList ? "max-w-[103px]" : "flex-1",
         },
         {
           key: "date",
@@ -90,15 +103,59 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "title",
           value: row.title,
-          className: !isList ? "truncate min-w-[103px]" : "flex-1",
+          className: !isList ? "min-w-[103px]" : "flex-1",
         },
         {
           key: "content",
           value: row.content,
-          className: !isList ? "truncate max-w-[103px]" : "truncate flex-1",
+          className: !isList ? "max-w-[103px]" : "flex-1",
         },
       ];
-    } else {
+    } else if (isContent(row)) {
+      // content 타입인 경우
+      return [
+        {
+          key: "status",
+          value: row.status,
+          className: "w-[100px]",
+        },
+        {
+          key: "isReport",
+          value: row.isReport,
+          className: "w-[80px]",
+        },
+        {
+          key: "reportCount",
+          value: row.reportCount,
+          className: "w-[80px]",
+        },
+        {
+          key: "userStatus",
+          value: row.userStatus,
+          className: "w-[80px]",
+        },
+        {
+          key: "writer",
+          value: row.writer,
+          className: "w-[120px]",
+        },
+        {
+          key: "type",
+          value: row.type,
+          className: "w-[80px]",
+        },
+        {
+          key: "titleContent",
+          value: row.titleContent,
+          className: !isList ? "max-w-[872px]" : "truncate flex-1 text-center",
+        },
+        {
+          key: "date",
+          value: row.date,
+          className: "w-[120px]",
+        },
+      ];
+    } else if (isSuggestions(row)) {
       // suggestions 타입인 경우
       return [
         {
@@ -135,14 +192,14 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
           key: "title",
           value: row.title,
           className: !isList
-            ? "truncate min-w-[103px]"
+            ? "min-w-[103px]"
             : "flex-1 basis-0 overflow-hidden text-ellipsis whitespace-nowrap",
         },
         {
           key: "content",
           value: row.content,
           className: !isList
-            ? "truncate min-w-[103px]"
+            ? "min-w-[103px]"
             : "flex-1 basis-0 overflow-hidden text-ellipsis whitespace-nowrap",
         },
         {
@@ -152,25 +209,42 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         },
       ];
     }
+
+    return [];
   };
 
   const cellConfig = getCellConfig();
 
   const getLinkPath = () => {
-    return type === "inquiry"
-      ? `/dashBoard/inquiries/${idx}`
-      : `/dashBoard/suggestions/${idx}`;
+    switch (type) {
+      case "inquiry":
+        return `/dashBoard/inquiries/${idx}`;
+      case "suggestions":
+        return `/dashBoard/suggestions/${idx}`;
+      case "content":
+        return `/dashBoard/content/${idx}`;
+      default:
+        return "#";
+    }
   };
 
   const handleRoute = () => {
-    router.push(getLinkPath());
+    if (
+      !isList &&
+      ((type === "inquiry" && isInquiry(row)) ||
+        (type === "notice" && isNotice(row)) ||
+        (type === "suggestions" && isSuggestions(row)) ||
+        (type === "content" && isContent(row)))
+    ) {
+      router.push(getLinkPath());
+    }
   };
 
   return (
     <tr
       key={idx}
-      onClick={type !== "notice" ? handleRoute : undefined}
-      className="border-t hover:bg-gray1 px-4 py-2 text-[14px] leading-5 cursor-pointer"
+      onClick={handleRoute}
+      className={cn("border-b border-gray-200 hover:bg-gray-50 cursor-pointer")}
     >
       {type === "notice" && (
         <td className="text-center w-[48px] h-[36px]">
