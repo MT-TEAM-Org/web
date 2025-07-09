@@ -18,14 +18,20 @@ const inputStyle =
 const PostNoticeModal = ({ show, setShow }: PostNoticeModalProps) => {
   if (!show) return null;
 
+  const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setShow(false);
+  };
+
   return createPortal(
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50"
-      onClick={() => setShow(false)}
+      onClick={handleClickOutside}
     >
       <form
         action=""
         className="w-[800px] min-h-[670px] rounded-[10px] p-6 bg-white flex flex-col items-center justify-center gap-6"
+        onClick={(e) => e.stopPropagation()}
       >
         <h3 className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-black">
           공지사항 등록
