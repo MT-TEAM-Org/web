@@ -99,9 +99,9 @@ export const Toolbar = ({ editor }: ToolbarProps) => {
             title={button.title}
             editor={editor}
           />
-          {index === 3 || index === 6 ? (
-            <div className="w-px bg-gray-300 h-6"></div>
-          ) : null}
+          {(index === 3 || index === 6) && (
+            <hr className="w-[1px] h-6 bg-gray3" />
+          )}
         </React.Fragment>
       ))}
       <TextColorPicker editor={editor} />
