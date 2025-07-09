@@ -220,3 +220,8 @@ button {
 .animate-marquee {
   animation: marquee 65s linear infinite;
 }
+
+/* TIPTAP */
+.ProseMirror:focus-visible {
+  outline: none;
+}
