@@ -216,15 +216,9 @@ export const ADMIN_NAVBARS: {
   { id: "users", name: "회원 관리", link: "/dashboard/users", icon: "MY" },
   {
     id: "posts",
-    name: "게시물 관리",
-    link: "/dashboard/posts",
+    name: "게시글/댓글 관리",
+    link: "/dashboard/content",
     icon: "ALARM",
-  },
-  {
-    id: "comments",
-    name: "댓글 관리",
-    link: "/dashboard/comments",
-    icon: "TALK",
   },
   {
     id: "inquiries",
