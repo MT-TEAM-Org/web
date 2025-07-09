@@ -241,7 +241,7 @@ export const ADMIN_NAVBARS: {
   {
     id: "notices",
     name: "공지 관리",
-    link: "/dashboard/notices",
+    link: "/dashBoard/notices",
     icon: "EDIT",
   },
 ];

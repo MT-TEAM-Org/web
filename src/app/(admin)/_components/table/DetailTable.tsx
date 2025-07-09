@@ -1,17 +1,28 @@
+"use client";
+
 import Icon from "@/app/_components/IconComponents";
 import { cn } from "@/utils";
-import React from "react";
+import React, { useState } from "react";
 import DetailTableItem from "./DetailTableItem";
 import Pagination from "./Pagination";
+import PostNoticeModal from "../modal/PostNoticeModal";
+import DeleteModal from "../modal/DeleteModal";
+import CheckBoxIcon from "../common/CheckBoxIcon";
 
 interface DetailTableProps {
   isList: boolean;
-  type: "suggestions" | "inquiry";
+  type: "suggestions" | "inquiry" | "notice";
   title?: string;
   totalCount?: string;
 }
 
+const buttonStyle =
+  "w-[120px] h-[40px] flex items-center justify-center rounded-[5px] px-4 py-[13px] font-bold text-[14px]";
+
 const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   // 공통 헤더
   const commonHeaders = {
     status: {
@@ -76,6 +87,26 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         className: "w-[160px]",
       },
     },
+    notice: {
+      writer: {
+        key: "writer",
+        label: "작성자",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "w-[160px]",
+      },
+      title: {
+        key: "title",
+        label: "제목",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "truncate flex-1",
+      },
+      content: {
+        key: "content",
+        label: "내용",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "truncate flex-1",
+      },
+    },
   };
 
   // 타입별 헤더 구성
@@ -90,7 +121,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         commonHeaders.content,
         commonHeaders.date,
       ];
-    } else {
+    } else if (type === "inquiry") {
       return [
         commonHeaders.status,
         typeSpecificHeaders.inquiry.member,
@@ -99,6 +130,13 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         commonHeaders.date,
       ];
     }
+    // notice 타입에 대한 기본 반환값
+    return [
+      commonHeaders.date,
+      typeSpecificHeaders.notice.writer,
+      typeSpecificHeaders.notice.title,
+      typeSpecificHeaders.notice.content,
+    ];
   };
 
   // 타입별 목업 데이터
@@ -134,7 +172,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
           date: "25.05.28",
         },
       ];
-    } else {
+    } else if (type === "inquiry") {
       return [
         {
           status: "답변대기",
@@ -153,6 +191,16 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
           date: "25.05.29",
         },
       ];
+    } else if (type === "notice") {
+      return [
+        {
+          status: "게시중",
+          date: "25.05.29",
+          writer: "플레이하이브 관리자",
+          title: "공지사항입니다 제목공지사항입니다 제목",
+          content: "공지내용공지내용공지내용공지내용공지내용",
+        },
+      ];
     }
   };
 
@@ -161,22 +209,63 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
     data: getMockData(),
   };
 
+  const noticeButton = [
+    {
+      name: "전체 삭제",
+      value: "deleteAll",
+      style: "bg-white border border-gray3 hover:bg-gray1",
+      onClick: () => {},
+    },
+    {
+      name: "삭제",
+      value: "delete",
+      style: "bg-white border border-gray3 hover:bg-gray1",
+      onClick: () => setShowDeleteModal(true),
+    },
+    {
+      name: "공지 등록",
+      value: "register",
+      style: "bg-Primary text-white hover:bg-primary/80",
+      onClick: () => setShowPostModal(true),
+    },
+  ];
+
   return (
     <div className="w-full flex flex-col gap-4">
       {isList && (
-        <div className="flex gap-2 items-center">
-          <h3 className="font-bold text-[20px] leading-[36px] tracking-[-0.02em] text-black">
-            {title}
-          </h3>
-          <p className="font-bold text-[16px] leading-[24px] tracking-[-0.02em] text-gray7">
-            검색결과 총 {totalCount}건
-          </p>
+        <div className="flex items-center justify-between">
+          <div className="flex gap-2 items-center">
+            <h3 className="font-bold text-[20px] leading-[36px] tracking-[-0.02em] text-black">
+              {title}
+            </h3>
+            <p className="font-bold text-[16px] leading-[24px] tracking-[-0.02em] text-gray7">
+              {type === "notice" ? "총" : "검색결과 총"} {totalCount}건
+            </p>
+          </div>
+          {type === "notice" && (
+            <div className="flex gap-2">
+              {noticeButton.map((button) => (
+                <button
+                  key={button.value}
+                  className={cn(buttonStyle, button.style)}
+                  onClick={button.onClick}
+                >
+                  {button.name}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
       <div className="overflow-x-auto border rounded-md">
         <table className="min-w-full h-[36px] text-left border-collapse text-nowrap table-fixed w-full">
           <thead className="bg-gray1">
             <tr>
+              {type === "notice" && (
+                <th className="w-[48px]">
+                  <CheckBoxIcon />
+                </th>
+              )}
               {tableConfig.headers.map((header) => (
                 <th
                   key={header.key}
@@ -207,6 +296,9 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         </table>
       </div>
       <Pagination />
+
+      <PostNoticeModal show={showPostModal} setShow={setShowPostModal} />
+      <DeleteModal show={showDeleteModal} setShow={setShowDeleteModal} />
     </div>
   );
 };

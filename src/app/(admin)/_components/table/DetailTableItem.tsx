@@ -5,21 +5,29 @@ import { cn } from "@/utils";
 import {
   SuggestionsTableRow,
   InquiryTableRow,
-} from "../_type/DetailTableType/DetailTableItem";
+  NoticeTableRow,
+} from "../../_type/DetailTableType/DetailTableItem";
 import { useRouter } from "next/navigation";
+import CheckBoxIcon from "../common/CheckBoxIcon";
 
 type DetailTableItemProps = {
-  row: InquiryTableRow | SuggestionsTableRow;
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow;
   idx: number;
-  type: "inquiry" | "suggestions";
+  type: "inquiry" | "suggestions" | "notice";
   isList: boolean;
 };
 
 // 타입 가드 함수
 const isInquiry = (
-  row: InquiryTableRow | SuggestionsTableRow
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow
 ): row is InquiryTableRow => {
   return "member" in row && "email" in row;
+};
+
+const isNotice = (
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow
+): row is NoticeTableRow => {
+  return "writer" in row && "title" in row;
 };
 
 const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
@@ -57,6 +65,30 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
           key: "date",
           value: row.date,
           className: "w-[160px]",
+        },
+      ];
+    } else if (isNotice(row)) {
+      // Notice 타입인 경우
+      return [
+        {
+          key: "date",
+          value: row.date,
+          className: "w-[160px]",
+        },
+        {
+          key: "writer",
+          value: row.writer,
+          className: "w-[160px]",
+        },
+        {
+          key: "title",
+          value: row.title,
+          className: !isList ? "truncate min-w-[103px]" : "flex-1",
+        },
+        {
+          key: "content",
+          value: row.content,
+          className: !isList ? "truncate max-w-[103px]" : "truncate flex-1",
         },
       ];
     } else {
@@ -130,9 +162,14 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
   return (
     <tr
       key={idx}
-      onClick={handleRoute}
+      onClick={type !== "notice" ? handleRoute : undefined}
       className="border-t hover:bg-gray1 px-4 py-2 text-[14px] leading-5 cursor-pointer"
     >
+      {type === "notice" && (
+        <td className="text-center w-[48px] h-[36px]">
+          <CheckBoxIcon />
+        </td>
+      )}
       {cellConfig.map((cell) => (
         <td
           key={cell.key}
