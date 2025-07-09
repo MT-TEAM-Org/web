@@ -15,7 +15,7 @@ const UserInquiriesList = () => {
         </p>
       </div>
       <div>
-        <DetailTable type="detail" />
+        <DetailTable type="inquiry" isList={false} />
       </div>
     </div>
   );
