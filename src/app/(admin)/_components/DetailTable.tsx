@@ -7,6 +7,7 @@ import DetailTableItem from "./DetailTableItem";
 import Pagination from "./Pagination";
 import PostNoticeModal from "./modal/PostNoticeModal";
 import DeleteModal from "./modal/DeleteModal";
+import CheckBoxIcon from "./table/CheckBoxIcon";
 
 interface DetailTableProps {
   isList: boolean;
@@ -260,6 +261,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         <table className="min-w-full h-[36px] text-left border-collapse text-nowrap table-fixed w-full">
           <thead className="bg-gray1">
             <tr>
+              {type === "notice" && <CheckBoxIcon />}
               {tableConfig.headers.map((header) => (
                 <th
                   key={header.key}

@@ -8,6 +8,7 @@ import {
   NoticeTableRow,
 } from "../_type/DetailTableType/DetailTableItem";
 import { useRouter } from "next/navigation";
+import CheckBoxIcon from "./table/CheckBoxIcon";
 
 type DetailTableItemProps = {
   row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow;
@@ -164,6 +165,11 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
       onClick={type !== "notice" ? handleRoute : undefined}
       className="border-t hover:bg-gray1 px-4 py-2 text-[14px] leading-5 cursor-pointer"
     >
+      {type === "notice" && (
+        <td className="text-center w-[48px] h-[36px]">
+          <CheckBoxIcon />
+        </td>
+      )}
       {cellConfig.map((cell) => (
         <td
           key={cell.key}
