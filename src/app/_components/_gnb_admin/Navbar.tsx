@@ -17,7 +17,8 @@ export default function AdminSidebar() {
       className={cn(
         "bg-Fifth h-[calc(100vh-64px)] text-white flex flex-col gap-4 transition-all duration-300 ease-in-out",
         isMini ? "w-[60px]" : "w-[180px]"
-      )}>
+      )}
+    >
       <nav className="flex flex-col">
         {ADMIN_NAVBARS.map((item) => (
           <Link key={item.id} href={item.link}>
@@ -26,7 +27,8 @@ export default function AdminSidebar() {
                 isMini ? "justify-center" : "px-4"
               } py-[18px] gap-3 cursor-pointer hover:bg-quaternary transition-colors ${
                 isActive(item.link) ? "bg-Fifth font-semibold" : "text-white"
-              }`}>
+              }`}
+            >
               <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-200">
                 <Icon icon={item.icon} />
               </div>
@@ -38,7 +40,8 @@ export default function AdminSidebar() {
                     isMini
                       ? "opacity-0 -translate-x-2 w-0 overflow-hidden"
                       : "opacity-100 translate-x-0 w-auto"
-                  )}>
+                  )}
+                >
                   {item.name}
                 </span>
               )}
@@ -57,7 +60,8 @@ export default function AdminSidebar() {
               isMini
                 ? "justify-center p-[18px] hover:bg-quaternary"
                 : "gap-2 w-full text-sm px-4 py-2 bg-quaternary rounded-full hover:bg-Primary"
-            )}>
+            )}
+          >
             {!isMini && <span>사용자 페이지</span>}
             <div className="opacity-50 group-hover:opacity-100 transition-opacity duration-200">
               <Icon icon="LINK_OUT" />
