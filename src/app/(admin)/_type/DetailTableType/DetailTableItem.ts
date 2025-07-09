@@ -16,3 +16,8 @@ export interface SuggestionsTableRow extends BaseTableRow {
   nickname: string;
   title: string;
 }
+
+export interface NoticeTableRow extends BaseTableRow {
+  writer: string;
+  title: string;
+}

@@ -5,21 +5,28 @@ import { cn } from "@/utils";
 import {
   SuggestionsTableRow,
   InquiryTableRow,
+  NoticeTableRow,
 } from "../_type/DetailTableType/DetailTableItem";
 import { useRouter } from "next/navigation";
 
 type DetailTableItemProps = {
-  row: InquiryTableRow | SuggestionsTableRow;
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow;
   idx: number;
-  type: "inquiry" | "suggestions";
+  type: "inquiry" | "suggestions" | "notice";
   isList: boolean;
 };
 
 // 타입 가드 함수
 const isInquiry = (
-  row: InquiryTableRow | SuggestionsTableRow
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow
 ): row is InquiryTableRow => {
   return "member" in row && "email" in row;
+};
+
+const isNotice = (
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow
+): row is NoticeTableRow => {
+  return "writer" in row && "title" in row;
 };
 
 const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
@@ -57,6 +64,30 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
           key: "date",
           value: row.date,
           className: "w-[160px]",
+        },
+      ];
+    } else if (isNotice(row)) {
+      // Notice 타입인 경우
+      return [
+        {
+          key: "date",
+          value: row.date,
+          className: "w-[160px]",
+        },
+        {
+          key: "writer",
+          value: row.writer,
+          className: "w-[160px]",
+        },
+        {
+          key: "title",
+          value: row.title,
+          className: !isList ? "truncate min-w-[103px]" : "flex-1",
+        },
+        {
+          key: "content",
+          value: row.content,
+          className: !isList ? "truncate max-w-[103px]" : "truncate flex-1",
         },
       ];
     } else {
