@@ -44,8 +44,6 @@ textarea:focus {
   border: 1px solid #424242;
 }
 
-/* TIPTAP */
-
 .tiptap {
   min-height: 415px;
 
@@ -222,6 +220,15 @@ button {
 }
 
 /* TIPTAP */
-.ProseMirror:focus-visible {
-  outline: none;
+
+/* placeholder */
+.tiptap p.is-empty:first-child::before {
+  content: attr(data-placeholder);
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  float: left;
+  color: #A6A6A6;
+  pointer-events: none;
+  height: 0;
 }
