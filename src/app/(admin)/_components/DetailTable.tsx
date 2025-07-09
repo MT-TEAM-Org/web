@@ -4,7 +4,11 @@ import React from "react";
 import DetailTableItem from "./DetailTableItem";
 import Pagination from "./Pagination";
 
-const DetailTable = () => {
+interface DetailTableProps {
+  type: "list" | "detail";
+}
+
+const DetailTable = ({ type }: DetailTableProps) => {
   const tableConfig = {
     title: "문의 내역",
     totalCount: 165,
@@ -31,7 +35,7 @@ const DetailTable = () => {
         key: "content",
         label: "내용",
         icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "flex-1",
+        className: type === "detail" ? "w-[246px]" : "flex-1",
       },
       {
         key: "date",
@@ -62,22 +66,24 @@ const DetailTable = () => {
   };
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="flex gap-2 items-center">
-        <h3 className="font-bold text-[20px] leading-[36px] tracking-[-0.02em] text-black">
-          {tableConfig.title}
-        </h3>
-        <p className="font-bold text-[16px] leading-[24px] tracking-[-0.02em] text-gray7">
-          검색결과 총 {tableConfig.totalCount}건
-        </p>
-      </div>
+      {type === "list" && (
+        <div className="flex gap-2 items-center">
+          <h3 className="font-bold text-[20px] leading-[36px] tracking-[-0.02em] text-black">
+            {tableConfig.title}
+          </h3>
+          <p className="font-bold text-[16px] leading-[24px] tracking-[-0.02em] text-gray7">
+            검색결과 총 {tableConfig.totalCount}건
+          </p>
+        </div>
+      )}
       <div className="overflow-x-auto border rounded-md">
-        <table className="min-w-full text-left border-collapse">
+        <table className="min-w-full h-[36px] text-left border-collapse text-nowrap">
           <thead className="bg-gray1">
             <tr>
               {tableConfig.headers.map((header) => (
                 <th
                   key={header.key}
-                  className={cn("px-4 py-3 border-b", header.className)}
+                  className={cn("px-3 py-2", header.className)}
                 >
                   <div className="flex justify-between items-center font-bold text-[14px] leading-5 text-gray8 cursor-pointer select-none ">
                     <span className="mx-auto">{header.label}</span>
@@ -97,6 +103,7 @@ const DetailTable = () => {
                 key={idx}
                 row={tableConfig.data[idx % tableConfig.data.length]}
                 idx={idx}
+                type={type}
               />
             ))}
           </tbody>
