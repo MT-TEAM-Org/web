@@ -12,7 +12,7 @@ const Page = () => {
       <OverviewStatBox title="게시물 현황" />
 
       {/* 검색 필터 */}
-      <SearchFilter />
+      <SearchFilter isContent />
 
       {/* 하단 내역 테이블 */}
       <DetailTable type="content" isList title="게시물 내역" totalCount="165" />
