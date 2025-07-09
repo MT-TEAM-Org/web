@@ -6,14 +6,15 @@ import {
   SuggestionsTableRow,
   InquiryTableRow,
   NoticeTableRow,
+  ContentTableRow,
 } from "../../_type/DetailTableType/DetailTableItem";
 import { useRouter } from "next/navigation";
 import CheckBoxIcon from "../common/CheckBoxIcon";
 
 type DetailTableItemProps = {
-  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow;
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow | ContentTableRow;
   idx: number;
-  type: "inquiry" | "suggestions" | "notice";
+  type: "inquiry" | "suggestions" | "notice" | "content";
   isList: boolean;
 };
 
@@ -27,6 +28,12 @@ const isInquiry = (
 const isNotice = (
   row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow
 ): row is NoticeTableRow => {
+  return "writer" in row && "title" in row;
+};
+
+const isContent = (
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow | ContentTableRow
+): row is ContentTableRow => {
   return "writer" in row && "title" in row;
 };
 

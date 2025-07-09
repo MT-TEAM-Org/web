@@ -217,7 +217,7 @@ export const ADMIN_NAVBARS: {
   {
     id: "posts",
     name: "게시글/댓글 관리",
-    link: "/dashboard/content",
+    link: "/dashBoard/content",
     icon: "ALARM",
   },
   {
