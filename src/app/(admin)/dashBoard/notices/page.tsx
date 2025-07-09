@@ -3,6 +3,7 @@
 import { cn } from "@/utils";
 import React, { useState } from "react";
 import PostNoticeModal from "../../_components/modal/PostNoticeModal";
+import DeleteModal from "../../_components/modal/DeleteModal";
 
 const buttonStyle =
   "w-[120px] h-[40px] flex items-center justify-center rounded-[5px] px-4 py-[13px] font-bold text-[14px]";
@@ -54,7 +55,8 @@ const Page = () => {
       </div>
       <div className="w-full bg-gray1">표 들어갈 부분</div>
 
-      <PostNoticeModal show={show} setShow={setShow} />
+      {/* <PostNoticeModal show={show} setShow={setShow} /> */}
+      <DeleteModal show={show} setShow={setShow} />
     </div>
   );
 };

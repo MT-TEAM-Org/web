@@ -1,0 +1,60 @@
+import { cn } from "@heroui/react";
+import React from "react";
+import { createPortal } from "react-dom";
+
+interface DeleteModalProps {
+  show: boolean;
+  setShow: (show: boolean) => void;
+}
+
+const buttonStyle =
+  "w-[160px] h-[40px] rounded-[5px] px-4 py-[13px] flex items-center justify-center font-bold text-[14px]";
+
+const DeleteModal = ({ show, setShow }: DeleteModalProps) => {
+  if (!show) return null;
+
+  const button = [
+    {
+      name: "취소",
+      style: "bg-white border border-gray3 text-black",
+      onClick: () => setShow(false),
+    },
+    {
+      name: "삭제",
+      style: "bg-Primary text-white",
+      onClick: () => {},
+    },
+  ];
+
+  return createPortal(
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50"
+      onClick={() => setShow(false)}
+    >
+      <div className="w-[408px] h-[200px] rounded-[10px] p-10 bg-white flex flex-col items-center justify-center gap-6">
+        <div className="flex flex-col items-center justify-center gap-1">
+          <h3 className="font-bold text-[18px] leading-7 tracking-[-0.04em] text-black">
+            삭제하시겠습니까?
+          </h3>
+          <p className="text-[16px] leading-6 tracking-[-0.02em] text-gray6">
+            작성되었던 모든 내용이 사라집니다.
+          </p>
+        </div>
+        <div className="w-full flex items-center justify-center gap-2">
+          {button.map((button) => (
+            <button
+              key={button.name}
+              className={cn(buttonStyle, button.style)}
+              onClick={button.onClick}
+            >
+              {button.name}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+};
+
+export default DeleteModal;
