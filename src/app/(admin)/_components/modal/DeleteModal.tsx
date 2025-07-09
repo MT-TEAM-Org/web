@@ -26,12 +26,20 @@ const DeleteModal = ({ show, setShow }: DeleteModalProps) => {
     },
   ];
 
+  const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setShow(false);
+  };
+
   return createPortal(
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50"
-      onClick={() => setShow(false)}
+      onClick={handleClickOutside}
     >
-      <div className="w-[408px] h-[200px] rounded-[10px] p-10 bg-white flex flex-col items-center justify-center gap-6">
+      <div
+        className="w-[408px] h-[200px] rounded-[10px] p-10 bg-white flex flex-col items-center justify-center gap-6"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex flex-col items-center justify-center gap-1">
           <h3 className="font-bold text-[18px] leading-7 tracking-[-0.04em] text-black">
             삭제하시겠습니까?

@@ -1,8 +1,11 @@
 "use client";
 
+"use client";
+
 import { cn } from "@/utils";
 import React from "react";
 import { createPortal } from "react-dom";
+import { RichTextEditor } from "../editor/RichTextEditor";
 
 interface PostNoticeModalProps {
   show: boolean;
@@ -18,14 +21,20 @@ const inputStyle =
 const PostNoticeModal = ({ show, setShow }: PostNoticeModalProps) => {
   if (!show) return null;
 
+  const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setShow(false);
+  };
+
   return createPortal(
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50"
-      onClick={() => setShow(false)}
+      onClick={handleClickOutside}
     >
       <form
         action=""
         className="w-[800px] min-h-[670px] rounded-[10px] p-6 bg-white flex flex-col items-center justify-center gap-6"
+        onClick={(e) => e.stopPropagation()}
       >
         <h3 className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-black">
           공지사항 등록
@@ -42,7 +51,7 @@ const PostNoticeModal = ({ show, setShow }: PostNoticeModalProps) => {
             <div className={inputStyle}>
               <input
                 type="text"
-                placeholder="내용을 입력해주세요"
+                placeholder="내용을 입력해주세요."
                 className="w-full h-[40px] rounded-[5px] border p-3 bg-white border-gray3"
               />
             </div>
@@ -52,7 +61,7 @@ const PostNoticeModal = ({ show, setShow }: PostNoticeModalProps) => {
             <div className={inputStyle}>
               <input
                 type="text"
-                placeholder="내용을 입력해주세요"
+                placeholder="내용을 입력해주세요."
                 className="w-full h-[40px] rounded-[5px] border p-3 bg-white border-gray3"
               />
             </div>
@@ -60,15 +69,7 @@ const PostNoticeModal = ({ show, setShow }: PostNoticeModalProps) => {
           <div className={cn(boxStyle, "h-full")}>
             <p className={cn(labelStyle, "h-[344px]")}>내용</p>
             <div className="flex-1 h-[344px] px-4 py-2 bg-white flex flex-col items-center justify-center">
-              <div className="w-full h-[44px] bg-gray5 flex items-center justify-center">
-                팁탭 들어갈 부분
-              </div>
-              <textarea
-                name=""
-                id=""
-                className="w-full flex-1 h-[284px] rounded-[5px] rounded-t-none border border-t-0 border-gray3 px-4 py-3 resize-none text-[14px] leading-[22px] tracking-[-0.02em] placeholder:text-gray5 placeholder:font-normal"
-                placeholder="내용을 입력해주세요"
-              ></textarea>
+              <RichTextEditor placeholder="내용을 입력해주세요." />
             </div>
           </div>
         </div>
