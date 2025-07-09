@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import SearchFilter from "../_components/SearchFilter";
-import DetailTable from "../_components/DetailTable";
-import OverviewStatBox from "../_components/OverviewStatBox";
+import SearchFilter from "../../_components/SearchFilter";
+import DetailTable from "../../_components/DetailTable";
+import OverviewStatBox from "../../_components/OverviewStatBox";
 
 const Page = () => {
   return (
@@ -16,7 +16,7 @@ const Page = () => {
 
       {/* 하단 내역 테이블 */}
       <DetailTable
-        type="improvement"
+        type="suggestions"
         isList
         title="개선요청 내역"
         totalCount="165"

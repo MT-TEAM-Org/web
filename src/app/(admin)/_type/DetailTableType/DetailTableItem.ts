@@ -10,7 +10,7 @@ export interface InquiryTableRow extends BaseTableRow {
   email: string;
 }
 
-export interface ImprovementTableRow extends BaseTableRow {
+export interface SuggestionsTableRow extends BaseTableRow {
   importance: string;
   recommendations: string;
   nickname: string;

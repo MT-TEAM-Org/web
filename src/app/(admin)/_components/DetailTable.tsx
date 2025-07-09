@@ -6,7 +6,7 @@ import Pagination from "./Pagination";
 
 interface DetailTableProps {
   isList: boolean;
-  type: "improvement" | "inquiry";
+  type: "suggestions" | "inquiry";
   title?: string;
   totalCount?: string;
 }
@@ -42,7 +42,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
 
   // 타입별 헤더
   const typeSpecificHeaders = {
-    improvement: {
+    suggestions: {
       importance: {
         key: "importance",
         label: "중요도",
@@ -80,13 +80,13 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
 
   // 타입별 헤더 구성
   const getHeaders = () => {
-    if (type === "improvement") {
+    if (type === "suggestions") {
       return [
         commonHeaders.status,
-        typeSpecificHeaders.improvement.importance,
-        typeSpecificHeaders.improvement.recommendations,
+        typeSpecificHeaders.suggestions.importance,
+        typeSpecificHeaders.suggestions.recommendations,
         commonHeaders.nickname,
-        typeSpecificHeaders.improvement.title,
+        typeSpecificHeaders.suggestions.title,
         commonHeaders.content,
         commonHeaders.date,
       ];
@@ -103,7 +103,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
 
   // 타입별 목업 데이터
   const getMockData = () => {
-    if (type === "improvement") {
+    if (type === "suggestions") {
       return [
         {
           status: "대기",

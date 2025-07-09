@@ -17,7 +17,7 @@ const mockData = {
         "문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용",
     },
   ],
-  improvement: [
+  suggestions: [
     {
       name: "닉네임",
       value: "하이브짱짱",
@@ -39,7 +39,7 @@ const mockData = {
 };
 
 interface MetaPanelProps {
-  type: "inquiry" | "improvement";
+  type: "inquiry" | "suggestions";
   title: string;
 }
 
@@ -56,7 +56,7 @@ const MetaPanel = ({ type, title }: MetaPanelProps) => {
           {title}
         </h2>
         <div className="flex gap-2 items-center">
-          {type === "improvement" && (
+          {type === "suggestions" && (
             <Link
               href="/"
               className={cn(
@@ -99,7 +99,7 @@ const MetaPanel = ({ type, title }: MetaPanelProps) => {
           </div>
         </div>
 
-        {type === "improvement" && (
+        {type === "suggestions" && (
           <>
             <RadioGroup
               label="처리 상태"
