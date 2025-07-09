@@ -161,7 +161,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
   return (
     <tr
       key={idx}
-      onClick={handleRoute}
+      onClick={type !== "notice" ? handleRoute : undefined}
       className="border-t hover:bg-gray1 px-4 py-2 text-[14px] leading-5 cursor-pointer"
     >
       {cellConfig.map((cell) => (
