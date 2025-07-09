@@ -5,9 +5,9 @@ import { cn } from "@/utils";
 import React, { useState } from "react";
 import DetailTableItem from "./DetailTableItem";
 import Pagination from "./Pagination";
-import PostNoticeModal from "./modal/PostNoticeModal";
-import DeleteModal from "./modal/DeleteModal";
-import CheckBoxIcon from "./table/CheckBoxIcon";
+import PostNoticeModal from "../modal/PostNoticeModal";
+import DeleteModal from "../modal/DeleteModal";
+import CheckBoxIcon from "../common/CheckBoxIcon";
 
 interface DetailTableProps {
   isList: boolean;

@@ -1,6 +1,6 @@
 "use client";
 
-import DetailTable from "@/app/(admin)/_components/DetailTable";
+import DetailTable from "@/app/(admin)/_components/table/DetailTable";
 import React from "react";
 
 interface UserDetailFeedbackListProps {

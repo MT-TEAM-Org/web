@@ -6,9 +6,9 @@ import {
   SuggestionsTableRow,
   InquiryTableRow,
   NoticeTableRow,
-} from "../_type/DetailTableType/DetailTableItem";
+} from "../../_type/DetailTableType/DetailTableItem";
 import { useRouter } from "next/navigation";
-import CheckBoxIcon from "./table/CheckBoxIcon";
+import CheckBoxIcon from "../common/CheckBoxIcon";
 
 type DetailTableItemProps = {
   row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow;

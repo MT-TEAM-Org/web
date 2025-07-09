@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import DetailTable from "../../_components/DetailTable";
+import DetailTable from "../../_components/table/DetailTable";
 
 const Page = () => {
   return (
