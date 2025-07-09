@@ -16,6 +16,8 @@ const inputStyle =
   "flex-1 px-4 py-2 bg-white text-[14px] leading-5 text-gray8 border border-x-0 border-gray2";
 
 const PostNoticeModal = ({ show, setShow }: PostNoticeModalProps) => {
+  if (!show) return null;
+
   return createPortal(
     <div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50"
