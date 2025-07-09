@@ -1,8 +1,8 @@
 import Icon from "@/app/_components/IconComponents";
 import React from "react";
-import InquiriesMeta from "./_components/InquiriesMeta";
-import UserInquiriesList from "./_components/UserInquiriesList";
 import Link from "next/link";
+import UserDetailFeedbackList from "../../_components/userDetail/UserDetailFeedbackList";
+import MetaPanel from "../../_components/userDetail/MetaPanel";
 
 const Page = () => {
   return (
@@ -16,8 +16,12 @@ const Page = () => {
         </h1>
       </div>
       <div className="w-full flex gap-10">
-        <InquiriesMeta />
-        <UserInquiriesList />
+        <MetaPanel type="inquiry" title="문의 정보" />
+        <UserDetailFeedbackList
+          totalCount="165"
+          type="inquiry"
+          title="해당 유저의 문의 내역"
+        />
       </div>
     </div>
   );

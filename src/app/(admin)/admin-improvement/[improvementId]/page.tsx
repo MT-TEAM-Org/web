@@ -1,8 +1,8 @@
 import Icon from "@/app/_components/IconComponents";
 import React from "react";
 import Link from "next/link";
-import ImprovementMeta from "./_components/ImprovementMeta";
-import UserImprovementList from "./_components/UserImprovementList";
+import UserDetailFeedbackList from "../../_components/userDetail/UserDetailFeedbackList";
+import MetaPanel from "../../_components/userDetail/MetaPanel";
 
 const Page = () => {
   return (
@@ -16,8 +16,12 @@ const Page = () => {
         </h1>
       </div>
       <div className="w-full flex gap-10">
-        <ImprovementMeta />
-        <UserImprovementList />
+        <MetaPanel type="improvement" title="개선요청 내역" />
+        <UserDetailFeedbackList
+          totalCount="165"
+          type="improvement"
+          title="개선요청 내역"
+        />
       </div>
     </div>
   );
