@@ -167,9 +167,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         commonHeaders.content,
         commonHeaders.date,
       ];
-    }
-    // notice 타입에 대한 기본 반환값
-    else if (type === "notice") {
+    } else if (type === "notice") {
       return [
         commonHeaders.date,
         typeSpecificHeaders.notice.writer,
