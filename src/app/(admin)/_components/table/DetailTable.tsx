@@ -8,7 +8,6 @@ import Pagination from "./Pagination";
 import PostNoticeModal from "../modal/PostNoticeModal";
 import DeleteModal from "../modal/DeleteModal";
 import CheckBoxIcon from "../common/CheckBoxIcon";
-import { Key } from "lucide-react";
 
 interface DetailTableProps {
   isList: boolean;

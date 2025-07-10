@@ -3,8 +3,10 @@ import React from "react";
 import RadioGroup from "./RadioGroup";
 import SearchGroup from "./SearchGroup";
 import DateGroup from "./DateGroup";
-
-// TODO: 코드 리팩토링 필요
+import {
+  FilterConfig,
+  SEARCH_FILTER_CONFIG,
+} from "../../_type/SearchFilter/searchFilterConfig";
 
 const style = {
   buttonStyle:
@@ -35,6 +37,36 @@ const SearchFilter = ({ isContent = false }: SearchFilterProps) => {
     console.log("버튼 클릭", value);
   };
 
+  // 필터 컴포넌트 렌더링
+  const renderFilterComponent = (config: FilterConfig) => {
+    switch (config.type) {
+      case "radio":
+        return (
+          <RadioGroup
+            key={config.name}
+            label={config.label}
+            name={config.name}
+            options={config.options!}
+          />
+        );
+      case "search":
+        return (
+          <SearchGroup
+            key={config.name}
+            label={config.label}
+            name={config.name}
+            placeholder={config.placeholder!}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  const currentConfig = isContent
+    ? SEARCH_FILTER_CONFIG.content
+    : SEARCH_FILTER_CONFIG.default;
+
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="flex h-[56px] justify-between items-center">
@@ -54,97 +86,15 @@ const SearchFilter = ({ isContent = false }: SearchFilterProps) => {
         </div>
       </div>
       <div className="flex">
+        {/* 왼쪽 필터 영역 */}
         <div className={cn(style.searchBoxStyle, "rounded-r-none border-r-0")}>
-          {!isContent ? (
-            <>
-              <RadioGroup
-                label="회원 여부"
-                name="memberType"
-                options={[
-                  { id: "member", label: "회원" },
-                  { id: "non-member", label: "비회원" },
-                ]}
-              />
-              <RadioGroup
-                label="처리 상태"
-                name="status"
-                options={[
-                  { id: "waiting", label: "답변대기" },
-                  { id: "completed", label: "답변완료" },
-                ]}
-              />
-              <SearchGroup
-                label="문의내용"
-                name="content"
-                placeholder="검색어를 입력해 주세요."
-              />
-            </>
-          ) : (
-            <>
-              <RadioGroup
-                label="신고 여부"
-                name="isReport"
-                options={[
-                  { id: "true", label: "신고" },
-                  { id: "false", label: "미신고" },
-                ]}
-              />
-              <RadioGroup
-                label="처리 상태"
-                name="status"
-                options={[
-                  { id: "show", label: "노출" },
-                  { id: "waiting", label: "보류" },
-                  { id: "hide", label: "숨김" },
-                ]}
-              />
-              <RadioGroup
-                label="유형"
-                name="type"
-                options={[
-                  { id: "board", label: "게시글" },
-                  { id: "comment", label: "댓글" },
-                  { id: "chat", label: "채팅" },
-                ]}
-              />
-            </>
-          )}
+          {currentConfig.left.map(renderFilterComponent)}
         </div>
-        <div className={cn(style.searchBoxStyle, "rounded-l-none border-l-0")}>
-          {/* 작성기간 */}
-          <DateGroup />
 
-          {!isContent ? (
-            <>
-              <SearchGroup
-                label="닉네임"
-                name="nickname"
-                placeholder="닉네임을 입력해 주세요."
-              />
-              <SearchGroup
-                label="이메일"
-                name="email"
-                placeholder="이메일을 입력해 주세요."
-              />
-            </>
-          ) : (
-            <>
-              <RadioGroup
-                label="검색 유형"
-                name="type"
-                options={[
-                  { id: "title", label: "제목" },
-                  { id: "titleContent", label: "제목+내용" },
-                  { id: "writer", label: "작성자" },
-                ]}
-              />
-              <SearchGroup
-                label="검색내용"
-                name="searchContent"
-                placeholder="검색어를 입력해 주세요."
-              />
-            </>
-          )}
+        {/* 오른쪽 필터 영역 */}
+        <div className={cn(style.searchBoxStyle, "rounded-l-none border-l-0")}>
+          <DateGroup />
+          {currentConfig.right.map(renderFilterComponent)}
         </div>
       </div>
     </div>

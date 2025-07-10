@@ -221,6 +221,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
 
   const cellConfig = getCellConfig();
 
+  // 경로 수정 필요
   const getLinkPath = () => {
     switch (type) {
       case "inquiry":
