@@ -205,7 +205,11 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         if (typeGuards.content(row)) {
           return row.type === "게시글"
             ? `/dashBoard/content/post/${idx}`
-            : `/dashBoard/content/comment/${idx}`;
+            : row.type === "댓글"
+            ? `/dashBoard/content/comment/${idx}`
+            : row.type === "채팅"
+            ? `/dashBoard/content/chat/${idx}`
+            : "/dashBoard";
         }
         return "#";
       case "notice":

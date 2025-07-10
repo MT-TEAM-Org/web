@@ -36,14 +36,58 @@ const mockData = {
         "문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용",
     },
   ],
-};
-
-type contentType = {
-  type: "post" | "comment";
+  content: [
+    {
+      name: "처리상태",
+      value: "노출",
+    },
+    {
+      name: "신고여부",
+      value: "신고",
+    },
+    {
+      name: "신고수",
+      value: "12",
+    },
+    {
+      name: "추천수",
+      value: "12",
+    },
+    {
+      name: "작성날짜",
+      value: "2025.05.05/18:24:32 (IP 106.101.44.321)",
+    },
+    {
+      name: "회원상태",
+      value: "정상",
+    },
+    {
+      name: "작성자",
+      value: "hive짱짱12",
+    },
+    {
+      name: "첨부링크",
+      value: "https://www.vaver.com/23423432",
+    },
+    {
+      name: "제목",
+      value: "게시글제목게시글제목게시글제목게시글제목",
+    },
+    {
+      name: "내용",
+      value: "내용내용내용내용내용내용",
+    },
+    {
+      name: "투표",
+      value: "투표 제목 T1 VS 젠지 누가 이길것같나요?",
+      // value: "옵션1 T1 (61% 31명 투표)",
+      // value: "옵션2 젠지 (39% 12명 투표)",
+    },
+  ],
 };
 
 interface MetaPanelProps {
-  type: "inquiry" | "suggestions" | contentType;
+  type: "inquiry" | "suggestions" | "content";
   title: string;
 }
 
@@ -60,17 +104,18 @@ const MetaPanel = ({ type, title }: MetaPanelProps) => {
           {title}
         </h2>
         <div className="flex gap-2 items-center">
-          {type === "suggestions" && (
-            <Link
-              href="/"
-              className={cn(
-                buttonStyle,
-                "bg-white border border-gray3 hover:bg-gray1 text-black"
-              )}
-            >
-              게시물 새창열기
-            </Link>
-          )}
+          {type === "suggestions" ||
+            (type === "content" && (
+              <Link
+                href="/"
+                className={cn(
+                  buttonStyle,
+                  "bg-white border border-gray3 hover:bg-gray1 text-black"
+                )}
+              >
+                게시물 새창열기
+              </Link>
+            ))}
           <button className={cn(buttonStyle, "bg-gra hover:bg-gra/80")}>
             저장
           </button>
@@ -85,11 +130,29 @@ const MetaPanel = ({ type, title }: MetaPanelProps) => {
             <p className="w-[100px] h-full px-3 py-2 bg-gray1 flex items-center justify-center font-bold text-[14px] leading-5 text-gray8">
               {item.name}
             </p>
-            <p className={cn("flex-1 px-4 py-2 bg-white h-full", item.style)}>
+            <p
+              className={cn(
+                "flex-1 px-4 py-2 bg-white h-full font-medium text-[14px] leading-5",
+                item.style
+              )}
+            >
               {item.value}
             </p>
           </div>
         ))}
+        {type === "content" && (
+          <RadioGroup
+            label="처리 상태"
+            name="status"
+            type="radio"
+            className="border border-gray2 border-b-0"
+            options={[
+              { id: "waiting", label: "노출" },
+              { id: "completed", label: "보류" },
+              { id: "success", label: "숨김" },
+            ]}
+          />
+        )}
         <div className="w-full min-h-[40px] flex items-center border border-gray2">
           <p className="w-[100px] h-full px-3 py-2 bg-gray1 flex items-center justify-center font-bold text-[14px] leading-5 text-gray8">
             답변
@@ -98,7 +161,7 @@ const MetaPanel = ({ type, title }: MetaPanelProps) => {
             <input
               type="text"
               placeholder="내용을 입력해 주세요"
-              className="w-full min-h-[40px] rounded-[5px] border p-3 bg-white border-gray3"
+              className="w-full h-[40px] rounded-[5px] border p-3 bg-white border-gray3"
             />
           </div>
         </div>
