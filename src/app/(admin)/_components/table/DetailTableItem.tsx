@@ -117,12 +117,15 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "status",
           value: row.status,
-          className: "w-[100px]",
+          className: cn("w-[100px]", row.status === "숨김" && "text-gra"),
         },
         {
           key: "isReport",
           value: row.isReport,
-          className: "w-[80px]",
+          className: cn(
+            "w-[100px] font-bold",
+            row.isReport === "신고" && "text-warning"
+          ),
         },
         {
           key: "reportCount",
@@ -132,7 +135,10 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "userStatus",
           value: row.userStatus,
-          className: "w-[80px]",
+          className: cn(
+            "w-[100px]",
+            row.userStatus === "경고" && "text-[#FF7300]"
+          ),
         },
         {
           key: "writer",
@@ -254,7 +260,10 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
       {cellConfig.map((cell) => (
         <td
           key={cell.key}
-          className={cn("px-4 py-2 text-center", cell.className)}
+          className={cn(
+            "px-4 py-2 text-center h-[36px] font-medium text-[14px] leading-5 text-gray8",
+            cell.className
+          )}
         >
           {cell.value}
         </td>
