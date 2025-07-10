@@ -202,7 +202,12 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
       case "suggestions":
         return `/dashBoard/suggestions/${idx}`;
       case "content":
-        return `/dashBoard/content/${idx}`;
+        if (typeGuards.content(row)) {
+          return row.type === "게시글"
+            ? `/dashBoard/content/post/${idx}`
+            : `/dashBoard/content/comment/${idx}`;
+        }
+        return "#";
       case "notice":
         return `/dashBoard/notices/${idx}`;
       default:
