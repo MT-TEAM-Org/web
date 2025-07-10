@@ -11,7 +11,7 @@ import CheckBoxIcon from "../common/CheckBoxIcon";
 
 interface DetailTableProps {
   isList: boolean;
-  type: "suggestions" | "inquiry" | "notice" | "content";
+  type: "suggestions" | "inquiry" | "notice" | "content" | "detailContent";
   title?: string;
   totalCount?: string;
 }
@@ -145,6 +145,44 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         className: !isList ? "truncate min-w-[103px]" : "truncate flex-1",
       },
     },
+    detailContent: {
+      reportUser: {
+        key: "reportUser",
+        label: "신고자",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "w-[160px]",
+      },
+      reportType: {
+        key: "reportType",
+        label: "신고 유형",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "w-[100px]",
+      },
+      userStatus: {
+        key: "userStatus",
+        label: "회원상태",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "w-[100px]",
+      },
+      reason: {
+        key: "reason",
+        label: "사유",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "flex-1 truncate",
+      },
+      type: {
+        key: "type",
+        label: "유형",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "w-[100px]",
+      },
+      reportDate: {
+        key: "reportDate",
+        label: "신고날짜",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "w-[200px]",
+      },
+    },
   };
 
   // 타입별 헤더 구성
@@ -174,7 +212,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         typeSpecificHeaders.notice.title,
         typeSpecificHeaders.notice.content,
       ];
-    } else {
+    } else if (type === "content") {
       return [
         commonHeaders.status,
         typeSpecificHeaders.content.isReport,
@@ -184,6 +222,13 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         typeSpecificHeaders.content.type,
         typeSpecificHeaders.content.titleContent,
         commonHeaders.date,
+      ];
+    } else if (type === "detailContent") {
+      return [
+        typeSpecificHeaders.detailContent.reportUser,
+        typeSpecificHeaders.detailContent.reportType,
+        typeSpecificHeaders.detailContent.reason,
+        typeSpecificHeaders.detailContent.reportDate,
       ];
     }
   };
@@ -279,10 +324,26 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
           reportCount: "10",
           userStatus: "정상",
           writer: "hive짱짱12",
-          type: "게시글",
+          type: "채팅",
           titleContent:
             "댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목",
           date: "25.05.29",
+        },
+      ];
+    } else if (type === "detailContent") {
+      return [
+        {
+          reportUser: "hive짱짱12",
+          reportType: "정치",
+          reason:
+            "쵸비 개새끼쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기",
+          reportDate: "2025.05.29 / 18:24:32",
+        },
+        {
+          reportUser: "hive짱짱34",
+          reportType: "욕설",
+          reason: "-",
+          reportDate: "2025.05.29 / 18:24:32",
         },
       ];
     }

@@ -7,14 +7,20 @@ import {
   InquiryTableRow,
   NoticeTableRow,
   ContentTableRow,
+  DetailContentTableRow,
 } from "../../_type/DetailTableType/DetailTableItem";
 import { useRouter } from "next/navigation";
 import CheckBoxIcon from "../common/CheckBoxIcon";
 
 type DetailTableItemProps = {
-  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow | ContentTableRow;
+  row:
+    | InquiryTableRow
+    | SuggestionsTableRow
+    | NoticeTableRow
+    | ContentTableRow
+    | DetailContentTableRow;
   idx: number;
-  type: "inquiry" | "suggestions" | "notice" | "content";
+  type: "inquiry" | "suggestions" | "notice" | "content" | "detailContent";
   isList: boolean;
 };
 
@@ -28,6 +34,11 @@ const typeGuards = {
     "reportCount" in row &&
     "userStatus" in row &&
     "titleContent" in row,
+  detailContent: (row: any): row is DetailContentTableRow =>
+    "reportUser" in row &&
+    "reportType" in row &&
+    "reason" in row &&
+    "reportDate" in row,
   suggestions: (row: any): row is SuggestionsTableRow =>
     "recommendations" in row && "nickname" in row && "importance" in row,
 };
@@ -185,6 +196,29 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "date",
           value: row.date,
+          className: !isList ? "w-[160px]" : "w-[160px]",
+        },
+      ];
+    } else if (typeGuards.detailContent(row)) {
+      return [
+        {
+          key: "reportUser",
+          value: row.reportUser,
+          className: "w-[160px]",
+        },
+        {
+          key: "reportType",
+          value: row.reportType,
+          className: "w-[160px]",
+        },
+        {
+          key: "reason",
+          value: row.reason,
+          className: !isList ? "min-w-[103px] truncate" : "flex-1 truncate",
+        },
+        {
+          key: "reportDate",
+          value: row.reportDate,
           className: !isList ? "w-[160px]" : "w-[160px]",
         },
       ];

@@ -53,7 +53,7 @@ const Page = () => {
         />
         <UserDetailFeedbackList
           totalCount="165"
-          type="inquiry"
+          type="detailContent"
           title="게시물 정보"
         />
       </div>
