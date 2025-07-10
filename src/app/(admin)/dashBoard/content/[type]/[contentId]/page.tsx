@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import MetaPanel from "@/app/(admin)/_components/userDetail/MetaPanel";
 import UserDetailFeedbackList from "@/app/(admin)/_components/userDetail/UserDetailFeedbackList";
-import Icon from "@/app/_components/IconComponents";
+import DetailTitle from "@/app/(admin)/_components/detail/DetailTitle";
 
 const Page = () => {
   const router = useRouter();
@@ -16,7 +16,8 @@ const Page = () => {
     }
   }, [type]);
 
-  const backName = () => {
+  // 상단 제목
+  const getContentTitle = () => {
     switch (type) {
       case "post":
         return "게시물 내역 상세";
@@ -27,34 +28,27 @@ const Page = () => {
     }
   };
 
+  // 메타 테이블 제목
+  const getContentMetaTitle = () => {
+    switch (type) {
+      case "post":
+        return "게시물 정보";
+      case "comment":
+        return "댓글 정보";
+      case "chat":
+        return "채팅 정보";
+    }
+  };
+
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="flex gap-2 items-center justify-start">
-        <button
-          onClick={() => router.back()}
-          className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-black"
-        >
-          <Icon icon="BACK_ARROW" />
-        </button>
-        <h1 className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-black">
-          {backName()}
-        </h1>
-      </div>
+      <DetailTitle title={getContentTitle()} backPath="/dashBoard/content" />
       <div className="w-full flex gap-10">
-        <MetaPanel
-          type="content"
-          title={
-            type === "post"
-              ? "게시물 정보"
-              : type === "comment"
-              ? "댓글 정보"
-              : "채팅 정보"
-          }
-        />
+        <MetaPanel type="content" title={getContentMetaTitle()} />
         <UserDetailFeedbackList
           totalCount="165"
           type="detailContent"
-          title="게시물 정보"
+          title="신고 받은 내역"
         />
       </div>
     </div>
