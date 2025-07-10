@@ -1,19 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import MetaPanel from "@/app/(admin)/_components/userDetail/MetaPanel";
+import UserDetailFeedbackList from "@/app/(admin)/_components/userDetail/UserDetailFeedbackList";
 
 const Page = () => {
   const router = useRouter();
   const { type, contentId } = useParams();
-  console.log(type, contentId);
 
-  if (type === "post" || type === "comment") router.push("/dashBoard/content");
+  useEffect(() => {
+    if (type !== "post" && type !== "comment") {
+      router.push("/dashBoard/content");
+    }
+  }, [type]);
 
   return (
-    <div>
-      <p>{type}</p>
-      <p>{contentId}</p>
+    <div className="w-full flex gap-10">
+      <MetaPanel type="inquiry" title="게시물 정보" />
+      <UserDetailFeedbackList
+        totalCount="165"
+        type="inquiry"
+        title="게시물 정보"
+      />
     </div>
   );
 };

@@ -38,8 +38,12 @@ const mockData = {
   ],
 };
 
+type contentType = {
+  type: "post" | "comment";
+};
+
 interface MetaPanelProps {
-  type: "inquiry" | "suggestions";
+  type: "inquiry" | "suggestions" | contentType;
   title: string;
 }
 
