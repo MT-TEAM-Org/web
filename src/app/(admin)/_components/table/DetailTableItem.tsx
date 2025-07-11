@@ -3,42 +3,17 @@
 import React from "react";
 import { cn } from "@/utils";
 import {
-  SuggestionsTableRow,
-  InquiryTableRow,
-  NoticeTableRow,
-  ContentTableRow,
-  DetailContentTableRow,
   rowDataType,
   tableMeta,
 } from "../../_type/DetailTable/DetailTableItem";
 import { useRouter } from "next/navigation";
 import CheckBoxIcon from "../common/CheckBoxIcon";
-
-// TODO: 타입 정리 및 구조 리팩터링 필요
+import { typeGuards } from "../../_utils/tableItemTypeGuards";
 
 interface DetailTableItemProps {
   rowData: rowDataType;
   tableMeta: tableMeta;
 }
-
-const typeGuards = {
-  inquiry: (row: any): row is InquiryTableRow =>
-    "member" in row && "email" in row,
-  notice: (row: any): row is NoticeTableRow =>
-    "writer" in row && "title" in row && "content" in row,
-  content: (row: any): row is ContentTableRow =>
-    "isReport" in row &&
-    "reportCount" in row &&
-    "userStatus" in row &&
-    "titleContent" in row,
-  detailContent: (row: any): row is DetailContentTableRow =>
-    "reportUser" in row &&
-    "reportType" in row &&
-    "reason" in row &&
-    "reportDate" in row,
-  suggestions: (row: any): row is SuggestionsTableRow =>
-    "recommendations" in row && "nickname" in row && "importance" in row,
-};
 
 const DetailTableItem = ({ rowData, tableMeta }: DetailTableItemProps) => {
   const router = useRouter();
@@ -229,7 +204,7 @@ const DetailTableItem = ({ rowData, tableMeta }: DetailTableItemProps) => {
         {
           key: "reportDate",
           value: rowData.row.reportDate,
-          className: !tableMeta.isList ? "w-[160px]" : "w-[160px]",
+          className: "w-[160px]",
         },
       ];
     }
