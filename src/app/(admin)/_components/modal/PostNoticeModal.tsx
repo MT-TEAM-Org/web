@@ -1,22 +1,57 @@
 "use client";
 
-"use client";
-
 import { cn } from "@/utils";
 import React from "react";
 import { createPortal } from "react-dom";
 import { RichTextEditor } from "../editor/RichTextEditor";
 
+const style = {
+  boxStyle: "w-full flex items-center border-b border-gray2",
+  labelStyle:
+    "w-[100px] h-full px-3 py-2 bg-gray1 font-bold text-[14px] leading-5 text-gray8 flex items-center justify-center",
+};
+
+// 폴더 구조 수정 필요
+interface NoticeModalGroupProps {
+  label: string;
+  type: "writer" | "input";
+}
+
+const NoticeModalGroup = ({ label, type }: NoticeModalGroupProps) => {
+  return (
+    <div
+      className={cn(
+        style.boxStyle,
+        type === "writer" ? "h-[40px]" : "h-[56px]"
+      )}
+    >
+      <p className={style.labelStyle}>{label}</p>
+      <div
+        className={cn(
+          "flex-1 px-4 py-2 bg-white text-[14px] leading-5 text-gray8 border-t border-gray2",
+          type === "writer" ? "h-[40px]" : "h-[56px]"
+        )}
+      >
+        {type === "writer" ? (
+          <p className="flex-1 h-full bg-white text-[14px] leading-5 text-gray8">
+            플레이하이브 관리자
+          </p>
+        ) : (
+          <input
+            type="text"
+            placeholder="내용을 입력해주세요."
+            className="w-full h-[40px] rounded-[5px] border p-3 bg-white border-gray3"
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
 interface PostNoticeModalProps {
   show: boolean;
   setShow: (show: boolean) => void;
 }
-
-const boxStyle = "w-full flex items-center border-b border-gray2";
-const labelStyle =
-  "w-[100px] h-full px-3 py-2 bg-gray1 font-bold text-[14px] leading-5 text-gray8 flex items-center justify-center";
-const inputStyle =
-  "flex-1 px-4 py-2 bg-white text-[14px] leading-5 text-gray8 border border-x-0 border-gray2";
 
 const PostNoticeModal = ({ show, setShow }: PostNoticeModalProps) => {
   if (!show) return null;
@@ -25,6 +60,13 @@ const PostNoticeModal = ({ show, setShow }: PostNoticeModalProps) => {
     e.preventDefault();
     setShow(false);
   };
+
+  // 폴더 구조 수정 필요
+  const noticeFormFields = [
+    { label: "작성자", type: "writer" },
+    { label: "제목", type: "input" },
+    { label: "첨부링크", type: "input" },
+  ] as const;
 
   return createPortal(
     <div
@@ -39,35 +81,16 @@ const PostNoticeModal = ({ show, setShow }: PostNoticeModalProps) => {
         <h3 className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-black">
           공지사항 등록
         </h3>
-        <div className="w-full h-auto border border-gray2">
-          <div className={cn(boxStyle, "h-[40px]")}>
-            <p className={labelStyle}>작성자</p>
-            <p className="flex-1 h-full px-4 py-2 bg-white text-[14px] leading-5 text-gray8">
-              플레이하이브 관리자
-            </p>
-          </div>
-          <div className={cn(boxStyle, "h-[56px]")}>
-            <p className={labelStyle}>제목</p>
-            <div className={inputStyle}>
-              <input
-                type="text"
-                placeholder="내용을 입력해주세요."
-                className="w-full h-[40px] rounded-[5px] border p-3 bg-white border-gray3"
-              />
-            </div>
-          </div>
-          <div className={cn(boxStyle, "h-[56px]")}>
-            <p className={labelStyle}>첨부링크</p>
-            <div className={inputStyle}>
-              <input
-                type="text"
-                placeholder="내용을 입력해주세요."
-                className="w-full h-[40px] rounded-[5px] border p-3 bg-white border-gray3"
-              />
-            </div>
-          </div>
-          <div className={cn(boxStyle, "h-full")}>
-            <p className={cn(labelStyle, "h-[344px]")}>내용</p>
+        <div className="w-full h-auto border border-gray2 rounded-[5px] overflow-hidden">
+          {noticeFormFields.map((field, index) => (
+            <NoticeModalGroup
+              key={index}
+              label={field.label}
+              type={field.type}
+            />
+          ))}
+          <div className={cn(style.boxStyle, "h-full border-b-0")}>
+            <p className={cn(style.labelStyle, "h-[344px]")}>내용</p>
             <div className="flex-1 h-[344px] px-4 py-2 bg-white flex flex-col items-center justify-center">
               <RichTextEditor placeholder="내용을 입력해주세요." />
             </div>
@@ -85,4 +108,4 @@ const PostNoticeModal = ({ show, setShow }: PostNoticeModalProps) => {
   );
 };
 
-export default PostNoticeModal;
+export default React.memo(PostNoticeModal);
