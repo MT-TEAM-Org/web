@@ -8,6 +8,7 @@ import Pagination from "./Pagination";
 import PostNoticeModal from "../modal/PostNoticeModal";
 import DeleteModal from "../modal/DeleteModal";
 import CheckBoxIcon from "../common/CheckBoxIcon";
+import { onlyNoticeButtons } from "../../_constants/onlyNoticeButtons";
 
 interface DetailTableProps {
   isList: boolean;
@@ -338,26 +339,16 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
     data: getMockData(),
   };
 
-  const noticeButton = [
-    {
-      name: "전체 삭제",
-      value: "deleteAll",
-      style: "bg-white border border-gray3 hover:bg-gray1",
-      onClick: () => {},
-    },
-    {
-      name: "삭제",
-      value: "delete",
-      style: "bg-white border border-gray3 hover:bg-gray1",
-      onClick: () => setShowDeleteModal(true),
-    },
-    {
-      name: "공지 등록",
-      value: "register",
-      style: "bg-Primary text-white hover:bg-primary/80",
-      onClick: () => setShowPostModal(true),
-    },
-  ];
+  // 공지 버튼 핸들러
+  const handleNoticeButton = (value: string) => {
+    if (value === "deleteAll") {
+      // setShowDeleteModal(true);
+    } else if (value === "delete") {
+      setShowDeleteModal(true);
+    } else if (value === "register") {
+      setShowPostModal(true);
+    }
+  };
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -373,11 +364,11 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
           </div>
           {type === "notice" && (
             <div className="flex gap-2">
-              {noticeButton.map((button) => (
+              {onlyNoticeButtons.map((button) => (
                 <button
                   key={button.value}
                   className={cn(buttonStyle, button.style)}
-                  onClick={button.onClick}
+                  onClick={() => handleNoticeButton(button.value)}
                 >
                   {button.name}
                 </button>
