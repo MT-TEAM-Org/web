@@ -1,26 +1,34 @@
 import { rowDataType, tableMeta } from "../_type/DetailTable/DetailTableItem";
 import { typeGuards } from "./tableItemTypeGuards";
 
-export const getLinkPath = (rowData: rowDataType, tableMeta: tableMeta) => {
-    switch (rowData.type) {
-      case "inquiry":
-        return `/dashBoard/inquiries/${tableMeta.idx}`;
-      case "suggestions":
-        return `/dashBoard/suggestions/${tableMeta.idx}`;
-      case "content":
-        if (typeGuards.content(rowData.row)) {
-          return rowData.row.type === "게시글"
-            ? `/dashBoard/content/post/${tableMeta.idx}`
-            : rowData.row.type === "댓글"
-            ? `/dashBoard/content/comment/${tableMeta.idx}`
-            : rowData.row.type === "채팅"
-            ? `/dashBoard/content/chat/${tableMeta.idx}`
-            : "/dashBoard";
-        }
-        return "#";
-      case "notice":
-        return `/dashBoard/notices/${tableMeta.idx}`;
-      default:
-        return "#";
-    }
-  };
+const CONTENT_TYPE_MAP = {
+  "게시글": "post",
+  "댓글": "comment", 
+  "채팅": "chat",
+} as const;
+
+export const getLinkPath = (rowData: rowDataType, tableMeta: tableMeta): string => {
+  const { type } = rowData;
+  const { idx } = tableMeta;
+
+  switch (type) {
+    case "inquiry":
+      return `/dashBoard/inquiries/${idx}`;
+    
+    case "suggestions":
+      return `/dashBoard/suggestions/${idx}`;
+    
+    case "notice":
+      return `/dashBoard/notices/${idx}`;
+    
+    case "content":
+      if (!typeGuards.content(rowData.row)) return "#";
+      
+      const contentRoute = CONTENT_TYPE_MAP[rowData.row.type];
+      return contentRoute 
+        && `/dashBoard/content/${contentRoute}/${idx}`
+    
+    default:
+      return "/dashBoard";
+  }
+};

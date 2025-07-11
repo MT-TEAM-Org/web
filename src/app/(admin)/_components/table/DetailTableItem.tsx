@@ -22,13 +22,14 @@ const DetailTableItem = ({ rowData, tableMeta }: DetailTableItemProps) => {
   const cellConfig = getCellConfig(rowData, tableMeta);
 
   const handleRoute = () => {
-    if (
-      tableMeta.isList &&
-      ((rowData.type === "inquiry" && typeGuards.inquiry(rowData.row)) ||
-        (rowData.type === "suggestions" &&
-          typeGuards.suggestions(rowData.row)) ||
-        (rowData.type === "content" && typeGuards.content(rowData.row)))
-    ) {
+    if (!tableMeta.isList) return;
+
+    const canNavigate =
+      (rowData.type === "inquiry" && typeGuards.inquiry(rowData.row)) ||
+      (rowData.type === "suggestions" && typeGuards.suggestions(rowData.row)) ||
+      (rowData.type === "content" && typeGuards.content(rowData.row));
+
+    if (canNavigate) {
       router.push(getLinkPath(rowData, tableMeta));
     }
   };

@@ -4,7 +4,7 @@ import { tableMeta } from "../_type/DetailTable/DetailTableItem";
 import { typeGuards } from "../_utils/tableItemTypeGuards";
 
 // 테이블 아이템 타입별 셀 구성
-// TODO: 리팩터링 필요, class 고려중
+// TODO: 리팩터링 필요, 객체지향 설계 고려중
 export const getCellConfig = (rowData: rowDataType, tableMeta: tableMeta) => {
   if (typeGuards.inquiry(rowData.row)) {
     return [
