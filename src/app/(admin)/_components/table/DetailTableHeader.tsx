@@ -2,12 +2,14 @@ import React from "react";
 import CheckBoxIcon from "../common/CheckBoxIcon";
 import Icon from "@/app/_components/IconComponents";
 import { cn } from "@/utils";
-import { TableHeaderItem } from "../../_type/DetailTableType/DetailTableHeader";
+import {
+  DropDownControl,
+  TableHeaderItem,
+} from "../../_type/DetailTableType/DetailTableHeader";
 
 interface DetailTableHeaderProps {
   type: "suggestions" | "inquiry" | "notice" | "content" | "detailContent";
-  dropDown: Record<string, boolean>;
-  setDropDown: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
+  dropDownControl: DropDownControl;
   tableConfig: {
     headers: TableHeaderItem[];
   };
@@ -15,13 +17,12 @@ interface DetailTableHeaderProps {
 
 const DetailTableHeader = ({
   type,
-  dropDown,
-  setDropDown,
+  dropDownControl,
   tableConfig,
 }: DetailTableHeaderProps) => {
   // 드롭다운 핸들러
   const handleDropDown = (key: string) => {
-    setDropDown((prev) => ({
+    dropDownControl.setDropDown((prev) => ({
       ...prev,
       [key]: !prev[key],
     }));
@@ -48,7 +49,7 @@ const DetailTableHeader = ({
               <span className="mx-auto">{header.label}</span>
               <Icon
                 icon={
-                  dropDown[header.key]
+                  dropDownControl.dropDown[header.key]
                     ? "SEARCH_DROPDOWN_UP"
                     : "SEARCH_DROPDOWN_DOWN"
                 }

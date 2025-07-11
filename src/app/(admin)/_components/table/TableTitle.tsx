@@ -1,26 +1,22 @@
 import React from "react";
 import { cn } from "@/utils";
 import { onlyNoticeButtons } from "../../_constants/onlyNoticeButtons";
+import {
+  ModalControls,
+  TableInfo,
+} from "../../_type/DetailTableType/DetailTableTitle";
 
 interface TableTitleProps {
-  isList: boolean;
-  type: string;
-  title?: string;
-  totalCount?: string;
-  setShowDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowPostModal: React.Dispatch<React.SetStateAction<boolean>>;
+  tableInfo: TableInfo;
+  modalControls: ModalControls;
 }
 
 const buttonStyle =
   "w-[120px] h-[40px] flex items-center justify-center rounded-[5px] px-4 py-[13px] font-bold text-[14px]";
 
 const TableTitle = ({
-  isList,
-  type,
-  title,
-  totalCount,
-  setShowDeleteModal,
-  setShowPostModal,
+  tableInfo: { isList, type, title, totalCount },
+  modalControls: { setShowDeleteModal, setShowPostModal },
 }: TableTitleProps) => {
   // 공지 버튼 핸들러
   const handleNoticeButton = (value: string) => {

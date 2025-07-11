@@ -31,19 +31,14 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
   return (
     <div className="w-full flex flex-col gap-4">
       <TableTitle
-        isList={isList}
-        type={type}
-        title={title}
-        totalCount={totalCount}
-        setShowDeleteModal={setShowDeleteModal}
-        setShowPostModal={setShowPostModal}
+        tableInfo={{ isList, type, title, totalCount }}
+        modalControls={{ setShowDeleteModal, setShowPostModal }}
       />
       <div className="overflow-x-auto border border-b-0 rounded-md">
         <table className="min-w-full h-[36px] text-left border-collapse text-nowrap table-fixed w-full">
           <DetailTableHeader
             type={type}
-            dropDown={dropDown}
-            setDropDown={setDropDown}
+            dropDownControl={{ dropDown, setDropDown }}
             tableConfig={tableConfig}
           />
           <tbody className="text-gray8 select-none">
@@ -52,10 +47,8 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
               return (
                 <DetailTableItem
                   key={idx}
-                  row={rowData}
-                  idx={idx}
-                  type={type}
-                  isList={isList}
+                  rowData={{ row: rowData, type }}
+                  tableMeta={{ idx, isList }}
                 />
               );
             })}
