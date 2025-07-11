@@ -5,7 +5,7 @@ import { cn } from "@/utils";
 import {
   DropDownControl,
   TableHeaderItem,
-} from "../../_type/DetailTableType/DetailTableHeader";
+} from "../../_type/DetailTable/DetailTableHeader";
 
 interface DetailTableHeaderProps {
   type: "suggestions" | "inquiry" | "notice" | "content" | "detailContent";

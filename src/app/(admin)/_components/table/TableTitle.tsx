@@ -4,7 +4,7 @@ import { onlyNoticeButtons } from "../../_constants/onlyNoticeButtons";
 import {
   ModalControls,
   TableInfo,
-} from "../../_type/DetailTableType/DetailTableTitle";
+} from "../../_type/DetailTable/DetailTableTitle";
 
 interface TableTitleProps {
   tableInfo: TableInfo;

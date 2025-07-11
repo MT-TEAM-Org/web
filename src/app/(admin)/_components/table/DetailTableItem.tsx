@@ -10,7 +10,7 @@ import {
   DetailContentTableRow,
   rowDataType,
   tableMeta,
-} from "../../_type/DetailTableType/DetailTableItem";
+} from "../../_type/DetailTable/DetailTableItem";
 import { useRouter } from "next/navigation";
 import CheckBoxIcon from "../common/CheckBoxIcon";
 
