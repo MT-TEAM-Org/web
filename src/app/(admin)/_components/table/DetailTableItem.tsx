@@ -257,7 +257,6 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
     if (
       isList &&
       ((type === "inquiry" && typeGuards.inquiry(row)) ||
-        (type === "notice" && typeGuards.notice(row)) ||
         (type === "suggestions" && typeGuards.suggestions(row)) ||
         (type === "content" && typeGuards.content(row)))
     ) {

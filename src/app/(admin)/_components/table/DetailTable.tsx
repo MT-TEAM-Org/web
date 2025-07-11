@@ -22,31 +22,35 @@ const buttonStyle =
 const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
   const [showPostModal, setShowPostModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [dropDown, setDropDown] = useState<Record<string, boolean>>({});
+
+  const handleDropDown = (key: string) => {
+    setDropDown((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
   // 공통 헤더
   const commonHeaders = {
     status: {
       key: "status",
       label: "처리 상태",
-      icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-      className: isList ? "w-[100px]" : "w-[100px]",
+      className: "w-[100px]",
     },
     nickname: {
       key: "nickname",
       label: "닉네임",
-      icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
       className: "w-[160px]",
     },
     content: {
       key: "content",
       label: "내용",
-      icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
       className: !isList ? "truncate min-w-[103px]" : "truncate flex-1",
     },
     date: {
       key: "date",
       label: "작성날짜",
-      icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
       className: "w-[160px]",
     },
   };
@@ -57,19 +61,16 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
       importance: {
         key: "importance",
         label: "중요도",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[100px]",
       },
       recommendations: {
         key: "recommendations",
         label: "추천수",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[100px]",
       },
       title: {
         key: "title",
         label: "제목",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: !isList ? "truncate min-w-[103px]" : "truncate flex-1",
       },
     },
@@ -77,13 +78,11 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
       member: {
         key: "member",
         label: "회원 여부",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[160px]",
       },
       email: {
         key: "email",
         label: "닉네임/이메일",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[160px]",
       },
     },
@@ -91,19 +90,16 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
       writer: {
         key: "writer",
         label: "작성자",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[160px]",
       },
       title: {
         key: "title",
         label: "제목",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "truncate flex-1",
       },
       content: {
         key: "content",
         label: "내용",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "truncate flex-1",
       },
     },
@@ -111,37 +107,31 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
       isReport: {
         key: "isReport",
         label: "신고 여부",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[100px]",
       },
       reportCount: {
         key: "reportCount",
         label: "신고수",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[100px]",
       },
       userStatus: {
         key: "userStatus",
         label: "회원상태",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[100px]",
       },
       writer: {
         key: "writer",
         label: "작성자",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[160px]",
       },
       type: {
         key: "type",
         label: "유형",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[100px]",
       },
       titleContent: {
         key: "titleContent",
         label: "제목/내용",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: !isList ? "truncate min-w-[103px]" : "truncate flex-1",
       },
     },
@@ -149,37 +139,31 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
       reportUser: {
         key: "reportUser",
         label: "신고자",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[160px]",
       },
       reportType: {
         key: "reportType",
         label: "신고 유형",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[100px]",
       },
       userStatus: {
         key: "userStatus",
         label: "회원상태",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[100px]",
       },
       reason: {
         key: "reason",
         label: "사유",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "flex-1 truncate",
       },
       type: {
         key: "type",
         label: "유형",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[100px]",
       },
       reportDate: {
         key: "reportDate",
         label: "신고날짜",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
         className: "w-[200px]",
       },
     },
@@ -402,7 +386,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
           )}
         </div>
       )}
-      <div className="overflow-x-auto border rounded-md">
+      <div className="overflow-x-auto border border-b-0 rounded-md">
         <table className="min-w-full h-[36px] text-left border-collapse text-nowrap table-fixed w-full">
           <thead className="bg-gray1">
             <tr>
@@ -414,17 +398,27 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
               {tableConfig.headers.map((header) => (
                 <th
                   key={header.key}
-                  className={cn("px-3 py-2", header.className)}
+                  onClick={() => handleDropDown(header.key)}
+                  className={cn(
+                    "px-3 py-2 hover:bg-gray2 cursor-pointer border-b border-gray2",
+                    header.className
+                  )}
                 >
-                  <div className="flex justify-between items-center font-bold text-[14px] leading-5 text-gray8 cursor-pointer select-none">
+                  <div className="flex justify-between items-center font-bold text-[14px] leading-5 text-gray8 select-none">
                     <span className="mx-auto">{header.label}</span>
-                    <span>{header.icons}</span>
+                    <Icon
+                      icon={
+                        dropDown[header.key]
+                          ? "SEARCH_DROPDOWN_UP"
+                          : "SEARCH_DROPDOWN_DOWN"
+                      }
+                    />
                   </div>
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="text-gray8">
+          <tbody className="text-gray8 select-none">
             {Array.from({ length: 10 }, (_, idx) => {
               const rowData = tableConfig.data[idx % tableConfig.data.length];
               return (
