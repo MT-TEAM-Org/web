@@ -11,7 +11,6 @@ type NewPostItemProps = {
 };
 
 const NewPostItem = ({ newPosts }: NewPostItemProps) => {
-  console.log(newPosts);
   return (
     <Link
       href={{
