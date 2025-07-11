@@ -14,6 +14,8 @@ import {
 import { useRouter } from "next/navigation";
 import CheckBoxIcon from "../common/CheckBoxIcon";
 
+// TODO: 타입 정리 및 구조 리팩터링 필요
+
 interface DetailTableItemProps {
   rowData: rowDataType;
   tableMeta: tableMeta;

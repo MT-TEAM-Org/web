@@ -7,6 +7,7 @@ export type GetNewContentItem = {
   title: string;
   commentCount: number;
   isHot: boolean;
+  isNew: boolean;
   isImage: boolean;
 };
 
