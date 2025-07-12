@@ -1,11 +1,17 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import DateElement from "./DateElement";
+import { useDateRange } from "../../_hooks/date/useDateRange";
 
 const DateGroup = () => {
-  const startRef = useRef<HTMLInputElement>(null);
-  const endRef = useRef<HTMLInputElement>(null);
+  const {
+    dateStartInputRef,
+    dateEndInputRef,
+    selectedStartDate,
+    selectedEndDate,
+    handleDateChange,
+  } = useDateRange();
 
   return (
     <div className="flex h-[56px] border-b border-gray2">
@@ -14,12 +20,24 @@ const DateGroup = () => {
       </div>
 
       {/* 시작 날짜 */}
-      <DateElement placeholder="시작 날짜" ref={startRef} />
+      <DateElement
+        placeholder="시작 날짜"
+        ref={dateStartInputRef}
+        value={selectedStartDate}
+        onChange={(e) => handleDateChange("start", e)}
+      />
+
       <span className="flex items-center justify-center text-center mx-3 font-normal text-[16px] leading-7 tracking-[-0.02em] text-gray7 select-none">
         ~
       </span>
+
       {/* 종료 날짜 */}
-      <DateElement placeholder="종료 날짜" ref={endRef} />
+      <DateElement
+        placeholder="종료 날짜"
+        ref={dateEndInputRef}
+        value={selectedEndDate}
+        onChange={(e) => handleDateChange("end", e)}
+      />
     </div>
   );
 };
