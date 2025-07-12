@@ -2,87 +2,7 @@ import { cn } from "@/utils";
 import Link from "next/link";
 import React from "react";
 import RadioGroup from "@/app/(admin)/_components/search/RadioGroup";
-
-const mockData = {
-  inquiry: [
-    { name: "처리상태", value: "답변대기", style: "text-warning" },
-    { name: "작성날짜", value: "2025.05.05 / 18:24:32 (IP 106.101.44.321)" },
-    { name: "문의유형", value: "일반문의" },
-    { name: "회원 여부", value: "비회원" },
-    { name: "닉네임", value: "-" },
-    { name: "이메일", value: "hive12@gmail.com" },
-    {
-      name: "내용",
-      value:
-        "문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용",
-    },
-  ],
-  suggestions: [
-    {
-      name: "닉네임",
-      value: "하이브짱짱",
-    },
-    {
-      name: "작성날짜",
-      value: "2025.05.05/18:24:32 (IP 106.101.44.321)",
-    },
-    {
-      name: "제목",
-      value: "개선요청 제목개선요청 제목개선요청 제목개선요청 제목",
-    },
-    {
-      name: "내용",
-      value:
-        "문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용",
-    },
-  ],
-  content: [
-    {
-      name: "처리상태",
-      value: "노출",
-    },
-    {
-      name: "신고여부",
-      value: "신고",
-    },
-    {
-      name: "신고수",
-      value: "12",
-    },
-    {
-      name: "추천수",
-      value: "12",
-    },
-    {
-      name: "작성날짜",
-      value: "2025.05.05/18:24:32 (IP 106.101.44.321)",
-    },
-    {
-      name: "회원상태",
-      value: "정상",
-    },
-    {
-      name: "작성자",
-      value: "hive짱짱12",
-    },
-    {
-      name: "첨부링크",
-      value: "https://www.vaver.com/23423432",
-    },
-    {
-      name: "제목",
-      value: "게시글제목게시글제목게시글제목게시글제목",
-    },
-    {
-      name: "내용",
-      value: "내용내용내용내용내용내용",
-    },
-    {
-      name: "투표",
-      value: "-",
-    },
-  ],
-};
+import { MetaPanelData } from "../../MockData";
 
 interface MetaPanelProps {
   type: "inquiry" | "suggestions" | "content";
@@ -93,7 +13,7 @@ const buttonStyle =
   "w-[120px] h-[40px] rounded-[5px] text-center text-white font-bold text-[14px] transition-colors flex items-center justify-center";
 
 const MetaPanel = ({ type, title }: MetaPanelProps) => {
-  const data = mockData[type]; // 타입 데이터
+  const data = MetaPanelData[type]; // 타입 데이터
 
   return (
     <div className="w-1/2 flex flex-col gap-2">
