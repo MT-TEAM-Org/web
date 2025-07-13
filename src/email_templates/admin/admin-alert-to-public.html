@@ -75,8 +75,7 @@
                 <td
                   style="font-weight: 700; background-color: #FAFAFA; color: #303030; border: 1px solid #EEEEEE; text-align: center">
                   아이디</td>
-                <td th:text="${email}"
-                  style="padding: 12px; border: 1px solid #EEEEEE; font-weight: 500; color: #303030;">
+                <td th:text="${id}" style="padding: 12px; border: 1px solid #EEEEEE; font-weight: 500; color: #303030;">
                   Adminho123@naver.com</td>
               </tr>
               <tr>
@@ -91,7 +90,7 @@
                 <td
                   style="font-weight: 700; background-color: #FAFAFA; color: #303030; border: 1px solid #EEEEEE; text-align: center">
                   계정 잠금 날짜</td>
-                <td th:text="${lock_date} + ' (IP ' + ${ip} + ')'"
+                <td th:text="${lock_date} + ' ' + ${ip}"
                   style="padding: 12px; border: 1px solid #EEEEEE; font-weight: 500; color: #303030;">
                   2025.05.05 / 18:24:32 (IP 106.101.44.321)</td>
               </tr>
