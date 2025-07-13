@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
 import EmptyMatchBoard from "../_components/EmptyMatchBoard";
 import MatchDetailSkeleton from "../_components/matchSkeleton";
+
 export default function MatchTypePage({
   params,
 }: {
@@ -34,7 +35,7 @@ export default function MatchTypePage({
         <MatchDetailSkeleton />
       </div>
     );
-  } else if (isError) {
+  } else if (isError || scheduleData.length === 0) {
     return (
       <div className="flex justify-center items-center">
         <EmptyMatchBoard />
