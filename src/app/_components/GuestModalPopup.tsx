@@ -1,11 +1,14 @@
+"use client";
+
 import { ErrorMessage } from "@hookform/error-message";
-import React from "react";
+import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useForm } from "react-hook-form";
 import usePostInquiry from "@/_hooks/usePostInquiry";
 import { useToast } from "@/_hooks/useToast";
 import { cn } from "@/utils";
 import CustomIcon from "./IconComponents/Icon";
+import { usePathname, useSearchParams } from "next/navigation";
 
 interface GuestModalPopupProps {
   show: boolean;
@@ -18,6 +21,17 @@ interface InquiryData {
 }
 
 const GuestModalPopup = ({ show, setShow }: GuestModalPopupProps) => {
+  const searchParams = useSearchParams();
+  const guestModal = searchParams.get("guest-modal");
+
+  useEffect(() => {
+    if (!guestModal) return;
+
+    if (guestModal === "true") {
+      setShow(true);
+    }
+  }, [guestModal, setShow]);
+
   const { success } = useToast();
   const {
     register,
