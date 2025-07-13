@@ -20,7 +20,6 @@ export default function MatchTypePage({
     isError,
   } = useGetMatchSchedule(matchType);
   const scheduleData = scheduleResponse?.data?.list || [];
-  console.log(scheduleData);
 
   useEffect(() => {
     if (!isLoading && scheduleData.length > 0) {
