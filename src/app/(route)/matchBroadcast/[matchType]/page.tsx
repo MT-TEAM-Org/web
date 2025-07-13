@@ -20,6 +20,7 @@ export default function MatchTypePage({
     isError,
   } = useGetMatchSchedule(matchType);
   const scheduleData = scheduleResponse?.data?.list || [];
+  console.log(scheduleData);
 
   useEffect(() => {
     if (!isLoading && scheduleData.length > 0) {
@@ -34,7 +35,7 @@ export default function MatchTypePage({
         <MatchDetailSkeleton />
       </div>
     );
-  } else if (isError) {
+  } else if (isError || scheduleData.length === 0) {
     return (
       <div className="flex justify-center items-center">
         <EmptyMatchBoard />
