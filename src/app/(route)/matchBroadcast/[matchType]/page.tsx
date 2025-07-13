@@ -34,7 +34,7 @@ export default function MatchTypePage({
         <MatchDetailSkeleton />
       </div>
     );
-  } else if (isError || scheduleData.length === 0) {
+  } else if (isError) {
     return (
       <div className="flex justify-center items-center">
         <EmptyMatchBoard />
