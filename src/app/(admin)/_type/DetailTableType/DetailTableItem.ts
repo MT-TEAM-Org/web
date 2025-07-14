@@ -21,3 +21,12 @@ export interface NoticeTableRow extends BaseTableRow {
   writer: string;
   title: string;
 }
+
+export interface ContentTableRow extends Omit<BaseTableRow, 'content'> {
+  isReport: string;
+  reportCount: string;
+  userStatus: string;
+  writer: string;
+  type: string;
+  titleContent: string;
+}

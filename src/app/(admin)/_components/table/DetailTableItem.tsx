@@ -6,28 +6,30 @@ import {
   SuggestionsTableRow,
   InquiryTableRow,
   NoticeTableRow,
+  ContentTableRow,
 } from "../../_type/DetailTableType/DetailTableItem";
 import { useRouter } from "next/navigation";
 import CheckBoxIcon from "../common/CheckBoxIcon";
 
 type DetailTableItemProps = {
-  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow;
+  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow | ContentTableRow;
   idx: number;
-  type: "inquiry" | "suggestions" | "notice";
+  type: "inquiry" | "suggestions" | "notice" | "content";
   isList: boolean;
 };
 
-// 타입 가드 함수
-const isInquiry = (
-  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow
-): row is InquiryTableRow => {
-  return "member" in row && "email" in row;
-};
-
-const isNotice = (
-  row: InquiryTableRow | SuggestionsTableRow | NoticeTableRow
-): row is NoticeTableRow => {
-  return "writer" in row && "title" in row;
+const typeGuards = {
+  inquiry: (row: any): row is InquiryTableRow =>
+    "member" in row && "email" in row,
+  notice: (row: any): row is NoticeTableRow =>
+    "writer" in row && "title" in row && "content" in row,
+  content: (row: any): row is ContentTableRow =>
+    "isReport" in row &&
+    "reportCount" in row &&
+    "userStatus" in row &&
+    "titleContent" in row,
+  suggestions: (row: any): row is SuggestionsTableRow =>
+    "recommendations" in row && "nickname" in row && "importance" in row,
 };
 
 const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
@@ -35,8 +37,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
 
   // 타입별 cellConfig 생성
   const getCellConfig = () => {
-    if (isInquiry(row)) {
-      // Inquiry 타입인 경우
+    if (typeGuards.inquiry(row)) {
       return [
         {
           key: "status",
@@ -59,7 +60,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "content",
           value: row.content,
-          className: !isList ? "truncate max-w-[103px]" : "truncate flex-1",
+          className: !isList ? "max-w-[103px] truncate" : "flex-1 truncate",
         },
         {
           key: "date",
@@ -67,8 +68,7 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
           className: "w-[160px]",
         },
       ];
-    } else if (isNotice(row)) {
-      // Notice 타입인 경우
+    } else if (typeGuards.notice(row)) {
       return [
         {
           key: "date",
@@ -83,16 +83,64 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "title",
           value: row.title,
-          className: !isList ? "truncate min-w-[103px]" : "flex-1",
+          className: !isList ? "min-w-[103px]" : "flex-1",
         },
         {
           key: "content",
           value: row.content,
-          className: !isList ? "truncate max-w-[103px]" : "truncate flex-1",
+          className: !isList ? "max-w-[103px]" : "flex-1",
         },
       ];
-    } else {
-      // suggestions 타입인 경우
+    } else if (typeGuards.content(row)) {
+      return [
+        {
+          key: "status",
+          value: row.status,
+          className: cn("w-[100px]", row.status === "숨김" && "text-gra"),
+        },
+        {
+          key: "isReport",
+          value: row.isReport,
+          className: cn(
+            "w-[100px] font-bold",
+            row.isReport === "신고" && "text-warning"
+          ),
+        },
+        {
+          key: "reportCount",
+          value: row.reportCount,
+          className: "w-[80px]",
+        },
+        {
+          key: "userStatus",
+          value: row.userStatus,
+          className: cn(
+            "w-[100px]",
+            row.userStatus === "경고" && "text-[#FF7300]"
+          ),
+        },
+        {
+          key: "writer",
+          value: row.writer,
+          className: "w-[120px]",
+        },
+        {
+          key: "type",
+          value: row.type,
+          className: "w-[80px]",
+        },
+        {
+          key: "titleContent",
+          value: row.titleContent,
+          className: !isList ? "max-w-[872px]" : "truncate flex-1 text-center",
+        },
+        {
+          key: "date",
+          value: row.date,
+          className: "w-[120px]",
+        },
+      ];
+    } else if (typeGuards.suggestions(row)) {
       return [
         {
           key: "status",
@@ -127,16 +175,12 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         {
           key: "title",
           value: row.title,
-          className: !isList
-            ? "truncate min-w-[103px]"
-            : "flex-1 basis-0 overflow-hidden text-ellipsis whitespace-nowrap",
+          className: !isList ? "min-w-[103px] truncate" : "flex-1 truncate",
         },
         {
           key: "content",
           value: row.content,
-          className: !isList
-            ? "truncate min-w-[103px]"
-            : "flex-1 basis-0 overflow-hidden text-ellipsis whitespace-nowrap",
+          className: !isList ? "min-w-[103px] truncate" : "flex-1 truncate",
         },
         {
           key: "date",
@@ -145,25 +189,44 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
         },
       ];
     }
+
+    return [];
   };
 
   const cellConfig = getCellConfig();
 
   const getLinkPath = () => {
-    return type === "inquiry"
-      ? `/dashBoard/inquiries/${idx}`
-      : `/dashBoard/suggestions/${idx}`;
+    switch (type) {
+      case "inquiry":
+        return `/dashBoard/inquiries/${idx}`;
+      case "suggestions":
+        return `/dashBoard/suggestions/${idx}`;
+      case "content":
+        return `/dashBoard/content/${idx}`;
+      case "notice":
+        return `/dashBoard/notices/${idx}`;
+      default:
+        return "#";
+    }
   };
 
   const handleRoute = () => {
-    router.push(getLinkPath());
+    if (
+      isList &&
+      ((type === "inquiry" && typeGuards.inquiry(row)) ||
+        (type === "notice" && typeGuards.notice(row)) ||
+        (type === "suggestions" && typeGuards.suggestions(row)) ||
+        (type === "content" && typeGuards.content(row)))
+    ) {
+      router.push(getLinkPath());
+    }
   };
 
   return (
     <tr
       key={idx}
-      onClick={type !== "notice" ? handleRoute : undefined}
-      className="border-t hover:bg-gray1 px-4 py-2 text-[14px] leading-5 cursor-pointer"
+      onClick={handleRoute}
+      className={cn("border-b border-gray-200 hover:bg-gray-50 cursor-pointer")}
     >
       {type === "notice" && (
         <td className="text-center w-[48px] h-[36px]">
@@ -173,7 +236,10 @@ const DetailTableItem = ({ row, idx, isList, type }: DetailTableItemProps) => {
       {cellConfig.map((cell) => (
         <td
           key={cell.key}
-          className={cn("px-4 py-2 text-center", cell.className)}
+          className={cn(
+            "px-4 py-2 text-center h-[36px] font-medium text-[14px] leading-5 text-gray8",
+            cell.className
+          )}
         >
           {cell.value}
         </td>

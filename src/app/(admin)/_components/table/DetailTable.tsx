@@ -11,7 +11,7 @@ import CheckBoxIcon from "../common/CheckBoxIcon";
 
 interface DetailTableProps {
   isList: boolean;
-  type: "suggestions" | "inquiry" | "notice";
+  type: "suggestions" | "inquiry" | "notice" | "content";
   title?: string;
   totalCount?: string;
 }
@@ -107,6 +107,44 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         className: "truncate flex-1",
       },
     },
+    content: {
+      isReport: {
+        key: "isReport",
+        label: "신고 여부",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "w-[100px]",
+      },
+      reportCount: {
+        key: "reportCount",
+        label: "신고수",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "w-[100px]",
+      },
+      userStatus: {
+        key: "userStatus",
+        label: "회원상태",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "w-[100px]",
+      },
+      writer: {
+        key: "writer",
+        label: "작성자",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "w-[160px]",
+      },
+      type: {
+        key: "type",
+        label: "유형",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: "w-[100px]",
+      },
+      titleContent: {
+        key: "titleContent",
+        label: "제목/내용",
+        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
+        className: !isList ? "truncate min-w-[103px]" : "truncate flex-1",
+      },
+    },
   };
 
   // 타입별 헤더 구성
@@ -129,14 +167,25 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         commonHeaders.content,
         commonHeaders.date,
       ];
+    } else if (type === "notice") {
+      return [
+        commonHeaders.date,
+        typeSpecificHeaders.notice.writer,
+        typeSpecificHeaders.notice.title,
+        typeSpecificHeaders.notice.content,
+      ];
+    } else {
+      return [
+        commonHeaders.status,
+        typeSpecificHeaders.content.isReport,
+        typeSpecificHeaders.content.reportCount,
+        typeSpecificHeaders.content.userStatus,
+        commonHeaders.nickname,
+        typeSpecificHeaders.content.type,
+        typeSpecificHeaders.content.titleContent,
+        commonHeaders.date,
+      ];
     }
-    // notice 타입에 대한 기본 반환값
-    return [
-      commonHeaders.date,
-      typeSpecificHeaders.notice.writer,
-      typeSpecificHeaders.notice.title,
-      typeSpecificHeaders.notice.content,
-    ];
   };
 
   // 타입별 목업 데이터
@@ -199,6 +248,41 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
           writer: "플레이하이브 관리자",
           title: "공지사항입니다 제목공지사항입니다 제목",
           content: "공지내용공지내용공지내용공지내용공지내용",
+        },
+      ];
+    } else if (type === "content") {
+      return [
+        {
+          status: "노출",
+          isReport: "신고",
+          reportCount: "15",
+          userStatus: "정상",
+          writer: "hive짱짱12",
+          type: "게시글",
+          titleContent:
+            "댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목",
+          date: "25.05.29",
+        },
+        {
+          status: "보류",
+          isReport: "미신고",
+          reportCount: "12",
+          userStatus: "경고",
+          writer: "hive짱짱12",
+          type: "댓글",
+          titleContent: "게시글제목게시글제목게시글제목게시글제목",
+          date: "25.05.29",
+        },
+        {
+          status: "숨김",
+          isReport: "신고",
+          reportCount: "10",
+          userStatus: "정상",
+          writer: "hive짱짱12",
+          type: "게시글",
+          titleContent:
+            "댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목",
+          date: "25.05.29",
         },
       ];
     }
