@@ -30,3 +30,11 @@ export interface ContentTableRow extends Omit<BaseTableRow, 'content'> {
   type: string;
   titleContent: string;
 }
+
+export interface DetailContentTableRow {
+  reportUser: string;
+  reportType: string;
+  reason: string;
+  reportDate: string;
+}
+  

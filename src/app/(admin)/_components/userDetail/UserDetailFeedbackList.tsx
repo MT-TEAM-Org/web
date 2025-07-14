@@ -5,7 +5,7 @@ import React from "react";
 
 interface UserDetailFeedbackListProps {
   totalCount: string;
-  type: "suggestions" | "inquiry";
+  type: "suggestions" | "inquiry" | "detailContent";
   title: string;
 }
 
