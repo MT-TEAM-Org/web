@@ -1,13 +1,14 @@
 "use client";
 
-import Icon from "@/app/_components/IconComponents";
-import { cn } from "@/utils";
 import React, { useState } from "react";
 import DetailTableItem from "./DetailTableItem";
 import Pagination from "./Pagination";
 import PostNoticeModal from "../modal/PostNoticeModal";
 import DeleteModal from "../modal/DeleteModal";
-import CheckBoxIcon from "../common/CheckBoxIcon";
+import { DetailTableData } from "../../MockData";
+import { getHeaders } from "../../_constants/tableHeaders";
+import TableTitle from "./TableTitle";
+import DetailTableHeader from "./DetailTableHeader";
 
 interface DetailTableProps {
   isList: boolean;
@@ -16,424 +17,38 @@ interface DetailTableProps {
   totalCount?: string;
 }
 
-const buttonStyle =
-  "w-[120px] h-[40px] flex items-center justify-center rounded-[5px] px-4 py-[13px] font-bold text-[14px]";
-
 const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
   const [showPostModal, setShowPostModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [dropDown, setDropDown] = useState<Record<string, boolean>>({});
 
-  // 공통 헤더
-  const commonHeaders = {
-    status: {
-      key: "status",
-      label: "처리 상태",
-      icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-      className: isList ? "w-[100px]" : "w-[100px]",
-    },
-    nickname: {
-      key: "nickname",
-      label: "닉네임",
-      icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-      className: "w-[160px]",
-    },
-    content: {
-      key: "content",
-      label: "내용",
-      icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-      className: !isList ? "truncate min-w-[103px]" : "truncate flex-1",
-    },
-    date: {
-      key: "date",
-      label: "작성날짜",
-      icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-      className: "w-[160px]",
-    },
-  };
-
-  // 타입별 헤더
-  const typeSpecificHeaders = {
-    suggestions: {
-      importance: {
-        key: "importance",
-        label: "중요도",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[100px]",
-      },
-      recommendations: {
-        key: "recommendations",
-        label: "추천수",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[100px]",
-      },
-      title: {
-        key: "title",
-        label: "제목",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: !isList ? "truncate min-w-[103px]" : "truncate flex-1",
-      },
-    },
-    inquiry: {
-      member: {
-        key: "member",
-        label: "회원 여부",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[160px]",
-      },
-      email: {
-        key: "email",
-        label: "닉네임/이메일",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[160px]",
-      },
-    },
-    notice: {
-      writer: {
-        key: "writer",
-        label: "작성자",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[160px]",
-      },
-      title: {
-        key: "title",
-        label: "제목",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "truncate flex-1",
-      },
-      content: {
-        key: "content",
-        label: "내용",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "truncate flex-1",
-      },
-    },
-    content: {
-      isReport: {
-        key: "isReport",
-        label: "신고 여부",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[100px]",
-      },
-      reportCount: {
-        key: "reportCount",
-        label: "신고수",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[100px]",
-      },
-      userStatus: {
-        key: "userStatus",
-        label: "회원상태",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[100px]",
-      },
-      writer: {
-        key: "writer",
-        label: "작성자",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[160px]",
-      },
-      type: {
-        key: "type",
-        label: "유형",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[100px]",
-      },
-      titleContent: {
-        key: "titleContent",
-        label: "제목/내용",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: !isList ? "truncate min-w-[103px]" : "truncate flex-1",
-      },
-    },
-    detailContent: {
-      reportUser: {
-        key: "reportUser",
-        label: "신고자",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[160px]",
-      },
-      reportType: {
-        key: "reportType",
-        label: "신고 유형",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[100px]",
-      },
-      userStatus: {
-        key: "userStatus",
-        label: "회원상태",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[100px]",
-      },
-      reason: {
-        key: "reason",
-        label: "사유",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "flex-1 truncate",
-      },
-      type: {
-        key: "type",
-        label: "유형",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[100px]",
-      },
-      reportDate: {
-        key: "reportDate",
-        label: "신고날짜",
-        icons: <Icon icon="SEARCH_DROPDOWN_DOWN" />,
-        className: "w-[200px]",
-      },
-    },
-  };
-
-  // 타입별 헤더 구성
-  const getHeaders = () => {
-    if (type === "suggestions") {
-      return [
-        commonHeaders.status,
-        typeSpecificHeaders.suggestions.importance,
-        typeSpecificHeaders.suggestions.recommendations,
-        commonHeaders.nickname,
-        typeSpecificHeaders.suggestions.title,
-        commonHeaders.content,
-        commonHeaders.date,
-      ];
-    } else if (type === "inquiry") {
-      return [
-        commonHeaders.status,
-        typeSpecificHeaders.inquiry.member,
-        typeSpecificHeaders.inquiry.email,
-        commonHeaders.content,
-        commonHeaders.date,
-      ];
-    } else if (type === "notice") {
-      return [
-        commonHeaders.date,
-        typeSpecificHeaders.notice.writer,
-        typeSpecificHeaders.notice.title,
-        typeSpecificHeaders.notice.content,
-      ];
-    } else if (type === "content") {
-      return [
-        commonHeaders.status,
-        typeSpecificHeaders.content.isReport,
-        typeSpecificHeaders.content.reportCount,
-        typeSpecificHeaders.content.userStatus,
-        commonHeaders.nickname,
-        typeSpecificHeaders.content.type,
-        typeSpecificHeaders.content.titleContent,
-        commonHeaders.date,
-      ];
-    } else if (type === "detailContent") {
-      return [
-        typeSpecificHeaders.detailContent.reportUser,
-        typeSpecificHeaders.detailContent.reportType,
-        typeSpecificHeaders.detailContent.reason,
-        typeSpecificHeaders.detailContent.reportDate,
-      ];
-    }
-  };
-
-  // 타입별 목업 데이터
-  const getMockData = () => {
-    if (type === "suggestions") {
-      return [
-        {
-          status: "대기",
-          importance: "높음",
-          recommendations: "15",
-          nickname: "하이브짱",
-          title: "로그인 관련 개선사항",
-          content:
-            "로그인 페이지 UI 개선이 필요합니다. 사용자 경험 향상을 위해...",
-          date: "25.05.29",
-        },
-        {
-          status: "완료",
-          importance: "중간",
-          recommendations: "8",
-          nickname: "사용자123",
-          title: "검색 기능 개선 요청",
-          content: "검색 결과가 정확하지 않은 것 같습니다. 개선이 필요해요...",
-          date: "25.05.28",
-        },
-        {
-          status: "접수",
-          importance: "중간",
-          recommendations: "8",
-          nickname: "사용자123",
-          title: "검색 기능 개선 요청",
-          content: "검색 결과가 정확하지 않은 것 같습니다. 개선이 필요해요...",
-          date: "25.05.28",
-        },
-      ];
-    } else if (type === "inquiry") {
-      return [
-        {
-          status: "답변대기",
-          member: "비회원",
-          email: "hvie12@gmail.com",
-          content:
-            "문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용",
-          date: "25.05.29",
-        },
-        {
-          status: "답변완료",
-          member: "회원",
-          email: "하이브짱",
-          content:
-            "문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용",
-          date: "25.05.29",
-        },
-      ];
-    } else if (type === "notice") {
-      return [
-        {
-          status: "게시중",
-          date: "25.05.29",
-          writer: "플레이하이브 관리자",
-          title: "공지사항입니다 제목공지사항입니다 제목",
-          content: "공지내용공지내용공지내용공지내용공지내용",
-        },
-      ];
-    } else if (type === "content") {
-      return [
-        {
-          status: "노출",
-          isReport: "신고",
-          reportCount: "15",
-          userStatus: "정상",
-          writer: "hive짱짱12",
-          type: "게시글",
-          titleContent:
-            "댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목",
-          date: "25.05.29",
-        },
-        {
-          status: "보류",
-          isReport: "미신고",
-          reportCount: "12",
-          userStatus: "경고",
-          writer: "hive짱짱12",
-          type: "댓글",
-          titleContent: "게시글제목게시글제목게시글제목게시글제목",
-          date: "25.05.29",
-        },
-        {
-          status: "숨김",
-          isReport: "신고",
-          reportCount: "10",
-          userStatus: "정상",
-          writer: "hive짱짱12",
-          type: "채팅",
-          titleContent:
-            "댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목",
-          date: "25.05.29",
-        },
-      ];
-    } else if (type === "detailContent") {
-      return [
-        {
-          reportUser: "hive짱짱12",
-          reportType: "정치",
-          reason:
-            "쵸비 개새끼쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기",
-          reportDate: "2025.05.29 / 18:24:32",
-        },
-        {
-          reportUser: "hive짱짱34",
-          reportType: "욕설",
-          reason: "-",
-          reportDate: "2025.05.29 / 18:24:32",
-        },
-      ];
-    }
-  };
-
+  // 테이블 구성
   const tableConfig = {
-    headers: getHeaders(),
-    data: getMockData(),
+    headers: getHeaders(type, isList),
+    data: DetailTableData(type),
   };
-
-  const noticeButton = [
-    {
-      name: "전체 삭제",
-      value: "deleteAll",
-      style: "bg-white border border-gray3 hover:bg-gray1",
-      onClick: () => {},
-    },
-    {
-      name: "삭제",
-      value: "delete",
-      style: "bg-white border border-gray3 hover:bg-gray1",
-      onClick: () => setShowDeleteModal(true),
-    },
-    {
-      name: "공지 등록",
-      value: "register",
-      style: "bg-Primary text-white hover:bg-primary/80",
-      onClick: () => setShowPostModal(true),
-    },
-  ];
 
   return (
     <div className="w-full flex flex-col gap-4">
-      {isList && (
-        <div className="flex items-center justify-between">
-          <div className="flex gap-2 items-center">
-            <h3 className="font-bold text-[20px] leading-[36px] tracking-[-0.02em] text-black">
-              {title}
-            </h3>
-            <p className="font-bold text-[16px] leading-[24px] tracking-[-0.02em] text-gray7">
-              {type === "notice" ? "총" : "검색결과 총"} {totalCount}건
-            </p>
-          </div>
-          {type === "notice" && (
-            <div className="flex gap-2">
-              {noticeButton.map((button) => (
-                <button
-                  key={button.value}
-                  className={cn(buttonStyle, button.style)}
-                  onClick={button.onClick}
-                >
-                  {button.name}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-      <div className="overflow-x-auto border rounded-md">
+      <TableTitle
+        tableInfo={{ isList, type, title, totalCount }}
+        modalControls={{ setShowDeleteModal, setShowPostModal }}
+      />
+      <div className="overflow-x-auto border border-b-0 rounded-md">
         <table className="min-w-full h-[36px] text-left border-collapse text-nowrap table-fixed w-full">
-          <thead className="bg-gray1">
-            <tr>
-              {type === "notice" && (
-                <th className="w-[48px]">
-                  <CheckBoxIcon />
-                </th>
-              )}
-              {tableConfig.headers.map((header) => (
-                <th
-                  key={header.key}
-                  className={cn("px-3 py-2", header.className)}
-                >
-                  <div className="flex justify-between items-center font-bold text-[14px] leading-5 text-gray8 cursor-pointer select-none">
-                    <span className="mx-auto">{header.label}</span>
-                    <span>{header.icons}</span>
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="text-gray8">
+          <DetailTableHeader
+            type={type}
+            dropDownControl={{ dropDown, setDropDown }}
+            tableConfig={tableConfig}
+          />
+          <tbody className="text-gray8 select-none">
             {Array.from({ length: 10 }, (_, idx) => {
               const rowData = tableConfig.data[idx % tableConfig.data.length];
               return (
                 <DetailTableItem
                   key={idx}
-                  row={rowData}
-                  idx={idx}
-                  type={type}
-                  isList={isList}
+                  rowData={{ row: rowData, type }}
+                  tableMeta={{ idx, isList }}
                 />
               );
             })}

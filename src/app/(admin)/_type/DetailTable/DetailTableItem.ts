@@ -38,3 +38,18 @@ export interface DetailContentTableRow {
   reportDate: string;
 }
   
+// 테이블 아이템 타입
+export type rowDataType = {
+  row:
+    | InquiryTableRow
+    | SuggestionsTableRow
+    | NoticeTableRow
+    | ContentTableRow
+    | DetailContentTableRow;
+  type: "inquiry" | "suggestions" | "notice" | "content" | "detailContent";
+};
+
+export type tableMeta = {
+  idx: number;
+  isList: boolean;
+};
