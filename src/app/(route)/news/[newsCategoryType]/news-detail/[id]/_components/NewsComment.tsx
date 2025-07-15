@@ -1,6 +1,6 @@
 import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
-import React, { useRef, useState } from "react";
+import React from "react";
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { onHandleToTop } from "@/app/(route)/news/_utils/onHandleToTop";
 import { usePathname } from "next/navigation";

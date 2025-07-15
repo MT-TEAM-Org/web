@@ -1,3 +1,5 @@
+"use client";
+
 import useDeleteRecommend from "@/_hooks/fetcher/news/useDeleteRecommend";
 import usePatchRecommend from "@/_hooks/fetcher/news/usePatchRecommend";
 import { useState } from "react";
@@ -13,9 +15,9 @@ interface UseNewsRecommendProps {
 
 const useNewsRecommend = ({ id, newsInfoData, queryClient }: UseNewsRecommendProps) => {
   const adminRole = useAdminRole();
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const { mutate: newsAddRecommend } = usePatchRecommend();
   const { mutate: newsDeleteRecommend } = useDeleteRecommend();
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
   const handleNewsCommend = () => {
     if (!adminRole) {

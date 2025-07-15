@@ -9,6 +9,7 @@ import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
 import { cn } from "@/utils";
 import { useRouter } from "next/navigation";
 import React from "react";
+import NewsListSection from "./NewsListSection";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -24,6 +25,7 @@ const NewsRecommend = ({
   searchParams,
 }: NewsRecommendProps) => {
   const router = useRouter();
+
   const changeURLParams = (
     params: URLSearchParams,
     key: string,
@@ -97,52 +99,13 @@ const NewsRecommend = ({
         />
       </section>
 
-      <section
-        className={cn(
-          "w-full h-auto rounded-[5px] shadow-soft-md bg-white",
-          "mobile:max-w-full"
-        )}
-        aria-label="뉴스 추천 목록"
-      >
-        <div
-          className={cn(
-            "w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
-            "tablet:max-w-full tablet:w-auto",
-            "mobile:w-full mobile:max-w-full"
-          )}
-        >
-          {isLoading ? (
-            Array(3)
-              .fill(0)
-              .map((_, index) => <NewsPostItemSkeleton key={index} />)
-          ) : sliceNewsListData?.length === 0 ? (
-            <EmptyItem title="뉴스가" />
-          ) : (
-            sliceNewsListData?.map((newsItem: NewsListType) => (
-              <NewsPostItem
-                key={newsItem?.id}
-                newsItem={newsItem}
-                searchType={searchParams.get("search_type")}
-                searchString={searchParams.get("search")}
-              />
-            ))
-          )}
-          {newsListData?.pageInfo?.totalPage > 0 && (
-            <nav
-              className={cn(
-                "hidden",
-                "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
-              )}
-              aria-label="뉴스 추천 목록"
-            >
-              <Pagination
-                pageInfo={newsListData?.pageInfo}
-                onPageChangeAction={handlePageChange}
-              />
-            </nav>
-          )}
-        </div>
-      </section>
+      <NewsListSection
+        isLoading={isLoading}
+        newsListData={newsListData}
+        sliceNewsListData={sliceNewsListData}
+        searchParams={searchParams}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 };
