@@ -14,13 +14,13 @@ type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
 interface NewsRecommendProps {
   isLoading: boolean;
-  category: NewsCategoryType;
+  newsCategoryType: string;
   searchParams: URLSearchParams;
 }
 
 const NewsRecommend = ({
   isLoading,
-  category,
+  newsCategoryType,
   searchParams,
 }: NewsRecommendProps) => {
   const router = useRouter();
@@ -33,6 +33,17 @@ const NewsRecommend = ({
     newParams.set(key, value);
     return newParams.toString();
   };
+
+  const changedCategory = (category: string): NewsCategoryType | undefined => {
+    const categoryMap: Record<string, NewsCategoryType> = {
+      esports: "ESPORTS",
+      football: "FOOTBALL",
+      baseball: "BASEBALL",
+    };
+    return categoryMap[category?.toLowerCase()] || "";
+  };
+
+  const category = changedCategory(newsCategoryType);
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > newsListData?.pageInfo?.totalPage) return;

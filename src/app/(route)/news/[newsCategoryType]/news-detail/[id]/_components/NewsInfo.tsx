@@ -12,14 +12,10 @@ import { cn } from "@/utils";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { CommentItem } from "@/_types/comment";
-import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
-import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import NewsDetailGnb from "@/app/(route)/news/_components/newsGnb/NewsDetailGnb";
 import NewsDetailContent from "./NewsDetailContent";
 import NewsRecommend from "./NewsRecommend";
-import { onHandleToTop } from "@/app/(route)/news/_utils/onHandleToTop";
-
-type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
+import NewsComment from "./NewsComment";
 
 const NewsInfo = ({
   params,
@@ -42,6 +38,7 @@ const NewsInfo = ({
     null
   );
 
+  // 뉴스 타입 체크
   useEffect(() => {
     const validTypes = ["esports", "football", "baseball"];
     if (!validTypes.includes(newsDetailType)) {
@@ -52,17 +49,6 @@ const NewsInfo = ({
   const { data: newsInfoData, isLoading } = useGetNewsInfoData(id, token);
   const { mutate: newsAddRecommend } = usePatchRecommend();
   const { mutate: newsDeleteRecommend } = useDeleteRecommend();
-
-  const changedCategory = (category: string): NewsCategoryType | undefined => {
-    const categoryMap: Record<string, NewsCategoryType> = {
-      esports: "ESPORTS",
-      football: "FOOTBALL",
-      baseball: "BASEBALL",
-    };
-    return categoryMap[category?.toLowerCase()] || "";
-  };
-
-  const category = changedCategory(newsCategoryType);
 
   const handleNewsCommend = () => {
     if (!adminRole) {
@@ -108,20 +94,11 @@ const NewsInfo = ({
             handleNewsCommend={handleNewsCommend}
           />
           {/* 댓글 */}
-          <section className="flex flex-col bg-white px-6 gap-4">
-            <BoardComment
-              id={newsInfoData?.id.toString()}
-              ref={comments}
-              setParentsComment={setParentsComment}
-              type="NEWS"
-            />
-            <PostNavigation
-              currentPath={pathname}
-              scrollToCommentBar={() => onHandleToTop(commentBarRef)}
-              nextId={newsInfoData?.nextId}
-              previousId={newsInfoData?.previousId}
-            />
-          </section>
+          <NewsComment
+            newsInfoData={newsInfoData}
+            setParentsComment={setParentsComment}
+            commentRefs={{ comments, commentBarRef }}
+          />
         </>
       )}
 
@@ -138,7 +115,7 @@ const NewsInfo = ({
       {/* 추천 뉴스 */}
       <NewsRecommend
         isLoading={isLoading}
-        category={category}
+        newsCategoryType={newsCategoryType}
         searchParams={searchParams}
       />
 
