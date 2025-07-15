@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <title>PlayHive 관리자 계정 잠김 공용 알림</title>
+</head>
+
+<style>
+  @font-face {
+    font-family: "SUIT Variable";
+    font-style: normal;
+    font-weight: 100 900;
+    src: url("https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/variable/woff2/SUIT-Variable.woff2") format("woff2");
+  }
+</style>
+
+<body
+  style="margin: 0; padding: 0; font-family: 'SUIT Variable', Arial, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;">
+  <table width="728" align="center" cellpadding="0" cellspacing="0"
+    style="background-color: white; padding: 40px; box-sizing: border-box;">
+    <tr>
+      <td>
+        <table width="648" cellpadding="0" cellspacing="0" style="margin: 0 auto">
+          <!-- header -->
+          <tr>
+            <td style="padding-bottom: 24px">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="width: 118.49px; height: 32px">
+                    <img src="https://media.playhive.co.kr/image/Logo.png" alt="PlayHive 로고 이미지"
+                      style="width: 100%; height: 100%; object-fit: cover" />
+                  </td>
+                  <td style="padding-left: 16px">
+                    <p
+                      style="width: 325px; height: 32px; color: #00adee; font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -0.04em; line-height: 32px;">
+                      모두 함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- body -->
+          <tr>
+            <td style="height: 88px;">
+              <h5
+                style="width: 648px; font-size: 28px; font-weight: 700; line-height: 40px; color: #000; margin: 0; letter-spacing: -0.04em; margin-bottom: 8px;">
+                <span th:text="${nickname}">익명의 유저</span>님이
+              </h5>
+              <h6
+                style="width: 648px; font-size: 28px; font-weight: 700; line-height: 40px; color: #D1504B; margin: 0; letter-spacing: -0.04em;">
+                10번 로그인 실패로 인해 계정이 잠금되었습니다.
+              </h6>
+            </td>
+          </tr>
+
+          <!-- table -->
+          <td style="font-weight: 700; font-size: 14px; line-height: 20px; color: #303030; margin: 0; padding: 24px 0">
+            <table width="100%" cellpadding="0" cellspacing="0"
+              style="border: 1px solid #EEEEEE; border-collapse: collapse;">
+              <tr>
+                <td
+                  style="width: 120px; font-weight: 700; background-color: #FAFAFA; color: #303030; border: 1px solid #EEEEEE; text-align: center">
+                  상태</td>
+                <td
+                  style="padding: 12px; color: #D1504B; font-weight: 700; border: 1px solid #EEEEEE; text-align: start;">
+                  계정 잠금</td>
+              </tr>
+              <tr>
+                <td
+                  style="font-weight: 700; background-color: #FAFAFA; color: #303030; border: 1px solid #EEEEEE; text-align: center">
+                  아이디</td>
+                <td th:text="${email}"
+                  style="padding: 12px; border: 1px solid #EEEEEE; font-weight: 500; color: #303030;">
+                  Adminho123@naver.com</td>
+              </tr>
+              <tr>
+                <td
+                  style="font-weight: 700; background-color: #FAFAFA; color: #303030; border: 1px solid #EEEEEE; text-align: center">
+                  닉네임</td>
+                <td th:text="${nickname}"
+                  style="padding: 12px; border: 1px solid #EEEEEE; font-weight: 500; color: #303030;">
+                  관리자sKo</td>
+              </tr>
+              <tr>
+                <td
+                  style="font-weight: 700; background-color: #FAFAFA; color: #303030; border: 1px solid #EEEEEE; text-align: center">
+                  계정 잠금 날짜</td>
+                <td th:text="${lock_date} + ' ' + ${ip}"
+                  style="padding: 12px; border: 1px solid #EEEEEE; font-weight: 500; color: #303030;">
+                  2025.05.05 / 18:24:32 (IP 106.101.44.321)</td>
+              </tr>
+            </table>
+          </td>
+    </tr>
+
+    <tr>
+      <td style="width: 648px; font-size: 14px; font-weight: 500; line-height: 20px; color: #424242;">
+        본 메일은 발신전용으로 회신하실 경우 답변이 되지 않습니다. 자세한 사항은
+        <a href="https://playhive.co.kr/customer"
+          style="color: #00aaee; text-decoration: underline; text-underline-offset: 2px;">
+          플레이하이브 고객센터
+        </a>
+        를 이용하세요.
+      </td>
+    </tr>
+  </table>
+  </td>
+  </tr>
+  </table>
+
+  <!-- footer -->
+  <div style="width: 100%; background-color: #000;">
+    <table width="728" align="center" cellpadding="0" cellspacing="0"
+      style="background-color: #000; padding: 40px 40px 0;">
+      <tr>
+        <td>
+          <table width="648" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding-bottom: 24px;">
+                <div style="width: 148.62px; height: 40px;">
+                  <img src="https://media.playhive.co.kr/image/logo_white.png" alt="PlayHive"
+                    style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <p
+                  style="font-weight: 500; font-size: 24px; line-height: 38px; letter-spacing: -0.04em; color: white; margin: 0;">
+                  열정적으로 응원하고 서로를 존중하며<br />
+                  <span style="font-weight: 700;">
+                    모두 함께 즐기는 클린 스포츠 커뮤니티, 플레이 하이브!
+                  </span>
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding-top: 24px;">
+                <p
+                  style="font-weight: 500; font-size: 16px; line-height: 24px; letter-spacing: -0.02em; color: #a6a6a6; margin: 0;">
+                  서비스명: PlayHive · 대표: 홍길표 · 개인정보 보호책임자: 홍길표<br />
+                  콘텐츠 내용에 대한 저작권 및 법적 책임은 자료제공자 또는 글쓴이에 있으며 PlayHive의 입장과 다를 수 있습니다.
+                </p>
+              </td>
+            </tr>
+          </table>
+          <table width="648" cellpadding="0" cellspacing="0" style="margin-top: 24px; border-top: 1px solid #424242;">
+            <tr>
+              <td style="height: 80px; color: #a6a6a6;">
+                <p style="font-weight: 500; font-size: 16px; line-height: 24px; letter-spacing: -0.02em; margin: 0;">
+                  Copyright © PlayHive Co., Ltd All rights reserved.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>
