@@ -1,9 +1,8 @@
 import React from "react";
-import NoticeItemSkeleton from "../../customer/_components/NoticeItemSkeleton";
 import NewsPostItem from "../../news/_components/NewsPostItem";
-import NewsPostItemSkeleton from "../../news/_components/NewsPostItemSkeleton";
 import SearchEmptyBox from "./SearchEmptyBox";
 import TotalSearchItem from "./TotalSearchItem";
+import SkeletonLoader from "./SkeletonLoader";
 
 interface SearchResultListProps {
   searchType: string;
@@ -27,16 +26,12 @@ const SearchResultList = ({
 
     return (
       <>
-        {fetchStatus.isLoading &&
-          Array(10)
-            .fill(0)
-            .map((_, index) =>
-              searchType === "news" ? (
-                <NewsPostItemSkeleton key={index} />
-              ) : searchType === "board" ? (
-                <NoticeItemSkeleton key={index} />
-              ) : null
-            )}
+        {fetchStatus.isLoading && (
+          <SkeletonLoader
+            isLoading={fetchStatus.isLoading}
+            searchType={searchType}
+          />
+        )}
         {searchData?.content?.map((item) =>
           searchType === "news" ? (
             <NewsPostItem
