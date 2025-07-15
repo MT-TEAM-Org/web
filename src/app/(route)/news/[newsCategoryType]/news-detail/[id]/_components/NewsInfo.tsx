@@ -1,21 +1,19 @@
 "use client";
 
-import useDeleteRecommend from "@/_hooks/fetcher/news/useDeleteRecommend";
 import useGetNewsInfoData from "@/_hooks/fetcher/news/useGetNewInfo";
-import usePatchRecommend from "@/_hooks/fetcher/news/usePatchRecommend";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { use, useEffect, useRef, useState } from "react";
 import NewsInfoSkeleton from "./NewsInfoSkeleton";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import { cn } from "@/utils";
-import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { CommentItem } from "@/_types/comment";
 import NewsDetailGnb from "@/app/(route)/news/_components/newsGnb/NewsDetailGnb";
 import NewsDetailContent from "./NewsDetailContent";
 import NewsRecommend from "./NewsRecommend";
 import NewsComment from "./NewsComment";
+import useNewsRecommend from "@/app/(route)/news/_hooks/useNewsRecommend";
 
 const NewsInfo = ({
   params,
@@ -23,17 +21,13 @@ const NewsInfo = ({
   params: Promise<{ newsCategoryType: string; id: string }>;
 }) => {
   const { id, newsCategoryType } = use(params);
-  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
-  const adminRole = useAdminRole();
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
   const newsDetailType = pathname.split("/")[2];
   const comments = useRef(null);
   const commentBarRef = useRef<HTMLDivElement>(null);
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
   const [parentsComment, setParentsComment] = useState<CommentItem | null>(
     null
   );
@@ -46,26 +40,9 @@ const NewsInfo = ({
     }
   }, [newsDetailType, router]);
 
-  const { data: newsInfoData, isLoading } = useGetNewsInfoData(id, token);
-  const { mutate: newsAddRecommend } = usePatchRecommend();
-  const { mutate: newsDeleteRecommend } = useDeleteRecommend();
+  const { data: newsInfoData, isLoading } = useGetNewsInfoData(id);
 
-  const handleNewsCommend = () => {
-    if (!adminRole) {
-      setIsSignInModalOpen(true);
-      return;
-    }
-
-    const isRecommended = newsInfoData?.recommend;
-    const newsAction = isRecommended ? newsDeleteRecommend : newsAddRecommend;
-
-    newsAction(id, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["getNewsInfo", id] });
-      },
-    });
-  };
-
+  // commentId 쿼리 파라미터가 있을 경우, 해당 댓글 DOM으로 스크롤
   useEffect(() => {
     const commentId = searchParams.get("commentId");
     if (commentId) {
@@ -78,6 +55,14 @@ const NewsInfo = ({
       }
     }
   }, [searchParams]);
+
+  // 게시글 추천
+  const { handleNewsCommend, isSignInModalOpen, setIsSignInModalOpen } =
+    useNewsRecommend({
+      id,
+      newsInfoData,
+      queryClient,
+    });
 
   return (
     <>
