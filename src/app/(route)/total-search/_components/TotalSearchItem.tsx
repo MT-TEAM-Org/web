@@ -1,82 +1,45 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { CalculateTime } from "@/app/_components/CalculateTime";
 import { SearchListType } from "../_types/searchType";
 import { highlightText } from "@/utils/searchHighlightText";
-import { useEffect, useState } from "react";
-import useTimeAgo from "@/utils/useTimeAgo";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
-import { useRouter } from "next/navigation";
 import { cn } from "@/utils";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
+import { useTotalSearchClick } from "../_utils/useTotalSearchClick";
+import {
+  getKoreanBoardType,
+  getKoreanCategoryType,
+} from "../_types/SearchItemType";
 
-interface totalSearchProps {
+interface TotalSearchItemProps {
   searchType: string;
   searchString: string;
   data: SearchListType;
-  href: string;
 }
+
+const commentBaseStyle =
+  "font-medium text-[12px] text-gray5 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap";
 
 const TotalSearchItem = ({
   searchType,
   searchString,
   data,
-  href,
-}: totalSearchProps) => {
-  const [isNew, setIsNew] = useState(false);
-  const date = useTimeAgo(data?.createdAt);
-  const router = useRouter();
+}: TotalSearchItemProps) => {
+  const handleClick = useTotalSearchClick(data);
 
-  useEffect(() => {
-    if (date.includes("시간 전") && parseInt(date) <= 24) {
-      setIsNew(true);
-    } else {
-      setIsNew(false);
-    }
-  }, [date]);
-
-  const boardTypeMap: { [key: string]: string } = {
-    FOOTBALL: "축구",
-    BASEBALL: "야구",
-    ESPORTS: "E스포츠",
-  };
-
-  const categoryTypeMap: { [key: string]: string } = {
-    FREE: "자유",
-    QUESTION: "질문",
-    ISSUE: "이슈",
-    VERIFICATION: "리뷰",
-    TIP: "플레이 팁",
-  };
-
-  const getKoreanBoardType = (type: string) => {
-    return boardTypeMap[type] || type;
-  };
-
-  const getKoreanCategoryType = (type: string) => {
-    return categoryTypeMap[type] || type;
-  };
-
-  const handleTotalSearchClick = () => {
-    if (data?.boardCommentSearchList?.commentId) {
-      router.push(
-        `/board/${data?.boardType}/${data?.categoryType}/${data?.id}?commentId=${data?.boardCommentSearchList?.commentId}`
-      );
-    } else {
-      router.push(
-        `/board/${data?.boardType}/${data?.categoryType}/${data?.id}`
-      );
-    }
-  };
-
-  const commentBaseStyle =
-    "font-medium text-[12px] text-gray5 leading-[18px] tracking-[-0.02em] text-ellipsis overflow-hidden whitespace-nowrap";
+  const itemMeta = [
+    { value: getKoreanBoardType(data?.boardType), bold: true },
+    { value: getKoreanCategoryType(data?.categoryType) },
+    { value: CalculateTime(data?.createdAt) },
+    { value: data?.nickname },
+    { value: data?.createdIp },
+  ];
 
   return (
     <div
-      onClick={handleTotalSearchClick}
+      onClick={handleClick}
       className="flex flex-col items-start w-full cursor-pointer"
     >
       <div
@@ -120,7 +83,7 @@ const TotalSearchItem = ({
                 [{data?.commentCount}]
               </p>
             )}
-            {isNew && (
+            {data?.isNew && (
               <span className="font-black text-[10px] leading-[18px] text-gra">
                 N
               </span>
@@ -132,13 +95,18 @@ const TotalSearchItem = ({
             )}
           </div>
           <div className="flex gap-1 items-center font-medium text-[12px] leading-[18px] text-gray5 tracking-[-0.02em] whitespace-nowrap">
-            <p className="font-semibold text-[12px] leading-[18px] text-gray5">
-              {getKoreanBoardType(data?.boardType)}
-            </p>
-            <span>{getKoreanCategoryType(data?.categoryType)}</span>
-            <span>{CalculateTime(data?.createdAt)}</span>
-            <span>{data?.nickname}</span>
-            <span>{data?.createdIp}</span>
+            {itemMeta.map((item, index) =>
+              item.bold ? (
+                <p
+                  key={index}
+                  className="font-semibold text-[12px] leading-[18px] text-gray5"
+                >
+                  {item.value}
+                </p>
+              ) : (
+                <span key={index}>{item.value}</span>
+              )
+            )}
           </div>
           {data?.boardCommentSearchList?.comment && (
             <div className="w-full flex items-center justify-start gap-1">

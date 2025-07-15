@@ -9,25 +9,25 @@ interface SearchResultListProps {
   searchType: string;
   searchData: any;
   searchParams: any;
-  isLoading: boolean;
-  isError: boolean;
+  fetchStatus: {
+    isLoading: boolean;
+    isError: boolean;
+  };
 }
-
 const SearchResultList = ({
   searchType,
   searchData,
   searchParams,
-  isLoading,
-  isError,
+  fetchStatus,
 }: SearchResultListProps) => {
   if (["news", "board"].includes(searchType)) {
-    if (searchData?.content?.length === 0 || isError) {
+    if (searchData?.content?.length === 0 || fetchStatus.isError) {
       return <SearchEmptyBox />;
     }
 
     return (
       <>
-        {isLoading &&
+        {fetchStatus.isLoading &&
           Array(10)
             .fill(0)
             .map((_, index) =>
@@ -51,7 +51,6 @@ const SearchResultList = ({
               data={item}
               searchType={searchParams.get("searchType") || "TITLE_CONTENT"}
               searchString={searchParams.get("search") || ""}
-              href={`/board/${item.boardType}/${item.categoryType}/${item.id}`}
             />
           )
         )}

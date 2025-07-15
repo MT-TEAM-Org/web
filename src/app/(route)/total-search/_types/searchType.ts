@@ -18,6 +18,7 @@ export interface SearchListType {
   createdIp: string,
   id: number,
   isHot: boolean,
+  isNew: boolean,
   nickname: string,
   publicId: string,
   recommendCount: number,

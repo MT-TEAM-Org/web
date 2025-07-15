@@ -20,6 +20,7 @@ const Page = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const handlePageChange = usePageChange();
   const searchType = pathname.split("/")[2];
   const category = params.searchCategory || "news";
 
@@ -45,8 +46,6 @@ const Page = () => {
     isLoading,
     isError,
   } = useGetSearchDataList(options);
-
-  const handlePageChange = usePageChange();
 
   return (
     <div
@@ -80,8 +79,7 @@ const Page = () => {
           searchType={searchType}
           searchData={searchData}
           searchParams={searchParams}
-          isLoading={isLoading}
-          isError={isError}
+          fetchStatus={{ isLoading, isError }}
         />
 
         {/* 페이지네이션 */}
