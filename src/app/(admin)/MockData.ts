@@ -1,0 +1,195 @@
+export const DetailTableData = (type: string) => {
+  if (type === "suggestions") {
+    return [
+      {
+        status: "대기",
+        importance: "높음",
+        recommendations: "15",
+        nickname: "하이브짱",
+        title: "로그인 관련 개선사항",
+        content:
+          "로그인 페이지 UI 개선이 필요합니다. 사용자 경험 향상을 위해...",
+        date: "25.05.29",
+      },
+      {
+        status: "완료",
+        importance: "중간",
+        recommendations: "8",
+        nickname: "사용자123",
+        title: "검색 기능 개선 요청",
+        content: "검색 결과가 정확하지 않은 것 같습니다. 개선이 필요해요...",
+        date: "25.05.28",
+      },
+      {
+        status: "접수",
+        importance: "중간",
+        recommendations: "8",
+        nickname: "사용자123",
+        title: "검색 기능 개선 요청",
+        content: "검색 결과가 정확하지 않은 것 같습니다. 개선이 필요해요...",
+        date: "25.05.28",
+      },
+    ];
+  } else if (type === "inquiry") {
+    return [
+      {
+        status: "답변대기",
+        member: "비회원",
+        email: "hvie12@gmail.com",
+        content:
+          "문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용",
+        date: "25.05.29",
+      },
+      {
+        status: "답변완료",
+        member: "회원",
+        email: "하이브짱",
+        content:
+          "문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용",
+        date: "25.05.29",
+      },
+    ];
+  } else if (type === "notice") {
+    return [
+      {
+        status: "게시중",
+        date: "25.05.29",
+        writer: "플레이하이브 관리자",
+        title: "공지사항입니다 제목공지사항입니다 제목",
+        content: "공지내용공지내용공지내용공지내용공지내용",
+      },
+    ];
+  } else if (type === "content") {
+    return [
+      {
+        status: "노출",
+        isReport: "신고",
+        reportCount: "15",
+        userStatus: "정상",
+        writer: "hive짱짱12",
+        type: "게시글",
+        titleContent:
+          "댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목",
+        date: "25.05.29",
+      },
+      {
+        status: "보류",
+        isReport: "미신고",
+        reportCount: "12",
+        userStatus: "경고",
+        writer: "hive짱짱12",
+        type: "댓글",
+        titleContent: "게시글제목게시글제목게시글제목게시글제목",
+        date: "25.05.29",
+      },
+      {
+        status: "숨김",
+        isReport: "신고",
+        reportCount: "10",
+        userStatus: "정상",
+        writer: "hive짱짱12",
+        type: "채팅",
+        titleContent:
+          "댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목댓글제목",
+        date: "25.05.29",
+      },
+    ];
+  } else if (type === "detailContent") {
+    return [
+      {
+        reportUser: "hive짱짱12",
+        reportType: "정치",
+        reason:
+          "쵸비 개새끼쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기",
+        reportDate: "2025.05.29 / 18:24:32",
+      },
+      {
+        reportUser: "hive짱짱34",
+        reportType: "욕설",
+        reason: "-",
+        reportDate: "2025.05.29 / 18:24:32",
+      },
+    ];
+  }
+};
+
+export const MetaPanelData = {
+  inquiry: [
+    { name: "처리상태", value: "답변대기", style: "text-warning" },
+    { name: "작성날짜", value: "2025.05.05 / 18:24:32 (IP 106.101.44.321)" },
+    { name: "문의유형", value: "일반문의" },
+    { name: "회원 여부", value: "비회원" },
+    { name: "닉네임", value: "-" },
+    { name: "이메일", value: "hive12@gmail.com" },
+    {
+      name: "내용",
+      value:
+        "문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용",
+    },
+  ],
+  suggestions: [
+    {
+      name: "닉네임",
+      value: "하이브짱짱",
+    },
+    {
+      name: "작성날짜",
+      value: "2025.05.05/18:24:32 (IP 106.101.44.321)",
+    },
+    {
+      name: "제목",
+      value: "개선요청 제목개선요청 제목개선요청 제목개선요청 제목",
+    },
+    {
+      name: "내용",
+      value:
+        "문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용문의하려고하는데요 로그인이 안되요 문의내용",
+    },
+  ],
+  content: [
+    {
+      name: "처리상태",
+      value: "노출",
+    },
+    {
+      name: "신고여부",
+      value: "신고",
+    },
+    {
+      name: "신고수",
+      value: "12",
+    },
+    {
+      name: "추천수",
+      value: "12",
+    },
+    {
+      name: "작성날짜",
+      value: "2025.05.05/18:24:32 (IP 106.101.44.321)",
+    },
+    {
+      name: "회원상태",
+      value: "정상",
+    },
+    {
+      name: "작성자",
+      value: "hive짱짱12",
+    },
+    {
+      name: "첨부링크",
+      value: "https://www.vaver.com/23423432",
+    },
+    {
+      name: "제목",
+      value: "게시글제목게시글제목게시글제목게시글제목",
+    },
+    {
+      name: "내용",
+      value: "내용내용내용내용내용내용",
+    },
+    {
+      name: "투표",
+      value: "-",
+    },
+  ],
+};

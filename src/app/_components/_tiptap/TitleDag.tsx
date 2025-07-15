@@ -162,19 +162,12 @@ const TitleDag = ({ register }: TitleDagProps) => {
           </button>
 
           {isDropdownOpen && (
-            <div className="relative w-full h-[1px]">
-              <hr className="border-gray3" />
-              <div className="absolute top-0 left-0 w-[1px] h-px bg-black" />
-              <div className="absolute top-0 right-0 w-[1px] h-px bg-black" />
-            </div>
-          )}
-
-          {isDropdownOpen && (
             <ul
               className={cn(
                 "absolute w-full bg-white border border-t-0 rounded-[5px] rounded-t-none shadow-lg z-10 border-black overflow-hidden"
               )}
             >
+              <hr className="w-full border-gray3" />
               {optionValues.map((option) => (
                 <li
                   key={option.value}

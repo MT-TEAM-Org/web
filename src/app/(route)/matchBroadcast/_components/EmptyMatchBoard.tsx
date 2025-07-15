@@ -11,8 +11,8 @@ const EmptyMatchBoard = () => {
     <div
       className={cn(
         "w-[1200px] h-[660px] flex items-center justify-center bg-gray1",
-        "tablet:max-w-[769px] tablet:h-[494px]",
-        "mobile:max-w-[768px] mobile:h-[328px]"
+        "tablet:max-w-full tablet:h-[494px] tablet:mx-10",
+        "mobile:max-w-full mobile:h-[328px] mobile:mx-5"
       )}
     >
       <div

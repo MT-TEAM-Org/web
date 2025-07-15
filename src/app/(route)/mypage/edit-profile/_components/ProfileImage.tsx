@@ -18,6 +18,19 @@ const ProfileImage = ({ imageUrl, setImageUrl }: ProfileImageProps) => {
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // 이미지 형식 비교 JPG/JPEG, PNG 형식만 가능
+    if (!file.type.includes("image/jpeg") && !file.type.includes("image/png")) {
+      error("JPG/JPEG, PNG 형식만 업로드 가능합니다.", "");
+      return;
+    }
+
+    // 이미지 사이즈 비교 1MB 이하
+    if (file.size > 1024 * 1024) {
+      error(`이미지 크기가 1MB까지 업로드 가능합니다.`, "");
+      return;
+    }
+
     try {
       const response = await getUpload({
         contentType: file.type,

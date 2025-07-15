@@ -53,9 +53,11 @@ const NewPostItem = ({ newPosts }: NewPostItemProps) => {
                 [{newPosts.commentCount}]
               </p>
             )}
-            <p className="font-[900] w-[10px] h-[20px] text-[10px] leading-[20px] text-gra flex items-center">
-              N
-            </p>
+            {newPosts?.isNew && (
+              <p className="font-[900] w-[10px] h-[20px] text-[10px] leading-[20px] text-gra flex items-center">
+                N
+              </p>
+            )}
             {newPosts?.isHot && (
               <p className="font-[900] w-[10px] h-[20px] text-[10px] leading-[20px] text-new flex items-center">
                 H
