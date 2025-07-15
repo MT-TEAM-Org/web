@@ -16,14 +16,12 @@ import { searchOptions } from "../_types/searchOptions";
 import { usePageChange } from "../_utils/usePageChange";
 
 const Page = () => {
-  const params = useParams<{ totalSearchType: string }>();
+  const params = useParams() as { searchCategory: string };
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const searchType = pathname.split("/")[2];
-
-  const category =
-    params.totalSearchType === "board" ? "news" : params.totalSearchType;
+  const category = params.searchCategory || "news";
 
   // 타입 검증
   useEffect(() => {
@@ -33,19 +31,20 @@ const Page = () => {
     }
   }, [searchType, router]);
 
-  // 검색 타입 설정
+  // 타입에 따라 domainType 설정
+  const options = searchOptions(searchParams);
+
   if (searchType === "news") {
-    searchOptions(searchParams).domainType = "NEWS";
+    options.domainType = "NEWS";
   } else if (searchType === "board") {
-    searchOptions(searchParams).domainType = "BOARD";
+    options.domainType = "BOARD";
   }
-  console.log(searchOptions(searchParams));
 
   const {
     data: searchData,
     isLoading,
     isError,
-  } = useGetSearchDataList(searchOptions(searchParams));
+  } = useGetSearchDataList(options);
 
   const handlePageChange = usePageChange();
 

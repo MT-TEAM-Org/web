@@ -1,3 +1,4 @@
+import React from "react";
 import NoticeItemSkeleton from "../../customer/_components/NoticeItemSkeleton";
 import NewsPostItem from "../../news/_components/NewsPostItem";
 import NewsPostItemSkeleton from "../../news/_components/NewsPostItemSkeleton";
@@ -59,4 +60,4 @@ const SearchResultList = ({
   }
 };
 
-export default SearchResultList;
+export default React.memo(SearchResultList);
