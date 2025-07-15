@@ -82,8 +82,6 @@ const NewsDetailGnb = ({
     <div
       className={cn(
         "w-full h-[48px] bg-white border-b border-gray2 flex items-center justify-between",
-        "pc:hidden",
-        "tablet:hidden",
         isSticky ? "fixed top-0 left-0 z-10" : "absolute top-0 left-0 z-10"
       )}
     >
