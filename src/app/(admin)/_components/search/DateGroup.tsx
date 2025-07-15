@@ -1,11 +1,17 @@
 "use client";
 
-import Icon from "@/app/_components/IconComponents";
-import React, { useRef } from "react";
+import React from "react";
+import DateElement from "./DateElement";
+import { useDateRange } from "../../_hooks/date/useDateRange";
 
 const DateGroup = () => {
-  const startRef = useRef<HTMLInputElement>(null);
-  const endRef = useRef<HTMLInputElement>(null);
+  const {
+    dateStartInputRef,
+    dateEndInputRef,
+    selectedStartDate,
+    selectedEndDate,
+    handleDateChange,
+  } = useDateRange();
 
   return (
     <div className="flex h-[56px] border-b border-gray2">
@@ -14,40 +20,24 @@ const DateGroup = () => {
       </div>
 
       {/* 시작 날짜 */}
-      <div className="relative flex flex-1 items-center px-3 py-2">
-        <input
-          type="text"
-          placeholder="시작 날짜"
-          className="w-full h-[40px] rounded-[5px] p-3 bg-white border border-gray3 text-[14px] leading-[22px] tracking-[-0.02em] cursor-pointer"
-          onClick={() => startRef.current?.showPicker()}
-        />
-        <input type="date" ref={startRef} className="hidden" />
-        <div
-          className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
-          onClick={() => startRef.current?.showPicker()}
-        >
-          <Icon icon="CALENDAR_ICON" />
-        </div>
-      </div>
+      <DateElement
+        placeholder="시작 날짜"
+        ref={dateStartInputRef}
+        value={selectedStartDate}
+        onChange={(e) => handleDateChange("start", e)}
+      />
+
       <span className="flex items-center justify-center text-center mx-3 font-normal text-[16px] leading-7 tracking-[-0.02em] text-gray7 select-none">
         ~
       </span>
+
       {/* 종료 날짜 */}
-      <div className="relative flex flex-1 items-center px-3 py-2">
-        <input
-          type="text"
-          placeholder="종료 날짜"
-          className="w-full h-[40px] rounded-[5px] p-3 bg-white border border-gray3 text-[14px] leading-[22px] tracking-[-0.02em] cursor-pointer"
-          onClick={() => endRef.current?.showPicker()}
-        />
-        <input type="date" ref={endRef} className="hidden" />
-        <div
-          className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
-          onClick={() => endRef.current?.showPicker()}
-        >
-          <Icon icon="CALENDAR_ICON" />
-        </div>
-      </div>
+      <DateElement
+        placeholder="종료 날짜"
+        ref={dateEndInputRef}
+        value={selectedEndDate}
+        onChange={(e) => handleDateChange("end", e)}
+      />
     </div>
   );
 };
