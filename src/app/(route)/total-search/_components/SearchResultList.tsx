@@ -7,7 +7,7 @@ import SkeletonLoader from "./SkeletonLoader";
 interface SearchResultListProps {
   searchType: string;
   searchData: any;
-  searchParams: any;
+  searchParams: URLSearchParams;
   fetchStatus: {
     isLoading: boolean;
     isError: boolean;
