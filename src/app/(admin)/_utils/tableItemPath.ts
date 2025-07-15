@@ -22,7 +22,7 @@ export const getLinkPath = (rowData: rowDataType, tableMeta: tableMeta): string 
       return `/dashBoard/notices/${idx}`;
     
     case "content":
-      if (!typeGuards.content(rowData.row)) return "#";
+      if (!typeGuards.content(rowData.row)) return "/dashBoard";
       
       const contentRoute = CONTENT_TYPE_MAP[rowData.row.type];
       return contentRoute 
