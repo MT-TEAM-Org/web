@@ -1,14 +1,22 @@
 "use client";
 
 import { ErrorMessage } from "@hookform/error-message";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useForm } from "react-hook-form";
 import usePostInquiry from "@/_hooks/usePostInquiry";
 import { useToast } from "@/_hooks/useToast";
 import { cn } from "@/utils";
 import CustomIcon from "./IconComponents/Icon";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+
+const GuestModalPopupSuspense = ({ show, setShow }: GuestModalPopupProps) => {
+  return (
+    <Suspense fallback={""}>
+      <GuestModalPopup show={show} setShow={setShow} />
+    </Suspense>
+  );
+};
 
 interface GuestModalPopupProps {
   show: boolean;
@@ -217,4 +225,4 @@ const GuestModalPopup = ({ show, setShow }: GuestModalPopupProps) => {
   );
 };
 
-export default GuestModalPopup;
+export default GuestModalPopupSuspense;
