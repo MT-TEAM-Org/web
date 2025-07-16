@@ -16,9 +16,13 @@ const searchFilterStyles = {
 
 interface SearchFilterProps {
   isContent?: boolean;
+  isUser?: boolean;
 }
 
-const SearchFilter = ({ isContent = false }: SearchFilterProps) => {
+const SearchFilter = ({
+  isContent = false,
+  isUser = false,
+}: SearchFilterProps) => {
   // 검색 필터 버튼 핸들러
   const handleButton = (value: string) => {
     console.log("버튼 클릭", value);
