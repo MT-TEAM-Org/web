@@ -58,8 +58,8 @@ export default function AdminSidebar() {
       </nav>
 
       {/* 구분선 */}
-      <div className="w-full h-[40px] px-4 py-2">
-        <hr className="border-quaternary opacity-30" />
+      <div className="w-full h-[40px] px-4 py-2 flex items-center justify-center">
+        <hr className="border-quaternary opacity-30 w-full" />
       </div>
 
       {/* 사용자 페이지 이동 버튼 */}
