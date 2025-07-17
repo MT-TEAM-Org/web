@@ -3,6 +3,7 @@
 import { cn } from "@heroui/theme";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import StatusBanner from "./StatusBanner";
 
 const options = [
   { name: "1일", value: "day" },
@@ -49,8 +50,67 @@ const OverviewStatBox = ({ title }: OverviewStatBoxProps) => {
           ))}
         </div>
       </div>
-      <div className="w-full h-[142px] bg-gray1 rounded-[10px] flex items-center justify-center">
-        <p>배너 들어갈 부분</p>
+      <div className="w-full h-[142px] bg-gray1 rounded-[10px] flex items-center justify-center gap-4">
+        <StatusBanner
+          meta={{
+            title: "가입자수",
+            count: 8,
+            totalCount: 165,
+            percentage: 8.5,
+          }}
+          icon={{
+            mainIcon: "USER_JOIN_COUNT",
+            statusIcon: false,
+          }}
+        />
+        <StatusBanner
+          meta={{
+            title: "탈퇴자수",
+            count: 8,
+            totalCount: 165,
+            percentage: 15,
+          }}
+          icon={{
+            mainIcon: "USER_JOIN_COUNT",
+            statusIcon: false,
+          }}
+        />
+        <StatusBanner
+          meta={{
+            title: "탈퇴자수",
+            count: 8,
+            totalCount: 165,
+            percentage: 15,
+          }}
+          icon={{
+            mainIcon: "USER_JOIN_COUNT",
+            statusIcon: false,
+          }}
+        />
+        <StatusBanner
+          meta={{
+            title: "경고",
+            count: 8,
+            totalCount: 165,
+            percentage: 12.5,
+          }}
+          icon={{
+            mainIcon: "USER_JOIN_COUNT",
+            statusIcon: true,
+          }}
+        />
+        <StatusBanner
+          meta={{
+            title: "정지",
+            count: 8,
+            totalCount: 65,
+            percentage: 12.5,
+          }}
+          icon={{
+            mainIcon: "USER_JOIN_COUNT",
+            statusIcon: false,
+          }}
+        />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import React from "react";
 import DetailTable from "../../_components/table/DetailTable";
-import OverviewStatBox from "../../_components/OverviewStatBox";
+import OverviewStatBox from "../../_components/statusBanner/OverviewStatBox";
 import SearchFilter from "../../_components/search/SearchFilter";
 
 const Page = () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import OverviewStatBox from "../../_components/OverviewStatBox";
+import OverviewStatBox from "../../_components/statusBanner/OverviewStatBox";
 import DetailTable from "../../_components/table/DetailTable";
 import SearchFilter from "../../_components/search/SearchFilter";
 
