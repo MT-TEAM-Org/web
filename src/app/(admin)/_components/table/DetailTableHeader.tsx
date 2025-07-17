@@ -5,10 +5,11 @@ import { cn } from "@/utils";
 import {
   DropDownControl,
   TableHeaderItem,
+  TableType,
 } from "../../_type/DetailTable/DetailTableHeader";
 
 interface DetailTableHeaderProps {
-  type: "suggestions" | "inquiry" | "notice" | "content" | "detailContent";
+  type: TableType;
   dropDownControl: DropDownControl;
   tableConfig: {
     headers: TableHeaderItem[];

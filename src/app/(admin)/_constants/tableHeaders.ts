@@ -134,6 +134,54 @@ const getTypeSpecificHeaders = (isList: boolean) => ({
       className: "w-[200px]",
     },
   },
+  user: {
+    userStatus: {
+      key: "userStatus",
+      label: "회원상태",
+      className: "flex-1 truncate",
+    },
+    post: {
+      key: "post",
+      label: "게시글",
+      className: "flex-1 truncate",
+    },
+    comment: {
+      key: "comment",
+      label: "댓글",
+      className: "flex-1 truncate",
+    },
+    getRecommendations: {
+      key: "getRecommendations",
+      label: "받은 추천수",
+      className: "flex-1 truncate",
+    },
+    getReportCount: {
+      key: "getReportCount",
+      label: "받은 신고수",
+      className: "flex-1 truncate",
+    },
+    gender: {
+      key: "gender",
+      label: "성별",
+      className: "flex-1 truncate",
+    },
+    joinType: {
+      key: "joinType",
+      label: "가입유형",
+      className: "flex-1 truncate",
+    },
+    email: {
+      key: "email",
+      label: "이메일",
+      className: "flex-1 truncate",
+    },
+    phone: {
+      key: "phone",
+      label: "휴대폰번호",
+      className: "flex-1 truncate",
+    },
+    
+  },
 });
 
 // 타입별 헤더 구성
@@ -182,6 +230,19 @@ export const getHeaders = (type: string, isList: boolean) => {
       typeSpecificHeaders.detailContent.reportType,
       typeSpecificHeaders.detailContent.reason,
       typeSpecificHeaders.detailContent.reportDate,
+    ];
+  } else if (type === "user") {
+    return [
+      typeSpecificHeaders.user.userStatus,
+      commonHeaders.nickname,
+      typeSpecificHeaders.user.post,
+      typeSpecificHeaders.user.comment,
+      typeSpecificHeaders.user.getRecommendations,
+      typeSpecificHeaders.user.getReportCount,
+      typeSpecificHeaders.user.gender,
+      typeSpecificHeaders.user.joinType,
+      typeSpecificHeaders.user.email,
+      typeSpecificHeaders.user.phone,
     ];
   }
 };

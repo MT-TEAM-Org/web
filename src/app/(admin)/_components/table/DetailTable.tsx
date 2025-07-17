@@ -9,10 +9,11 @@ import { DetailTableData } from "../../MockData";
 import { getHeaders } from "../../_constants/tableHeaders";
 import TableTitle from "./TableTitle";
 import DetailTableHeader from "./DetailTableHeader";
+import { TableType } from "../../_type/DetailTable/DetailTableHeader";
 
 interface DetailTableProps {
   isList: boolean;
-  type: "suggestions" | "inquiry" | "notice" | "content" | "detailContent";
+  type: TableType;
   title?: string;
   totalCount?: string;
 }

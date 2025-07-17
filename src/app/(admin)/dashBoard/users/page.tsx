@@ -15,12 +15,7 @@ const Page = () => {
       <SearchFilter isUser />
 
       {/* 하단 내역 테이블 */}
-      <DetailTable
-        type="suggestions"
-        isList
-        title="회원 내역"
-        totalCount="165"
-      />
+      <DetailTable type="user" isList title="회원 내역" totalCount="165" />
     </div>
   );
 };
