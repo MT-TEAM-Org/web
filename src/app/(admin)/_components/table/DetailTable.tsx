@@ -10,6 +10,7 @@ import { getHeaders } from "../../_constants/tableHeaders";
 import TableTitle from "./TableTitle";
 import DetailTableHeader from "./DetailTableHeader";
 import { TableType } from "../../_type/DetailTable/DetailTableHeader";
+import EmptyTable from "./EmptyTable";
 
 interface DetailTableProps {
   isList: boolean;
@@ -35,28 +36,34 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
         tableInfo={{ isList, type, title, totalCount }}
         modalControls={{ setShowDeleteModal, setShowPostModal }}
       />
-      <div className="overflow-x-auto border border-b-0 rounded-md">
-        <table className="min-w-full h-[36px] text-left border-collapse text-nowrap table-fixed w-full">
-          <DetailTableHeader
-            type={type}
-            dropDownControl={{ dropDown, setDropDown }}
-            tableConfig={tableConfig}
-          />
-          <tbody className="text-gray8 select-none">
-            {Array.from({ length: 10 }, (_, idx) => {
-              const rowData = tableConfig.data[idx % tableConfig.data.length];
-              return (
-                <DetailTableItem
-                  key={idx}
-                  rowData={{ row: rowData, type }}
-                  tableMeta={{ idx, isList }}
-                />
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-      <Pagination />
+      {/* 데이터가 없을 때 */}
+      {tableConfig.data.length === 0 && <EmptyTable />}
+      {/* 데이터가 있을 때 */}
+      {tableConfig.data.length > 0 && (
+        <div className="overflow-x-auto border border-b-0 rounded-md">
+          <table className="min-w-full h-[36px] text-left border-collapse text-nowrap table-fixed w-full">
+            <DetailTableHeader
+              type={type}
+              dropDownControl={{ dropDown, setDropDown }}
+              tableConfig={tableConfig}
+            />
+            <tbody className="text-gray8 select-none">
+              {Array.from({ length: 10 }, (_, idx) => {
+                const rowData = tableConfig.data[idx % tableConfig.data.length];
+                return (
+                  <DetailTableItem
+                    key={idx}
+                    rowData={{ row: rowData, type }}
+                    tableMeta={{ idx, isList }}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {tableConfig.data.length > 0 && <Pagination />}
 
       <PostNoticeModal show={showPostModal} setShow={setShowPostModal} />
       <DeleteModal show={showDeleteModal} setShow={setShowDeleteModal} />

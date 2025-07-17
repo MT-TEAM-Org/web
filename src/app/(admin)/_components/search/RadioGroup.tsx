@@ -41,7 +41,7 @@ const RadioGroup = ({
                 className={cn(
                   "appearance-none w-6 h-6 pr-6 border border-gray4 rounded-none",
                   type === "checkbox"
-                    ? "checked:bg-primary checked:border-transparent"
+                    ? "checked:bg-gray7 checked:border-transparent"
                     : radioClassNames,
                   type === "radio" &&
                     selectedOption === option.id &&
