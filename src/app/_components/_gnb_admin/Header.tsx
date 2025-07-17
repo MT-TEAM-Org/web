@@ -1,47 +1,55 @@
 "use client";
 
 import Link from "next/link";
-import { LogoWhite } from "../icon/LogoWhite";
 import { cn } from "@/utils";
 import { AdminSidebarStore } from "@/utils/Store";
 import Icon from "../IconComponents/Icon";
+import CustomIcon from "../IconComponents/Icon";
+import { LogoWhite } from "../icon/LogoWhite";
+import Image from "next/image";
 
 export default function Header() {
   const { toggleMini } = AdminSidebarStore();
 
   return (
-    <div className="w-full min-h-[64px] mx-auto px-4 flex justify-between items-center bg-Fifth">
-      <div className="flex items-center gap-x-[16px] flex-shrink overflow-hidden">
+    <div className="w-full h-[74px] flex justify-between items-center bg-Fifth">
+      <div className="w-full h-full flex items-center flex-shrink overflow-hidden">
         <button
           onClick={toggleMini}
-          className="flex flex-col justify-between w-5 h-4 mr-2"
-          aria-label="메뉴 열기">
-          <span className="block h-[1.5px] w-full bg-white rounded"></span>
-          <span className="block h-[1.5px] w-full bg-white rounded"></span>
-          <span className="block h-[1.5px] w-full bg-white rounded"></span>
+          className="flex items-center justify-center w-[56px] h-full"
+          aria-label="메뉴 열기"
+        >
+          <CustomIcon icon="MENU_ICON" className="w-[24px] h-[24px]" />
         </button>
-        <Link href="/dashBoard" aria-label="관리자 페이지">
-          <LogoWhite />
+        <Link
+          href="/dashBoard"
+          aria-label="관리자 페이지"
+          className="w-full flex items-center gap-4"
+        >
+          <div className="flex">
+            <LogoWhite fill="#FFFFFF" />
+          </div>
+          <p className="font-bold text-base text-white tracking-[-0.04em]">
+            플레이하이브 관리자 페이지
+          </p>
         </Link>
-        <p
-          className={cn(
-            "font-bold text-base text-white tracking-[-0.04em]",
-            "whitespace-nowrap overflow-hidden text-ellipsis",
-            "max-w-full"
-          )}>
-          플레이하이브 관리자 페이지
-        </p>
       </div>
 
       {/* TODO : 클릭 할 경우 dropDown */}
-      <div className="flex gap-4 h-[40px] whitespace-nowrap items-center">
+      <div className="flex gap-4 h-[42px] whitespace-nowrap items-center mr-4">
         <button className="flex items-center justify-center gap-2 w-auto px-4 py-2 bg-quaternary rounded-full text-white  hover:bg-Primary transition-all duration-200">
-          <Icon icon="ALARM" /> <span> 알림 0 </span>
+          <CustomIcon icon="ALARM" /> <span> 알림 0 </span>
         </button>
 
         {/* TODO : 유저 이미지 추가 */}
-        <button className="flex items-center justify-center w-auto px-4 py-2 bg-quaternary rounded-full text-white hover:bg-Primary transition-all duration-200">
-          phph님
+        <button className="min-w-[113px] h-[42px] flex items-center justify-center gap-2 px-4 py-2 bg-quaternary rounded-full text-white">
+          <Image
+            src="/userProfileIsNull.png"
+            alt="userProfileIsNull"
+            width={24}
+            height={24}
+          />
+          <span>phph님</span>
         </button>
       </div>
     </div>
