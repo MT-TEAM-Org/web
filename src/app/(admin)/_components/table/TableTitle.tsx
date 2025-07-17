@@ -5,6 +5,7 @@ import {
   ModalControls,
   TableInfo,
 } from "../../_type/DetailTable/DetailTableTitle";
+import { useSearchParams } from "next/navigation";
 
 interface TableTitleProps {
   tableInfo: TableInfo;
@@ -18,6 +19,11 @@ const TableTitle = ({
   tableInfo: { isList, type, title, totalCount },
   modalControls: { setShowDeleteModal, setShowPostModal },
 }: TableTitleProps) => {
+  const params = useSearchParams();
+
+  // TODO: 수정 필요, 정렬 기능 추가 후 추가
+  const option = params.get("option");
+
   // 공지 버튼 핸들러
   const handleNoticeButton = (value: string) => {
     if (value === "deleteAll") {
@@ -40,6 +46,11 @@ const TableTitle = ({
             <p className="font-bold text-[16px] leading-[24px] tracking-[-0.02em] text-gray7">
               {type === "notice" ? "총" : "검색결과 총"} {totalCount}건
             </p>
+            {option && (
+              <p className="font-bold text-[14px] leading-5 text-gra">
+                {option}
+              </p>
+            )}
           </div>
           {type === "notice" && (
             <div className="flex gap-2">

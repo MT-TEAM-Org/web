@@ -30,7 +30,7 @@ const DetailTableHeader = ({
   };
 
   return (
-    <thead className="bg-gray1">
+    <thead className={cn("bg-gray1")}>
       <tr>
         {type === "notice" && (
           <th className="w-[48px]">
@@ -42,11 +42,19 @@ const DetailTableHeader = ({
             key={header.key}
             onClick={() => handleDropDown(header.key)}
             className={cn(
-              "px-3 py-2 hover:bg-gray2 cursor-pointer border-b border-gray2",
+              "px-3 py-2 cursor-pointer border-b border-gray2",
+              dropDownControl.dropDown[header.key]
+                ? "bg-bg0"
+                : "hover:bg-gray2",
               header.className
             )}
           >
-            <div className="flex justify-between items-center font-bold text-[14px] leading-5 text-gray8 select-none">
+            <div
+              className={cn(
+                "flex justify-between items-center font-bold text-[14px] leading-5 select-none",
+                dropDownControl.dropDown[header.key] ? "text-gra" : "text-gray8"
+              )}
+            >
               <span className="mx-auto">{header.label}</span>
               <Icon
                 icon={
