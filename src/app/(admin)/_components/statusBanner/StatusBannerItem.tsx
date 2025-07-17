@@ -3,6 +3,7 @@ import { cn } from "@/utils";
 import React from "react";
 
 const style = {
+  mainIconStyle: "w-[32px] h-[32px]",
   iconStyle: "w-[24px] h-[24px]",
   fontStyle: "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray7",
 };
@@ -24,7 +25,7 @@ const StatusBannerItem = ({ meta, icon }: StatusBannerItemProps) => {
   return (
     <div className="w-full h-[142px] rounded-[10px] p-4 flex flex-col gap-4 bg-white shadow-lg">
       <div className="flex items-center justify-between">
-        <CustomIcon icon="USER_JOIN_COUNT" className={style.iconStyle} />
+        <CustomIcon icon={icon.mainIcon} className={style.mainIconStyle} />
         <div className="flex items-center">
           <CustomIcon icon={icon.statusIcon ? "STATUS_UP" : "STATUS_DOWN"} />
           <p

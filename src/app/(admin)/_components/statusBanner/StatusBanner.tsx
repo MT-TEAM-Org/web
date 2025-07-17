@@ -1,69 +1,33 @@
 import React from "react";
 import StatusBannerItem from "./StatusBannerItem";
+import { StatusBannerItemType } from "../../_type/StatusItem/ItemTypes";
+import { ItemTypeConfig } from "../../_type/StatusItem/ItemTypeConfig";
 
-const StatusBanner = () => {
+interface StatusBannerProps {
+  type?: StatusBannerItemType;
+  data?: any; // 타입 수정 필요
+}
+
+const StatusBanner = ({ type = "users", data }: StatusBannerProps) => {
+  const config = ItemTypeConfig(type);
+
   return (
     <div className="w-full h-[142px] bg-gray1 rounded-[10px] flex items-center justify-center gap-4">
-      <StatusBannerItem
-        meta={{
-          title: "가입자수",
-          count: 8,
-          totalCount: 165,
-          percentage: 8.5,
-        }}
-        icon={{
-          mainIcon: "USER_JOIN_COUNT",
-          statusIcon: false,
-        }}
-      />
-      <StatusBannerItem
-        meta={{
-          title: "탈퇴자수",
-          count: 8,
-          totalCount: 165,
-          percentage: 15,
-        }}
-        icon={{
-          mainIcon: "USER_JOIN_COUNT",
-          statusIcon: false,
-        }}
-      />
-      <StatusBannerItem
-        meta={{
-          title: "탈퇴자수",
-          count: 8,
-          totalCount: 165,
-          percentage: 15,
-        }}
-        icon={{
-          mainIcon: "USER_JOIN_COUNT",
-          statusIcon: false,
-        }}
-      />
-      <StatusBannerItem
-        meta={{
-          title: "경고",
-          count: 8,
-          totalCount: 165,
-          percentage: 12.5,
-        }}
-        icon={{
-          mainIcon: "USER_JOIN_COUNT",
-          statusIcon: true,
-        }}
-      />
-      <StatusBannerItem
-        meta={{
-          title: "정지",
-          count: 8,
-          totalCount: 65,
-          percentage: 12.5,
-        }}
-        icon={{
-          mainIcon: "USER_JOIN_COUNT",
-          statusIcon: false,
-        }}
-      />
+      {config.map((item) => (
+        <StatusBannerItem
+          key={item.name}
+          meta={{
+            title: item.name,
+            count: data?.count || 8,
+            totalCount: data?.totalCount || 160,
+            percentage: data?.percentage || 12.5,
+          }}
+          icon={{
+            mainIcon: item.icon,
+            statusIcon: false,
+          }}
+        />
+      ))}
     </div>
   );
 };
