@@ -1,4 +1,4 @@
-import CustomIcon from "@/app/_components/IconComponents";
+import CustomIcon, { IconList } from "@/app/_components/IconComponents";
 import { cn } from "@/utils";
 import React from "react";
 
@@ -16,7 +16,7 @@ interface StatusBannerItemProps {
     percentage: number;
   };
   icon: {
-    mainIcon: string;
+    mainIcon: IconList;
     statusIcon: boolean;
   };
 }

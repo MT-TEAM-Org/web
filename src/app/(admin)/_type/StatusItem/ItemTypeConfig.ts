@@ -1,6 +1,7 @@
+import { IconType, IconList } from "@/app/_components/IconComponents/constants";
 import { StatusBannerItemType } from "./ItemTypes"
 
-const ItemTypeConfigMap: Record<StatusBannerItemType, { name: string; icon: string }[]> = {
+const ItemTypeConfigMap: Record<StatusBannerItemType, { name: string; icon: IconList }[]> = {
   users: [
     { name: "가입자수", icon: "USER_JOIN_COUNT" },
     { name: "방문자수", icon: "USER_VISIT_COUNT" },
