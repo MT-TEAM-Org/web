@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { cn } from "@/utils";
 import { AdminSidebarStore } from "@/utils/Store";
-import Icon from "../IconComponents/Icon";
-import CustomIcon from "../IconComponents/Icon";
-import { LogoWhite } from "../icon/LogoWhite";
+import Icon from "../../../_components/IconComponents/Icon";
+import CustomIcon from "../../../_components/IconComponents/Icon";
+import { LogoWhite } from "../../../_components/icon/LogoWhite";
 import Image from "next/image";
 
 export default function Header() {
@@ -27,6 +27,7 @@ export default function Header() {
           className="w-full flex items-center gap-4"
         >
           <div className="flex">
+            {/* TODO: 로고 수정 */}
             <LogoWhite fill="#FFFFFF" />
           </div>
           <p className="font-bold text-base text-white tracking-[-0.04em]">
