@@ -28,6 +28,9 @@ export const getLinkPath = (rowData: rowDataType, tableMeta: tableMeta): string 
       return contentRoute 
         && `/dashBoard/content/${contentRoute}/${idx}`
     
+    case "user":
+      return `/dashBoard/users/${idx}`;
+    
     default:
       return "/dashBoard";
   }

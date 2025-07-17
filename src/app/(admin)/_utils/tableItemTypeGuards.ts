@@ -27,5 +27,14 @@ export const typeGuards = {
   suggestions: (row: any): row is SuggestionsTableRow =>
     "recommendations" in row && "nickname" in row && "importance" in row,
   user: (row: any): row is UserTableRow =>
-    "userStatus" in row && "nickname" in row && "post" in row && "comment" in row && "getRecommendations" in row && "getReportCount" in row && "gender" in row && "joinType" in row && "email" in row && "phone" in row,
+    "userStatus" in row && 
+    "nickname" in row && 
+    "post" in row && 
+    "comment" in row && 
+    "getRecommendations" in row && 
+    "getReportCount" in row && 
+    "gender" in row && 
+    "joinType" in row && 
+    "email" in row && 
+    "phone" in row,
 };

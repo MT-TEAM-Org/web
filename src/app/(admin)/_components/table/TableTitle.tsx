@@ -16,7 +16,7 @@ const buttonStyle =
   "w-[120px] h-[40px] flex items-center justify-center rounded-[5px] px-4 py-[13px] font-bold text-[14px]";
 
 const TableTitle = ({
-  tableInfo: { isList, type, title, totalCount },
+  tableInfo: { isList, type, title, totalCount, isUserDetail },
   modalControls: { setShowDeleteModal, setShowPostModal },
 }: TableTitleProps) => {
   const params = useSearchParams();
@@ -35,6 +35,14 @@ const TableTitle = ({
     }
   };
 
+  const getTotalReport = [
+    { name: "상습비방", count: 21 },
+    { name: "음란", count: 33 },
+    { name: "정치", count: 14 },
+    { name: "홍보", count: 88 },
+    { name: "기타", count: 12 },
+  ];
+
   return (
     <>
       {isList && (
@@ -44,12 +52,23 @@ const TableTitle = ({
               {title}
             </h3>
             <p className="font-bold text-[16px] leading-[24px] tracking-[-0.02em] text-gray7">
-              {type === "notice" ? "총" : "검색결과 총"} {totalCount}건
+              {type === "notice" || isUserDetail ? "총" : "검색결과 총"}
+              <span> {totalCount}건</span>
             </p>
             {option && (
               <p className="font-bold text-[14px] leading-5 text-gra">
                 {option}
               </p>
+            )}
+            {/* 사용자 상세 정보 */}
+            {isUserDetail && (
+              <div className="flex items-center gap-2 font-medium text-[14px] leading-5 text-gray5">
+                {getTotalReport.map((report) => (
+                  <p key={report.name}>
+                    {report.name} {report.count}건
+                  </p>
+                ))}
+              </div>
             )}
           </div>
           {type === "notice" && (

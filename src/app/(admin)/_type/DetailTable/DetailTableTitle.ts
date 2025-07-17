@@ -3,6 +3,7 @@ export type TableInfo = {
   type: string;
   title?: string;
   totalCount?: string;
+  isUserDetail?: boolean;
 };
 
 export type ModalControls = {

@@ -17,9 +17,16 @@ interface DetailTableProps {
   type: TableType;
   title?: string;
   totalCount?: string;
+  isUserDetail?: boolean;
 }
 
-const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
+const DetailTable = ({
+  isList,
+  type,
+  title,
+  totalCount,
+  isUserDetail,
+}: DetailTableProps) => {
   const [showPostModal, setShowPostModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [dropDown, setDropDown] = useState<Record<string, boolean>>({});
@@ -33,7 +40,7 @@ const DetailTable = ({ isList, type, title, totalCount }: DetailTableProps) => {
   return (
     <div className="w-full flex flex-col gap-4">
       <TableTitle
-        tableInfo={{ isList, type, title, totalCount }}
+        tableInfo={{ isList, type, title, totalCount, isUserDetail }}
         modalControls={{ setShowDeleteModal, setShowPostModal }}
       />
       {/* 데이터가 없을 때 */}
