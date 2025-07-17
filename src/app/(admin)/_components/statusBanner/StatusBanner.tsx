@@ -1,49 +1,69 @@
-import CustomIcon from "@/app/_components/IconComponents";
-import { cn } from "@/utils";
 import React from "react";
+import StatusBannerItem from "./StatusBannerItem";
 
-const style = {
-  iconStyle: "w-[24px] h-[24px]",
-  fontStyle: "font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray7",
-};
-
-interface StatusBannerProps {
-  meta: {
-    title: string;
-    count: number;
-    totalCount: number;
-    percentage: number;
-  };
-  icon: {
-    mainIcon: string;
-    statusIcon: boolean;
-  };
-}
-
-const StatusBanner = ({ meta, icon }: StatusBannerProps) => {
+const StatusBanner = () => {
   return (
-    <div className="w-full h-[142px] rounded-[10px] p-4 flex flex-col gap-4 bg-white shadow-lg">
-      <div className="flex items-center justify-between">
-        <CustomIcon icon="USER_JOIN_COUNT" className={style.iconStyle} />
-        <div className="flex items-center">
-          <CustomIcon icon={icon.statusIcon ? "STATUS_UP" : "STATUS_DOWN"} />
-          <p
-            className={cn(
-              "font-bold text-[18px] leading-7 tracking-[-0.04em]",
-              icon.statusIcon ? "text-gra" : "text-warning"
-            )}
-          >
-            {meta.percentage}%
-          </p>
-        </div>
-      </div>
-      <div className="flex flex-col items-start justify-start">
-        <p className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-black">
-          {meta.count}
-          <span className={style.fontStyle}> ({meta.totalCount})</span>
-        </p>
-        <p className={style.fontStyle}>{meta.title}</p>
-      </div>
+    <div className="w-full h-[142px] bg-gray1 rounded-[10px] flex items-center justify-center gap-4">
+      <StatusBannerItem
+        meta={{
+          title: "가입자수",
+          count: 8,
+          totalCount: 165,
+          percentage: 8.5,
+        }}
+        icon={{
+          mainIcon: "USER_JOIN_COUNT",
+          statusIcon: false,
+        }}
+      />
+      <StatusBannerItem
+        meta={{
+          title: "탈퇴자수",
+          count: 8,
+          totalCount: 165,
+          percentage: 15,
+        }}
+        icon={{
+          mainIcon: "USER_JOIN_COUNT",
+          statusIcon: false,
+        }}
+      />
+      <StatusBannerItem
+        meta={{
+          title: "탈퇴자수",
+          count: 8,
+          totalCount: 165,
+          percentage: 15,
+        }}
+        icon={{
+          mainIcon: "USER_JOIN_COUNT",
+          statusIcon: false,
+        }}
+      />
+      <StatusBannerItem
+        meta={{
+          title: "경고",
+          count: 8,
+          totalCount: 165,
+          percentage: 12.5,
+        }}
+        icon={{
+          mainIcon: "USER_JOIN_COUNT",
+          statusIcon: true,
+        }}
+      />
+      <StatusBannerItem
+        meta={{
+          title: "정지",
+          count: 8,
+          totalCount: 65,
+          percentage: 12.5,
+        }}
+        icon={{
+          mainIcon: "USER_JOIN_COUNT",
+          statusIcon: false,
+        }}
+      />
     </div>
   );
 };
