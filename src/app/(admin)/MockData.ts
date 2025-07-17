@@ -149,6 +149,23 @@ export const DetailTableData = (type: string) => {
         phone: "01012345678",
       },
     ];
+  } else if (type === "userDetail") {
+    return [
+      {
+        reportDate: "2025.05.02",
+        reportCount: "12",
+        type: "댓글",
+        titleContent:
+          "쵸비 개새끼쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기",
+      },
+      {
+        reportDate: "2025.05.29",
+        reportCount: "22",
+        type: "게시글",
+        titleContent:
+          "쵸비 개새끼쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기",
+      },
+    ];
   }
 };
 

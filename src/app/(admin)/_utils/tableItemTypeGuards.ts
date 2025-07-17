@@ -5,6 +5,7 @@ import {
   DetailContentTableRow,
   SuggestionsTableRow,
   UserTableRow,
+  UserDetailTableRow,
 } from "../_type/DetailTable/DetailTableItem";
 
 // TODO: any 타입 수정 필요
@@ -37,4 +38,9 @@ export const typeGuards = {
     "joinType" in row && 
     "email" in row && 
     "phone" in row,
+  userDetail: (row: any): row is UserDetailTableRow =>
+    "reportDate" in row &&
+    "reportCount" in row &&
+    "type" in row &&
+    "titleContent" in row,
 };

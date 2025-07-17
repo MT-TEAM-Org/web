@@ -11,7 +11,7 @@ const Page = () => {
         <UserDetailMeta />
       </div>
       <DetailTable
-        type="user"
+        type="userDetail"
         isList
         title="신고 받은 내역"
         totalCount="165"
