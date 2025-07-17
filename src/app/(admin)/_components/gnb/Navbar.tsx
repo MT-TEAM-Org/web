@@ -9,6 +9,7 @@ import CustomIcon from "../../../_components/IconComponents/Icon";
 
 export default function AdminSidebar() {
   const pathname = usePathname();
+  const basePath = pathname.split("/").slice(0, 3).join("/");
   const { isMini } = AdminSidebarStore();
 
   return (
@@ -26,7 +27,7 @@ export default function AdminSidebar() {
               className={cn(
                 "h-[52px] group flex items-center px-3 py-4 gap-4 cursor-pointer hover:bg-quaternary transition-colors",
                 isMini ? "justify-center" : "px-4",
-                pathname === item.link
+                basePath === item.link
                   ? "bg-quaternary font-semibold"
                   : "text-white"
               )}
@@ -34,7 +35,7 @@ export default function AdminSidebar() {
               <div
                 className={cn(
                   "transition-opacity duration-200",
-                  pathname === item.link ? "opacity-100" : "opacity-60"
+                  basePath === item.link ? "opacity-100" : "opacity-60"
                 )}
               >
                 <CustomIcon icon={item.icon} />

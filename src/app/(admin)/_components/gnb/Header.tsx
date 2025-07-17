@@ -1,11 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { cn } from "@/utils";
 import { AdminSidebarStore } from "@/utils/Store";
-import Icon from "../../../_components/IconComponents/Icon";
 import CustomIcon from "../../../_components/IconComponents/Icon";
-import { LogoWhite } from "../../../_components/icon/LogoWhite";
 import Image from "next/image";
 
 export default function Header() {
@@ -24,7 +21,7 @@ export default function Header() {
         <Link
           href="/dashBoard"
           aria-label="관리자 페이지"
-          className="w-full flex items-center gap-4"
+          className="max-w-[425px] flex items-center gap-4"
         >
           <div className="flex items-center gap-1">
             <CustomIcon icon="LogoWhiteWithAdmin" />
