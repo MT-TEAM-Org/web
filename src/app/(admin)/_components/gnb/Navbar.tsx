@@ -31,7 +31,12 @@ export default function AdminSidebar() {
                   : "text-white"
               )}
             >
-              <div className="transition-opacity duration-200">
+              <div
+                className={cn(
+                  "transition-opacity duration-200",
+                  pathname === item.link ? "opacity-100" : "opacity-60"
+                )}
+              >
                 <CustomIcon icon={item.icon} />
               </div>
 
@@ -62,7 +67,7 @@ export default function AdminSidebar() {
         <Link href="/">
           <div
             className={cn(
-              "h-[42px] group flex items-center text-white transition-all duration-200 text-nowrap",
+              "h-[42px] group flex items-center text-white transition-all duration-400 text-nowrap",
               isMini
                 ? "justify-center p-[18px] hover:bg-quaternary"
                 : "gap-2 w-full text-base leading-[26px] tracking-[-0.02em] text-white px-4 py-2 bg-quaternary rounded-full hover:bg-Primary"
