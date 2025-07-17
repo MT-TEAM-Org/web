@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { cn } from "@/utils";
 import { onlyNoticeButtons } from "../../_constants/onlyNoticeButtons";
 import {
@@ -6,6 +6,14 @@ import {
   TableInfo,
 } from "../../_type/DetailTable/DetailTableTitle";
 import { useSearchParams } from "next/navigation";
+
+const TableTitleSuspense = ({ tableInfo, modalControls }: TableTitleProps) => {
+  return (
+    <Suspense fallback={""}>
+      <TableTitle tableInfo={tableInfo} modalControls={modalControls} />
+    </Suspense>
+  );
+};
 
 interface TableTitleProps {
   tableInfo: TableInfo;
@@ -90,4 +98,4 @@ const TableTitle = ({
   );
 };
 
-export default TableTitle;
+export default TableTitleSuspense;
