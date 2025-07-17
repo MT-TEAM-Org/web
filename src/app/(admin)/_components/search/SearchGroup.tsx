@@ -1,3 +1,4 @@
+import { cn } from "@/utils";
 import React from "react";
 
 interface SearchGroupProps {
@@ -17,7 +18,10 @@ const SearchGroup = ({ label, name, placeholder }: SearchGroupProps) => {
           id={name}
           type="text"
           placeholder={placeholder}
-          className="w-full h-[40px] rounded-[5px] p-3 border border-gray3"
+          className={cn(
+            "w-full h-[40px] rounded-[5px] p-3 border border-gray3",
+            "placeholder:font-medium placeholder:text-[14px] placeholder:text-gray5 placeholder:leading-[22px] placeholder:tracking-[-0.02em]"
+          )}
         />
       </div>
     </div>

@@ -120,28 +120,27 @@ export const SEARCH_FILTER_CONFIG: Record<string, SearchFilterConfig> = {
         type: "search",
         label: "닉네임",
         name: "nickname",
+        placeholder: "닉네임을 입력해 주세요.",
       },
       {
         type: "search",
         label: "이메일",
         name: "email",
+        placeholder: "이메일을 입력해 주세요.",
       },
       {
         type: "search",
         label: "휴대폰번호",
         name: "number",
-      },
-      {
-        type: "search",
-        label: "가입기간",
-        name: "date",
+        placeholder: "휴대폰번호를 입력해 주세요.",
       },
     ],
     right: [
       {
         type: "search",
-        label: "휴대폰번호",
-        name: "number",
+        label: "생년월일",
+        name: "birth",
+        placeholder: "생년월일을 입력해 주세요. (920102)",
       },
       {
         type: "radio",

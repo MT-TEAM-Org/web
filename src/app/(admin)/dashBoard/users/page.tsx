@@ -18,7 +18,7 @@ const Page = () => {
       <DetailTable
         type="suggestions"
         isList
-        title="개선요청 내역"
+        title="회원 내역"
         totalCount="165"
       />
     </div>
