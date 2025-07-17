@@ -26,9 +26,9 @@ export default function Header() {
           aria-label="관리자 페이지"
           className="w-full flex items-center gap-4"
         >
-          <div className="flex">
-            {/* TODO: 로고 수정 */}
-            <LogoWhite fill="#FFFFFF" />
+          <div className="flex items-center gap-1">
+            <CustomIcon icon="LogoWhiteWithAdmin" />
+            <CustomIcon icon="PLAYHIVE_ADMIN" />
           </div>
           <p className="font-bold text-base text-white tracking-[-0.04em]">
             플레이하이브 관리자 페이지
