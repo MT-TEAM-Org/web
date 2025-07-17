@@ -4,12 +4,14 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import StatusOptions from "./StatusOptions";
 import StatusBanner from "./StatusBanner";
+import { StatusBannerItemType } from "../../_type/StatusItem/ItemTypes";
 
 interface OverviewStatBoxProps {
   title: string;
+  type: StatusBannerItemType;
 }
 
-const OverviewStatBox = ({ title }: OverviewStatBoxProps) => {
+const OverviewStatBox = ({ title, type }: OverviewStatBoxProps) => {
   const router = useRouter();
   const [selected, setSelected] = useState<string>("day");
 
@@ -27,7 +29,7 @@ const OverviewStatBox = ({ title }: OverviewStatBoxProps) => {
         </h1>
         <StatusOptions selected={selected} handleOption={handleOption} />
       </div>
-      <StatusBanner />
+      <StatusBanner type={type} />
     </div>
   );
 };

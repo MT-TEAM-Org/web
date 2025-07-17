@@ -4,11 +4,11 @@ import { StatusBannerItemType } from "../../_type/StatusItem/ItemTypes";
 import { ItemTypeConfig } from "../../_type/StatusItem/ItemTypeConfig";
 
 interface StatusBannerProps {
-  type?: StatusBannerItemType;
+  type: StatusBannerItemType;
   data?: any; // 타입 수정 필요
 }
 
-const StatusBanner = ({ type = "users", data }: StatusBannerProps) => {
+const StatusBanner = ({ type, data }: StatusBannerProps) => {
   const config = ItemTypeConfig(type);
 
   return (

@@ -9,7 +9,7 @@ const Page = () => {
   return (
     <div className="min-h-screen w-full bg-white flex flex-col gap-10">
       {/* 게시물 현황 */}
-      <OverviewStatBox title="게시물 현황" />
+      <OverviewStatBox title="게시물 현황" type="content" />
 
       {/* 검색 필터 */}
       <SearchFilter isContent />
