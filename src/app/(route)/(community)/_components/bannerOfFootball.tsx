@@ -1,7 +1,5 @@
 "use client";
 import Image from "next/image";
-import bannerFootball from "/public/BannerOfFootball.png";
-import { cn } from "@/utils";
 
 const BannerOfFootball = () => {
   return (
