@@ -22,7 +22,7 @@ const Pagination = () => {
     { icon: "PAGINATION_DOUBLE_RIGHT_ARROW" as const, position: "right" },
   ] as const;
 
-  // 페이지 번호 설정 (임시)
+  // TODO: 페이지 번호 변경 필요
   const pageNumbers = [1, 2, 3, 4, 5];
 
   // 네비게이션 버튼
