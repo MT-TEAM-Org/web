@@ -33,13 +33,11 @@ const ItemTypeConfigMap: Record<
     { name: "접수 완료", icon: "CONTENT_ALL" },
     { name: "개선완료", icon: "CONTENT_ALL" },
   ],
-  home: [
+  dashBoard: [
     { name: "전체 게시글", icon: "CONTENT_ALL" },
     { name: "전체 댓글", icon: "CONTENT_ALL_COMMENT" },
     { name: "게시글 신고", icon: "CONTENT_ALL" },
     { name: "댓글 신고", icon: "CONTENT_ALL_COMMENT" },
-  ],
-  home2: [
     { name: "문의/개선요청", icon: "CONTENT_ALL" },
     { name: "방문자 수", icon: "USER_VISIT_COUNT" },
     { name: "탈퇴자 수", icon: "USER_LEAVE_COUNT" },

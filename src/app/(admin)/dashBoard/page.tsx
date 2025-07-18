@@ -5,8 +5,7 @@ export default function DashboardPage() {
   return (
     <div className="w-full">
       <div className="w-full ">
-        <OverviewStatBox title="운영 현황" type="home" />
-        <StatusBanner type="home2" />
+        <OverviewStatBox title="운영 현황" type="dashBoard" />
       </div>
     </div>
   );

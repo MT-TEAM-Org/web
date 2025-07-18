@@ -3,5 +3,4 @@ export type StatusBannerItemType =
   | "content"
   | "inquiries"
   | "suggestions"
-  | "home"
-  | "home2";
+  | "dashBoard";
