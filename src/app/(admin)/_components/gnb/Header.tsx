@@ -4,9 +4,15 @@ import Link from "next/link";
 import { AdminSidebarStore } from "@/utils/Store";
 import CustomIcon from "../../../_components/IconComponents/Icon";
 import Image from "next/image";
+import NotificationList from "./dropdown/notification/NotificationList";
+import { useState } from "react";
+import { cn } from "@/utils";
+import Dropdown from "./dropdown/profile/Dropdown";
 
 export default function Header() {
   const { toggleMini } = AdminSidebarStore();
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false);
 
   return (
     <div className="w-full h-[74px] flex justify-between items-center bg-Fifth">
@@ -33,14 +39,30 @@ export default function Header() {
         </Link>
       </div>
 
-      {/* TODO : 클릭 할 경우 dropDown */}
       <div className="flex gap-4 h-[42px] whitespace-nowrap items-center mr-4">
-        <button className="flex items-center justify-center gap-2 w-auto px-4 py-2 bg-quaternary rounded-full text-white  hover:bg-Primary transition-all duration-200">
-          <CustomIcon icon="ALARM" /> <span> 알림 0 </span>
-        </button>
+        <div
+          onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+          className={cn(
+            "relative flex items-center justify-center gap-2 w-auto px-4 py-2 select-none cursor-pointer rounded-full text-white hover:bg-Primary transition-all duration-200",
+            isNotificationOpen ? "bg-Primary" : "bg-quaternary"
+          )}
+        >
+          {/* <CustomIcon icon="ALARM" /> <span> 알림 0 </span> */}
+          <CustomIcon icon="ALARM_ACTIVE" /> <span> 알림 0 </span>
+          {isNotificationOpen && (
+            <div className="absolute top-[42px] right-[-130px]">
+              <NotificationList />
+            </div>
+          )}
+        </div>
 
-        {/* TODO : 유저 이미지 추가 */}
-        <button className="min-w-[113px] h-[42px] flex items-center justify-center gap-2 px-4 py-2 bg-quaternary rounded-full text-white">
+        <button
+          onClick={() => setIsAdminMenuOpen(!isAdminMenuOpen)}
+          className={cn(
+            "relative min-w-[113px] h-[42px] flex items-center justify-center gap-2 px-4 py-2 rounded-full text-white cursor-pointer",
+            isAdminMenuOpen ? "bg-Primary" : "bg-quaternary"
+          )}
+        >
           <Image
             src="/userProfileIsNull.png"
             alt="userProfileIsNull"
@@ -49,6 +71,11 @@ export default function Header() {
           />
           <span>phph님</span>
         </button>
+        {isAdminMenuOpen && (
+          <div className="absolute top-[65px] right-[15px]">
+            <Dropdown />
+          </div>
+        )}
       </div>
     </div>
   );
