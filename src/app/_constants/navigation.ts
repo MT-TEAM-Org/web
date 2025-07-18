@@ -1,5 +1,3 @@
-import { IconList } from "../_components/IconComponents/constants";
-
 export const NAVBARS = [
   {
     name: "E스포츠",
@@ -203,39 +201,5 @@ export const TOTAL_NAVBAR = [
     name: "경기중계",
     link: "/matchBroadcast/ESPORTS",
     id: "matchBroadcast",
-  },
-];
-
-export const ADMIN_NAVBARS: {
-  id: string;
-  name: string;
-  link: string;
-  icon: IconList;
-}[] = [
-  { id: "dashboard", name: "대시보드", link: "/dashboard", icon: "HOME" },
-  { id: "users", name: "회원 관리", link: "/dashBoard/users", icon: "MY" },
-  {
-    id: "posts",
-    name: "게시글/댓글 관리",
-    link: "/dashBoard/content",
-    icon: "ALARM",
-  },
-  {
-    id: "inquiries",
-    name: "문의 관리",
-    link: "/dashBoard/inquiries",
-    icon: "MAIL",
-  },
-  {
-    id: "suggestions",
-    name: "개선요청 관리",
-    link: "/dashBoard/suggestions",
-    icon: "REVIEW",
-  },
-  {
-    id: "notices",
-    name: "공지 관리",
-    link: "/dashBoard/notices",
-    icon: "EDIT",
   },
 ];

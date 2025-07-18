@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
-import Header from "@/app/_components/_gnb_admin/Header";
-import Navbar from "@/app/_components/_gnb_admin/Navbar";
+import Header from "@/app/(admin)/_components/gnb/Header";
+import Navbar from "@/app/(admin)/_components/gnb/Navbar";
 import { ToastContainer } from "@/app/_components/ToastContainer";
 
 export const metadata: Metadata = {
