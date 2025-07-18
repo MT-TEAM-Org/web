@@ -1,24 +1,35 @@
 import React, { Suspense } from "react";
 import { cn } from "@/utils";
 import { onlyNoticeButtons } from "../../_constants/onlyNoticeButtons";
+import { getHeaders } from "../../_constants/tableHeaders";
 import {
   ModalControls,
   TableInfo,
 } from "../../_type/DetailTable/DetailTableTitle";
-import { useSearchParams } from "next/navigation";
-
-const TableTitleSuspense = ({ tableInfo, modalControls }: TableTitleProps) => {
-  return (
-    <Suspense fallback={""}>
-      <TableTitle tableInfo={tableInfo} modalControls={modalControls} />
-    </Suspense>
-  );
-};
+import { TableHeaderItem } from "../../_type/DetailTable/DetailTableHeader";
+import RenderSortText from "./RenderSortText";
 
 interface TableTitleProps {
   tableInfo: TableInfo;
   modalControls: ModalControls;
+  currentSort: string;
 }
+
+const TableTitleSuspense = ({
+  tableInfo,
+  modalControls,
+  currentSort,
+}: TableTitleProps) => {
+  return (
+    <Suspense fallback={""}>
+      <TableTitle
+        tableInfo={tableInfo}
+        modalControls={modalControls}
+        currentSort={currentSort}
+      />
+    </Suspense>
+  );
+};
 
 const buttonStyle =
   "w-[120px] h-[40px] flex items-center justify-center rounded-[5px] px-4 py-[13px] font-bold text-[14px]";
@@ -26,11 +37,28 @@ const buttonStyle =
 const TableTitle = ({
   tableInfo: { isList, type, title, totalCount, isUserDetail },
   modalControls: { setShowDeleteModal, setShowPostModal },
+  currentSort,
 }: TableTitleProps) => {
-  const params = useSearchParams();
+  // currentSort에서 정렬 정보를 추출
+  const getSortText = (): string | null => {
+    if (!currentSort) return null;
 
-  // TODO: 수정 필요, 정렬 기능 추가 후 추가
-  const option = params.get("option");
+    const [sortKey, sortValue] = currentSort.split(".");
+    if (!sortKey || !sortValue) return null;
+
+    // 현재 타입 헤더 가져오기
+    const headers = getHeaders(type, isList);
+    const header = Object.values(headers).find(
+      (h: TableHeaderItem) => h.key === sortKey
+    );
+
+    if (!header || !header.sortValueList || !header.sortKorean) return null;
+
+    const sortIndex = header.sortValueList.indexOf(sortValue);
+    if (sortIndex === -1 || sortIndex >= header.sortKorean.length) return null;
+
+    return header.sortKorean[sortIndex];
+  };
 
   // 공지 버튼 핸들러
   const handleNoticeButton = (value: string) => {
@@ -63,11 +91,6 @@ const TableTitle = ({
               {type === "notice" || isUserDetail ? "총" : "검색결과 총"}
               <span> {totalCount}건</span>
             </p>
-            {option && (
-              <p className="font-bold text-[14px] leading-5 text-gra">
-                {option}
-              </p>
-            )}
             {/* 사용자 상세 정보 */}
             {isUserDetail && (
               <div className="flex items-center gap-2 font-medium text-[14px] leading-5 text-gray5">
@@ -78,7 +101,10 @@ const TableTitle = ({
                 ))}
               </div>
             )}
+            {/* 정렬 텍스트 */}
+            {RenderSortText(getSortText)}
           </div>
+          {/* 공지사항 버튼 */}
           {type === "notice" && (
             <div className="flex gap-2">
               {onlyNoticeButtons.map((button) => (

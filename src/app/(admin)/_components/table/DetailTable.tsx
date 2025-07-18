@@ -11,6 +11,7 @@ import TableTitle from "./TableTitle";
 import DetailTableHeader from "./DetailTableHeader";
 import { TableType } from "../../_type/DetailTable/DetailTableHeader";
 import EmptyTable from "./EmptyTable";
+import { useSearchParams } from "next/navigation";
 
 interface DetailTableProps {
   isList: boolean;
@@ -30,6 +31,8 @@ const DetailTable = ({
   const [showPostModal, setShowPostModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [dropDown, setDropDown] = useState<Record<string, boolean>>({});
+  const searchParams = useSearchParams();
+  const currentSort = searchParams.get("sort") || "";
 
   // 테이블 구성
   const tableConfig = {
@@ -43,6 +46,7 @@ const DetailTable = ({
         <TableTitle
           tableInfo={{ isList, type, title, totalCount, isUserDetail }}
           modalControls={{ setShowDeleteModal, setShowPostModal }}
+          currentSort={currentSort}
         />
         {/* 데이터가 없을 때 */}
         {tableConfig.data.length === 0 && <EmptyTable />}
