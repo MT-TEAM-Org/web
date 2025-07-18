@@ -20,7 +20,7 @@ const Page = () => {
   const getContentTitle = () => {
     switch (type) {
       case "post":
-        return "게시물 내역 상세";
+        return "게시글 내역 상세";
       case "comment":
         return "댓글 내역 상세";
       case "chat":

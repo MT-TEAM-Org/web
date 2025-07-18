@@ -19,7 +19,8 @@ export type TableType =
   | "notice"
   | "content"
   | "detailContent"
-  | "user";
+  | "user"
+  | "userDetail";
 
 // 테이블 헤더 타입
 export type DropDownControl = {

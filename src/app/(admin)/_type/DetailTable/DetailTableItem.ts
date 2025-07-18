@@ -51,6 +51,13 @@ export interface UserTableRow {
   phone: string;
 }
 
+export interface UserDetailTableRow {
+  reportDate: string;
+  reportCount: string;
+  type: string;
+  titleContent: string;
+}
+
 // 테이블 아이템 타입
 export type rowDataType = {
   row:
@@ -59,8 +66,9 @@ export type rowDataType = {
     | NoticeTableRow
     | ContentTableRow
     | DetailContentTableRow
-    | UserTableRow;
-  type: "inquiry" | "suggestions" | "notice" | "content" | "detailContent" | "user";
+    | UserTableRow
+    | UserDetailTableRow;
+  type: "inquiry" | "suggestions" | "notice" | "content" | "detailContent" | "user" | "userDetail";
 };
 
 export type tableMeta = {

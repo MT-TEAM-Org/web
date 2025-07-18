@@ -180,7 +180,28 @@ const getTypeSpecificHeaders = (isList: boolean) => ({
       label: "휴대폰번호",
       className: "flex-1 truncate",
     },
-    
+  },
+  userDetail: {
+    reportDate: {
+      key: "reportDate",
+      label: "신고날짜",
+      className: "w-[160px]",
+    },
+    reportCount: {
+      key: "reportCount",
+      label: "신고 받은 횟수",
+      className: "w-[160px]",
+    },
+    type: {
+      key: "type",
+      label: "유형",
+      className: "w-[100px]",
+    },
+    titleContent: {
+      key: "titleContent",
+      label: "제목/내용",
+      className: "flex-1 truncate"
+    },
   },
 });
 
@@ -243,6 +264,13 @@ export const getHeaders = (type: string, isList: boolean) => {
       typeSpecificHeaders.user.joinType,
       typeSpecificHeaders.user.email,
       typeSpecificHeaders.user.phone,
+    ];
+  } else if (type === "userDetail") {
+    return [
+      typeSpecificHeaders.userDetail.reportDate,
+      typeSpecificHeaders.userDetail.reportCount,
+      typeSpecificHeaders.userDetail.type,
+      typeSpecificHeaders.userDetail.titleContent,
     ];
   }
 };

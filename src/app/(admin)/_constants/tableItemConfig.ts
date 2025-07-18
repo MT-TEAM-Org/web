@@ -193,6 +193,31 @@ export const getCellConfig = (rowData: rowDataType, tableMeta: tableMeta) => {
         className: "w-[160px]",
       },
     ];
+  } else if (typeGuards.userDetail(rowData.row)) {
+    return [
+      {
+        key: "reportDate",
+        value: rowData.row.reportDate,
+        className: "w-[160px]",
+      },
+      {
+        key: "reportCount",
+        value: rowData.row.reportCount,
+        className: "w-[160px]",
+      },
+      {
+        key: "type",
+        value: rowData.row.type,
+        className: "w-[100px]",
+      },
+      {
+        key: "titleContent",
+        value: rowData.row.titleContent,
+        className: !tableMeta.isList
+          ? "max-w-[872px]"
+          : "truncate flex-1 text-center",
+      },
+    ];
   } else if (typeGuards.user(rowData.row)) {
     return [
       {
