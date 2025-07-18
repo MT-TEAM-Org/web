@@ -4,13 +4,15 @@ import Link from "next/link";
 import { AdminSidebarStore } from "@/utils/Store";
 import CustomIcon from "../../../_components/IconComponents/Icon";
 import Image from "next/image";
-import NotificationList from "../notification/NotificationList";
+import NotificationList from "./dropdown/notification/NotificationList";
 import { useState } from "react";
 import { cn } from "@/utils";
+import Dropdown from "./dropdown/profile/Dropdown";
 
 export default function Header() {
   const { toggleMini } = AdminSidebarStore();
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false);
 
   return (
     <div className="w-full h-[74px] flex justify-between items-center bg-Fifth">
@@ -54,8 +56,13 @@ export default function Header() {
           )}
         </div>
 
-        {/* TODO : 유저 이미지 추가 */}
-        <button className="min-w-[113px] h-[42px] flex items-center justify-center gap-2 px-4 py-2 bg-quaternary rounded-full text-white">
+        <button
+          onClick={() => setIsAdminMenuOpen(!isAdminMenuOpen)}
+          className={cn(
+            "relative min-w-[113px] h-[42px] flex items-center justify-center gap-2 px-4 py-2 rounded-full text-white cursor-pointer",
+            isAdminMenuOpen ? "bg-Primary" : "bg-quaternary"
+          )}
+        >
           <Image
             src="/userProfileIsNull.png"
             alt="userProfileIsNull"
@@ -64,6 +71,11 @@ export default function Header() {
           />
           <span>phph님</span>
         </button>
+        {isAdminMenuOpen && (
+          <div className="absolute top-[65px] right-[15px]">
+            <Dropdown />
+          </div>
+        )}
       </div>
     </div>
   );

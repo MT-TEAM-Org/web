@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NotificationTabs from "./NotificationTabs";
 import NotificationItem from "./NotificationItem";
-import { NotificationListData } from "../../MockData";
+import { NotificationListData } from "../../../../MockData";
 
 const NotificationList = () => {
   const [isActiveTab, setIsActiveTab] = useState<
