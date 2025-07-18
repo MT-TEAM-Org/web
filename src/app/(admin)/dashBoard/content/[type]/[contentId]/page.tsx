@@ -3,8 +3,8 @@
 import React, { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import MetaPanel from "@/app/(admin)/_components/userDetail/MetaPanel";
-import UserDetailFeedbackList from "@/app/(admin)/_components/userDetail/UserDetailFeedbackList";
 import DetailTitle from "@/app/(admin)/_components/detail/DetailTitle";
+import DetailTable from "@/app/(admin)/_components/table/DetailTable";
 
 const Page = () => {
   const router = useRouter();
@@ -45,10 +45,11 @@ const Page = () => {
       <DetailTitle title={getContentTitle()} backPath="/dashBoard/content" />
       <div className="w-full flex gap-10">
         <MetaPanel type="content" title={getContentMetaTitle()} />
-        <UserDetailFeedbackList
-          totalCount="165"
+        <DetailTable
           type="detailContent"
           title="신고 받은 내역"
+          totalCount="165"
+          isList={false}
         />
       </div>
     </div>

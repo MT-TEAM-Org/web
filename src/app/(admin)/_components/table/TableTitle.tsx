@@ -66,14 +66,23 @@ const TableTitle = ({
 
   return (
     <>
-      {isList && (
-        <div className="flex items-center justify-between">
-          <div className="flex gap-2 items-center">
-            <h3 className="font-bold text-[20px] leading-[36px] tracking-[-0.02em] text-black">
+      <div className="flex items-center justify-between">
+        <div className="flex gap-2 items-center">
+          <>
+            <h3
+              className={cn(
+                "font-bold text-black",
+                isList
+                  ? "text-[20px] leading-[36px] tracking-[-0.02em]"
+                  : "text-[18px] leading-7 tracking-[-0.04em]"
+              )}
+            >
               {title}
             </h3>
             <p className="font-bold text-[16px] leading-[24px] tracking-[-0.02em] text-gray7">
-              {type === "notice" || isUserDetail ? "총" : "검색결과 총"}
+              {type === "notice" || isUserDetail || !isList
+                ? "총"
+                : "검색결과 총"}
               <span> {totalCount}건</span>
             </p>
             {/* 사용자 상세 정보 */}
@@ -86,25 +95,26 @@ const TableTitle = ({
                 ))}
               </div>
             )}
-            {/* 정렬 텍스트 */}
-            {RenderSortText(getSortText)}
-          </div>
-          {/* 공지사항 버튼 */}
-          {type === "notice" && (
-            <div className="flex gap-2">
-              {onlyNoticeButtons.map((button) => (
-                <button
-                  key={button.value}
-                  className={cn(buttonStyle, button.style)}
-                  onClick={() => handleNoticeButton(button.value)}
-                >
-                  {button.name}
-                </button>
-              ))}
-            </div>
-          )}
+          </>
+          {/* 정렬 텍스트 */}
+          {RenderSortText(getSortText)}
         </div>
-      )}
+
+        {/* 공지사항 버튼은 isList일 때만 */}
+        {isList && type === "notice" && (
+          <div className="flex gap-2">
+            {onlyNoticeButtons.map((button) => (
+              <button
+                key={button.value}
+                className={cn(buttonStyle, button.style)}
+                onClick={() => handleNoticeButton(button.value)}
+              >
+                {button.name}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </>
   );
 };

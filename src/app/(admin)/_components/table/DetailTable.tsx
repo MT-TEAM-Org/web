@@ -12,6 +12,7 @@ import DetailTableHeader from "./DetailTableHeader";
 import { TableType } from "../../_type/DetailTable/DetailTableHeader";
 import EmptyTable from "./EmptyTable";
 import { useSearchParams } from "next/navigation";
+import { cn } from "@/utils";
 
 interface DetailTableProps {
   isList: boolean;
@@ -61,7 +62,7 @@ const DetailTable = ({
   };
 
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className={cn("flex flex-col gap-4", isList ? "w-full" : "w-1/2")}>
       <div className="w-full flex flex-col gap-2">
         <TableTitle
           tableInfo={{ isList, type, title, totalCount, isUserDetail }}
