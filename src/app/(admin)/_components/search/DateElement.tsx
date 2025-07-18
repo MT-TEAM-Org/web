@@ -1,5 +1,5 @@
 import Icon from "@/app/_components/IconComponents";
-import React, { useState, useRef } from "react";
+import React from "react";
 
 interface DateElementProps {
   placeholder: string;

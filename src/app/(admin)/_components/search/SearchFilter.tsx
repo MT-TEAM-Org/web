@@ -10,7 +10,7 @@ import {
 
 const searchFilterStyles = {
   actionButtonStyle:
-    "w-[120px] min-h-[40px] rounded-[5px] border px-4 py-[13px] text-center border-gray3 font-bold text-[14px] text-gray7 transition-colors",
+    "w-[120px] h-[40px] rounded-[5px] border text-center border-gray3 font-bold text-[14px] text-gray7 transition-colors",
   filterBox: "w-full rounded-[5px] border border-gray2 border-b-0",
 };
 
