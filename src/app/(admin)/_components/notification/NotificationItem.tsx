@@ -2,20 +2,22 @@ import { cn } from "@/utils";
 import React from "react";
 
 interface NotificationItem {
+  // TODO: 타입 수정 필요 (임시)
   id: string;
   type: string;
   status: string;
   date: string;
   content: string;
   isRead: boolean;
-  writer: string; // TODO: 타입 수정 필요 (임시)
+  writer: string;
 }
 
 const NotificationItem = ({ item }: { item: NotificationItem }) => {
   return (
     <div
       className={cn(
-        "w-full h-[96px] border-b p-3 flex flex-col items-start justify-center gap-2",
+        "w-full h-[96px] border-b p-3 flex flex-col items-start justify-center gap-2 cursor-pointer",
+        "hover:bg-gray1 transition-colors duration-200",
         item.isRead ? "bg-gray1 border-b-0" : "bg-white border-gray2"
       )}
     >
