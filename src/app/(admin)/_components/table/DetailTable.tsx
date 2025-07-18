@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import DetailTableItem from "./DetailTableItem";
 import Pagination from "./Pagination";
 import PostNoticeModal from "../modal/PostNoticeModal";
@@ -20,6 +20,26 @@ interface DetailTableProps {
   totalCount?: string;
   isUserDetail?: boolean;
 }
+
+const DetailTableSuspense = ({
+  isList,
+  type,
+  title,
+  totalCount,
+  isUserDetail,
+}: DetailTableProps) => {
+  return (
+    <Suspense fallback={""}>
+      <DetailTable
+        isList={isList}
+        type={type}
+        title={title}
+        totalCount={totalCount}
+        isUserDetail={isUserDetail}
+      />
+    </Suspense>
+  );
+};
 
 const DetailTable = ({
   isList,
@@ -85,4 +105,4 @@ const DetailTable = ({
   );
 };
 
-export default DetailTable;
+export default DetailTableSuspense;

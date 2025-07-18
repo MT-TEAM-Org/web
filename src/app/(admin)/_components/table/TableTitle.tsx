@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { cn } from "@/utils";
 import { onlyNoticeButtons } from "../../_constants/onlyNoticeButtons";
 import { getHeaders } from "../../_constants/tableHeaders";
@@ -15,22 +15,6 @@ interface TableTitleProps {
   currentSort: string;
 }
 
-const TableTitleSuspense = ({
-  tableInfo,
-  modalControls,
-  currentSort,
-}: TableTitleProps) => {
-  return (
-    <Suspense fallback={""}>
-      <TableTitle
-        tableInfo={tableInfo}
-        modalControls={modalControls}
-        currentSort={currentSort}
-      />
-    </Suspense>
-  );
-};
-
 const buttonStyle =
   "w-[120px] h-[40px] flex items-center justify-center rounded-[5px] px-4 py-[13px] font-bold text-[14px]";
 
@@ -39,6 +23,7 @@ const TableTitle = ({
   modalControls: { setShowDeleteModal, setShowPostModal },
   currentSort,
 }: TableTitleProps) => {
+  // TODO: 리팩터링 및 상세페이지 데이터 안 나오는 이슈 수정 필요
   // currentSort에서 정렬 정보를 추출
   const getSortText = (): string | null => {
     if (!currentSort) return null;
@@ -124,4 +109,4 @@ const TableTitle = ({
   );
 };
 
-export default TableTitleSuspense;
+export default TableTitle;
