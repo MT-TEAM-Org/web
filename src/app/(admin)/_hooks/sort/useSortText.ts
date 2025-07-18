@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { getHeaders } from "../../_constants/tableHeaders";
 import { TableHeaderItem } from "../../_type/DetailTable/DetailTableHeader";
 
+// 정렬 텍스트 훅
 export const useSortText = (currentSort: string, type: string, isList: boolean) => {
   return useMemo(() => {
     if (!currentSort) return null;

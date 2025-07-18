@@ -7,7 +7,6 @@ import {
   TableHeaderItem,
   TableType,
 } from "../../_type/DetailTable/DetailTableHeader";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useTableSort } from "../../_hooks/sort/useTableSort";
 
 interface DetailTableHeaderProps {
