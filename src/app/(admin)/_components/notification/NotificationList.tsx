@@ -26,7 +26,7 @@ const NotificationList = () => {
             setIsActiveTab={setIsActiveTab}
           />
           {/* 리스트 영역 */}
-          <div className="flex-1 overflow-y-auto flex flex-col gap-4">
+          <div className="flex-1 overflow-y-auto flex flex-col">
             {NotificationListData[isActiveTab]?.map((item) => (
               <NotificationItem key={item.id} item={item} />
             ))}

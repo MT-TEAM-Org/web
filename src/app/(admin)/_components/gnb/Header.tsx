@@ -38,9 +38,9 @@ export default function Header() {
 
       {/* TODO : 클릭 할 경우 dropDown */}
       <div className="flex gap-4 h-[42px] whitespace-nowrap items-center mr-4">
-        <button
+        <div
           onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-          className="relative flex items-center justify-center gap-2 w-auto px-4 py-2 bg-quaternary rounded-full text-white  hover:bg-Primary transition-all duration-200 hover:cursor-pointer"
+          className="relative flex items-center justify-center gap-2 w-auto px-4 py-2 select-none cursor-pointer bg-quaternary rounded-full text-white  hover:bg-Primary transition-all duration-200 hover:cursor-pointer"
         >
           <CustomIcon icon="ALARM" /> <span> 알림 0 </span>
           {isNotificationOpen && (
@@ -48,7 +48,7 @@ export default function Header() {
               <NotificationList />
             </div>
           )}
-        </button>
+        </div>
 
         {/* TODO : 유저 이미지 추가 */}
         <button className="min-w-[113px] h-[42px] flex items-center justify-center gap-2 px-4 py-2 bg-quaternary rounded-full text-white">
