@@ -110,6 +110,45 @@ export const DetailTableData = (type: string) => {
         reportDate: "2025.05.29 / 18:24:32",
       },
     ];
+  } else if (type === "user") {
+    return [
+      {
+        userStatus: "정상",
+        nickname: "hive짱짱12",
+        post: "12",
+        comment: "6",
+        getRecommendations: "3",
+        getReportCount: "13",
+        gender: "남",
+        joinType: "구글",
+        email: "hive1234@gmail.com",
+        phone: "01012345678",
+      },
+      {
+        userStatus: "경고",
+        nickname: "hive짱짱1234",
+        post: "9",
+        comment: "5",
+        getRecommendations: "2",
+        getReportCount: "11",
+        gender: "여",
+        joinType: "구글",
+        email: "hive12@gmail.com",
+        phone: "-",
+      },
+      {
+        userStatus: "정지",
+        nickname: "hive짱짱1234",
+        post: "15",
+        comment: "29",
+        getRecommendations: "22",
+        getReportCount: "14",
+        gender: "남",
+        joinType: "디코",
+        email: "hive12@gmail.com",
+        phone: "01012345678",
+      },
+    ];
   }
 };
 

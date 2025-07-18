@@ -113,4 +113,64 @@ export const SEARCH_FILTER_CONFIG: Record<string, SearchFilterConfig> = {
       },
     ],
   },
+  // 회원관리
+  user: {
+    left: [
+      {
+        type: "search",
+        label: "닉네임",
+        name: "nickname",
+        placeholder: "닉네임을 입력해 주세요.",
+      },
+      {
+        type: "search",
+        label: "이메일",
+        name: "email",
+        placeholder: "이메일을 입력해 주세요.",
+      },
+      {
+        type: "search",
+        label: "휴대폰번호",
+        name: "number",
+        placeholder: "휴대폰번호를 입력해 주세요.",
+      },
+    ],
+    right: [
+      {
+        type: "search",
+        label: "생년월일",
+        name: "birth",
+        placeholder: "생년월일을 입력해 주세요. (920102)",
+      },
+      {
+        type: "radio",
+        label: "성별",
+        name: "male",
+        options: [
+          { id: "male", label: "남성" },
+          { id: "female", label: "여성" },
+        ],
+      },
+      {
+        type: "radio",
+        label: "가입경로",
+        name: "path",
+        options: [
+          { id: "common", label: "일반" },
+          { id: "google", label: "구글" },
+          { id: "discord", label: "디코" },
+        ],
+      },
+      {
+        type: "radio",
+        label: "회원상태",
+        name: "status",
+        options: [
+          { id: "normal", label: "정상" },
+          { id: "warning", label: "경고" },
+          { id: "stop", label: "정지" },
+        ],
+      },
+    ],
+  },
 };

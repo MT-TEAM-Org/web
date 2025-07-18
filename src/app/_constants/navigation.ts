@@ -213,7 +213,7 @@ export const ADMIN_NAVBARS: {
   icon: IconList;
 }[] = [
   { id: "dashboard", name: "대시보드", link: "/dashboard", icon: "HOME" },
-  { id: "users", name: "회원 관리", link: "/dashboard/users", icon: "MY" },
+  { id: "users", name: "회원 관리", link: "/dashBoard/users", icon: "MY" },
   {
     id: "posts",
     name: "게시글/댓글 관리",

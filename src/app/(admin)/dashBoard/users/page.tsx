@@ -1,21 +1,21 @@
 "use client";
 
 import React from "react";
-import OverviewStatBox from "../../_components/statusBanner/OverviewStatBox";
 import DetailTable from "../../_components/table/DetailTable";
+import OverviewStatBox from "../../_components/statusBanner/OverviewStatBox";
 import SearchFilter from "../../_components/search/SearchFilter";
 
 const Page = () => {
   return (
     <div className="min-h-screen w-full bg-white flex flex-col gap-10">
-      {/* 게시물 현황 */}
-      <OverviewStatBox title="게시물 현황" type="content" />
+      {/* 개선요청 현황 */}
+      <OverviewStatBox title="회원 현황" type="users" />
 
       {/* 검색 필터 */}
-      <SearchFilter isContent />
+      <SearchFilter isUser />
 
       {/* 하단 내역 테이블 */}
-      <DetailTable type="content" isList title="게시물 내역" totalCount="165" />
+      <DetailTable type="user" isList title="회원 내역" totalCount="165" />
     </div>
   );
 };

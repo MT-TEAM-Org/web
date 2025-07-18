@@ -4,7 +4,11 @@ import React from "react";
 import DateElement from "./DateElement";
 import { useDateRange } from "../../_hooks/date/useDateRange";
 
-const DateGroup = () => {
+interface DateGroupProps {
+  isUser?: boolean;
+}
+
+const DateGroup = ({ isUser = false }: DateGroupProps) => {
   const {
     dateStartInputRef,
     dateEndInputRef,
@@ -16,7 +20,7 @@ const DateGroup = () => {
   return (
     <div className="flex h-[56px] border-b border-gray2">
       <div className="w-[100px] px-3 py-2 bg-gray1 flex items-center justify-center font-bold text-[14px] leading-5 text-gray8">
-        <p>작성기간</p>
+        <p>{isUser ? "가입기간" : "작성기간"}</p>
       </div>
 
       {/* 시작 날짜 */}

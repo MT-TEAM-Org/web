@@ -27,7 +27,8 @@ const DetailTableItem = ({ rowData, tableMeta }: DetailTableItemProps) => {
     const canNavigate =
       (rowData.type === "inquiry" && typeGuards.inquiry(rowData.row)) ||
       (rowData.type === "suggestions" && typeGuards.suggestions(rowData.row)) ||
-      (rowData.type === "content" && typeGuards.content(rowData.row));
+      (rowData.type === "content" && typeGuards.content(rowData.row)) ||
+      (rowData.type === "user" && typeGuards.user(rowData.row));
 
     if (canNavigate) {
       router.push(getLinkPath(rowData, tableMeta));
