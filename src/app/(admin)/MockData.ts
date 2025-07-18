@@ -249,3 +249,66 @@ export const MetaPanelData = {
     },
   ],
 };
+
+export const NotificationListData = {
+  report: [
+    {
+      id: "1",
+      type: "게시물",
+      status: "노출",
+      date: "2시간전",
+      content: "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
+      writer: "토트넘 좋아",
+      isRead: false,
+    },
+    {
+      id: "2",
+      type: "댓글",
+      status: "노출",
+      date: "2시간전",
+      content: "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
+      writer: "내닉네임은페이커",
+      isRead: true,
+    },
+  ],
+  inquiry: [
+    {
+      id: "1",
+      type: "문의",
+      status: "답변대기",
+      date: "2시간전",
+      content: "문의내용 로그인이안되요문의내용 로그인이안되요",
+      writer: "토트넘 좋아",
+      isRead: false,
+    },
+    {
+      id: "2",
+      type: "문의",
+      status: "답변완료",
+      date: "3시간전",
+      content: "문의내용 로그인이안되요문의내용 로그인이안되요",
+      writer: "hive234@naver.com",
+      isRead: true,
+    }
+  ],
+  suggestion: [
+    {
+      id: "1",
+      type: "개선요청",
+      status: "개선완료",
+      date: "2시간전",
+      content: "요청사항이 있어요",
+      writer: "하이브원투쓰리",
+      isRead: false,
+    },
+    {
+      id: "2",
+      type: "개선요청",
+      status: "개선완료",
+      date: "3시간전",
+      content: "요청사항이 있어요",
+      writer: "토트넘 좋아",
+      isRead: true,
+    }
+  ],
+};
