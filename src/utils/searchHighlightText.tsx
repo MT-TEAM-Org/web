@@ -13,10 +13,10 @@ export const highlightText = (
     type === "TITLE_CONTENT" ||
     type === "TITLE"
   ) {
-    const parts = text.split(new RegExp(`(${searchString})`, "gi"));
+    const parts = text?.split(new RegExp(`(${searchString})`, "gi"));
     return (
       <>
-        {parts.map((part, index) =>
+        {parts?.map((part, index) =>
           part.toLowerCase() === searchString.toLowerCase() ? (
             <span key={index} className="text-gra">
               {part}
