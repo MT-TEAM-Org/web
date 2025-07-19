@@ -12,18 +12,32 @@ const style = {
   ),
 };
 
-const Dropdown = () => {
+interface DropdownProps {
+  onClose: () => void;
+}
+
+const Dropdown = ({ onClose }: DropdownProps) => {
   const router = useRouter();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const handleToMyPage = () => {
+    router.push("/dashBoard/my-page");
+    onClose();
+  };
+
+  const handleLogout = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsLogoutModalOpen(true);
+  };
 
   const menuItems = [
     {
       name: "내 정보 수정",
-      fn: () => router.push("/dashBoard/my-page"),
+      fn: handleToMyPage,
     },
     {
       name: "로그아웃",
-      fn: () => setIsLogoutModalOpen(true),
+      fn: handleLogout,
     },
   ];
 
