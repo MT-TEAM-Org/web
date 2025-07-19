@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import DetailTableItem from "./DetailTableItem";
 import Pagination from "./Pagination";
 import PostNoticeModal from "../modal/PostNoticeModal";
@@ -11,6 +11,8 @@ import TableTitle from "./TableTitle";
 import DetailTableHeader from "./DetailTableHeader";
 import { TableType } from "../../_type/DetailTable/DetailTableHeader";
 import EmptyTable from "./EmptyTable";
+import { useSearchParams } from "next/navigation";
+import { cn } from "@/utils";
 
 interface DetailTableProps {
   isList: boolean;
@@ -19,6 +21,26 @@ interface DetailTableProps {
   totalCount?: string;
   isUserDetail?: boolean;
 }
+
+const DetailTableSuspense = ({
+  isList,
+  type,
+  title,
+  totalCount,
+  isUserDetail,
+}: DetailTableProps) => {
+  return (
+    <Suspense fallback={""}>
+      <DetailTable
+        isList={isList}
+        type={type}
+        title={title}
+        totalCount={totalCount}
+        isUserDetail={isUserDetail}
+      />
+    </Suspense>
+  );
+};
 
 const DetailTable = ({
   isList,
@@ -30,6 +52,8 @@ const DetailTable = ({
   const [showPostModal, setShowPostModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [dropDown, setDropDown] = useState<Record<string, boolean>>({});
+  const searchParams = useSearchParams();
+  const currentSort = searchParams.get("sort") || "";
 
   // 테이블 구성
   const tableConfig = {
@@ -38,11 +62,12 @@ const DetailTable = ({
   };
 
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className={cn("flex flex-col gap-4", isList ? "w-full" : "w-1/2")}>
       <div className="w-full flex flex-col gap-2">
         <TableTitle
           tableInfo={{ isList, type, title, totalCount, isUserDetail }}
           modalControls={{ setShowDeleteModal, setShowPostModal }}
+          currentSort={currentSort}
         />
         {/* 데이터가 없을 때 */}
         {tableConfig.data.length === 0 && <EmptyTable />}
@@ -81,4 +106,4 @@ const DetailTable = ({
   );
 };
 
-export default DetailTable;
+export default DetailTableSuspense;
