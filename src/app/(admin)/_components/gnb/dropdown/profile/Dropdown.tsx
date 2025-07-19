@@ -1,6 +1,9 @@
+"use client";
+
 import { cn } from "@/utils";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import LogoutModal from "../../../modal/LogoutModal";
 
 const style = {
   divStyle: cn(
@@ -11,6 +14,7 @@ const style = {
 
 const Dropdown = () => {
   const router = useRouter();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const menuItems = [
     {
@@ -19,7 +23,7 @@ const Dropdown = () => {
     },
     {
       name: "로그아웃",
-      fn: () => {},
+      fn: () => setIsLogoutModalOpen(true),
     },
   ];
 
@@ -30,6 +34,9 @@ const Dropdown = () => {
           <p>{item.name}</p>
         </div>
       ))}
+      {isLogoutModalOpen && (
+        <LogoutModal show={isLogoutModalOpen} setShow={setIsLogoutModalOpen} />
+      )}
     </div>
   );
 };
