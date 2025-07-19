@@ -1,4 +1,5 @@
 import { cn } from "@/utils";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const style = {
@@ -9,10 +10,12 @@ const style = {
 };
 
 const Dropdown = () => {
+  const router = useRouter();
+
   const menuItems = [
     {
       name: "내 정보 수정",
-      fn: () => {},
+      fn: () => router.push("/dashBoard/my-page"),
     },
     {
       name: "로그아웃",
