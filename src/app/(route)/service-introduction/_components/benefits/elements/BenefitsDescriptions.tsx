@@ -34,7 +34,7 @@ const BenefitsDescriptions = ({
             "mobile:text-[12px] mobile:leading-[18px]"
           )}
         >
-          benefits 2
+          {label}
         </p>
         <p
           className={cn(
@@ -43,7 +43,7 @@ const BenefitsDescriptions = ({
             "mobile:hidden"
           )}
         >
-          좋아하는 스포츠 선수를 함께 응원한다면 더 즐거워요!
+          {title}
         </p>
         <p
           className={cn(
@@ -52,7 +52,7 @@ const BenefitsDescriptions = ({
             "pc:hidden"
           )}
         >
-          좋아하는 스포츠 선수를 함께 <br /> 응원한다면 더 즐거워요!
+          {mobileTitle}
         </p>
       </div>
       <p
@@ -61,12 +61,7 @@ const BenefitsDescriptions = ({
           "mobile:text-[12px] mobile:leading-[18px]"
         )}
       >
-        페이커, 손흥민, 오타니, T1, 젠지, 토트넘 등.. 좋아하는 팀이나 선수가
-        있으신가요?
-        <br /> 추천시스템을 통해서 서로를 존중해주는 응원 문화를 지향합니다.
-        따라서 팬인 선수나 팀에 대한 정보 공유, 응원 게시글 등을 통하여 다양한
-        지식을 넓히고 쌓아갈 수 있습니다. 이른 바 덕업일치 실현을 해볼 때
-        입니다.
+        {description}
       </p>
     </div>
   );
