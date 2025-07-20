@@ -1,8 +1,7 @@
 import React from "react";
 import { cn } from "@/utils";
-import { benefitImages } from "../../_constants/BENEFIT_IMAGES";
-import Image from "next/image";
 import BenefitsDescriptions from "./elements/BenefitsDescriptions";
+import SecondBenefitItemBox from "./elementBlocks/SecondBenefitItemBox";
 
 const SecondBenefit = () => {
   return (
@@ -13,24 +12,7 @@ const SecondBenefit = () => {
         "mobile:w-full mobile:min-h-[571px] mobile:flex-col mobile:gap-10"
       )}
     >
-      <div
-        className={cn(
-          "relative w-[464.42px] h-[480px] flex items-center justify-center",
-          "mobile:w-[296px] h-[305px]"
-        )}
-      >
-        {benefitImages.map((image, index) => (
-          <div key={index} className={image.shadowClass}>
-            <Image
-              src={image.src}
-              alt="Service benefit2 img"
-              width={image.width}
-              height={image.height}
-              className={`${image.className} ${image.zIndex}`}
-            />
-          </div>
-        ))}
-      </div>
+      <SecondBenefitItemBox />
 
       <BenefitsDescriptions
         label="benefits 2"

@@ -1,8 +1,7 @@
 import React from "react";
 import { cn } from "@/utils";
-import { serviceBenefits } from "../../_constants/SERVICE_BENEFITS";
-import ServiceBenefitItem from "./ServiceBenefitItem";
 import BenefitsDescriptions from "./elements/BenefitsDescriptions";
+import FirstBenefitItemBox from "./elementBlocks/FirstBenefitItemBox";
 
 const FirstBenefit = () => {
   return (
@@ -23,17 +22,7 @@ const FirstBenefit = () => {
           페이지를 통해서도 팬심을 드러내어 응원을 열심히 해보세요."
       />
 
-      <div
-        className={cn(
-          "max-w-[640px] min-h-[368px] flex gap-4 flex-col items-center justify-center",
-          "tablet:w-full tablet:order-1",
-          "mobile:w-full mobile:min-h-[208px] mobile:order-1"
-        )}
-      >
-        {serviceBenefits.map((item, index) => (
-          <ServiceBenefitItem key={index} {...item} />
-        ))}
-      </div>
+      <FirstBenefitItemBox />
     </div>
   );
 };
