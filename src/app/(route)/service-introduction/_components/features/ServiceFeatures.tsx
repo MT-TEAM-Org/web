@@ -2,6 +2,7 @@ import React from "react";
 import { cn } from "@/utils";
 import { serviceItems } from "../../_constants/SERVICE_ITEMS";
 import ServiceFeatureItem from "./ServiceFeatureItem";
+import ServiceFeatureTitle from "./ServiceFeatureTitle";
 
 const ServiceFeatures = () => {
   return (
@@ -19,29 +20,10 @@ const ServiceFeatures = () => {
           "mobile:h-[742px] mobile:min-h-0"
         )}
       >
-        <div
-          className={cn(
-            "min-w-[621px] min-h-[94px] flex flex-col gap-1",
-            "mobile:min-h-[46px]"
-          )}
-        >
-          <p
-            className={cn(
-              "font-bold text-[20px] leading-[26px] tracking-[-0.02em] text-center text-gra",
-              "mobile:text-[12px] mobile:leading-[18px]"
-            )}
-          >
-            Features
-          </p>
-          <p
-            className={cn(
-              "font-bold text-[42px] leading-[64px] tracking-[-0.02em] text-center text-black",
-              "mobile:text-[16px] mobile:leading-6"
-            )}
-          >
-            서로 존중하는 커뮤니티, 플레이하이브
-          </p>
-        </div>
+        {/* features title */}
+        <ServiceFeatureTitle />
+
+        {/* features items */}
         <div
           className={cn(
             "grid grid-cols-3 gap-6",
