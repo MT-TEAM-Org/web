@@ -12,7 +12,7 @@ export const metadata = {
     description: "뉴스와 콘텐츠를 검색해보세요.",
     images: [
       {
-        url: "https://playhive.co.kr/Metadata2.png",
+        url: "https://playhive.co.kr/Metadata.png",
         alt: "PlayHive 미리보기 이미지",
         width: 1200,
         height: 630,
