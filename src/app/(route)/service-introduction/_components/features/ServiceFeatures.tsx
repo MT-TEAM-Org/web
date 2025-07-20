@@ -1,7 +1,7 @@
 import React from "react";
 import { cn } from "@/utils";
 import { serviceItems } from "../../_constants/SERVICE_ITEMS";
-import ServiceItem from "../ServiceItem";
+import ServiceFeatureItem from "./ServiceFeatureItem";
 
 const ServiceFeatures = () => {
   return (
@@ -50,7 +50,7 @@ const ServiceFeatures = () => {
           )}
         >
           {serviceItems.map((item) => (
-            <ServiceItem key={item.imgUrl} {...item} />
+            <ServiceFeatureItem key={item.imgUrl} {...item} />
           ))}
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { cn } from "@/utils";
 import { serviceBenefits } from "../../_constants/SERVICE_BENEFITS";
-import ServiceBenefitItem from "../ServiceBenefitItem";
+import ServiceBenefitItem from "./ServiceBenefitItem";
 
 const FirstBenefit = () => {
   return (
