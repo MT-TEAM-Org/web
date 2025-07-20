@@ -5,6 +5,13 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import React from "react";
 
+const style = {
+  currentPathStyle:
+    "font-bold text-gra bg-bg0 mobile:bg-transparent mobile:text-gray7 mobile:border-b-2 mobile:border-gray7",
+  defaultStyle:
+    "font-[400] text-gray7 bg-white pc:hover:text-gra mobile:text-gray5 mobile:border-b-2 mobile:border-gray3",
+};
+
 const SearchLeftSidebar = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -22,11 +29,6 @@ const SearchLeftSidebar = () => {
     const currentCategory = pathParts[2] || "";
     return currentCategory === searchCategory;
   };
-
-  const currentPathStyle =
-    "font-bold text-gra bg-bg0 mobile:bg-transparent mobile:text-gray7 mobile:border-b-2 mobile:border-gray7";
-  const defaultStyle =
-    "font-[400] text-gray7 bg-white pc:hover:text-gra mobile:text-gray5 mobile:border-b-2 mobile:border-gray3";
 
   return (
     <div
@@ -62,8 +64,8 @@ const SearchLeftSidebar = () => {
                 className={cn(
                   `w-full h-[52px] px-4 py-3 cursor-pointer ${
                     isCurrentPath(search.category)
-                      ? currentPathStyle
-                      : defaultStyle
+                      ? style.currentPathStyle
+                      : style.defaultStyle
                   }`,
                   "tablet:flex tablet:items-center tablet:justify-center tablet:h-full tablet:w-full",
                   "mobile:inline-flex mobile:min-w-[180px] mobile:h-[48px] mobile:items-center mobile:justify-center mobile:text-[14px] mobile:leading-5"
