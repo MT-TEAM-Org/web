@@ -1,15 +1,14 @@
 import { cn } from "@/utils";
 import React from "react";
-import FeedbackItemSkeleton from "../../_components/FeedbackItemSkeleton";
 import EmptyItem from "../../_components/EmptyItem";
-import NoticeItem from "../../_components/NoticeItem";
 import { FeedbackContentType } from "../../_types/FeedbackItemType";
 import { NoticeContentType } from "../../_types/NoticeItemType";
-import FeedbackItem from "../../_components/FeedbackItem";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import { PageInfo } from "@/app/(route)/mypage/_types/toolbarType";
 import { useRouter } from "next/navigation";
 import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
+import FeedbackListLoading from "./status/FeedbackListLoading";
+import FeedbackListRenderer from "./FeedbackListRender";
 
 type LoadingType = {
   isLoading: boolean;
@@ -41,6 +40,7 @@ const FeedbackItemBox = ({
 }: FeedbackItemBoxProps) => {
   const router = useRouter();
 
+  // 페이지네이션 핸들러
   const handlePageChange = (page: number) => {
     if (page < 1 || page > feedbackDataList?.pageInfo?.totalPage) return;
     router.push(changeURLParams(searchParams, "page", page.toString()), {
@@ -59,35 +59,18 @@ const FeedbackItemBox = ({
       )}
     >
       {loading.noticeIsLoading || loading.isLoading ? (
-        <>
-          {Array.from({ length: 10 }).map((_, index) => (
-            <FeedbackItemSkeleton key={`feedback-${index}`} />
-          ))}
-        </>
+        <FeedbackListLoading />
       ) : error.isError ||
         error.noticeIsError ||
         feedbackDataList?.content?.length === 0 ? (
         <EmptyItem title="개선요청 사항이" />
       ) : (
-        <>
-          {slicedNoticeDataList?.map((noticeListData: NoticeContentType) => (
-            <NoticeItem
-              key={noticeListData.id}
-              noticeData={noticeListData}
-              isFeedback={true}
-            />
-          ))}
-          {feedbackDataList?.content?.map(
-            (feedbackListData: FeedbackContentType) => (
-              <FeedbackItem
-                feedbackData={feedbackListData}
-                key={feedbackListData?.id}
-                searchString={searchParams.get("search")}
-                searchType={searchParams.get("search_type")}
-              />
-            )
-          )}
-        </>
+        <FeedbackListRenderer
+          notices={slicedNoticeDataList}
+          feedbacks={feedbackDataList.content}
+          search={searchParams.get("search")}
+          searchType={searchParams.get("search_type")}
+        />
       )}
       {feedbackDataList?.pageInfo.totalPage > 0 && (
         <div
