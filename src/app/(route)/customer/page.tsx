@@ -2,10 +2,10 @@
 
 import React, { Suspense } from "react";
 import CustomerTalkToolbar from "./_components/ui/CustomerTalkToolbar";
-import NoticeItem from "./notice/_components/items/NoticeItem";
+import NoticeItem from "./(route)/notice/_components/items/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import EmptyItem from "./_components/common/EmptyItem";
-import NoticeItemSkeleton from "./notice/_components/status/NoticeItemSkeleton";
+import NoticeItemSkeleton from "./(route)/notice/_components/status/NoticeItemSkeleton";
 import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import { useSearchParams } from "next/navigation";

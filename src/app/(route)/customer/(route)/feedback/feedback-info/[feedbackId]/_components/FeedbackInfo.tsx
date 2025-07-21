@@ -24,11 +24,11 @@ import RecommendButton from "@/app/(route)/(community)/_components/RecommendButt
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import CustomerTalkToolbar from "@/app/(route)/customer/_components/ui/CustomerTalkToolbar";
-import FeedbackItemSkeleton from "@/app/(route)/customer/feedback/_components/status/FeedbackItemSkeleton";
-import NoticeItem from "@/app/(route)/customer/notice/_components/items/NoticeItem";
+import FeedbackItemSkeleton from "@/app/(route)/customer/(route)/feedback/_components/status/FeedbackItemSkeleton";
+import NoticeItem from "@/app/(route)/customer/(route)/notice/_components/items/NoticeItem";
 import EmptyItem from "@/app/(route)/customer/_components/common/EmptyItem";
 import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
-import FeedbackItem from "@/app/(route)/customer/feedback/_components/items/FeedbackItem";
+import FeedbackItem from "@/app/(route)/customer/(route)/feedback/_components/items/FeedbackItem";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import { CommentItem } from "@/_types/comment";

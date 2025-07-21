@@ -1,13 +1,13 @@
 import { cn } from "@/utils";
 import React from "react";
-import EmptyItem from "../../../_components/common/EmptyItem";
-import { FeedbackContentType } from "../../../_types/FeedbackItemType";
-import { NoticeContentType } from "../../../_types/NoticeItemType";
+import EmptyItem from "../../../../_components/common/EmptyItem";
+import { FeedbackContentType } from "../../../../_types/FeedbackItemType";
+import { NoticeContentType } from "../../../../_types/NoticeItemType";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import { PageInfo } from "@/app/(route)/mypage/_types/toolbarType";
 import FeedbackListLoading from "../status/FeedbackListLoading";
 import FeedbackListRenderer from "../FeedbackListRender";
-import { usePageChangeHandler } from "../../../_hooks/usePageChangeHandler";
+import { usePageChangeHandler } from "../../../../_hooks/usePageChangeHandler";
 
 type LoadingType = {
   isLoading: boolean;

@@ -9,10 +9,10 @@ import { useEditStore } from "@/utils/Store";
 import axios from "axios";
 import getUpload from "@/_hooks/getUpload";
 import usePutPost from "@/_hooks/fetcher/board/usePutPost";
-import CustomerTiptap from "../../_components/ui/CustomerTiptap";
+import CustomerTiptap from "../../../_components/ui/CustomerTiptap";
 import { cn } from "@/utils";
 import { useToast } from "@/_hooks/useToast";
-import { useAdminRole } from "../../_utils/adminChecker";
+import { useAdminRole } from "../../../_utils/adminChecker";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 
 const Page = () => {

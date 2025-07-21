@@ -1,10 +1,10 @@
 "use client";
 
 import React, { Suspense } from "react";
-import CustomerTalkToolbar from "../_components/ui/CustomerTalkToolbar";
+import CustomerTalkToolbar from "../../_components/ui/CustomerTalkToolbar";
 import { useSearchParams } from "next/navigation";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
-import { useAdminRole } from "../_utils/adminChecker";
+import { useAdminRole } from "../../_utils/adminChecker";
 import { cn } from "@/utils";
 import FeedbackItemBox from "./_components/items/FeedbackItemBox";
 import useFeedbackQueryParams from "./_hooks/useFeedbackQueryParams";

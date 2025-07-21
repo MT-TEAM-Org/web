@@ -1,5 +1,5 @@
 import React from "react";
-import TermsLayout from "../_components/common/TermsLayout";
+import TermsLayout from "../../_components/common/TermsLayout";
 import TermsServiceText from "@/app/_components/termsModal/TermsServiceText";
 
 export const metadata = {

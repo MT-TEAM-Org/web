@@ -1,5 +1,5 @@
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
-import { NoticeContentType } from "../../_types/NoticeItemType";
+import { NoticeContentType } from "../../../_types/NoticeItemType";
 
 const useNoticeItems = () => {
     
