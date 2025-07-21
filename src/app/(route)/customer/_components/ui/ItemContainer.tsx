@@ -1,33 +1,9 @@
-import { FeedbackContentType } from "../../_types/FeedbackItemType";
-import { NoticeContentType } from "../../_types/NoticeItemType";
-import { PageInfo } from "@/app/(route)/mypage/_types/toolbarType";
 import { usePageChangeHandler } from "../../_hooks/usePageChangeHandler";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import { cn } from "@/utils";
 import { CUSTOMER_TYPE_CONFIG } from "../../_utils/CUSTOMER_TYPE_CONFIG";
 import RenderContent from "./RenderContent";
-
-type LoadingType = {
-  isLoading: boolean;
-  loading: boolean;
-};
-
-type ErrorType = {
-  isError: boolean;
-  error: boolean;
-};
-
-interface ItemContainerProps {
-  type: "feedback" | "notice";
-  dataList: {
-    content: FeedbackContentType[] | NoticeContentType[];
-    pageInfo: PageInfo;
-  };
-  loading: LoadingType;
-  error: ErrorType;
-  slicedDataList: NoticeContentType[];
-  searchParams: URLSearchParams;
-}
+import { ItemContainerProps } from "../../_types/ItemContainerType";
 
 const ItemContainer = ({
   type,

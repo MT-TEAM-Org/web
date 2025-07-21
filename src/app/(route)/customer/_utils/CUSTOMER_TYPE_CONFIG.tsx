@@ -2,31 +2,9 @@ import FeedbackListLoading from "../(route)/feedback/_components/status/Feedback
 import NoticeItemSkeleton from "../(route)/notice/_components/status/NoticeItemSkeleton";
 import { FeedbackContentType } from "../_types/FeedbackItemType";
 import { NoticeContentType } from "../_types/NoticeItemType";
-import { PageInfo } from "@/app/(route)/mypage/_types/toolbarType";
 import FeedbackListRenderer from "../(route)/feedback/_components/FeedbackListRender";
 import NoticeListRender from "../(route)/notice/_components/NoticeListRender";
-
-type LoadingType = {
-  isLoading: boolean;
-  loading: boolean;
-};
-
-type ErrorType = {
-  isError: boolean;
-  error: boolean;
-};
-
-interface ItemContainerProps {
-  type: "feedback" | "notice";
-  dataList: {
-    content: FeedbackContentType[] | NoticeContentType[];
-    pageInfo: PageInfo;
-  };
-  loading: LoadingType;
-  error: ErrorType;
-  slicedDataList: NoticeContentType[];
-  searchParams: URLSearchParams;
-}
+import { ItemContainerProps } from "../_types/ItemContainerType";
 
 // 타입별 설정을 객체로 관리
 export const CUSTOMER_TYPE_CONFIG = {
