@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import { useAdminRole } from "../../_utils/adminChecker";
 import { cn } from "@/utils";
-import FeedbackItemBox from "./_components/items/FeedbackItemBox";
+import ItemContainer from "../../_components/ui/ItemContainer";
 import useFeedbackQueryParams from "./_hooks/useFeedbackQueryParams";
 import useNoticeItems from "./_hooks/useNoticeItems";
 
@@ -53,17 +53,18 @@ const FeedbackPage = () => {
       />
 
       {/* 개선요청 리스트 */}
-      <FeedbackItemBox
-        feedbackDataList={feedbackDataList}
+      <ItemContainer
+        type="feedback"
+        dataList={feedbackDataList}
         loading={{
           isLoading,
-          noticeIsLoading,
+          loading: noticeIsLoading,
         }}
         error={{
           isError,
-          noticeIsError,
+          error: noticeIsError,
         }}
-        slicedNoticeDataList={slicedNoticeDataList}
+        slicedDataList={slicedNoticeDataList}
         searchParams={searchParams}
       />
     </div>

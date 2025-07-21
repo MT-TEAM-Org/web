@@ -2,17 +2,12 @@
 
 import React, { Suspense } from "react";
 import CustomerTalkToolbar from "./_components/ui/CustomerTalkToolbar";
-import NoticeItem from "./(route)/notice/_components/items/NoticeItem";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
-import EmptyItem from "./_components/common/EmptyItem";
-import NoticeItemSkeleton from "./(route)/notice/_components/status/NoticeItemSkeleton";
-import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import { useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
-import Pagination from "../mypage/_components/Pagination";
 import useNoticeQueryParams from "./_hooks/useNoticeQueryParams";
-import { usePageChangeHandler } from "./_hooks/usePageChangeHandler";
+import ItemContainer from "./_components/ui/ItemContainer";
 
 const Page = () => {
   return (
@@ -33,11 +28,6 @@ const NoticePageContent = () => {
     isError,
   } = useGetNoticeDataList(noticeOption);
 
-  // 페이지네이션 핸들러
-  const handlePageChange = usePageChangeHandler(
-    noticeListData?.pageInfo?.totalPage
-  );
-
   return (
     <div
       className={cn(
@@ -49,53 +39,26 @@ const NoticePageContent = () => {
           : "bg-white"
       )}
     >
-      <div className={cn("sticky top-0 z-50", "mobile:hidden")}>
-        <CustomerTalkToolbar
-          showOptions={false}
-          paginationData={noticeListData?.pageInfo}
-          adminChecker={adminChecker}
-        />
-      </div>
+      <CustomerTalkToolbar
+        showOptions={false}
+        paginationData={noticeListData?.pageInfo}
+        adminChecker={adminChecker}
+      />
 
-      <div
-        className={cn(
-          "w-full max-w-[720px] h-auto rounded-b-[5px] bg-white",
-          "tablet:max-w-full",
-          "mobile:max-w-[768px]",
-          !!noticeListData?.content?.length &&
-            "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"
-        )}
-      >
-        {isLoading ? (
-          Array.from({ length: 10 }).map((_, index) => (
-            <NoticeItemSkeleton key={index} />
-          ))
-        ) : noticeListData?.content?.length === 0 || isError ? (
-          <EmptyItem title="공지사항이" />
-        ) : (
-          noticeListData?.content?.map((noticeListData: NoticeContentType) => (
-            <NoticeItem
-              key={noticeListData?.id}
-              noticeData={noticeListData}
-              searchString={searchParams.get("search")}
-              searchType={searchParams.get("search_type")}
-            />
-          ))
-        )}
-        {noticeListData?.pageInfo?.totalPage > 0 && (
-          <div
-            className={cn(
-              "hidden",
-              "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
-            )}
-          >
-            <Pagination
-              pageInfo={noticeListData?.pageInfo}
-              onPageChangeAction={handlePageChange}
-            />
-          </div>
-        )}
-      </div>
+      <ItemContainer
+        type="notice"
+        dataList={noticeListData}
+        loading={{
+          isLoading,
+          loading: false,
+        }}
+        error={{
+          isError,
+          error: false,
+        }}
+        slicedDataList={noticeListData?.content}
+        searchParams={searchParams}
+      />
     </div>
   );
 };

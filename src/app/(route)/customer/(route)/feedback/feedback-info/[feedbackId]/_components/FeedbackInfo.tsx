@@ -178,12 +178,14 @@ const FeedbackInfo = () => {
         <FeedbackInfoSkeleton />
       ) : (
         <>
-          <NewsDetailGnb
-            title={feedbackInfoData?.title}
-            type="feedback"
-            data={feedbackInfoData}
-            id={Number(id)}
-          />
+          <div className={cn("pc:hidden tablet:hidden")}>
+            <NewsDetailGnb
+              title={feedbackInfoData?.title}
+              type="feedback"
+              data={feedbackInfoData}
+              id={Number(id)}
+            />
+          </div>
           <div
             className={cn(
               "w-[720px] h-auto rounded-[5px] border-b p-6 flex gap-4 flex-col shadow-soft-md bg-white",
