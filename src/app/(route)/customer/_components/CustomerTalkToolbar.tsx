@@ -73,10 +73,11 @@ const CustomerTalkToolbarContent = ({
   };
 
   const writeButton = (href: string) => (
-    <Link href={href}>
-      <button className="w-[120px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-gra font-bold text-[14px] text-white items-center justify-center">
-        글쓰기
-      </button>
+    <Link
+      href={href}
+      className="w-[120px] h-[40px] rounded-[5px] px-4 py-[13px] flex gap-[10px] bg-gra font-bold text-[14px] text-white items-center justify-center"
+    >
+      글쓰기
     </Link>
   );
 
