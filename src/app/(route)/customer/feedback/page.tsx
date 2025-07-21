@@ -45,14 +45,14 @@ const FeedbackPage = () => {
           : "bg-white"
       )}
     >
-      <div className="sticky top-0 z-10">
-        <CustomerTalkToolbar
-          showOptions={true}
-          adminChecker={adminRole}
-          paginationData={feedbackDataList?.pageInfo}
-        />
-      </div>
+      {/* 고객센터 툴바 */}
+      <CustomerTalkToolbar
+        showOptions={true}
+        adminChecker={adminRole}
+        paginationData={feedbackDataList?.pageInfo}
+      />
 
+      {/* 개선요청 리스트 */}
       <FeedbackItemBox
         feedbackDataList={feedbackDataList}
         loading={{
