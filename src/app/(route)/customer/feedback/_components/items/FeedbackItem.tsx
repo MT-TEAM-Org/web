@@ -4,12 +4,12 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
 import useTimeAgo from "@/utils/useTimeAgo";
-import FeedbackItemStatus from "./FeedbackItemStatus";
 import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { useRouter } from "next/navigation";
 import { cn } from "@/utils";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
+import FeedbackItemStatus from "./FeedbackItemStatus";
 
 interface FeedbackItemProps {
   feedbackData: FeedbackContentType;

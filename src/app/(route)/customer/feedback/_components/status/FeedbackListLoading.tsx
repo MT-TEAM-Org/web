@@ -1,4 +1,4 @@
-import FeedbackItemSkeleton from "../../../_components/FeedbackItemSkeleton";
+import FeedbackItemSkeleton from "./FeedbackItemSkeleton";
 
 const FeedbackListLoading = () => {
   return (

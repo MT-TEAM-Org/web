@@ -1,5 +1,5 @@
-import FeedbackItem from "../../_components/FeedbackItem";
-import NoticeItem from "../../_components/NoticeItem";
+import FeedbackItem from "./items/FeedbackItem";
+import NoticeItem from "../../notice/_components/items/NoticeItem";
 import { FeedbackContentType } from "../../_types/FeedbackItemType";
 import { NoticeContentType } from "../../_types/NoticeItemType";
 

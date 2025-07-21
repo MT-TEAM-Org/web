@@ -1,4 +1,4 @@
-import NoticeItemSkeleton from "../../customer/_components/NoticeItemSkeleton";
+import NoticeItemSkeleton from "../../customer/notice/_components/status/NoticeItemSkeleton";
 import NewsPostItemSkeleton from "../../news/_components/NewsPostItemSkeleton";
 
 interface SkeletonLoaderProps {

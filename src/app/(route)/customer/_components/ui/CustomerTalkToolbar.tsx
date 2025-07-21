@@ -3,14 +3,14 @@
 import { Suspense, useState } from "react";
 import { NoticePageInfoType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import Pagination from "../../mypage/_components/Pagination";
-import changeURLParams from "../../mypage/util/changeURLParams";
+import Pagination from "../../../mypage/_components/Pagination";
+import changeURLParams from "../../../mypage/util/changeURLParams";
 import React from "react";
 import Link from "next/link";
-import SearchFilter from "../../mypage/_components/SearchFilter";
-import OrderButtons from "../../mypage/_components/OrderButtons";
-import { feedbackListConfig } from "../_types/feedbackListConfig";
-import { POST_SEARCH_OPTIONS } from "../../mypage/_constants/toolbarObject";
+import SearchFilter from "../../../mypage/_components/SearchFilter";
+import OrderButtons from "../../../mypage/_components/OrderButtons";
+import { feedbackListConfig } from "../../_types/feedbackListConfig";
+import { POST_SEARCH_OPTIONS } from "../../../mypage/_constants/toolbarObject";
 import { cn } from "@/utils";
 
 interface ToolbarProps {

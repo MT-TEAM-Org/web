@@ -1,14 +1,13 @@
 import { cn } from "@/utils";
 import React from "react";
-import EmptyItem from "../../_components/common/EmptyItem";
-import { FeedbackContentType } from "../../_types/FeedbackItemType";
-import { NoticeContentType } from "../../_types/NoticeItemType";
+import EmptyItem from "../../../_components/common/EmptyItem";
+import { FeedbackContentType } from "../../../_types/FeedbackItemType";
+import { NoticeContentType } from "../../../_types/NoticeItemType";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import { PageInfo } from "@/app/(route)/mypage/_types/toolbarType";
-import { useRouter } from "next/navigation";
-import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
-import FeedbackListLoading from "./status/FeedbackListLoading";
-import FeedbackListRenderer from "./FeedbackListRender";
+import FeedbackListLoading from "../status/FeedbackListLoading";
+import FeedbackListRenderer from "../FeedbackListRender";
+import { usePageChangeHandler } from "../../../_hooks/usePageChangeHandler";
 
 type LoadingType = {
   isLoading: boolean;
@@ -38,15 +37,10 @@ const FeedbackItemBox = ({
   slicedNoticeDataList,
   searchParams,
 }: FeedbackItemBoxProps) => {
-  const router = useRouter();
-
   // 페이지네이션 핸들러
-  const handlePageChange = (page: number) => {
-    if (page < 1 || page > feedbackDataList?.pageInfo?.totalPage) return;
-    router.push(changeURLParams(searchParams, "page", page.toString()), {
-      scroll: false,
-    });
-  };
+  const handlePageChange = usePageChangeHandler(
+    feedbackDataList?.pageInfo?.totalPage
+  );
 
   return (
     <div

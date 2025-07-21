@@ -18,7 +18,7 @@ import {
 import { LinkIcon } from "lucide-react";
 import LinkPreview from "@/app/_components/LinkPreview";
 import Toolbar from "@/app/_components/_tiptap/Toolbar";
-import { guideItems, NOTICE_RULES } from "../_utils/noticeRules";
+import { guideItems, NOTICE_RULES } from "../../_utils/noticeRules";
 import { cn } from "@/utils";
 import { useToast } from "@/_hooks/useToast";
 

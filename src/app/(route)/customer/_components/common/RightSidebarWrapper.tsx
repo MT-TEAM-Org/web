@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import React from "react";
-import { RightSideBar } from "../../(community)/_components/RightSideBar";
+import { RightSideBar } from "../../../(community)/_components/RightSideBar";
 
 const RightSidebarWrapper = () => {
   const pathname = usePathname();
