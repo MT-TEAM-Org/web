@@ -7,8 +7,8 @@ import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackData
 import { useAdminRole } from "../_utils/adminChecker";
 import { cn } from "@/utils";
 import FeedbackItemBox from "./_components/FeedbackItemBox";
-import useFeedbackQueryParams from "../_hooks/feedback/useFeedbackQueryParams";
-import useNoticeItems from "../_hooks/feedback/useNoticeItems";
+import useFeedbackQueryParams from "./_hooks/useFeedbackQueryParams";
+import useNoticeItems from "./_hooks/useNoticeItems";
 
 const Page = () => {
   return (

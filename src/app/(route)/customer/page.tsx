@@ -7,12 +7,12 @@ import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList
 import EmptyItem from "./_components/EmptyItem";
 import NoticeItemSkeleton from "./_components/NoticeItemSkeleton";
 import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
-import { noticeListConfig } from "./_types/noticeListConfig";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
-import changeURLParams from "../mypage/util/changeURLParams";
 import Pagination from "../mypage/_components/Pagination";
+import useNoticeQueryParams from "./_hooks/useNoticeQueryParams";
+import { usePageChangeHandler } from "./_hooks/usePageChangeHandler";
 
 const Page = () => {
   return (
@@ -25,15 +25,7 @@ const Page = () => {
 const NoticePageContent = () => {
   const searchParams = useSearchParams();
   const adminChecker = useAdminRole();
-  const router = useRouter();
-
-  const noticeOption: noticeListConfig = {
-    page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-    size: 20,
-    searchType:
-      (searchParams.get("search_type") as noticeListConfig["searchType"]) || "",
-    search: searchParams.get("search") || "",
-  };
+  const noticeOption = useNoticeQueryParams();
 
   const {
     data: noticeListData,
@@ -41,12 +33,10 @@ const NoticePageContent = () => {
     isError,
   } = useGetNoticeDataList(noticeOption);
 
-  const handlePageChange = (page: number) => {
-    if (page < 1 || page > noticeListData?.pageInfo?.totalPage) return;
-    router.push(changeURLParams(searchParams, "page", page.toString()), {
-      scroll: false,
-    });
-  };
+  // 페이지네이션 핸들러
+  const handlePageChange = usePageChangeHandler(
+    noticeListData?.pageInfo?.totalPage
+  );
 
   return (
     <div
