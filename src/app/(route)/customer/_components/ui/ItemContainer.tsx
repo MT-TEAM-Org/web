@@ -1,15 +1,11 @@
-import { cn } from "@/utils";
-import React from "react";
-import EmptyItem from "../common/EmptyItem";
 import { FeedbackContentType } from "../../_types/FeedbackItemType";
 import { NoticeContentType } from "../../_types/NoticeItemType";
-import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import { PageInfo } from "@/app/(route)/mypage/_types/toolbarType";
-import FeedbackListLoading from "../../(route)/feedback/_components/status/FeedbackListLoading";
-import FeedbackListRenderer from "../../(route)/feedback/_components/FeedbackListRender";
 import { usePageChangeHandler } from "../../_hooks/usePageChangeHandler";
-import NoticeItemSkeleton from "../../(route)/notice/_components/status/NoticeItemSkeleton";
-import NoticeListRender from "../../(route)/notice/_components/NoticeListRender";
+import Pagination from "@/app/(route)/mypage/_components/Pagination";
+import { cn } from "@/utils";
+import { CUSTOMER_TYPE_CONFIG } from "../../_utils/CUSTOMER_TYPE_CONFIG";
+import RenderContent from "./RenderContent";
 
 type LoadingType = {
   isLoading: boolean;
@@ -41,8 +37,18 @@ const ItemContainer = ({
   slicedDataList,
   searchParams,
 }: ItemContainerProps) => {
-  // 페이지네이션 핸들러
   const handlePageChange = usePageChangeHandler(dataList?.pageInfo?.totalPage);
+
+  const config = CUSTOMER_TYPE_CONFIG[type];
+  const { emptyTitle, LoadingComponent, ListComponent } = config;
+
+  // 로딩 상태
+  const isLoadingState = loading.loading || loading.isLoading;
+  // 에러 또는 빈 데이터 상태
+  const isEmptyState =
+    error.error || error.isError || dataList?.content?.length === 0;
+  // 페이지네이션 표시 여부
+  const shouldShowPagination = dataList?.pageInfo.totalPage > 0;
 
   return (
     <div
@@ -54,30 +60,18 @@ const ItemContainer = ({
           "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"
       )}
     >
-      {loading.loading || loading.isLoading ? (
-        type === "feedback" ? (
-          <FeedbackListLoading />
-        ) : (
-          <NoticeItemSkeleton />
-        )
-      ) : error.error || error.isError || dataList?.content?.length === 0 ? (
-        <EmptyItem
-          title={type === "feedback" ? "개선요청 사항이" : "공지사항이"}
-        />
-      ) : type === "feedback" ? (
-        <FeedbackListRenderer
-          notices={slicedDataList as NoticeContentType[]}
-          feedbacks={dataList.content as FeedbackContentType[]}
-          search={searchParams.get("search")}
-          searchType={searchParams.get("search_type")}
-        />
-      ) : (
-        <NoticeListRender
-          noticeListData={dataList as { content: NoticeContentType[] }}
-          searchParams={searchParams}
-        />
-      )}
-      {dataList?.pageInfo.totalPage > 0 && (
+      <RenderContent
+        isLoadingState={isLoadingState}
+        isEmptyState={isEmptyState}
+        LoadingComponent={LoadingComponent}
+        ListComponent={ListComponent}
+        dataList={dataList}
+        slicedDataList={slicedDataList}
+        searchParams={searchParams}
+        emptyTitle={emptyTitle}
+      />
+
+      {shouldShowPagination && (
         <div
           className={cn(
             "hidden",
