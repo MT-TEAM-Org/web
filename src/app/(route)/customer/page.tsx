@@ -5,9 +5,9 @@ import CustomerTalkToolbar from "./_components/ui/CustomerTalkToolbar";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import { useSearchParams } from "next/navigation";
-import { cn } from "@/utils";
 import useNoticeQueryParams from "./_hooks/useNoticeQueryParams";
 import ItemContainer from "./_components/ui/ItemContainer";
+import ListLayout from "./_components/common/ListLayout";
 
 const Page = () => {
   return (
@@ -29,16 +29,7 @@ const NoticePageContent = () => {
   } = useGetNoticeDataList(noticeOption);
 
   return (
-    <div
-      className={cn(
-        "w-full max-w-[720px] min-h-[120px] rounded-[5px] mx-auto",
-        "tablet:max-w-full",
-        "mobile:max-w-[768px]",
-        noticeListData?.content?.length === 0 || !noticeListData
-          ? "bg-transparent"
-          : "bg-white"
-      )}
-    >
+    <ListLayout data={noticeListData?.content}>
       <CustomerTalkToolbar
         showOptions={false}
         paginationData={noticeListData?.pageInfo}
@@ -59,7 +50,7 @@ const NoticePageContent = () => {
         slicedDataList={noticeListData?.content}
         searchParams={searchParams}
       />
-    </div>
+    </ListLayout>
   );
 };
 

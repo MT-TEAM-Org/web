@@ -1,3 +1,4 @@
+// 공지사항 데이터 호출 커스텀 훅 (최상단 2개 표시 용도)
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import { NoticeContentType } from "../../../_types/NoticeItemType";
 

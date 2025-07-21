@@ -5,10 +5,10 @@ import CustomerTalkToolbar from "../../_components/ui/CustomerTalkToolbar";
 import { useSearchParams } from "next/navigation";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import { useAdminRole } from "../../_utils/adminChecker";
-import { cn } from "@/utils";
 import ItemContainer from "../../_components/ui/ItemContainer";
 import useFeedbackQueryParams from "./_hooks/useFeedbackQueryParams";
 import useNoticeItems from "./_hooks/useNoticeItems";
+import ListLayout from "../../_components/common/ListLayout";
 
 const Page = () => {
   return (
@@ -35,16 +35,7 @@ const FeedbackPage = () => {
   } = useGetFeedbackDataList(feedbackOption);
 
   return (
-    <div
-      className={cn(
-        "w-full max-w-[720px] min-h-[120px] rounded-t-[5px] mx-auto",
-        "tablet:max-w-full",
-        "mobile:max-w-[768px]",
-        feedbackDataList?.content?.length === 0 || !feedbackDataList
-          ? "bg-transparent"
-          : "bg-white"
-      )}
-    >
+    <ListLayout data={feedbackDataList?.content}>
       {/* 고객센터 툴바 */}
       <CustomerTalkToolbar
         showOptions={true}
@@ -67,7 +58,7 @@ const FeedbackPage = () => {
         slicedDataList={slicedNoticeDataList}
         searchParams={searchParams}
       />
-    </div>
+    </ListLayout>
   );
 };
 
