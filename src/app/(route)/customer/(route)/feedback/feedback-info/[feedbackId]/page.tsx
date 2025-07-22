@@ -8,13 +8,12 @@ const stripHtml = (html: string) => html.replace(/<[^>]*>?/gm, "");
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ feedbackId: string }>;
+  params: Promise<{ feedbackId: string | string[] }>;
 }): Promise<Metadata> {
   try {
     const resolvedParams = await params;
-    const feedbackId = Number(resolvedParams.feedbackId);
     const feedbackDetail = await getFeedbackInfoData({
-      id: feedbackId,
+      id: resolvedParams.feedbackId,
       openGraph: true,
     });
 

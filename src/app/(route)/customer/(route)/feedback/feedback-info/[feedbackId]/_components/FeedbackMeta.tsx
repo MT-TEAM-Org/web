@@ -11,39 +11,30 @@ import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
-import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
 import { ReportType } from "@/services/board/types/report";
 import { CommentItem } from "@/_types/comment";
 import { usePathname } from "next/navigation";
-
-type state = {
-  isSignInModalOpen: boolean;
-  setIsSignInModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import useTimeAgo from "@/utils/useTimeAgo";
+import usePostFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/usePostFeedbackRecommend";
+import useDeleteFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteFeedbackRecommend";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface FeedbackMetaProps {
-  feedbackInfoData: any;
-  infoId: number;
+  feedbackInfoData: any; // TODO: 타입 변경
   id: string | string[];
   adminRole: string | undefined;
-  timeAgo: string;
-  handleFeedbackCommend: () => void;
-  state: state;
 }
 
 const FeedbackMeta = ({
   feedbackInfoData,
-  infoId,
   id,
   adminRole,
-  timeAgo,
-  handleFeedbackCommend,
-  state,
 }: FeedbackMetaProps) => {
-  console.log(feedbackInfoData);
   const statusBoxClass = "w-[69px] h-[32px] rounded-[2px] px-2 py-[6px] flex";
-
+  const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
   const pathname = usePathname();
+  const queryClient = useQueryClient();
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
   const comments = useRef(null);
   const [parentsComment, setParentsComment] = useState<CommentItem | null>(
@@ -86,6 +77,27 @@ const FeedbackMeta = ({
     reportedContentId: Number(id),
   };
 
+  const { mutate: feedbackAddRecommend } = usePostFeedbackRecommend();
+  const { mutate: feedbackDeleteRecommend } = useDeleteFeedbackRecommend();
+
+  const handleFeedbackCommend = () => {
+    if (!adminRole) {
+      setIsSignInModalOpen(true);
+      return;
+    }
+
+    const isRecommended = feedbackInfoData?.isRecommended;
+    const feedbackAction = isRecommended
+      ? feedbackDeleteRecommend
+      : feedbackAddRecommend;
+
+    feedbackAction(Number(id), {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["feedbackInfo", id] });
+      },
+    });
+  };
+
   return (
     <>
       <div className={cn("pc:hidden tablet:hidden")}>
@@ -104,7 +116,7 @@ const FeedbackMeta = ({
         )}
       >
         {adminRole === "ADMIN" && (
-          <StatusSaver id={infoId} status={feedbackInfoData?.status} />
+          <StatusSaver id={id} status={feedbackInfoData?.status} />
         )}
         <div
           className={cn(
@@ -220,8 +232,8 @@ const FeedbackMeta = ({
           currentPath={pathname}
         />
         <SignInModalPopUp
-          isOpen={state.isSignInModalOpen}
-          onClose={() => state.setIsSignInModalOpen(false)}
+          isOpen={isSignInModalOpen}
+          onClose={() => setIsSignInModalOpen(false)}
         />
       </div>
       <div

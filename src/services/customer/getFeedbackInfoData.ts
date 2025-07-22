@@ -1,7 +1,7 @@
 import axios from "axios";
 
 interface getFeedbackInfoDataProps {
-  id: number;
+  id: string | string[];
   openGraph?: boolean;
 }
 

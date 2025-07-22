@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 interface usePostFeedbackStatus {
-  id: number;
+  id: string | string[];
   status: "PENDING" | "RECEIVED" | "COMPLETED";
 }
 
@@ -14,7 +14,7 @@ const usePostFeedbackStatus = ({ id, status }: usePostFeedbackStatus) => {
 
   return useMutation({
     mutationFn: ({ id, status }: usePostFeedbackStatus) =>
-      postFeedbackStatus({ id, status }),
+      postFeedbackStatus({ id: Number(id), status }),
     retry: 1,
     onSuccess: () => {
       success("상태가 변경되었습니다.", "");

@@ -2,7 +2,7 @@ import getFeedbackInfoData from "@/services/customer/getFeedbackInfoData";
 import { useQuery } from "@tanstack/react-query";
 
 interface useGetFeedbackInfoDataProps {
-  id: number;
+  id: string | string[];
 }
 
 const useGetFeedbackInfoData = ({id}: useGetFeedbackInfoDataProps) => {

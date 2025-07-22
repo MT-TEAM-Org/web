@@ -1,16 +1,10 @@
 "use client";
 
-import useDeleteFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteFeedbackRecommend";
-import usePostFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/usePostFeedbackRecommend";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import useGetFeedbackInfoData from "@/_hooks/fetcher/customer/useGetFeedbackInfoData";
-import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
-import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
-import useTimeAgo from "@/utils/useTimeAgo";
-import { useQueryClient } from "@tanstack/react-query";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import React, { Suspense, useState } from "react";
+import { useParams, useSearchParams } from "next/navigation";
+import React, { Suspense } from "react";
 import FeedbackInfoSkeleton from "./FeedbackInfoSkeleton";
 import CustomerTalkToolbar from "@/app/(route)/customer/_components/ui/CustomerTalkToolbar";
 import FeedbackItemSkeleton from "@/app/(route)/customer/(route)/feedback/_components/status/FeedbackItemSkeleton";
@@ -20,10 +14,11 @@ import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemT
 import FeedbackItem from "@/app/(route)/customer/(route)/feedback/_components/items/FeedbackItem";
 import { cn } from "@/utils";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
-import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 import FeedbackMeta from "./FeedbackMeta";
 import useFeedbackQueryParams from "../../../_hooks/useFeedbackQueryParams";
 import { useScrollToComment } from "../../../_hooks/useScrollToComment";
+import useNoticeItems from "../../../_hooks/useNoticeItems";
+import { usePageChangeHandler } from "@/app/(route)/customer/_hooks/usePageChangeHandler";
 
 const Page = () => {
   return (
@@ -36,60 +31,32 @@ const Page = () => {
 const FeedbackInfo = () => {
   const params = useParams();
   const id = params.feedbackId;
-  const infoId = Number(id);
-  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const adminRole = useAdminRole();
-  const router = useRouter();
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const feedbackOption = useFeedbackQueryParams();
+  const { slicedNoticeDataList } = useNoticeItems();
+
+  // 리스트 검색 댓글 이동 로직
   useScrollToComment(searchParams);
 
+  // 개선요청 상세데이터
   const {
     data: feedbackInfoData,
     isLoading: feedbackIsLoading,
     isError: feedbackIsError,
-  } = useGetFeedbackInfoData({ id: infoId });
+  } = useGetFeedbackInfoData({ id });
 
-  const { mutate: feedbackAddRecommend } = usePostFeedbackRecommend();
-  const { mutate: feedbackDeleteRecommend } = useDeleteFeedbackRecommend();
-
-  const handleFeedbackCommend = () => {
-    if (!adminRole) {
-      setIsSignInModalOpen(true);
-      return;
-    }
-
-    const isRecommended = feedbackInfoData?.isRecommended;
-    const feedbackAction = isRecommended
-      ? feedbackDeleteRecommend
-      : feedbackAddRecommend;
-
-    feedbackAction(infoId, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["feedbackInfo", infoId] });
-      },
-    });
-  };
-
-  const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
+  // 개선요청 리스트
   const {
     data: feedbackDataList,
     isLoading,
     isError,
   } = useGetFeedbackDataList(feedbackOption);
-  const { data: noticeListData } = useGetNoticeDataList();
 
-  const slicedNoticeDataList = (noticeListData?.content as NoticeContentType[])
-    ?.sort((a, b) => b.id - a.id)
-    .slice(0, 2);
-
-  const handlePageChange = (page: number) => {
-    if (page < 1 || page > feedbackDataList?.pageInfo?.totalPage) return;
-    router.push(changeURLParams(searchParams, "page", page.toString()), {
-      scroll: false,
-    });
-  };
+  // 페이지네이션 핸들러
+  const handlePageChange = usePageChangeHandler(
+    feedbackDataList?.pageInfo?.totalPage
+  );
 
   return (
     <>
@@ -98,15 +65,8 @@ const FeedbackInfo = () => {
       ) : (
         <FeedbackMeta
           feedbackInfoData={feedbackInfoData}
-          infoId={infoId}
           id={id}
           adminRole={adminRole}
-          timeAgo={timeAgo}
-          handleFeedbackCommend={handleFeedbackCommend}
-          state={{
-            isSignInModalOpen,
-            setIsSignInModalOpen,
-          }}
         />
       )}
       <div
