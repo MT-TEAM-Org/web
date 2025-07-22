@@ -5,13 +5,12 @@ import usePostFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/usePos
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import useGetFeedbackInfoData from "@/_hooks/fetcher/customer/useGetFeedbackInfoData";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
-import { feedbackListConfig } from "@/app/(route)/customer/_types/feedbackListConfig";
 import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import useTimeAgo from "@/utils/useTimeAgo";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useState } from "react";
 import FeedbackInfoSkeleton from "./FeedbackInfoSkeleton";
 import CustomerTalkToolbar from "@/app/(route)/customer/_components/ui/CustomerTalkToolbar";
 import FeedbackItemSkeleton from "@/app/(route)/customer/(route)/feedback/_components/status/FeedbackItemSkeleton";
@@ -23,6 +22,8 @@ import { cn } from "@/utils";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import changeURLParams from "@/app/(route)/mypage/util/changeURLParams";
 import FeedbackMeta from "./FeedbackMeta";
+import useFeedbackQueryParams from "../../../_hooks/useFeedbackQueryParams";
+import { useScrollToComment } from "../../../_hooks/useScrollToComment";
 
 const Page = () => {
   return (
@@ -41,18 +42,8 @@ const FeedbackInfo = () => {
   const adminRole = useAdminRole();
   const router = useRouter();
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
-
-  const feedbackOption: feedbackListConfig = {
-    page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-    size: 20,
-    orderType:
-      (searchParams.get("order_type") as feedbackListConfig["orderType"]) ||
-      "CREATE",
-    searchType:
-      (searchParams.get("search_type") as feedbackListConfig["searchType"]) ||
-      "",
-    search: searchParams.get("search") || "",
-  };
+  const feedbackOption = useFeedbackQueryParams();
+  useScrollToComment(searchParams);
 
   const {
     data: feedbackInfoData,
@@ -80,19 +71,6 @@ const FeedbackInfo = () => {
       },
     });
   };
-
-  useEffect(() => {
-    const commentId = searchParams.get("commentId");
-    if (commentId) {
-      const commentElement = document.getElementById(commentId);
-      if (commentElement) {
-        commentElement.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }
-    }
-  }, [searchParams]);
 
   const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
   const {
