@@ -2,12 +2,11 @@ import axios from "axios";
 
 interface getFeedbackInfoDataProps {
   id: number;
-  token?: string;
   openGraph?: boolean;
 }
 
-const getFeedbackInfoData = async ({ id, token, openGraph }: getFeedbackInfoDataProps) => {
-  const accessToken = token || (typeof window !== "undefined" ? localStorage.getItem('accessToken') : "");
+const getFeedbackInfoData = async ({ id, openGraph }: getFeedbackInfoDataProps) => {
+  const accessToken = (typeof window !== 'undefined' ? localStorage.getItem('accessToken') : '');
 
   const url = `${process.env.NEXT_PUBLIC_API_URL}api/improvement/${id}${openGraph ? "?openGraph=true" : ""}`;
 
