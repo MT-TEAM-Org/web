@@ -5,20 +5,12 @@ import useGetFeedbackInfoData from "@/_hooks/fetcher/customer/useGetFeedbackInfo
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { Suspense } from "react";
-import FeedbackInfoSkeleton from "./FeedbackInfoSkeleton";
 import CustomerTalkToolbar from "@/app/(route)/customer/_components/ui/CustomerTalkToolbar";
-import FeedbackItemSkeleton from "@/app/(route)/customer/(route)/feedback/_components/status/FeedbackItemSkeleton";
-import NoticeItem from "@/app/(route)/customer/(route)/notice/_components/items/NoticeItem";
-import EmptyItem from "@/app/(route)/customer/_components/common/EmptyItem";
-import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
-import FeedbackItem from "@/app/(route)/customer/(route)/feedback/_components/items/FeedbackItem";
 import { cn } from "@/utils";
-import Pagination from "@/app/(route)/mypage/_components/Pagination";
-import FeedbackMeta from "./FeedbackMeta";
 import useFeedbackQueryParams from "../../../_hooks/useFeedbackQueryParams";
 import { useScrollToComment } from "../../../_hooks/useScrollToComment";
-import useNoticeItems from "../../../_hooks/useNoticeItems";
-import { usePageChangeHandler } from "@/app/(route)/customer/_hooks/usePageChangeHandler";
+import FeedbackMetaContainer from "./FeedbackMetaContainer";
+import FeedbackListContainer from "./FeedbackListContainer";
 
 const Page = () => {
   return (
@@ -34,7 +26,6 @@ const FeedbackInfo = () => {
   const searchParams = useSearchParams();
   const adminRole = useAdminRole();
   const feedbackOption = useFeedbackQueryParams();
-  const { slicedNoticeDataList } = useNoticeItems();
 
   // 리스트 검색 댓글 이동 로직
   useScrollToComment(searchParams);
@@ -53,22 +44,15 @@ const FeedbackInfo = () => {
     isError,
   } = useGetFeedbackDataList(feedbackOption);
 
-  // 페이지네이션 핸들러
-  const handlePageChange = usePageChangeHandler(
-    feedbackDataList?.pageInfo?.totalPage
-  );
-
   return (
     <>
-      {feedbackIsLoading || feedbackIsError ? (
-        <FeedbackInfoSkeleton />
-      ) : (
-        <FeedbackMeta
-          feedbackInfoData={feedbackInfoData}
-          id={id}
-          adminRole={adminRole}
-        />
-      )}
+      <FeedbackMetaContainer
+        feedbackInfoData={feedbackInfoData}
+        id={id}
+        adminRole={adminRole}
+        isLoading={feedbackIsLoading}
+        isError={feedbackIsError}
+      />
       <div
         className={cn(
           "w-[720px] min-h-[120px] rounded-t-[5px] mt-4",
@@ -82,64 +66,12 @@ const FeedbackInfo = () => {
           paginationData={feedbackDataList?.pageInfo}
         />
       </div>
-      <div
-        className={cn(
-          "w-full h-auto rounded-[5px] shadow-soft-md bg-white",
-          "tablet:max-w-full",
-          "mobile:max-w-full"
-        )}
-      >
-        <div
-          className={cn(
-            "w-[720px] h-auto rounded-b-[5px] mb-10",
-            "tablet:w-full",
-            "mobile:w-full mobile:max-w-full mobile:mb-0"
-          )}
-        >
-          {isLoading ? (
-            Array.from({ length: 2 }).map((_, index) => (
-              <FeedbackItemSkeleton key={index} />
-            ))
-          ) : feedbackDataList?.content?.length === 0 || isError ? (
-            <EmptyItem title="개선요청이" />
-          ) : (
-            slicedNoticeDataList?.map((noticeData) => (
-              <NoticeItem
-                isFeedback={true}
-                noticeData={noticeData}
-                key={noticeData.id}
-              />
-            ))
-          )}
-          {isLoading
-            ? Array.from({ length: 10 }).map((_, index) => (
-                <FeedbackItemSkeleton key={index} />
-              ))
-            : feedbackDataList?.content?.map(
-                (feedbackDataList: FeedbackContentType) => (
-                  <FeedbackItem
-                    feedbackData={feedbackDataList}
-                    key={feedbackDataList?.id}
-                    searchString={searchParams.get("search")}
-                    searchType={searchParams.get("search_type")}
-                  />
-                )
-              )}
-          {feedbackDataList?.pageInfo?.totalPage > 0 && (
-            <div
-              className={cn(
-                "hidden",
-                "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
-              )}
-            >
-              <Pagination
-                pageInfo={feedbackDataList?.pageInfo}
-                onPageChangeAction={handlePageChange}
-              />
-            </div>
-          )}
-        </div>
-      </div>
+      <FeedbackListContainer
+        feedbackDataList={feedbackDataList}
+        isLoading={isLoading}
+        isError={isError}
+        searchParams={searchParams}
+      />
     </>
   );
 };
