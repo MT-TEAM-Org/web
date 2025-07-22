@@ -15,14 +15,15 @@ import { ReportType } from "@/services/board/types/report";
 import { CommentItem } from "@/_types/comment";
 import { usePathname } from "next/navigation";
 import useTimeAgo from "@/utils/useTimeAgo";
-import usePostFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/usePostFeedbackRecommend";
-import useDeleteFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteFeedbackRecommend";
-import { useQueryClient } from "@tanstack/react-query";
+import useFeedbackRecommendToggle from "../_hooks/useFeedbackRecommendToggle";
+import { InfoItems } from "../_constants/InfoItems";
+import FeedbackStatusBadge from "./FeedbackStatusBadgeProps";
+import { getYouTubeEmbedUrl } from "../_utils/getYouTubeEmbedUrl";
 
 interface FeedbackMetaProps {
   feedbackInfoData: any; // TODO: 타입 변경
   id: string | string[];
-  adminRole: string | undefined;
+  adminRole: "USER" | "ADMIN" | null;
 }
 
 const FeedbackMeta = ({
@@ -30,46 +31,14 @@ const FeedbackMeta = ({
   id,
   adminRole,
 }: FeedbackMetaProps) => {
-  const statusBoxClass = "w-[69px] h-[32px] rounded-[2px] px-2 py-[6px] flex";
   const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
-  const pathname = usePathname();
-  const queryClient = useQueryClient();
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
-
   const comments = useRef(null);
+  const pathname = usePathname();
+  const youtubeEmbedUrl = getYouTubeEmbedUrl(feedbackInfoData?.link);
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [parentsComment, setParentsComment] = useState<CommentItem | null>(
     null
   );
-
-  const infoItems = [
-    { label: "조회수", value: feedbackInfoData?.viewCount },
-    { label: "댓글", value: feedbackInfoData?.commentCount },
-    { label: "추천", value: feedbackInfoData?.recommendCount },
-  ];
-
-  const statusContent = {
-    RECEIVED: (
-      <div className={cn(statusBoxClass, "bg-gray1")}>
-        <p className="font-bold text-[14px] leading-5 text-gray7">접수 완료</p>
-      </div>
-    ),
-    COMPLETED: (
-      <div className={cn(statusBoxClass, "bg-bg0")}>
-        <p className="font-bold text-[14px] leading-5 text-gra">개선 완료</p>
-      </div>
-    ),
-  };
-
-  const link = feedbackInfoData?.link || "";
-
-  const getYouTubeEmbedUrl = (url: string) => {
-    if (!url) return null;
-    const youtubeRegex =
-      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-    const match = url.match(youtubeRegex);
-    return match ? `https://www.youtube.com/embed/${match[1]}` : null;
-  };
-  const youtubeEmbedUrl = link && getYouTubeEmbedUrl(link);
 
   const reportData = {
     reportedPublicId: feedbackInfoData?.publicId,
@@ -77,26 +46,12 @@ const FeedbackMeta = ({
     reportedContentId: Number(id),
   };
 
-  const { mutate: feedbackAddRecommend } = usePostFeedbackRecommend();
-  const { mutate: feedbackDeleteRecommend } = useDeleteFeedbackRecommend();
-
-  const handleFeedbackCommend = () => {
-    if (!adminRole) {
-      setIsSignInModalOpen(true);
-      return;
-    }
-
-    const isRecommended = feedbackInfoData?.isRecommended;
-    const feedbackAction = isRecommended
-      ? feedbackDeleteRecommend
-      : feedbackAddRecommend;
-
-    feedbackAction(Number(id), {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["feedbackInfo", id] });
-      },
-    });
-  };
+  const { handleRecommend } = useFeedbackRecommendToggle(
+    id,
+    adminRole,
+    feedbackInfoData,
+    setIsSignInModalOpen
+  );
 
   return (
     <>
@@ -128,8 +83,9 @@ const FeedbackMeta = ({
           )}
         >
           <div>
-            {(adminRole !== "ADMIN" || adminRole === undefined) &&
-              statusContent[feedbackInfoData?.status]}
+            {(adminRole !== "ADMIN" || adminRole === undefined) && (
+              <FeedbackStatusBadge status={feedbackInfoData?.status} />
+            )}
           </div>
           <h1
             className={cn(
@@ -155,7 +111,7 @@ const FeedbackMeta = ({
               <p className="font-bold">고객센터</p>
               <p>개선요청</p>
               <p>{timeAgo}</p>
-              {infoItems.map((item, index) => (
+              {InfoItems(feedbackInfoData).map((item, index) => (
                 <div key={index} className="flex gap-2">
                   <p className="font-bold">{item.label}</p>
                   <p>{item.value}</p>
@@ -211,7 +167,7 @@ const FeedbackMeta = ({
         />
         <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
           <RecommendButton
-            handleCommend={handleFeedbackCommend}
+            handleCommend={handleRecommend}
             recommendCount={feedbackInfoData?.recommendCount}
             isRecommend={feedbackInfoData?.isRecommended}
           />

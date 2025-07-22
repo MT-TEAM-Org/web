@@ -46,6 +46,7 @@ const FeedbackInfo = () => {
 
   return (
     <>
+      {/* 개선요청 상세 */}
       <FeedbackMetaContainer
         feedbackInfoData={feedbackInfoData}
         id={id}
@@ -53,6 +54,8 @@ const FeedbackInfo = () => {
         isLoading={feedbackIsLoading}
         isError={feedbackIsError}
       />
+
+      {/* 툴바 */}
       <div
         className={cn(
           "w-[720px] min-h-[120px] rounded-t-[5px] mt-4",
@@ -66,6 +69,8 @@ const FeedbackInfo = () => {
           paginationData={feedbackDataList?.pageInfo}
         />
       </div>
+
+      {/* 개선요청 리스트 */}
       <FeedbackListContainer
         feedbackDataList={feedbackDataList}
         isLoading={isLoading}
