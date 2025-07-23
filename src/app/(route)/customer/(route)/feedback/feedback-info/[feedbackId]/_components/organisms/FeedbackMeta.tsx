@@ -8,8 +8,6 @@ import { CommentItem } from "@/_types/comment";
 import { FeedbackInfoType } from "../../../../_types/FeedbackInfoType";
 import FeedbackDetailContent from "../molecules/FeedbackDetailContent";
 
-// TODO: 리팩터링 테스트, 추가 리팩터링 필요
-
 interface FeedbackMetaProps {
   feedbackInfoData: FeedbackInfoType;
   id: string | string[];
