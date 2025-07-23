@@ -39,6 +39,7 @@ const FeedbackInfo = () => {
     isError: feedbackIsError,
   } = useGetFeedbackInfoData({ id });
 
+  console.log(adminRole);
   return (
     <>
       {/* 개선요청 상세 */}

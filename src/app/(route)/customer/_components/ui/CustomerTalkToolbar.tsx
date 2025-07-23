@@ -16,7 +16,7 @@ import { cn } from "@/utils";
 interface ToolbarProps {
   showOptions?: boolean;
   paginationData?: NoticePageInfoType;
-  adminChecker?: "USER" | "ADMIN" | undefined;
+  adminChecker?: "ADMIN" | "USER" | undefined;
 }
 
 const CustomerTalkToolbarContent = ({

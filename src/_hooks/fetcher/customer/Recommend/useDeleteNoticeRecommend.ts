@@ -7,7 +7,7 @@ const useDeleteNoticeRecommend = () => {
   const { success, error: toastError } = useToast();
 
   return useMutation({
-    mutationFn: (noticeId: number) => deleteNoticeRecommend(noticeId),
+    mutationFn: (noticeId: string | string[]) => deleteNoticeRecommend(noticeId),
     retry: 1,
     onSuccess: () => {
       success("추천이 삭제되었습니다.", "");
