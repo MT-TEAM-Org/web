@@ -6,19 +6,18 @@ import useTimeAgo from "@/utils/useTimeAgo";
 import { useSearchParams } from "next/navigation";
 import { CommentItem } from "@/_types/comment";
 import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
-import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import NewsDetailGnb from "@/app/(route)/news/_components/newsGnb/NewsDetailGnb";
 import NoticeDetailContent from "../molecules/NoticeDetailContent";
 
 interface NoticeMetaProps {
   data: NoticeInfoItemType;
   id: string | string[];
+  adminRole: "USER" | "ADMIN" | undefined;
 }
 
-const NoticeMeta = ({ data, id }: NoticeMetaProps) => {
+const NoticeMeta = ({ data, id, adminRole }: NoticeMetaProps) => {
   const timeAgo = useTimeAgo(data?.createdAt);
   const comments = useRef(null);
-  const adminRole = useAdminRole();
   const [parentsComment, setParentsComment] = useState<CommentItem | null>(
     null
   );

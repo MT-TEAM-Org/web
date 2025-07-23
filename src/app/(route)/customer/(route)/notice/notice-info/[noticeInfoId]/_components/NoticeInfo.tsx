@@ -5,8 +5,15 @@ import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { Suspense } from "react";
 import NoticeMetaContainer from "./templates/NoticeMetaContainer";
-import NoticeListContainer from "./templates/NoticeListContainer";
 import { useScrollToComment } from "../../../../feedback/_hooks/useScrollToComment";
+import dynamic from "next/dynamic";
+
+const NoticeListContainer = dynamic(
+  () => import("./templates/NoticeListContainer"),
+  {
+    ssr: false,
+  }
+);
 
 const Page = () => {
   return (
@@ -34,10 +41,11 @@ const NoticeInfo = () => {
     <>
       {/* 공지사항 상세 */}
       <NoticeMetaContainer
-        infoIsLoading={infoIsLoading}
-        infoIsError={infoIsError}
         noticeInfoData={noticeInfoData}
         id={id}
+        adminRole={adminRole}
+        infoIsLoading={infoIsLoading}
+        infoIsError={infoIsError}
       />
 
       {/* 하단 리스트 */}

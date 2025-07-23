@@ -6,6 +6,7 @@ interface NoticeMetaContainerProps {
   infoIsLoading: boolean;
   infoIsError: boolean;
   noticeInfoData: any;
+  adminRole: "USER" | "ADMIN" | undefined;
   id: string | string[];
 }
 
@@ -13,6 +14,7 @@ const NoticeMetaContainer = ({
   infoIsLoading,
   infoIsError,
   noticeInfoData,
+  adminRole,
   id,
 }: NoticeMetaContainerProps) => {
   return (
@@ -20,7 +22,7 @@ const NoticeMetaContainer = ({
       {infoIsLoading || infoIsError ? (
         <NoticeInfoItemSkeleton />
       ) : (
-        <NoticeMeta data={noticeInfoData} id={id} />
+        <NoticeMeta data={noticeInfoData} id={id} adminRole={adminRole} />
       )}
     </>
   );
