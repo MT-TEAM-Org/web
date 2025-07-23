@@ -2,7 +2,6 @@ import { cn } from "@/utils";
 import React from "react";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import { NoticeItemType } from "@/app/(route)/customer/_types/NoticeItemType";
-import { useRouter } from "next/navigation";
 import { usePageChangeHandler } from "@/app/(route)/customer/_hooks/usePageChangeHandler";
 import NoticeItemLoading from "../atoms/NoticeItemLoading";
 import NoticeItemError from "../atoms/NoticeItemError";
@@ -21,8 +20,6 @@ const NoticeListBox = ({
   isError,
   searchParams,
 }: NoticeListBoxProps) => {
-  const router = useRouter();
-
   const handlePageChange = usePageChangeHandler(
     noticeListData?.PageInfo?.totalPage
   );
