@@ -1,30 +1,30 @@
 import { cn } from "@/utils";
 import React from "react";
-import NoticeItemSkeleton from "../../../../_components/status/NoticeItemSkeleton";
-import EmptyItem from "@/app/(route)/customer/_components/common/EmptyItem";
-import NoticeItem from "../../../../_components/items/NoticeItem";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
-import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
+import { NoticeItemType } from "@/app/(route)/customer/_types/NoticeItemType";
 import { useRouter } from "next/navigation";
 import { usePageChangeHandler } from "@/app/(route)/customer/_hooks/usePageChangeHandler";
+import NoticeItemLoading from "../atoms/NoticeItemLoading";
+import NoticeItemError from "../atoms/NoticeItemError";
+import NoticeList from "../atoms/NoticeList";
 
 interface NoticeListBoxProps {
+  noticeListData: NoticeItemType;
   isLoading: boolean;
   isError: boolean;
-  noticeListData: any; // TODO: 타입 정의
   searchParams: URLSearchParams;
 }
 
 const NoticeListBox = ({
+  noticeListData,
   isLoading,
   isError,
-  noticeListData,
   searchParams,
 }: NoticeListBoxProps) => {
   const router = useRouter();
 
   const handlePageChange = usePageChangeHandler(
-    noticeListData?.pageInfo?.totalPage
+    noticeListData?.PageInfo?.totalPage
   );
   return (
     <div
@@ -34,25 +34,11 @@ const NoticeListBox = ({
         "mobile:w-full mobile:mt-3 mobile:mb-0"
       )}
     >
-      {/* state 수정 */}
-      {isLoading ? (
-        Array.from({ length: 10 }).map((_, index) => (
-          <NoticeItemSkeleton key={index} />
-        ))
-      ) : noticeListData?.content?.length === 0 || isError ? (
-        <EmptyItem title="공지사항이" />
-      ) : (
-        noticeListData?.content?.map((noticeListData: NoticeContentType) => (
-          <NoticeItem
-            key={noticeListData.id}
-            noticeData={noticeListData}
-            searchString={searchParams.get("search")}
-            searchType={searchParams.get("search_type")}
-          />
-        ))
-      )}
+      <NoticeItemLoading isLoading={isLoading} />
+      <NoticeItemError isError={isError} noticeDataList={noticeListData} />
+      <NoticeList noticeDataList={noticeListData} searchParams={searchParams} />
 
-      {noticeListData?.pageInfo?.totalPage > 0 && (
+      {noticeListData?.PageInfo?.totalPage > 0 && (
         <div
           className={cn(
             "hidden",
@@ -60,7 +46,7 @@ const NoticeListBox = ({
           )}
         >
           <Pagination
-            pageInfo={noticeListData?.pageInfo}
+            pageInfo={noticeListData?.PageInfo}
             onPageChangeAction={handlePageChange}
           />
         </div>

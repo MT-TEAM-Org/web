@@ -53,6 +53,7 @@ const FeedbackListBox = ({
           feedbackDataList={feedbackDataList}
           searchParams={searchParams}
         />
+
         {feedbackDataList?.pageInfo?.totalPage > 0 && (
           <div
             className={cn(

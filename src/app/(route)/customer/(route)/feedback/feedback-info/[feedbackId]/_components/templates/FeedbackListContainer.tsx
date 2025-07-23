@@ -6,7 +6,7 @@ import useFeedbackQueryParams from "../../../../_hooks/useFeedbackQueryParams";
 
 interface FeedbackListContainerProps {
   searchParams: URLSearchParams;
-  adminRole?: "USER" | "ADMIN" | undefined;
+  adminRole: "USER" | "ADMIN" | undefined;
 }
 
 const FeedbackListContainer = ({

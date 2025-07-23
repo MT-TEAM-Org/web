@@ -2,24 +2,18 @@ import React from "react";
 import CustomerTalkToolbar from "@/app/(route)/customer/_components/ui/CustomerTalkToolbar";
 import NoticeListBox from "../organisms/NoticeListBox";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
-import { noticeListConfig } from "@/app/(route)/customer/_types/noticeListConfig";
+import useNoticeQueryParams from "../../_hooks/useNoticeQueryParams";
 
 interface NoticeListContainerProps {
+  searchParams: URLSearchParams;
   adminRole: "ADMIN" | "USER" | undefined;
-  searchParams: any;
 }
 
 const NoticeListContainer = ({
-  adminRole,
   searchParams,
+  adminRole,
 }: NoticeListContainerProps) => {
-  const noticeOption: noticeListConfig = {
-    page: searchParams.get("page") ? Number(searchParams.get("page")) : 1,
-    size: 20,
-    searchType:
-      (searchParams.get("search_type") as noticeListConfig["searchType"]) || "",
-    search: searchParams.get("search") || "",
-  };
+  const noticeOption = useNoticeQueryParams();
 
   const {
     data: noticeListData,

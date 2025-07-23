@@ -1,13 +1,11 @@
 import NoticeItem from "@/app/(route)/customer/(route)/notice/_components/items/NoticeItem";
 import React from "react";
 import FeedbackItem from "../../../../../_components/items/FeedbackItem";
-import {
-  FeedbackContentType,
-  FeedbackItemType,
-} from "@/app/(route)/customer/_types/FeedbackItemType";
+import { FeedbackItemType } from "@/app/(route)/customer/_types/FeedbackItemType";
+import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
 
 interface FeedbackListProps {
-  noticeDataList: any[];
+  noticeDataList: NoticeContentType[];
   feedbackDataList: FeedbackItemType;
   searchParams: URLSearchParams;
 }
