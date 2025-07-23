@@ -1,9 +1,10 @@
 import React from "react";
-import FeedbackInfoSkeleton from "./FeedbackInfoSkeleton";
-import FeedbackMeta from "./FeedbackMeta";
+import FeedbackInfoSkeleton from "../status/FeedbackInfoSkeleton";
+import FeedbackMeta from "../FeedbackMeta";
+import { FeedbackInfoType } from "../../../../_types/FeedbackInfoType";
 
 interface FeedbackMetaContainerProps {
-  feedbackInfoData: any; // TODO: 타입 변경
+  feedbackInfoData: FeedbackInfoType;
   id: string | string[];
   adminRole: string | undefined;
   isLoading: boolean;

@@ -14,7 +14,7 @@ import { CommentItem } from "@/_types/comment";
 import { usePathname } from "next/navigation";
 import useFeedbackRecommendToggle from "../_hooks/useFeedbackRecommendToggle";
 import { getYouTubeEmbedUrl } from "../_utils/getYouTubeEmbedUrl";
-import FeedbackHeader from "./FeedbackHeader";
+import FeedbackHeader from "./atoms/FeedbackHeader";
 import { FeedbackInfoType } from "../../../_types/FeedbackInfoType";
 import InfoImgSection from "./atoms/InfoImgSection";
 

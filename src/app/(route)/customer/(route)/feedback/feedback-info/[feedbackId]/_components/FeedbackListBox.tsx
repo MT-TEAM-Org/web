@@ -9,19 +9,19 @@ import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import useNoticeItems from "../../../_hooks/useNoticeItems";
 import { usePageChangeHandler } from "@/app/(route)/customer/_hooks/usePageChangeHandler";
 
-interface FeedbackListContainerProps {
+interface FeedbackListBoxProps {
   feedbackDataList: any; // TODO: 타입 변경
   isLoading: boolean;
   isError: boolean;
   searchParams: any;
 }
 
-const FeedbackListContainer = ({
+const FeedbackListBox = ({
   feedbackDataList,
   isLoading,
   isError,
   searchParams,
-}: FeedbackListContainerProps) => {
+}: FeedbackListBoxProps) => {
   const { slicedNoticeDataList } = useNoticeItems();
 
   // 페이지네이션 핸들러
@@ -91,4 +91,4 @@ const FeedbackListContainer = ({
   );
 };
 
-export default FeedbackListContainer;
+export default FeedbackListBox;

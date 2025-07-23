@@ -1,12 +1,13 @@
 import useDeleteFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteFeedbackRecommend";
 import usePostFeedbackRecommend from "@/_hooks/fetcher/customer/Recommend/usePostFeedbackRecommend";
 import { useQueryClient } from "@tanstack/react-query";
+import { FeedbackInfoType } from "../../../_types/FeedbackInfoType";
 
 const useFeedbackRecommendToggle = (
   id: string | string[],
   adminRole: "USER" | "ADMIN" | null,
-  feedbackInfoData: any, // TODO: 타입 변경
-  setIsSignInModalOpen: any
+  feedbackInfoData: FeedbackInfoType,
+  setIsSignInModalOpen: (open: boolean) => void
 ) => {
   const queryClient = useQueryClient();
   const { mutate: feedbackAddRecommend } = usePostFeedbackRecommend();
