@@ -1,19 +1,19 @@
 import { cn } from "@/utils";
 import React from "react";
-import FeedbackItemSkeleton from "../../../_components/status/FeedbackItemSkeleton";
+import FeedbackItemSkeleton from "../../../../_components/status/FeedbackItemSkeleton";
 import EmptyItem from "@/app/(route)/customer/_components/common/EmptyItem";
-import NoticeItem from "../../../../notice/_components/items/NoticeItem";
+import NoticeItem from "../../../../../notice/_components/items/NoticeItem";
 import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
-import FeedbackItem from "../../../_components/items/FeedbackItem";
+import FeedbackItem from "../../../../_components/items/FeedbackItem";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
-import useNoticeItems from "../../../_hooks/useNoticeItems";
+import useNoticeItems from "../../../../_hooks/useNoticeItems";
 import { usePageChangeHandler } from "@/app/(route)/customer/_hooks/usePageChangeHandler";
 
 interface FeedbackListBoxProps {
   feedbackDataList: any; // TODO: 타입 변경
   isLoading: boolean;
   isError: boolean;
-  searchParams: any;
+  searchParams: URLSearchParams;
 }
 
 const FeedbackListBox = ({

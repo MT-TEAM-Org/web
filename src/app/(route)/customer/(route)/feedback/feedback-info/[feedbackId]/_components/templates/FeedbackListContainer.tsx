@@ -1,6 +1,6 @@
 import CustomerTalkToolbar from "@/app/(route)/customer/_components/ui/CustomerTalkToolbar";
 import React from "react";
-import FeedbackListBox from "../FeedbackListBox";
+import FeedbackListBox from "../organisms/FeedbackListBox";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import useFeedbackQueryParams from "../../../../_hooks/useFeedbackQueryParams";
 

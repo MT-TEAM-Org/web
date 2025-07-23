@@ -1,12 +1,12 @@
 import React from "react";
 import FeedbackInfoSkeleton from "../status/FeedbackInfoSkeleton";
-import FeedbackMeta from "../FeedbackMeta";
+import FeedbackMeta from "../organisms/FeedbackMeta";
 import { FeedbackInfoType } from "../../../../_types/FeedbackInfoType";
 
 interface FeedbackMetaContainerProps {
   feedbackInfoData: FeedbackInfoType;
   id: string | string[];
-  adminRole: string | undefined;
+  adminRole: "USER" | "ADMIN" | undefined;
   isLoading: boolean;
   isError: boolean;
 }
