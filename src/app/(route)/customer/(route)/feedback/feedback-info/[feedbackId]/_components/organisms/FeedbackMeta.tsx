@@ -26,14 +26,12 @@ const FeedbackMeta = ({
   return (
     <>
       {/* mobile gnb */}
-      <div className={cn("pc:hidden tablet:hidden")}>
-        <NewsDetailGnb
-          title={feedbackInfoData?.title}
-          type="feedback"
-          data={feedbackInfoData}
-          id={Number(id)}
-        />
-      </div>
+      <NewsDetailGnb
+        title={feedbackInfoData?.title}
+        type="feedback"
+        data={feedbackInfoData}
+        id={Number(id)}
+      />
 
       {/* detail content */}
       <FeedbackDetailContent
@@ -44,19 +42,12 @@ const FeedbackMeta = ({
       />
 
       {/* send comment */}
-      <div
-        className={cn(
-          "shadow-soft-md sticky bottom-0 z-50",
-          "mobile:shadow-none mobile:border-b"
-        )}
-      >
-        <SendCommentBox
-          id={id.toString()}
-          type="IMPROVEMENT"
-          parentsComment={parentsComment}
-          setParentsComment={setParentsComment}
-        />
-      </div>
+      <SendCommentBox
+        id={id.toString()}
+        type="IMPROVEMENT"
+        parentsComment={parentsComment}
+        setParentsComment={setParentsComment}
+      />
     </>
   );
 };

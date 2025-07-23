@@ -1,3 +1,5 @@
+"use client";
+
 import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
@@ -6,12 +8,10 @@ import { cn } from "@/utils";
 import React, { useRef, useState } from "react";
 import NoticeHeader from "../atoms/NoticeHeader";
 import InfoImgSection from "../atoms/InfoImgSection";
-import usePostNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/usePostNoticeRecommend";
-import useDeleteNoticeRecommend from "@/_hooks/fetcher/customer/Recommend/useDeleteNoticeRecommend";
 import { NoticeInfoItemType } from "@/app/(route)/customer/_types/NoticeInfoItemType";
 import { CommentItem } from "@/_types/comment";
 import { usePathname } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
+import useNoticeRecommendToggle from "../../_hooks/useNoticeRecommendToggle";
 
 interface NoticeDetailContentProps {
   id: string | string[];
@@ -28,29 +28,15 @@ const NoticeDetailContent = ({
 }: NoticeDetailContentProps) => {
   const comments = useRef(null);
   const pathname = usePathname();
-  const queryClient = useQueryClient();
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
-  const { mutate: noticeAddRecommend } = usePostNoticeRecommend();
-  const { mutate: noticeDeleteRecommend } = useDeleteNoticeRecommend();
+  const { handleRecommend } = useNoticeRecommendToggle(
+    id,
+    adminRole,
+    noticeInfoData,
+    setIsSignInModalOpen
+  );
 
-  const handleFeedbackCommend = () => {
-    if (!adminRole) {
-      setIsSignInModalOpen(true);
-      return;
-    }
-
-    const isRecommended = noticeInfoData?.isRecommended;
-    const feedbackAction = isRecommended
-      ? noticeDeleteRecommend
-      : noticeAddRecommend;
-
-    feedbackAction(id, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["noticeInfo", id] });
-      },
-    });
-  };
   return (
     <div
       className={cn(
@@ -62,7 +48,6 @@ const NoticeDetailContent = ({
       <NoticeHeader data={noticeInfoData} />
       <hr />
       <InfoImgSection data={noticeInfoData} />
-
       <div
         className={cn(
           "w-full max-w-[672px] min-h-[48px] font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray7",
@@ -72,7 +57,7 @@ const NoticeDetailContent = ({
       />
       <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
         <RecommendButton
-          handleCommend={handleFeedbackCommend}
+          handleCommend={handleRecommend}
           recommendCount={noticeInfoData?.recommendCount}
           isRecommend={noticeInfoData?.isRecommended}
         />

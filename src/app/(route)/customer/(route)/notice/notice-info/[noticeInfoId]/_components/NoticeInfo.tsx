@@ -33,8 +33,8 @@ const NoticeInfo = () => {
 
   const {
     data: noticeInfoData,
-    isLoading: infoIsLoading,
-    isError: infoIsError,
+    isLoading,
+    isError,
   } = useGetNoticeInfoData({ id });
 
   return (
@@ -44,8 +44,8 @@ const NoticeInfo = () => {
         noticeInfoData={noticeInfoData}
         id={id}
         adminRole={adminRole}
-        infoIsLoading={infoIsLoading}
-        infoIsError={infoIsError}
+        isLoading={isLoading}
+        isError={isError}
       />
 
       {/* 하단 리스트 */}

@@ -8,13 +8,14 @@ interface NoticeHeaderProps {
 }
 
 const NoticeHeader = ({ data }: NoticeHeaderProps) => {
+  const timeAgo = useTimeAgo(data?.createdAt);
+
   const noticeStats = [
     { label: "조회수", value: data?.viewCount },
     { label: "댓글", value: data?.commentCount },
     { label: "추천", value: data?.recommendCount },
   ];
 
-  const timeAgo = useTimeAgo(data?.createdAt);
   return (
     <div
       className={cn(

@@ -1,25 +1,26 @@
 import React from "react";
 import NoticeInfoItemSkeleton from "../NoticeInfoItemSkeleton";
 import NoticeMeta from "../organisms/NoticeMeta";
+import { NoticeInfoItemType } from "@/app/(route)/customer/_types/NoticeInfoItemType";
 
 interface NoticeMetaContainerProps {
-  infoIsLoading: boolean;
-  infoIsError: boolean;
-  noticeInfoData: any;
-  adminRole: "USER" | "ADMIN" | undefined;
+  noticeInfoData: NoticeInfoItemType;
   id: string | string[];
+  adminRole: "USER" | "ADMIN" | undefined;
+  isLoading: boolean;
+  isError: boolean;
 }
 
 const NoticeMetaContainer = ({
-  infoIsLoading,
-  infoIsError,
   noticeInfoData,
-  adminRole,
   id,
+  adminRole,
+  isLoading,
+  isError,
 }: NoticeMetaContainerProps) => {
   return (
     <>
-      {infoIsLoading || infoIsError ? (
+      {isLoading || isError ? (
         <NoticeInfoItemSkeleton />
       ) : (
         <NoticeMeta data={noticeInfoData} id={id} adminRole={adminRole} />
