@@ -1,5 +1,5 @@
 import React from "react";
-import FeedbackInfoSkeleton from "../status/FeedbackInfoSkeleton";
+import FeedbackInfoSkeleton from "../atoms/FeedbackInfoSkeleton";
 import FeedbackMeta from "../organisms/FeedbackMeta";
 import { FeedbackInfoType } from "../../../../_types/FeedbackInfoType";
 

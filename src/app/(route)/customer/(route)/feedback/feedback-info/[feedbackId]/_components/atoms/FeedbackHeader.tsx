@@ -1,8 +1,8 @@
 import React from "react";
 import { InfoItems } from "../../_constants/InfoItems";
 import { cn } from "@/utils";
-import FeedbackStatusBadge from "../FeedbackStatusBadgeProps";
-import StatusSaver from "../StatusSaver";
+import FeedbackStatusBadge from "./FeedbackStatusBadgeProps";
+import StatusSaver from "./StatusSaver";
 import useTimeAgo from "@/utils/useTimeAgo";
 import { FeedbackInfoType } from "../../../../_types/FeedbackInfoType";
 
