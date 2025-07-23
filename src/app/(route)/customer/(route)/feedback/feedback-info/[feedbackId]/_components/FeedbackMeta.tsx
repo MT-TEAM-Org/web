@@ -3,8 +3,6 @@
 import NewsDetailGnb from "@/app/(route)/news/_components/newsGnb/NewsDetailGnb";
 import { cn } from "@/utils";
 import React, { useRef, useState } from "react";
-import StatusSaver from "./StatusSaver";
-import Image from "next/image";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import BoardComment from "@/app/(route)/(community)/_components/BoardComment";
@@ -14,16 +12,18 @@ import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { ReportType } from "@/services/board/types/report";
 import { CommentItem } from "@/_types/comment";
 import { usePathname } from "next/navigation";
-import useTimeAgo from "@/utils/useTimeAgo";
 import useFeedbackRecommendToggle from "../_hooks/useFeedbackRecommendToggle";
-import { InfoItems } from "../_constants/InfoItems";
-import FeedbackStatusBadge from "./FeedbackStatusBadgeProps";
 import { getYouTubeEmbedUrl } from "../_utils/getYouTubeEmbedUrl";
+import FeedbackHeader from "./FeedbackHeader";
+import { FeedbackInfoType } from "../../../_types/FeedbackInfoType";
+import InfoImgSection from "./atoms/InfoImgSection";
+
+// TODO: 리팩터링 테스트, 추가 리팩터링 필요
 
 interface FeedbackMetaProps {
-  feedbackInfoData: any; // TODO: 타입 변경
+  feedbackInfoData: FeedbackInfoType;
   id: string | string[];
-  adminRole: "USER" | "ADMIN" | null;
+  adminRole: any;
 }
 
 const FeedbackMeta = ({
@@ -31,10 +31,10 @@ const FeedbackMeta = ({
   id,
   adminRole,
 }: FeedbackMetaProps) => {
-  const timeAgo = useTimeAgo(feedbackInfoData?.createdAt);
+  console.log("feedbackInfoData: ", feedbackInfoData);
+
   const comments = useRef(null);
   const pathname = usePathname();
-  const youtubeEmbedUrl = getYouTubeEmbedUrl(feedbackInfoData?.link);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [parentsComment, setParentsComment] = useState<CommentItem | null>(
     null
@@ -70,97 +70,13 @@ const FeedbackMeta = ({
           "mobile:max-w-full mobile:w-full mobile:p-4 mobile:gap-3"
         )}
       >
-        {adminRole === "ADMIN" && (
-          <StatusSaver id={id} status={feedbackInfoData?.status} />
-        )}
-        <div
-          className={cn(
-            "w-full flex gap-2 flex-col",
-            adminRole !== "ADMIN" || adminRole === undefined
-              ? "min-h-[56px]"
-              : "",
-            "mobile:gap-1"
-          )}
-        >
-          <div>
-            {(adminRole !== "ADMIN" || adminRole === undefined) && (
-              <FeedbackStatusBadge status={feedbackInfoData?.status} />
-            )}
-          </div>
-          <h1
-            className={cn(
-              "font-bold text-[18px] leading-7 tracking-[-0.72px]",
-              "mobile:text-[16px] mobile:leading-6"
-            )}
-          >
-            {feedbackInfoData?.title}
-          </h1>
-          <div
-            className={cn(
-              "w-full max-h-[20px] flex gap-4",
-              "tablet:justify-between",
-              "mobile:flex-wrap mobile:max-h-fit mobile:gap-1"
-            )}
-          >
-            <div
-              className={cn(
-                "min-w-[421px] min-h-[20px] flex gap-2 text-[14px] leading-5 text-gray6",
-                "mobile:min-w-0 mobile:flex-wrap mobile:text-[12px]"
-              )}
-            >
-              <p className="font-bold">고객센터</p>
-              <p>개선요청</p>
-              <p>{timeAgo}</p>
-              {InfoItems(feedbackInfoData).map((item, index) => (
-                <div key={index} className="flex gap-2">
-                  <p className="font-bold">{item.label}</p>
-                  <p>{item.value}</p>
-                </div>
-              ))}
-            </div>
-            <div
-              className={cn(
-                "min-w-[235px] min-h-[20px] flex justify-end gap-1 text-[14px] leading-5 text-gray6",
-                "tablet:min-w-[210px] tablet:text-end",
-                "mobile:min-w-0 mobile:w-full mobile:justify-start mobile:text-[12px] mobile:mt-0"
-              )}
-            >
-              <p>{feedbackInfoData?.nickname}</p>
-              <p>IP {feedbackInfoData?.clientIp}</p>
-            </div>
-          </div>
-        </div>
+        <FeedbackHeader
+          id={id}
+          adminRole={adminRole}
+          feedbackInfoData={feedbackInfoData}
+        />
         <hr />
-        {(feedbackInfoData?.imgUrl || youtubeEmbedUrl) && (
-          <div className="w-full flex flex-col gap-3 aspect-video">
-            {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
-              <Image
-                src={feedbackInfoData?.imgUrl}
-                alt="Feedback img"
-                width={672}
-                height={128}
-                className="mobile:w-full mobile:h-auto"
-              />
-            )}
-            {youtubeEmbedUrl && (
-              <iframe
-                width="100%"
-                height="408"
-                src={youtubeEmbedUrl}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="mobile:h-full"
-              />
-            )}
-            {!youtubeEmbedUrl && feedbackInfoData?.data?.link && (
-              <div className="w-[679px] min-h-[42px] mobile:w-full">
-                <div>{feedbackInfoData?.data?.link}</div>
-              </div>
-            )}
-          </div>
-        )}
+        <InfoImgSection feedbackInfoData={feedbackInfoData} />
         <div
           className="text-[16px] leading-6 tracking-[-0.02em] text-gray7 mobile:text-[14px]"
           dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
@@ -172,9 +88,7 @@ const FeedbackMeta = ({
             isRecommend={feedbackInfoData?.isRecommended}
           />
         </div>
-        <div className={cn("mobile:hidden")}>
-          <PostAction type="community" reportData={reportData} />
-        </div>
+        <PostAction type="community" reportData={reportData} />
         <BoardComment
           id={id as string}
           publicId={feedbackInfoData?.publicId}

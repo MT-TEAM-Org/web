@@ -1,32 +1,35 @@
 import { cn } from "@/utils";
 
 interface FeedbackStatusBadgeProps {
-  status: "RECEIVED" | "COMPLETED";
+  status: "RECEIVED" | "COMPLETED" | "PENDING";
 }
 
 export default function FeedbackStatusBadge({
   status,
 }: FeedbackStatusBadgeProps) {
   const statusBoxClass = "w-[69px] h-[32px] rounded-[2px] px-2 py-[6px] flex";
-  const baseClass = "font-bold text-[14px] leading-5";
   const statusMap = {
     RECEIVED: {
-      bg: "bg-gray1",
-      textColor: "text-gray7",
+      className: "bg-gray1 text-gray7",
       label: "접수 완료",
     },
     COMPLETED: {
-      bg: "bg-bg0",
-      textColor: "text-gra",
+      className: "bg-bg0 text-gra",
       label: "개선 완료",
     },
   };
 
-  const { bg, textColor, label } = statusMap[status];
+  const statusInfo = statusMap[status];
+
+  if (!statusInfo) {
+    return null;
+  }
+
+  const { className, label } = statusInfo;
 
   return (
-    <div className={cn("rounded px-2 py-1", bg, statusBoxClass)}>
-      <p className={cn(baseClass, textColor)}>{label}</p>
+    <div className={cn("rounded px-2 py-1", className, statusBoxClass)}>
+      <p className="font-bold text-[14px] leading-5">{label}</p>
     </div>
   );
 }

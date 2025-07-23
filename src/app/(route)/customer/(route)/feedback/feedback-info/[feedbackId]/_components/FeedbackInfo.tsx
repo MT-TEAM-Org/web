@@ -58,7 +58,7 @@ const FeedbackInfo = () => {
       {/* 툴바 */}
       <div
         className={cn(
-          "w-[720px] min-h-[120px] rounded-t-[5px] mt-4",
+          "w-[720px] min-h-[120px] rounded-t-[5px] mt-2",
           "tablet:max-w-full tablet:w-full tablet:mt-3",
           "mobile:w-full mobile:max-w-full mobile:min-h-[56px]"
         )}
