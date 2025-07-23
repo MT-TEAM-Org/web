@@ -6,21 +6,21 @@ interface NoticeMetaContainerProps {
   infoIsLoading: boolean;
   infoIsError: boolean;
   noticeInfoData: any;
-  numberId: number;
+  id: string | string[];
 }
 
 const NoticeMetaContainer = ({
   infoIsLoading,
   infoIsError,
   noticeInfoData,
-  numberId,
+  id,
 }: NoticeMetaContainerProps) => {
   return (
     <>
       {infoIsLoading || infoIsError ? (
         <NoticeInfoItemSkeleton />
       ) : (
-        <NoticeMeta data={noticeInfoData} id={numberId} />
+        <NoticeMeta data={noticeInfoData} id={id} />
       )}
     </>
   );

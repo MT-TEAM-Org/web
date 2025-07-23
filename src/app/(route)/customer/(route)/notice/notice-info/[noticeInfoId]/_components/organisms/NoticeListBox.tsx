@@ -5,13 +5,14 @@ import EmptyItem from "@/app/(route)/customer/_components/common/EmptyItem";
 import NoticeItem from "../../../../_components/items/NoticeItem";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import { NoticeContentType } from "@/app/(route)/customer/_types/NoticeItemType";
+import { useRouter } from "next/navigation";
+import { usePageChangeHandler } from "@/app/(route)/customer/_hooks/usePageChangeHandler";
 
 interface NoticeListBoxProps {
   isLoading: boolean;
   isError: boolean;
   noticeListData: any; // TODO: 타입 정의
   searchParams: URLSearchParams;
-  handlePageChange: (page: number) => void;
 }
 
 const NoticeListBox = ({
@@ -19,8 +20,12 @@ const NoticeListBox = ({
   isError,
   noticeListData,
   searchParams,
-  handlePageChange,
 }: NoticeListBoxProps) => {
+  const router = useRouter();
+
+  const handlePageChange = usePageChangeHandler(
+    noticeListData?.pageInfo?.totalPage
+  );
   return (
     <div
       className={cn(
