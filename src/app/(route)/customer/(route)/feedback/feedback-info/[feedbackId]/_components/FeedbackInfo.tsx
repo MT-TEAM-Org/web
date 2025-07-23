@@ -6,7 +6,14 @@ import { useParams, useSearchParams } from "next/navigation";
 import React, { Suspense } from "react";
 import { useScrollToComment } from "../../../_hooks/useScrollToComment";
 import FeedbackMetaContainer from "./templates/FeedbackMetaContainer";
-import FeedbackListContainer from "./templates/FeedbackListContainer";
+import dynamic from "next/dynamic";
+
+const FeedbackListContainer = dynamic(
+  () => import("./templates/FeedbackListContainer"),
+  {
+    ssr: false,
+  }
+);
 
 const Page = () => {
   return (
