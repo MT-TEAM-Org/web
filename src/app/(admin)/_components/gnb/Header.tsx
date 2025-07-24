@@ -73,7 +73,7 @@ export default function Header() {
         </button>
         {isAdminMenuOpen && (
           <div className="absolute top-[65px] right-[15px]">
-            <Dropdown />
+            <Dropdown onClose={() => setIsAdminMenuOpen(false)} />
           </div>
         )}
       </div>

@@ -1,5 +1,9 @@
+"use client";
+
 import { cn } from "@/utils";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import LogoutModal from "../../../modal/LogoutModal";
 
 const style = {
   divStyle: cn(
@@ -8,15 +12,32 @@ const style = {
   ),
 };
 
-const Dropdown = () => {
+interface DropdownProps {
+  onClose: () => void;
+}
+
+const Dropdown = ({ onClose }: DropdownProps) => {
+  const router = useRouter();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const handleToMyPage = () => {
+    router.push("/dashBoard/my-page");
+    onClose();
+  };
+
+  const handleLogout = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsLogoutModalOpen(true);
+  };
+
   const menuItems = [
     {
       name: "내 정보 수정",
-      fn: () => {},
+      fn: handleToMyPage,
     },
     {
       name: "로그아웃",
-      fn: () => {},
+      fn: handleLogout,
     },
   ];
 
@@ -27,6 +48,9 @@ const Dropdown = () => {
           <p>{item.name}</p>
         </div>
       ))}
+      {isLogoutModalOpen && (
+        <LogoutModal show={isLogoutModalOpen} setShow={setIsLogoutModalOpen} />
+      )}
     </div>
   );
 };
