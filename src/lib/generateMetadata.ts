@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { JSDOM } from "jsdom";
+import createDOMPurify from "dompurify";
 
 type Options = {
   title: string | null;
@@ -10,7 +12,10 @@ type Options = {
   stripHtmlContent?: boolean;
 };
 
-const stripHtml = (html: string) => html.replace(/<[^>]*>?/gm, "");
+const window = new JSDOM("").window;
+const dompurify = createDOMPurify(window);
+
+const stripHtml = (html: string) => dompurify.sanitize(html, { ALLOWED_TAGS: [] });
 
 export function createMetadata({
   title,
