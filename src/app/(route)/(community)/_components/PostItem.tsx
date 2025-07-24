@@ -18,6 +18,7 @@ import Pagination from "../../mypage/_components/Pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PostItemSkeleton from "./PostItemSkelton";
 import { highlightText } from "@/utils/searchHighlightText";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface BoardListItem {
   id: number;
@@ -157,7 +158,7 @@ const PostItem = ({
               <div className="w-[56px] h-[42px] relative box-content">
                 {data?.thumbnail ? (
                   <Image
-                    src={data.thumbnail}
+                    src={cleanContent(data.thumbnail)}
                     alt="post-preview-image"
                     fill
                     className="object-cover rounded-[5px]"

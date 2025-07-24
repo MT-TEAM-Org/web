@@ -25,6 +25,7 @@ import useTimeAgo from "@/utils/useTimeAgo";
 import RecommendButton from "@/app/(route)/(community)/_components/RecommendButton";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import DetailTitleSkeleton from "@/app/(route)/(community)/_components/DetailTitleSkeleton";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface BoardDetailProps {
   boardId: string;
@@ -128,7 +129,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
         if (src.includes("52.79.222.87")) {
           return (
             <Image
-              src={src}
+              src={cleanContent(src)}
               alt="게시글 이미지"
               width={800}
               height={600}
@@ -241,7 +242,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
                 >
                   <iframe
                     className="absolute top-0 left-0 w-full h-full"
-                    src={youtubeEmbedUrl}
+                    src={cleanContent(youtubeEmbedUrl)}
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -252,7 +253,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
               {parse(content, options)}
               {!youtubeEmbedUrl && (
                 <div className="w-full max-w-[679px] min-h-[42px] mobile:hidden">
-                  <div>{boardDetailData?.data?.link}</div>
+                  <div>{cleanContent(boardDetailData?.data?.link)}</div>
                 </div>
               )}
             </>
