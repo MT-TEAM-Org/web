@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/utils";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
 import FeedbackItemStatus from "./FeedbackItemStatus";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface FeedbackItemProps {
   feedbackData: FeedbackContentType;
@@ -75,7 +76,7 @@ const FeedbackItem = ({
         <div className="relative w-[56px] h-[42px] rounded-[5px] overflow-hidden bg-gray1 flex-shrink-0">
           {feedbackData?.thumbnail ? (
             <Image
-              src={feedbackData.thumbnail}
+              src={cleanContent(feedbackData.thumbnail)}
               alt="post-preview-image"
               fill
               className="object-cover rounded-[5px]"

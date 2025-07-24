@@ -9,6 +9,7 @@ import { highlightText } from "@/utils/searchHighlightText";
 import Arrow_reply from "@/app/_components/icon/Arrow_reply";
 import { cn } from "@/utils";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface NoticeItemProps {
   noticeData: NoticeContentType;
@@ -75,7 +76,7 @@ const NoticeItem = ({
       <div className="relative w-[56px] h-[42px] rounded-[5px] overflow-hidden bg-gray1 flex-shrink-0">
         {noticeData?.thumbnail ? (
           <Image
-            src={noticeData.thumbnail}
+            src={cleanContent(noticeData.thumbnail)}
             alt="post-preview-image"
             fill
             className="object-cover rounded-[5px]"
