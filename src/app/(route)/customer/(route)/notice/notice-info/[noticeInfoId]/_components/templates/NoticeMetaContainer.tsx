@@ -1,5 +1,5 @@
 import React from "react";
-import NoticeInfoItemSkeleton from "../NoticeInfoItemSkeleton";
+import NoticeInfoItemSkeleton from "../atoms/NoticeInfoItemSkeleton";
 import NoticeMeta from "../organisms/NoticeMeta";
 import { NoticeInfoItemType } from "@/app/(route)/customer/_types/NoticeInfoItemType";
 
