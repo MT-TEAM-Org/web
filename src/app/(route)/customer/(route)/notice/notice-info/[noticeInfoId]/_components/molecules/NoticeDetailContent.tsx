@@ -12,6 +12,7 @@ import { NoticeInfoItemType } from "@/app/(route)/customer/_types/NoticeInfoItem
 import { CommentItem } from "@/_types/comment";
 import { usePathname } from "next/navigation";
 import useNoticeRecommendToggle from "../../_hooks/useNoticeRecommendToggle";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface NoticeDetailContentProps {
   id: string | string[];
@@ -53,7 +54,9 @@ const NoticeDetailContent = ({
           "w-full max-w-[672px] min-h-[48px] font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray7",
           "mobile:min-h-auto"
         )}
-        dangerouslySetInnerHTML={{ __html: noticeInfoData?.content }}
+        dangerouslySetInnerHTML={{
+          __html: cleanContent(noticeInfoData?.content),
+        }}
       />
       <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
         <RecommendButton
