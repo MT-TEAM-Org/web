@@ -3,6 +3,7 @@ import { CalculateTime } from "@/app/_components/CalculateTime";
 import { CommentItem } from "@/_types/comment";
 import ReplyCommentItem from "./ReplyCommentItem";
 import { cn } from "@/utils";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface MyPageInquirieCommentItemProps {
   comment: CommentItem;
@@ -36,7 +37,10 @@ const MyPageInquirieCommentItem = ({
             {isMyComment && (
               <Image
                 alt="profile-image"
-                src={comment?.commenterImg || "/userProfileIsNull.png"}
+                src={
+                  cleanContent(comment?.commenterImg) ||
+                  "/userProfileIsNull.png"
+                }
                 width={20}
                 height={20}
                 className="w-[20px] h-[20px] rounded-full object-cover"
@@ -71,7 +75,7 @@ const MyPageInquirieCommentItem = ({
           {comment?.imageUrl && (
             <Image
               alt="comment-image"
-              src={comment?.imageUrl}
+              src={cleanContent(comment?.imageUrl)}
               width={200}
               height={200}
               className="w-[200px] h-[200px] object-cover rounded-[5px]"
