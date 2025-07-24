@@ -8,7 +8,7 @@ interface itemType {
   imgUrl: string;
 }
 
-const ServiceItem = ({ title, content, imgUrl }: itemType) => {
+const ServiceFeatureItem = ({ title, content, imgUrl }: itemType) => {
   return (
     <div
       className={cn(
@@ -64,4 +64,4 @@ const ServiceItem = ({ title, content, imgUrl }: itemType) => {
   );
 };
 
-export default ServiceItem;
+export default ServiceFeatureItem;

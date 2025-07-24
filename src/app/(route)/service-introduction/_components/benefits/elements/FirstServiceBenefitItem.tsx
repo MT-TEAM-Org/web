@@ -2,17 +2,17 @@ import React from "react";
 import Image from "next/image";
 import { cn } from "@/utils";
 
-interface ServiceBenefitItemProps {
+interface FirstServiceBenefitItemProps {
   content: string;
   imgLink: string;
   reverse?: boolean;
 }
 
-const ServiceBenefitItem = ({
+const FirstServiceBenefitItem = ({
   content,
   imgLink,
   reverse = false,
-}: ServiceBenefitItemProps) => {
+}: FirstServiceBenefitItemProps) => {
   return (
     <div
       className={cn(
@@ -41,4 +41,4 @@ const ServiceBenefitItem = ({
   );
 };
 
-export default ServiceBenefitItem;
+export default FirstServiceBenefitItem;
