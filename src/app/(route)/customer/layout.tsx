@@ -1,6 +1,6 @@
 import React from "react";
-import CustomerLeftSidebar from "./_components/CustomerLeftSidebar";
-import RightSidebarWrapper from "./_components/RightSidebarWrapper";
+import CustomerLeftSidebar from "./_components/ui/CustomerLeftSidebar";
+import RightSidebarWrapper from "./_components/common/RightSidebarWrapper";
 import { cn } from "@/utils";
 import CustomerMobileGnb from "./_components/customerGnb/CustomerMobileGnb";
 

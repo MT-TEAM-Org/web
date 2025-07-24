@@ -1,6 +1,6 @@
 import { apiRequest } from "@/services/instant";
 
-const postNoticeRecommend = async (noticeId: number) => {
+const postNoticeRecommend = async (noticeId: string | string[]) => {
   const response = await apiRequest.post(
     `api/recommend/notice/${noticeId}`
   );

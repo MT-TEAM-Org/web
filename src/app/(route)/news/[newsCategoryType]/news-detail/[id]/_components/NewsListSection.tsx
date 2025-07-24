@@ -1,6 +1,6 @@
 // components/NewsListSection.tsx
 import React from "react";
-import EmptyItem from "@/app/(route)/customer/_components/EmptyItem";
+import EmptyItem from "@/app/(route)/customer/_components/common/EmptyItem";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import NewsPostItem from "@/app/(route)/news/_components/NewsPostItem";
 import NewsPostItemSkeleton from "@/app/(route)/news/_components/NewsPostItemSkeleton";
