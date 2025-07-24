@@ -1,13 +1,12 @@
 import axios from "axios";
 
 interface getNoticeInfoDataProps {
-  id: number;
-  token?: string;
+  id: string | string[];
   openGraph?: boolean;
 }
 
-const getNoticeInfoData = async ({id, token, openGraph}: getNoticeInfoDataProps) => {
-  const accessToken = token || (typeof window !== "undefined" ? localStorage.getItem('accessToken') : "");
+const getNoticeInfoData = async ({id, openGraph}: getNoticeInfoDataProps) => {
+  const accessToken = (typeof window !== "undefined" ? localStorage.getItem('accessToken') : "");
   const url = `${process.env.NEXT_PUBLIC_API_URL}api/notice/${id}${openGraph ? "?openGraph=true" : ""}`;
   const response = await axios.get(url, {
     headers: {

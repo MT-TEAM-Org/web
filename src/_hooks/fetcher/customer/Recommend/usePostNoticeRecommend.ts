@@ -9,7 +9,7 @@ const usePostNoticeRecommend = () => {
   const { success, error: toastError } = useToast();
 
   const mutation = useMutation({
-    mutationFn: (noticeId: number) => postNoticeRecommend(noticeId),
+    mutationFn: (noticeId: string | string[]) => postNoticeRecommend(noticeId),
     retry: 1,
     onSuccess: () => {
       success("추천이 완료되었습니다.", "");
