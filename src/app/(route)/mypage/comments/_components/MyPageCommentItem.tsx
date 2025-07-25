@@ -8,6 +8,7 @@ import { highlightText } from "@/utils/searchHighlightText";
 import { useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
 import isWithin24Hours from "@/utils/isWithIn24Hours";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface PostResponse {
   commentType: "BOARD" | "IMPROEMENT" | "INQUIRY" | "NEWS" | "NOTICE";
@@ -107,7 +108,10 @@ const MyPageCommentItem = ({ data }: MyPageCommentItemProps) => {
       </div>
 
       <Image
-        src={data?.postResponse?.thumbnail || "/Preview_loading_image.png"}
+        src={
+          cleanContent(data?.postResponse?.thumbnail) ||
+          "/Preview_loading_image.png"
+        }
         alt="post-preview-image"
         width={56}
         height={42}

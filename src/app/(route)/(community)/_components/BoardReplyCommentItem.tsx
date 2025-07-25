@@ -18,6 +18,7 @@ import { ReportType } from "@/services/board/types/report";
 import { cn } from "@/utils";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import { useAuthStore } from "@/utils/Store";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface BoardReplyCommentItemProps {
   reply: CommentItem;
@@ -188,7 +189,10 @@ const BoardReplyCommentItem = ({
                 )}
                 <Image
                   alt="profile-image"
-                  src={reply?.commenterImg || "/userProfileIsNull.png"}
+                  src={
+                    cleanContent(reply?.commenterImg) ||
+                    "/userProfileIsNull.png"
+                  }
                   width={20}
                   height={20}
                   className="w-[20px] h-[20px] rounded-full object-cover"
@@ -230,7 +234,7 @@ const BoardReplyCommentItem = ({
             {reply?.imageUrl && (
               <Image
                 alt="comment-image"
-                src={reply?.imageUrl}
+                src={cleanContent(reply?.imageUrl)}
                 width={200}
                 height={200}
                 className="w-[200px] h-[200px] object-cover rounded-[5px]"

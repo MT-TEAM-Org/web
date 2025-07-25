@@ -25,6 +25,6 @@ export interface NoticePageInfoType {
 }
 
 export interface NoticeItemType {
-  content: NoticeContentType;
+  content: NoticeContentType[];
   PageInfo: NoticePageInfoType;
 }

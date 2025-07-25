@@ -5,6 +5,7 @@ import { useRef } from "react";
 import getUpload from "@/_hooks/getUpload";
 import { useToast } from "@/_hooks/useToast";
 import axios from "axios";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface ProfileImageProps {
   imageUrl: string;
@@ -20,7 +21,8 @@ const ProfileImage = ({ imageUrl, setImageUrl }: ProfileImageProps) => {
     if (!file) return;
 
     // 이미지 형식 비교 JPG/JPEG, PNG 형식만 가능
-    if (!file.type.includes("image/jpeg") && !file.type.includes("image/png")) {
+    const allowedTypes = ["image/jpeg", "image/png"];
+    if (!allowedTypes.includes(file.type)) {
       error("JPG/JPEG, PNG 형식만 업로드 가능합니다.", "");
       return;
     }
@@ -55,7 +57,7 @@ const ProfileImage = ({ imageUrl, setImageUrl }: ProfileImageProps) => {
       </p>
       <div className="flex flex-col items-center gap-[12px]">
         <Image
-          src={imageUrl || "/userProfileIsNull.png"}
+          src={cleanContent(imageUrl) || "/userProfileIsNull.png"}
           alt="profile-image"
           width={80}
           height={80}

@@ -12,12 +12,13 @@ import { useEffect, useState } from "react";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
 import EmptyBoard from "./emptyBoard";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
-import NoticeItem from "../../customer/_components/NoticeItem";
+import NoticeItem from "../../customer/(route)/notice/_components/items/NoticeItem";
 import { NoticeContentType } from "../../customer/_types/NoticeItemType";
 import Pagination from "../../mypage/_components/Pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import PostItemSkeleton from "./PostItemSkelton";
 import { highlightText } from "@/utils/searchHighlightText";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface BoardListItem {
   id: number;
@@ -157,7 +158,7 @@ const PostItem = ({
               <div className="w-[56px] h-[42px] relative box-content">
                 {data?.thumbnail ? (
                   <Image
-                    src={data.thumbnail}
+                    src={cleanContent(data.thumbnail)}
                     alt="post-preview-image"
                     fill
                     className="object-cover rounded-[5px]"

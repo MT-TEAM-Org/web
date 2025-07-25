@@ -3,6 +3,7 @@ import { CommentItem } from "@/_types/comment";
 import { CalculateTime } from "@/app/_components/CalculateTime";
 import Image from "next/image";
 import { cn } from "@/utils";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface ReplyCommentItemProps {
   reply: CommentItem;
@@ -37,7 +38,9 @@ const ReplyCommentItem = ({
             {reply?.publicId === publicId && (
               <Image
                 alt="profile-image"
-                src={reply?.commenterImg || "/userProfileIsNull.png"}
+                src={
+                  cleanContent(reply?.commenterImg) || "/userProfileIsNull.png"
+                }
                 width={20}
                 height={20}
                 className="w-[20px] h-[20px] rounded-full object-cover"
@@ -72,7 +75,7 @@ const ReplyCommentItem = ({
           {reply?.imageUrl && (
             <Image
               alt="comment-image"
-              src={reply?.imageUrl}
+              src={cleanContent(reply?.imageUrl)}
               width={200}
               height={200}
               className="w-[200px] h-[200px] object-cover rounded-[5px]"

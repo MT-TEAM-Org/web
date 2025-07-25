@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import React from "react";
 import getNewsItemInfo from "@/services/news/GetNewsItemInfo";
 import NewsInfo from "./_components/NewsInfo";
+import { createMetadata } from "@/lib/generateMetadata";
 
 export async function generateMetadata({
   params,
@@ -15,43 +16,25 @@ export async function generateMetadata({
       openGraph: true,
     });
 
-    return {
-      title: newsDetail.title || "뉴스 상세 페이지",
-      description: newsDetail.content || "뉴스 상세 내용",
-      openGraph: {
-        title: newsDetail.title || "뉴스 상세 페이지",
-        description: newsDetail.content || "뉴스 상세 내용",
-        images: !newsDetail.thumbImg
-          ? [
-              {
-                url: "https://playhive.co.kr/Metadata.png",
-                alt: "PlayHive 미리보기 이미지",
-                width: 1200,
-                height: 630,
-              },
-            ]
-          : [{ url: newsDetail?.thumbImg, width: 1200, height: 630 }],
-      },
+    return createMetadata({
+      title: newsDetail.title,
+      content: newsDetail.content,
+      thumbUrl: newsDetail.thumbImg,
+      fallbackTitle: "뉴스 상세 페이지",
+      fallbackDescription: "뉴스 상세 내용",
+      stripHtmlContent: false,
       keywords: newsDetail.keywords || ["플레이하이브", "뉴스"],
-    };
-  } catch (error) {
-    return {
-      title: "뉴스 상세 페이지",
-      description: "뉴스 정보를 불러오는 중 오류가 발생했습니다.",
-      openGraph: {
-        title: "뉴스 상세 페이지",
-        description: "뉴스 정보를 불러오는 중 오류가 발생했습니다.",
-        images: [
-          {
-            url: "https://playhive.co.kr/Metadata.png",
-            alt: "PlayHive 미리보기 이미지",
-            width: 1200,
-            height: 630,
-          },
-        ],
-      },
+    });
+  } catch {
+    return createMetadata({
+      title: null,
+      content: null,
+      thumbUrl: null,
+      fallbackTitle: "뉴스 상세 페이지",
+      fallbackDescription: "뉴스 정보를 불러오는 중 오류가 발생했습니다.",
+      stripHtmlContent: false,
       keywords: ["플레이하이브", "뉴스"],
-    };
+    });
   }
 }
 

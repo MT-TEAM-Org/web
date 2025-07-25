@@ -19,6 +19,7 @@ import useDeleteRecommendComment from "@/_hooks/fetcher/comment/useDeleteRecomme
 import { cn } from "@/utils";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
 import { useAuthStore } from "@/utils/Store";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface BoardCommentItemProps {
   comment: CommentItem;
@@ -199,7 +200,10 @@ const BoardCommentItem = ({
               )}
               <Image
                 alt="profile-image"
-                src={comment?.commenterImg || "/userProfileIsNull.png"}
+                src={
+                  cleanContent(comment?.commenterImg) ||
+                  "/userProfileIsNull.png"
+                }
                 width={20}
                 height={20}
                 className="w-[20px] h-[20px] rounded-full object-cover"
@@ -241,7 +245,7 @@ const BoardCommentItem = ({
           {comment?.imageUrl && (
             <Image
               alt="comment-image"
-              src={comment?.imageUrl}
+              src={cleanContent(comment?.imageUrl)}
               width={200}
               height={200}
               className="w-[200px] h-[200px] object-cover rounded-[5px]"
