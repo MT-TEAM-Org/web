@@ -260,8 +260,8 @@ button {
   line-height: 20px;
   letter-spacing: -0.02em;
   color: black;
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -300,13 +300,14 @@ button {
 
 /* 날짜 셀 */
 .custom-calendar .react-datepicker__day {
-  width: 42px;
-  height: 42px;
-  line-height: 42px;
+  width: 38px;
+  height: 38px;
+  line-height: 36px;
   text-align: center;
   display: inline-block;
   font-size: 14px;
   font-weight: 700;
+  margin: 2px;
 }
 
 /* 선택 효과 */
@@ -334,5 +335,5 @@ button {
 
 /* 캘린더 전체 사이즈 조정 */
 .custom-calendar .react-datepicker__month-container {
-  width: 343px !important;
+  width: 300px !important;
 }
