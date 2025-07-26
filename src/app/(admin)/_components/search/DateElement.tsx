@@ -7,6 +7,7 @@ import Icon from "@/app/_components/IconComponents";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale/ko";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
+import { getDay } from "date-fns";
 
 interface DateElementProps {
   placeholder: string;
@@ -25,6 +26,12 @@ const DateElement = ({ placeholder, value, onChange }: DateElementProps) => {
         dateFormat="yyyy.MM.dd"
         className="w-full h-[40px] rounded-[5px] p-3 bg-white border border-gray3 text-[14px] leading-[22px] tracking-[-0.02em] cursor-pointer"
         calendarClassName="custom-calendar"
+        dayClassName={(date) => {
+          const day = getDay(date); // 0: Sunday, 6: Saturday
+          if (day === 0) return "force-sunday";
+          if (day === 6) return "force-saturday";
+          return "force-weekday";
+        }}
         renderCustomHeader={({
           date,
           decreaseMonth,
