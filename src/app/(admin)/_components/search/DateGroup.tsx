@@ -26,9 +26,9 @@ const DateGroup = ({ isUser = false }: DateGroupProps) => {
       {/* 시작 날짜 */}
       <DateElement
         placeholder="시작 날짜"
-        ref={dateStartInputRef}
+        // ref={dateStartInputRef}
         value={selectedStartDate}
-        onChange={(e) => handleDateChange("start", e)}
+        onChange={(date) => handleDateChange("start", date)}
       />
 
       <span className="flex items-center justify-center text-center mx-3 font-normal text-[16px] leading-7 tracking-[-0.02em] text-gray7 select-none">
@@ -38,9 +38,9 @@ const DateGroup = ({ isUser = false }: DateGroupProps) => {
       {/* 종료 날짜 */}
       <DateElement
         placeholder="종료 날짜"
-        ref={dateEndInputRef}
+        // ref={dateEndInputRef}
         value={selectedEndDate}
-        onChange={(e) => handleDateChange("end", e)}
+        onChange={(date) => handleDateChange("end", date)}
       />
     </div>
   );

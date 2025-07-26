@@ -1816,6 +1816,44 @@ const ICONS = {
       </>
     ),
   },
+  CALENDAR_LEFT: {
+    svgOptions: {
+      width: 18,
+      height: 18,
+      viewBox: "0 0 18 18",
+    },
+    icon: (
+      <>
+        <path
+          d="M11.625 15L5.625 9L11.625 3"
+          stroke="#424242"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
+  },
+  CALENDAR_RIGHT: {
+    svgOptions: {
+      width: 18,
+      height: 18,
+      viewBox: "0 0 18 18",
+    },
+    icon: (
+      <>
+        <path
+          d="M6.375 15L12.375 9L6.375 3"
+          stroke="#424242"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+        />
+      </>
+    ),
+  },
 };
 
 export type IconList = keyof typeof ICONS;
