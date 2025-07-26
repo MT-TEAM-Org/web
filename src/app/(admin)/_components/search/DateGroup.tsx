@@ -13,6 +13,16 @@ const DateGroup = ({ isUser = false }: DateGroupProps) => {
   const { selectedStartDate, selectedEndDate, handleDateChange } =
     useDateRange();
 
+  // 날짜 변경 핸들러
+  const handleDateElementChange =
+    (type: "start" | "end") => (date: Date | null) => {
+      const formattedDate = date ? format(date, "yyyy-MM-dd") : "";
+      const fakeEvent = {
+        target: { value: formattedDate },
+      } as React.ChangeEvent<HTMLInputElement>;
+      handleDateChange(type, fakeEvent);
+    };
+
   return (
     <div className="flex h-[56px] border-b border-gray2">
       <div className="w-[100px] px-3 py-2 bg-gray1 flex items-center justify-center font-bold text-[14px] leading-5 text-gray8">
@@ -23,13 +33,7 @@ const DateGroup = ({ isUser = false }: DateGroupProps) => {
       <DateElement
         placeholder="시작 날짜"
         value={selectedStartDate ? new Date(selectedStartDate) : null}
-        onChange={(date) => {
-          const formattedDate = date ? format(date, "yyyy-MM-dd") : "";
-          const fakeEvent = {
-            target: { value: formattedDate },
-          } as React.ChangeEvent<HTMLInputElement>;
-          handleDateChange("start", fakeEvent);
-        }}
+        onChange={handleDateElementChange("start")}
       />
 
       <span className="flex items-center justify-center text-center mx-3 font-normal text-[16px] leading-7 tracking-[-0.02em] text-gray7 select-none">
@@ -40,13 +44,7 @@ const DateGroup = ({ isUser = false }: DateGroupProps) => {
       <DateElement
         placeholder="종료 날짜"
         value={selectedEndDate ? new Date(selectedEndDate) : null}
-        onChange={(date) => {
-          const formattedDate = date ? format(date, "yyyy-MM-dd") : "";
-          const fakeEvent = {
-            target: { value: formattedDate },
-          } as React.ChangeEvent<HTMLInputElement>;
-          handleDateChange("end", fakeEvent);
-        }}
+        onChange={handleDateElementChange("end")}
       />
     </div>
   );
