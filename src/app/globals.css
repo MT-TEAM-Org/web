@@ -284,6 +284,9 @@ button {
 }
 
 /* 선택 효과 */
+.custom-calendar .react-datepicker__day--today.react-datepicker__day--keyboard-selected,
+.custom-calendar .react-datepicker__day--today.react-datepicker__day--selected,
+.custom-calendar .react-datepicker__day--keyboard-selected,
 .custom-calendar .react-datepicker__day--selected {
   background-color: #00ADEE !important;
   color: white !important;
@@ -295,12 +298,7 @@ button {
   background-color: #00ADEE !important;
   color: white !important;
   border-radius: 60px !important;
-}
-
-/* 화살표 */
-.custom-calendar .react-datepicker__navigation {
-  top: 24px;
-  color: #424242;
+  transition: all 0.2s ease;
 }
 
 .react-datepicker__triangle {
