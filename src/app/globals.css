@@ -278,18 +278,22 @@ button {
   color: #00516F;
 }
 
+/* 이번 달이 아닌 경우 */
 .react-datepicker__day--outside-month {
   opacity: 0.3;
 }
 
+/* 일요일 */
 .custom-calendar .force-sunday {
   color: #F3213B !important;
 }
 
+/* 토요일 */
 .custom-calendar .force-saturday {
   color: #00516F !important;
 }
 
+/* 평일 */
 .custom-calendar .force-weekday {
   color: black !important;
 }
