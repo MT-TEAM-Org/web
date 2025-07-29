@@ -8,7 +8,7 @@ interface DateRange {
 }
 
 export const useDateRange = () => {
-  const { error } = useToast();
+  const { warning } = useToast();
 
   const [selectedDates, setSelectedDates] = useState<DateRange>({
     start: "",
@@ -29,7 +29,7 @@ export const useDateRange = () => {
     );
 
     if (!validation.isValid) {
-      error(validation.errorMessage!, "");
+      warning(validation.errorMessage!, "");
       setSelectedDates((prev) => ({ ...prev, [type]: "" }));
       return;
     }
