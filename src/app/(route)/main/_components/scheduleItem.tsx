@@ -72,11 +72,11 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
             {gameStatus}
           </p>
         </div>
-        <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] flex align-center text-gray5 gap-[3px]">
+        <div className="font-bold text-[12px] leading-[18px] tracking-[-0.02em] flex align-center text-gray7 gap-[3px]">
           {formattedData}
         </div>
         <hr className="w-[1px] h-[8px] bg-gray3" />
-        <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] align-center text-gray5">
+        <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] align-center text-gray7">
           <p>{data?.leagueName}</p>
         </div>
       </div>
