@@ -44,7 +44,7 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
     if (currentTime > expectedEndTime) {
       setGameStatus("종료");
     } else {
-      setGameStatus("경기중");
+      setGameStatus("LIVE");
     }
   };
 
@@ -57,28 +57,26 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
       onClick={onClick}
       className={`w-[275px] h-[126px] p-[12px] rounded-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] bg-white border
       ${isSelected ? "border-gray7" : "border-gray3"}
-    `}
-    >
+    `}>
       <div className="w-[275px] flex mb-[8px] items-center gap-x-[8px]">
         <div
           className={cn(
-            "w-auto min-w-[37px] h-auto min-h-[26px] rounded-[5px] py-1 px-2 flex gap-1 bg-gray2 items-center justify-center",
-            gameStatus === "경기중" && "text-white bg-[#00ADEE]"
-          )}
-        >
+            "rounded-[5px] px-[6px] py-[2px] flex gap-1 bg-gray2 items-center justify-center",
+            gameStatus === "LIVE" && "text-white bg-new"
+          )}>
           <p
             className={cn(
-              "font-medium text-[12px] leading-[18px] flex text-center justify-center align-center text-gray5",
-              gameStatus === "경기중" && "text-white"
-            )}
-          >
+              "font-medium text-[12px] leading-[18px] flex text-center justify-center align-center text-gray7",
+              gameStatus === "LIVE" && "text-white font-bold"
+            )}>
             {gameStatus}
           </p>
         </div>
-        <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] flex align-center text-gray5 gap-[3px]">
+        <div className="font-bold text-[12px] leading-[18px] tracking-[-0.02em] flex align-center text-gray7 gap-[3px]">
           {formattedData}
         </div>
-        <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] align-center text-gray5">
+        <hr className="w-[1px] h-[8px] bg-gray3" />
+        <div className="font-medium text-[12px] leading-[18px] tracking-[-0.02em] align-center text-gray7">
           <p>{data?.leagueName}</p>
         </div>
       </div>

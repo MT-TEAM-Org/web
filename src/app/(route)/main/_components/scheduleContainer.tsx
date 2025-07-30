@@ -155,18 +155,16 @@ const ScheduleContainer = ({
             "w-[1200px] h-[40px] flex mb-[12px] gap-x-[8px]",
             "tablet:max-w-[768px]",
             "mobile:flex mobile:gap-x-0 mobile:w-full"
-          )}
-        >
+          )}>
           {CATEGORUIES.map(({ value, name }) => (
             <button
               key={value}
               onClick={() => handleCategoryChange(value)}
               className={`${BUTTON_STYLE} ${
                 matchType === value
-                  ? "border-gray7 mobile:border-[2px]"
-                  : "mobile:border-gray3 mobile:border-[2px] mobile:text-gray5"
-              }`}
-            >
+                  ? "border-gray7 mobile:border-[2px] font-bold"
+                  : "mobile:border-gray3 mobile:border-[2px] mobile:text-gray5 font-medium"
+              }`}>
               {name}
             </button>
           ))}
@@ -181,15 +179,13 @@ const ScheduleContainer = ({
             "tablet:max-w-[769px]",
             "mobile:w-full",
             isMatch && "mobile:px-3"
-          )}
-        >
+          )}>
           <div
             className={cn(
               "max-w-[1136px] h-[126px] flex-1 flex justify-between items-center gap-3 overflow-hidden",
               "tablet:max-w-[769px]",
               "mobile:w-full mobile:overflow-x-auto mobile:scrollbar-hide"
-            )}
-          >
+            )}>
             <AnimatePresence initial={false} mode="wait">
               <motion.div
                 key={currentPage}
@@ -201,8 +197,7 @@ const ScheduleContainer = ({
                   ease: "easeInOut",
                   duration: 0.1,
                 }}
-                className="w-full flex justify-between items-center gap-3"
-              >
+                className="w-full flex justify-between items-center gap-3">
                 {isAllDataLoading
                   ? Array.from({ length: itemsPerPage }).map((_, index) => (
                       <EmptyScheduleItem key={index} />
@@ -238,8 +233,7 @@ const ScheduleContainer = ({
               disabled={allScheduleData.length <= itemsPerPage}
               className={cn(
                 "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 group"
-              )}
-            >
+              )}>
               <CustomIcon
                 icon="MATCH_NEXT_ICON"
                 className="w-[18px] h-[18px] text-white group-hover:text-gray2"
@@ -252,8 +246,7 @@ const ScheduleContainer = ({
                 "min-w-[40px] w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 group",
                 "tablet: tablet:right-0",
                 "mobile: mobile:right-0"
-              )}
-            >
+              )}>
               <CustomIcon
                 icon="MATCH_PREV_ICON"
                 className="w-[18px] h-[18px] text-white group-hover:text-gray2"
@@ -269,7 +262,7 @@ const ScheduleContainer = ({
 export default ScheduleContainer;
 
 const BUTTON_STYLE = cn(
-  "w-[78px] h-[40px] rounded-[5px] border py-[13px] pb-[16px] flex items-center justify-center font-[700] text-[14px] leading-[20px] text-center text-gray7",
+  "w-[78px] h-[40px] rounded-[5px] border py-[13px] px-[16px] text-nowrap flex items-center justify-center text-[14px] leading-[20px] text-center text-gray7 bg-white",
   "mobile:w-1/3 mobile:rounded-none mobile:border-x-0 mobile:border-t-0"
 );
 

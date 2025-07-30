@@ -20,7 +20,7 @@ export const NAVBARS = [
     id: "news",
   },
   {
-    name: "경기중계",
+    name: "LIVE 응원중계",
     link: "/matchBroadcast/ESPORTS",
     id: "matchBroadcast",
   },
@@ -48,7 +48,7 @@ export const HAMBURGER_MENU = [
     id: "news",
   },
   {
-    title: "경기중계",
+    title: "LIVE 응원중계",
     dropDown: [
       {
         title: "E스포츠",
