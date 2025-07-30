@@ -61,10 +61,10 @@ export default function Navbar() {
               <div
                 className={cn(
                   navbarClass,
-                  "flex justify-around items-center hover:text-gra",
+                  "flex justify-around items-center hover:text-gra hover:font-bold",
                   isCurrentPath(item.id)
-                    ? "font-normal text-gra"
-                    : "font-normal text-gray7",
+                    ? "font-bold text-gra"
+                    : "font-medium text-gray9",
                   index === 0 ? "pl-0" : "",
                   item.id === "matchBroadcast" && "relative"
                 )}>

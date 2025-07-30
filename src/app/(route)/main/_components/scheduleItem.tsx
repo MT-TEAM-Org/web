@@ -88,7 +88,7 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
             height={32}
             alt="TeamLogo"
           />
-          <div className="font-bold text-[14px] leading-5">
+          <div className="font-bold text-[14px] text-gray7 leading-5">
             {data?.homeTeam?.name}
           </div>
         </div>
@@ -99,7 +99,7 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
             height={32}
             alt="TeamLogo"
           />
-          <div className="font-bold text-[14px] leading-5">
+          <div className="font-bold text-[14px] text-gray7 leading-5">
             {data?.awayTeam?.name}
           </div>
         </div>
