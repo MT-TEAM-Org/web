@@ -262,7 +262,7 @@ const ScheduleContainer = ({
 export default ScheduleContainer;
 
 const BUTTON_STYLE = cn(
-  "w-[78px] h-[40px] rounded-[5px] border py-[13px] pb-[16px] flex items-center justify-center text-[14px] leading-[20px] text-center text-gray7 bg-white",
+  "w-[78px] h-[40px] rounded-[5px] border py-[13px] px-[16px] text-nowrap flex items-center justify-center text-[14px] leading-[20px] text-center text-gray7 bg-white",
   "mobile:w-1/3 mobile:rounded-none mobile:border-x-0 mobile:border-t-0"
 );
 
