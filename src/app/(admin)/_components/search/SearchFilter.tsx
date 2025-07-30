@@ -10,15 +10,19 @@ import {
 
 const searchFilterStyles = {
   actionButtonStyle:
-    "w-[120px] min-h-[40px] rounded-[5px] border px-4 py-[13px] text-center border-gray3 font-bold text-[14px] text-gray7 transition-colors",
+    "w-[120px] h-[40px] rounded-[5px] border text-center border-gray3 font-bold text-[14px] text-gray7 transition-colors",
   filterBox: "w-full rounded-[5px] border border-gray2 border-b-0",
 };
 
 interface SearchFilterProps {
   isContent?: boolean;
+  isUser?: boolean;
 }
 
-const SearchFilter = ({ isContent = false }: SearchFilterProps) => {
+const SearchFilter = ({
+  isContent = false,
+  isUser = false,
+}: SearchFilterProps) => {
   // 검색 필터 버튼 핸들러
   const handleButton = (value: string) => {
     console.log("버튼 클릭", value);
@@ -65,6 +69,8 @@ const SearchFilter = ({ isContent = false }: SearchFilterProps) => {
 
   const currentConfig = isContent
     ? SEARCH_FILTER_CONFIG.content
+    : isUser
+    ? SEARCH_FILTER_CONFIG.user
     : SEARCH_FILTER_CONFIG.default;
 
   return (
@@ -94,6 +100,7 @@ const SearchFilter = ({ isContent = false }: SearchFilterProps) => {
           )}
         >
           {currentConfig.left.map(renderFilterComponent)}
+          {isUser && <DateGroup />}
         </div>
 
         {/* 오른쪽 필터 영역 */}
@@ -103,7 +110,7 @@ const SearchFilter = ({ isContent = false }: SearchFilterProps) => {
             "rounded-l-none border-l-0"
           )}
         >
-          <DateGroup />
+          {!isUser && <DateGroup />}
           {currentConfig.right.map(renderFilterComponent)}
         </div>
       </div>

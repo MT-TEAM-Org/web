@@ -72,7 +72,8 @@ const ToastPopUp = ({
   const defaultToastStyle = cn(
     "fixed z-[999] inset-x-0 mx-auto flex gap-x-[16px] justify-center items-center max-w-[640px] min-h-[56px] rounded-[10px] px-[16px] py-[8px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.1)]",
     "mobile:w-full mobile:max-w-[328px] mobile:h-[48px]",
-    isMobile ? "bottom-[80px]" : "top-[40px]"
+    isMobile ? "bottom-[80px]" : "top-[40px]",
+    state === "warning" && "border-[2px] border-warning"
   );
   return (
     <AnimatePresence
@@ -81,8 +82,7 @@ const ToastPopUp = ({
         if (!visible && onClose) {
           onClose();
         }
-      }}
-    >
+      }}>
       {visible && (
         <motion.div
           key={toastKey}
@@ -93,12 +93,10 @@ const ToastPopUp = ({
             duration: 0.3,
             ease: "easeInOut",
           }}
-          className={`${defaultToastStyle} ${stateConfig[state].style}`}
-        >
+          className={`${defaultToastStyle} ${stateConfig[state].style}`}>
           {stateIcons[state]}
           <div
-            className={`flex gap-x-[16px] w-[512px] min-h-[26px] whitespace-nowrap ${stateConfig[state].textColor}`}
-          >
+            className={`flex gap-x-[16px] w-[512px] min-h-[26px] whitespace-nowrap ${stateConfig[state].textColor}`}>
             <div>{title}</div>
             <div>{message}</div>
           </div>
@@ -106,11 +104,15 @@ const ToastPopUp = ({
             className="w-[24px] h-[24px] mobile:w-[24px] mobile:h-[24px]"
             onClick={() => {
               if (onClose) onClose();
-            }}
-          >
+            }}>
             <CustomIcon
               icon="CLOSE_X"
-              className={stateConfig[state].textColor + " w-[14px] h-[14px]"}
+              className={cn(
+                "w-[14px] h-[14px]",
+                state === "warning"
+                  ? "text-black"
+                  : stateConfig[state].textColor
+              )}
             />
           </button>
         </motion.div>

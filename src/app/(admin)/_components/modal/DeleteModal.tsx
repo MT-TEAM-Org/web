@@ -44,7 +44,7 @@ const DeleteModal = ({ show, setShow }: DeleteModalProps) => {
           <h3 className="font-bold text-[18px] leading-7 tracking-[-0.04em] text-black">
             삭제하시겠습니까?
           </h3>
-          <p className="text-[16px] leading-6 tracking-[-0.02em] text-gray6">
+          <p className="font-medium text-[16px] leading-6 tracking-[-0.02em] text-gray6">
             작성되었던 모든 내용이 사라집니다.
           </p>
         </div>

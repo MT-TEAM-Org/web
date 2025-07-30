@@ -24,6 +24,7 @@ export interface NewsListType {
   hot?: string;
   newsCommentSearchDto?: NewsCommentSearchList
 
+  recommend?: boolean,
   boardType?: string,
   categoryType?: string,
   createdAt?: string,
@@ -32,6 +33,8 @@ export interface NewsListType {
   publicId?: string,
   thumbnail?: string,
   updatedAt?: string,
+  nextId?: number,
+  previousId?: number,
   commentSearchList?: TotalSearchNewsList;
 }
 

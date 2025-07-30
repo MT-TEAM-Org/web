@@ -193,6 +193,87 @@ export const getCellConfig = (rowData: rowDataType, tableMeta: tableMeta) => {
         className: "w-[160px]",
       },
     ];
+  } else if (typeGuards.userDetail(rowData.row)) {
+    return [
+      {
+        key: "reportDate",
+        value: rowData.row.reportDate,
+        className: "w-[160px]",
+      },
+      {
+        key: "reportCount",
+        value: rowData.row.reportCount,
+        className: "w-[160px]",
+      },
+      {
+        key: "type",
+        value: rowData.row.type,
+        className: "w-[100px]",
+      },
+      {
+        key: "titleContent",
+        value: rowData.row.titleContent,
+        className: !tableMeta.isList
+          ? "max-w-[872px]"
+          : "truncate flex-1 text-center",
+      },
+    ];
+  } else if (typeGuards.user(rowData.row)) {
+    return [
+      {
+        key: "userStatus",
+        value: rowData.row.userStatus,
+        className: cn("flex-1 truncate",
+          rowData.row.userStatus === "경고" && "text-[#FF7300]",
+          rowData.row.userStatus === "정지" && "text-[#D1504B]"
+        )
+      },
+      {
+        key: "nickname",
+        value: rowData.row.nickname,
+        className: "flex-1 truncate",
+      },
+      {
+        key: "post",
+        value: rowData.row.post,
+        className: "flex-1 truncate",
+      },
+      {
+        key: "comment",
+        value: rowData.row.comment,
+        className: "flex-1 truncate",
+      },
+      {
+        key: "getRecommendations",
+        value: rowData.row.getRecommendations,
+        className: "flex-1 truncate",
+      },
+      {
+        key: "getReportCount",
+        value: rowData.row.getReportCount,
+        className: "flex-1 truncate",
+      },
+      {
+        key: "gender",
+        value: rowData.row.gender,
+        className: "flex-1 truncate",
+      },
+      {
+        key: "joinType",
+        value: rowData.row.joinType,
+        className: "flex-1 truncate",
+      },
+      {
+        key: "email",
+        value: rowData.row.email,
+        className: "flex-1 truncate",
+      },
+      {
+        key: "phone",
+        value: rowData.row.phone,
+        className: "flex-1 truncate",
+      },
+    ];
   }
 
   return [];

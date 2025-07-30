@@ -110,6 +110,62 @@ export const DetailTableData = (type: string) => {
         reportDate: "2025.05.29 / 18:24:32",
       },
     ];
+  } else if (type === "user") {
+    return [
+      {
+        userStatus: "정상",
+        nickname: "hive짱짱12",
+        post: "12",
+        comment: "6",
+        getRecommendations: "3",
+        getReportCount: "13",
+        gender: "남",
+        joinType: "구글",
+        email: "hive1234@gmail.com",
+        phone: "01012345678",
+      },
+      {
+        userStatus: "경고",
+        nickname: "hive짱짱1234",
+        post: "9",
+        comment: "5",
+        getRecommendations: "2",
+        getReportCount: "11",
+        gender: "여",
+        joinType: "구글",
+        email: "hive12@gmail.com",
+        phone: "-",
+      },
+      {
+        userStatus: "정지",
+        nickname: "hive짱짱1234",
+        post: "15",
+        comment: "29",
+        getRecommendations: "22",
+        getReportCount: "14",
+        gender: "남",
+        joinType: "디코",
+        email: "hive12@gmail.com",
+        phone: "01012345678",
+      },
+    ];
+  } else if (type === "userDetail") {
+    return [
+      {
+        reportDate: "2025.05.02",
+        reportCount: "12",
+        type: "댓글",
+        titleContent:
+          "쵸비 개새끼쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기",
+      },
+      {
+        reportDate: "2025.05.29",
+        reportCount: "22",
+        type: "게시글",
+        titleContent:
+          "쵸비 개새끼쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기쵸비 개새기",
+      },
+    ];
   }
 };
 
@@ -191,5 +247,138 @@ export const MetaPanelData = {
       name: "투표",
       value: "-",
     },
+  ],
+};
+
+export const NotificationListData = {
+  report: [
+    {
+      id: "1",
+      type: "게시물",
+      status: "노출",
+      date: "2시간전",
+      content: "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
+      writer: "토트넘 좋아",
+      isRead: false,
+    },
+    {
+      id: "3",
+      type: "게시물",
+      status: "노출",
+      date: "2시간전",
+      content: "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
+      writer: "토트넘 좋아",
+      isRead: false,
+    },
+    {
+      id: "2",
+      type: "댓글",
+      status: "노출",
+      date: "2시간전",
+      content: "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
+      writer: "내닉네임은페이커",
+      isRead: true,
+    },    
+    {
+      id: "4",
+      type: "댓글",
+      status: "노출",
+      date: "2시간전",
+      content: "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
+      writer: "내닉네임은페이커",
+      isRead: true,
+    },    {
+      id: "5",
+      type: "게시물",
+      status: "노출",
+      date: "2시간전",
+      content: "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
+      writer: "토트넘 좋아",
+      isRead: false,
+    },
+    {
+      id: "6",
+      type: "댓글",
+      status: "노출",
+      date: "2시간전",
+      content: "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
+      writer: "내닉네임은페이커",
+      isRead: true,
+    },    {
+      id: "7",
+      type: "게시물",
+      status: "노출",
+      date: "2시간전",
+      content: "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
+      writer: "토트넘 좋아",
+      isRead: false,
+    },
+    {
+      id: "8",
+      type: "댓글",
+      status: "노출",
+      date: "2시간전",
+      content: "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
+      writer: "내닉네임은페이커",
+      isRead: true,
+    },
+  ],
+  inquiry: [
+    {
+      id: "1",
+      type: "문의",
+      status: "답변대기",
+      date: "2시간전",
+      content: "문의내용 로그인이안되요문의내용 로그인이안되요",
+      writer: "토트넘 좋아",
+      isRead: false,
+    },
+    {
+      id: "2",
+      type: "문의",
+      status: "답변완료",
+      date: "3시간전",
+      content: "문의내용 로그인이안되요문의내용 로그인이안되요",
+      writer: "hive234@naver.com",
+      isRead: false,
+    },
+    {
+      id: "3",
+      type: "문의",
+      status: "답변대기",
+      date: "2시간전",
+      content: "문의내용 로그인이안되요문의내용 로그인이안되요",
+      writer: "토트넘 좋아",
+      isRead: true,
+    },
+    {
+      id: "4",
+      type: "문의",
+      status: "답변완료",
+      date: "3시간전",
+      content: "문의내용 로그인이안되요문의내용 로그인이안되요",
+      writer: "hive234@naver.com",
+      isRead: true,
+    }
+  ],
+  suggestion: [
+    {
+      id: "1",
+      type: "개선요청",
+      status: "개선완료",
+      date: "2시간전",
+      content: "요청사항이 있어요",
+      writer: "하이브원투쓰리",
+      isRead: false,
+    },
+    {
+      id: "2",
+      type: "개선요청",
+      status: "개선완료",
+      date: "3시간전",
+      content: "요청사항이 있어요",
+      writer: "토트넘 좋아",
+      isRead: true,
+    }
   ],
 };

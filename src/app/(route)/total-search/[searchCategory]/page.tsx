@@ -8,29 +8,23 @@ import {
 } from "next/navigation";
 import React, { useEffect } from "react";
 import SearchToolbar from "../_components/SearchToolbar";
-import SearchEmptyBox from "../_components/SearchEmptyBox";
-import { searchListConfig } from "../_types/searchListConfig";
 import useGetSearchDataList from "@/_hooks/fetcher/total-search/useGetSearchDataList";
-import NewsPostItem from "../../news/_components/NewsPostItem";
-import NewsPostItemSkeleton from "../../news/_components/NewsPostItemSkeleton";
-import NoticeItemSkeleton from "../../customer/_components/NoticeItemSkeleton";
-import { SearchListType } from "../_types/searchType";
-import TotalSearchItem from "../_components/TotalSearchItem";
-import { NewsListType } from "../../news/_types/newsListItemType";
 import { cn } from "@/utils";
-import changeURLParams from "../../mypage/util/changeURLParams";
 import Pagination from "../../mypage/_components/Pagination";
+import SearchResultList from "../_components/SearchResultList";
+import { searchOptions } from "../_types/searchOptions";
+import { usePageChange } from "../_utils/usePageChange";
 
 const Page = () => {
-  const params = useParams<{ totalSearchType: string }>();
+  const params = useParams() as { searchCategory: string };
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const handlePageChange = usePageChange();
   const searchType = pathname.split("/")[2];
+  const category = params.searchCategory || "news";
 
-  const category =
-    params.totalSearchType === "board" ? "news" : params.totalSearchType;
-
+  // 타입 검증
   useEffect(() => {
     const validTypes = ["board", "news"];
     if (!validTypes.includes(searchType)) {
@@ -38,41 +32,20 @@ const Page = () => {
     }
   }, [searchType, router]);
 
-  const searchOptions: searchListConfig = {
-    page: Number(searchParams.get("page")) || 1,
-    size: 20,
-    domainType:
-      (searchParams.get("domainType") as searchListConfig["domainType"]) ||
-      "BOARD",
-    orderType:
-      (searchParams.get("orderType") as searchListConfig["orderType"]) ||
-      "CREATE",
-    searchType:
-      (searchParams.get("searchType") as searchListConfig["searchType"]) ||
-      "TITLE_CONTENT",
-    search: searchParams.get("search") || "",
-    timePeriod:
-      (searchParams.get("time") as searchListConfig["timePeriod"]) || "ALL",
-  };
+  // 타입에 따라 domainType 설정
+  const options = searchOptions(searchParams);
 
   if (searchType === "news") {
-    searchOptions.domainType = "NEWS";
+    options.domainType = "NEWS";
   } else if (searchType === "board") {
-    searchOptions.domainType = "BOARD";
+    options.domainType = "BOARD";
   }
 
   const {
     data: searchData,
     isLoading,
     isError,
-  } = useGetSearchDataList(searchOptions);
-
-  const handlePageChange = (page: number) => {
-    if (page < 1 || page > searchData?.pageInfo?.totalPage) return;
-    router.push(changeURLParams(searchParams, "page", page.toString()), {
-      scroll: false,
-    });
-  };
+  } = useGetSearchDataList(options);
 
   return (
     <div
@@ -101,42 +74,15 @@ const Page = () => {
             "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"
         )}
       >
-        {isLoading &&
-          Array(10)
-            .fill(0)
-            .map((_, index) =>
-              searchType === "news" ? (
-                <NewsPostItemSkeleton key={index} />
-              ) : searchType === "board" ? (
-                <NoticeItemSkeleton key={index} />
-              ) : null
-            )}
+        {/* 통합 검색 아이템 결과 */}
+        <SearchResultList
+          searchType={searchType}
+          searchData={searchData}
+          searchParams={searchParams}
+          fetchStatus={{ isLoading, isError }}
+        />
 
-        {["news", "board"].includes(searchType) &&
-          (searchData?.content?.length === 0 || isError ? (
-            <SearchEmptyBox />
-          ) : (
-            searchData?.content?.map((item: SearchListType | NewsListType) =>
-              searchType === "news" ? (
-                <NewsPostItem
-                  key={item?.id}
-                  newsItem={item as NewsListType}
-                  searchType={searchParams.get("searchType") || "TITLE_CONTENT"}
-                  searchString={searchParams.get("search") || ""}
-                />
-              ) : (
-                <TotalSearchItem
-                  key={item?.id}
-                  searchType={searchParams.get("searchType") || "TITLE_CONTENT"}
-                  searchString={searchParams.get("search") || ""}
-                  data={item as SearchListType}
-                  href={`/board/${(item as SearchListType)?.boardType}/${
-                    (item as SearchListType)?.categoryType
-                  }/${item?.id}`}
-                />
-              )
-            )
-          ))}
+        {/* 페이지네이션 */}
         {searchData?.pageInfo?.totalPage > 0 && (
           <div
             className={cn(
@@ -146,7 +92,7 @@ const Page = () => {
           >
             <Pagination
               pageInfo={searchData?.pageInfo}
-              onPageChangeAction={handlePageChange}
+              onPageChangeAction={(page) => handlePageChange(page, searchData)}
             />
           </div>
         )}

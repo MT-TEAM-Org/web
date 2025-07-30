@@ -4,6 +4,8 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { NAVBARS } from "@/app/_constants/navigation";
 import NavSearch from "./_components/NavSearch";
+import { cn } from "@/utils";
+import CustomIcon from "../IconComponents";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -53,17 +55,25 @@ export default function Navbar() {
   return (
     <>
       <div className="w-full max-w-[1200px] min-h-[60px] flex justify-between items-center mx-auto">
-        <div className="max-w-[447px] min-h-[60px] flex justify-around gap-2.5">
+        <div className="max-w-[447px] min-h-[60px] flex justify-around">
           {NAVBARS.map((item, index) => (
             <Link key={item.id} href={item.link}>
               <div
-                className={`${navbarClass} flex justify-around items-center hover:text-gra ${
+                className={cn(
+                  navbarClass,
+                  "flex justify-around items-center hover:text-gra",
                   isCurrentPath(item.id)
                     ? "font-normal text-gra"
-                    : "font-normal text-gray7"
-                } ${index === 0 ? "pl-0" : ""}`}
-              >
+                    : "font-normal text-gray7",
+                  index === 0 ? "pl-0" : "",
+                  item.id === "matchBroadcast" && "relative"
+                )}>
                 {item.name}
+                {item.id === "matchBroadcast" && (
+                  <div className="absolute top-0 right-0 rounded-[2px] p-1 bg-Primary text-white">
+                    <CustomIcon icon="NEW_ICON" />
+                  </div>
+                )}
               </div>
             </Link>
           ))}

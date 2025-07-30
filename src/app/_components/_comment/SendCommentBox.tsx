@@ -206,9 +206,9 @@ const SendCommentBox = ({
   return (
     <div
       className={cn(
-        "w-full p-4 bg-white",
+        "w-full p-4 bg-white shadow-soft-md sticky bottom-0 z-50",
         "tablet:max-w-full tablet:w-auto",
-        "mobile:px-[8px] mobile:pt-[8px] mobile:pb-[16px]"
+        "mobile:px-[8px] mobile:shadow-none mobile:border-b mobile:pt-[8px] mobile:pb-[16px]"
       )}
     >
       <form onSubmit={handlePostComment} className="w-full flex flex-col gap-2">

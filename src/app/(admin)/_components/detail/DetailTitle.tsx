@@ -14,7 +14,7 @@ const DetailTitle = ({
       <Link href={backPath}>
         <Icon icon="BACK_ARROW" />
       </Link>
-      <h1 className="font-bold text-[24px] leading-38px] tracking-[-0.04em] text-black">
+      <h1 className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-black">
         {title}
       </h1>
     </div>

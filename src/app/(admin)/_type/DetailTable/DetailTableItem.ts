@@ -37,7 +37,27 @@ export interface DetailContentTableRow {
   reason: string;
   reportDate: string;
 }
-  
+
+export interface UserTableRow {
+  userStatus: string;
+  nickname: string;
+  post: string;
+  comment: string;
+  getRecommendations: string;
+  getReportCount: string;
+  gender: string;
+  joinType: string;
+  email: string;
+  phone: string;
+}
+
+export interface UserDetailTableRow {
+  reportDate: string;
+  reportCount: string;
+  type: string;
+  titleContent: string;
+}
+
 // 테이블 아이템 타입
 export type rowDataType = {
   row:
@@ -45,8 +65,10 @@ export type rowDataType = {
     | SuggestionsTableRow
     | NoticeTableRow
     | ContentTableRow
-    | DetailContentTableRow;
-  type: "inquiry" | "suggestions" | "notice" | "content" | "detailContent";
+    | DetailContentTableRow
+    | UserTableRow
+    | UserDetailTableRow;
+  type: "inquiry" | "suggestions" | "notice" | "content" | "detailContent" | "user" | "userDetail";
 };
 
 export type tableMeta = {

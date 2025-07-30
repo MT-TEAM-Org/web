@@ -9,10 +9,11 @@ import NewsPostItem from "../_components/NewsPostItem";
 import { newsListConfig } from "../_types/newsListConfig";
 import { NewsItemType } from "../_types/newsItemType";
 import { useRouter } from "next/navigation";
-import EmptyItem from "../../customer/_components/EmptyItem";
+import EmptyItem from "../../customer/_components/common/EmptyItem";
 import { cn } from "@/utils";
 import Pagination from "../../mypage/_components/Pagination";
 import changeURLParams from "../../mypage/util/changeURLParams";
+import { getOrderType } from "../_utils/getOrderType";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -33,30 +34,11 @@ export default function NewsPage() {
     }
   }, [newsType, router]);
 
-  const orderType = () => {
-    const orderTypeParam = searchParams.get("order_type");
-
-    if (!orderTypeParam) {
-      return "DATE";
-    }
-
-    switch (searchParams.get("order_type")) {
-      case "RECOMMEND":
-        return "VIEW";
-      case "CREATE":
-        return "DATE";
-      case "COMMENT":
-        return "COMMENT";
-      default:
-        return "DATE";
-    }
-  };
-
   const newsOption: newsListConfig = {
     page: Number(searchParams.get("page")) || 1,
     size: 20,
     category: (category as NewsCategoryType) || "",
-    orderType: orderType() as newsListConfig["orderType"],
+    orderType: getOrderType(searchParams) as newsListConfig["orderType"],
     searchType:
       (searchParams.get("search_type") as newsListConfig["searchType"]) || "",
     search: searchParams.get("search") || "",

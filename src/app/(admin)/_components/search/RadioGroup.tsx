@@ -32,16 +32,16 @@ const RadioGroup = ({
       </div>
       <div className="px-3 py-2 flex gap-3 items-center">
         {options.map((option) => (
-          <div key={option.id} className="flex gap-2">
+          <div key={option.id} className="flex gap-[6px]">
             <label className="relative flex items-center">
               <input
                 type="radio"
                 name={name}
                 id={option.id}
                 className={cn(
-                  "appearance-none w-6 h-6 pr-6 border border-gray4 rounded-none",
+                  "appearance-none w-6 h-6 border-[1.5px] border-gray4 rounded-[2px]",
                   type === "checkbox"
-                    ? "checked:bg-primary checked:border-transparent"
+                    ? "checked:bg-gray7 checked:border-transparent"
                     : radioClassNames,
                   type === "radio" &&
                     selectedOption === option.id &&
