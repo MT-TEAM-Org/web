@@ -67,7 +67,7 @@ const ScheduleItem = ({ isSelected, onClick, data }: ScheduleDataProps) => {
           <p
             className={cn(
               "font-medium text-[12px] leading-[18px] flex text-center justify-center align-center text-gray7",
-              gameStatus === "LIVE" && "text-white"
+              gameStatus === "LIVE" && "text-white font-bold"
             )}>
             {gameStatus}
           </p>

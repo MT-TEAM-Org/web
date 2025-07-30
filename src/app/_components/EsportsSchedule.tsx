@@ -57,7 +57,7 @@ const EsportsSchedule = ({ onMatchClick }: EsportsScheduleProps) => {
       case "예정":
         return "bg-gray2 text-gray7";
       case "LIVE":
-        return "bg-new text-white";
+        return "bg-new text-white font-bold";
       default:
         return "bg-gray2 text-gray7";
     }
