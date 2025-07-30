@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation";
 import { ReportType } from "@/services/board/types/report";
 import useFeedbackRecommendToggle from "../../_hooks/useFeedbackRecommendToggle";
 import { CommentItem } from "@/_types/comment";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface FeedbackDetailContentProps {
   id: string | string[];
@@ -62,7 +63,9 @@ const FeedbackDetailContent = ({
       <InfoImgSection feedbackInfoData={feedbackInfoData} />
       <div
         className="text-[16px] leading-6 tracking-[-0.02em] text-gray7 mobile:text-[14px]"
-        dangerouslySetInnerHTML={{ __html: feedbackInfoData?.content }}
+        dangerouslySetInnerHTML={{
+          __html: cleanContent(feedbackInfoData?.content),
+        }}
       />
       <div className="w-full min-h-[40px] flex gap-2 items-center justify-center">
         <RecommendButton

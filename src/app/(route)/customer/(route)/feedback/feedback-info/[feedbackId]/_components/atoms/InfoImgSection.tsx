@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { FeedbackInfoType } from "../../../../_types/FeedbackInfoType";
 import { getYouTubeEmbedUrl } from "../../_utils/getYouTubeEmbedUrl";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface InfoImgSectionProps {
   feedbackInfoData: FeedbackInfoType;
@@ -16,7 +17,7 @@ const InfoImgSection = ({ feedbackInfoData }: InfoImgSectionProps) => {
         <div className="w-full flex flex-col gap-3 aspect-video">
           {feedbackInfoData?.imgUrl && !youtubeEmbedUrl && (
             <Image
-              src={feedbackInfoData?.imgUrl}
+              src={cleanContent(feedbackInfoData?.imgUrl)}
               alt="Feedback img"
               width={672}
               height={128}
@@ -37,7 +38,7 @@ const InfoImgSection = ({ feedbackInfoData }: InfoImgSectionProps) => {
           )}
           {!youtubeEmbedUrl && feedbackInfoData?.link && (
             <div className="w-[679px] min-h-[42px] mobile:w-full">
-              <div>{feedbackInfoData?.link}</div>
+              <div>{cleanContent(feedbackInfoData?.link)}</div>
             </div>
           )}
         </div>

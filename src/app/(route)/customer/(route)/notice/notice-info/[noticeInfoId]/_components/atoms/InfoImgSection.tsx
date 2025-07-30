@@ -1,6 +1,7 @@
 import { NoticeInfoItemType } from "@/app/(route)/customer/_types/NoticeInfoItemType";
 import React from "react";
 import Image from "next/image";
+import { cleanContent } from "@/utils/secure/sanitize";
 
 interface InfoImgSectionProps {
   data: NoticeInfoItemType;
@@ -25,7 +26,7 @@ const InfoImgSection = ({ data }: InfoImgSectionProps) => {
         <div className="w-full flex flex-col gap-3 aspect-video">
           {data?.imgUrl && !youtubeEmbedUrl && (
             <Image
-              src={data?.imgUrl}
+              src={cleanContent(data?.imgUrl)}
               alt="Feedback img"
               width={672}
               height={128}
@@ -45,7 +46,7 @@ const InfoImgSection = ({ data }: InfoImgSectionProps) => {
           )}
           {!youtubeEmbedUrl && data?.link && (
             <div className="w-[679px] min-h-[42px]">
-              <div>{data?.link}</div>
+              <div>{cleanContent(data?.link)}</div>
             </div>
           )}
         </div>

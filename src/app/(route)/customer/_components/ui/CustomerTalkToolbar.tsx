@@ -17,12 +17,14 @@ interface ToolbarProps {
   showOptions?: boolean;
   paginationData?: NoticePageInfoType;
   adminChecker?: "ADMIN" | "USER" | undefined;
+  isDetail?: boolean;
 }
 
 const CustomerTalkToolbarContent = ({
   showOptions = true,
   paginationData,
   adminChecker,
+  isDetail = true,
 }: ToolbarProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -96,9 +98,10 @@ const CustomerTalkToolbarContent = ({
     <div
       className={cn(
         "rounded-[5px] bg-white sticky top-0 z-10",
-        "w-[720px] min-h-[120px] rounded-t-[5px] mt-2",
-        "tablet:max-w-full tablet:w-full tablet:mt-3",
-        "mobile:w-full mobile:max-w-full mobile:min-h-[56px]"
+        "w-[720px] min-h-[120px] rounded-t-[5px]",
+        "tablet:max-w-full tablet:w-full",
+        "mobile:w-full mobile:max-w-full mobile:min-h-[56px]",
+        isDetail && "mobile:hidden"
       )}
     >
       <div
