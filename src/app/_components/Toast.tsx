@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/utils";
 import { useEffect, useState } from "react";
 
 interface ToastProps {
@@ -45,8 +46,7 @@ const Toast = ({ title, message, type, closeButton, button }: ToastProps) => {
       style={{
         backgroundColor: toastType[type].bgColor,
         color: toastType[type].color,
-      }}
-    >
+      }}>
       <h1 className="font-[700] leading-[26px]">{title}</h1>
       <p className="flex-1 leading-[26px]">{message}</p>
 
@@ -54,16 +54,20 @@ const Toast = ({ title, message, type, closeButton, button }: ToastProps) => {
         {button && (
           <button
             onClick={button.onClick}
-            className="bg-[#009AD4] text-white font-[500] rounded-[10px] px-[16px] py-[8px] hover:bg-[#007A9A] transition-all"
-          >
+            className={cn(
+              "bg-[#009AD4] text-white font-[500] rounded-[10px] px-[16px] py-[8px] hover:bg-[#007A9A] transition-all",
+              type === "warning" && "border border-warning"
+            )}>
             {button.text}
           </button>
         )}
         {closeButton && (
           <button
-            className="bg-[#009AD4] text-white font-[500] rounded-[10px] px-[16px] py-[8px] hover:bg-[#007A9A] transition-all"
-            onClick={() => setIsVisible(false)}
-          >
+            className={cn(
+              "bg-[#009AD4] text-white font-[500] rounded-[10px] px-[16px] py-[8px] hover:bg-[#007A9A] transition-all",
+              type === "warning" && "text-black"
+            )}
+            onClick={() => setIsVisible(false)}>
             X
           </button>
         )}

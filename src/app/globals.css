@@ -232,3 +232,108 @@ button {
   pointer-events: none;
   height: 0;
 }
+
+/* datepicker 커스터마이징 */
+.custom-calendar {
+  font-family: 'Noto Sans KR', sans-serif;
+  border-radius: 10px !important;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  border: none !important;
+  padding: 16px;
+}
+
+/* datepicker width */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+/* 헤더 스타일 제거 */
+.react-datepicker__header {
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+
+/* 요일 헤더 */
+.custom-calendar .react-datepicker__day-name {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.02em;
+  color: black;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 요일 색상 (일/토) */
+.custom-calendar .react-datepicker__day-name:nth-child(1),
+.custom-calendar .react-datepicker__day--sun {
+  color: #F3213B;
+}
+
+.custom-calendar .react-datepicker__day-name:nth-child(7),
+.custom-calendar .react-datepicker__day--sat {
+  color: #00516F;
+}
+
+/* 이번 달이 아닌 경우 */
+.react-datepicker__day--outside-month {
+  opacity: 0.3;
+}
+
+/* 일요일 */
+.custom-calendar .force-sunday {
+  color: #F3213B !important;
+}
+
+/* 토요일 */
+.custom-calendar .force-saturday {
+  color: #00516F !important;
+}
+
+/* 평일 */
+.custom-calendar .force-weekday {
+  color: black !important;
+}
+
+/* 날짜 셀 */
+.custom-calendar .react-datepicker__day {
+  width: 38px;
+  height: 38px;
+  line-height: 36px;
+  text-align: center;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 2px;
+}
+
+/* 선택 효과 */
+.custom-calendar .react-datepicker__day--today.react-datepicker__day--keyboard-selected,
+.custom-calendar .react-datepicker__day--today.react-datepicker__day--selected,
+.custom-calendar .react-datepicker__day--keyboard-selected,
+.custom-calendar .react-datepicker__day--selected {
+  background-color: #00ADEE !important;
+  color: white !important;
+  border-radius: 60px !important;
+}
+
+/* hover 효과 */
+.custom-calendar .react-datepicker__day:hover {
+  background-color: #00ADEE !important;
+  color: white !important;
+  border-radius: 60px !important;
+  transition: all 0.2s ease;
+}
+
+/* 캘린더 삼각형 제거 */
+.react-datepicker__triangle {
+  display: none;
+}
+
+/* 캘린더 전체 사이즈 조정 */
+.custom-calendar .react-datepicker__month-container {
+  width: 300px !important;
+}
