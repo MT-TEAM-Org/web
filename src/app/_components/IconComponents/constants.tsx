@@ -1854,6 +1854,31 @@ const ICONS = {
       </>
     ),
   },
+  NEW_ICON: {
+    svgOptions: {
+      width: "22",
+      height: "8",
+      viewBox: "0 0 22 8",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg",
+    },
+    icon: (
+      <>
+        <path
+          d="M5.87 7.38H4.72L1.06 1.82V7.38H0V0H1.15L4.8 5.55V0H5.87V7.38Z"
+          fill="white"
+        />
+        <path
+          d="M11.6995 0.93H7.98953V3.12H11.1795V4.04H7.98953V6.45H11.6995V7.38H6.92953V0H11.6995V0.93Z"
+          fill="white"
+        />
+        <path
+          d="M19.9087 7.38H18.9187L17.1887 1.83L15.5587 7.38H14.5587L12.3087 0H13.4187L15.0587 5.48L16.6187 0.00999987H17.7487L19.3487 5.48L20.8487 0H21.9587L19.9087 7.38Z"
+          fill="white"
+        />
+      </>
+    ),
+  },
 };
 
 export type IconList = keyof typeof ICONS;
@@ -1869,3 +1894,23 @@ export type IconType = {
 };
 
 export default ICONS as IconType;
+
+<svg
+  width="22"
+  height="8"
+  viewBox="0 0 22 8"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M5.87 7.38H4.72L1.06 1.82V7.38H0V0H1.15L4.8 5.55V0H5.87V7.38Z"
+    fill="white"
+  />
+  <path
+    d="M11.6995 0.93H7.98953V3.12H11.1795V4.04H7.98953V6.45H11.6995V7.38H6.92953V0H11.6995V0.93Z"
+    fill="white"
+  />
+  <path
+    d="M19.9087 7.38H18.9187L17.1887 1.83L15.5587 7.38H14.5587L12.3087 0H13.4187L15.0587 5.48L16.6187 0.00999987H17.7487L19.3487 5.48L20.8487 0H21.9587L19.9087 7.38Z"
+    fill="white"
+  />
+</svg>;
