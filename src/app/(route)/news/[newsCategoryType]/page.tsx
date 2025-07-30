@@ -9,7 +9,7 @@ import NewsPostItem from "../_components/NewsPostItem";
 import { newsListConfig } from "../_types/newsListConfig";
 import { NewsItemType } from "../_types/newsItemType";
 import { useRouter } from "next/navigation";
-import EmptyItem from "../../customer/_components/EmptyItem";
+import EmptyItem from "../../customer/_components/common/EmptyItem";
 import { cn } from "@/utils";
 import Pagination from "../../mypage/_components/Pagination";
 import changeURLParams from "../../mypage/util/changeURLParams";

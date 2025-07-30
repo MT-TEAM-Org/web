@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
 import EmptyBoard from "./emptyBoard";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
-import NoticeItem from "../../customer/_components/NoticeItem";
+import NoticeItem from "../../customer/(route)/notice/_components/items/NoticeItem";
 import { NoticeContentType } from "../../customer/_types/NoticeItemType";
 import Pagination from "../../mypage/_components/Pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
