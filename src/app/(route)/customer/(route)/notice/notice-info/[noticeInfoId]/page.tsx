@@ -1,8 +1,7 @@
 import { Metadata } from "next";
 import NoticeInfo from "./_components/NoticeInfo";
 import getNoticeInfoData from "@/services/customer/getNoticeInfoData";
-
-const stripHtml = (html: string) => html.replace(/<[^>]*>?/gm, "");
+import { createMetadata } from "@/lib/generateMetadata";
 
 export async function generateMetadata({
   params,
@@ -16,48 +15,25 @@ export async function generateMetadata({
       openGraph: true,
     });
 
-    const rawContent = noticeDetail.content || "공지사항 상세 내용";
-    const plainTextContent = stripHtml(rawContent || "").trim();
-
-    const hasContent = plainTextContent.length > 0;
-
-    return {
-      title: noticeDetail.title || "공지사항 상세 페이지",
-      description: hasContent ? plainTextContent : undefined,
-      openGraph: {
-        title: noticeDetail.title || "공지사항 상세 페이지",
-        description: hasContent ? plainTextContent : undefined,
-        images: !noticeDetail.imgUrl
-          ? [
-              {
-                url: "https://playhive.co.kr/Metadata.png",
-                alt: "PlayHive 미리보기 이미지",
-                width: 1200,
-                height: 630,
-              },
-            ]
-          : [{ url: noticeDetail.imgUrl, width: 600, height: 315 }],
-      },
+    return createMetadata({
+      title: noticeDetail.title,
+      content: noticeDetail.content,
+      thumbUrl: noticeDetail.imgUrl,
+      fallbackTitle: "공지사항 상세 페이지",
+      fallbackDescription: "공지사항 상세 내용",
       keywords: noticeDetail.keywords || ["플레이하이브", "공지사항"],
-    };
-  } catch (error) {
-    return {
-      title: "공지사항 상세 페이지",
-      description: "공지사항 정보를 불러오는 중 오류가 발생했습니다.",
-      openGraph: {
-        title: "공지사항 상세 페이지",
-        description: "공지사항 정보를 불러오는 중 오류가 발생했습니다.",
-        images: [
-          {
-            url: "https://playhive.co.kr/Metadata.png",
-            alt: "PlayHive 미리보기 이미지",
-            width: 1200,
-            height: 630,
-          },
-        ],
-      },
+      stripHtmlContent: true,
+    });
+  } catch {
+    return createMetadata({
+      title: null,
+      content: null,
+      thumbUrl: null,
+      fallbackTitle: "공지사항 상세 페이지",
+      fallbackDescription: "공지사항 정보를 불러오는 중 오류가 발생했습니다.",
       keywords: ["플레이하이브", "공지사항"],
-    };
+      stripHtmlContent: true,
+    });
   }
 }
 
