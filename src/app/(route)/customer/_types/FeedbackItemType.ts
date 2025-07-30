@@ -27,6 +27,6 @@ export interface FeedbackPageInfoType {
 }
 
 export interface FeedbackItemType {
-  content: FeedbackContentType;
+  content: FeedbackContentType[];
   pageInfo: FeedbackPageInfoType;
 }

@@ -16,7 +16,7 @@ import { cn } from "@/utils";
 interface ToolbarProps {
   showOptions?: boolean;
   paginationData?: NoticePageInfoType;
-  adminChecker?: "USER" | "ADMIN" | undefined;
+  adminChecker?: "ADMIN" | "USER" | undefined;
 }
 
 const CustomerTalkToolbarContent = ({
@@ -93,7 +93,14 @@ const CustomerTalkToolbarContent = ({
     );
 
   return (
-    <div className="rounded-[5px] bg-white sticky top-0 z-10">
+    <div
+      className={cn(
+        "rounded-[5px] bg-white sticky top-0 z-10",
+        "w-[720px] min-h-[120px] rounded-t-[5px] mt-2",
+        "tablet:max-w-full tablet:w-full tablet:mt-3",
+        "mobile:w-full mobile:max-w-full mobile:min-h-[56px]"
+      )}
+    >
       <div
         className={cn(
           "w-full h-[64px] flex justify-between items-center min-h-[64px] p-[12px] border-b bg-white",

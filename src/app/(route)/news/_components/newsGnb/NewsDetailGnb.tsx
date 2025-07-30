@@ -8,11 +8,12 @@ import { ReportType } from "@/services/board/types/report";
 import { FeedbackContentType } from "@/app/(route)/customer/_types/FeedbackItemType";
 import { useAdminRole } from "@/app/(route)/customer/_utils/adminChecker";
 import SignInModalPopUp from "@/app/_components/SignInModalPopUp";
+import { FeedbackInfoType } from "@/app/(route)/customer/(route)/feedback/_types/FeedbackInfoType";
 
 interface NewsDetailGnbProps {
   title: string;
   type?: "news" | "notice" | "feedback";
-  data?: FeedbackContentType;
+  data?: FeedbackContentType | FeedbackInfoType;
   id?: number;
 }
 
@@ -82,7 +83,8 @@ const NewsDetailGnb = ({
     <div
       className={cn(
         "w-full h-[48px] bg-white border-b border-gray2 flex items-center justify-between",
-        isSticky ? "fixed top-0 left-0 z-10" : "absolute top-0 left-0 z-10"
+        isSticky ? "fixed top-0 left-0 z-10" : "absolute top-0 left-0 z-10",
+        "pc:hidden tablet:hidden"
       )}
     >
       <div

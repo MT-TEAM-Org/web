@@ -41,7 +41,7 @@ const statusOptions = [
 type FeedbackStatus = "PENDING" | "RECEIVED" | "COMPLETED";
 
 interface StatusSaverProps {
-  id: number;
+  id: string | string[];
   status: FeedbackStatus;
 }
 
