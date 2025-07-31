@@ -11,6 +11,7 @@ import useAuthCheck from "@/_hooks/useAuthCheck";
 import { cn } from "@/utils";
 import MainLivePost from "./_components/MainLivePost";
 import useIsTablet from "@/utils/useIsTablet";
+import MainNewsSection from "./_components/MainNewsSection";
 
 function HomePageContent() {
   const refreshToken = useHandleRefreshToken();
@@ -58,62 +59,29 @@ function HomePageContent() {
             "w-full max-w-[1200px] min-h-[704px] mb-[30px] flex gap-x-10",
             "tablet:max-w-full tablet:px-6",
             "mobile:flex-col mobile:p-4"
-          )}
-        >
+          )}>
           <div
             className={cn(
               "max-w-[862px] h-auto flex gap-10",
               "tablet:max-w-full tablet:w-full",
               "mobile:max-w-full"
-            )}
-          >
+            )}>
             <div className="w-full flex flex-col gap-10">
               {(isValidNews || !isError) && (
-                <div
-                  className={cn(
-                    "max-w-full min-h-[236px] flex gap-4",
-                    "tablet:h-[396px] tablet:justify-between",
-                    "mobile:h-[196px] mobile:min-h-0 mobile:flex-col mobile:gap-2"
-                  )}
-                >
-                  <h1
-                    className={cn(
-                      "font-bold leading-6 tracking-[-0.02em] text-black hidden",
-                      "mobile:block"
-                    )}
-                  >
-                    뉴스
-                  </h1>
-                  <MainBigSizeNews
-                    data={bigNewsItems}
-                    isLoading={bigNewsDataIsLoading}
-                  />
-                  <NewsComponent
-                    data={newsItems}
-                    isLoading={newsDataIsLoading}
-                  />
-                  {isTablet && (
-                    <div className="tablet:block">
-                      <MainRightBar />
-                    </div>
-                  )}
-                </div>
+                <MainNewsSection
+                  bigNewsItems={bigNewsItems}
+                  newsItems={newsItems}
+                  bigNewsDataIsLoading={bigNewsDataIsLoading}
+                  newsDataIsLoading={newsDataIsLoading}
+                  isTablet={isTablet}
+                />
               )}
               <div className={cn("w-full", "tablet:w-full")}>
                 <MainLivePost />
               </div>
             </div>
           </div>
-          {!isTablet && (
-            <div
-              className={cn(
-                "max-w-[298px] min-h-[696px] flex-1",
-                "mobile:max-w-full mobile:min-h-fit"
-              )}
-            >
-              <MainRightBar />
-            </div>
-          )}
+          {!isTablet && <MainRightBar isDesktop />}
         </div>
       </div>
     </div>

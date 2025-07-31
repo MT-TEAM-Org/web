@@ -16,7 +16,11 @@ import useIsTablet from "@/utils/useIsTablet";
 import { cn } from "@/utils";
 import useIsMobile from "@/utils/useIsMobile";
 
-const MainRightBar = () => {
+interface MainRightBarProps {
+  isDesktop: boolean;
+}
+
+const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
   const [pageNum, setPageNum] = useState(1);
   const [currentPage, setCurrentPage] = useState("1");
   const [buttonActive, setButtonActive] = useState(true);
@@ -80,9 +84,11 @@ const MainRightBar = () => {
       className={cn(
         "flex flex-col max-w-[298px] min-h-[668px] gap-4 bg-white rounded-[5px]",
         "tablet:max-w-full tablet:min-h-[396px]",
-        "mobile:max-w-full mobile:min-h-fit"
-      )}
-    >
+        "mobile:max-w-full mobile:min-h-fit",
+        isDesktop
+          ? "max-w-[298px] min-h-[696px] flex-1 mobile:max-w-full mobile:min-h-fit"
+          : "tablet:block"
+      )}>
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px]">
         <button
           onClick={() => setButtonActive(true)}
@@ -90,8 +96,7 @@ const MainRightBar = () => {
             btnStyle,
             buttonActive ? activeBtnStyle : passiveBtnStyle
           )}
-          aria-label="뉴스 탭"
-        >
+          aria-label="뉴스 탭">
           뉴스
         </button>
         <button
@@ -100,8 +105,7 @@ const MainRightBar = () => {
             btnStyle,
             !buttonActive ? activeBtnStyle : passiveBtnStyle
           )}
-          aria-label="게임 이벤트 탭"
-        >
+          aria-label="게임 이벤트 탭">
           게임 이벤트
         </button>
       </div>
@@ -111,8 +115,7 @@ const MainRightBar = () => {
           "w-full h-auto max-h-[736px] flex flex-col gap-2",
           "tablet:min-w-[348px] tablet:max-h-[292px] tablet:overflow-hidden",
           "mobile:max-h-[292px] mobile:overflow-hidden"
-        )}
-      >
+        )}>
         {buttonActive ? (
           <>
             {newsIsLoading ? (
@@ -163,8 +166,7 @@ const MainRightBar = () => {
             onClick={() => handleToPage("prev")}
             className={getNavButtonClass(Number(currentPage) === 1)}
             disabled={currentPage === "1"}
-            aria-label="이전 페이지"
-          >
+            aria-label="이전 페이지">
             <Arrow_left width={18} height={18} />
           </button>
           <div className="w-[64px] h-[32px] font-[500] text-[14px] text-gray6 flex justify-center items-center">
@@ -179,8 +181,7 @@ const MainRightBar = () => {
             disabled={
               Number(currentPage) === filteredNewsData?.pageInfo?.totalPage
             }
-            aria-label="다음 페이지"
-          >
+            aria-label="다음 페이지">
             <Arrow_right width={18} height={18} />
           </button>
         </div>
