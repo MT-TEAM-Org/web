@@ -29,10 +29,10 @@ const MainLivePost = () => {
       <div
         className={cn(
           "w-full min-h-[392px] flex flex-col gap-6",
+          "tablet:w-full",
           "mobile:w-full mobile:max-w-[calc(100vw-32px)] mobile:mx-auto mobile:min-h-fit mobile:mb-8",
           "pc:hidden"
-        )}
-      >
+        )}>
         <div className="w-full flex">
           {tabs.map((tab) => (
             <div
@@ -41,8 +41,7 @@ const MainLivePost = () => {
                 divBaseStyle,
                 activeTab === tab.id ? divActiveStyle : divDisabledStyle
               )}
-              onClick={() => setActiveTab(tab.id)}
-            >
+              onClick={() => setActiveTab(tab.id)}>
               {tab.label}
             </div>
           ))}

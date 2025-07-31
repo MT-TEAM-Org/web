@@ -5,7 +5,7 @@ import NewsComponent from "./newsComponent";
 import MainRightBar from "./MainRightBar";
 
 interface MainNewsSectionProps {
-  bigNewsItems: any[];
+  bigNewsItems: any[]; // TODO: 타입수정
   newsItems: any[];
   bigNewsDataIsLoading: boolean;
   newsDataIsLoading: boolean;
