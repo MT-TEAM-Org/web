@@ -8,6 +8,7 @@ import { cn } from "@/utils";
 import useIsTablet from "@/utils/useIsTablet";
 import MainRightSection from "./_components/section/MainRightSection";
 import { extractNewsItemsPair } from "./_utils/extractNewsItems";
+import { getNewsStatus } from "./_utils/getNewsStatus";
 
 function HomePageContent() {
   const isTablet = useIsTablet();
@@ -39,6 +40,14 @@ function HomePageContent() {
     bigNewsData,
   });
 
+  // 뉴스 상태 유틸 함수
+  const { isValidNews, isError } = getNewsStatus({
+    newsItems,
+    bigNewsItems,
+    newsDataIsError,
+    bigNewsDataIsError,
+  });
+
   return (
     <div
       className={cn(
@@ -60,6 +69,8 @@ function HomePageContent() {
             data={{ bigNewsItems, newsItems }}
             state={{
               isTablet,
+              isValidNews,
+              isError,
               bigNewsDataIsLoading,
               newsDataIsLoading,
             }}

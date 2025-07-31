@@ -3,10 +3,11 @@ import MainNewsSection from "./MainNewsSection";
 import MainLivePost from "../live/MainLivePost";
 import { cn } from "@/utils";
 import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
-import { getNewsStatus } from "../../_utils/getNewsStatus";
 
 type StateType = {
   isTablet: boolean;
+  isValidNews: boolean;
+  isError: boolean;
   bigNewsDataIsLoading: boolean;
   newsDataIsLoading: boolean;
 };
@@ -22,14 +23,6 @@ interface MainRightSectionProps {
 }
 
 const MainRightSection = ({ data, state }: MainRightSectionProps) => {
-  // 뉴스 상태 유틸 함수
-  const { isValidNews, isError } = getNewsStatus({
-    newsItems: data.newsItems,
-    bigNewsItems: data.bigNewsItems,
-    newsDataIsError: state.newsDataIsLoading,
-    bigNewsDataIsError: state.bigNewsDataIsLoading,
-  });
-
   return (
     <div
       className={cn(
@@ -38,7 +31,7 @@ const MainRightSection = ({ data, state }: MainRightSectionProps) => {
         "mobile:max-w-full"
       )}>
       <div className="w-full flex flex-col gap-10">
-        {(isValidNews || !isError) && (
+        {(state.isValidNews || !state.isError) && (
           <MainNewsSection
             bigNewsItems={data.bigNewsItems}
             newsItems={data.newsItems}

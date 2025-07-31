@@ -231,6 +231,7 @@ const ScheduleContainer = ({
             <button
               onClick={handleNextPage}
               disabled={allScheduleData.length <= itemsPerPage}
+              aria-label="다음 페이지"
               className={cn(
                 "w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 group"
               )}>
@@ -242,6 +243,7 @@ const ScheduleContainer = ({
             <button
               onClick={handlePrevPage}
               disabled={allScheduleData.length <= itemsPerPage}
+              aria-label="이전 페이지"
               className={cn(
                 "min-w-[40px] w-[40px] h-[40px] rounded-[999px] flex items-center justify-center bg-gray1 shadow-[0px_4px_4px_-2px_rgba(24,39,75,0.08),0px_2px_4px_-2px_rgba(24,39,75,0.1)] cursor-pointer hover:bg-gray2 group",
                 "tablet: tablet:right-0",

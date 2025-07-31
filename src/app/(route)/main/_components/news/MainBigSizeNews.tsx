@@ -46,6 +46,7 @@ const MainBigSizeNews = ({ data, isLoading }: MainBigSizeNEwsProps) => {
           alt="main news"
           width={410}
           height={236}
+          priority
           className="w-[410px] h-[236px] rounded-[5px] object-cover"
         />
       ) : (
