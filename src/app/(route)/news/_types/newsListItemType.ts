@@ -1,13 +1,13 @@
 export interface NewsCommentSearchList {
-  newsCommentId: number,
-  comment: string,
-  imageUrl: string,
+  newsCommentId: number;
+  comment: string;
+  imageUrl: string;
 }
 
 export interface TotalSearchNewsList {
-  comment: string,
-  imageUrl: string,
-  commentId: number,
+  comment: string;
+  imageUrl: string;
+  commentId: number;
 }
 
 export interface NewsListType {
@@ -22,19 +22,19 @@ export interface NewsListType {
   viewCount?: number;
   recommendCount?: number;
   hot?: string;
-  newsCommentSearchDto?: NewsCommentSearchList
+  newsCommentSearchDto?: NewsCommentSearchList;
 
-  recommend?: boolean,
-  boardType?: string,
-  categoryType?: string,
-  createdAt?: string,
-  createdIp?: string,
-  nickname?: string,
-  publicId?: string,
-  thumbnail?: string,
-  updatedAt?: string,
-  nextId?: number,
-  previousId?: number,
+  recommend?: boolean;
+  boardType?: string;
+  categoryType?: string;
+  createdAt?: string;
+  createdIp?: string;
+  nickname?: string;
+  publicId?: string;
+  thumbnail?: string;
+  updatedAt?: string;
+  nextId?: number;
+  previousId?: number;
   commentSearchList?: TotalSearchNewsList;
 }
 
