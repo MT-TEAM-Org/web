@@ -1,6 +1,6 @@
 import React from "react";
 import MainNewsSection from "./MainNewsSection";
-import MainLivePost from "../liveItem/MainLivePost";
+import MainLivePost from "../live/MainLivePost";
 import { cn } from "@/utils";
 
 interface MainRightSectionProps {
