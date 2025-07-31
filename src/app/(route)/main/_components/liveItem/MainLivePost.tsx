@@ -3,6 +3,13 @@ import HotPost from "./hotPost";
 import { cn } from "@/utils";
 import NewPost from "./NewPost";
 
+const style = {
+  divBaseStyle:
+    "w-full h-[40px] rounded-t-[5px] text-[14px] leading-5 flex items-center justify-center cursor-pointer",
+  divActiveStyle: "border-x border-t border-gray8 bg-white",
+  divDisabledStyle: "border-b border-gray5 bg-white text-gray5",
+};
+
 const MainLivePost = () => {
   const [activeTab, setActiveTab] = useState("hot");
 
@@ -19,11 +26,6 @@ const MainLivePost = () => {
     },
   ];
 
-  const divBaseStyle =
-    "w-full h-[40px] rounded-t-[5px] text-[14px] leading-5 flex items-center justify-center cursor-pointer";
-  const divActiveStyle = "border-x border-t border-gray8 bg-white";
-  const divDisabledStyle = "border-b border-gray5 bg-white text-gray5";
-
   return (
     <>
       <div
@@ -38,8 +40,10 @@ const MainLivePost = () => {
             <div
               key={tab.id}
               className={cn(
-                divBaseStyle,
-                activeTab === tab.id ? divActiveStyle : divDisabledStyle
+                style.divBaseStyle,
+                activeTab === tab.id
+                  ? style.divActiveStyle
+                  : style.divDisabledStyle
               )}
               onClick={() => setActiveTab(tab.id)}>
               {tab.label}

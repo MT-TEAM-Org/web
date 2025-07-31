@@ -20,6 +20,18 @@ interface MainRightBarProps {
   isDesktop: boolean;
 }
 
+const style = {
+  pageButtonStyle:
+    "w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center",
+  disabledStyle: "opacity-50 cursor-not-allowed",
+  btnStyle:
+    "w-1/2 h-10 flex gap-[10px] px-[16px] py-[13px] items-center justify-center rounded-t-[5px] cursor-pointer border-gray8",
+  activeBtnStyle:
+    "border-[1px] border-b-0 font-[700] text-[14px] leading-[21px] text-gray7",
+  passiveBtnStyle:
+    "border-b border-b-gray5 border-gray5 font-[500] text-[14px] leading-[22px] text-gray5",
+};
+
 const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
   const [pageNum, setPageNum] = useState(1);
   const [currentPage, setCurrentPage] = useState("1");
@@ -65,18 +77,8 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
     }
   };
 
-  const pageButtonStyle =
-    "w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center";
-  const disabledStyle = "opacity-50 cursor-not-allowed";
-  const btnStyle =
-    "w-1/2 h-10 flex gap-[10px] px-[16px] py-[13px] items-center justify-center rounded-t-[5px] cursor-pointer border-gray8";
-  const activeBtnStyle =
-    "border-[1px] border-b-0 font-[700] text-[14px] leading-[21px] text-gray7";
-  const passiveBtnStyle =
-    "border-b border-b-gray5 border-gray5 font-[500] text-[14px] leading-[22px] text-gray5";
-
   const getNavButtonClass = (isDisabled: boolean) => {
-    return `${pageButtonStyle} ${isDisabled ? disabledStyle : ""}`;
+    return `${style.pageButtonStyle} ${isDisabled ? style.disabledStyle : ""}`;
   };
 
   return (
@@ -89,12 +91,13 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
           ? "max-w-[298px] min-h-[696px] flex-1 mobile:max-w-full mobile:min-h-fit"
           : "tablet:block"
       )}>
+      {/* 탭 */}
       <div className="flex justify-center items-center min-w-[298px] min-h-[40px]">
         <button
           onClick={() => setButtonActive(true)}
           className={cn(
-            btnStyle,
-            buttonActive ? activeBtnStyle : passiveBtnStyle
+            style.btnStyle,
+            buttonActive ? style.activeBtnStyle : style.passiveBtnStyle
           )}
           aria-label="뉴스 탭">
           뉴스
@@ -102,8 +105,8 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
         <button
           onClick={() => setButtonActive(false)}
           className={cn(
-            btnStyle,
-            !buttonActive ? activeBtnStyle : passiveBtnStyle
+            style.btnStyle,
+            !buttonActive ? style.activeBtnStyle : style.passiveBtnStyle
           )}
           aria-label="게임 이벤트 탭">
           게임 이벤트
@@ -160,6 +163,7 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
         )}
       </div>
 
+      {/* 페이지네이션 */}
       {buttonActive && filteredNewsData?.pageInfo?.totalPage > 1 && (
         <div className="w-[160px] min-h-[32px] flex mx-auto gap-4">
           <button

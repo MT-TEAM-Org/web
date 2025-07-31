@@ -45,7 +45,11 @@ function HomePageContent() {
   const isError = bigNewsDataIsError || newsDataIsError;
 
   return (
-    <div className={cn("flex flex-col gap-6", "mobile:gap-0")}>
+    <div
+      className={cn(
+        "min-h-[calc(100vh-120px)] flex flex-col gap-6",
+        "mobile:gap-0"
+      )}>
       <div className={cn("p-6 bg-gray1", "mobile:p-4")}>
         <ScheduleContainer showAll={true} />
       </div>

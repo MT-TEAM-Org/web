@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NewsDataProps } from "../../app/(route)/main/_types/NewsDataProps"
+import { NewsDataProps } from "../../app/(route)/main/_types/NewsDataProps";
 
 const fetchNewsDataList = async ({
   page = "1",
