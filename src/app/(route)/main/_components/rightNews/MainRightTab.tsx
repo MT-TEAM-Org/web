@@ -1,8 +1,15 @@
 import React from "react";
 import { cn } from "@/utils";
 
+type tapType = {
+  ariaLabel: string;
+  isActive: boolean;
+  label: string;
+  onClick: (setButtonActive: (value: boolean) => void) => void;
+};
+
 interface MainRightTabProps {
-  tap: any;
+  tap: tapType[];
   setButtonActive: (value: boolean) => void;
 }
 

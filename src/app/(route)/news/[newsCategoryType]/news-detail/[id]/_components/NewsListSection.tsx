@@ -1,15 +1,17 @@
-// components/NewsListSection.tsx
 import React from "react";
 import EmptyItem from "@/app/(route)/customer/_components/common/EmptyItem";
 import Pagination from "@/app/(route)/mypage/_components/Pagination";
 import NewsPostItem from "@/app/(route)/news/_components/NewsPostItem";
 import NewsPostItemSkeleton from "@/app/(route)/news/_components/NewsPostItemSkeleton";
-import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
+import {
+  NewsListDataType,
+  NewsListType,
+} from "@/app/(route)/news/_types/newsListItemType";
 import { cn } from "@/utils";
 
 interface NewsListSectionProps {
   isLoading: boolean;
-  newsListData: any;
+  newsListData: NewsListDataType;
   sliceNewsListData: NewsListType[];
   searchParams: URLSearchParams;
   onPageChange: (page: number) => void;
@@ -50,15 +52,13 @@ const NewsListSection = ({
         "w-full h-auto rounded-[5px] shadow-soft-md bg-white",
         "mobile:max-w-full"
       )}
-      aria-label="뉴스 추천 목록"
-    >
+      aria-label="뉴스 추천 목록">
       <div
         className={cn(
           "w-[720px] h-auto rounded-b-[5px] shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]",
           "tablet:max-w-full tablet:w-auto",
           "mobile:w-full mobile:max-w-full"
-        )}
-      >
+        )}>
         {renderContent()}
 
         {newsListData?.pageInfo?.totalPage > 0 && (
@@ -67,8 +67,7 @@ const NewsListSection = ({
               "hidden",
               "mobile:block mobile:w-fit mobile:mt-[12px] mobile:mx-auto mobile:pb-6"
             )}
-            aria-label="뉴스 추천 목록"
-          >
+            aria-label="뉴스 추천 목록">
             <Pagination
               pageInfo={newsListData?.pageInfo}
               onPageChangeAction={onPageChange}

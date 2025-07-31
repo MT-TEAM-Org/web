@@ -5,10 +5,11 @@ import Arrow_right from "@/app/_components/icon/Arrow_right";
 import { cn } from "@/utils";
 import React, { useCallback } from "react";
 import { handleToPage } from "../../_utils/RightHandleToPage";
+import { NewsListWithPageInfo } from "../../_types/NewsDataProps";
 
 interface MainRightPaginationProps {
   buttonActive: boolean;
-  filteredNewsData: any;
+  filteredNewsData: NewsListWithPageInfo;
   currentPage: string;
   setCurrentPage: (value: string) => void;
 }

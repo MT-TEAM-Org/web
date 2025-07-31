@@ -45,7 +45,9 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
     refetch: refetchNewsData,
   } = useGetMainRightBarNewsData({ page: currentPage, size });
 
-  // 탭
+  console.log("filteredNewsData: ", filteredNewsData);
+
+  // 탭 유틸 함수
   const tap = getRightBarTabs(setButtonActive, buttonActive);
 
   return (

@@ -1,6 +1,9 @@
+import { NewsItemType } from "../../news/_types/newsItemType";
+import { NewsListType } from "../../news/_types/newsListItemType";
+
 interface parseNewsProps {
-  newsData: any; // TODO: 타입수정
-  bigNewsData: any;
+  newsData: NewsListType[] | { content: NewsListType[] };
+  bigNewsData: NewsListType[] | { content: NewsListType[] };
   newsDataIsError: boolean;
   bigNewsDataIsError: boolean;
 }
@@ -10,14 +13,18 @@ export function parseNews({
   bigNewsData,
   newsDataIsError,
   bigNewsDataIsError,
-}: parseNewsProps) {
-  const newsItems = Array.isArray(newsData)
-    ? newsData
-    : newsData?.content || [];
-
-  const bigNewsItems = Array.isArray(bigNewsData)
-    ? bigNewsData
-    : bigNewsData?.content || [];
+}: parseNewsProps): {
+  newsItems: NewsItemType[];
+  bigNewsItems: NewsItemType[];
+  isValidNews: boolean;
+  isError: boolean;
+} {
+  const newsItems = (
+    Array.isArray(newsData) ? newsData : newsData?.content || []
+  ) as NewsItemType[];
+  const bigNewsItems = (
+    Array.isArray(bigNewsData) ? bigNewsData : bigNewsData?.content || []
+  ) as NewsItemType[];
 
   const isValidNews = bigNewsItems.length !== 0 && newsItems.length !== 0;
   const isError = bigNewsDataIsError || newsDataIsError;

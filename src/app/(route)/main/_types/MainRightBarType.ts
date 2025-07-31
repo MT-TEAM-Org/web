@@ -1,3 +1,6 @@
+import { GameEventDataType } from "./EventType";
+import { NewsListWithPageInfo } from "./NewsDataProps";
+
 export type state = {
   newsIsLoading: boolean;
   newsIsError: boolean;
@@ -6,8 +9,8 @@ export type state = {
 };
 
 export type data = {
-  filteredNewsData: any;
-  gameEventData: any;
+  filteredNewsData: NewsListWithPageInfo;
+  gameEventData: GameEventDataType;
 };
 
 export type refetch = {

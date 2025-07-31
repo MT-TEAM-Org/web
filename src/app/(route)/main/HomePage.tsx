@@ -35,8 +35,8 @@ function HomePageContent() {
 
   // 뉴스 데이터 및 상태 유틸 함수
   const { newsItems, bigNewsItems, isValidNews, isError } = parseNews({
-    newsData,
     bigNewsData,
+    newsData,
     newsDataIsError,
     bigNewsDataIsError,
   });
