@@ -1,8 +1,8 @@
 import { cn } from "@/utils";
 import React from "react";
-import MainBigSizeNews from "./MainBigSizeNews";
-import NewsComponent from "./newsComponent";
-import MainRightBar from "./MainRightBar";
+import MainBigSizeNews from "../news/MainBigSizeNews";
+import MainRightBar from "../rightNews/MainRightBar";
+import NewsComponent from "../news/newsComponent";
 
 interface MainNewsSectionProps {
   bigNewsItems: any[]; // TODO: 타입수정

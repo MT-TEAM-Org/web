@@ -3,13 +3,13 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import ScheduleItem from "./scheduleItem";
-import EmptyScheduleItem from "./EmptyScheduleItem";
 import { motion, AnimatePresence } from "framer-motion";
 import useGetMatchSchedule from "@/_hooks/fetcher/match-controller/useGetMatchSchedule";
 import useGetEsportsSchedule from "@/_hooks/fetcher/match-controller/useGetEsportsSchedule";
 import EsportsSchedule from "@/app/_components/EsportsSchedule";
 import { cn } from "@/utils";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
+import EmptyScheduleItem from "../state/EmptyScheduleItem";
 
 interface ScheduleContainerProps {
   showCategoryButtons?: boolean;

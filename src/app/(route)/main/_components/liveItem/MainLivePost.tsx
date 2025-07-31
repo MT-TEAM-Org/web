@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import HotPost from "./hotPost";
-import NewPost from "./NewPost";
 import { cn } from "@/utils";
+import NewPost from "./NewPost";
 
 const MainLivePost = () => {
   const [activeTab, setActiveTab] = useState("hot");

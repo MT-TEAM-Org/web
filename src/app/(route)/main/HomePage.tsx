@@ -1,14 +1,14 @@
 "use client";
 
 import { Suspense } from "react";
-import MainRightBar from "./_components/MainRightBar";
-import ScheduleContainer from "./_components/scheduleContainer";
+import MainRightBar from "./_components/rightNews/MainRightBar";
+import ScheduleContainer from "./_components/schedule/scheduleContainer";
 import useHandleRefreshToken from "@/_hooks/fetcher/sign/useHandleRefreshToken";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import useAuthCheck from "@/_hooks/useAuthCheck";
 import { cn } from "@/utils";
 import useIsTablet from "@/utils/useIsTablet";
-import MainRightSection from "./_components/MainRightSection";
+import MainRightSection from "./_components/section/MainRightSection";
 
 function HomePageContent() {
   const refreshToken = useHandleRefreshToken();

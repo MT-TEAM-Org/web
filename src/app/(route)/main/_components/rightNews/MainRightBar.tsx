@@ -1,13 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import EventItem, { GameEventData } from "./EventItem";
 import useGetGameEvent from "@/_hooks/fetcher/main/mainRightBar/useGetGameEvent";
-import EmptyGameBox from "./EmptyGameBox";
-import MainRightBarPagination from "./MainRightBarPagination";
-import EventItemSkeleton from "./EventItemSkeleton";
-import RightNewsItemSkeleton from "../../(community)/_components/RightNewsItemSkeleton";
-import RightNewsItem from "../../(community)/_components/RightNewsItem";
 import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 import Arrow_left from "@/app/_components/icon/Arrow_left";
 import Arrow_right from "@/app/_components/icon/Arrow_right";
@@ -15,6 +9,12 @@ import useGetMainRightBarNewsData from "@/_hooks/fetcher/main/mainRightBar/useGe
 import useIsTablet from "@/utils/useIsTablet";
 import { cn } from "@/utils";
 import useIsMobile from "@/utils/useIsMobile";
+import RightNewsItemSkeleton from "@/app/(route)/(community)/_components/RightNewsItemSkeleton";
+import EmptyGameBox from "../state/EmptyGameBox";
+import RightNewsItem from "@/app/(route)/(community)/_components/RightNewsItem";
+import EventItemSkeleton from "../state/EventItemSkeleton";
+import EventItem, { GameEventData } from "../state/EventItem";
+import MainRightBarPagination from "./MainRightBarPagination";
 
 interface MainRightBarProps {
   isDesktop: boolean;

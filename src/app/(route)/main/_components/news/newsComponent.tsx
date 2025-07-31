@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
-import NewsItemSkeleton from "./NewsItemSkeleton";
-import NewsItem from "./newsItem";
+
 import { NewsListType } from "@/app/(route)/news/_types/newsListItemType";
-import { NewsItemType } from "../../news/_types/newsItemType";
+import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 import useIsMobile from "@/utils/useIsMobile";
 import useIsTablet from "@/utils/useIsTablet";
 import { cn } from "@/utils";
+import NewsItemSkeleton from "../state/NewsItemSkeleton";
+import NewsItem from "./newsItem";
 
 interface NewsComponentProps {
   data: NewsItemType[] | undefined;
@@ -29,8 +30,7 @@ const NewsComponent = ({ data, isLoading }: NewsComponentProps) => {
         "max-w-[436px] h-[236px] flex flex-col gap-4 overflow-hidden",
         "tablet:min-w-[348px] tablet:max-w-full tablet:h-auto tablet:overflow-hidden",
         "mobile:max-w-[768px] mobile:h-[152px]"
-      )}
-    >
+      )}>
       {isLoading
         ? Array(itemCount)
             .fill(0)
