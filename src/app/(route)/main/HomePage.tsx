@@ -7,7 +7,7 @@ import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import { cn } from "@/utils";
 import useIsTablet from "@/utils/useIsTablet";
 import MainRightSection from "./_components/section/MainRightSection";
-import { parseNews } from "./_utils/parseNews";
+import { extractNewsItemsPair } from "./_utils/extractNewsItems";
 
 function HomePageContent() {
   const isTablet = useIsTablet();
@@ -33,12 +33,10 @@ function HomePageContent() {
     isError: newsDataIsError,
   } = useGetNewsDataList();
 
-  // 뉴스 데이터 및 상태 유틸 함수
-  const { newsItems, bigNewsItems, isValidNews, isError } = parseNews({
-    bigNewsData,
+  // 뉴스 데이터 유틸 함수
+  const { newsItems, bigNewsItems } = extractNewsItemsPair({
     newsData,
-    newsDataIsError,
-    bigNewsDataIsError,
+    bigNewsData,
   });
 
   return (
@@ -59,13 +57,12 @@ function HomePageContent() {
             "mobile:flex-col mobile:p-4"
           )}>
           <MainRightSection
-            bigNewsItems={bigNewsItems}
-            newsItems={newsItems}
-            bigNewsDataIsLoading={bigNewsDataIsLoading}
-            newsDataIsLoading={newsDataIsLoading}
-            isTablet={isTablet}
-            isValidNews={isValidNews}
-            isError={isError}
+            data={{ bigNewsItems, newsItems }}
+            state={{
+              isTablet,
+              bigNewsDataIsLoading,
+              newsDataIsLoading,
+            }}
           />
           {!isTablet && <MainRightBar isDesktop />}
         </div>

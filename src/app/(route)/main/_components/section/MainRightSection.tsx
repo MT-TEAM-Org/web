@@ -3,26 +3,33 @@ import MainNewsSection from "./MainNewsSection";
 import MainLivePost from "../live/MainLivePost";
 import { cn } from "@/utils";
 import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
+import { getNewsStatus } from "../../_utils/getNewsStatus";
 
-interface MainRightSectionProps {
-  bigNewsItems: NewsItemType[];
-  newsItems: NewsItemType[];
+type StateType = {
+  isTablet: boolean;
   bigNewsDataIsLoading: boolean;
   newsDataIsLoading: boolean;
-  isTablet: boolean;
-  isValidNews: boolean;
-  isError: boolean;
+};
+
+type DataType = {
+  bigNewsItems: NewsItemType[];
+  newsItems: NewsItemType[];
+};
+
+interface MainRightSectionProps {
+  data: DataType;
+  state: StateType;
 }
 
-const MainRightSection = ({
-  bigNewsItems,
-  newsItems,
-  bigNewsDataIsLoading,
-  newsDataIsLoading,
-  isTablet,
-  isValidNews,
-  isError,
-}: MainRightSectionProps) => {
+const MainRightSection = ({ data, state }: MainRightSectionProps) => {
+  // 뉴스 상태 유틸 함수
+  const { isValidNews, isError } = getNewsStatus({
+    newsItems: data.newsItems,
+    bigNewsItems: data.bigNewsItems,
+    newsDataIsError: state.newsDataIsLoading,
+    bigNewsDataIsError: state.bigNewsDataIsLoading,
+  });
+
   return (
     <div
       className={cn(
@@ -33,11 +40,11 @@ const MainRightSection = ({
       <div className="w-full flex flex-col gap-10">
         {(isValidNews || !isError) && (
           <MainNewsSection
-            bigNewsItems={bigNewsItems}
-            newsItems={newsItems}
-            bigNewsDataIsLoading={bigNewsDataIsLoading}
-            newsDataIsLoading={newsDataIsLoading}
-            isTablet={isTablet}
+            bigNewsItems={data.bigNewsItems}
+            newsItems={data.newsItems}
+            bigNewsDataIsLoading={state.bigNewsDataIsLoading}
+            newsDataIsLoading={state.newsDataIsLoading}
+            isTablet={state.isTablet}
           />
         )}
         <MainLivePost />
