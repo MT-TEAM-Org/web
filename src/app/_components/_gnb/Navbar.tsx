@@ -70,7 +70,7 @@ export default function Navbar() {
                 )}>
                 {item.id === "matchBroadcast" ? (
                   <div className="flex items-center">
-                    <span className="inline-block w-2 h-2 rounded-full bg-new mr-1"></span>
+                    <span className="inline-block w-2 h-2 rounded-full bg-new mr-[5px]"></span>
                     {item.name}
                     <div className="absolute top-0 right-0 rounded-[2px] p-1 bg-Primary text-white">
                       <CustomIcon icon="NEW_ICON" />
