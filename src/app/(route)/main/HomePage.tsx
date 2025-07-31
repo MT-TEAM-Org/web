@@ -3,20 +3,16 @@
 import { Suspense } from "react";
 import MainRightBar from "./_components/rightNews/MainRightBar";
 import ScheduleContainer from "./_components/schedule/scheduleContainer";
-import useHandleRefreshToken from "@/_hooks/fetcher/sign/useHandleRefreshToken";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
-import useAuthCheck from "@/_hooks/useAuthCheck";
 import { cn } from "@/utils";
 import useIsTablet from "@/utils/useIsTablet";
 import MainRightSection from "./_components/section/MainRightSection";
 import { parseNews } from "./_utils/parseNews";
 
 function HomePageContent() {
-  const refreshToken = useHandleRefreshToken();
-  const { data: userData } = useAuthCheck();
   const isTablet = useIsTablet();
 
-  // 뉴스 큰 이미지 데이터
+  // 뉴스 큰 컴포넌트 데이터
   const {
     data: bigNewsData,
     isLoading: bigNewsDataIsLoading,
@@ -30,7 +26,7 @@ function HomePageContent() {
     startIndex: 1,
   });
 
-  // 뉴스 작은 이미지 데이터
+  // 뉴스 컴포넌트 데이터
   const {
     data: newsData,
     isLoading: newsDataIsLoading,

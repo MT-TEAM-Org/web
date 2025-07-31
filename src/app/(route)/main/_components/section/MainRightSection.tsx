@@ -2,10 +2,11 @@ import React from "react";
 import MainNewsSection from "./MainNewsSection";
 import MainLivePost from "../live/MainLivePost";
 import { cn } from "@/utils";
+import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 
 interface MainRightSectionProps {
-  bigNewsItems: any[]; // TODO: 타입수정
-  newsItems: any[];
+  bigNewsItems: NewsItemType[];
+  newsItems: NewsItemType[];
   bigNewsDataIsLoading: boolean;
   newsDataIsLoading: boolean;
   isTablet: boolean;

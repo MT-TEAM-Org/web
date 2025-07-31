@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import HotPost from "./hotPost";
 import { cn } from "@/utils";
-import NewPost from "./NewPost";
+import { LIVE_TABS } from "../../_constants/LIVE_TABS";
 
 const style = {
   divBaseStyle:
@@ -13,19 +12,6 @@ const style = {
 const MainLivePost = () => {
   const [activeTab, setActiveTab] = useState("hot");
 
-  const tabs = [
-    {
-      id: "hot",
-      label: "실시간 HOT 게시글",
-      component: <HotPost />,
-    },
-    {
-      id: "new",
-      label: "실시간 최신 게시글",
-      component: <NewPost />,
-    },
-  ];
-
   return (
     <>
       <div
@@ -36,7 +22,7 @@ const MainLivePost = () => {
           "pc:hidden"
         )}>
         <div className="w-full flex">
-          {tabs.map((tab) => (
+          {LIVE_TABS.map((tab) => (
             <div
               key={tab.id}
               className={cn(
@@ -50,11 +36,14 @@ const MainLivePost = () => {
             </div>
           ))}
         </div>
-        <div>{tabs.find((tab) => tab.id === activeTab)?.component}</div>
+        <div>{LIVE_TABS.find((tab) => tab.id === activeTab)?.component}</div>
       </div>
       <div className={cn("w-[862px] hidden", "pc:flex pc:gap-6")}>
-        <HotPost />
-        <NewPost />
+        {LIVE_TABS.map((tab, index) => (
+          <div className="w-full" key={index}>
+            {tab.component}
+          </div>
+        ))}
       </div>
     </>
   );

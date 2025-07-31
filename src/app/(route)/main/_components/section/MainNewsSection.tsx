@@ -3,10 +3,11 @@ import React from "react";
 import MainBigSizeNews from "../news/MainBigSizeNews";
 import MainRightBar from "../rightNews/MainRightBar";
 import NewsComponent from "../news/newsComponent";
+import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
 
 interface MainNewsSectionProps {
-  bigNewsItems: any[]; // TODO: 타입수정
-  newsItems: any[];
+  bigNewsItems: NewsItemType[];
+  newsItems: NewsItemType[];
   bigNewsDataIsLoading: boolean;
   newsDataIsLoading: boolean;
   isTablet: boolean;

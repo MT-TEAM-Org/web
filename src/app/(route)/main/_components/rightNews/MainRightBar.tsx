@@ -2,35 +2,19 @@
 
 import React, { useState } from "react";
 import useGetGameEvent from "@/_hooks/fetcher/main/mainRightBar/useGetGameEvent";
-import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
-import Arrow_left from "@/app/_components/icon/Arrow_left";
-import Arrow_right from "@/app/_components/icon/Arrow_right";
 import useGetMainRightBarNewsData from "@/_hooks/fetcher/main/mainRightBar/useGetMainRightBarNewsData";
 import useIsTablet from "@/utils/useIsTablet";
 import { cn } from "@/utils";
 import useIsMobile from "@/utils/useIsMobile";
-import RightNewsItemSkeleton from "@/app/(route)/(community)/_components/RightNewsItemSkeleton";
-import EmptyGameBox from "../state/EmptyGameBox";
-import RightNewsItem from "@/app/(route)/(community)/_components/RightNewsItem";
-import EventItemSkeleton from "../state/EventItemSkeleton";
-import EventItem, { GameEventData } from "../state/EventItem";
 import MainRightBarPagination from "./MainRightBarPagination";
+import { getRightBarTabs } from "../../_constants/RIGHT_BAR_TABS";
+import MainRightTab from "./MainRightTab";
+import MainRightPagination from "./MainRightPagination";
+import MainContentSection from "./MainContentSection";
 
 interface MainRightBarProps {
   isDesktop: boolean;
 }
-
-const style = {
-  pageButtonStyle:
-    "w-[32px] h-[32px] rounded-[5px] border border-gray2 p-[9px] flex justify-center items-center",
-  disabledStyle: "opacity-50 cursor-not-allowed",
-  btnStyle:
-    "w-1/2 h-10 flex gap-[10px] px-[16px] py-[13px] items-center justify-center rounded-t-[5px] cursor-pointer border-gray8",
-  activeBtnStyle:
-    "border-[1px] border-b-0 font-[700] text-[14px] leading-[21px] text-gray7",
-  passiveBtnStyle:
-    "border-b border-b-gray5 border-gray5 font-[500] text-[14px] leading-[22px] text-gray5",
-};
 
 const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
   const [pageNum, setPageNum] = useState(1);
@@ -42,6 +26,7 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
   const skeletonCount = isMobile ? 3 : isTablet ? 3 : 5;
   const size = isMobile ? 3 : isTablet ? 3 : 5;
 
+  // 게임 이벤트 데이터
   const {
     data: gameEventData,
     isLoading: eventIsLoading,
@@ -52,49 +37,16 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
     size,
   });
 
+  // 뉴스 데이터
   const {
     data: filteredNewsData,
     isLoading: newsIsLoading,
     isError: newsIsError,
     refetch: refetchNewsData,
-  } = useGetMainRightBarNewsData({ page: currentPage, size }) ?? {};
+  } = useGetMainRightBarNewsData({ page: currentPage, size });
 
-  const handleRefresh = () => {
-    if (buttonActive) {
-      refetchNewsData?.();
-    } else {
-      refetchGameEvent?.();
-    }
-  };
-
-  const handleToPage = (type: "prev" | "next") => {
-    const current = Number(currentPage);
-    const total = filteredNewsData?.pageInfo?.totalPage ?? 1;
-    if (type === "prev" && current > 1) {
-      setCurrentPage(String(current - 1));
-    } else if (type === "next" && current < total) {
-      setCurrentPage(String(current + 1));
-    }
-  };
-
-  const getNavButtonClass = (isDisabled: boolean) => {
-    return `${style.pageButtonStyle} ${isDisabled ? style.disabledStyle : ""}`;
-  };
-
-  const tap = [
-    {
-      label: "뉴스",
-      onClick: () => setButtonActive(true),
-      isActive: buttonActive,
-      ariaLabel: "뉴스 탭",
-    },
-    {
-      label: "게임 이벤트",
-      onClick: () => setButtonActive(false),
-      isActive: !buttonActive,
-      ariaLabel: "게임 이벤트 탭",
-    },
-  ];
+  // 탭
+  const tap = getRightBarTabs(setButtonActive, buttonActive);
 
   return (
     <div
@@ -107,98 +59,24 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
           : "tablet:block"
       )}>
       {/* 탭 */}
-      <div className="flex justify-center items-center w-full min-h-[40px]">
-        {tap.map((item) => (
-          <button
-            key={item.label}
-            onClick={item.onClick}
-            className={cn(
-              style.btnStyle,
-              item.isActive ? style.activeBtnStyle : style.passiveBtnStyle
-            )}
-            aria-label={item.ariaLabel}>
-            {item.label}
-          </button>
-        ))}
-      </div>
+      <MainRightTab tap={tap} setButtonActive={setButtonActive} />
 
-      <div
-        className={cn(
-          "w-full h-auto max-h-[736px] flex flex-col gap-2",
-          "tablet:min-w-[348px] tablet:max-h-[292px] tablet:overflow-hidden",
-          "mobile:max-h-[292px] mobile:overflow-hidden"
-        )}>
-        {buttonActive ? (
-          <>
-            {newsIsLoading ? (
-              <>
-                {Array.from({ length: skeletonCount }).map((_, i) => (
-                  <RightNewsItemSkeleton key={`news-skeleton-${i}`} />
-                ))}
-              </>
-            ) : newsIsError || !filteredNewsData?.content?.length ? (
-              <EmptyGameBox title="뉴스 정보" onClick={handleRefresh} />
-            ) : (
-              filteredNewsData.content.map((data: NewsItemType) => (
-                <RightNewsItem
-                  key={data.id}
-                  newsItem={data}
-                  wrapperWidth={298}
-                  customClass={cn(
-                    "max-w-[298px] h-[92px] border rounded-[5px] border-gray2 bg-white p-3",
-                    "tablet:max-w-full tablet:min-w-[194px]",
-                    "mobile:max-w-full"
-                  )}
-                />
-              ))
-            )}
-          </>
-        ) : (
-          <>
-            {eventIsLoading ? (
-              <>
-                {Array.from({ length: skeletonCount }).map((_, i) => (
-                  <EventItemSkeleton key={`event-skeleton-${i}`} />
-                ))}
-              </>
-            ) : eventIsError || !gameEventData?.content?.length ? (
-              <EmptyGameBox title="게임 이벤트 정보" onClick={handleRefresh} />
-            ) : (
-              gameEventData.content.map((event: GameEventData) => (
-                <EventItem key={event.id} gameEventData={event} />
-              ))
-            )}
-          </>
-        )}
-      </div>
+      {/* 내용 */}
+      <MainContentSection
+        buttonActive={buttonActive}
+        data={{ filteredNewsData, gameEventData }}
+        state={{ newsIsLoading, newsIsError, eventIsLoading, eventIsError }}
+        skeletonCount={skeletonCount}
+        refetch={{ refetchNewsData, refetchGameEvent }}
+      />
 
       {/* 페이지네이션 */}
-      {buttonActive && filteredNewsData?.pageInfo?.totalPage > 1 && (
-        <div className="w-[160px] min-h-[32px] flex mx-auto gap-4">
-          <button
-            onClick={() => handleToPage("prev")}
-            className={getNavButtonClass(Number(currentPage) === 1)}
-            disabled={currentPage === "1"}
-            aria-label="이전 페이지">
-            <Arrow_left width={18} height={18} />
-          </button>
-          <div className="w-[64px] h-[32px] font-[500] text-[14px] text-gray6 flex justify-center items-center">
-            {currentPage} / {filteredNewsData?.pageInfo?.totalPage}
-          </div>
-          <button
-            onClick={() => handleToPage("next")}
-            className={getNavButtonClass(
-              Number(currentPage) ===
-                Number(filteredNewsData?.pageInfo?.totalPage)
-            )}
-            disabled={
-              Number(currentPage) === filteredNewsData?.pageInfo?.totalPage
-            }
-            aria-label="다음 페이지">
-            <Arrow_right width={18} height={18} />
-          </button>
-        </div>
-      )}
+      <MainRightPagination
+        buttonActive={buttonActive}
+        filteredNewsData={filteredNewsData}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
 
       {!buttonActive &&
         (eventIsLoading || gameEventData?.content?.length > 0) && (

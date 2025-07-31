@@ -1,14 +1,16 @@
+interface parseNewsProps {
+  newsData: any; // TODO: 타입수정
+  bigNewsData: any;
+  newsDataIsError: boolean;
+  bigNewsDataIsError: boolean;
+}
+
 export function parseNews({
   newsData,
   bigNewsData,
   newsDataIsError,
   bigNewsDataIsError,
-}: {
-  newsData: any; // TODO: 타입수정
-  bigNewsData: any;
-  newsDataIsError: boolean;
-  bigNewsDataIsError: boolean;
-}) {
+}: parseNewsProps) {
   const newsItems = Array.isArray(newsData)
     ? newsData
     : newsData?.content || [];
