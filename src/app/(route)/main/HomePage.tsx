@@ -9,18 +9,14 @@ import useAuthCheck from "@/_hooks/useAuthCheck";
 import { cn } from "@/utils";
 import useIsTablet from "@/utils/useIsTablet";
 import MainRightSection from "./_components/section/MainRightSection";
+import { parseNews } from "./_utils/parseNews";
 
 function HomePageContent() {
   const refreshToken = useHandleRefreshToken();
   const { data: userData } = useAuthCheck();
   const isTablet = useIsTablet();
 
-  const {
-    data: newsData,
-    isLoading: newsDataIsLoading,
-    isError: newsDataIsError,
-  } = useGetNewsDataList();
-
+  // 뉴스 큰 이미지 데이터
   const {
     data: bigNewsData,
     isLoading: bigNewsDataIsLoading,
@@ -34,15 +30,20 @@ function HomePageContent() {
     startIndex: 1,
   });
 
-  const newsItems = Array.isArray(newsData)
-    ? newsData
-    : newsData?.content || [];
-  const bigNewsItems = Array.isArray(bigNewsData)
-    ? bigNewsData
-    : bigNewsData?.content || [];
+  // 뉴스 작은 이미지 데이터
+  const {
+    data: newsData,
+    isLoading: newsDataIsLoading,
+    isError: newsDataIsError,
+  } = useGetNewsDataList();
 
-  const isValidNews = bigNewsItems.length !== 0 && newsItems.length !== 0;
-  const isError = bigNewsDataIsError || newsDataIsError;
+  // 뉴스 데이터 및 상태 유틸 함수
+  const { newsItems, bigNewsItems, isValidNews, isError } = parseNews({
+    newsData,
+    bigNewsData,
+    newsDataIsError,
+    bigNewsDataIsError,
+  });
 
   return (
     <div
