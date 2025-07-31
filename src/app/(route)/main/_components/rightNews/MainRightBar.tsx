@@ -81,6 +81,21 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
     return `${style.pageButtonStyle} ${isDisabled ? style.disabledStyle : ""}`;
   };
 
+  const tap = [
+    {
+      label: "뉴스",
+      onClick: () => setButtonActive(true),
+      isActive: buttonActive,
+      ariaLabel: "뉴스 탭",
+    },
+    {
+      label: "게임 이벤트",
+      onClick: () => setButtonActive(false),
+      isActive: !buttonActive,
+      ariaLabel: "게임 이벤트 탭",
+    },
+  ];
+
   return (
     <div
       className={cn(
@@ -92,25 +107,19 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
           : "tablet:block"
       )}>
       {/* 탭 */}
-      <div className="flex justify-center items-center min-w-[298px] min-h-[40px]">
-        <button
-          onClick={() => setButtonActive(true)}
-          className={cn(
-            style.btnStyle,
-            buttonActive ? style.activeBtnStyle : style.passiveBtnStyle
-          )}
-          aria-label="뉴스 탭">
-          뉴스
-        </button>
-        <button
-          onClick={() => setButtonActive(false)}
-          className={cn(
-            style.btnStyle,
-            !buttonActive ? style.activeBtnStyle : style.passiveBtnStyle
-          )}
-          aria-label="게임 이벤트 탭">
-          게임 이벤트
-        </button>
+      <div className="flex justify-center items-center w-full min-h-[40px]">
+        {tap.map((item) => (
+          <button
+            key={item.label}
+            onClick={item.onClick}
+            className={cn(
+              style.btnStyle,
+              item.isActive ? style.activeBtnStyle : style.passiveBtnStyle
+            )}
+            aria-label={item.ariaLabel}>
+            {item.label}
+          </button>
+        ))}
       </div>
 
       <div
