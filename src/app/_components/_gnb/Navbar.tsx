@@ -66,13 +66,18 @@ export default function Navbar() {
                     ? "font-bold text-gra"
                     : "font-medium text-gray9",
                   index === 0 ? "pl-0" : "",
-                  item.id === "matchBroadcast" && "relative"
+                  item.id === "matchBroadcast" && "relative py-4 pr-4 pl-[3px]"
                 )}>
-                {item.name}
-                {item.id === "matchBroadcast" && (
-                  <div className="absolute top-0 right-0 rounded-[2px] p-1 bg-Primary text-white">
-                    <CustomIcon icon="NEW_ICON" />
+                {item.id === "matchBroadcast" ? (
+                  <div className="flex items-center">
+                    <span className="inline-block w-2 h-2 rounded-full bg-new mr-[5px]"></span>
+                    {item.name}
+                    <div className="absolute top-0 right-0 rounded-[2px] p-1 bg-Primary text-white">
+                      <CustomIcon icon="NEW_ICON" />
+                    </div>
                   </div>
+                ) : (
+                  item.name
                 )}
               </div>
             </Link>
