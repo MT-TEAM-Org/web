@@ -23,12 +23,7 @@ const Page = () => {
 
   const adminLogin = useAdminLogin();
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<FormValues>();
+  const { register, handleSubmit, watch } = useForm<FormValues>();
 
   const usernameValue = watch("username");
   const passwordValue = watch("password");

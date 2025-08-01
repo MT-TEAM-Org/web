@@ -15,7 +15,7 @@ const login = async (data: Login) => {
       },
     }
   );
-  console.log(response);
+
   return response;
 };
 
