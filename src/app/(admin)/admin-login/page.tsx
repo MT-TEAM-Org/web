@@ -18,7 +18,6 @@ const style = {
 // TODO: 리팩토링 필요
 const Page = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [loginFailCount, setLoginFailCount] = useState(0);
 
   const adminLogin = useAdminLogin();
 
@@ -51,8 +50,6 @@ const Page = () => {
 
   const onSubmit = (data: FormValues) => {
     adminLogin.mutate(data);
-    console.log(data);
-    setLoginFailCount((prev) => prev + 1);
   };
 
   return (
@@ -60,6 +57,8 @@ const Page = () => {
       <div className="min-w-[320px] h-[64px] p-4 flex gap-4">
         <Icon icon="ADMIN_LOGO" />
       </div>
+
+      {/* 폼 */}
       <form
         className="flex flex-col items-start justify-center gap-6"
         onSubmit={handleSubmit(onSubmit)}>
@@ -74,8 +73,8 @@ const Page = () => {
               autoFocus={input.id === "username"}
               placeholder={input.placeholder}
               className={cn(
-                style.input,
-                loginFailCount >= 10 && "border-warning"
+                style.input
+                // "border-warning",
               )}
               {...register(input.id, { required: input.validation })}
             />

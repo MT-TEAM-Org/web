@@ -72,11 +72,9 @@ export default function MatchDetailPage({
         "flex flex-col justify-start max-w-[1200px] mx-auto gap-x-[40px]",
         "tablet:max-w-full tablet:flex tablet:items-center tablet:mx-10",
         "mobile:w-full"
-      )}
-    >
+      )}>
       <div
-        className={cn("flex flex-col max-w-[800px] w-full", "mobile:w-full")}
-      >
+        className={cn("flex flex-col max-w-[800px] w-full", "mobile:w-full")}>
         {matchType === "ESPORTS" && (
           <div className={cn("w-full", "mobile:mx-auto")}>
             <LiveSection matchId={matchIdNum} />
