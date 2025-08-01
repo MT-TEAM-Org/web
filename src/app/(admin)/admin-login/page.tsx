@@ -7,7 +7,7 @@ import { cn } from "@/utils";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FormValues } from "./types/FormValues";
-import useAdminLogin from "../_hooks/fetcher/login/useAdminLogin";
+import useAdminLogin from "../_hooks/fetcher/auth/useAdminLogin";
 
 const style = {
   label: "font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray7",
