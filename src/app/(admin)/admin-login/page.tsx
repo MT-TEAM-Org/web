@@ -112,10 +112,16 @@ const Page = () => {
         {/* 로그인 버튼 */}
         <button
           type="submit"
-          disabled={usernameValue === "" || passwordValue === ""}
+          disabled={
+            usernameValue === "" ||
+            passwordValue === "" ||
+            apiError === "Invalid or expired token."
+          }
           className={cn(
             "w-full h-[48px] rounded-[5px] font-bold text-[16px]",
-            usernameValue === "" || passwordValue === ""
+            usernameValue === "" ||
+              passwordValue === "" ||
+              apiError === "Invalid or expired token."
               ? "bg-gray2 text-gray4 cursor-not-allowed"
               : "bg-gra text-white"
           )}>
