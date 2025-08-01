@@ -1,28 +1,19 @@
 "use client";
 
 import { Suspense } from "react";
-import MainRightBar from "./_components/MainRightBar";
-import ScheduleContainer from "./_components/scheduleContainer";
-import NewsComponent from "./_components/newsComponent";
-import MainBigSizeNews from "./_components/MainBigSizeNews";
-import useHandleRefreshToken from "@/_hooks/fetcher/sign/useHandleRefreshToken";
+import MainRightBar from "./_components/rightNews/MainRightBar";
+import ScheduleContainer from "./_components/schedule/scheduleContainer";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
-import useAuthCheck from "@/_hooks/useAuthCheck";
 import { cn } from "@/utils";
-import MainLivePost from "./_components/MainLivePost";
 import useIsTablet from "@/utils/useIsTablet";
+import MainRightSection from "./_components/section/MainRightSection";
+import { extractNewsItemsPair } from "./_utils/extractNewsItems";
+import { getNewsStatus } from "./_utils/getNewsStatus";
 
 function HomePageContent() {
-  const refreshToken = useHandleRefreshToken();
-  const { data: userData } = useAuthCheck();
   const isTablet = useIsTablet();
 
-  const {
-    data: newsData,
-    isLoading: newsDataIsLoading,
-    isError: newsDataIsError,
-  } = useGetNewsDataList();
-
+  // 뉴스 큰 컴포넌트 데이터
   const {
     data: bigNewsData,
     isLoading: bigNewsDataIsLoading,
@@ -36,18 +27,33 @@ function HomePageContent() {
     startIndex: 1,
   });
 
-  const newsItems = Array.isArray(newsData)
-    ? newsData
-    : newsData?.content || [];
-  const bigNewsItems = Array.isArray(bigNewsData)
-    ? bigNewsData
-    : bigNewsData?.content || [];
+  // 뉴스 컴포넌트 데이터
+  const {
+    data: newsData,
+    isLoading: newsDataIsLoading,
+    isError: newsDataIsError,
+  } = useGetNewsDataList();
 
-  const isValidNews = bigNewsItems.length !== 0 && newsItems.length !== 0;
-  const isError = bigNewsDataIsError || newsDataIsError;
+  // 뉴스 데이터 유틸 함수
+  const { newsItems, bigNewsItems } = extractNewsItemsPair({
+    newsData,
+    bigNewsData,
+  });
+
+  // 뉴스 상태 유틸 함수
+  const { isValidNews, isError } = getNewsStatus({
+    newsItems,
+    bigNewsItems,
+    newsDataIsError,
+    bigNewsDataIsError,
+  });
 
   return (
-    <div className={cn("flex flex-col gap-6", "mobile:gap-0")}>
+    <div
+      className={cn(
+        "min-h-[calc(100vh-120px)] flex flex-col gap-6",
+        "mobile:gap-0"
+      )}>
       <div className={cn("p-6 bg-gray1", "mobile:p-4")}>
         <ScheduleContainer showAll={true} />
       </div>
@@ -58,62 +64,18 @@ function HomePageContent() {
             "w-full max-w-[1200px] min-h-[704px] mb-[30px] flex gap-x-10",
             "tablet:max-w-full tablet:px-6",
             "mobile:flex-col mobile:p-4"
-          )}
-        >
-          <div
-            className={cn(
-              "max-w-[862px] h-auto flex gap-10",
-              "tablet:max-w-full tablet:w-full",
-              "mobile:max-w-full"
-            )}
-          >
-            <div className="w-full flex flex-col gap-10">
-              {(isValidNews || !isError) && (
-                <div
-                  className={cn(
-                    "max-w-full min-h-[236px] flex gap-4",
-                    "tablet:h-[396px] tablet:justify-between",
-                    "mobile:h-[196px] mobile:min-h-0 mobile:flex-col mobile:gap-2"
-                  )}
-                >
-                  <h1
-                    className={cn(
-                      "font-bold leading-6 tracking-[-0.02em] text-black hidden",
-                      "mobile:block"
-                    )}
-                  >
-                    뉴스
-                  </h1>
-                  <MainBigSizeNews
-                    data={bigNewsItems}
-                    isLoading={bigNewsDataIsLoading}
-                  />
-                  <NewsComponent
-                    data={newsItems}
-                    isLoading={newsDataIsLoading}
-                  />
-                  {isTablet && (
-                    <div className="tablet:block">
-                      <MainRightBar />
-                    </div>
-                  )}
-                </div>
-              )}
-              <div className={cn("w-full", "tablet:w-full")}>
-                <MainLivePost />
-              </div>
-            </div>
-          </div>
-          {!isTablet && (
-            <div
-              className={cn(
-                "max-w-[298px] min-h-[696px] flex-1",
-                "mobile:max-w-full mobile:min-h-fit"
-              )}
-            >
-              <MainRightBar />
-            </div>
-          )}
+          )}>
+          <MainRightSection
+            data={{ bigNewsItems, newsItems }}
+            state={{
+              isTablet,
+              isValidNews,
+              isError,
+              bigNewsDataIsLoading,
+              newsDataIsLoading,
+            }}
+          />
+          {!isTablet && <MainRightBar isDesktop />}
         </div>
       </div>
     </div>

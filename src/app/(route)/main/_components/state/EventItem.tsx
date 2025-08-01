@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import CustomIcon from "@/app/_components/IconComponents/Icon";
+import { cn } from "@/utils";
 
 export interface GameEventData {
   description: string;
@@ -23,9 +24,11 @@ const EventItem = ({ gameEventData }: EventItemProps) => {
       href={gameEventData?.link}
       target="_blank"
       rel="noopener noreferrer"
-
-      className="w-full h-[92px] flex items-center p-3 gap-3 border rounded-[5px] border-gray2 bg-white"
-    >
+      className={cn(
+        "w-full h-[92px] flex items-center p-3 gap-3 border rounded-[5px] border-gray2 bg-white",
+        "tablet:max-w-full tablet:min-w-[194px]",
+        "mobile:max-w-full"
+      )}>
       <div className="w-[68px] h-[68px] rounded-[5px] relative bg-gray1 overflow-hidden flex-shrink-0">
         {gameEventData ? (
           <Image
@@ -42,7 +45,7 @@ const EventItem = ({ gameEventData }: EventItemProps) => {
           />
         )}
       </div>
-      <div className="w-full flex flex-col min-h-[58px] gap-[6px] flex-1 overflow-hidden">
+      <div className="flex-1 flex flex-col min-h-[58px] gap-[6px] overflow-hidden">
         <div className="flex flex-col">
           <p className="text-[16px] font-[700] leading-[24px] text-gray9 tracking-[-0.02em] align-middle text-ellipsis overflow-hidden whitespace-nowrap">
             {gameEventData?.title}

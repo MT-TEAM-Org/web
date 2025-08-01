@@ -1,7 +1,7 @@
 import React, { use } from "react";
-import ScheduleContainer from "../../main/_components/scheduleContainer";
 import { cn } from "@/utils";
 import MatchMobileGnb from "../_components/matchGnb/MatchMobileGnb";
+import ScheduleContainer from "../../main/_components/schedule/scheduleContainer";
 
 export const metadata = {
   title: "경기중계 페이지",
@@ -38,15 +38,13 @@ export default function Layout({
         className={cn(
           "w-full h-[226px] flex justify-center items-center mx-auto bg-gray1",
           "mobile:h-fit"
-        )}
-      >
+        )}>
         <div
           className={cn(
             "max-w-full",
             "tablet:max-w-full tablet:mx-6",
             "mobile:h-[158px]"
-          )}
-        >
+          )}>
           <ScheduleContainer
             matchType={matchType}
             showCategoryButtons={true}
@@ -61,8 +59,7 @@ export default function Layout({
           "mobile:mt-[20px]",
           "pc:min-h-[500px]",
           "tablet:min-h-[550px]"
-        )}
-      >
+        )}>
         {children}
       </div>
     </div>
