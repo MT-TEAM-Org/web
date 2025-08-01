@@ -12,8 +12,11 @@ const useAdminLogin = () => {
       adminLogin(data),
     onSuccess: (data) => {
       localStorage.setItem("adminAccessToken", data.headers.authorization);
-      queryClient.invalidateQueries({ queryKey: ["adminAuthCheck"] });
+      queryClient.invalidateQueries({ queryKey: ["AdminAuthCheck"] });
       router.replace("/dashBoard");
+    },
+    onError: (error: Error) => {
+      throw error;
     },
   });
 };

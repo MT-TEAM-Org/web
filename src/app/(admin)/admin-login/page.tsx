@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FormValues } from "./types/FormValues";
 import useAdminLogin from "../_hooks/fetcher/auth/useAdminLogin";
+import { AxiosError } from "axios";
 
 const style = {
   label: "font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-gray7",
@@ -18,6 +19,7 @@ const style = {
 // TODO: 리팩토링 필요
 const Page = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const adminLogin = useAdminLogin();
 
@@ -49,7 +51,12 @@ const Page = () => {
   ];
 
   const onSubmit = (data: FormValues) => {
-    adminLogin.mutate(data);
+    setApiError(null);
+    adminLogin.mutate(data, {
+      onError: (error: AxiosError<{ message: string }>) => {
+        setApiError(error.response?.data?.message || "로그인에 실패했습니다.");
+      },
+    });
   };
 
   return (
@@ -72,10 +79,7 @@ const Page = () => {
               id={input.id}
               autoFocus={input.id === "username"}
               placeholder={input.placeholder}
-              className={cn(
-                style.input
-                // "border-warning",
-              )}
+              className={cn(style.input, apiError && "border-warning")}
               {...register(input.id, { required: input.validation })}
             />
             {input.id === "password" && passwordValue && (
@@ -91,9 +95,17 @@ const Page = () => {
         ))}
 
         {/* 에러 메시지 */}
-        {(errors.username || errors.password) && (
+        {apiError && (
           <p className="w-full text-center font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-warning">
-            {errors.username?.message || errors.password?.message}
+            {apiError === "Invalid or expired token." ? (
+              <>
+                해당 아이디 로그인 시도가 10번 불일치하여
+                <br />
+                계정이 잠금되었습니다.
+              </>
+            ) : (
+              <>아이디 또는 비밀번호를 확인해주세요. (${apiError}/10)</>
+            )}
           </p>
         )}
 

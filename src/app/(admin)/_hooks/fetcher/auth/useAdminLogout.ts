@@ -16,7 +16,7 @@ const useAdminLogout = () => {
     onSuccess: () => {
       success("로그아웃 되었습니다.", "");
       localStorage.removeItem("adminAccessToken");
-      queryClient.refetchQueries({ queryKey: ["adminAuthCheck"] });
+      queryClient.refetchQueries({ queryKey: ["AdminAuthCheck"] });
       router.replace("/admin-login");
     },
   });
