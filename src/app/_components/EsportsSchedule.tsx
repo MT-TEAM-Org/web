@@ -4,7 +4,7 @@ import useGetEsportsSchedule from "@/_hooks/fetcher/match-controller/useGetEspor
 import { MatchItem } from "@/services/match-controller/getMatchSchedule";
 import { formatDate } from "@/utils/formatData";
 import Image from "next/image";
-import EmptyEsportsBox from "../(route)/main/_components/EmptyEsportsBox";
+import EmptyEsportsBox from "../(route)/main/_components/state/EmptyEsportsBox";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/utils";

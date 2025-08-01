@@ -4,9 +4,9 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useReadNews } from "@/app/(route)/news/_utils/useReadNews";
-import MainBigSizeNewsSkeleton from "./MainBigSizeNewsSkeleton";
+import MainBigSizeNewsSkeleton from "../state/MainBigSizeNewsSkeleton";
 import CustomIcon from "@/app/_components/IconComponents";
-import { NewsItemType } from "../../news/_types/newsItemType";
+import { NewsItemType } from "../../../news/_types/newsItemType";
 import { cn } from "@/utils";
 
 interface MainBigSizeNEwsProps {
@@ -39,14 +39,14 @@ const MainBigSizeNews = ({ data, isLoading }: MainBigSizeNEwsProps) => {
       className={cn(
         "relative w-[410px] h-[236px] rounded-[10px] overflow-hidden cursor-pointer hidden",
         "pc:block"
-      )}
-    >
+      )}>
       {mainPageData?.thumbImg ? (
         <Image
           src={mainPageData?.thumbImg}
           alt="main news"
           width={410}
           height={236}
+          priority
           className="w-[410px] h-[236px] rounded-[5px] object-cover"
         />
       ) : (
