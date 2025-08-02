@@ -1,7 +1,6 @@
 "use client";
 
 import { Suspense } from "react";
-import MainRightBar from "./_components/rightNews/MainRightBar";
 import ScheduleContainer from "./_components/schedule/scheduleContainer";
 import useGetNewsDataList from "@/_hooks/fetcher/news/useGetNewsDataList";
 import { cn } from "@/utils";
@@ -9,6 +8,10 @@ import useIsTablet from "@/utils/useIsTablet";
 import MainRightSection from "./_components/section/MainRightSection";
 import { extractNewsItemsPair } from "./_utils/extractNewsItems";
 import { getNewsStatus } from "./_utils/getNewsStatus";
+import dynamic from "next/dynamic";
+const MainRightBar = dynamic(
+  () => import("./_components/rightNews/MainRightBar")
+);
 
 function HomePageContent() {
   const isTablet = useIsTablet();

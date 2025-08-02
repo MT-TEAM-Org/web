@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 import MainNewsSection from "./MainNewsSection";
-import MainLivePost from "../live/MainLivePost";
 import { cn } from "@/utils";
 import { NewsItemType } from "@/app/(route)/news/_types/newsItemType";
+import dynamic from "next/dynamic";
+const MainLivePost = dynamic(() => import("../live/MainLivePost"));
 
 type StateType = {
   isTablet: boolean;

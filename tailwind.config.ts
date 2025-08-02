@@ -6,7 +6,7 @@ export default {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@heroui/theme/dist/components/(skeleton|spinner).js",
+    "./node_modules/@heroui/theme/dist/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
