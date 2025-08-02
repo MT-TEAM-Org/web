@@ -92,15 +92,7 @@ const Page = () => {
         {/* 에러 메시지 */}
         {apiError && (
           <p className="w-full text-center font-medium text-[14px] leading-[22px] tracking-[-0.02em] text-warning">
-            {apiError === "Invalid or expired token." ? (
-              <>
-                해당 아이디 로그인 시도가 10번 불일치하여
-                <br />
-                계정이 잠금되었습니다.
-              </>
-            ) : (
-              <>아이디 또는 비밀번호를 확인해주세요. (${apiError}/10)</>
-            )}
+            {apiError}
           </p>
         )}
 
