@@ -257,7 +257,8 @@ export const NotificationListData = {
       type: "게시물",
       status: "노출",
       date: "2시간전",
-      content: "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
+      content:
+        "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
       writer: "토트넘 좋아",
       isRead: false,
     },
@@ -266,7 +267,8 @@ export const NotificationListData = {
       type: "게시물",
       status: "노출",
       date: "2시간전",
-      content: "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
+      content:
+        "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
       writer: "토트넘 좋아",
       isRead: false,
     },
@@ -275,24 +277,28 @@ export const NotificationListData = {
       type: "댓글",
       status: "노출",
       date: "2시간전",
-      content: "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
+      content:
+        "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
       writer: "내닉네임은페이커",
       isRead: true,
-    },    
+    },
     {
       id: "4",
       type: "댓글",
       status: "노출",
       date: "2시간전",
-      content: "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
+      content:
+        "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
       writer: "내닉네임은페이커",
       isRead: true,
-    },    {
+    },
+    {
       id: "5",
       type: "게시물",
       status: "노출",
       date: "2시간전",
-      content: "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
+      content:
+        "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
       writer: "토트넘 좋아",
       isRead: false,
     },
@@ -301,15 +307,18 @@ export const NotificationListData = {
       type: "댓글",
       status: "노출",
       date: "2시간전",
-      content: "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
+      content:
+        "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
       writer: "내닉네임은페이커",
       isRead: true,
-    },    {
+    },
+    {
       id: "7",
       type: "게시물",
       status: "노출",
       date: "2시간전",
-      content: "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
+      content:
+        "신고된 게시글 내용 호날두 미친신고된 게시글 내용 호날두 미친신고된 내용 호날두 미친",
       writer: "토트넘 좋아",
       isRead: false,
     },
@@ -318,7 +327,8 @@ export const NotificationListData = {
       type: "댓글",
       status: "노출",
       date: "2시간전",
-      content: "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
+      content:
+        "페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네페이커 또라이네",
       writer: "내닉네임은페이커",
       isRead: true,
     },
@@ -359,7 +369,7 @@ export const NotificationListData = {
       content: "문의내용 로그인이안되요문의내용 로그인이안되요",
       writer: "hive234@naver.com",
       isRead: true,
-    }
+    },
   ],
   suggestion: [
     {
@@ -379,6 +389,79 @@ export const NotificationListData = {
       content: "요청사항이 있어요",
       writer: "토트넘 좋아",
       isRead: true,
-    }
+    },
   ],
 };
+
+export const dashBoardTableData = [
+  {
+    id: "1",
+    processStatus: "노출",
+    report: "정치",
+    reason: "_",
+    date: "25.08.03",
+  },
+  {
+    id: "2",
+    processStatus: "노출",
+    report: "정치",
+    reason: "_",
+    date: "25.08.03",
+  },
+  {
+    id: "3",
+    processStatus: "노출",
+    report: "정치",
+    reason: "_",
+    date: "25.08.03",
+  },
+  {
+    id: "4",
+    processStatus: "노출",
+    report: "정치",
+    reason: "_",
+    date: "25.08.03",
+  },
+  {
+    id: "5",
+    processStatus: "노출",
+    report: "정치",
+    reason: "_",
+    date: "25.08.03",
+  },
+  {
+    id: "6",
+    processStatus: "노출",
+    report: "정치",
+    reason: "_",
+    date: "25.08.03",
+  },
+  {
+    id: "7",
+    processStatus: "노출",
+    report: "정치",
+    reason: "_",
+    date: "25.08.03",
+  },
+  {
+    id: "8",
+    processStatus: "노출",
+    report: "정치",
+    reason: "_",
+    date: "25.08.03",
+  },
+  {
+    id: "9",
+    processStatus: "노출",
+    report: "정치",
+    reason: "_",
+    date: "25.08.03",
+  },
+  {
+    id: "10",
+    processStatus: "노출",
+    report: "정치",
+    reason: "_",
+    date: "25.08.03",
+  },
+];

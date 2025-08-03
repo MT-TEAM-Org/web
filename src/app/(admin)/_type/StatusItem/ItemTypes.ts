@@ -1,1 +1,7 @@
-export type StatusBannerItemType = "users" | "content" | "inquiries" | "suggestions";
+export type StatusBannerItemType =
+  | "dashBoardOne"
+  | "dashBoardTwo"
+  | "users"
+  | "content"
+  | "inquiries"
+  | "suggestions";

@@ -12,7 +12,7 @@ const StatusBanner = ({ type, data }: StatusBannerProps) => {
   const config = ItemTypeConfig(type);
 
   return (
-    <div className="w-full h-[142px] bg-gray1 rounded-[10px] flex items-center justify-center gap-4">
+    <div className="w-full h-[142px] bg-gray1 rounded-[10px] flex items-center justify-center gap-4 mb-4">
       {config.map((item) => (
         <StatusBannerItem
           key={item.name}
