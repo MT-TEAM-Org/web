@@ -2,8 +2,8 @@
 
 import React from "react"
 import OverviewStatBox from "../_components/statusBanner/OverviewStatBox";
-import LeftDetail from "./_components/dashBoardDetail/Graph";
-import RightDetail from "./_components/dashBoardDetail/RightDetail";
+import Graph from "./_components/dashBoardDetail/Graph";
+import Table from "./_components/dashBoardDetail/Table";
 
 
 const Page = () => {
@@ -15,10 +15,10 @@ const Page = () => {
       <div className="w-full h-[452px] flex gap-[40px]">
 
         {/* 왼쪽 상자 */}
-        <LeftDetail />
+        <Graph />
 
         {/* 오른쪽 상자 */}
-        <RightDetail />
+        <Table />
 
       </div>
     </div>
