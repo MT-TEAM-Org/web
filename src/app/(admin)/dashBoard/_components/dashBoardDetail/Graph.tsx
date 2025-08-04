@@ -9,7 +9,7 @@ import { useSearchParams } from "next/navigation";
 // 날짜div
 const colorDiv = "w-[12px] h-[12px] rounded-full mr-[8px] text-[16px] font-bold";
 
-const LeftDetail = () => {
+const Graph = () => {
   const [selected, setSelected] = useState<string>("all");
 
   // 쿼리 추출
@@ -60,4 +60,4 @@ const LeftDetail = () => {
   );
 };
 
-export default LeftDetail;
+export default Graph;

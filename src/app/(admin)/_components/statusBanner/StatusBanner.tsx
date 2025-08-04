@@ -2,6 +2,7 @@ import React from "react";
 import StatusBannerItem from "./StatusBannerItem";
 import { StatusBannerItemType } from "../../_type/StatusItem/ItemTypes";
 import { ItemTypeConfig } from "../../_type/StatusItem/ItemTypeConfig";
+import { cn } from "@/utils";
 
 interface StatusBannerProps {
   type: StatusBannerItemType;
@@ -12,7 +13,7 @@ const StatusBanner = ({ type, data }: StatusBannerProps) => {
   const config = ItemTypeConfig(type);
 
   return (
-    <div className="w-full h-[142px] bg-gray1 rounded-[10px] flex items-center justify-center gap-4 mb-4">
+    <div className={cn("w-full h-[142px] bg-gray1 rounded-[10px] items-center justify-center gap-4", type === "dashBoard" ? "grid grid-cols-4" : "flex")}>
       {config.map((item) => (
         <StatusBannerItem
           key={item.name}

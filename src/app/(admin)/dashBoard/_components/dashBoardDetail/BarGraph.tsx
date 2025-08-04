@@ -19,7 +19,7 @@ interface graphProps {
   selected: string;
 }
 
-const BarGraph = ({ todayStr, selected }: graphProps) => {
+const GraphDetail = ({ todayStr, selected }: graphProps) => {
 
   return (
     <>
@@ -40,4 +40,4 @@ const BarGraph = ({ todayStr, selected }: graphProps) => {
   )
 }
 
-export default BarGraph;
+export default GraphDetail;

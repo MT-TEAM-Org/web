@@ -1,6 +1,5 @@
 export type StatusBannerItemType =
-  | "dashBoardOne"
-  | "dashBoardTwo"
+  | "dashBoard"
   | "users"
   | "content"
   | "inquiries"

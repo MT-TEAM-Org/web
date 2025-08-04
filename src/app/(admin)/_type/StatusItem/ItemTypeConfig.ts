@@ -6,13 +6,11 @@ const ItemTypeConfigMap: Record<
   { name: string; icon: IconList }[]
 > = {
   // TODO: 아이콘 수정 필요 (디자인 미정)
-  dashBoardOne: [
+  dashBoard: [
     { name: "전체 게시물", icon: "CONTENT_ALL" },
     { name: "전체 댓글", icon: "CONTENT_ALL_COMMENT" },
     { name: "게시물 신고", icon: "CONTENT_ALL" },
     { name: "댓글 신고", icon: "CONTENT_ALL_COMMENT" },
-  ],
-  dashBoardTwo: [
     { name: "문의/개선요청", icon: "CONTENT_ALL_COMMENT" },
     { name: "방문자수", icon: "USER_JOIN_COUNT" },
     { name: "탈퇴자수", icon: "USER_LEAVE_COUNT" },

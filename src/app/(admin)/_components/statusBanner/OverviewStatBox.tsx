@@ -7,11 +7,11 @@ import StatusBanner from "./StatusBanner";
 import { StatusBannerItemType } from "../../_type/StatusItem/ItemTypes";
 
 interface OverviewStatBoxProps {
-  title?: string;
+  title: string;
   type: StatusBannerItemType;
 }
 
-const OverviewStatBox = ({ title = "none", type }: OverviewStatBoxProps) => {
+const OverviewStatBox = ({ title, type }: OverviewStatBoxProps) => {
   const router = useRouter();
   const [selected, setSelected] = useState<string>("day");
 
@@ -23,14 +23,12 @@ const OverviewStatBox = ({ title = "none", type }: OverviewStatBoxProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      {title === "none" ? null : (
-        <div className="flex gap-4 items-center justify-start">
-          <h1 className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-black">
-            {title}
-          </h1>
-          <StatusOptions selected={selected} handleOption={handleOption} />
-        </div>
-      )}
+      <div className="flex gap-4 items-center justify-start">
+        <h1 className="font-bold text-[24px] leading-[38px] tracking-[-0.04em] text-black">
+          {title}
+        </h1>
+        <StatusOptions selected={selected} handleOption={handleOption} />
+      </div>
       <StatusBanner type={type} />
     </div>
   );
