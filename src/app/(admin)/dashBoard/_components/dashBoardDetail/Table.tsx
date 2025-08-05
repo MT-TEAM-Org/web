@@ -8,7 +8,7 @@ const buttonTab = "w-1/3 h-[40px] mb-[16px] text-[14px] rounded-t-[5px] border-g
 
 const trStyle = "w-[100px] text-[14px]";
 const tdStyle = "p-[8px]";
-
+const TableType = ["신고", "문의", "개선요청"];
 const RightDetail = () => {
   const [selectedTab, setSelectedTab] = useState<string>("신고");
 
@@ -16,7 +16,7 @@ const RightDetail = () => {
     <div className="w-1/2 mg-[24px] text-[14px]">
       {/* 탭 메뉴 */}
       <div className="flex border-b">
-        {["신고", "문의", "개선요청"].map((tab) => (
+        {TableType.map((tab) => (
           <button
             key={tab}
             className={cn(buttonTab, tab === selectedTab ? "border-x border-t" : "border-b")}
