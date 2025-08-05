@@ -6,12 +6,12 @@ import {
 } from 'recharts';
 
 const data = [
-  { category: '신고', '2024.6.3': 160, '2025.8.3': 98 },
-  { category: '방문자', '2024.6.3': 150, '2025.8.3': 40 },
-  { category: '가입자', '2024.6.3': 30, '2025.8.3': 40 },
-  { category: '탈퇴자', '2024.6.3': 30, '2025.8.3': 40 },
-  { category: '게시글', '2024.6.3': 30, '2025.8.3': 40 },
-  { category: '댓글', '2024.6.3': 30, '2025.8.3': 40 },
+  { category: '신고', pastDay: '2024.6.3', pastData: 160, currentDay: '2025.8.3', currentData: 98 },
+  { category: '방문자', pastDay: '2024.6.3', pastData: 140, currentDay: '2025.8.3', currentData: 40 },
+  { category: '가입자', pastDay: '2024.6.3', pastData: 40, currentDay: '2025.8.3', currentData: 30 },
+  { category: '탈퇴자', pastDay: '2024.6.3', pastData: 40, currentDay: '2025.8.3', currentData: 30 },
+  { category: '게시글', pastDay: '2024.6.3', pastData: 40, currentDay: '2025.8.3', currentData: 30 },
+  { category: '댓글', pastDay: '2024.6.3', pastData: 40, currentDay: '2025.8.3', currentData: 30 },
 ];
 
 interface graphProps {
@@ -22,42 +22,35 @@ interface graphProps {
 const GraphDetail = ({ todayStr, selected }: graphProps) => {
 
   // 최댓값 구하기
-  const allValue = data.flatMap((item) => [
-    item["2024.6.3"],  // 과거 날짜 들어갈 곳
-    item["2025.8.3"],  // 현재 날짜 들어갈 곳
-  ])
-
-  const maxValue = Math.max(...allValue);
+  const maxValue = Math.max(
+    ...data.flatMap(item => [item.pastData, item.currentData])
+  );
 
   const percentData = data.map((item) => ({
     category: item.category,
-    ["2024.6.3"]: (item["2024.6.3"] / maxValue) * 100,
-    ["2025.8.3"]: (item["2025.8.3"] / maxValue) * 100,
-    // 원래 값 저장 (툴팁 등에서 사용하고 싶을 경우)
+    [item.pastDay]: (item.pastData / maxValue) * 75,
+    [item.currentDay]: (item.currentData / maxValue) * 75,
     origin: {
-      ["2024.6.3"]: item["2024.6.3"],
-      [todayStr]: item[todayStr],
+      [item.pastDay]: item.pastData,
+      [item.currentDay]: item.currentData,
     },
-  }))
+  }));
+
   return (
-    <>
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={percentData} barGap={0} >
-          <XAxis dataKey="category" />
-          <YAxis domain={[0, 100]}
-            ticks={[0, 20, 40, 60, 80, 100]} // 마지막 눈금을 최대값으로 맞춰야 함
-            tickFormatter={(value) => (value === 100 ? 'MAX' : `${value}`)} />
-          <Tooltip formatter={(value, name, props) => {
-            const original = props.payload.origin?.[name];
-            return `${original ?? value}명`;
-          }} />
-          {/* 그래프 하단 날짜 */}
-          <Legend content={() => null} />
-          <Bar dataKey="2024.6.3" fill="#0369a1" radius={[4, 4, 0, 0]} barSize={10} isAnimationActive={false} />
-          <Bar dataKey="2025.8.3" fill="#00ADEE" radius={[4, 4, 0, 0]} barSize={10} isAnimationActive={false} />
-        </BarChart>
-      </ResponsiveContainer >
-    </>
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={percentData} barGap={0} >
+        <XAxis dataKey="category" />
+        <YAxis domain={[0, 100]}
+          ticks={[0, 20, 40, 60, 80, 100]} // 마지막 눈금을 최대값으로 맞춰야 함
+          tickFormatter={(value) => (value === 100 ? 'MAX' : `${value}`)} />
+        <Tooltip />
+        {/* <Tooltip /> */}
+        {/* 그래프 하단 날짜 */}
+        <Legend content={() => null} />
+        <Bar dataKey="2024.6.3" fill="#0369a1" radius={[4, 4, 0, 0]} barSize={10} isAnimationActive={false} />
+        <Bar dataKey="2025.8.3" fill="#00ADEE" radius={[4, 4, 0, 0]} barSize={10} isAnimationActive={false} />
+      </BarChart>
+    </ResponsiveContainer >
   )
 }
 
