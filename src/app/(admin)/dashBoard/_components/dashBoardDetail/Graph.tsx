@@ -46,7 +46,7 @@ const Graph = () => {
             </p>
             <div className={cn(colorDiv, "bg-primary")} />
             <p className="my-[6px]">
-              {todayStr}
+              2025.08.04
             </p>
           </div>
 
