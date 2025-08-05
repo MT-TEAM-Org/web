@@ -12,7 +12,7 @@ const Page = () => {
       {/* 운영 현황 */}
       <OverviewStatBox title="운영현황" type="dashBoard" />
 
-      <div className="w-full h-[452px] flex gap-[40px]">
+      <div className="w-full h-[452px] mt-[40px] flex gap-[40px]">
 
         {/* 왼쪽 상자 */}
         <Graph />
