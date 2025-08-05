@@ -30,7 +30,7 @@ const Graph = () => {
           {/* 그래프 선택 탭 */}
           <div className="flex gap-[8px]">
             {BarChartConfig.map((item) => (
-              <button className="h-[32px] px-2 py-1 border border-gray3 rounded bg-white text-[14px] whitespace-nowrap"
+              <button className={cn("h-[32px] px-2 py-1 font-medium border border-gray3 rounded bg-white text-[14px] whitespace-nowrap", selected === item.value && "text-gray7 font-bold  border-gray7")}
                 key={item.value}
                 onClick={() => setSelected(item.value)}
               >{item.name}
