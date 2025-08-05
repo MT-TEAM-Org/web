@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import { cn } from "@/utils"
 import { dashBoardTableData } from "@/app/(admin)/MockData";
 
-const buttonTab = "w-1/3 h-[40px] mb-[16px] text-[14px] rounded-t-[5px] border-gray8 item-center";
+const buttonTab = "w-1/3 h-[40px] mb-[16px] text-gray5 text-[14px] rounded-t-[5px] border-gray8 item-center font-medium";
 
 const trStyle = "w-[100px] text-[14px]";
 const tdStyle = "p-[8px]";
@@ -19,7 +19,7 @@ const RightDetail = () => {
         {TableType.map((tab) => (
           <button
             key={tab}
-            className={cn(buttonTab, tab === selectedTab ? "border-x border-t" : "border-b")}
+            className={cn(buttonTab, tab === selectedTab ? "border-x border-t font-bold text-gray7" : "border-b")}
             value={tab}
             onClick={() => setSelectedTab(tab)}
           >
