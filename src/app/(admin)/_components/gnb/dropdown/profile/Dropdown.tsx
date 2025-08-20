@@ -4,6 +4,7 @@ import { cn } from "@/utils";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import LogoutModal from "../../../modal/LogoutModal";
+import useAdminLogout from "@/app/(admin)/_hooks/fetcher/auth/useAdminLogout";
 
 const style = {
   divStyle: cn(
@@ -19,15 +20,11 @@ interface DropdownProps {
 const Dropdown = ({ onClose }: DropdownProps) => {
   const router = useRouter();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const adminLogout = useAdminLogout();
 
   const handleToMyPage = () => {
     router.push("/dashBoard/my-page");
     onClose();
-  };
-
-  const handleLogout = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsLogoutModalOpen(true);
   };
 
   const menuItems = [
@@ -37,7 +34,7 @@ const Dropdown = ({ onClose }: DropdownProps) => {
     },
     {
       name: "로그아웃",
-      fn: handleLogout,
+      fn: () => adminLogout.mutate(),
     },
   ];
 

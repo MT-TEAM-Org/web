@@ -54,23 +54,22 @@ const RightNewsItem = ({
     <Link
       href={`/news${categoryPath ? `/${categoryPath}` : ""}/news-detail/${
         newsItem?.id
-      }`}
-    >
+      }`}>
       <div
         onClick={handleRead}
         className={cn(
           "min-w-[288px] min-h-[92px] flex justify-center items-center border-b border-gray2 p-3 cursor-pointer gap-3",
           customClass,
           "mobile:w-full mobile:max-w-[calc(100vw-32px)] mobile:mx-auto"
-        )}
-      >
+        )}>
         <div className="flex-shrink-0 w-[68px] h-[68px] rounded-[5px] overflow-hidden bg-gray1 relative">
           {newsItem?.thumbImg ? (
             <Image
               src={newsItem?.thumbImg}
-              alt="news img"
+              alt={newsItem?.title}
               width={68}
               height={68}
+              loading="lazy"
               className="max-w-[68px] h-[68px] rounded-[5px] object-cover"
             />
           ) : (
@@ -84,8 +83,7 @@ const RightNewsItem = ({
           className={cn(
             "h-auto min-h-[68px] flex flex-col justify-center items-start gap-1 flex-1",
             "mobile:min-w-0"
-          )}
-        >
+          )}>
           <div className={styles.title}>{newsItem.title}</div>
           <div className={styles.content}>{newsItem?.content}</div>
         </div>
