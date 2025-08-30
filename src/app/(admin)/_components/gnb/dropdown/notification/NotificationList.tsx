@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NotificationTabs from "./NotificationTabs";
 import NotificationItem from "./NotificationItem";
-import { NotificationListData } from "../../../../MockData";
+import { NotificationListData } from "@/app/(admin)/MockData";
 
 const NotificationList = () => {
   const [isActiveTab, setIsActiveTab] = useState<
@@ -11,8 +11,7 @@ const NotificationList = () => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="absolute top-full right-0 mt-2 z-50"
-    >
+      className="absolute top-full right-0 mt-2 z-50">
       <div className="w-[424px] h-[600px] flex flex-col items-start justify-start rounded-[10px] border bg-white border-gray3 shadow-lg">
         {/* 제목 */}
         <h1 className="w-full h-[48px] px-4 py-2 flex items-center justify-start font-bold text-[16px] leading-6 tracking-[-0.02em] text-gray8">
