@@ -4,6 +4,7 @@ import Gnb from "../_components/_gnb/Gnb";
 import MobileGnb from "../_components/_gnb/_components/MobileGnb";
 import Footer from "../_components/Footer";
 import { ToastContainer } from "../_components/ToastContainer";
+import { GoogleAdsCustom } from "../_components/googleAds/googleAds";
 
 export const metadata: Metadata = {
   title: { default: "Playhive", template: "Playhive - %s" },
@@ -19,6 +20,9 @@ export default function RouteLayout({
     <>
       <Gnb />
       <MobileGnb />
+      <div className="h-[280px] w-full mx-auto bg-gray-400">
+        <GoogleAdsCustom clientId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}/>
+      </div>
       <main>{children}</main>
       <Footer />
       <ToastContainer />
