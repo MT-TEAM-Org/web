@@ -44,7 +44,7 @@ interface GoogleAdsCustomProps {
  */
 export const GoogleAdsCustom = ({
   clientId,
-  slotId = "8904963705",
+  slotId = "7701905080",
   format = "auto",
   responsive = true,
 }: GoogleAdsCustomProps) => {
