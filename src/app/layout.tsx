@@ -66,9 +66,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={suitFont.variable}>
-      <head>
-        <GoogleAdsScript clientId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID} />
-      </head>
       <body className="defaultFont">
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
@@ -77,6 +74,7 @@ export default function RootLayout({
           {children}
           {process.env.NODE_ENV === "development" && <ReactQueryDevtools />}
         </QueryProvider>
+        <GoogleAdsScript clientId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID} />
       </body>
     </html>
   );
