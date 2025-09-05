@@ -20,7 +20,7 @@ export default function RouteLayout({
     <>
       <Gnb />
       <MobileGnb />
-      <div className="h-[280px] w-full mx-auto bg-gray-400">
+      <div className="h-[260px] w-full mx-auto bg-gray-300">
         <GoogleAdsCustom clientId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}/>
       </div>
       <main>{children}</main>
