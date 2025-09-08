@@ -49,7 +49,7 @@ export const GoogleAdsCustom = ({
   responsive = true,
 }: GoogleAdsCustomProps) => {
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window === "object") {
       try {
         ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
       } catch (e) {
