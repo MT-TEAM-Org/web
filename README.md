@@ -1,4 +1,5 @@
-<div style="max-width: 100%; height: 150px; border-radius: 8px; background-color: #f0f0f0;">
+<div style="max-width: 100%; height: 150px; border-radius: 8px; background-color: #f0f0f0; border: 2px solid #ccc;">
+  <img src="public/readme-background.png" alt="PlayHive Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
 </div>
 
 # PlayHive
@@ -52,4 +53,6 @@ src/
 
 ## 프로젝트 주요 기능
 
-- -
+- 축구, 야구, E스포츠 게시판
+- 축구, 야구, E스포츠 뉴스 정보
+- 유튜브 영상 임베디드 실시간 중계
