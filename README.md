@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div style="max-width: 100%; height: 150px; border-radius: 8px; background-color: #f0f0f0; border: 2px solid #ccc;">
+  <img src="public/readme-background.png" alt="PlayHive Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+</div>
 
-## Getting Started
+# PlayHive
 
-First, run the development server:
+**PlayHive**는 스포츠를 주제로 한 **클린 커뮤니티 플랫폼**입니다.  
+축구, 야구, E-Sports 등 다양한 카테고리에서 사용자들이 자유롭게 의견을 나누고 건전한 커뮤니티 문화를 만들어갑니다.
+
+---
+
+## 시작하기 (Getting Started)
+
+로컬 환경에서 PlayHive 프로젝트를 실행하기 위한 가이드입니다.
 
 ```bash
+# 1. 저장소 클론
+git clone https://github.com/MT-TEAM-Org/web.git
+cd web
+
+# 2. 의존성 설치
+npm install
+
+# 3. 개발 서버 실행
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 4. 빌드
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 사용 기술 (Built With)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [Next.js](https://nextjs.org/) - 사용된 웹 프레임워크
+- [TypeScript](https://www.typescriptlang.org/) - 타입 안전한 JavaScript
+- [Tailwind CSS](https://tailwindcss.com/) - CSS 프레임워크
+- [react-hook-form](https://react-hook-form.com/) - 폼 유효성 검사
+- [tanstack-query](https://tanstack.com/query/latest) - 서버 상태 관리
+- [Zustand](https://github.com/pmndrs/zustand) - 전역 상태 관리
+- [dompurify](https://github.com/cure53/DOMPurify) - HTML 인젝션 방지
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 프로젝트 구조
 
-## Learn More
+```bash
+src/
+├── _hooks/              # 커스텀 훅
+├── _types_/             # 타입 정의
+├── app/                 # Next.js App Router
+├── _emailTemplates/     # 이메일 템플릿
+├── lib/                 # 유틸리티 함수
+├── services/            # API 서비스
+└── utils/               # 유틸 함수
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 프로젝트 주요 기능
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 축구, 야구, E스포츠 게시판
+- 축구, 야구, E스포츠 뉴스 정보
+- 유튜브 영상 임베드 실시간 중계
